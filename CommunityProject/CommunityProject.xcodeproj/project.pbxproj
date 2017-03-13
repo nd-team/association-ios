@@ -1,0 +1,559 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		455FA30D1E7631A90039B155 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA30C1E7631A90039B155 /* main.m */; };
+		455FA3101E7631A90039B155 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA30F1E7631A90039B155 /* AppDelegate.m */; };
+		455FA3161E7631A90039B155 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455FA3141E7631A90039B155 /* Main.storyboard */; };
+		455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 455FA3171E7631A90039B155 /* CommunityProject.xcdatamodeld */; };
+		455FA31B1E7631A90039B155 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455FA31A1E7631A90039B155 /* Assets.xcassets */; };
+		455FA31E1E7631A90039B155 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455FA31C1E7631A90039B155 /* LaunchScreen.storyboard */; };
+		455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455FA3431E7693C70039B155 /* FirstPage.storyboard */; };
+		455FA3461E7693F00039B155 /* WeChat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455FA3451E7693F00039B155 /* WeChat.storyboard */; };
+		455FA3481E7694020039B155 /* Mine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455FA3471E7694020039B155 /* Mine.storyboard */; };
+		455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA34A1E769C8C0039B155 /* MainTabBarController.m */; };
+		455FA34E1E76A2940039B155 /* FirstController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA34D1E76A2940039B155 /* FirstController.m */; };
+		455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA3501E76A2B60039B155 /* ChatMainController.m */; };
+		455FA3541E76A2C60039B155 /* MineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA3531E76A2C60039B155 /* MineController.m */; };
+		455FA35E1E76A5260039B155 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA35D1E76A5260039B155 /* LoginController.m */; };
+		455FA3601E76A5370039B155 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455FA35F1E76A5370039B155 /* Login.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		455FA3081E7631A90039B155 /* CommunityProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommunityProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		455FA30C1E7631A90039B155 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		455FA30E1E7631A90039B155 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		455FA30F1E7631A90039B155 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		455FA3151E7631A90039B155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		455FA3181E7631A90039B155 /* CommunityProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CommunityProject.xcdatamodel; sourceTree = "<group>"; };
+		455FA31A1E7631A90039B155 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		455FA31D1E7631A90039B155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		455FA31F1E7631A90039B155 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		455FA3371E763C7A0039B155 /* CommonHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
+		455FA3381E763C9A0039B155 /* AllHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllHeader.pch; sourceTree = "<group>"; };
+		455FA3431E7693C70039B155 /* FirstPage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FirstPage.storyboard; sourceTree = "<group>"; };
+		455FA3451E7693F00039B155 /* WeChat.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WeChat.storyboard; sourceTree = "<group>"; };
+		455FA3471E7694020039B155 /* Mine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Mine.storyboard; sourceTree = "<group>"; };
+		455FA3491E769C8C0039B155 /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
+		455FA34A1E769C8C0039B155 /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
+		455FA34C1E76A2940039B155 /* FirstController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstController.h; sourceTree = "<group>"; };
+		455FA34D1E76A2940039B155 /* FirstController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstController.m; sourceTree = "<group>"; };
+		455FA34F1E76A2B60039B155 /* ChatMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMainController.h; sourceTree = "<group>"; };
+		455FA3501E76A2B60039B155 /* ChatMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMainController.m; sourceTree = "<group>"; };
+		455FA3521E76A2C60039B155 /* MineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineController.h; sourceTree = "<group>"; };
+		455FA3531E76A2C60039B155 /* MineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineController.m; sourceTree = "<group>"; };
+		455FA35C1E76A5260039B155 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
+		455FA35D1E76A5260039B155 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
+		455FA35F1E76A5370039B155 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		455FA3051E7631A80039B155 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		455FA2FF1E7631A80039B155 = {
+			isa = PBXGroup;
+			children = (
+				455FA30A1E7631A90039B155 /* CommunityProject */,
+				455FA3091E7631A90039B155 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		455FA3091E7631A90039B155 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3081E7631A90039B155 /* CommunityProject.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		455FA30A1E7631A90039B155 /* CommunityProject */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3251E763C070039B155 /* Main */,
+				455FA3551E76A4F10039B155 /* LoginAndRegister */,
+				455FA32A1E763C250039B155 /* FirstPage */,
+				455FA3261E763C250039B155 /* Chat */,
+				455FA32F1E763C250039B155 /* Mine */,
+				455FA32E1E763C250039B155 /* HeadFile */,
+				455FA3331E763C250039B155 /* Tools */,
+				455FA31A1E7631A90039B155 /* Assets.xcassets */,
+				455FA31C1E7631A90039B155 /* LaunchScreen.storyboard */,
+				455FA31F1E7631A90039B155 /* Info.plist */,
+				455FA3171E7631A90039B155 /* CommunityProject.xcdatamodeld */,
+				455FA30B1E7631A90039B155 /* Supporting Files */,
+			);
+			path = CommunityProject;
+			sourceTree = "<group>";
+		};
+		455FA30B1E7631A90039B155 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				455FA30C1E7631A90039B155 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		455FA3251E763C070039B155 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3141E7631A90039B155 /* Main.storyboard */,
+				455FA30E1E7631A90039B155 /* AppDelegate.h */,
+				455FA30F1E7631A90039B155 /* AppDelegate.m */,
+				455FA3491E769C8C0039B155 /* MainTabBarController.h */,
+				455FA34A1E769C8C0039B155 /* MainTabBarController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		455FA3261E763C250039B155 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3451E7693F00039B155 /* WeChat.storyboard */,
+				455FA3271E763C250039B155 /* C */,
+				455FA3281E763C250039B155 /* M */,
+				455FA3291E763C250039B155 /* V */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		455FA3271E763C250039B155 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				455FA34F1E76A2B60039B155 /* ChatMainController.h */,
+				455FA3501E76A2B60039B155 /* ChatMainController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		455FA3281E763C250039B155 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		455FA3291E763C250039B155 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		455FA32A1E763C250039B155 /* FirstPage */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3431E7693C70039B155 /* FirstPage.storyboard */,
+				455FA32B1E763C250039B155 /* C */,
+				455FA32C1E763C250039B155 /* M */,
+				455FA32D1E763C250039B155 /* V */,
+			);
+			path = FirstPage;
+			sourceTree = "<group>";
+		};
+		455FA32B1E763C250039B155 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				455FA34C1E76A2940039B155 /* FirstController.h */,
+				455FA34D1E76A2940039B155 /* FirstController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		455FA32C1E763C250039B155 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		455FA32D1E763C250039B155 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		455FA32E1E763C250039B155 /* HeadFile */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3371E763C7A0039B155 /* CommonHeader.h */,
+				455FA3381E763C9A0039B155 /* AllHeader.pch */,
+			);
+			path = HeadFile;
+			sourceTree = "<group>";
+		};
+		455FA32F1E763C250039B155 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3471E7694020039B155 /* Mine.storyboard */,
+				455FA3301E763C250039B155 /* C */,
+				455FA3311E763C250039B155 /* M */,
+				455FA3321E763C250039B155 /* V */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		455FA3301E763C250039B155 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3521E76A2C60039B155 /* MineController.h */,
+				455FA3531E76A2C60039B155 /* MineController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		455FA3311E763C250039B155 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		455FA3321E763C250039B155 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		455FA3331E763C250039B155 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				455FA3341E763C250039B155 /* C */,
+				455FA3351E763C250039B155 /* M */,
+				455FA3361E763C250039B155 /* V */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		455FA3341E763C250039B155 /* C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		455FA3351E763C250039B155 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		455FA3361E763C250039B155 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		455FA3551E76A4F10039B155 /* LoginAndRegister */ = {
+			isa = PBXGroup;
+			children = (
+				455FA35F1E76A5370039B155 /* Login.storyboard */,
+				455FA3561E76A4F10039B155 /* C */,
+				455FA3571E76A4F10039B155 /* M */,
+				455FA3581E76A4F10039B155 /* V */,
+			);
+			path = LoginAndRegister;
+			sourceTree = "<group>";
+		};
+		455FA3561E76A4F10039B155 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				455FA35C1E76A5260039B155 /* LoginController.h */,
+				455FA35D1E76A5260039B155 /* LoginController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		455FA3571E76A4F10039B155 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		455FA3581E76A4F10039B155 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		455FA3071E7631A80039B155 /* CommunityProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 455FA3221E7631A90039B155 /* Build configuration list for PBXNativeTarget "CommunityProject" */;
+			buildPhases = (
+				455FA3041E7631A80039B155 /* Sources */,
+				455FA3051E7631A80039B155 /* Frameworks */,
+				455FA3061E7631A80039B155 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CommunityProject;
+			productName = CommunityProject;
+			productReference = 455FA3081E7631A90039B155 /* CommunityProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		455FA3001E7631A80039B155 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "来自任性傲娇的女王";
+				TargetAttributes = {
+					455FA3071E7631A80039B155 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Q4J8HDK83K;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 455FA3031E7631A80039B155 /* Build configuration list for PBXProject "CommunityProject" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 455FA2FF1E7631A80039B155;
+			productRefGroup = 455FA3091E7631A90039B155 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				455FA3071E7631A80039B155 /* CommunityProject */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		455FA3061E7631A80039B155 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				455FA3461E7693F00039B155 /* WeChat.storyboard in Resources */,
+				455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */,
+				455FA3601E76A5370039B155 /* Login.storyboard in Resources */,
+				455FA31E1E7631A90039B155 /* LaunchScreen.storyboard in Resources */,
+				455FA3481E7694020039B155 /* Mine.storyboard in Resources */,
+				455FA31B1E7631A90039B155 /* Assets.xcassets in Resources */,
+				455FA3161E7631A90039B155 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		455FA3041E7631A80039B155 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
+				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
+				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
+				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
+				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
+				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
+				455FA30D1E7631A90039B155 /* main.m in Sources */,
+				455FA3541E76A2C60039B155 /* MineController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		455FA3141E7631A90039B155 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				455FA3151E7631A90039B155 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		455FA31C1E7631A90039B155 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				455FA31D1E7631A90039B155 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		455FA3201E7631A90039B155 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		455FA3211E7631A90039B155 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		455FA3231E7631A90039B155 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q4J8HDK83K;
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
+				INFOPLIST_FILE = CommunityProject/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "---------.CommunityProject";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		455FA3241E7631A90039B155 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q4J8HDK83K;
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
+				INFOPLIST_FILE = CommunityProject/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "---------.CommunityProject";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		455FA3031E7631A80039B155 /* Build configuration list for PBXProject "CommunityProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				455FA3201E7631A90039B155 /* Debug */,
+				455FA3211E7631A90039B155 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		455FA3221E7631A90039B155 /* Build configuration list for PBXNativeTarget "CommunityProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				455FA3231E7631A90039B155 /* Debug */,
+				455FA3241E7631A90039B155 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		455FA3171E7631A90039B155 /* CommunityProject.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				455FA3181E7631A90039B155 /* CommunityProject.xcdatamodel */,
+			);
+			currentVersion = 455FA3181E7631A90039B155 /* CommunityProject.xcdatamodel */;
+			path = CommunityProject.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 455FA3001E7631A80039B155 /* Project object */;
+}

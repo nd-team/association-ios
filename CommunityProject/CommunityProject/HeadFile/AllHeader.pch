@@ -1,0 +1,14 @@
+//
+//  AllHeader.pch
+//  CommunityProject
+//
+//  Created by bjike on 17/3/13.
+//  Copyright © 2017年 来自任性傲娇的女王. All rights reserved.
+//
+
+#ifndef AllHeader_pch
+#define AllHeader_pch
+
+#import "CommonHeader.h"
+
+#endif /* AllHeader_pch */
