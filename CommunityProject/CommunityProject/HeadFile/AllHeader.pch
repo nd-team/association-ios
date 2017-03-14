@@ -11,4 +11,27 @@
 
 #import "CommonHeader.h"
 
+#import <AFNetworking.h>
+#import <MJRefresh.h>
+#import <FMDatabase.h>
+#import <JSONModel.h>
+#import <UIImageView+WebCache.h>
+
+//融云
+#import <RongIMKit/RongIMKit.h>
+//红包
+#import <JrmfPacketKit/JrmfPacketKit.h>
+
+#import "AFNetData.h"
+
+#import "MessageAlertView.h"
+
+//解决ios10真机不打印的问题 哪个文件，哪行，自己打印的数据
+
+#ifdef DEBUG
+#define NSSLog(FORMAT,...)fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__]lastPathComponent]UTF8String],__LINE__,[[NSString stringWithFormat:FORMAT,##__VA_ARGS__]UTF8String]);
+#else
+#define NSSLog(...)
+#endif
+
 #endif /* AllHeader_pch */

@@ -22,6 +22,16 @@
 		455FA3541E76A2C60039B155 /* MineController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA3531E76A2C60039B155 /* MineController.m */; };
 		455FA35E1E76A5260039B155 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA35D1E76A5260039B155 /* LoginController.m */; };
 		455FA3601E76A5370039B155 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455FA35F1E76A5370039B155 /* Login.storyboard */; };
+		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
+		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
+		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
+		457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB41E778E8B00FD0309 /* MessageAlertView.m */; };
+		457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CC31E77CD6900FD0309 /* AddressDataBaseSingleton.m */; };
+		457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CC61E77CD7400FD0309 /* FriendsListModel.m */; };
+		457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CCD1E77CE3500FD0309 /* GroupDatabaseSingleton.m */; };
+		457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CCF1E77CE3500FD0309 /* GroupModel.m */; };
+		457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */; };
+		A7A6D25426573DF78E3813F3 /* libPods-CommunityProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E46915D732FF20A1CABB71B5 /* libPods-CommunityProject.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +60,27 @@
 		455FA35C1E76A5260039B155 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		455FA35D1E76A5260039B155 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		455FA35F1E76A5370039B155 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
+		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
+		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
+		457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixMemoryLeak.m; sourceTree = "<group>"; };
+		457D3CB01E7785BF00FD0309 /* AFSecuteCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecuteCertificate.h; sourceTree = "<group>"; };
+		457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecuteCertificate.m; sourceTree = "<group>"; };
+		457D3CB31E778E8B00FD0309 /* MessageAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageAlertView.h; sourceTree = "<group>"; };
+		457D3CB41E778E8B00FD0309 /* MessageAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageAlertView.m; sourceTree = "<group>"; };
+		457D3CC21E77CD6900FD0309 /* AddressDataBaseSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressDataBaseSingleton.h; sourceTree = "<group>"; };
+		457D3CC31E77CD6900FD0309 /* AddressDataBaseSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressDataBaseSingleton.m; sourceTree = "<group>"; };
+		457D3CC51E77CD7400FD0309 /* FriendsListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsListModel.h; sourceTree = "<group>"; };
+		457D3CC61E77CD7400FD0309 /* FriendsListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsListModel.m; sourceTree = "<group>"; };
+		457D3CCC1E77CE3500FD0309 /* GroupDatabaseSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDatabaseSingleton.h; sourceTree = "<group>"; };
+		457D3CCD1E77CE3500FD0309 /* GroupDatabaseSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDatabaseSingleton.m; sourceTree = "<group>"; };
+		457D3CCE1E77CE3500FD0309 /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
+		457D3CCF1E77CE3500FD0309 /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
+		457D3CD21E77E98200FD0309 /* ConfirmInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmInfoController.h; sourceTree = "<group>"; };
+		457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmInfoController.m; sourceTree = "<group>"; };
+		754849117AB8F9CD0A93FA3B /* Pods-CommunityProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommunityProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommunityProject/Pods-CommunityProject.release.xcconfig"; sourceTree = "<group>"; };
+		DDF9FD536E6AA7BFF19AA014 /* Pods-CommunityProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommunityProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommunityProject/Pods-CommunityProject.debug.xcconfig"; sourceTree = "<group>"; };
+		E46915D732FF20A1CABB71B5 /* libPods-CommunityProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CommunityProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7A6D25426573DF78E3813F3 /* libPods-CommunityProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +100,8 @@
 			children = (
 				455FA30A1E7631A90039B155 /* CommunityProject */,
 				455FA3091E7631A90039B155 /* Products */,
+				E68AA8D51510DF75EF1D26DE /* Pods */,
+				55BFAB6FB609C76103B710A7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +120,10 @@
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
 				455FA32A1E763C250039B155 /* FirstPage */,
 				455FA3261E763C250039B155 /* Chat */,
+				457D3CB61E77CD4A00FD0309 /* Address */,
+				457D3CC81E77CDAB00FD0309 /* Group */,
+				457D3CBA1E77CD4A00FD0309 /* ChatHall */,
+				457D3CBE1E77CD4A00FD0309 /* CircleOfFriends */,
 				455FA32F1E763C250039B155 /* Mine */,
 				455FA32E1E763C250039B155 /* HeadFile */,
 				455FA3331E763C250039B155 /* Tools */,
@@ -249,6 +287,12 @@
 		455FA3351E763C250039B155 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				457D3CB01E7785BF00FD0309 /* AFSecuteCertificate.h */,
+				457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */,
+				457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */,
+				457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */,
+				457D3CAA1E77857700FD0309 /* AFNetData.h */,
+				457D3CAB1E77857700FD0309 /* AFNetData.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -256,6 +300,8 @@
 		455FA3361E763C250039B155 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				457D3CB31E778E8B00FD0309 /* MessageAlertView.h */,
+				457D3CB41E778E8B00FD0309 /* MessageAlertView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -276,6 +322,8 @@
 			children = (
 				455FA35C1E76A5260039B155 /* LoginController.h */,
 				455FA35D1E76A5260039B155 /* LoginController.m */,
+				457D3CD21E77E98200FD0309 /* ConfirmInfoController.h */,
+				457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -294,6 +342,155 @@
 			path = V;
 			sourceTree = "<group>";
 		};
+		457D3CB61E77CD4A00FD0309 /* Address */ = {
+			isa = PBXGroup;
+			children = (
+				457D3CB71E77CD4A00FD0309 /* C */,
+				457D3CB81E77CD4A00FD0309 /* M */,
+				457D3CB91E77CD4A00FD0309 /* V */,
+			);
+			path = Address;
+			sourceTree = "<group>";
+		};
+		457D3CB71E77CD4A00FD0309 /* C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		457D3CB81E77CD4A00FD0309 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				457D3CC51E77CD7400FD0309 /* FriendsListModel.h */,
+				457D3CC61E77CD7400FD0309 /* FriendsListModel.m */,
+				457D3CC21E77CD6900FD0309 /* AddressDataBaseSingleton.h */,
+				457D3CC31E77CD6900FD0309 /* AddressDataBaseSingleton.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		457D3CB91E77CD4A00FD0309 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		457D3CBA1E77CD4A00FD0309 /* ChatHall */ = {
+			isa = PBXGroup;
+			children = (
+				457D3CBB1E77CD4A00FD0309 /* C */,
+				457D3CBC1E77CD4A00FD0309 /* M */,
+				457D3CBD1E77CD4A00FD0309 /* V */,
+			);
+			path = ChatHall;
+			sourceTree = "<group>";
+		};
+		457D3CBB1E77CD4A00FD0309 /* C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		457D3CBC1E77CD4A00FD0309 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		457D3CBD1E77CD4A00FD0309 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		457D3CBE1E77CD4A00FD0309 /* CircleOfFriends */ = {
+			isa = PBXGroup;
+			children = (
+				457D3CBF1E77CD4A00FD0309 /* C */,
+				457D3CC01E77CD4A00FD0309 /* M */,
+				457D3CC11E77CD4A00FD0309 /* V */,
+			);
+			path = CircleOfFriends;
+			sourceTree = "<group>";
+		};
+		457D3CBF1E77CD4A00FD0309 /* C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		457D3CC01E77CD4A00FD0309 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		457D3CC11E77CD4A00FD0309 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		457D3CC81E77CDAB00FD0309 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				457D3CC91E77CDAB00FD0309 /* C */,
+				457D3CCA1E77CDAB00FD0309 /* M */,
+				457D3CCB1E77CDAB00FD0309 /* V */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		457D3CC91E77CDAB00FD0309 /* C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		457D3CCA1E77CDAB00FD0309 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				457D3CCC1E77CE3500FD0309 /* GroupDatabaseSingleton.h */,
+				457D3CCD1E77CE3500FD0309 /* GroupDatabaseSingleton.m */,
+				457D3CCE1E77CE3500FD0309 /* GroupModel.h */,
+				457D3CCF1E77CE3500FD0309 /* GroupModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		457D3CCB1E77CDAB00FD0309 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		55BFAB6FB609C76103B710A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E46915D732FF20A1CABB71B5 /* libPods-CommunityProject.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E68AA8D51510DF75EF1D26DE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD536E6AA7BFF19AA014 /* Pods-CommunityProject.debug.xcconfig */,
+				754849117AB8F9CD0A93FA3B /* Pods-CommunityProject.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -301,9 +498,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 455FA3221E7631A90039B155 /* Build configuration list for PBXNativeTarget "CommunityProject" */;
 			buildPhases = (
+				D08D54B54A8E404E69F88A89 /* [CP] Check Pods Manifest.lock */,
 				455FA3041E7631A80039B155 /* Sources */,
 				455FA3051E7631A80039B155 /* Frameworks */,
 				455FA3061E7631A80039B155 /* Resources */,
+				36A70E78610F3518711E1124 /* [CP] Embed Pods Frameworks */,
+				A0B8BBB5F3A354F2E623DE0E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -365,18 +565,75 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		36A70E78610F3518711E1124 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CommunityProject/Pods-CommunityProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0B8BBB5F3A354F2E623DE0E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CommunityProject/Pods-CommunityProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D08D54B54A8E404E69F88A89 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		455FA3041E7631A80039B155 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
+				457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */,
+				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
+				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
+				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
+				457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */,
+				457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */,
+				457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
+				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,
+				457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */,
 				455FA3541E76A2C60039B155 /* MineController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,7 +700,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -484,7 +741,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -493,12 +750,14 @@
 		};
 		455FA3231E7631A90039B155 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDF9FD536E6AA7BFF19AA014 /* Pods-CommunityProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q4J8HDK83K;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
 				INFOPLIST_FILE = CommunityProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "---------.CommunityProject";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -507,12 +766,14 @@
 		};
 		455FA3241E7631A90039B155 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 754849117AB8F9CD0A93FA3B /* Pods-CommunityProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q4J8HDK83K;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
 				INFOPLIST_FILE = CommunityProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "---------.CommunityProject";
 				PRODUCT_NAME = "$(TARGET_NAME)";

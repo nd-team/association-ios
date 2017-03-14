@@ -7,8 +7,17 @@
 //
 
 #import "AppDelegate.h"
+#import "MainTabBarController.h"
+#import "LoginController.h"
+#import "FriendsListModel.h"
+#import "AddressDataBaseSingleton.h"
+#import "GroupModel.h"
+#import "GroupDatabaseSingleton.h"
 
-@interface AppDelegate ()
+#define LoginURL @"http://192.168.0.212/appapi/app/login"
+#define MemberURL @"http://192.168.0.212/appapi/app/group_member"
+
+@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMGroupMemberDataSource,RCIMConnectionStatusDelegate>
 
 @end
 
@@ -17,11 +26,271 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    
+    self.window.backgroundColor = [UIColor whiteColor];
+    //融云
+    [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
+    //设置会话列表头像和会话界面头像
+    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    //设置用户和数组数据持续化
+    [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
+    //设置头像和昵称
+    [RCIM sharedRCIM].userInfoDataSource = self;
+    [RCIM sharedRCIM].groupInfoDataSource = self;
+    //应用的Scheme
+    [[RCIM sharedRCIM]setScheme:@"aiLiaoRedPacket" forExtensionModule:@"JrmfPacketManager"];
+    //开启发送已读回执
+    [RCIM sharedRCIM].enabledReadReceiptConversationTypeList = @[@(ConversationType_GROUP),@(ConversationType_PRIVATE)];
+    //开启多端未读状态同步
+    [RCIM sharedRCIM].enableSyncReadStatus = YES;
+    //群成员数据源
+    [RCIM sharedRCIM].groupMemberDataSource = self;
+    //开启消息@功能
+    [RCIM sharedRCIM].enableMessageMentioned = YES;
+    //开启消息撤回功能
+    [RCIM sharedRCIM].enableMessageRecall = YES;
+    //设置头像为圆形 会话界面
+    [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
+    //会话列表
+    [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * token = [userDefaults objectForKey:@"token"];
+    NSString * phone = [userDefaults objectForKey:@"userId"];
+    NSString * password = [userDefaults objectForKey:@"password"];
+    //设置当前用户
+    if (token.length && phone.length && password.length) {
+        //登录融云
+        AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
+        
+        [net startMonitoring];
+        WeakSelf;
+        [net setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            //无网登录
+            if (status == AFNetworkReachabilityStatusNotReachable) {
+                [weakSelf loginMain];
+            }else{
+                [weakSelf loginRongServicer:token andPhone:phone andPassword:password];
+            }
+        }];
+    }else{
+        self.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
+    }
     return YES;
 }
+//@功能实现给融云提供群成员
+-(void)getAllMembersOfGroup:(NSString *)groupId result:(void (^)(NSArray<NSString *> *))resultBlock{
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userId = [userDefaults objectForKey:@"userId"];
+    //用groupID查找用户ID
+    NSDictionary * dict = @{@"groupId":groupId,@"userId":userId};
+    [AFNetData postDataWithUrl:MemberURL andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"获取群成员失败%@",error);
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSNumber * code = jsonDic[@"code"];
+            NSMutableArray * ret = [NSMutableArray new];
+            if ([code intValue] == 200) {
+                NSArray * array = jsonDic[@"data"];
+                for (NSDictionary * dic in array) {
+                    [ret addObject:dic[@"userId"]];
+                }
+                resultBlock(ret);
+            }
+            
+        }
+    }];
+}
+-(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    AddressDataBaseSingleton * single = [AddressDataBaseSingleton shareDatabase];
+    NSArray * arr = [single searchDatabase];
+    NSString * str = nil;
+    for (FriendsListModel * list in arr) {
+        if ([list.userPortraitUrl containsString:@"\\"]) {
+            str = [list.userPortraitUrl stringByReplacingCharactersInRange:[list.userPortraitUrl rangeOfString:@"\\"] withString:@"/"];
+        }else{
+            str = list.userPortraitUrl;
+        }
+        if ([list.userId isEqualToString:userId]) {
+            RCUserInfo * userInfo2 = [RCUserInfo new];
+            userInfo2.userId = list.userId;
+            userInfo2.name = list.name;
+            userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.212%@",str];
+            //刷新用户
+            [[RCIM sharedRCIM]refreshUserInfoCache:userInfo2 withUserId:list.userId];
+            completion(userInfo2);
+        }
+    }
+}
+//群组头像和昵称
+-(void)getGroupInfoWithGroupId:(NSString *)groupId completion:(void (^)(RCGroup *))completion{
+    GroupDatabaseSingleton * single = [GroupDatabaseSingleton shareDatabase];
+    NSArray * arr = [single searchDatabase];
+    NSString * str = nil;
+    for (GroupModel * model in arr) {
+        if ([model.groupPortraitUrl containsString:@"\\"]) {
+            str = [model.groupPortraitUrl stringByReplacingCharactersInRange:[model.groupPortraitUrl rangeOfString:@"\\"] withString:@"/"];
+        }else{
+            str = model.groupPortraitUrl;
+        }
+        if ([model.groupId isEqualToString:groupId]) {
+            RCGroup * group = [RCGroup new];
+            group.groupId = model.groupId;
+            group.groupName = model.groupName;
+            group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.212%@",str];
+            [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:model.groupId];
+            completion(group);
+        }
+    }
+    
+}
 
+-(void)loginNet:(NSString *)phone andPassword:(NSString *)password{
+    WeakSelf;
+    NSDictionary * dic = @{@"mobile":phone,@"password":password};
+    [AFNetData postDataWithUrl:LoginURL andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"登录失败：%@",error);
+            [weakSelf login];
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            NSNumber * code = jsonDic[@"code"];
+            if ([code intValue] == 200) {
+                //成功
+                NSDictionary * msg = jsonDic[@"data"];
+                //保存用户数据
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setValue:msg[@"userId"] forKey:@"userId"];
+                //昵称
+                [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
+                //头像
+                [userDefaults setValue:msg[@"userPortraitUrl"] forKey:@"userPortraitUrl"];
+                //token
+                [userDefaults setValue:msg[@"token"] forKey:@"token"];
+                //sex
+                NSNumber * sex = msg[@"sex"];
+                [userDefaults setInteger:[sex integerValue] forKey:@"sex"];
+                if (![msg[@"age"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setInteger:[msg[@"age"] integerValue]forKey:@"age"];
+                }
+                if (![msg[@"birth_date"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"birth_date"] forKey:@"birth_date"];
+                }
+                if (![msg[@"address"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"address"] forKey:@"address"];
+                }
+                if (![msg[@"email"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"email"] forKey:@"email"];
+                }
+                if (![msg[@"mobile"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"mobile"] forKey:@"mobile"];
+                }
+                [userDefaults synchronize];
+                //设置当前用户的用户信息
+                NSString * str = nil;
+                if ([msg[@"userPortraitUrl"] containsString:@"\\"]) {
+                    str = [msg[@"userPortraitUrl"] stringByReplacingCharactersInRange:[msg[@"userPortraitUrl"] rangeOfString:@"\\"] withString:@"/"];
+                }else{
+                    str = msg[@"userPortraitUrl"];
+                }
+                [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.212%@",str]];
+                [weakSelf loginMain];
+            }else if ([code intValue] == 0){
+                NSSLog(@"账号不存在！");
+                [weakSelf login];
+                
+            }else if ([code intValue] == 1000){
+                NSSLog(@"账号禁止登录！");
+                [weakSelf login];
+                
+            }else if ([code intValue] == 1001){
+                NSSLog(@"密码错误！");
+                [weakSelf login];
+                
+            }else{
+                NSSLog(@"登录失败！");
+                [weakSelf login];
+                
+            }
+        }
+    }];
+}
+//登录融云服务器
+-(void)loginRongServicer:(NSString *)token andPhone:(NSString *)phone andPassword:(NSString *)password{
+    WeakSelf;
+    [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
+        NSSLog(@"登录成功%@",userId);
+        [weakSelf loginNet:phone andPassword:password];
+    } error:^(RCConnectErrorCode status) {
+        NSSLog(@"错误码：%ld",(long)status);
+        //SDK自动重新连接
+        [[RCIM sharedRCIM]setConnectionStatusDelegate:self];
+    } tokenIncorrect:^{
+        NSSLog(@"token错误");
+        [weakSelf login];
+    }];
+}
+- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (status == ConnectionStatus_Connected) {
+            [RCIM sharedRCIM].connectionStatusDelegate = (id<RCIMConnectionStatusDelegate>)[UIApplication sharedApplication].delegate;
+        } else if (status == ConnectionStatus_NETWORK_UNAVAILABLE) {
+            [weakSelf showMessage:@"当前网络不可用，请检查！"];
+            [weakSelf loginMain];
+        } else if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
+            [self showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
+            [weakSelf login];
+        } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
+            NSSLog(@"Token无效");
+            [self showMessage:@"无法连接到服务器！"];
+            [weakSelf loginMain];
+        } else {
+            NSLog(@"RCConnectErrorCode is %zd", status);
+        }
+    });
+}
 
+-(void)showMessage:(NSString *)msg{
+    WeakSelf;
+    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"取消",@"确定"] Action:^(NSInteger indexpath) {
+        if (indexpath == 1) {
+            [weakSelf login];
+            
+        }else{
+            NSSLog(@"无网登录失败");
+        }
+        
+    } viewController:self.window.rootViewController];
+    
+}
+-(void)loginMain{
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+        
+    });
+}
+-(void)login{
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
+        
+    });
+}
+//红包需要实现的两个方法
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    if ([[RCIM sharedRCIM]openExtensionModuleUrl:url]) {
+        return YES;
+    }
+    return YES;
+}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    if ([[RCIM sharedRCIM] openExtensionModuleUrl:url]) {
+        return YES;
+    }
+    return YES;
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
