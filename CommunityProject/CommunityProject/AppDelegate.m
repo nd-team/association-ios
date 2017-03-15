@@ -14,8 +14,8 @@
 #import "GroupModel.h"
 #import "GroupDatabaseSingleton.h"
 
-#define LoginURL @"http://192.168.0.212/appapi/app/login"
-#define MemberURL @"http://192.168.0.212/appapi/app/group_member"
+#define LoginURL @"http://192.168.0.214/appapi/app/login"
+#define MemberURL @"http://192.168.0.214/appapi/app/group_member"
 
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMGroupMemberDataSource,RCIMConnectionStatusDelegate>
 
@@ -37,7 +37,7 @@
     [RCIM sharedRCIM].userInfoDataSource = self;
     [RCIM sharedRCIM].groupInfoDataSource = self;
     //应用的Scheme
-    [[RCIM sharedRCIM]setScheme:@"aiLiaoRedPacket" forExtensionModule:@"JrmfPacketManager"];
+    [[RCIM sharedRCIM]setScheme:@"CommunityRedPacket" forExtensionModule:@"JrmfPacketManager"];
     //开启发送已读回执
     [RCIM sharedRCIM].enabledReadReceiptConversationTypeList = @[@(ConversationType_GROUP),@(ConversationType_PRIVATE)];
     //开启多端未读状态同步
@@ -76,7 +76,7 @@
     }
     return YES;
 }
-//@功能实现给融云提供群成员
+//@功能实现给融云提供群成员 本地
 -(void)getAllMembersOfGroup:(NSString *)groupId result:(void (^)(NSArray<NSString *> *))resultBlock{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userId = [userDefaults objectForKey:@"userId"];
@@ -113,8 +113,12 @@
         if ([list.userId isEqualToString:userId]) {
             RCUserInfo * userInfo2 = [RCUserInfo new];
             userInfo2.userId = list.userId;
-            userInfo2.name = list.name;
-            userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.212%@",str];
+            if (list.displayName.length != 0) {
+                userInfo2.name = list.displayName;
+            }else{
+                userInfo2.name = list.nickname;
+            }
+            userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.214%@",str];
             //刷新用户
             [[RCIM sharedRCIM]refreshUserInfoCache:userInfo2 withUserId:list.userId];
             completion(userInfo2);
@@ -136,7 +140,7 @@
             RCGroup * group = [RCGroup new];
             group.groupId = model.groupId;
             group.groupName = model.groupName;
-            group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.212%@",str];
+            group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.214%@",str];
             [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:model.groupId];
             completion(group);
         }
@@ -173,8 +177,8 @@
                 if (![msg[@"age"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setInteger:[msg[@"age"] integerValue]forKey:@"age"];
                 }
-                if (![msg[@"birth_date"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"birth_date"] forKey:@"birth_date"];
+                if (![msg[@"birthday"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"birthday"] forKey:@"birthday"];
                 }
                 if (![msg[@"address"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"address"] forKey:@"address"];
@@ -185,6 +189,15 @@
                 if (![msg[@"mobile"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"mobile"] forKey:@"mobile"];
                 }
+                if (![msg[@"numberId"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"numberId"] forKey:@"numberId"];
+                }
+                if (![msg[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"recommendUserId"] forKey:@"recommendUserId"];
+                }
+                if (![msg[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
+                }
                 [userDefaults synchronize];
                 //设置当前用户的用户信息
                 NSString * str = nil;
@@ -193,7 +206,7 @@
                 }else{
                     str = msg[@"userPortraitUrl"];
                 }
-                [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.212%@",str]];
+                [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.214%@",str]];
                 [weakSelf loginMain];
             }else if ([code intValue] == 0){
                 NSSLog(@"账号不存在！");
@@ -206,6 +219,7 @@
             }else if ([code intValue] == 1001){
                 NSSLog(@"密码错误！");
                 [weakSelf login];
+                //传账号
                 
             }else{
                 NSSLog(@"登录失败！");
@@ -227,7 +241,7 @@
         [[RCIM sharedRCIM]setConnectionStatusDelegate:self];
     } tokenIncorrect:^{
         NSSLog(@"token错误");
-        [weakSelf login];
+        [weakSelf loginMain];
     }];
 }
 - (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
@@ -236,34 +250,35 @@
         if (status == ConnectionStatus_Connected) {
             [RCIM sharedRCIM].connectionStatusDelegate = (id<RCIMConnectionStatusDelegate>)[UIApplication sharedApplication].delegate;
         } else if (status == ConnectionStatus_NETWORK_UNAVAILABLE) {
-            [weakSelf showMessage:@"当前网络不可用，请检查！"];
+//            [weakSelf showMessage:@"网络进入异次元，请检查！"];
             [weakSelf loginMain];
         } else if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-            [self showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
+//            [self showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
             [weakSelf login];
         } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
             NSSLog(@"Token无效");
-            [self showMessage:@"无法连接到服务器！"];
+//            [self showMessage:@"无法连接到服务器！"];
             [weakSelf loginMain];
         } else {
             NSLog(@"RCConnectErrorCode is %zd", status);
+            [weakSelf loginMain];
         }
     });
 }
 
--(void)showMessage:(NSString *)msg{
-    WeakSelf;
-    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"取消",@"确定"] Action:^(NSInteger indexpath) {
-        if (indexpath == 1) {
-            [weakSelf login];
-            
-        }else{
-            NSSLog(@"无网登录失败");
-        }
-        
-    } viewController:self.window.rootViewController];
-    
-}
+//-(void)showMessage:(NSString *)msg{
+//    WeakSelf;
+//    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"取消",@"确定"] Action:^(NSInteger indexpath) {
+//        if (indexpath == 1) {
+//            [weakSelf login];
+//            
+//        }else{
+//            NSSLog(@"无网登录失败");
+//        }
+//        
+//    } viewController:self.window.rootViewController];
+//    
+//}
 -(void)loginMain{
     WeakSelf;
     dispatch_async(dispatch_get_main_queue(), ^{

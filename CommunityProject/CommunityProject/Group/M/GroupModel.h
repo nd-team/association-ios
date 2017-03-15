@@ -15,7 +15,7 @@
 @property (nonatomic,copy)NSString * groupName;
 //头像
 @property (nonatomic,copy)NSString * groupPortraitUrl;
-//1代表创建者即群主0是群员
+//2代表创建者即群主1副群主0是群员
 @property (nonatomic,copy)NSString * role;
 
 @end

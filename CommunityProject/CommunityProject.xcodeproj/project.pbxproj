@@ -757,7 +757,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
 				INFOPLIST_FILE = CommunityProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "---------.CommunityProject";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -773,7 +773,7 @@
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
 				INFOPLIST_FILE = CommunityProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "---------.CommunityProject";
 				PRODUCT_NAME = "$(TARGET_NAME)";

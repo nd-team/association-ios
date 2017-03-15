@@ -12,7 +12,7 @@
 
 @property (nonatomic,copy)NSString * userId;
 //昵称
-@property (nonatomic,copy)NSString * name;
+@property (nonatomic,copy)NSString * nickname;
 //头像
 @property (nonatomic,copy)NSString * userPortraitUrl;
 //备注
