@@ -9,11 +9,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--聊天-->
         <scene sceneID="Blg-Xh-0SX">
             <objects>
                 <navigationController id="xPo-Ik-sW4" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8hg-in-khh">
+                    <tabBarItem key="tabBarItem" title="聊天" image="chat" selectedImage="chatSel" id="d4y-f3-Xm7"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8hg-in-khh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,4 +48,8 @@
             <point key="canvasLocation" x="554" y="-10"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chat" width="27" height="25"/>
+        <image name="chatSel" width="34" height="30"/>
+    </resources>
 </document>

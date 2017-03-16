@@ -18,7 +18,7 @@
     [super viewDidLoad];
 
 //隐藏顶部线条
-    CGRect rect  = CGRectMake(0, 0, KMainScreenWidth, 44);
+    CGRect rect  = CGRectMake(0, 0, KMainScreenWidth, self.tabBar.frame.size.height);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);

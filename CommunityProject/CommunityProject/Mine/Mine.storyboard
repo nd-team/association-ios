@@ -9,11 +9,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--我的-->
         <scene sceneID="zyM-S6-N8O">
             <objects>
                 <navigationController id="jvb-e9-shZ" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="tTj-hG-9oj">
+                    <tabBarItem key="tabBarItem" title="我的" image="mineNor" selectedImage="mineSel" id="BC0-xh-yDc"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tTj-hG-9oj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,4 +48,8 @@
             <point key="canvasLocation" x="495" y="90"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="mineNor" width="22" height="24"/>
+        <image name="mineSel" width="32" height="32"/>
+    </resources>
 </document>

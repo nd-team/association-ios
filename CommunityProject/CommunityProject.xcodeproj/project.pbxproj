@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1631E7A660F00C85AE7 /* TravelCell.m */; };
+		455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1661E7A831000C85AE7 /* ClaimCell.m */; };
+		455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1691E7A833000C85AE7 /* ApplicationCenterCell.m */; };
+		455FA16D1E7A8C6D00C85AE7 /* ClaimModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA16C1E7A8C6D00C85AE7 /* ClaimModel.m */; };
+		455FA1701E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA16F1E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m */; };
 		455FA30D1E7631A90039B155 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA30C1E7631A90039B155 /* main.m */; };
 		455FA3101E7631A90039B155 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA30F1E7631A90039B155 /* AppDelegate.m */; };
 		455FA3161E7631A90039B155 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455FA3141E7631A90039B155 /* Main.storyboard */; };
@@ -35,6 +40,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		455FA1621E7A660F00C85AE7 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
+		455FA1631E7A660F00C85AE7 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
+		455FA1651E7A831000C85AE7 /* ClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCell.h; sourceTree = "<group>"; };
+		455FA1661E7A831000C85AE7 /* ClaimCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimCell.m; sourceTree = "<group>"; };
+		455FA1681E7A833000C85AE7 /* ApplicationCenterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationCenterCell.h; sourceTree = "<group>"; };
+		455FA1691E7A833000C85AE7 /* ApplicationCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationCenterCell.m; sourceTree = "<group>"; };
+		455FA16B1E7A8C6D00C85AE7 /* ClaimModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimModel.h; sourceTree = "<group>"; };
+		455FA16C1E7A8C6D00C85AE7 /* ClaimModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimModel.m; sourceTree = "<group>"; };
+		455FA16E1E7A8E3600C85AE7 /* ClaimDataBaseSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimDataBaseSingleton.h; sourceTree = "<group>"; };
+		455FA16F1E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimDataBaseSingleton.m; sourceTree = "<group>"; };
 		455FA3081E7631A90039B155 /* CommunityProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommunityProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		455FA30C1E7631A90039B155 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		455FA30E1E7631A90039B155 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -213,6 +228,10 @@
 		455FA32C1E763C250039B155 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				455FA16B1E7A8C6D00C85AE7 /* ClaimModel.h */,
+				455FA16C1E7A8C6D00C85AE7 /* ClaimModel.m */,
+				455FA16E1E7A8E3600C85AE7 /* ClaimDataBaseSingleton.h */,
+				455FA16F1E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -220,6 +239,12 @@
 		455FA32D1E763C250039B155 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				455FA1621E7A660F00C85AE7 /* TravelCell.h */,
+				455FA1631E7A660F00C85AE7 /* TravelCell.m */,
+				455FA1651E7A831000C85AE7 /* ClaimCell.h */,
+				455FA1661E7A831000C85AE7 /* ClaimCell.m */,
+				455FA1681E7A833000C85AE7 /* ApplicationCenterCell.h */,
+				455FA1691E7A833000C85AE7 /* ApplicationCenterCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -619,6 +644,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
+				455FA1701E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m in Sources */,
 				457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
@@ -627,6 +653,7 @@
 				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
 				457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */,
 				457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */,
+				455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */,
 				457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
@@ -634,7 +661,10 @@
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
 				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,
 				457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */,
+				455FA16D1E7A8C6D00C85AE7 /* ClaimModel.m in Sources */,
 				455FA3541E76A2C60039B155 /* MineController.m in Sources */,
+				455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */,
+				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

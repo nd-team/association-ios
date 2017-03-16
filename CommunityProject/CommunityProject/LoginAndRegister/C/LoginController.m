@@ -7,8 +7,8 @@
 //
 
 #import "LoginController.h"
-#define LoginURL @"http://192.168.0.214/appapi/app/login"
-#define RegisterURL @"http://192.168.0.214/appapi/app/register"
+#define LoginURL @"http://192.168.0.214:90/appapi/app/login"
+#define RegisterURL @"http://192.168.0.214:90/appapi/app/register"
 @interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *nicknameTF;
 @property (weak, nonatomic) IBOutlet UITextField *codeTF;
 @property (weak, nonatomic) IBOutlet UILabel *msgLabel;
-
+//@property (nonatomic,assign)CGFloat height;
 @end
 
 @implementation LoginController
@@ -31,8 +31,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
+    //监听键盘
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
+
 }
+//-(void)keyboardWillShow:(NSNotification *)nofi{
+//    NSDictionary * userInfo = [nofi userInfo];
+//    NSValue * aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    CGRect keyRect = [aValue CGRectValue];
+//    NSSLog(@"%f",keyRect.size.height);
+//    self.height = keyRect.size.height;
+//    
+//   
+//}
+//-(void)dealloc{
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+//}
 -(void)setUI{
     self.msgLabel.hidden = YES;
     self.twoLine.hidden = YES;
@@ -57,8 +72,16 @@
     [self.passwordTF resignFirstResponder];
     [self.nicknameTF resignFirstResponder];
     [self.codeTF resignFirstResponder];
-    self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
-
+//    WeakSelf;
+//    [UIView animateWithDuration:0.3 animations:^{
+//        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
+//        
+//    }];
+    
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
+    });
 }
 -(void)leftView:(UITextField *)textField{
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 45)];
@@ -171,6 +194,8 @@
         if (error) {
             NSSLog(@"登录失败：%@",error);
             [weakSelf showMessage:@"登录失败！"];
+//            [weakSelf loginMain];
+
         }else{
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
@@ -325,18 +350,46 @@
             [self.passwordTF resignFirstResponder];
             [self.nicknameTF resignFirstResponder];
             [self.codeTF resignFirstResponder];
-            self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
         }
     }
    
     return YES;
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if (textField == self.passwordTF) {
-        self.view.frame = CGRectMake(0, -150, KMainScreenWidth, KMainScreenHeight+150);
-    }else if (textField == self.codeTF){
-        self.view.frame = CGRectMake(0, -200, KMainScreenWidth, KMainScreenHeight+200);
-    }
+    WeakSelf;
+//    if (textField == self.passwordTF) {
+        CGFloat offset = KMainScreenHeight - 258;
+    CGFloat height = textField.frame.origin.y+45+218;
+    NSSLog(@"%f==%f=%f==%f",self.passwordTF.frame.origin.y+45,self.view.frame.size.height,offset,height);
+
+        if (offset <= height) {
+//            [UIView animateWithDuration:0.3 animations:^{
+//                self.view.frame = CGRectMake(0, -600, KMainScreenWidth, KMainScreenHeight);
+//            }];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.view.frame = CGRectMake(0, -600, KMainScreenWidth, KMainScreenHeight);
+
+        });
+//    }else if (textField == self.codeTF){
+//        [UIView animateWithDuration:0.3 animations:^{
+//            weakSelf.view.frame = CGRectMake(0, -self.height-280, KMainScreenWidth, KMainScreenHeight);
+ 
+//        }];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+        
+//        });
+//    }
     return YES;
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    WeakSelf;
+    if (textField == self.codeTF) {
+        [UIView animateWithDuration:0.3 animations:^{
+            weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
+            
+        }];
+    }
 }
 @end
