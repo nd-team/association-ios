@@ -7,7 +7,6 @@
 //
 
 #import "AFNetData.h"
-#import "FixMemoryLeak.h"
 
 
 @implementation AFNetData

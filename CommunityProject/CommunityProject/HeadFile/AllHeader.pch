@@ -16,7 +16,7 @@
 #import <FMDatabase.h>
 #import <JSONModel.h>
 #import <UIImageView+WebCache.h>
-
+#import <Masonry.h>
 //融云
 #import <RongIMKit/RongIMKit.h>
 //红包
@@ -25,6 +25,11 @@
 #import "AFNetData.h"
 
 #import "MessageAlertView.h"
+
+#import "UIBarButtonItem+NagivationButton.h"
+
+#import "NowDate.h"
+#import "FixMemoryLeak.h"
 
 //解决ios10真机不打印的问题 哪个文件，哪行，自己打印的数据
 

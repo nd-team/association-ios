@@ -19,8 +19,12 @@
 @property (nonatomic,copy) NSString * numberId;
 //头像
 @property (nonatomic,copy) NSString * userPortraitUrl;
-//推荐人ID
-@property (nonatomic,copy) NSString * userId;
+//推荐人编号
+@property (nonatomic,copy) NSString * claimNumberId;
+//推荐人昵称
+@property (nonatomic,copy) NSString * claimNickName;
+//推荐真实姓名
+@property (nonatomic,copy) NSString * claimFullName;
 
 
 @end

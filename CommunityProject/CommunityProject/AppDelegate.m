@@ -14,8 +14,8 @@
 #import "GroupModel.h"
 #import "GroupDatabaseSingleton.h"
 
-#define LoginURL @"http://192.168.0.214:90/appapi/app/login"
-#define MemberURL @"http://192.168.0.214:90/appapi/app/group_member"
+#define LoginURL @"http://192.168.0.209:90/appapi/app/login"
+#define MemberURL @"http://192.168.0.209:90/appapi/app/group_member"
 
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMGroupMemberDataSource,RCIMConnectionStatusDelegate>
 
@@ -48,8 +48,10 @@
     [RCIM sharedRCIM].enableMessageMentioned = YES;
     //开启消息撤回功能
     [RCIM sharedRCIM].enableMessageRecall = YES;
-    //设置头像为圆形 会话界面
-    [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
+    //设置头像为矩形 会话界面
+//    [RCIM sharedRCIM].globalMessageAvatarStyle = 0;
+    //会话列表头像大小
+    [RCIM sharedRCIM].globalMessagePortraitSize = CGSizeMake(61.5, 61.5);
     //会话列表
     [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
@@ -118,10 +120,10 @@
             }else{
                 userInfo2.name = list.nickname;
             }
-            userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.214:90%@",str];
+            userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.208:90%@",str];
             //刷新用户
             [[RCIM sharedRCIM]refreshUserInfoCache:userInfo2 withUserId:list.userId];
-            completion(userInfo2);
+           return completion(userInfo2);
         }
     }
 }
@@ -140,7 +142,7 @@
             RCGroup * group = [RCGroup new];
             group.groupId = model.groupId;
             group.groupName = model.groupName;
-            group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.214:90%@",str];
+            group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.208:90%@",str];
             [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:model.groupId];
             completion(group);
         }
@@ -206,7 +208,7 @@
                 }else{
                     str = msg[@"userPortraitUrl"];
                 }
-                [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.214:90%@",str]];
+                [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.208:90%@",str]];
                 [weakSelf loginMain];
             }else if ([code intValue] == 0){
                 NSSLog(@"账号不存在！");

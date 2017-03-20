@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppModel.h"
 
 @interface ApplicationCenterCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-
+@property (nonatomic,strong)AppModel * appModel;
 
 @end

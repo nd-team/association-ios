@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChatMainController : UIViewController
+@interface ChatMainController : RCConversationListViewController
 
 @end

@@ -7,8 +7,8 @@
 //
 
 #import "LoginController.h"
-#define LoginURL @"http://192.168.0.214:90/appapi/app/login"
-#define RegisterURL @"http://192.168.0.214:90/appapi/app/register"
+#define LoginURL @"http://192.168.0.208:90/appapi/app/login"
+#define RegisterURL @"http://192.168.0.208:90/appapi/app/register"
 @interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
@@ -248,7 +248,7 @@
                 }else{
                     str = msg[@"userPortraitUrl"];
                 }
-                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.214%@",str]];
+                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.208%@",str]];
                 [weakSelf loginRongServicer:msg[@"token"]];
 
                 //设置当前用户

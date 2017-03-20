@@ -9,5 +9,9 @@
 #import "ApplicationCenterCell.h"
 
 @implementation ApplicationCenterCell
-
+-(void)setAppModel:(AppModel *)appModel{
+    _appModel = appModel;
+    self.headImageView.image = [UIImage imageNamed:_appModel.imageName];
+    self.nameLabel.text = _appModel.name;
+}
 @end
