@@ -11,7 +11,7 @@
 
 @implementation UIView (ChatMoreView)
 +(UIView *)createViewFrame:(CGRect)frame andTarget:(id)target andSel:(SEL)action{
-    NSArray *titleArr = @[@"聊天大厅",@"通讯录",@"发现",@"添加朋友/群",@"新建群聊",@"消息"];
+    NSArray *titleArr = @[@"聊天大厅",@"通讯录",@"发现",@"添加朋友/群",@"新建群聊",@"群列表",@"消息"];
 
     UIView * view = [[UIView alloc]initWithFrame:frame];
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:view.frame];

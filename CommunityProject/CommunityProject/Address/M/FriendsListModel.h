@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface FriendsListModel : JSONModel
-
+//！= nil：我的好友为空：手机通讯录
 @property (nonatomic,copy)NSString * userId;
 //昵称
 @property (nonatomic,copy)NSString * nickname;
@@ -21,4 +21,5 @@
 @property (nonatomic,copy)NSString * mobile;
 //邮箱
 @property (nonatomic,copy)NSString * email;
+
 @end

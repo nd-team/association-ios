@@ -99,6 +99,12 @@
 		4562D7EF1E80C2AD00C6EE56 /* release_notes_ios.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4562D7DB1E80C2AD00C6EE56 /* release_notes_ios.txt */; };
 		4562D7F11E80C3EF00C6EE56 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4562D7F01E80C3EF00C6EE56 /* VideoToolbox.framework */; };
 		4562D7F31E80DC1900C6EE56 /* Address.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4562D7F21E80DC1900C6EE56 /* Address.storyboard */; };
+		4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4562D7F51E80F8A900C6EE56 /* AddressCell.m */; };
+		4562D7F91E80FF2800C6EE56 /* AddressListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4562D7F81E80FF2800C6EE56 /* AddressListController.m */; };
+		4562D7FB1E810CEF00C6EE56 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4562D7FA1E810CEF00C6EE56 /* AddressBook.framework */; };
+		4562D7FD1E810DED00C6EE56 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4562D7FC1E810DED00C6EE56 /* Contacts.framework */; };
+		4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4562D8021E81300F00C6EE56 /* GroupListCell.m */; };
+		4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4562D8051E8134A900C6EE56 /* GroupListController.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -243,6 +249,16 @@
 		4562D7DB1E80C2AD00C6EE56 /* release_notes_ios.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes_ios.txt; sourceTree = "<group>"; };
 		4562D7F01E80C3EF00C6EE56 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		4562D7F21E80DC1900C6EE56 /* Address.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Address.storyboard; sourceTree = "<group>"; };
+		4562D7F41E80F8A900C6EE56 /* AddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressCell.h; sourceTree = "<group>"; };
+		4562D7F51E80F8A900C6EE56 /* AddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressCell.m; sourceTree = "<group>"; };
+		4562D7F71E80FF2800C6EE56 /* AddressListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressListController.h; sourceTree = "<group>"; };
+		4562D7F81E80FF2800C6EE56 /* AddressListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListController.m; sourceTree = "<group>"; };
+		4562D7FA1E810CEF00C6EE56 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		4562D7FC1E810DED00C6EE56 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		4562D8011E81300F00C6EE56 /* GroupListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupListCell.h; sourceTree = "<group>"; };
+		4562D8021E81300F00C6EE56 /* GroupListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListCell.m; sourceTree = "<group>"; };
+		4562D8041E8134A900C6EE56 /* GroupListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupListController.h; sourceTree = "<group>"; };
+		4562D8051E8134A900C6EE56 /* GroupListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListController.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -271,6 +287,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4562D7FD1E810DED00C6EE56 /* Contacts.framework in Frameworks */,
+				4562D7FB1E810CEF00C6EE56 /* AddressBook.framework in Frameworks */,
 				4562D7F11E80C3EF00C6EE56 /* VideoToolbox.framework in Frameworks */,
 				4562D7BA1E80BDEA00C6EE56 /* Foundation.framework in Frameworks */,
 				4562D7B81E80BC4300C6EE56 /* SafariServices.framework in Frameworks */,
@@ -709,6 +727,8 @@
 		457D3CB71E77CD4A00FD0309 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				4562D7F71E80FF2800C6EE56 /* AddressListController.h */,
+				4562D7F81E80FF2800C6EE56 /* AddressListController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -727,6 +747,8 @@
 		457D3CB91E77CD4A00FD0309 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				4562D7F41E80F8A900C6EE56 /* AddressCell.h */,
+				4562D7F51E80F8A900C6EE56 /* AddressCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -807,6 +829,8 @@
 		457D3CC91E77CDAB00FD0309 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				4562D8041E8134A900C6EE56 /* GroupListController.h */,
+				4562D8051E8134A900C6EE56 /* GroupListController.m */,
 				4562D72F1E7F6DFC00C6EE56 /* GroupActivityListController.h */,
 				4562D7301E7F6DFC00C6EE56 /* GroupActivityListController.m */,
 				4562D7431E7FAC0200C6EE56 /* CreateActivityController.h */,
@@ -835,6 +859,8 @@
 		457D3CCB1E77CDAB00FD0309 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				4562D8011E81300F00C6EE56 /* GroupListCell.h */,
+				4562D8021E81300F00C6EE56 /* GroupListCell.m */,
 				4562D7341E7F75EA00C6EE56 /* ActivityListCell.h */,
 				4562D7351E7F75EA00C6EE56 /* ActivityListCell.m */,
 				4562D7521E7FD6BD00C6EE56 /* ActImageCell.h */,
@@ -846,6 +872,8 @@
 		55BFAB6FB609C76103B710A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4562D7FC1E810DED00C6EE56 /* Contacts.framework */,
+				4562D7FA1E810CEF00C6EE56 /* AddressBook.framework */,
 				4562D7F01E80C3EF00C6EE56 /* VideoToolbox.framework */,
 				4562D7B91E80BDEA00C6EE56 /* Foundation.framework */,
 				4562D7B71E80BC4300C6EE56 /* SafariServices.framework */,
@@ -1040,12 +1068,15 @@
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
+				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
+				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
 				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
 				4562D7311E7F6DFC00C6EE56 /* GroupActivityListController.m in Sources */,
 				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
 				4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */,
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
+				4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */,
 				457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */,
 				457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */,
 				455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */,
@@ -1053,6 +1084,7 @@
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
 				4557CB7E1E7BBD2600F22E70 /* DataSource.m in Sources */,
+				4562D7F91E80FF2800C6EE56 /* AddressListController.m in Sources */,
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */,
 				4562D7361E7F75EA00C6EE56 /* ActivityListCell.m in Sources */,
