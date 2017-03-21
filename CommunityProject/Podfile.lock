@@ -20,16 +20,6 @@ PODS:
   - JSONModel (1.7.0)
   - Masonry (1.0.2)
   - MJRefresh (3.1.12)
-  - RongCloudIM/CallKit (2.8.7):
-    - RongCloudIM/CallLib
-    - RongCloudIM/IMKit
-  - RongCloudIM/CallLib (2.8.7):
-    - RongCloudIM/IMLib
-  - RongCloudIM/IMKit (2.8.7):
-    - RongCloudIM/IMLib
-  - RongCloudIM/IMLib (2.8.7)
-  - RongCloudIM/RedPacket (2.8.7):
-    - RongCloudIM/IMKit
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.2):
@@ -42,11 +32,6 @@ DEPENDENCIES:
   - JSONModel
   - Masonry (~> 1.0.2)
   - MJRefresh (~> 3.1.12)
-  - RongCloudIM/CallKit (~> 2.8.4)
-  - RongCloudIM/CallLib (~> 2.8.4)
-  - RongCloudIM/IMKit (~> 2.8.4)
-  - RongCloudIM/IMLib (~> 2.8.4)
-  - RongCloudIM/RedPacket (~> 2.8.4)
   - SDCycleScrollView (~> 1.65)
   - SDWebImage (~> 3.8.2)
 
@@ -56,10 +41,9 @@ SPEC CHECKSUMS:
   JSONModel: 840bc0fcffb24b8454d2c026bf26fea454b8e98d
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  RongCloudIM: 7bbe81602eac7224de201f0e56621f88c39d0174
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: d60d8a6eb487935664ae865aae1ea593c422da77
+PODFILE CHECKSUM: 68ff56055edcae097c450d8ff99436ad6ce4a86f
 
 COCOAPODS: 1.2.1.beta.1
