@@ -12,7 +12,7 @@
 #import "ActivityListDatabaseSingleton.h"
 #import "CreateActivityController.h"
 
-#define ActURL @"http://192.168.0.208:90/appapi/app/listActives"
+#define ActURL @"http://192.168.0.209:90/appapi/app/listActives"
 @interface GroupActivityListController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,7 +27,6 @@
     [super viewWillAppear:animated];
     
     self.tabBarController.tabBar.hidden = YES;
-    self.navigationController.navigationBar.hidden = NO;
 //    if (self.isRef) {
 //        [self getActivivtyData];
 //    }
@@ -43,28 +42,55 @@
         
         [weakSelf getActivivtyData];
     }];
+    [self netWork];
+}
+-(void)netWork{
+    AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
+    [net startMonitoring];
+    WeakSelf;
+    [net setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        if (status == AFNetworkReachabilityStatusNotReachable) {
+            [weakSelf localData];
+        }else{
+            [weakSelf getActivivtyData];
+        }
+    }];
+}
+-(void)localData{
+    ActivityListDatabaseSingleton * single = [ActivityListDatabaseSingleton shareDatabase];
+    [self.dataArr addObjectsFromArray:[single searchDatabase]];
+    if (self.dataArr.count != 0) {
+        [self.tableView reloadData];
+    }
 }
 -(void)getActivivtyData{
+    WeakSelf;
     NSDictionary * dict = @{@"groupId":self.groupID,@"userId":self.userID};
     NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:ActURL andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取活动列表失败%@",error);
         }else{
-            if (self.tableView.mj_header.isRefreshing||self.dataArr.count != 0) {
-                
-                [self.dataArr removeAllObjects];
+            if (weakSelf.tableView.mj_header.isRefreshing||weakSelf.dataArr.count != 0) {
+                for (ActivityListModel * model in weakSelf.dataArr) {
+                    [[ActivityListDatabaseSingleton shareDatabase]deleteDatabase:model];
+                }
+
+                [weakSelf.dataArr removeAllObjects];
             }
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSNumber * code = jsonDic[@"code"];
             if ([code intValue] == 200) {
                 NSArray * array = jsonDic[@"data"];
+                NSSLog(@"%@",array);
                 for (NSDictionary * dic in array) {
                     ActivityListModel * model = [[ActivityListModel alloc]initWithDictionary:dic error:nil];
-                    [self.dataArr addObject:model];
+                    [[ActivityListDatabaseSingleton shareDatabase]insertDatabase:model];
+                    [weakSelf.dataArr addObject:model];
                 }
-                [self.tableView reloadData];
-                [self.tableView.mj_header endRefreshing];
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
             }else{
                 NSSLog(@"%@",jsonDic[@"msgs"]);
             }

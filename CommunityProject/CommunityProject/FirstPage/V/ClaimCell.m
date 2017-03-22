@@ -28,7 +28,7 @@
     }else{
         str = _claimModel.userPortraitUrl;
     }
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.208%@",str];
+    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.nicknameLabel.text = [NSString stringWithFormat:@"昵    称:%@",_claimModel.nickname];
     self.numberLabel.text = [NSString stringWithFormat:@"编    号:%@",_claimModel.numberId];

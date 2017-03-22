@@ -12,7 +12,7 @@
 #import "AddressDataBaseSingleton.h"
 #import <Contacts/Contacts.h>
 
-#define FriendListURL @"http://192.168.0.208:90/appapi/app/friends"
+#define FriendListURL @"http://192.168.0.209:90/appapi/app/friends"
 
 @interface AddressListController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,7 +27,8 @@
 @property (nonatomic,assign)BOOL isSearch;
 
 @property (nonatomic,strong) NSMutableArray * searchArr;
-
+//标记搜到的人在哪找到的 0 :第一组 1：第二组 2：两组都有
+@property (nonatomic,assign)int person;
 @end
 
 @implementation AddressListController
@@ -40,6 +41,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUI];
     [self getStartData];
+    [self readPhoneAddress];
     [self netWork];
 }
 -(void)setUI{
@@ -54,7 +56,12 @@
     //手势隐藏键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     [self.view addGestureRecognizer:tap];
-
+    WeakSelf;
+    self.tableView.mj_footer.hidden = YES;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakSelf.isSearch = NO;
+        [weakSelf refresh];
+    }];
 }
 -(void)tapClick{
     [self.searchTF resignFirstResponder];
@@ -101,6 +108,10 @@
                         email = labelV.value;
                         NSSLog(@"%@",labelV.value);
                     }
+                    if ([phone containsString:@"-"]) {
+                        NSArray * phArr = [phone componentsSeparatedByString:@"-"];
+                        phone = [phArr componentsJoinedByString:@""];
+                    }
                     //获取头像
                     // NSData * data = contact.imageData;
                     [mDic setValue:name forKey:@"nickname"];
@@ -115,6 +126,12 @@
             }
         }];
     }
+//    if (self.dataTwoArr.count != 0 || self.tableView.mj_header.isRefreshing) {
+//        for (FriendsListModel * model in self.dataTwoArr) {
+//            [[AddressDataBaseSingleton shareDatabase]deleteDatabase:model];
+//        }
+//        [self.dataTwoArr removeAllObjects];
+//    }
     if (mArr.count != 0) {
         for (NSDictionary * dic in mArr) {
             FriendsListModel * search = [[FriendsListModel alloc]initWithDictionary:dic error:nil];
@@ -132,23 +149,22 @@
         if (status == AFNetworkReachabilityStatusNotReachable) {
             [weakSelf localData];
         }else{
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            dispatch_group_t group = dispatch_group_create();
-            dispatch_group_async(group,queue , ^{
-                [weakSelf readPhoneAddress];
-            });
-            dispatch_group_async(group,queue , ^{
-                [weakSelf getFriendList];
-            });
-            dispatch_group_notify(group, queue, ^{
-//                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.tableView reloadData];
-                    [weakSelf.tableView.mj_header endRefreshing];
-//                });
-            });
-           
+            [weakSelf refresh];
         }
     }];
+}
+-(void)refresh{
+    NSMutableArray * array = [NSMutableArray new];
+    AddressDataBaseSingleton * single = [AddressDataBaseSingleton shareDatabase];
+    [array addObjectsFromArray:[single searchDatabase]];
+    if (array.count != 0) {
+        for (FriendsListModel * list in array) {
+            if (list.userId.length == 0) {
+                [self.dataTwoArr addObject:list];
+            }
+        }
+    }
+    [self getFriendList];
 }
 -(void)localData{
     NSMutableArray * array = [NSMutableArray new];
@@ -179,7 +195,9 @@
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing || weakSelf.dataArr.count != 0) {
                 for (FriendsListModel * model in weakSelf.dataArr) {
-                    [[AddressDataBaseSingleton shareDatabase]deleteDatabase:model];
+                    if (model.userId.length != 0) {
+                        [[AddressDataBaseSingleton shareDatabase]deleteDatabase:model];
+                    }
                 }
                 [weakSelf.dataArr removeAllObjects];
             }
@@ -189,7 +207,7 @@
                 NSArray * arr = jsonDic[@"data"];
                 NSMutableArray * array = [NSMutableArray new];
                 NSMutableDictionary * mutDic = [NSMutableDictionary new];
-                NSDictionary * dict = @{@"userId":userID,@"name":nickname,@"userPortraitUrl":head,@"mobile":userID};
+                NSDictionary * dict = @{@"userId":userID,@"nickname":nickname,@"userPortraitUrl":head,@"mobile":userID};
                 [mutDic setValuesForKeysWithDictionary:dict];
                 [mutDic setValue:email forKey:@"email"];
                 [array addObjectsFromArray:@[mutDic]];
@@ -199,6 +217,8 @@
                     [[AddressDataBaseSingleton shareDatabase]insertDatabase:search];
                     [weakSelf.dataArr addObject:search];
                 }
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
                 NSSLog(@"获取失败");
             }
@@ -229,10 +249,23 @@
             }
         }
     }else{
+        if (self.person == 0) {
+            if (section == 0) {
+                return self.searchArr.count;
+            }else{
+                return 0;
+            }
+        }else if (self.person == 1){
+            if (section == 1) {
+                return self.searchArr.count;
+            }else{
+                return 0;
+            }
+        }else{
             return self.searchArr.count;
+        }
     }
 
-    
 }
 
 
@@ -246,7 +279,7 @@
             cell.listModel = self.dataTwoArr[indexPath.row];
         }
     }else{
-            cell.listModel = self.searchArr[indexPath.row];
+        cell.listModel = self.searchArr[indexPath.row];
     }
     
 
@@ -254,33 +287,26 @@
 }
 //设置组头
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth, 50)];
     UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    button.frame = CGRectMake(0, 0, KMainScreenWidth, 50);
-    
+    button.frame = CGRectMake(0, 0, KMainScreenWidth, 49);
     [button setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     if ([self.statusArr[section] isEqualToString:@"1"]) {
-        
         [button setImage:[UIImage imageNamed:@"down.png"] forState:UIControlStateNormal];
-        
     }else{
-        
         [button setImage:[UIImage imageNamed:@"darkMore.png"] forState:UIControlStateNormal];
-        
     }
-    
-    
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
     button.tag = section+30;
-    
     [button setTitle:[NSString stringWithFormat:@"     %@",self.nameArr[section]] forState:UIControlStateNormal];
-    
     [button addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
-    
-    return button;
+    [view addSubview:button];
+    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 49, KMainScreenWidth, 1)];
+    lineView.backgroundColor = UIColorFromRGB(0xeceef0);
+    [view addSubview:lineView];
+    return view;
 }
 -(void)clickedButton:(UIButton *)btn{
     
@@ -292,8 +318,11 @@
         
         [self.statusArr replaceObjectAtIndex:btn.tag-30 withObject:@"0"];
     }
-    
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:btn.tag-30] withRowAnimation:UITableViewRowAnimationFade];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+//        [weakSelf.tableView reloadData];
+        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:btn.tag-30] withRowAnimation:UITableViewRowAnimationFade];
+    });
 }
 /*
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -323,15 +352,25 @@
 }
 -(void)sendSearch{
     [self.searchArr removeAllObjects];
-    NSMutableArray * array = [NSMutableArray new];
-    [array addObjectsFromArray:self.dataArr];
-    [array addObjectsFromArray:self.dataTwoArr];
-    for (FriendsListModel * list in array) {
+    //第一组
+    for (FriendsListModel * list in self.dataArr) {
         if ([list.nickname containsString:self.searchTF.text]||[list.displayName containsString:self.searchTF.text]) {
+            self.person = 0;
             [self.searchArr addObject:list];
         }
     }
+    //第二组
+    for (FriendsListModel * list in self.dataTwoArr) {
+        if ([list.nickname containsString:self.searchTF.text]||[list.displayName containsString:self.searchTF.text]) {
+            self.person = 1;
+            [self.searchArr addObject:list];
+        }
+    }
+    if (self.searchArr.count == 2) {
+        self.person = 2;
+    }
     [self.tableView reloadData];
+
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     self.isSearch = YES;

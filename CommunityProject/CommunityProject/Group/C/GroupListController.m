@@ -12,12 +12,14 @@
 #import "GroupListCell.h"
 #import "ChatDetailController.h"
 
-#define GroupURL @"http://192.168.0.212/appapi/app/group_data"
+#define GroupURL @"http://192.168.0.209:90/appapi/app/groupData"
 
-@interface GroupListController ()<UITableViewDelegate,UITableViewDataSource>
+@interface GroupListController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong)NSMutableArray * dataArr;
+@property (nonatomic,strong)UIButton * button;
+
 @end
 
 @implementation GroupListController
@@ -28,7 +30,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
-    [self localData];
+    [self netWork];
+}
+-(void)netWork{
+    AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
+    [net startMonitoring];
+    WeakSelf;
+    [net setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        if (status == AFNetworkReachabilityStatusNotReachable) {
+            [weakSelf localData];
+        }else{
+            [weakSelf getGroupList];
+        }
+    }];
 }
 -(void)localData{
     GroupDatabaseSingleton * single = [GroupDatabaseSingleton shareDatabase];
@@ -36,26 +51,41 @@
     if (self.dataArr.count != 0) {
         [self.tableView reloadData];
     }
-    WeakSelf;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,0.001*NSEC_PER_SEC),dispatch_get_main_queue(), ^{
+//    WeakSelf;
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,0.001*NSEC_PER_SEC),dispatch_get_main_queue(), ^{
 //        [HUDTool showLoadView:[UIApplication sharedApplication].keyWindow withText:@"正在加载..." andHudBlock:^{
-            [weakSelf getGroupList];
+//            [weakSelf getGroupList];
 //        }];
-    });
+//    });
     
 }
 -(void)setUI{
     self.navigationItem.title = @"群列表";
     self.automaticallyAdjustsScrollViewInsets = NO;
     //导航栏按钮 创建群组
-    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addGroupClick)];
+    UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:30 image:@"back.png" and:self Action:@selector(leftClick)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40) andMove:-30 image:@"add.png" and:self Action:@selector(addGroupClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     WeakSelf;
     self.tableView.mj_footer.hidden = YES;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf getGroupList];
     }];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+    tap.delegate = self;
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf createGroup];
+    });
+
+}
+-(void)tapClick{
+    self.button.hidden = YES;
+}
+-(void)leftClick{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //获取用户群列表
 -(void)getGroupList{
@@ -89,10 +119,25 @@
     }];
 }
 -(void)addGroupClick{
-//    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    CreateGroupController * create = [sb instantiateViewControllerWithIdentifier:@"CreateGroupController"];
-//    create.delegate = self;
-//    [self.navigationController pushViewController:create animated:YES];
+    self.button.hidden = !self.button.hidden;
+}
+-(void)createGroup{
+    
+    self.button = [UIButton CreateMyButtonWithFrame:CGRectZero Image:@"smallGreen.png" SelectedImage:@"smallGreen.png" title:@"新建群聊" color:UIColorFromRGB(0x444343) SelectColor:UIColorFromRGB(0x444343) font:14 and:self Action:@selector(showCreateClick)];
+    self.button.hidden = YES;
+    [self.view addSubview:self.button];
+    [self.button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(66);
+        make.right.equalTo(self.view).offset(-15);
+        make.width.mas_equalTo(113);
+        make.height.mas_equalTo(33.5);
+    }];
+}
+-(void)showCreateClick{
+    //    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    //    CreateGroupController * create = [sb instantiateViewControllerWithIdentifier:@"CreateGroupController"];
+    //    create.delegate = self;
+    //    [self.navigationController pushViewController:create animated:YES];
 }
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -115,9 +160,9 @@
     conver.targetId = group.groupId;
     //会话人备注
     conver.title = group.groupName;
-    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
-    
-    self.navigationItem.backBarButtonItem = backItem;
+//    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+//    
+//    self.navigationItem.backBarButtonItem = backItem;
     
     [self.navigationController pushViewController:conver animated:YES];
 
@@ -128,5 +173,11 @@
         _dataArr = [NSMutableArray new];
     }
     return _dataArr;
+}
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
+    return YES;
 }
 @end

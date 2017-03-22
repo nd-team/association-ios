@@ -30,8 +30,9 @@
 -(void)setBar{
     self.title = @"应用中心";
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x121212);
-    UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40) image:@"back.png"  and:self Action:@selector(backClick)];
+    UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 40, 40) andMove:30 image:@"back.png"  and:self Action:@selector(backClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 -(void)backClick{
     [self.navigationController popViewControllerAnimated:YES];

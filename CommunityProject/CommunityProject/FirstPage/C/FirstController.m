@@ -17,7 +17,7 @@
 #import "ClaimModel.h"
 #import "AppCenterController.h"
 
-#define ClaimURL @"http://192.168.0.208:90/appapi/app/allFriendsClaim"
+#define ClaimURL @"http://192.168.0.209:90/appapi/app/allFriendsClaim"
 @interface FirstController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headView;
@@ -63,6 +63,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [ self.navigationController.navigationBar setShadowImage : [UIImage new]];
+    //解决Bar与tableView对导航栏的影响
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nagivationBar.png"] forBarMetrics:UIBarMetricsDefault];
+    [[[self.navigationController.navigationBar.subviews.firstObject subviews] lastObject] removeFromSuperview];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self showScrollViewUI];
     [self applicationCenter];
@@ -86,6 +91,11 @@
     }];
 }
 -(void)showScrollViewUI{
+    //轮播图
+    NSArray * imageArr = @[@"banner.png",@"banner2.png",@"banner3.png"];
+    //本地
+    self.playView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero imageNamesGroup:imageArr];
+
       //网络
 //    self.playView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:[UIImage imageNamed:@"banner.png"]];
     [self.headView addSubview:self.playView];
@@ -204,7 +214,7 @@
     }];
 }
 - (IBAction)moreClick:(id)sender {
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"FirstPage" bundle:nil];
     AppCenterController * app = [sb instantiateViewControllerWithIdentifier:@"AppCenterController"];
     app.delegate = self;
     app.nameArr = self.applicationArr;

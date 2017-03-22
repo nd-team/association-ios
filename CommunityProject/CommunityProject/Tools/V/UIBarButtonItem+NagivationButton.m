@@ -29,11 +29,11 @@
     UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     return item;
 }
-+ (UIBarButtonItem *)CreateImageButtonWithFrame:(CGRect)frame image:(NSString *)sImage and:(id)target Action:(SEL)action{
++ (UIBarButtonItem *)CreateImageButtonWithFrame:(CGRect)frame andMove:(CGFloat)move image:(NSString *)sImage and:(id)target Action:(SEL)action{
     
     UIButton * btn = [[UIButton alloc] initWithFrame:frame];
     [btn setImage:[UIImage imageNamed:sImage] forState:UIControlStateNormal];
-    btn.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+    btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, move);
     [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     btn.enabled = YES;
     UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:btn];

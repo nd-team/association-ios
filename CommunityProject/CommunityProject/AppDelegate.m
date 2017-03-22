@@ -25,8 +25,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
     self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
     //融云
     [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
     //设置会话列表头像和会话界面头像
@@ -49,11 +49,13 @@
     //开启消息撤回功能
     [RCIM sharedRCIM].enableMessageRecall = YES;
     //设置头像为矩形 会话界面
-//    [RCIM sharedRCIM].globalMessageAvatarStyle = 0;
-    //会话列表头像大小
-    [RCIM sharedRCIM].globalMessagePortraitSize = CGSizeMake(61.5, 61.5);
-    //会话列表
-    [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
+    [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_RECTANGLE;
+    //会话界面和列表头像大小
+    [RCIM sharedRCIM].globalMessagePortraitSize = CGSizeMake(50, 50);
+    [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(62, 61.5);
+    [RCIM sharedRCIM].portraitImageViewCornerRadius = 5;
+    //会话列表头像globalConversationPortraitSize
+    [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_RECTANGLE;
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * token = [userDefaults objectForKey:@"token"];
     NSString * phone = [userDefaults objectForKey:@"userId"];
@@ -120,7 +122,7 @@
             }else{
                 userInfo2.name = list.nickname;
             }
-            userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.208:90%@",str];
+            userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
             //刷新用户
             [[RCIM sharedRCIM]refreshUserInfoCache:userInfo2 withUserId:list.userId];
            return completion(userInfo2);
@@ -142,7 +144,7 @@
             RCGroup * group = [RCGroup new];
             group.groupId = model.groupId;
             group.groupName = model.groupName;
-            group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.208:90%@",str];
+            group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
             [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:model.groupId];
             completion(group);
         }
@@ -208,7 +210,7 @@
                 }else{
                     str = msg[@"userPortraitUrl"];
                 }
-                [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.208:90%@",str]];
+                [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.209:90%@",str]];
                 [weakSelf loginMain];
             }else if ([code intValue] == 0){
                 NSSLog(@"账号不存在！");

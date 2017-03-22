@@ -10,13 +10,13 @@
 
 @interface ActivityListModel : JSONModel
 //活动ID
-@property (nonatomic,assign)NSInteger  activesId;
+@property (nonatomic,copy)NSString *  activesId;
 //活动标题
 @property (nonatomic,copy)NSString * activesTitle;
 //活动头像
 @property (nonatomic,copy)NSString * activesImage;
 //活动限制人数
-@property (nonatomic,assign)NSInteger  activesLimit;
+@property (nonatomic,copy)NSString * activesLimit;
 //活动开始时间
 @property (nonatomic,copy)NSString * activesStart;
 //活动结束时间

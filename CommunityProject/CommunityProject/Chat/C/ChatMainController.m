@@ -10,8 +10,10 @@
 #import "ChatDetailController.h"
 #import "UIView+ChatWhiteView.h"
 #import "UIView+ChatMoreView.h"
+#import "AddressListController.h"
+#import "GroupListController.h"
 
-@interface ChatMainController ()
+@interface ChatMainController ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong)UIView * topView;
 @end
 
@@ -20,6 +22,10 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.topView.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -27,6 +33,14 @@
 
 }
 -(void)setUI{
+    //删除导航栏的线
+    [ self.navigationController.navigationBar setShadowImage : [UIImage new]];
+//    //解决Bar与tableView对导航栏的影响
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nagivationBar.png"] forBarMetrics:UIBarMetricsDefault];
+    //加个表头
+    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KMainScreenWidth, 2)];
+    lineView.backgroundColor = UIColorFromRGB(0xECEEF0);
+    self.conversationListTableView.tableHeaderView = lineView;
     //设置需要显示的类型（群组和单聊）
     [self setDisplayConversationTypes:@[@(ConversationType_GROUP),@(ConversationType_PRIVATE)]];
     // 当连接状态变化SDK自动重连时，是否在NavigationBar中显示连接中的提示。
@@ -36,21 +50,36 @@
     self.conversationListTableView.separatorColor = UIColorFromRGB(0xeceef0);
     self.conversationListTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
 //    self.conversationListTableView.rowHeight = 86.5;
-    UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40) image:@".png"  and:self Action:@selector(moreClick)];
+    UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40) andMove:-30 image:@"topMore.png"  and:self Action:@selector(moreClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
 //设置为空的时候的视图
-    self.emptyConversationView = [UIView createWhiteView:@"你还没有任何聊天记录哟~" andImageName:@"icon.png" andFont:12 andColor:UIColorFromRGB(0xeceef0)];
-
-}
--(void)moreClick{
+    self.emptyConversationView = [UIView createWhiteView:@"你还没有任何聊天记录哟~" andImageName:@"icon.png" andFont:12 andColor:UIColorFromRGB(0x10DB9F)];
+//手势隐藏view
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+    tap.delegate = self;
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
     WeakSelf;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf addView];
     });
 }
+-(void)tapClick{
+    self.topView.hidden = YES;
+}
+-(void)moreClick{
+    self.topView.hidden = !self.topView.hidden;
+}
 -(void)addView{
-    self.topView = [UIView createViewFrame:CGRectMake(KMainScreenWidth-113-13, 0, 113, 200) andTarget:self andSel:@selector(buttonClick:)];
+    self.topView = [UIView createViewFrame:CGRectZero andTarget:self andSel:@selector(buttonClick:)];
+    self.topView.hidden = YES;
     [self.view addSubview:self.topView];
+    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(231);
+        make.width.mas_equalTo(113);
+        make.top.equalTo(self.view).offset(64);
+        make.right.equalTo(self.view).offset(-13);
+    }];
 }
 -(void)buttonClick:(UIButton *)btn{
         switch (btn.tag) {
@@ -58,7 +87,11 @@
                 
                 break;
             case 21:
-                
+            {
+                    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+                    AddressListController * address = [sb instantiateViewControllerWithIdentifier:@"AddressListController"];
+                    [self.navigationController pushViewController:address animated:YES];
+            }
                 break;
             case 22:
                 
@@ -68,6 +101,13 @@
                 break;
             case 24:
                 
+                break;
+            case 25:
+            {
+                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+                GroupListController * list = [sb instantiateViewControllerWithIdentifier:@"GroupListController"];
+                [self.navigationController pushViewController:list animated:YES];
+            }
                 break;
             default:
                 
@@ -82,10 +122,6 @@
     concell.messageContentLabel.font = [UIFont systemFontOfSize:12];
     concell.messageCreatedTimeLabel.textColor = UIColorFromRGB(0x666666);
     concell.messageCreatedTimeLabel.font = [UIFont systemFontOfSize:9];
-    UIImageView * imageView = (UIImageView *)concell.headerImageView;
-    imageView.frame = CGRectMake(13.5, 12.5, 61.5, 61.5);
-    imageView.layer.cornerRadius = 5;
-    imageView.layer.masksToBounds = YES;
 }
 -(void)onSelectedTableRow:(RCConversationModelType)conversationModelType conversationModel:(RCConversationModel *)model atIndexPath:(NSIndexPath *)indexPath{
     ChatDetailController * chat = [[ChatDetailController alloc]initWithConversationType:model.conversationType targetId:model.targetId];
@@ -95,5 +131,12 @@
     chat.title = model.conversationTitle;
     [self.navigationController pushViewController:chat animated:YES];
 
+}
+//手势代理方法
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([touch.view isKindOfClass:[UIButton class]]) {
+        return NO;
+    }
+    return YES;
 }
 @end

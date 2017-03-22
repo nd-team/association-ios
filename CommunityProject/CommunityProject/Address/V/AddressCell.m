@@ -28,9 +28,9 @@
     }else{
         str = _listModel.userPortraitUrl;
     }
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.212%@",str];
+    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"Carial.jpg"]];
-    if (_listModel.displayName != nil) {
+    if (_listModel.displayName.length != 0) {
         self.nameLabel.text = _listModel.displayName;
     }else{
         self.nameLabel.text = _listModel.nickname;

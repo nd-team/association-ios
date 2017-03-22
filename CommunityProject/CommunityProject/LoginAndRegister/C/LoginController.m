@@ -7,8 +7,8 @@
 //
 
 #import "LoginController.h"
-#define LoginURL @"http://192.168.0.208:90/appapi/app/login"
-#define RegisterURL @"http://192.168.0.208:90/appapi/app/register"
+#define LoginURL @"http://192.168.0.209:90/appapi/app/login"
+#define RegisterURL @"http://192.168.0.209:90/appapi/app/register"
 @interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
@@ -62,26 +62,32 @@
     [self leftView:self.passwordTF];
     [self leftView:self.nicknameTF];
     [self leftView:self.codeTF];
+    [self.usernameTF becomeFirstResponder];
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     [self.view addGestureRecognizer:tap];
 }
 -(void)tapClick{
-    [self.usernameTF resignFirstResponder];
-    [self.secretTF resignFirstResponder];
-    [self.phoneTF resignFirstResponder];
-    [self.passwordTF resignFirstResponder];
-    [self.nicknameTF resignFirstResponder];
-    [self.codeTF resignFirstResponder];
+    if (self.loginView.hidden) {
+        [self.phoneTF resignFirstResponder];
+        [self.passwordTF resignFirstResponder];
+        [self.nicknameTF resignFirstResponder];
+        [self.codeTF resignFirstResponder];
+    }else{
+        [self.usernameTF resignFirstResponder];
+        [self.secretTF resignFirstResponder];
+    }
+   
+   
 //    WeakSelf;
 //    [UIView animateWithDuration:0.3 animations:^{
 //        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
 //        
 //    }];
     
-    WeakSelf;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
-    });
+//    WeakSelf;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
+//    });
 }
 -(void)leftView:(UITextField *)textField{
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 45)];
@@ -213,7 +219,7 @@
                 [userDefaults setValue:msg[@"userPortraitUrl"] forKey:@"userPortraitUrl"];
                 //token
                 [userDefaults setValue:msg[@"token"] forKey:@"token"];
-                [userDefaults setValue:self.passwordTF.text forKey:@"password"];
+                [userDefaults setValue:self.secretTF.text forKey:@"password"];
                 //sex
                 NSNumber * sex = msg[@"sex"];
                 [userDefaults setInteger:[sex integerValue] forKey:@"sex"];
@@ -363,15 +369,15 @@
     NSSLog(@"%f==%f=%f==%f",self.passwordTF.frame.origin.y+45,self.view.frame.size.height,offset,height);
 
         if (offset <= height) {
-//            [UIView animateWithDuration:0.3 animations:^{
-//                self.view.frame = CGRectMake(0, -600, KMainScreenWidth, KMainScreenHeight);
-//            }];
+            [UIView animateWithDuration:0.3 animations:^{
+                weakSelf.view.frame = CGRectMake(0, -600, KMainScreenWidth, KMainScreenHeight);
+            }];
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.view.frame = CGRectMake(0, -600, KMainScreenWidth, KMainScreenHeight);
-
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            weakSelf.view.frame = CGRectMake(0, -600, KMainScreenWidth, KMainScreenHeight);
+//
+//        });
 //    }else if (textField == self.codeTF){
 //        [UIView animateWithDuration:0.3 animations:^{
 //            weakSelf.view.frame = CGRectMake(0, -self.height-280, KMainScreenWidth, KMainScreenHeight);

@@ -12,7 +12,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.oneView.layer.masksToBounds = YES;
+    self.oneView.layer.cornerRadius = 2.2;
+    self.twoView.layer.masksToBounds = YES;
+    self.twoView.layer.cornerRadius = 2.2;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

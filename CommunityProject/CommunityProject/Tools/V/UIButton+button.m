@@ -7,8 +7,6 @@
 //
 
 #import "UIButton+button.h"
-//#import <objc/runtime.h>
-//static const void * chosenKey = &chosenKey;
 
 @implementation UIButton (button)
 

@@ -14,7 +14,7 @@
     [super awakeFromNib];
     // Initialization code
     self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 20;
+    self.headImageView.layer.cornerRadius = 5;
     
 }
 
@@ -32,7 +32,7 @@
     }else{
         str = _model.groupPortraitUrl;
     }
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.212%@",str];
+    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
 }
 @end

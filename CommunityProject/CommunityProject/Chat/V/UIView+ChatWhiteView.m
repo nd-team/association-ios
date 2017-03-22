@@ -18,7 +18,7 @@
     imageView.image = [UIImage imageNamed:imgName];
     [view addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view).offset(148);
+        make.top.equalTo(view).offset(212);
         make.centerX.equalTo(view);
         make.width.mas_equalTo(175);
         make.height.mas_equalTo(91);
