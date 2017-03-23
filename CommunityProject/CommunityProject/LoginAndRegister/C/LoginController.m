@@ -63,6 +63,15 @@
     [self leftView:self.nicknameTF];
     [self leftView:self.codeTF];
     [self.usernameTF becomeFirstResponder];
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * token = [userDefaults objectForKey:@"token"];
+    NSString * phone = [userDefaults objectForKey:@"userId"];
+    NSString * password = [userDefaults objectForKey:@"password"];
+    if (token.length && phone.length && password.length) {
+        self.usernameTF.text = phone;
+        self.secretTF.text = password;
+        [self netWork:YES];
+    }
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     [self.view addGestureRecognizer:tap];
 }
@@ -78,11 +87,11 @@
     }
    
    
-//    WeakSelf;
-//    [UIView animateWithDuration:0.3 animations:^{
-//        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
-//        
-//    }];
+    WeakSelf;
+    [UIView animateWithDuration:0.3 animations:^{
+        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
+        
+    }];
     
 //    WeakSelf;
 //    dispatch_async(dispatch_get_main_queue(), ^{
@@ -200,7 +209,6 @@
         if (error) {
             NSSLog(@"登录失败：%@",error);
             [weakSelf showMessage:@"登录失败！"];
-//            [weakSelf loginMain];
 
         }else{
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -248,13 +256,8 @@
                     [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
                 }
                 [userDefaults synchronize];
-                NSString * str = nil;
-                if ([msg[@"userPortraitUrl"] containsString:@"\\"]) {
-                    str = [msg[@"userPortraitUrl"] stringByReplacingCharactersInRange:[msg[@"userPortraitUrl"] rangeOfString:@"\\"] withString:@"/"];
-                }else{
-                    str = msg[@"userPortraitUrl"];
-                }
-                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.208%@",str]];
+               NSString *  str = [ImageUrl changeUrl:msg[@"userPortraitUrl"]];
+                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.209:90%@",str]];
                 [weakSelf loginRongServicer:msg[@"token"]];
 
                 //设置当前用户
@@ -370,7 +373,7 @@
 
         if (offset <= height) {
             [UIView animateWithDuration:0.3 animations:^{
-                weakSelf.view.frame = CGRectMake(0, -600, KMainScreenWidth, KMainScreenHeight);
+                weakSelf.view.frame = CGRectMake(0, -height-300, KMainScreenWidth, KMainScreenHeight);
             }];
         }
         

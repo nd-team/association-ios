@@ -21,6 +21,8 @@
 		4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB801E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m */; };
 		4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB831E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m */; };
 		4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB861E7BE88900F22E70 /* ChatDetailController.m */; };
+		455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 455930CE1E835A110041F6F9 /* ImageUrl.m */; };
+		455930D51E83C9DD0041F6F9 /* ChangeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 455930D41E83C9DD0041F6F9 /* ChangeImageView.m */; };
 		455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1631E7A660F00C85AE7 /* TravelCell.m */; };
 		455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1661E7A831000C85AE7 /* ClaimCell.m */; };
 		455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1691E7A833000C85AE7 /* ApplicationCenterCell.m */; };
@@ -139,6 +141,10 @@
 		4557CB831E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstAppDataBaseSingleton.m; sourceTree = "<group>"; };
 		4557CB851E7BE88900F22E70 /* ChatDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatDetailController.h; sourceTree = "<group>"; };
 		4557CB861E7BE88900F22E70 /* ChatDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDetailController.m; sourceTree = "<group>"; };
+		455930CD1E835A110041F6F9 /* ImageUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUrl.h; sourceTree = "<group>"; };
+		455930CE1E835A110041F6F9 /* ImageUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUrl.m; sourceTree = "<group>"; };
+		455930D31E83C9DD0041F6F9 /* ChangeImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeImageView.h; sourceTree = "<group>"; };
+		455930D41E83C9DD0041F6F9 /* ChangeImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeImageView.m; sourceTree = "<group>"; };
 		455FA1621E7A660F00C85AE7 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
 		455FA1631E7A660F00C85AE7 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		455FA1651E7A831000C85AE7 /* ClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCell.h; sourceTree = "<group>"; };
@@ -287,6 +293,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				451B285C1E7D282D0024B336 /* libc++.tbd in Frameworks */,
 				4562D7FD1E810DED00C6EE56 /* Contacts.framework in Frameworks */,
 				4562D7FB1E810CEF00C6EE56 /* AddressBook.framework in Frameworks */,
 				4562D7F11E80C3EF00C6EE56 /* VideoToolbox.framework in Frameworks */,
@@ -319,7 +326,6 @@
 				4562D7961E80BB6900C6EE56 /* AudioToolbox.framework in Frameworks */,
 				4562D7941E80BB5D00C6EE56 /* AssetsLibrary.framework in Frameworks */,
 				456CCE6F1E827CD8005EC051 /* JrmfPacketKit.framework in Frameworks */,
-				451B285C1E7D282D0024B336 /* libc++.tbd in Frameworks */,
 				451B285A1E7D28210024B336 /* libz.tbd in Frameworks */,
 				451B28581E7D27FC0024B336 /* CoreMotion.framework in Frameworks */,
 				451B28561E7D27F20024B336 /* CFNetwork.framework in Frameworks */,
@@ -432,6 +438,8 @@
 				4562D73B1E7F7B6A00C6EE56 /* UIView+ChatWhiteView.m */,
 				4562D75E1E7FDFD900C6EE56 /* UIView+ChatMoreView.h */,
 				4562D75F1E7FDFD900C6EE56 /* UIView+ChatMoreView.m */,
+				455930D31E83C9DD0041F6F9 /* ChangeImageView.h */,
+				455930D41E83C9DD0041F6F9 /* ChangeImageView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -569,6 +577,8 @@
 				4562D74D1E7FB9E500C6EE56 /* UploadMulDocuments.m */,
 				4562D7461E7FB9A000C6EE56 /* UploadImageNet.h */,
 				4562D7471E7FB9A000C6EE56 /* UploadImageNet.m */,
+				455930CD1E835A110041F6F9 /* ImageUrl.h */,
+				455930CE1E835A110041F6F9 /* ImageUrl.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1083,10 +1093,12 @@
 				457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
+				455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */,
 				4557CB7E1E7BBD2600F22E70 /* DataSource.m in Sources */,
 				4562D7F91E80FF2800C6EE56 /* AddressListController.m in Sources */,
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */,
+				455930D51E83C9DD0041F6F9 /* ChangeImageView.m in Sources */,
 				4562D7361E7F75EA00C6EE56 /* ActivityListCell.m in Sources */,
 				4562D7601E7FDFD900C6EE56 /* UIView+ChatMoreView.m in Sources */,
 				4562D7391E7F792D00C6EE56 /* ActivityListModel.m in Sources */,

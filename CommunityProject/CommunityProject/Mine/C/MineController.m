@@ -16,15 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [ self.navigationController.navigationBar setShadowImage : [UIImage new]];
-    //解决Bar与tableView对导航栏的影响
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nagivationBar.png"] forBarMetrics:UIBarMetricsDefault];
+
+    
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 
 @end

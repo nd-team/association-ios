@@ -28,4 +28,11 @@
     }
     return view;
 }
++(UIView *)locationViewFrame:(CGRect)frame andTarget:(id)target andAction:(SEL)action{
+    UIView * view = [[UIView alloc]initWithFrame:frame];
+    
+    
+    
+    return view;
+}
 @end

@@ -22,10 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headView;
 
-//@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-//@property (weak, nonatomic) IBOutlet UIPageControl *pageCon;
-//@property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthContraint;
-
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UITableView *claimTableView;
 //认领数据源
@@ -48,6 +44,11 @@
         [self insertData];
     }
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.playView = nil;
+    [self.playView removeFromSuperview];
+}
 -(void)insertData{
     
     FirstAppDataBaseSingleton * single = [FirstAppDataBaseSingleton shareDatabase];
@@ -63,11 +64,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [ self.navigationController.navigationBar setShadowImage : [UIImage new]];
-    //解决Bar与tableView对导航栏的影响
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nagivationBar.png"] forBarMetrics:UIBarMetricsDefault];
-    [[[self.navigationController.navigationBar.subviews.firstObject subviews] lastObject] removeFromSuperview];
-
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self showScrollViewUI];
     [self applicationCenter];
@@ -91,6 +87,12 @@
     }];
 }
 -(void)showScrollViewUI{
+    //刷新
+//    WeakSelf;
+    self.tableView.mj_footer.hidden = YES;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [weakSelf ];
+    }];
     //轮播图
     NSArray * imageArr = @[@"banner.png",@"banner2.png",@"banner3.png"];
     //本地
@@ -107,20 +109,6 @@
     self.playView.autoScrollTimeInterval = 1;
     self.playView.currentPageDotColor = UIColorFromRGB(0xFED604);
     self.playView.pageDotColor = UIColorFromRGB(0x243234);
-    /*
-    //不定时的轮播
-    for (int i = 0; i < 3; i++) {
-        
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(i*KMainScreenWidth, 0, KMainScreenWidth, 200)];
-        
-        imageView.image = [UIImage imageNamed:imageArr[i]];
-        
-        [self.scrollView addSubview:imageView];
-        
-    }
-    
-    self.widthContraint.constant = KMainScreenWidth*3;
-     */
 }
 -(void)applicationCenter{
     //应用中心
@@ -190,11 +178,18 @@
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userId = [userDefaults objectForKey:@"userId"];
     //0：未认领
+    WeakSelf;
     NSDictionary * params = @{@"userId":userId,@"status":@"0"};
     [AFNetData postDataWithUrl:ClaimURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
         }else{
+//            if (weakSelf.claimArr.count !=0||weakSelf.claimTableView.mj_header.isRefreshing) {
+//                for (ClaimModel * model in weakSelf.claimArr) {
+//                    [[ClaimDataBaseSingleton shareDatabase]deleteDatabase:model];
+//                }
+//                [weakSelf.claimArr removeAllObjects];
+//            }
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
             NSNumber * code = jsonDic[@"code"];
@@ -203,9 +198,10 @@
                 NSSLog(@"%@",array);
                 for (NSDictionary * dict in array) {
                     ClaimModel * claim = [[ClaimModel alloc]initWithDictionary:dict error:nil];
-                    [self.claimArr addObject:claim];
+                    [weakSelf.claimArr addObject:claim];
                 }
-                [self.claimTableView reloadData];
+                [weakSelf.claimTableView reloadData];
+//                [weakSelf.claimTableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
                 NSString * msg = jsonDic[@"msgs"];
                 NSSLog(@"失败错误信息：%@",msg);

@@ -10,4 +10,6 @@
 
 @interface UIView (ChatMoreView)
 +(UIView *)createViewFrame:(CGRect)frame andTarget:(id)target andSel:(SEL)action;
++(UIView *)locationViewFrame:(CGRect)frame andTarget:(id)target andAction:(SEL)action;
+
 @end

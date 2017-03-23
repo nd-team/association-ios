@@ -33,18 +33,14 @@
 
 }
 -(void)setUI{
-    //删除导航栏的线
-    [ self.navigationController.navigationBar setShadowImage : [UIImage new]];
-//    //解决Bar与tableView对导航栏的影响
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nagivationBar.png"] forBarMetrics:UIBarMetricsDefault];
     //加个表头
     UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KMainScreenWidth, 2)];
     lineView.backgroundColor = UIColorFromRGB(0xECEEF0);
     self.conversationListTableView.tableHeaderView = lineView;
     //设置需要显示的类型（群组和单聊）
-    [self setDisplayConversationTypes:@[@(ConversationType_GROUP),@(ConversationType_PRIVATE)]];
+    [self setDisplayConversationTypes:@[@(ConversationType_GROUP),@(ConversationType_PRIVATE),@(ConversationType_CHATROOM)]];
     // 当连接状态变化SDK自动重连时，是否在NavigationBar中显示连接中的提示。
-    self.showConnectingStatusOnNavigatorBar = YES;
+    self.showConnectingStatusOnNavigatorBar = YES;    
     self.cellBackgroundColor = [UIColor whiteColor];
     self.topCellBackgroundColor = UIColorFromRGB(0xf6f6f6);
     self.conversationListTableView.separatorColor = UIColorFromRGB(0xeceef0);

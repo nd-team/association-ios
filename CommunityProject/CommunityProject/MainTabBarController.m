@@ -18,16 +18,20 @@
     [super viewDidLoad];
 
 //隐藏顶部线条
-    CGRect rect  = CGRectMake(0, 0, KMainScreenWidth, self.tabBar.frame.size.height);
+    CGRect rect  = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
     CGContextFillRect(context, rect);
     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth, self.tabBar.frame.size.height)];
+    imageView.image = img;
+    imageView.contentMode = UIViewContentModeScaleToFill;
+    [self.tabBar insertSubview:imageView atIndex:0];
     [self.tabBar setBackgroundImage:img];
     [self.tabBar setShadowImage:img];
-    
+
 }
 
 @end

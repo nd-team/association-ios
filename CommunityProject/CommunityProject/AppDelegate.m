@@ -25,10 +25,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     //融云
     [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
+    //应用的Scheme
+    [[RCIM sharedRCIM]setScheme:@"CommunityRedPacket" forExtensionModule:@"JrmfPacketManager"];
     //设置会话列表头像和会话界面头像
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     //设置用户和数组数据持续化
@@ -36,8 +36,6 @@
     //设置头像和昵称
     [RCIM sharedRCIM].userInfoDataSource = self;
     [RCIM sharedRCIM].groupInfoDataSource = self;
-    //应用的Scheme
-    [[RCIM sharedRCIM]setScheme:@"CommunityRedPacket" forExtensionModule:@"JrmfPacketManager"];
     //开启发送已读回执
     [RCIM sharedRCIM].enabledReadReceiptConversationTypeList = @[@(ConversationType_GROUP),@(ConversationType_PRIVATE)];
     //开启多端未读状态同步
@@ -48,6 +46,10 @@
     [RCIM sharedRCIM].enableMessageMentioned = YES;
     //开启消息撤回功能
     [RCIM sharedRCIM].enableMessageRecall = YES;
+    //保存
+    [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
+    //多端同步
+    [RCIM sharedRCIM].enableSyncReadStatus = YES;
     //设置头像为矩形 会话界面
     [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_RECTANGLE;
     //会话界面和列表头像大小
@@ -56,29 +58,25 @@
     [RCIM sharedRCIM].portraitImageViewCornerRadius = 5;
     //会话列表头像globalConversationPortraitSize
     [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_RECTANGLE;
+    //设置当前用户
+    [self netWork];
+    [[UINavigationBar appearance]setShadowImage:[UIImage new]];//nagivationBar.png
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [UINavigationBar appearance].translucent = NO;
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+-(void)netWork{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * token = [userDefaults objectForKey:@"token"];
     NSString * phone = [userDefaults objectForKey:@"userId"];
     NSString * password = [userDefaults objectForKey:@"password"];
-    //设置当前用户
     if (token.length && phone.length && password.length) {
-        //登录融云
-        AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
-        
-        [net startMonitoring];
-        WeakSelf;
-        [net setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-            //无网登录
-            if (status == AFNetworkReachabilityStatusNotReachable) {
-                [weakSelf loginMain];
-            }else{
-                [weakSelf loginRongServicer:token andPhone:phone andPassword:password];
-            }
-        }];
+        [self loginRongServicer:token andPhone:phone andPassword:password];
     }else{
-        self.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
+        [self login];
     }
-    return YES;
 }
 //@功能实现给融云提供群成员 本地
 -(void)getAllMembersOfGroup:(NSString *)groupId result:(void (^)(NSArray<NSString *> *))resultBlock{
@@ -107,13 +105,8 @@
 -(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
     AddressDataBaseSingleton * single = [AddressDataBaseSingleton shareDatabase];
     NSArray * arr = [single searchDatabase];
-    NSString * str = nil;
     for (FriendsListModel * list in arr) {
-        if ([list.userPortraitUrl containsString:@"\\"]) {
-            str = [list.userPortraitUrl stringByReplacingCharactersInRange:[list.userPortraitUrl rangeOfString:@"\\"] withString:@"/"];
-        }else{
-            str = list.userPortraitUrl;
-        }
+       NSString *  str = [ImageUrl changeUrl:list.userPortraitUrl];
         if ([list.userId isEqualToString:userId]) {
             RCUserInfo * userInfo2 = [RCUserInfo new];
             userInfo2.userId = list.userId;
@@ -133,13 +126,8 @@
 -(void)getGroupInfoWithGroupId:(NSString *)groupId completion:(void (^)(RCGroup *))completion{
     GroupDatabaseSingleton * single = [GroupDatabaseSingleton shareDatabase];
     NSArray * arr = [single searchDatabase];
-    NSString * str = nil;
     for (GroupModel * model in arr) {
-        if ([model.groupPortraitUrl containsString:@"\\"]) {
-            str = [model.groupPortraitUrl stringByReplacingCharactersInRange:[model.groupPortraitUrl rangeOfString:@"\\"] withString:@"/"];
-        }else{
-            str = model.groupPortraitUrl;
-        }
+       NSString *  str = [ImageUrl changeUrl:model.groupPortraitUrl];
         if ([model.groupId isEqualToString:groupId]) {
             RCGroup * group = [RCGroup new];
             group.groupId = model.groupId;
@@ -158,7 +146,7 @@
     [AFNetData postDataWithUrl:LoginURL andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"登录失败：%@",error);
-            [weakSelf login];
+            [weakSelf loginMain];
         }else{
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
@@ -204,12 +192,7 @@
                 }
                 [userDefaults synchronize];
                 //设置当前用户的用户信息
-                NSString * str = nil;
-                if ([msg[@"userPortraitUrl"] containsString:@"\\"]) {
-                    str = [msg[@"userPortraitUrl"] stringByReplacingCharactersInRange:[msg[@"userPortraitUrl"] rangeOfString:@"\\"] withString:@"/"];
-                }else{
-                    str = msg[@"userPortraitUrl"];
-                }
+                 NSString * str = [ImageUrl changeUrl:msg[@"userPortraitUrl"]];
                 [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.209:90%@",str]];
                 [weakSelf loginMain];
             }else if ([code intValue] == 0){
@@ -227,7 +210,7 @@
                 
             }else{
                 NSSLog(@"登录失败！");
-                [weakSelf login];
+                [weakSelf loginMain];
                 
             }
         }
@@ -269,20 +252,6 @@
         }
     });
 }
-
-//-(void)showMessage:(NSString *)msg{
-//    WeakSelf;
-//    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"取消",@"确定"] Action:^(NSInteger indexpath) {
-//        if (indexpath == 1) {
-//            [weakSelf login];
-//            
-//        }else{
-//            NSSLog(@"无网登录失败");
-//        }
-//        
-//    } viewController:self.window.rootViewController];
-//    
-//}
 -(void)loginMain{
     WeakSelf;
     dispatch_async(dispatch_get_main_queue(), ^{

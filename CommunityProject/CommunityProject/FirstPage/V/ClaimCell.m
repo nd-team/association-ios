@@ -22,12 +22,13 @@
 }
 -(void)setClaimModel:(ClaimModel *)claimModel{
     _claimModel = claimModel;
-    NSString * str = nil;
-    if ([_claimModel.userPortraitUrl containsString:@"\\"]) {
-        str = [_claimModel.userPortraitUrl stringByReplacingCharactersInRange:[_claimModel.userPortraitUrl rangeOfString:@"\\"] withString:@"/"];
-    }else{
-        str = _claimModel.userPortraitUrl;
-    }
+    NSString * str = [ImageUrl changeUrl:_claimModel.userPortraitUrl];
+
+//    if ([_claimModel.userPortraitUrl containsString:@"\\"]) {
+//        str = [_claimModel.userPortraitUrl stringByReplacingCharactersInRange:[_claimModel.userPortraitUrl rangeOfString:@"\\"] withString:@"/"];
+//    }else{
+//        str = _claimModel.userPortraitUrl;
+//    }
     NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.nicknameLabel.text = [NSString stringWithFormat:@"昵    称:%@",_claimModel.nickname];

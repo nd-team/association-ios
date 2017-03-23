@@ -25,17 +25,16 @@
 }
 -(void)setActModel:(ActivityListModel *)actModel{
     _actModel = actModel;
-    NSString * str = _actModel.activesImage;
-//    if ([_actModel.activesImage containsString:@"\\"]) {
-//        str = [_actModel.activesImage stringByReplacingCharactersInRange:[_actModel.activesImage rangeOfString:@"\\"] withString:@"/"];
-//    }else{
-//        str = _actModel.activesImage;
-//    }
+    
+    NSString * str = [ImageUrl changeUrl:_actModel.activesImage];
+    /*
     NSString * regExp = @"[\\\\]+";
     NSString * replaceStr = @"/";
     NSRegularExpression * express = [[NSRegularExpression alloc]initWithPattern:regExp options:NSRegularExpressionCaseInsensitive error:nil];
     str =  [express stringByReplacingMatchesInString:str options:NSMatchingReportProgress range:NSMakeRange(0, str.length) withTemplate:replaceStr];
+       */
     NSSLog(@"%@",str);
+   
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",str]]];
     self.areaLabel.text = [NSString stringWithFormat:@"地点：%@",_actModel.activesAddress];
     self.titleLabel.text = _actModel.activesTitle;
