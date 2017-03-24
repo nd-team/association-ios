@@ -209,6 +209,7 @@ RealTimeLocationStatusViewDelegate>
 -(void)buttonAction:(UIButton *)btn{
     switch (btn.tag) {
         case 41:
+            [self showRealTimeLocationViewController];
             self.backView.hidden = YES;
             break;
         case 42:
@@ -221,7 +222,6 @@ RealTimeLocationStatusViewDelegate>
            //共享
         default:
         {
-            [self showRealTimeLocationViewController];
             self.backView.hidden = YES;
         }
             break;
@@ -374,6 +374,20 @@ RealTimeLocationStatusViewDelegate>
         }else{
             label.backgroundColor = UIColorFromRGB(0xffffff);
         }
+    }
+    else if ([cell isMemberOfClass:[RealTimeLocationStartCell class]]){
+        RealTimeLocationStartCell * startCell = (RealTimeLocationStartCell *)cell;
+        if (model.messageDirection == 1) {
+            startCell.bubbleBackgroundView.image = [UIImage imageNamed:@"mineImg.png"];
+        }else{
+            startCell.bubbleBackgroundView.image = [UIImage imageNamed:@"othersImg.png"];
+        }
+    }
+    else if ([cell isMemberOfClass:[RealTimeLocationEndCell class]]){
+        RealTimeLocationEndCell * endCell = (RealTimeLocationEndCell *)cell;
+        UILabel * label = endCell.tipMessageLabel;
+        label.font = [UIFont systemFontOfSize:11];
+        label.backgroundColor = UIColorFromRGB(0xb5b7b8);
     }
     //提示时间label
     UILabel *label = (UILabel *)cell.messageTimeLabel;

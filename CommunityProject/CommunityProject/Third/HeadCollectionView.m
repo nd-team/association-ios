@@ -57,9 +57,13 @@
                    self.headViewSize);
 
     UIButton *quitButton =
-        [[UIButton alloc] initWithFrame:CGRectMake(8, 41.5, 26, 26)];
-    [quitButton setImage:[UIImage imageNamed:@"quit_location_share"]
+        [[UIButton alloc] initWithFrame:CGRectMake(10, 33, 60, 30)];
+    [quitButton setImage:[UIImage imageNamed:@"back"]
                 forState:UIControlStateNormal];
+      [quitButton setTitle:@"退出" forState:UIControlStateNormal];
+      quitButton.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0);
+      [quitButton setTitleColor:UIColorFromRGB(0x10db9f) forState:UIControlStateNormal];
+      quitButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [quitButton addTarget:self
                    action:@selector(onQuitButtonPressed:)
          forControlEvents:UIControlEventTouchDown];
@@ -69,15 +73,15 @@
     self.scrollView.showsHorizontalScrollIndicator = NO;
     [self addSubview:self.scrollView];
 
-    UIButton *backButton = [[UIButton alloc]
-        initWithFrame:CGRectMake(self.bounds.size.width - 8 - 26, 41.5, 26,
-                                 26)];
-    [backButton setImage:[UIImage imageNamed:@"back_to_conversation"]
-                forState:UIControlStateNormal];
-    [backButton addTarget:self
-                   action:@selector(onBackButtonPressed:)
-         forControlEvents:UIControlEventTouchDown];
-    [self addSubview:backButton];
+//    UIButton *backButton = [[UIButton alloc]
+//        initWithFrame:CGRectMake(self.bounds.size.width - 8 - 26, 41.5, 26,
+//                                 26)];
+//    [backButton setImage:[UIImage imageNamed:@"back.png"]
+//                forState:UIControlStateNormal];
+//    [backButton addTarget:self
+//                   action:@selector(onBackButtonPressed:)
+//         forControlEvents:UIControlEventTouchDown];
+//    [self addSubview:backButton];
 
     self.tipLabel = [[UILabel alloc]
         initWithFrame:CGRectMake(self.headViewRect.origin.x,
@@ -302,11 +306,11 @@
     [self.touchDelegate quitButtonPressed];
   }
 }
-- (void)onBackButtonPressed:(id)sender {
-  if (self.touchDelegate) {
-    [self.touchDelegate backButtonPressed];
-  }
-}
+//- (void)onBackButtonPressed:(id)sender {
+//  if (self.touchDelegate) {
+//    [self.touchDelegate backButtonPressed];
+//  }
+//}
 
 //- (UIImage *)getHeadImage:(RCUserInfo *)user {
 ////    if (user.portraitUri) {

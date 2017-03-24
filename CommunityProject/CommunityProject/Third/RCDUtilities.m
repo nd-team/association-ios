@@ -8,9 +8,8 @@
 
 #import "RCDUtilities.h"
 #import "DefaultPortraitView.h"
-#import "pinyin.h"
+//#import "pinyin.h"
 #import "RCDUserInfo.h"
-
 @implementation RCDUtilities
 + (UIImage *)imageNamed:(NSString *)name ofBundle:(NSString *)bundleName {
   UIImage *image = nil;
@@ -102,10 +101,8 @@
 /**
  *  汉字转拼音
  *
- *  @param hanZi 汉字
- *
  *  @return 转换后的拼音
- */
+
 + (NSString *)hanZiToPinYinWithString:(NSString *)hanZi {
   if (!hanZi) {
     return nil;
@@ -125,7 +122,7 @@
   }
   return pinYinResult;
 }
-
+ */
 + (BOOL)isChinese:(NSString *)text
 {
   NSString *match = @"(^[\u4e00-\u9fa5]+$)";
@@ -133,17 +130,17 @@
   return [predicate evaluateWithObject:text];
 }
 
-+ (NSString *)getFirstUpperLetter:(NSString *)hanzi {
-  NSString *pinyin = [self hanZiToPinYinWithString:hanzi];
-  NSString *firstUpperLetter = [[pinyin substringToIndex:1] uppercaseString];
-  if ([firstUpperLetter compare:@"A"] != NSOrderedAscending &&
-      [firstUpperLetter compare:@"Z"] != NSOrderedDescending) {
-    return firstUpperLetter;
-  } else {
-    return @"#";
-  }
-}
-
+//+ (NSString *)getFirstUpperLetter:(NSString *)hanzi {
+//  NSString *pinyin = [self hanZiToPinYinWithString:hanzi];
+//  NSString *firstUpperLetter = [[pinyin substringToIndex:1] uppercaseString];
+//  if ([firstUpperLetter compare:@"A"] != NSOrderedAscending &&
+//      [firstUpperLetter compare:@"Z"] != NSOrderedDescending) {
+//    return firstUpperLetter;
+//  } else {
+//    return @"#";
+//  }
+//}
+/*
 + (NSMutableDictionary *)sortedArrayWithPinYinDic:(NSArray *)userList {
   if (!userList)
     return nil;
@@ -231,18 +228,18 @@
   [resultDic setObject:allKeys forKey:@"allKeys"];
   return resultDic;
 }
-
-+ (BOOL)isContains:(NSString *)firstString withString:(NSString *)secondString{
-  if (firstString.length == 0 || secondString.length == 0) {
-    return NO;
-  }
-  NSString *twoStr = [[secondString stringByReplacingOccurrencesOfString:@" "  withString:@""] lowercaseString];
-  if ([[firstString lowercaseString] containsString:[secondString lowercaseString]] || [[firstString lowercaseString] containsString:twoStr]
-      || [[[self hanZiToPinYinWithString:firstString] lowercaseString] containsString:twoStr]) {
-    return YES;
-  }
-  return NO;
-}
+*/
+//+ (BOOL)isContains:(NSString *)firstString withString:(NSString *)secondString{
+//  if (firstString.length == 0 || secondString.length == 0) {
+//    return NO;
+//  }
+//  NSString *twoStr = [[secondString stringByReplacingOccurrencesOfString:@" "  withString:@""] lowercaseString];
+//  if ([[firstString lowercaseString] containsString:[secondString lowercaseString]] || [[firstString lowercaseString] containsString:twoStr]
+//      || [[[self hanZiToPinYinWithString:firstString] lowercaseString] containsString:twoStr]) {
+//    return YES;
+//  }
+//  return NO;
+//}
 
 + (UIImage*) getImageWithColor:(UIColor*)color andHeight:(CGFloat)height
 {

@@ -11,5 +11,7 @@
 #define RealTimeLocationStartCellIndentifier                                   \
   @"realTimeLocationStartCellIndentifier"
 @interface RealTimeLocationStartCell : RCMessageCell
-
+@property(nonatomic, strong) UIImageView *bubbleBackgroundView;
+@property(nonatomic, strong) RCAttributedLabel *textLabel;
+@property(nonatomic, strong) UIImageView *locationView;
 @end

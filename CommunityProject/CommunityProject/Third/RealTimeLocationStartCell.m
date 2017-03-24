@@ -9,9 +9,7 @@
 #import "RealTimeLocationStartCell.h"
 
 @interface RealTimeLocationStartCell ()
-@property(nonatomic, strong) UIImageView *bubbleBackgroundView;
-@property(nonatomic, strong) RCAttributedLabel *textLabel;
-@property(nonatomic, strong) UIImageView *locationView;
+
 @end
 
 #define RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_WIDTH 15
@@ -34,7 +32,7 @@
   //        [subView removeFromSuperview];
   //    }
 
-  NSString *content = @"我发起了位置共享";
+  NSString *content = @"我发起了实时位置共享";
   [self.textLabel setText:content dataDetectorEnabled:NO];
   self.bubbleBackgroundView.userInteractionEnabled = YES;
   UILongPressGestureRecognizer *longPress =
@@ -81,7 +79,7 @@
 
   //拉伸图片
   // CGFloat top, CGFloat left, CGFloat bottom, CGFloat right
-  if (MessageDirection_RECEIVE == self.messageDirection) {
+  if (MessageDirection_SEND == self.messageDirection) {
     messageContentViewRect.size.width = __bubbleSize.width;
     messageContentViewRect.size.height = __bubbleSize.height;
     self.messageContentView.frame = messageContentViewRect;
@@ -92,7 +90,7 @@
         [RCKitUtility imageNamed:@"chat_from_bg_normal"
                         ofBundle:@"RongCloud.bundle"];
     self.locationView.frame =
-        CGRectMake(18, self.bubbleBackgroundView.frame.size.height / 2 -
+        CGRectMake(15, self.bubbleBackgroundView.frame.size.height / 2 -
                            RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT / 2,
                    RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_WIDTH,
                    RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT);
@@ -117,11 +115,11 @@
     self.bubbleBackgroundView.frame =
         CGRectMake(0, 0, __bubbleSize.width, __bubbleSize.height);
 
-    self.textLabel.frame = CGRectMake(12, 20 - __labelSize.height / 2,
+    self.textLabel.frame = CGRectMake(15, 20 - __labelSize.height / 2,
                                       __labelSize.width, __labelSize.height);
 
     self.locationView.frame =
-        CGRectMake(12 + __labelSize.width + 4,
+        CGRectMake(15 + __labelSize.width + 4,
                    self.bubbleBackgroundView.frame.size.height / 2 -
                        RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT / 2,
                    RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_WIDTH,
@@ -154,12 +152,12 @@
 - (UILabel *)textLabel {
   if (!_textLabel) {
     _textLabel = [[RCAttributedLabel alloc] initWithFrame:CGRectZero];
-    [_textLabel setFont:[UIFont systemFontOfSize:Text_Message_Font_Size]];
+    [_textLabel setFont:[UIFont systemFontOfSize:14]];
 
     _textLabel.numberOfLines = 0;
     [_textLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [_textLabel setTextAlignment:NSTextAlignmentLeft];
-    [_textLabel setTextColor:[UIColor blackColor]];
+    [_textLabel setTextColor:UIColorFromRGB(0x333333)];
 
     [self.bubbleBackgroundView addSubview:_textLabel];
   }
@@ -184,7 +182,7 @@
   if (!_locationView) {
     _locationView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.bubbleBackgroundView addSubview:_locationView];
-    [_locationView setImage:[UIImage imageNamed:@"blue_location_icon"]];
+    [_locationView setImage:[UIImage imageNamed:@"shareLocation.png"]];
   }
   return _locationView;
 }

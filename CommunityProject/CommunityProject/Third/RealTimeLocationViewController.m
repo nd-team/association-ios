@@ -19,8 +19,7 @@
 #import "UIColor+RCColor.h"
 
 @interface RealTimeLocationViewController () <
-    RCRealTimeLocationObserver, MKMapViewDelegate, HeadCollectionTouchDelegate,
-    UIActionSheetDelegate, UIAlertViewDelegate>
+    RCRealTimeLocationObserver, MKMapViewDelegate, HeadCollectionTouchDelegate>
 
 @property(nonatomic, strong) MKMapView *mapView;
 @property(nonatomic, strong) UIView *headBackgroundView;
@@ -41,7 +40,6 @@ MBProgressHUD *hud;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-
   _isFristTimeToLoad = YES;
   self.userAnnotationDic = [[NSMutableDictionary alloc] init];
   self.mapView = [[MKMapView alloc]
@@ -86,7 +84,6 @@ MBProgressHUD *hud;
   hud.labelText = @"定位中...";
   [hud show:YES];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   [self.realTimeLocationProxy addRealTimeLocationObserver:self];
@@ -104,19 +101,7 @@ MBProgressHUD *hud;
           
           
       }]];
-      [alertVC presentViewController:alertVC animated:YES completion:nil];
-
-//    UIAlertView *alertView =
-//        [
-//            [UIAlertView alloc] initWithTitle:@"无法访问"
-//                                      message:@"没"
-//                                              @"有权限访问位置信息，请从设置-"
-//                                              @"隐私-定位服务 "
-//                                              @"中打开位置访问权限"
-//                                     delegate:nil
-//                            cancelButtonTitle:@"确定"
-//                            otherButtonTitles:nil];
-//    [alertView show];
+      [self presentViewController:alertVC animated:YES completion:nil];
   }
 }
 - (void)viewWillDisappear:(BOOL)animated {
@@ -137,28 +122,27 @@ MBProgressHUD *hud;
     
     
     
-    [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
     WeakSelf;
     [alertVC addAction:[UIAlertAction actionWithTitle:@"结束" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         [weakSelf dismissViewControllerAnimated:YES
-                                 completion:^{
-                                     [weakSelf.realTimeLocationProxy
-                                      quitRealTimeLocation];
-                                 }];
+                                     completion:^{
+                                         [weakSelf.realTimeLocationProxy
+                                          quitRealTimeLocation];
+                                     }];
     }]];
-    
-    [alertVC presentViewController:alertVC animated:YES completion:nil];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"返回" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [weakSelf dismissViewControllerAnimated:YES
+                                     completion:^{
+                                         
+                                     }];
+    }]];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+
+    [self presentViewController:alertVC animated:YES completion:nil];
   return YES;
 }
-
-- (BOOL)backButtonPressed {
-  [self dismissViewControllerAnimated:YES
-                           completion:^{
-                           }];
-  return YES;
-}
-
 - (void)setRealTimeLocationProxy:
     (id<RCRealTimeLocationProxy>)realTimeLocationProxy {
   _realTimeLocationProxy = realTimeLocationProxy;

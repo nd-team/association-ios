@@ -14,13 +14,13 @@
 - (void)onUserSelected:(RCUserInfo *)user atIndex:(NSUInteger)index;
 @optional
 - (BOOL)quitButtonPressed;
-- (BOOL)backButtonPressed;
+
 @end
 
 @interface HeadCollectionView : UIView
 
 @property(nonatomic, strong) UIButton *quitButton;
-@property(nonatomic, strong) UIButton *backButton;
+//@property(nonatomic, strong) UIButton *backButton;
 @property(nonatomic, assign) RCUserAvatarStyle avatarStyle;
 @property(nonatomic, weak) id<HeadCollectionTouchDelegate> touchDelegate;
 
