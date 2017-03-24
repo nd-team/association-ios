@@ -14,5 +14,6 @@
 + (UIBarButtonItem *)CreateImageButtonWithFrame:(CGRect)frame backImage:(NSString *)sImage and:(id)target Action:(SEL)action;
 
 + (UIBarButtonItem *)CreateImageButtonWithFrame:(CGRect)frame andMove:(CGFloat)move image:(NSString *)sImage and:(id)target Action:(SEL)action;
++ (UIBarButtonItem *)CreateBackButtonWithFrame:(CGRect)frame  andTarget:(id)target Action:(SEL)action;
 
 @end

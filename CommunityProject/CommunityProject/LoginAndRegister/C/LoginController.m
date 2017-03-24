@@ -67,6 +67,8 @@
     NSString * token = [userDefaults objectForKey:@"token"];
     NSString * phone = [userDefaults objectForKey:@"userId"];
     NSString * password = [userDefaults objectForKey:@"password"];
+    NSSLog(@"%@=%@=%@",token,phone,password);
+
     if (token.length && phone.length && password.length) {
         self.usernameTF.text = phone;
         self.secretTF.text = password;
@@ -109,7 +111,6 @@
 }
 //登录操作下面的登录注册
 - (IBAction)loginClick:(id)sender {
-    [self tapClick];
     if (self.usernameTF.text.length == 0) {
         [self showMessage:@"账号不能为空！"];
         
@@ -123,7 +124,6 @@
     
 }
 - (IBAction)registerClick:(id)sender {
-    [self tapClick];
     //
     if (self.nicknameTF.text.length != 0 && self.phoneTF.text.length != 0 && self.codeTF.text.length != 0 && self.passwordTF.text.length != 0) {
         [self netWork:NO];
@@ -174,7 +174,8 @@
 }
 //判断网络状态
 -(void)netWork:(BOOL)isLogin{
-    
+    [self tapClick];
+
     AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
     
     [net startMonitoring];
@@ -317,7 +318,6 @@
             [weakSelf loginMain];
         } else {
             NSLog(@"RCConnectErrorCode is %zd", status);
-            [weakSelf loginMain];
         }
     });
 }

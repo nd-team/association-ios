@@ -41,7 +41,7 @@ typedef void (^clearHistory)(BOOL isSuccess);
 /*!
  清空会话中所有消息的ActionSheet
  */
-@property(nonatomic, readonly, strong) UIActionSheet *clearMsgHistoryActionSheet;
+//@property(nonatomic, readonly, strong) UIActionSheet *clearMsgHistoryActionSheet;
 
 /*!
  清空会话中所有消息

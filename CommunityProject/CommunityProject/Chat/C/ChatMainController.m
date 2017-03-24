@@ -133,6 +133,9 @@
     if ([touch.view isKindOfClass:[UIButton class]]) {
         return NO;
     }
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
     return YES;
 }
 @end

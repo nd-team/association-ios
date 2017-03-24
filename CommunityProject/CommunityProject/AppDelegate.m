@@ -15,7 +15,7 @@
 #import "GroupDatabaseSingleton.h"
 
 #define LoginURL @"http://192.168.0.209:90/appapi/app/login"
-#define MemberURL @"http://192.168.0.209:90/appapi/app/group_member"
+#define MemberURL @"http://192.168.0.209:90/appapi/app/groupMember"
 
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMGroupMemberDataSource,RCIMConnectionStatusDelegate>
 
@@ -58,11 +58,13 @@
     [RCIM sharedRCIM].portraitImageViewCornerRadius = 5;
     //会话列表头像globalConversationPortraitSize
     [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_RECTANGLE;
+    
     //设置当前用户
     [self netWork];
     [[UINavigationBar appearance]setShadowImage:[UIImage new]];//nagivationBar.png
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].translucent = NO;
+    [RCIM sharedRCIM].globalNavigationBarTintColor = UIColorFromRGB(0x121212);
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -72,7 +74,7 @@
     NSString * token = [userDefaults objectForKey:@"token"];
     NSString * phone = [userDefaults objectForKey:@"userId"];
     NSString * password = [userDefaults objectForKey:@"password"];
-    if (token.length && phone.length && password.length) {
+    if (token != nil && phone != nil && password != nil) {
         [self loginRongServicer:token andPhone:phone andPassword:password];
     }else{
         [self login];
@@ -146,7 +148,6 @@
     [AFNetData postDataWithUrl:LoginURL andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"登录失败：%@",error);
-            [weakSelf loginMain];
         }else{
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
@@ -210,7 +211,6 @@
                 
             }else{
                 NSSLog(@"登录失败！");
-                [weakSelf loginMain];
                 
             }
         }
@@ -248,7 +248,6 @@
             [weakSelf loginMain];
         } else {
             NSLog(@"RCConnectErrorCode is %zd", status);
-            [weakSelf loginMain];
         }
     });
 }

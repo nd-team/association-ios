@@ -39,5 +39,16 @@
     UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     return item;
 }
++(UIBarButtonItem *)CreateBackButtonWithFrame:(CGRect)frame andTarget:(id)target Action:(SEL)action{
+    UIButton * btn = [[UIButton alloc] initWithFrame:frame];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [btn setTitle:@"返回" forState:UIControlStateNormal];
+    [btn setTitleColor:UIColorFromRGB(0x1AE2A7) forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5);
+    [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    return item;
 
+}
 @end

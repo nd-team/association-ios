@@ -309,7 +309,6 @@
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="statusDark" translatesAutoresizingMaskIntoConstraints="NO" id="COf-V6-4do">
                                                     <rect key="frame" x="3" y="15" width="70" height="28"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="1xh-nZ-kJi"/>
                                                         <constraint firstAttribute="width" constant="70" id="VfF-e3-dco"/>

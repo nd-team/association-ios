@@ -330,7 +330,7 @@
     NSString * userID = [userDefaults objectForKey:@"userId"];
     FriendsListModel * model = self.dataArr[indexPath.row];
     if (![model.userId isEqualToString:userID]) {
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"" bundle:nil];
         ManageFriendViewController * manage = [sb instantiateViewControllerWithIdentifier:@"ManageFriendViewController"];
         manage.name = model.name;
         NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.212%@",model.userPortraitUrl];
