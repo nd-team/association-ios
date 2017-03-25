@@ -119,9 +119,6 @@ MBProgressHUD *hud;
 
 - (BOOL)quitButtonPressed {
     UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"是否结束位置共享？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    
-    
     WeakSelf;
     [alertVC addAction:[UIAlertAction actionWithTitle:@"结束" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         

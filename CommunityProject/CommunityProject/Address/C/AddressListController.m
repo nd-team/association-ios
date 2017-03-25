@@ -11,6 +11,7 @@
 #import "AddressCell.h"
 #import "AddressDataBaseSingleton.h"
 #import <Contacts/Contacts.h>
+#import "FriendDetailController.h"
 
 #define FriendListURL @"http://192.168.0.209:90/appapi/app/friends"
 
@@ -324,25 +325,27 @@
         [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:btn.tag-30] withRowAnimation:UITableViewRowAnimationFade];
     });
 }
-/*
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userID = [userDefaults objectForKey:@"userId"];
     FriendsListModel * model = self.dataArr[indexPath.row];
     if (![model.userId isEqualToString:userID]) {
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"" bundle:nil];
-        ManageFriendViewController * manage = [sb instantiateViewControllerWithIdentifier:@"ManageFriendViewController"];
-        manage.name = model.name;
-        NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.212%@",model.userPortraitUrl];
-        manage.url = encodeUrl;
-        manage.phone = model.mobile;
-        manage.email = model.email;
-        manage.beiZhu = model.displayName;
-        manage.friendId = model.userId;
-        [self.navigationController pushViewController:manage animated:YES];
+        FriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"FriendDetailController"];
+        detail.name = model.displayName;
+        NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:model.userPortraitUrl]];
+        detail.url = encodeUrl;
+        detail.phone = model.mobile;
+        detail.email = model.email;
+        detail.friendId = model.userId;
+#pragma mark--warning
+        //请求网络数据获取用户详细资料
+
+        [self.navigationController pushViewController:detail animated:YES];
     }
 }
- */
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     //发起搜索
     self.isSearch = YES;

@@ -15,7 +15,10 @@
 #import "RealTimeLocationStartCell.h"
 #import "RealTimeLocationStatusView.h"
 #import "RealTimeLocationViewController.h"
-//
+#import "FriendDetailController.h"
+#import "UnknownFriendDetailController.h"
+#import "SetPersonController.h"
+
 @interface ChatDetailController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,RCChatSessionInputBarControlDelegate,RCLocationPickerViewControllerDelegate,RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate>
 @property (nonatomic,strong) UIView * backView;
@@ -37,12 +40,13 @@ RealTimeLocationStatusViewDelegate>
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-
 }
 -(void)setUI{
     //本地存图片
 //self.enableSaveNewPhotoToLocalSystem
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x121212);
+    //设置聊天室历史消息20条
+    self.defaultHistoryMessageCountOfChatRoom = 20;
     //右上角显示未读消息数
     self.enableUnreadMessageIcon = YES;
     //右下角显示新消息未读数
@@ -51,7 +55,7 @@ RealTimeLocationStatusViewDelegate>
     self.enableContinuousReadUnreadVoice = YES;
     //聊天界面背景色
     self.conversationMessageCollectionView.backgroundColor = UIColorFromRGB(0xeceef0);
-    UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:30 image:@"back.png"  and:self Action:@selector(backClick)];
+    UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:30 image:@"back.png"  and:self Action:@selector(leftBarButtonItemPressed:)];
     self.navigationItem.leftBarButtonItem = leftItem;
     /*******************实时地理位置共享***************/
     [self registerClass:[RealTimeLocationStartCell class]
@@ -107,8 +111,8 @@ RealTimeLocationStatusViewDelegate>
 //    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"location.png"] title:@"位置" atIndex:4 tag:PLUGIN_BOARD_ITEM_LOCATION_TAG];
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:2 image:[UIImage imageNamed:@"location.png"] title:@"位置"];
 
-    //单聊
-    if (self.conversationType == 1) {
+    //单聊,聊天室
+    if (self.conversationType == 1 || self.conversationType == 4) {
         UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"person.png"  and:self Action:@selector(singlePersonChatClick)];
         self.navigationItem.rightBarButtonItem = rightItem;
         //群聊
@@ -124,18 +128,28 @@ RealTimeLocationStatusViewDelegate>
     }
     
     [self setImage];
-
+    CGFloat height = KMainScreenHeight-50;
+    if (self.chatSessionInputBarControl.recordButton.hidden&&self.chatSessionInputBarControl.frame.origin.y != height) {
+        [self setImage];
+    }
     [self.chatSessionInputBarControl.additionalButton setImage:[UIImage imageNamed:@"addtion.png"] forState:UIControlStateNormal];
     [self.chatSessionInputBarControl.additionalButton setImage:[UIImage imageNamed:@"addtion.png"] forState:UIControlStateHighlighted];
-    /*
-    //emoji_hover
-    [self.chatSessionInputBarControl.emojiButton setImage:[UIImage imageNamed:@"emoji_hover.png"] forState:UIControlStateNormal];
-    [self.chatSessionInputBarControl.emojiButton setImage:[UIImage imageNamed:@"emoji_hover.png"] forState:UIControlStateHighlighted];
-     */
     self.chatSessionInputBarControl.inputTextView.backgroundColor = UIColorFromRGB(0xe5e5e5);
     self.chatSessionInputBarControl.inputTextView.layer.borderWidth = 0;
+    //发送那栏空白view颜色改变
+    self.chatSessionInputBarControl.emojiBoardView.backgroundColor = UIColorFromRGB(0xe5e5e5);
+    BOOL isHidden = self.chatSessionInputBarControl.emojiBoardView.emojiBackgroundView.hidden;
+    if (isHidden) {
+        //emoji_hover
+        [self.chatSessionInputBarControl.emojiButton setImage:[UIImage imageNamed:@"emoji_hover.png"] forState:UIControlStateNormal];
+        [self.chatSessionInputBarControl.emojiButton setImage:[UIImage imageNamed:@"emoji_hover.png"] forState:UIControlStateHighlighted];
+    }
 }
+-(void)leftBarButtonItemPressed:(id)sender{
+    [super leftBarButtonItemPressed:sender];
+    [self.navigationController popViewControllerAnimated:YES];
 
+}
 //点击更多操作
 -(void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag{
     switch (tag) {
@@ -297,13 +311,17 @@ RealTimeLocationStatusViewDelegate>
     [self.navigationController pushViewController:location animated:YES];
 }
 -(void)singlePersonChatClick{
-    
+    //进入个人设置
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+    SetPersonController * friend = [sb instantiateViewControllerWithIdentifier:@"SetPersonController"];
+    friend.friendId = self.targetId;
+    friend.conversationType = self.conversationType;
+    friend.nickname = self.title;
+    [self.navigationController pushViewController:friend animated:YES];
+
 }
 -(void)groupChatClick{
     
-}
--(void)backClick{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)willDisplayMessageCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     RCMessageModel * model = self.conversationDataRepository[indexPath.row];
@@ -341,10 +359,8 @@ RealTimeLocationStatusViewDelegate>
         if (model.messageDirection == 1) {
             voiceCell.bubbleBackgroundView.image = [UIImage imageNamed:@"mineImg.png"];
             voiceCell.voiceDurationLabel.textColor = UIColorFromRGB(0xffffff);
-            voiceCell.playVoiceView.image = [UIImage sd_animatedGIFNamed:@"record1"];
-            voiceCell.voiceUnreadTagView.image = [UIImage imageNamed:@"record-1"];
-            voiceCell.playVoiceView.image = [UIImage imageNamed:@"record-1"];
-
+            voiceCell.voiceUnreadTagView.image = [UIImage sd_animatedGIFNamed:@"record1.png"];
+            voiceCell.playVoiceView.image = [UIImage imageNamed:@"record.png"];
         }else{
             voiceCell.bubbleBackgroundView.image = [UIImage imageNamed:@"othersImg.png"];
             voiceCell.voiceDurationLabel.textColor = UIColorFromRGB(0xbbbbbb);
@@ -395,11 +411,7 @@ RealTimeLocationStatusViewDelegate>
     label.backgroundColor = UIColorFromRGB(0xb5b7b8);
     label.font = [UIFont systemFontOfSize:11];
 }
-//点击电话号码回调 打电话
--(void)didTapPhoneNumberInMessageCell:(NSString *)phoneNumber model:(RCMessageModel *)model{
-    NSURL * urlStr = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneNumber]];
-    [[UIApplication sharedApplication]openURL:urlStr];
-}
+
 
 #pragma mark-拍照和照片
 -(void)showPickerUI:(int) tagValue{
@@ -428,37 +440,6 @@ RealTimeLocationStatusViewDelegate>
     [self sendMediaMessage:image pushContent:@"对方处于离线状态哦~" appUpload:NO];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
- 
-/*
--(void)chatInputBar:(RCChatSessionInputBarControl *)chatInputBar shouldChangeFrame:(CGRect)frame{
-    CGFloat height = KMainScreenHeight-50;
-    if (self.chatSessionInputBarControl.recordButton.hidden&&self.chatSessionInputBarControl.frame.origin.y != height) {
-        [self setImage];
-    }
-//    if (self.chatSessionInputBarControl.frame.origin.y == (KMainScreenHeight-50) || self.chatSessionInputBarControl.frame.origin.y == (KMainScreenHeight-50-258)) {
-//        [self.chatSessionInputBarControl.emojiButton setBackgroundImage:[UIImage imageNamed:@"smail.png"] forState:UIControlStateNormal];
-//    }
-//    unsigned int count = 0;
-//    Ivar * members = class_copyIvarList([chatInputBar.emojiButton class], &count);
-//    for (int i = 0; i<count; i++) {
-//        Ivar var = members[i];
-//        const char * memberAddress = ivar_getName(var);
-//        const char * memberType = ivar_getTypeEncoding(var);
-//        NSString * test = [NSString stringWithUTF8String:memberType];
-//        if ([test containsString:NSStringFromClass([UIImageView class])]) {
-//            UIImageView * imageView = [[UIImageView alloc]initWithFrame:self.chatSessionInputBarControl.emojiButton.imageView.frame];
-//            imageView.image = [UIImage imageNamed:@"smail.png"];
-//            Ivar m_address = members[i];
-//            object_setIvar(self.chatSessionInputBarControl.emojiButton, m_address, imageView);
-//            [self.chatSessionInputBarControl.emojiButton setBackgroundImage:[UIImage imageNamed:@"smail.png"] forState:UIControlStateNormal];
-//            NSSLog(@"%s",memberAddress);
-//            break;
-//        }
-//    }
-    [self scrollToBottomAnimated:YES];
-
-}
-*/
 -(void)setImage{
     [self.chatSessionInputBarControl.switchButton setImage:[UIImage imageNamed:@"voice.png"] forState:UIControlStateNormal];
     [self.chatSessionInputBarControl.switchButton setImage:[UIImage imageNamed:@"voice.png"] forState:UIControlStateHighlighted];
@@ -490,5 +471,37 @@ RealTimeLocationStatusViewDelegate>
 
 - (void)onShowRealTimeLocationView {
     [self showRealTimeLocationViewController];
+}
+//点击头像的回调
+-(void)didTapCellPortrait:(NSString *)userId{
+    //私聊
+    if (self.conversationType == 1) {
+        [self commonData];
+       //群聊
+    }else if (self.conversationType == 3){
+        //请求网络 判断是否是好友 是就跳转好友发消息界面，否就跳转加好友界面
+        //把请求回来的数据传参给下个界面
+        
+        
+    }
+    
+}
+-(void)commonData{
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+    FriendDetailController * friend = [sb instantiateViewControllerWithIdentifier:@"FriendDetailController"];
+    friend.friendId = self.targetId;
+    friend.display = self.title;
+    //传参
+    
+    [self.navigationController pushViewController:friend animated:YES];
+  
+}
+-(void)getUserData{
+    
+}
+//点击电话号码回调 打电话
+-(void)didTapPhoneNumberInMessageCell:(NSString *)phoneNumber model:(RCMessageModel *)model{
+    NSURL * urlStr = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneNumber]];
+    [[UIApplication sharedApplication]openURL:urlStr];
 }
 @end

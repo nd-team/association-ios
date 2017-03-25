@@ -38,14 +38,13 @@
     lineView.backgroundColor = UIColorFromRGB(0xECEEF0);
     self.conversationListTableView.tableHeaderView = lineView;
     //设置需要显示的类型（群组和单聊）
-    [self setDisplayConversationTypes:@[@(ConversationType_GROUP),@(ConversationType_PRIVATE),@(ConversationType_CHATROOM)]];
+    [self setDisplayConversationTypes:@[@(ConversationType_GROUP),@(ConversationType_PRIVATE)]];
     // 当连接状态变化SDK自动重连时，是否在NavigationBar中显示连接中的提示。
     self.showConnectingStatusOnNavigatorBar = YES;    
     self.cellBackgroundColor = [UIColor whiteColor];
     self.topCellBackgroundColor = UIColorFromRGB(0xf6f6f6);
     self.conversationListTableView.separatorColor = UIColorFromRGB(0xeceef0);
     self.conversationListTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-//    self.conversationListTableView.rowHeight = 86.5;
     UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40) andMove:-30 image:@"topMore.png"  and:self Action:@selector(moreClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
 //设置为空的时候的视图
@@ -54,7 +53,7 @@
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     tap.delegate = self;
     tap.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tap];
+    [self.conversationListTableView addGestureRecognizer:tap];
     WeakSelf;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf addView];
@@ -133,9 +132,12 @@
     if ([touch.view isKindOfClass:[UIButton class]]) {
         return NO;
     }
-    if ([touch.view isKindOfClass:[UITableView class]]) {
-        return NO;
-    }
+//    if ([touch.view isKindOfClass:[UITableView class]]) {
+//        return NO;
+//    }
+//    if ([touch.view isKindOfClass:[UITableViewCell class]]) {
+//        return NO;
+//    }
     return YES;
 }
 @end

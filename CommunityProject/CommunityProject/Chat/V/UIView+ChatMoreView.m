@@ -30,8 +30,8 @@
 }
 +(UIView *)locationViewFrame:(CGRect)frame andTarget:(id)target andAction:(SEL)action{
     UIView * view = [[UIView alloc]initWithFrame:frame];
-    view.backgroundColor = UIColorFromRGB(0x7A7E7F);
-    view.alpha = 0.90;
+    view.backgroundColor = UIColorFromRGB(0x000000);
+    view.alpha = 0.4;
     view.userInteractionEnabled = YES;
     UIButton * button1  = [UIButton CreateMyButtonWithFrame:CGRectMake((KMainScreenWidth-330)/2, KMainScreenHeight-60, 330, 50) Image:@"whiteButton.png" SelectedImage:@"whiteButton.png" title:@"取消" color:UIColorFromRGB(0x333333) SelectColor:UIColorFromRGB(0x333333) font:17 and:target Action:action];
     button1.tag = 40;

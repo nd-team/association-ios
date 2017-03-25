@@ -46,7 +46,8 @@
     [RCIM sharedRCIM].enableMessageMentioned = YES;
     //开启消息撤回功能
     [RCIM sharedRCIM].enableMessageRecall = YES;
-    //保存
+    [RCIM sharedRCIM].maxRecallDuration = 180;
+    //本地持久化保存
     [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
     //多端同步
     [RCIM sharedRCIM].enableSyncReadStatus = YES;
@@ -118,9 +119,7 @@
                 userInfo2.name = list.nickname;
             }
             userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
-            //刷新用户
-            [[RCIM sharedRCIM]refreshUserInfoCache:userInfo2 withUserId:list.userId];
-           return completion(userInfo2);
+            return completion(userInfo2);
         }
     }
 }
@@ -135,8 +134,7 @@
             group.groupId = model.groupId;
             group.groupName = model.groupName;
             group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
-            [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:model.groupId];
-            completion(group);
+          return  completion(group);
         }
     }
     

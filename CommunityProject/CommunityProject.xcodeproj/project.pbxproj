@@ -17,6 +17,12 @@
 		450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50E91E853C1300433A61 /* UIColor+RCColor.m */; };
 		450A50ED1E853C3200433A61 /* DefaultPortraitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50EC1E853C3200433A61 /* DefaultPortraitView.m */; };
 		450A50F11E853CB200433A61 /* RCDUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50F01E853CB200433A61 /* RCDUserInfo.m */; };
+		450A50F41E86219F00433A61 /* record1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 450A50F31E86219F00433A61 /* record1.gif */; };
+		450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50F61E86225D00433A61 /* FriendDetailController.m */; };
+		450A50FA1E86227900433A61 /* UnknownFriendDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50F91E86227900433A61 /* UnknownFriendDetailController.m */; };
+		450A50FD1E8648D300433A61 /* SetPersonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50FC1E8648D300433A61 /* SetPersonController.m */; };
+		450A51001E8670B400433A61 /* NameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50FF1E8670B400433A61 /* NameViewController.m */; };
+		450A51031E867EAA00433A61 /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A51021E867EAA00433A61 /* ChatRoomViewController.m */; };
 		451B28501E7D27C00024B336 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B284F1E7D27C00024B336 /* CoreTelephony.framework */; };
 		451B28521E7D27CE0024B336 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28511E7D27CE0024B336 /* QuartzCore.framework */; };
 		451B28541E7D27DF0024B336 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28531E7D27DF0024B336 /* CoreText.framework */; };
@@ -154,6 +160,17 @@
 		450A50EC1E853C3200433A61 /* DefaultPortraitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultPortraitView.m; sourceTree = "<group>"; };
 		450A50EF1E853CB200433A61 /* RCDUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDUserInfo.h; sourceTree = "<group>"; };
 		450A50F01E853CB200433A61 /* RCDUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDUserInfo.m; sourceTree = "<group>"; };
+		450A50F31E86219F00433A61 /* record1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = record1.gif; sourceTree = "<group>"; };
+		450A50F51E86225D00433A61 /* FriendDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendDetailController.h; sourceTree = "<group>"; };
+		450A50F61E86225D00433A61 /* FriendDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendDetailController.m; sourceTree = "<group>"; };
+		450A50F81E86227900433A61 /* UnknownFriendDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnknownFriendDetailController.h; sourceTree = "<group>"; };
+		450A50F91E86227900433A61 /* UnknownFriendDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnknownFriendDetailController.m; sourceTree = "<group>"; };
+		450A50FB1E8648D300433A61 /* SetPersonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPersonController.h; sourceTree = "<group>"; };
+		450A50FC1E8648D300433A61 /* SetPersonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPersonController.m; sourceTree = "<group>"; };
+		450A50FE1E8670B400433A61 /* NameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameViewController.h; sourceTree = "<group>"; };
+		450A50FF1E8670B400433A61 /* NameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameViewController.m; sourceTree = "<group>"; };
+		450A51011E867EAA00433A61 /* ChatRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRoomViewController.h; sourceTree = "<group>"; };
+		450A51021E867EAA00433A61 /* ChatRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRoomViewController.m; sourceTree = "<group>"; };
 		451B284F1E7D27C00024B336 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		451B28511E7D27CE0024B336 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		451B28531E7D27DF0024B336 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -403,6 +420,7 @@
 		455FA30A1E7631A90039B155 /* CommunityProject */ = {
 			isa = PBXGroup;
 			children = (
+				450A50F31E86219F00433A61 /* record1.gif */,
 				4562D7BB1E80C29900C6EE56 /* Third */,
 				455FA3251E763C070039B155 /* Main */,
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
@@ -464,6 +482,10 @@
 				4557CB861E7BE88900F22E70 /* ChatDetailController.m */,
 				4556F0C31E85116B00E1E2FE /* MyLocationViewController.h */,
 				4556F0C41E85116B00E1E2FE /* MyLocationViewController.m */,
+				450A50FB1E8648D300433A61 /* SetPersonController.h */,
+				450A50FC1E8648D300433A61 /* SetPersonController.m */,
+				450A51011E867EAA00433A61 /* ChatRoomViewController.h */,
+				450A51021E867EAA00433A61 /* ChatRoomViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -596,6 +618,8 @@
 		455FA3341E763C250039B155 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				450A50FE1E8670B400433A61 /* NameViewController.h */,
+				450A50FF1E8670B400433A61 /* NameViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -809,6 +833,10 @@
 			children = (
 				4562D7F71E80FF2800C6EE56 /* AddressListController.h */,
 				4562D7F81E80FF2800C6EE56 /* AddressListController.m */,
+				450A50F51E86225D00433A61 /* FriendDetailController.h */,
+				450A50F61E86225D00433A61 /* FriendDetailController.m */,
+				450A50F81E86227900433A61 /* UnknownFriendDetailController.h */,
+				450A50F91E86227900433A61 /* UnknownFriendDetailController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1066,6 +1094,7 @@
 				455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
+				450A50F41E86219F00433A61 /* record1.gif in Resources */,
 				456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */,
 				455FA3601E76A5370039B155 /* Login.storyboard in Resources */,
 				455FA31E1E7631A90039B155 /* LaunchScreen.storyboard in Resources */,
@@ -1150,12 +1179,15 @@
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
+				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
+				450A51031E867EAA00433A61 /* ChatRoomViewController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
 				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
 				4562D7311E7F6DFC00C6EE56 /* GroupActivityListController.m in Sources */,
 				45D110331E85390D009F2C4E /* RealTimeLocationStatusView.m in Sources */,
+				450A50FD1E8648D300433A61 /* SetPersonController.m in Sources */,
 				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
 				4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */,
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
@@ -1181,6 +1213,7 @@
 				4562D7601E7FDFD900C6EE56 /* UIView+ChatMoreView.m in Sources */,
 				4562D7391E7F792D00C6EE56 /* ActivityListModel.m in Sources */,
 				450A50F11E853CB200433A61 /* RCDUserInfo.m in Sources */,
+				450A51001E8670B400433A61 /* NameViewController.m in Sources */,
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
 				450A50DE1E853B9500433A61 /* RCDUtilities.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
@@ -1188,6 +1221,7 @@
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
 				450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */,
 				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,
+				450A50FA1E86227900433A61 /* UnknownFriendDetailController.m in Sources */,
 				457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */,
 				455FA16D1E7A8C6D00C85AE7 /* ClaimModel.m in Sources */,
 				4562D74B1E7FB9BA00C6EE56 /* ReduceImage.m in Sources */,
