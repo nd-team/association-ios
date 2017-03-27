@@ -12,6 +12,7 @@
 #import "UIView+ChatMoreView.h"
 #import "AddressListController.h"
 #import "GroupListController.h"
+#import "AddFriendController.h"
 
 @interface ChatMainController ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong)UIView * topView;
@@ -79,7 +80,14 @@
 -(void)buttonClick:(UIButton *)btn{
         switch (btn.tag) {
             case 20:
-                
+                //聊天室
+            {
+                ChatDetailController * chatRoom = [ChatDetailController new];
+                chatRoom.conversationType = ConversationType_CHATROOM;
+                chatRoom.title = @"聊天大厅";
+                chatRoom.targetId = @"888888";
+                [self.navigationController pushViewController:chatRoom animated:YES];
+            }
                 break;
             case 21:
             {
@@ -92,7 +100,11 @@
                 
                 break;
             case 23:
-                
+            {
+                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
+                AddFriendController * address = [sb instantiateViewControllerWithIdentifier:@"AddFriendController"];
+                [self.navigationController pushViewController:address animated:YES];
+            }
                 break;
             case 24:
                 

@@ -12,8 +12,11 @@
 #import "AddressDataBaseSingleton.h"
 #import <Contacts/Contacts.h>
 #import "FriendDetailController.h"
+#import "UnknownFriendDetailController.h"
 
 #define FriendListURL @"http://192.168.0.209:90/appapi/app/friends"
+#define TESTURL @"http://192.168.0.209:90/appapi/app/CheckMobile"
+#define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
 
 @interface AddressListController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -30,12 +33,17 @@
 @property (nonatomic,strong) NSMutableArray * searchArr;
 //标记搜到的人在哪找到的 0 :第一组 1：第二组 2：两组都有
 @property (nonatomic,assign)int person;
+//当前用户ID
+@property (nonatomic,copy)NSString * userID;
 @end
 
 @implementation AddressListController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    if (self.isRef) {
+        [self netWork];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,6 +54,8 @@
     [self netWork];
 }
 -(void)setUI{
+    self.userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+
     self.isSearch = NO;
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 48)];
     
@@ -61,6 +71,7 @@
     self.tableView.mj_footer.hidden = YES;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakSelf.isSearch = NO;
+        [weakSelf.searchArr removeAllObjects];
         [weakSelf refresh];
     }];
 }
@@ -327,25 +338,188 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * userID = [userDefaults objectForKey:@"userId"];
-    FriendsListModel * model = self.dataArr[indexPath.row];
-    if (![model.userId isEqualToString:userID]) {
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"" bundle:nil];
-        FriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"FriendDetailController"];
-        detail.name = model.displayName;
-        NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:model.userPortraitUrl]];
-        detail.url = encodeUrl;
-        detail.phone = model.mobile;
-        detail.email = model.email;
-        detail.friendId = model.userId;
-#pragma mark--warning
-        //请求网络数据获取用户详细资料
+    if (!self.isSearch) {
+        if (indexPath.section == 0) {
+            FriendsListModel * model = self.dataArr[indexPath.row];
+            [self pushFriendId:model.userId];
+        }else{
+            //加好友，推荐好友，好友发送消息
+            FriendsListModel * model = self.dataTwoArr[indexPath.row];
+            //用户自己
+            if ([model.userId isEqualToString:self.userID]) {
+                [self pushFriendId:model.userId];
+            }else{
+                [self testUserIsFriendMobile:model.mobile andName:model.nickname];
+            }
+        }
+ 
+    }else{
+        FriendsListModel * model = self.searchArr[indexPath.row];
+        //好友，非好友（加好友，推荐好友）
+        if (self.person == 0 ||self.person == 2) {
+            //好友
+            [self pushFriendId:model.userId];
+        }else if (self.person == 1){
+            //发送网络请求判断好友是否是我的朋友
+            if ([model.userId isEqualToString:self.userID]) {
+                [self pushFriendId:model.userId];
+            }else{
+                [self testUserIsFriendMobile:model.mobile andName:model.nickname];
+            }
 
+        }
+    }
+
+}
+-(void)testUserIsFriendMobile:(NSString *)mobile andName:(NSString *)name{
+    WeakSelf;
+    [AFNetData postDataWithUrl:TESTURL andParams:@{@"userId":self.userID,@"mobile":mobile} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"通讯录失败：%@",error);
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSNumber * code = jsonDic[@"code"];
+            if ([code intValue] == 200) {
+                NSDictionary * dict = jsonDic[@"data"];
+                NSNumber * status = dict[@"status"];
+                if ([status intValue] == 1) {
+                    //好友
+                    [weakSelf pushFriendId:dict[@"mobile"]];
+                }else{
+                    [weakSelf pushUnknownFriend:YES andName:dict[@"nickname"] andUrl:dict[@"userPortraitUrl"] andFriendId:dict[@"mobile"]];
+                }
+            }else{
+                //未注册
+                [weakSelf pushUnknownFriend:NO andName:name andUrl:@"" andFriendId:mobile];
+
+            }
+        }
+    }];
+}
+-(void)pushFriendId:(NSString *)friend{
+    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":friend,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"好友详情请求失败：%@",error);
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSNumber * code = jsonDic[@"code"];
+            if ([code intValue] == 200) {
+                NSDictionary * dict = jsonDic[@"data"];
+                //传参
+                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+                FriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"FriendDetailController"];
+                detail.friendId = friend;
+                //请求网络数据获取用户详细资料
+                detail.name = dict[@"nickname"];
+                NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                detail.url = encodeUrl;
+                if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
+                    detail.age = dict[@"age"];
+                }
+                if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
+                    detail.sex = [dict[@"sex"]intValue];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.recomendPerson = dict[@""];
+                }
+                if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
+                    detail.email = dict[@"email"];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.lingPerson = dict[@""];
+                }
+                if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
+                    detail.phone = dict[@"mobile"];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.contribute = dict[@""];
+                }
+                if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
+                    detail.birthday = dict[@"birthday"];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.prestige = dict[@""];
+                }
+                if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
+                    detail.areaStr = dict[@"address"];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.display = dict[@""];
+                }
+                detail.listDelegate = self;
+                detail.isAddress = YES;
+                [self.navigationController pushViewController:detail animated:YES];
+            }
+        }
+    }];
+    
+}
+-(void)pushUnknownFriend:(BOOL)isRegister andName:(NSString *)name andUrl:(NSString *)url andFriendId:(NSString *)friend{
+    if (isRegister) {
+        //请求网络push界面
+        [self comeInUnknown:friend];
+    }else{
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+        UnknownFriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
+        detail.name = name;
+        detail.friendId = friend;
+        detail.isRegister = NO;
         [self.navigationController pushViewController:detail animated:YES];
+ 
     }
 }
+-(void)comeInUnknown:(NSString *)friendId{
+    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"好友详情请求失败：%@",error);
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSNumber * code = jsonDic[@"code"];
+            if ([code intValue] == 200) {
+                NSDictionary * dict = jsonDic[@"data"];
+                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+                UnknownFriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
+                detail.name = dict[@"nickname"];
+                NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                detail.url = encodeUrl;
+                detail.friendId = friendId;
+                if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
+                    detail.age = dict[@"age"];
+                }
+                if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
+                    detail.sex = [dict[@"sex"]intValue];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.recomendPerson = dict[@""];
+                }
+                if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
+                    detail.email = dict[@"email"];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.lingPerson = dict[@""];
+                }
+                if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
+                    detail.phone = dict[@"mobile"];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.contribute = dict[@""];
+                }
+                if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
+                    detail.birthday = dict[@"birthday"];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    detail.prestige = dict[@""];
+                }
+                if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
+                    detail.areaStr = dict[@"address"];
+                }
 
+                [self.navigationController pushViewController:detail animated:YES];
+            }
+        }
+    }];
+
+}
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     //发起搜索
     self.isSearch = YES;

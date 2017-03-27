@@ -19,6 +19,10 @@
 #import "UnknownFriendDetailController.h"
 #import "SetPersonController.h"
 
+#define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
+//判断是否是好友
+#define TESTURL @"http://192.168.0.209:90/appapi/app/CheckMobile"
+
 @interface ChatDetailController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,RCChatSessionInputBarControlDelegate,RCLocationPickerViewControllerDelegate,RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate>
 @property (nonatomic,strong) UIView * backView;
@@ -111,12 +115,12 @@ RealTimeLocationStatusViewDelegate>
 //    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"location.png"] title:@"位置" atIndex:4 tag:PLUGIN_BOARD_ITEM_LOCATION_TAG];
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:2 image:[UIImage imageNamed:@"location.png"] title:@"位置"];
 
-    //单聊,聊天室
-    if (self.conversationType == 1 || self.conversationType == 4) {
+    //单聊
+    if (self.conversationType == 1) {
         UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"person.png"  and:self Action:@selector(singlePersonChatClick)];
         self.navigationItem.rightBarButtonItem = rightItem;
         //群聊
-    }else{
+    }else if(self.conversationType == 3){
         UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"group.png"  and:self Action:@selector(groupChatClick)];
         self.navigationItem.rightBarButtonItem = rightItem;
         [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"groupAct.png"] title:@"群活动" atIndex:5 tag:105];
@@ -168,7 +172,7 @@ RealTimeLocationStatusViewDelegate>
             break;
         case PLUGIN_BOARD_ITEM_LOCATION_TAG:
             //位置
-        {
+        { //只有单聊和讨论组可位置共享
             if (self.conversationType == 1) {
                 WeakSelf;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -320,6 +324,7 @@ RealTimeLocationStatusViewDelegate>
     [self.navigationController pushViewController:friend animated:YES];
 
 }
+//进入群信息
 -(void)groupChatClick{
     
 }
@@ -476,28 +481,144 @@ RealTimeLocationStatusViewDelegate>
 -(void)didTapCellPortrait:(NSString *)userId{
     //私聊
     if (self.conversationType == 1) {
-        [self commonData];
+        [self pushFriendId:YES andUserId:userId];
        //群聊
     }else if (self.conversationType == 3){
         //请求网络 判断是否是好友 是就跳转好友发消息界面，否就跳转加好友界面
         //把请求回来的数据传参给下个界面
-        
-        
+        NSString * user = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
+        //用户自己
+        if ([userId isEqualToString:user]) {
+            [self pushFriendId:YES andUserId:userId];
+        }else{
+            [self testUserIsFriendMobile:userId];
+  
+        }
     }
     
 }
--(void)commonData{
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
-    FriendDetailController * friend = [sb instantiateViewControllerWithIdentifier:@"FriendDetailController"];
-    friend.friendId = self.targetId;
-    friend.display = self.title;
-    //传参
-    
-    [self.navigationController pushViewController:friend animated:YES];
-  
+//判断是否是好友
+-(void)testUserIsFriendMobile:(NSString *)selectUserId{
+    WeakSelf;
+    NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+
+    [AFNetData postDataWithUrl:TESTURL andParams:@{@"userId":userId,@"mobile":selectUserId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"判断是否为好友失败：%@",error);
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSNumber * code = jsonDic[@"code"];
+            if ([code intValue] == 200) {
+                NSDictionary * dict = jsonDic[@"data"];
+                NSNumber * status = dict[@"status"];
+                if ([status intValue] == 1) {
+                    //好友
+                    [weakSelf pushFriendId:YES andUserId:selectUserId];
+                }else{
+                    [weakSelf pushFriendId:NO andUserId:selectUserId];
+                }
+            }
+        }
+    }];
 }
--(void)getUserData{
-    
+//好友界面
+-(void)pushFriendId:(BOOL)isFriend andUserId:(NSString *)userId{
+    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"好友详情请求失败：%@",error);
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSNumber * code = jsonDic[@"code"];
+            if ([code intValue] == 200) {
+                NSDictionary * dict = jsonDic[@"data"];
+                if (isFriend) {
+                    //传参
+                    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+                    FriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"FriendDetailController"];
+                    detail.friendId = self.targetId;
+                    //请求网络数据获取用户详细资料
+                    detail.name = dict[@"nickname"];
+                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    detail.url = encodeUrl;
+                    if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
+                        detail.age = dict[@"age"];
+                    }
+                    if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
+                        detail.sex = [dict[@"sex"]intValue];
+                    }
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.recomendPerson = dict[@""];
+                    }
+                    if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
+                        detail.email = dict[@"email"];
+                    }
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.lingPerson = dict[@""];
+                    }
+                    if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
+                        detail.phone = dict[@"mobile"];
+                    }
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.contribute = dict[@""];
+                    }
+                    if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
+                        detail.birthday = dict[@"birthday"];
+                    }
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.prestige = dict[@""];
+                    }
+                    if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
+                        detail.areaStr = dict[@"address"];
+                    }
+                    detail.display = self.title;
+                    
+                    [self.navigationController pushViewController:detail animated:YES];
+                }else{
+                    //不是好友
+                    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+                    UnknownFriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
+                    detail.friendId = self.targetId;
+                    //请求网络数据获取用户详细资料
+                    detail.name = dict[@"nickname"];
+                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    detail.url = encodeUrl;
+                    if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
+                        detail.age = dict[@"age"];
+                    }
+                    if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
+                        detail.sex = [dict[@"sex"]intValue];
+                    }
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.recomendPerson = dict[@""];
+                    }
+                    if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
+                        detail.email = dict[@"email"];
+                    }
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.lingPerson = dict[@""];
+                    }
+                    if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
+                        detail.phone = dict[@"mobile"];
+                    }
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.contribute = dict[@""];
+                    }
+                    if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
+                        detail.birthday = dict[@"birthday"];
+                    }
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.prestige = dict[@""];
+                    }
+                    if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
+                        detail.areaStr = dict[@"address"];
+                    }
+                    [self.navigationController pushViewController:detail animated:YES];
+
+                }
+            }
+        }
+    }];
+  
 }
 //点击电话号码回调 打电话
 -(void)didTapPhoneNumberInMessageCell:(NSString *)phoneNumber model:(RCMessageModel *)model{

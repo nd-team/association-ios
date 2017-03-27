@@ -25,8 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setBar];
+    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 50)];
     
+    backView.backgroundColor = UIColorFromRGB(0xffffff);
     
+    self.nameTF.leftView = backView;
+    
+    self.nameTF.leftViewMode = UITextFieldViewModeAlways;
+
 }
 -(void)setBar{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];

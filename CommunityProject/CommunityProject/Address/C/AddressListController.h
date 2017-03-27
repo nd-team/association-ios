@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface AddressListController : UIViewController
+@property (nonatomic,assign)BOOL isRef;
 
 @end

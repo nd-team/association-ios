@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddressListController.h"
 
 @interface FriendDetailController : UIViewController
 //备注
@@ -22,11 +23,15 @@
 @property (nonatomic,copy)NSString * phone;
 @property (nonatomic,copy)NSString * recomendPerson;
 @property (nonatomic,copy)NSString * email;
+//认领人
 @property (nonatomic,copy)NSString * lingPerson;
 @property (nonatomic,copy)NSString * contribute;
 @property (nonatomic,copy)NSString * birthday;
 @property (nonatomic,copy)NSString * prestige;
 @property (nonatomic,copy)NSString * areaStr;
 
+@property (nonatomic,assign)AddressListController * listDelegate;
+//判断是从通讯录进入该界面
+@property (nonatomic,assign)BOOL isAddress;
 
 @end

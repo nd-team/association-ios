@@ -32,7 +32,7 @@
             </objects>
             <point key="canvasLocation" x="-556" y="39"/>
         </scene>
-        <!--社区联盟-->
+        <!--社群联盟-->
         <scene sceneID="BKx-ct-Fam">
             <objects>
                 <viewController storyboardIdentifier="FirstController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kRo-Iw-u6f" customClass="FirstController" sceneMemberID="viewController">
@@ -419,7 +419,7 @@
                             <constraint firstItem="rdd-zN-2yz" firstAttribute="leading" secondItem="3fX-L3-zSJ" secondAttribute="leadingMargin" constant="-20" id="ewV-Kg-K8g"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="社区联盟" id="DVz-2w-mff">
+                    <navigationItem key="navigationItem" title="社群联盟" id="DVz-2w-mff">
                         <barButtonItem key="rightBarButtonItem" image="recommend" id="lgR-6G-hP5">
                             <color key="tintColor" red="0.1019607843" green="0.8862745098" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>

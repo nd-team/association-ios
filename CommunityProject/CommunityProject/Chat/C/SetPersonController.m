@@ -9,8 +9,9 @@
 #import "SetPersonController.h"
 #import "ChatMainController.h"
 
-#define BaseInfoURL @""
 #define DeleteURL @"http://192.168.0.209:90/appapi/app/deleteUser"
+#define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
+
 @interface SetPersonController ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthContraints;
@@ -38,6 +39,11 @@
 @property (nonatomic,copy)NSString * userId;
 //会话头像
 @property (nonatomic,copy)NSString * url;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *HeightContraints;
+@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+@property (weak, nonatomic) IBOutlet UIView *deleteView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @end
 
 @implementation SetPersonController
@@ -49,6 +55,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setBar];
+    [self setUI];
+    //获取用户基本信息
     [self getUserInformation];
     
 }
@@ -61,7 +69,10 @@
     [self.topChatBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
     [self.messageBtn setBackgroundImage:[UIImage imageNamed:@"switchOff.png"] forState:UIControlStateNormal];
     [self.messageBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
-    self.userId = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    self.userId = [userDefaults objectForKey:@"userId"];
+    BOOL isTop = [userDefaults boolForKey:@"topChatPerson"];
+    self.topChatBtn.selected = isTop;
     //设置按钮状态
     WeakSelf;
     [[RCIMClient sharedRCIMClient]getConversationNotificationStatus:self.conversationType targetId:self.friendId success:^(RCConversationNotificationStatus nStatus) {
@@ -77,20 +88,94 @@
     }];
 
 }
+-(void)setUI{
+    self.headImageView.layer.cornerRadius = 5;
+    self.headImageView.layer.masksToBounds = YES;
+    self.userLabel.text = [NSString stringWithFormat:@"账号：%@",self.friendId];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@  0岁",self.nickname];
+    self.recomendLabel.text = @"推荐：";
+    self.emailLabel.text = @"邮箱：";
+    self.knowLabel.text = @"认领：";
+    self.phoneLabel.text = @"电话：";
+    self.contributeLabel.text = @"贡献值：";
+    self.birthdayLabel.text = @"生日：";
+    self.prestigeLabel.text = @"信誉值：";
+    self.areaLabel.text = @"地址：";
+    
+}
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)getUserInformation{
+    WeakSelf;
     //获取数据初始化数据
-    
+    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":self.friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"好友详情请求失败：%@",error);
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSNumber * code = jsonDic[@"code"];
+            if ([code intValue] == 200) {
+                NSDictionary * dict = jsonDic[@"data"];
+                //请求网络数据获取用户详细资料
+                NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
+                if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
+                    weakSelf.nameLabel.text = [NSString stringWithFormat:@"%@  %@岁",self.nickname,dict[@"age"]];
+                }
+                if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
+                    if ([dict[@"sex"]intValue] == 1) {
+                        weakSelf.sexImageView.image = [UIImage imageNamed:@"man.png"];
+                    }else{
+                        weakSelf.sexImageView.image = [UIImage imageNamed:@"woman.png"];
+                    }
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    weakSelf.recomendLabel.text = [NSString stringWithFormat:@"推荐：%@",dict[@""]];
+                }
+                if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
+                    weakSelf.emailLabel.text = [NSString stringWithFormat:@"邮箱：%@",dict[@"email"]];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    weakSelf.knowLabel.text = [NSString stringWithFormat:@"认领：%@",dict[@""]];
+                }
+                if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
+                    weakSelf.phoneLabel.text = [NSString stringWithFormat:@"电话：%@",dict[@"mobile"]];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    weakSelf.contributeLabel.text = [NSString stringWithFormat:@"贡献值：%@",dict[@""]];
+                }
+                if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
+                   weakSelf.birthdayLabel.text = [NSString stringWithFormat:@"生日：%@",dict[@"birthday"]];
+                }
+                if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                    weakSelf.prestigeLabel.text = [NSString stringWithFormat:@"信誉值：%@",dict[@""]];
+                }
+                if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
+                    weakSelf.areaLabel.text = [NSString stringWithFormat:@"地址：%@",dict[@"address"]];
+                }
+            }
+        }
+    }];
+
 }
 //删除好友
 - (IBAction)deleteClick:(id)sender {
-    [self deleteFriend];
+    WeakSelf;
+    [MessageAlertView alertViewWithTitle:@"亲，确定删除该好友吗？" message:nil buttonTitle:@[@"取消",@"确定"] Action:^(NSInteger indexpath) {
+        if (indexpath == 0) {
+            NSSLog(@"取消");
+        }else{
+            [weakSelf deleteFriend];
+        }
+    } viewController:self];
 }
 -(void)deleteFriend{
-    
-    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:self.friendId name:self.nickname portrait:self.url];
+    NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+    NSString * nickname = [user objectForKey:@"nickname"];
+    NSString * headUrl = [user objectForKey:@"userPortraitUrl"];
+    NSString * url = [ImageUrl changeUrl:headUrl];
+    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:self.userId name:nickname portrait:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",url]];
     WeakSelf;
     [AFNetData postDataWithUrl:DeleteURL andParams:@{@"userId":self.userId,@"friendUserid":self.friendId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -100,7 +185,7 @@
             NSSLog(@"%@",jsonDic);
             NSNumber * code = jsonDic[@"code"];
             if ([code intValue] == 200) {
-                //刷新SDK缓存 请求服务器的好友列表保存到数据库刷新才有效
+                //刷新SDK缓存
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:self.userId];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     for (UIViewController* vc in self.navigationController.viewControllers) {
@@ -138,15 +223,22 @@
 - (IBAction)topChatClick:(id)sender {
     self.topChatBtn.selected = !self.topChatBtn.selected;
     [[RCIMClient sharedRCIMClient]setConversationToTop:self.conversationType targetId:self.friendId isTop:self.topChatBtn.selected];
-    
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:self.topChatBtn.selected forKey:@"topChatPerson"];
+    [userDefaults synchronize];
 }
 
 #pragma mark- 解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
-    
     [super viewWillLayoutSubviews];
-    
-    self.widthContraints.constant = KMainScreenWidth;
+    self.widthContraints.constant = KMainScreenWidth+5;
+    if ((self.deleteView.frame.origin.y+75)<KMainScreenHeight) {
+        self.scrollView.scrollEnabled = NO;
+    }else{
+        self.scrollView.scrollEnabled = YES;
+  
+    }
+    NSSLog(@"%f==%f===%f",KMainScreenWidth,self.scrollView.frame.size.width,self.deleteView.frame.size.width);
 }
 
 @end

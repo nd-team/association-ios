@@ -18,7 +18,7 @@
 #import "AppCenterController.h"
 
 #define ClaimURL @"http://192.168.0.209:90/appapi/app/allFriendsClaim"
-@interface FirstController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate>
+@interface FirstController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headView;
 
@@ -39,6 +39,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    [self.playView adjustWhenControllerViewWillAppera];
     //插入一条数据
     if (self.dict.count != 0) {
         [self insertData];
@@ -46,8 +47,7 @@
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.playView = nil;
-    [self.playView removeFromSuperview];
+    self.playView.delegate = nil;
 }
 -(void)insertData{
     
@@ -71,24 +71,18 @@
     [self netWork];
 }
 -(void)netWork{
-    AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
-    
-    [net startMonitoring];
-    
-    [net setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        
-        if (status == AFNetworkReachabilityStatusNotReachable) {
-            //无网从本地加载数据
-            [self localData];
-        }else{
-            
-            [self getAllData];
-        }
-    }];
+    NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
+    if (status == 0) {
+        //无网从本地加载数据
+        [self localData];
+    }else{
+        [self getAllData];
+  
+    }
 }
 -(void)showScrollViewUI{
     //刷新
-//    WeakSelf;
+    WeakSelf;
     self.tableView.mj_footer.hidden = YES;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
 //        [weakSelf ];
@@ -103,8 +97,8 @@
     [self.headView addSubview:self.playView];
     [self.playView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(200);
-        make.top.equalTo(self.headView);
-        make.left.right.equalTo(self.headView);
+        make.top.equalTo(weakSelf.headView);
+        make.left.right.equalTo(weakSelf.headView);
     }];
     self.playView.autoScrollTimeInterval = 1;
     self.playView.currentPageDotColor = UIColorFromRGB(0xFED604);
