@@ -419,26 +419,26 @@
                 if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                     detail.sex = [dict[@"sex"]intValue];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.recomendPerson = dict[@""];
+                if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                    detail.recomendPerson = dict[@"recommendUserId"];
                 }
                 if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
                     detail.email = dict[@"email"];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.lingPerson = dict[@""];
+                if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                    detail.lingPerson = dict[@"claimUserId"];
                 }
                 if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
                     detail.phone = dict[@"mobile"];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.contribute = dict[@""];
+                if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
+                    detail.contribute = dict[@"contributionScore"];
                 }
                 if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                     detail.birthday = dict[@"birthday"];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.prestige = dict[@""];
+                if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
+                    detail.prestige = dict[@"creditScore"];
                 }
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     detail.areaStr = dict[@"address"];
@@ -489,31 +489,31 @@
                 if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                     detail.sex = [dict[@"sex"]intValue];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.recomendPerson = dict[@""];
+                if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                    detail.recomendPerson = dict[@"recommendUserId"];
                 }
                 if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
                     detail.email = dict[@"email"];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.lingPerson = dict[@""];
+                if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                    detail.lingPerson = dict[@"claimUserId"];
                 }
                 if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
                     detail.phone = dict[@"mobile"];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.contribute = dict[@""];
+                if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
+                    detail.contribute = dict[@"contributionScore"];
                 }
                 if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                     detail.birthday = dict[@"birthday"];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.prestige = dict[@""];
+                if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
+                    detail.prestige = dict[@"creditScore"];
                 }
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     detail.areaStr = dict[@"address"];
                 }
-
+                detail.isRegister = YES;
                 [self.navigationController pushViewController:detail animated:YES];
             }
         }

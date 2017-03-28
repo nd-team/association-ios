@@ -349,7 +349,7 @@ RealTimeLocationStatusViewDelegate>
         UILabel * label = (UILabel *)otherCell.tipMessageLabel;
         label.font = [UIFont systemFontOfSize:11];
         label.backgroundColor = UIColorFromRGB(0xb5b7b8);
-        label.attributedText = [ImageUrl changeTextColor:otherCell.tipMessageLabel.text andRangeStr:userInfo.name];
+        label.attributedText = [ImageUrl changeTextColor:otherCell.tipMessageLabel.text andColor:UIColorFromRGB(0xffffff) andRangeStr:userInfo.name andChangeColor:UIColorFromRGB(0xed0d0d)];
 
     }else if ([cell isMemberOfClass:[RCFileMessageCell class]]){
         RCFileMessageCell * fileCell = (RCFileMessageCell *)cell;
@@ -477,7 +477,7 @@ RealTimeLocationStatusViewDelegate>
 - (void)onShowRealTimeLocationView {
     [self showRealTimeLocationViewController];
 }
-//点击头像的回调
+#pragma mark-点击头像的回调
 -(void)didTapCellPortrait:(NSString *)userId{
     //私聊
     if (self.conversationType == 1) {
@@ -546,30 +546,33 @@ RealTimeLocationStatusViewDelegate>
                     if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                         detail.sex = [dict[@"sex"]intValue];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.recomendPerson = dict[@""];
+                    if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                        detail.recomendPerson = dict[@"recommendUserId"];
                     }
                     if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
                         detail.email = dict[@"email"];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.lingPerson = dict[@""];
+                    if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                        detail.lingPerson = dict[@"claimUserId"];
                     }
                     if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
                         detail.phone = dict[@"mobile"];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.contribute = dict[@""];
+                    if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
+                        detail.contribute = dict[@"contributionScore"];
                     }
                     if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                         detail.birthday = dict[@"birthday"];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.prestige = dict[@""];
+                    if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
+                        detail.prestige = dict[@"creditScore"];
                     }
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                         detail.areaStr = dict[@"address"];
                     }
+//                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+//                        detail.display = dict[@""];
+//                    }
                     detail.display = self.title;
                     
                     [self.navigationController pushViewController:detail animated:YES];
@@ -588,30 +591,31 @@ RealTimeLocationStatusViewDelegate>
                     if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                         detail.sex = [dict[@"sex"]intValue];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.recomendPerson = dict[@""];
+                    if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                        detail.recomendPerson = dict[@"recommendUserId"];
                     }
                     if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
                         detail.email = dict[@"email"];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.lingPerson = dict[@""];
+                    if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                        detail.lingPerson = dict[@"claimUserId"];
                     }
                     if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
                         detail.phone = dict[@"mobile"];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.contribute = dict[@""];
+                    if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
+                        detail.contribute = dict[@"contributionScore"];
                     }
                     if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                         detail.birthday = dict[@"birthday"];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.prestige = dict[@""];
+                    if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
+                        detail.prestige = dict[@"creditScore"];
                     }
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                         detail.areaStr = dict[@"address"];
                     }
+                    detail.isRegister = YES;
                     [self.navigationController pushViewController:detail animated:YES];
 
                 }

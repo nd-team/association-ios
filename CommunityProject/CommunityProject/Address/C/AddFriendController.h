@@ -11,5 +11,9 @@
 @interface AddFriendController : UIViewController
 //好友ID
 @property (nonatomic,copy)NSString * friendId;
+//传参过来按钮的名字
+@property (nonatomic,copy)NSString * buttonName;
+//群ID
+@property (nonatomic,copy)NSString * groupId;
 
 @end

@@ -10,5 +10,5 @@
 
 @interface ImageUrl : NSObject
 +(NSString *)changeUrl:(NSString *)url;
-+(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andRangeStr:(NSString *)rangeStr;
++(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andColor:(UIColor*)color andRangeStr:(NSString *)rangeStr andChangeColor:(UIColor *)chCplor;
 @end

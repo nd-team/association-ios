@@ -89,7 +89,7 @@
                                         <rect key="frame" x="0.0" y="100" width="383" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3bv-m1-Vgd" id="zQN-9t-DD9">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ed2-Pj-mmk">
@@ -446,6 +446,8 @@
                         <outlet property="emailLabel" destination="wfU-FN-F7g" id="cSX-og-bYa"/>
                         <outlet property="headImageView" destination="Dby-ak-mFr" id="25I-dD-ABH"/>
                         <outlet property="knowLabel" destination="TGB-9Q-nHF" id="IrZ-Ze-adO"/>
+                        <outlet property="moreImage" destination="fzt-Xt-K8o" id="yAX-0c-PPW"/>
+                        <outlet property="moreLabel" destination="TtQ-ds-vX1" id="DOH-0l-vem"/>
                         <outlet property="moreView" destination="LYY-vH-QUn" id="2d8-pE-bgc"/>
                         <outlet property="nameLabel" destination="3YC-NH-Gx7" id="bFd-hI-Yb7"/>
                         <outlet property="phoneLabel" destination="Q7z-j1-Tu4" id="myr-cl-wwl"/>
@@ -1222,27 +1224,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qbd-hm-VUW">
-                                <rect key="frame" x="0.0" y="20" width="375" height="2"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="5"/>
                                 <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="WPm-WU-moG"/>
+                                    <constraint firstAttribute="height" constant="5" id="WPm-WU-moG"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LIx-vT-0fE">
-                                <rect key="frame" x="-4" y="22" width="383" height="199"/>
+                                <rect key="frame" x="-4" y="25" width="383" height="199"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="199" id="f9E-6D-h2Z"/>
                                 </constraints>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
                                     <outlet property="delegate" destination="eXc-TA-bUJ" id="iVM-ic-wNg"/>
                                 </connections>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQM-Js-eAs">
-                                <rect key="frame" x="37" y="242" width="300" height="38"/>
+                                <rect key="frame" x="37" y="245" width="300" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="3ti-Qb-PAv"/>
                                     <constraint firstAttribute="height" constant="38" id="rNm-2a-zJJ"/>
@@ -1266,6 +1268,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addBtn" destination="iQM-Js-eAs" id="PnG-6L-v1i"/>
                         <outlet property="contentTV" destination="LIx-vT-0fE" id="Rbj-pP-JEa"/>
                     </connections>
                 </viewController>

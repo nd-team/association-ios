@@ -117,7 +117,11 @@
             if ([list.userId isEqualToString:userId]) {
                 RCUserInfo * userInfo2 = [RCUserInfo new];
                 userInfo2.userId = list.userId;
-                userInfo2.name = list.nickname;
+                if (list.displayName.length != 0) {
+                    userInfo2.name = list.displayName;
+                }else{
+                    userInfo2.name = list.nickname;
+                }
                 userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:list.userPortraitUrl]];
               return  completion(userInfo2);
             }

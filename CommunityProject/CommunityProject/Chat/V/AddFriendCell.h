@@ -12,7 +12,6 @@
 @interface AddFriendCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (nonatomic,strong)NSMutableArray * dataArr;
-@property (nonatomic,strong)UITableView * myTableView;
 @property (nonatomic,strong)SearchFriendModel * searchModel;
+
 @end

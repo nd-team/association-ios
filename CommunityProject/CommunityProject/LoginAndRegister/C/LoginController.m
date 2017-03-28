@@ -67,8 +67,6 @@
     NSString * token = [userDefaults objectForKey:@"token"];
     NSString * phone = [userDefaults objectForKey:@"userId"];
     NSString * password = [userDefaults objectForKey:@"password"];
-    NSSLog(@"%@=%@=%@",token,phone,password);
-
     if (token.length && phone.length && password.length) {
         self.usernameTF.text = phone;
         self.secretTF.text = password;

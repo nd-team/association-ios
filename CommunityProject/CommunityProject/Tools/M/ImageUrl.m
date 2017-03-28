@@ -16,12 +16,12 @@
     NSRegularExpression * express = [[NSRegularExpression alloc]initWithPattern:regExp options:NSRegularExpressionCaseInsensitive error:nil];
     str =  [express stringByReplacingMatchesInString:str options:NSMatchingReportProgress range:NSMakeRange(0, str.length) withTemplate:replaceStr];
     return str;
-}
-+(NSMutableAttributedString *)changeTextColor:(NSString *)baseStr andRangeStr:(NSString *)rangeStr{
+}// 
++(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andColor:(UIColor*)color andRangeStr:(NSString *)rangeStr andChangeColor:(UIColor *)chCplor{
     NSMutableAttributedString * str = [[NSMutableAttributedString alloc]initWithString:baseStr];
     NSRange range = [[str string]rangeOfString:rangeStr];
-    [str addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xed0d0d) range:range];
-    [str addAttribute:NSForegroundColorAttributeName value:UIColorFromRGB(0xffffff) range:NSMakeRange(0, baseStr.length)];
+    [str addAttribute:NSForegroundColorAttributeName value:chCplor range:range];
+    [str addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, baseStr.length)];
 
     return str;
 }

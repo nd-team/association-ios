@@ -13,6 +13,8 @@
 #import "AddressListController.h"
 #import "GroupListController.h"
 #import "AddFriendController.h"
+#import "SearchController.h"
+#import "MessageViewController.h"
 
 @interface ChatMainController ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong)UIView * topView;
@@ -35,7 +37,7 @@
 }
 -(void)setUI{
     //加个表头
-    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KMainScreenWidth, 2)];
+    UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, KMainScreenWidth, 5)];
     lineView.backgroundColor = UIColorFromRGB(0xECEEF0);
     self.conversationListTableView.tableHeaderView = lineView;
     //设置需要显示的类型（群组和单聊）
@@ -102,8 +104,8 @@
             case 23:
             {
                 UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
-                AddFriendController * address = [sb instantiateViewControllerWithIdentifier:@"AddFriendController"];
-                [self.navigationController pushViewController:address animated:YES];
+                SearchController * search = [sb instantiateViewControllerWithIdentifier:@"SearchController"];
+                [self.navigationController pushViewController:search animated:YES];
             }
                 break;
             case 24:
@@ -117,7 +119,11 @@
             }
                 break;
             default:
-                
+            {
+                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
+                MessageViewController  * msg = [sb instantiateViewControllerWithIdentifier:@"MessageViewController"];
+                [self.navigationController pushViewController:msg animated:YES];
+            }
                 break;
         }
 }

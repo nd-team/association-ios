@@ -102,6 +102,8 @@
 		4562D7FD1E810DED00C6EE56 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4562D7FC1E810DED00C6EE56 /* Contacts.framework */; };
 		4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4562D8021E81300F00C6EE56 /* GroupListCell.m */; };
 		4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4562D8051E8134A900C6EE56 /* GroupListController.m */; };
+		4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4568FB0F1E89F261007BA5BB /* SearchGroupModel.m */; };
+		4568FB131E89FBBA007BA5BB /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4568FB121E89FBBA007BA5BB /* SearchController.m */; };
 		456CCE601E827CD7005EC051 /* RongCallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE421E827CD7005EC051 /* RongCallKit.framework */; };
 		456CCE611E827CD7005EC051 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE441E827CD7005EC051 /* AgoraRtcEngineKit.framework */; };
 		456CCE621E827CD7005EC051 /* RongCallLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE451E827CD7005EC051 /* RongCallLib.framework */; };
@@ -131,8 +133,15 @@
 		457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CCD1E77CE3500FD0309 /* GroupDatabaseSingleton.m */; };
 		457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CCF1E77CE3500FD0309 /* GroupModel.m */; };
 		457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */; };
+		458DD51A1E8A46DA00650F2E /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD5191E8A46DA00650F2E /* MessageCell.m */; };
+		458DD51D1E8A488D00650F2E /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD51C1E8A488D00650F2E /* MessageViewController.m */; };
+		458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD51F1E8A4D9A00650F2E /* ApplicationFriendsModel.m */; };
+		458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD5221E8A4EC900650F2E /* ApplicationDatabaseSingle.m */; };
+		458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD5251E8A614B00650F2E /* GroupMessageCell.m */; };
+		458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD5281E8A624A00650F2E /* GroupMessageController.m */; };
+		458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD52B1E8A639300650F2E /* GroupApplicationModel.m */; };
+		458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD52E1E8A6A3D00650F2E /* ApplicationTwoModel.m */; };
 		45A080C81E88C41100514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080C71E88C41100514FFC /* AddFriendController.m */; };
-		45A080CB1E89195400514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080CA1E89195400514FFC /* AddFriendController.m */; };
 		45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080CD1E891AF800514FFC /* AddFriendCell.m */; };
 		45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D01E891C9300514FFC /* SearchFriendModel.m */; };
 		45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D31E891DFA00514FFC /* SearchGroupCell.m */; };
@@ -296,6 +305,10 @@
 		4562D8021E81300F00C6EE56 /* GroupListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListCell.m; sourceTree = "<group>"; };
 		4562D8041E8134A900C6EE56 /* GroupListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupListController.h; sourceTree = "<group>"; };
 		4562D8051E8134A900C6EE56 /* GroupListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListController.m; sourceTree = "<group>"; };
+		4568FB0E1E89F261007BA5BB /* SearchGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGroupModel.h; sourceTree = "<group>"; };
+		4568FB0F1E89F261007BA5BB /* SearchGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGroupModel.m; sourceTree = "<group>"; };
+		4568FB111E89FBBA007BA5BB /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
+		4568FB121E89FBBA007BA5BB /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		456CCE421E827CD7005EC051 /* RongCallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongCallKit.framework; sourceTree = "<group>"; };
 		456CCE441E827CD7005EC051 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		456CCE451E827CD7005EC051 /* RongCallLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongCallLib.framework; sourceTree = "<group>"; };
@@ -336,10 +349,24 @@
 		457D3CCF1E77CE3500FD0309 /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
 		457D3CD21E77E98200FD0309 /* ConfirmInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmInfoController.h; sourceTree = "<group>"; };
 		457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmInfoController.m; sourceTree = "<group>"; };
+		458DD5181E8A46DA00650F2E /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
+		458DD5191E8A46DA00650F2E /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
+		458DD51B1E8A488D00650F2E /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		458DD51C1E8A488D00650F2E /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		458DD51E1E8A4D9A00650F2E /* ApplicationFriendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationFriendsModel.h; sourceTree = "<group>"; };
+		458DD51F1E8A4D9A00650F2E /* ApplicationFriendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationFriendsModel.m; sourceTree = "<group>"; };
+		458DD5211E8A4EC900650F2E /* ApplicationDatabaseSingle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDatabaseSingle.h; sourceTree = "<group>"; };
+		458DD5221E8A4EC900650F2E /* ApplicationDatabaseSingle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDatabaseSingle.m; sourceTree = "<group>"; };
+		458DD5241E8A614B00650F2E /* GroupMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMessageCell.h; sourceTree = "<group>"; };
+		458DD5251E8A614B00650F2E /* GroupMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMessageCell.m; sourceTree = "<group>"; };
+		458DD5271E8A624A00650F2E /* GroupMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMessageController.h; sourceTree = "<group>"; };
+		458DD5281E8A624A00650F2E /* GroupMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMessageController.m; sourceTree = "<group>"; };
+		458DD52A1E8A639300650F2E /* GroupApplicationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupApplicationModel.h; sourceTree = "<group>"; };
+		458DD52B1E8A639300650F2E /* GroupApplicationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupApplicationModel.m; sourceTree = "<group>"; };
+		458DD52D1E8A6A3D00650F2E /* ApplicationTwoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationTwoModel.h; sourceTree = "<group>"; };
+		458DD52E1E8A6A3D00650F2E /* ApplicationTwoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationTwoModel.m; sourceTree = "<group>"; };
 		45A080C61E88C41100514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
 		45A080C71E88C41100514FFC /* AddFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendController.m; sourceTree = "<group>"; };
-		45A080C91E89195400514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
-		45A080CA1E89195400514FFC /* AddFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendController.m; sourceTree = "<group>"; };
 		45A080CC1E891AF800514FFC /* AddFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendCell.h; sourceTree = "<group>"; };
 		45A080CD1E891AF800514FFC /* AddFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendCell.m; sourceTree = "<group>"; };
 		45A080CF1E891C9300514FFC /* SearchFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendModel.h; sourceTree = "<group>"; };
@@ -496,8 +523,10 @@
 				4556F0C41E85116B00E1E2FE /* MyLocationViewController.m */,
 				450A50FB1E8648D300433A61 /* SetPersonController.h */,
 				450A50FC1E8648D300433A61 /* SetPersonController.m */,
-				45A080C91E89195400514FFC /* AddFriendController.h */,
-				45A080CA1E89195400514FFC /* AddFriendController.m */,
+				4568FB111E89FBBA007BA5BB /* SearchController.h */,
+				4568FB121E89FBBA007BA5BB /* SearchController.m */,
+				458DD51B1E8A488D00650F2E /* MessageViewController.h */,
+				458DD51C1E8A488D00650F2E /* MessageViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -505,8 +534,14 @@
 		455FA3281E763C250039B155 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				458DD51E1E8A4D9A00650F2E /* ApplicationFriendsModel.h */,
+				458DD51F1E8A4D9A00650F2E /* ApplicationFriendsModel.m */,
 				45A080CF1E891C9300514FFC /* SearchFriendModel.h */,
 				45A080D01E891C9300514FFC /* SearchFriendModel.m */,
+				4568FB0E1E89F261007BA5BB /* SearchGroupModel.h */,
+				4568FB0F1E89F261007BA5BB /* SearchGroupModel.m */,
+				458DD5211E8A4EC900650F2E /* ApplicationDatabaseSingle.h */,
+				458DD5221E8A4EC900650F2E /* ApplicationDatabaseSingle.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -522,6 +557,8 @@
 				4562D75F1E7FDFD900C6EE56 /* UIView+ChatMoreView.m */,
 				45A080D21E891DFA00514FFC /* SearchGroupCell.h */,
 				45A080D31E891DFA00514FFC /* SearchGroupCell.m */,
+				458DD5181E8A46DA00650F2E /* MessageCell.h */,
+				458DD5191E8A46DA00650F2E /* MessageCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -963,6 +1000,8 @@
 				4562D7301E7F6DFC00C6EE56 /* GroupActivityListController.m */,
 				4562D7431E7FAC0200C6EE56 /* CreateActivityController.h */,
 				4562D7441E7FAC0200C6EE56 /* CreateActivityController.m */,
+				458DD5271E8A624A00650F2E /* GroupMessageController.h */,
+				458DD5281E8A624A00650F2E /* GroupMessageController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -980,6 +1019,10 @@
 				4562D73E1E7F828D00C6EE56 /* ActivityListDatabaseSingleton.m */,
 				4562D7551E7FD7C900C6EE56 /* UploadActImageNet.h */,
 				4562D7561E7FD7C900C6EE56 /* UploadActImageNet.m */,
+				458DD52D1E8A6A3D00650F2E /* ApplicationTwoModel.h */,
+				458DD52E1E8A6A3D00650F2E /* ApplicationTwoModel.m */,
+				458DD52A1E8A639300650F2E /* GroupApplicationModel.h */,
+				458DD52B1E8A639300650F2E /* GroupApplicationModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -993,6 +1036,8 @@
 				4562D7351E7F75EA00C6EE56 /* ActivityListCell.m */,
 				4562D7521E7FD6BD00C6EE56 /* ActImageCell.h */,
 				4562D7531E7FD6BD00C6EE56 /* ActImageCell.m */,
+				458DD5241E8A614B00650F2E /* GroupMessageCell.h */,
+				458DD5251E8A614B00650F2E /* GroupMessageCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1192,13 +1237,16 @@
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
 				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
+				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
 				4562D73C1E7F7B6A00C6EE56 /* UIView+ChatWhiteView.m in Sources */,
 				4562D73F1E7F828D00C6EE56 /* ActivityListDatabaseSingleton.m in Sources */,
 				450A50ED1E853C3200433A61 /* DefaultPortraitView.m in Sources */,
+				458DD51D1E8A488D00650F2E /* MessageViewController.m in Sources */,
 				457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */,
+				458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
-				45A080CB1E89195400514FFC /* AddFriendController.m in Sources */,
 				45A080C81E88C41100514FFC /* AddFriendController.m in Sources */,
+				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
@@ -1214,6 +1262,7 @@
 				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
 				4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */,
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
+				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4556F0C51E85116B00E1E2FE /* MyLocationViewController.m in Sources */,
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
 				450A50E11E853BA800433A61 /* RCAnnotationView.m in Sources */,
@@ -1239,12 +1288,15 @@
 				450A51001E8670B400433A61 /* NameViewController.m in Sources */,
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
 				450A50DE1E853B9500433A61 /* RCDUtilities.m in Sources */,
+				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
+				4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */,
 				4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */,
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
 				450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */,
 				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,
 				450A50FA1E86227900433A61 /* UnknownFriendDetailController.m in Sources */,
+				458DD51A1E8A46DA00650F2E /* MessageCell.m in Sources */,
 				457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */,
 				455FA16D1E7A8C6D00C85AE7 /* ClaimModel.m in Sources */,
 				4562D74B1E7FB9BA00C6EE56 /* ReduceImage.m in Sources */,
@@ -1254,9 +1306,11 @@
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,
 				455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */,
 				4562D7421E7F88C200C6EE56 /* NowDate.m in Sources */,
+				4568FB131E89FBBA007BA5BB /* SearchController.m in Sources */,
 				45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */,
 				45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */,
 				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
+				458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */,
 				450A50D81E853B5A00433A61 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
