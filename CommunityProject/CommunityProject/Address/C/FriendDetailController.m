@@ -76,9 +76,9 @@
     }
     self.userLabel.text = [NSString stringWithFormat:@"账号：%@",self.friendId];
     if (self.recomendPerson.length == 0) {
-        self.recomendLabel.text = @"推荐：";
+        self.recomendLabel.text = @"推荐人：";
     }else{
-        self.recomendLabel.text = [NSString stringWithFormat:@"推荐：%@",self.recomendPerson];
+        self.recomendLabel.text = [NSString stringWithFormat:@"推荐人：%@",self.recomendPerson];
     }
     if (self.email.length == 0) {
         self.emailLabel.text = @"邮箱：";
@@ -86,29 +86,30 @@
         self.emailLabel.text = [NSString stringWithFormat:@"邮箱：%@",self.email];
     }
     if (self.lingPerson.length == 0) {
-        self.knowLabel.text = @"认领：";
+        self.knowLabel.text = @"认领人：";
     }else{
-        self.knowLabel.text = [NSString stringWithFormat:@"认领：%@",self.lingPerson];
+        self.knowLabel.text = [NSString stringWithFormat:@"认领人：%@",self.lingPerson];
     }
     if (self.phone.length == 0) {
         self.phoneLabel.text = @"电话：";
     }else{
         self.phoneLabel.text = [NSString stringWithFormat:@"电话：%@",self.phone];
     }
+    
     if (self.contribute.length == 0) {
         self.contributeLabel.text = @"贡献值：";
     }else{
         self.contributeLabel.text = [NSString stringWithFormat:@"贡献值：%@",self.contribute];
     }
-    if (self.birthday.length == 0) {
-        self.birthdayLabel.text = @"生日：";
-    }else{
-        self.birthdayLabel.text = [NSString stringWithFormat:@"生日：%@",self.birthday];
-    }
     if (self.prestige.length == 0) {
         self.prestigeLabel.text = @"信誉值：";
     }else{
         self.prestigeLabel.text = [NSString stringWithFormat:@"信誉值：%@",self.prestige];
+    }
+    if (self.birthday.length == 0) {
+        self.birthdayLabel.text = @"生日：";
+    }else{
+        self.birthdayLabel.text = [NSString stringWithFormat:@"生日：%@",self.birthday];
     }
     if (self.areaStr.length == 0) {
         self.areaLabel.text = @"地址：";

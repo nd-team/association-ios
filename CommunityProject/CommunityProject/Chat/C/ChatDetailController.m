@@ -531,11 +531,12 @@ RealTimeLocationStatusViewDelegate>
             NSNumber * code = jsonDic[@"code"];
             if ([code intValue] == 200) {
                 NSDictionary * dict = jsonDic[@"data"];
+//                NSSLog(@"%@",dict);
                 if (isFriend) {
                     //传参
                     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
                     FriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"FriendDetailController"];
-                    detail.friendId = self.targetId;
+                    detail.friendId = userId;
                     //请求网络数据获取用户详细资料
                     detail.name = dict[@"nickname"];
                     NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
@@ -559,28 +560,26 @@ RealTimeLocationStatusViewDelegate>
                         detail.phone = dict[@"mobile"];
                     }
                     if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
-                        detail.contribute = dict[@"contributionScore"];
+                        detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                     }
                     if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                         detail.birthday = dict[@"birthday"];
                     }
                     if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
-                        detail.prestige = dict[@"creditScore"];
+                        detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                     }
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                         detail.areaStr = dict[@"address"];
                     }
-//                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-//                        detail.display = dict[@""];
-//                    }
-                    detail.display = self.title;
-                    
+                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
+                        detail.display = dict[@""];
+                    }
                     [self.navigationController pushViewController:detail animated:YES];
                 }else{
                     //不是好友
                     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
                     UnknownFriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
-                    detail.friendId = self.targetId;
+                    detail.friendId = userId;
                     //请求网络数据获取用户详细资料
                     detail.name = dict[@"nickname"];
                     NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
@@ -604,13 +603,13 @@ RealTimeLocationStatusViewDelegate>
                         detail.phone = dict[@"mobile"];
                     }
                     if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
-                        detail.contribute = dict[@"contributionScore"];
+                        detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                     }
                     if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                         detail.birthday = dict[@"birthday"];
                     }
                     if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
-                        detail.prestige = dict[@"creditScore"];
+                        detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                     }
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                         detail.areaStr = dict[@"address"];

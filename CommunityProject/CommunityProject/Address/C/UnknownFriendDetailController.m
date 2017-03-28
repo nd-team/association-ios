@@ -86,9 +86,9 @@
     }
     self.userLabel.text = [NSString stringWithFormat:@"账号：%@",self.friendId];
     if (self.recomendPerson.length == 0) {
-        self.recomendLabel.text = @"推荐：";
+        self.recomendLabel.text = @"推荐人：";
     }else{
-        self.recomendLabel.text = [NSString stringWithFormat:@"推荐：%@",self.recomendPerson];
+        self.recomendLabel.text = [NSString stringWithFormat:@"推荐人：%@",self.recomendPerson];
     }
     if (self.email.length == 0) {
         self.emailLabel.text = @"邮箱：";
@@ -96,9 +96,9 @@
         self.emailLabel.text = [NSString stringWithFormat:@"邮箱：%@",self.email];
     }
     if (self.lingPerson.length == 0) {
-        self.knowLabel.text = @"认领：";
+        self.knowLabel.text = @"认领人：";
     }else{
-        self.knowLabel.text = [NSString stringWithFormat:@"认领：%@",self.lingPerson];
+        self.knowLabel.text = [NSString stringWithFormat:@"认领人：%@",self.lingPerson];
     }
     if (self.phone.length == 0) {
         self.phoneLabel.text = @"电话：";

@@ -21,13 +21,13 @@
 @property (nonatomic,copy)NSString * age;
 @property (nonatomic,assign)int sex;
 @property (nonatomic,copy)NSString * phone;
-@property (nonatomic,copy)NSString * recomendPerson;
+@property (nonatomic,strong)NSString * recomendPerson;
 @property (nonatomic,copy)NSString * email;
 //认领人
-@property (nonatomic,copy)NSString * lingPerson;
-@property (nonatomic,copy)NSString * contribute;
+@property (nonatomic,strong)NSString * lingPerson;
+@property (nonatomic,strong)NSString * contribute;
 @property (nonatomic,copy)NSString * birthday;
-@property (nonatomic,copy)NSString * prestige;
+@property (nonatomic,strong)NSString * prestige;
 @property (nonatomic,copy)NSString * areaStr;
 
 @property (nonatomic,assign)AddressListController * listDelegate;

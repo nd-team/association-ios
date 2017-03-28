@@ -432,13 +432,13 @@
                     detail.phone = dict[@"mobile"];
                 }
                 if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
-                    detail.contribute = dict[@"contributionScore"];
+                    detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                 }
                 if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                     detail.birthday = dict[@"birthday"];
                 }
                 if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
-                    detail.prestige = dict[@"creditScore"];
+                    detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                 }
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     detail.areaStr = dict[@"address"];
@@ -502,13 +502,13 @@
                     detail.phone = dict[@"mobile"];
                 }
                 if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
-                    detail.contribute = dict[@"contributionScore"];
+                    detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                 }
                 if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                     detail.birthday = dict[@"birthday"];
                 }
                 if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
-                    detail.prestige = dict[@"creditScore"];
+                    detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                 }
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     detail.areaStr = dict[@"address"];
