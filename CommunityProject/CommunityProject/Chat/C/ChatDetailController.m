@@ -141,7 +141,7 @@ RealTimeLocationStatusViewDelegate>
     self.chatSessionInputBarControl.inputTextView.backgroundColor = UIColorFromRGB(0xe5e5e5);
     self.chatSessionInputBarControl.inputTextView.layer.borderWidth = 0;
     //发送那栏空白view颜色改变
-    self.chatSessionInputBarControl.emojiBoardView.backgroundColor = UIColorFromRGB(0xe5e5e5);
+    self.chatSessionInputBarControl.emojiBoardView.backgroundColor = UIColorFromRGB(0xeceef0);
     BOOL isHidden = self.chatSessionInputBarControl.emojiBoardView.emojiBackgroundView.hidden;
     if (isHidden) {
         //emoji_hover
