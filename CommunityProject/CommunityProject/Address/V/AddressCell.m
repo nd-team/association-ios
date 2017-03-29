@@ -23,13 +23,7 @@
 -(void)setListModel:(FriendsListModel *)listModel{
     _listModel = listModel;
     NSString * str = [ImageUrl changeUrl:_listModel.userPortraitUrl];
-
-//    if ([_listModel.userPortraitUrl containsString:@"\\"]) {
-//        str = [_listModel.userPortraitUrl stringByReplacingCharactersInRange:[_listModel.userPortraitUrl rangeOfString:@"\\"] withString:@"/"];
-//    }else{
-//        str = _listModel.userPortraitUrl;
-//    }
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",str];
+    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",str];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"Carial.jpg"]];
     if (_listModel.displayName.length != 0) {
         self.nameLabel.text = _listModel.displayName;

@@ -122,7 +122,7 @@
                 }else{
                     userInfo2.name = list.nickname;
                 }
-                userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:list.userPortraitUrl]];
+                userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:list.userPortraitUrl]];
               return  completion(userInfo2);
             }
         }
@@ -158,7 +158,7 @@
                         }else{
                             userInfo2.name = search.nickname;
                         }
-                        userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:search.userPortraitUrl]];
+                        userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:search.userPortraitUrl]];
                         return completion(userInfo2);
                     }
                 }else if ([code intValue] == 0){
@@ -181,7 +181,7 @@
                 RCGroup * group = [RCGroup new];
                 group.groupId = model.groupId;
                 group.groupName = model.groupName;
-                group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:model.groupPortraitUrl]];
+                group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:model.groupPortraitUrl]];
               return  completion(group);
             }
         }
@@ -200,7 +200,7 @@
                         RCGroup * group = [RCGroup new];
                         group.groupId = model.groupId;
                         group.groupName = model.groupName;
-                        group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:model.groupPortraitUrl]];
+                        group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:model.groupPortraitUrl]];
                         return  completion(group);
                     }
                 }

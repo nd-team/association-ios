@@ -31,7 +31,7 @@
     _appModel = appModel;
     self.nameLabel.text = _appModel.nickname;
     self.msgLabel.text = _appModel.addFriendMessage;
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:_appModel.userPortraitUrl]];
+    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:_appModel.userPortraitUrl]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.userIdLabel.text = _appModel.userId;
     switch ([_appModel.status intValue]) {

@@ -23,9 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *unseeBtn;
 @property (nonatomic,strong)ApplicationTwoModel * twoModel;
 @property (nonatomic,strong)NSMutableArray * dataTwoArr;
-//是否是第一组
-//@property (nonatomic,assign)BOOL isFirst;
-@property (nonatomic,copy)NSString * groupName;
 //群ID
 @property (nonatomic,copy)NSString * groupId;
 

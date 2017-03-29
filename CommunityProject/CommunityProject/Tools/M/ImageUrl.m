@@ -21,7 +21,8 @@
     NSMutableAttributedString * str = [[NSMutableAttributedString alloc]initWithString:baseStr];
     NSRange range = [[str string]rangeOfString:rangeStr];
     [str addAttribute:NSForegroundColorAttributeName value:chCplor range:range];
-    [str addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, baseStr.length)];
+    NSRange range2 = NSMakeRange(0, baseStr.length-rangeStr.length);
+    [str addAttribute:NSForegroundColorAttributeName value:color range:range2];
 
     return str;
 }

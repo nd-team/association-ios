@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "FriendDetailController.h"
+#import "GroupHostInfoController.h"
+#import "GroupMemberInfoController.h"
 
 @interface NameViewController : UIViewController
 //标题
@@ -19,7 +21,18 @@
 //群ID
 @property (nonatomic,copy)NSString * groupId;
 
-@property (nonatomic,assign)FriendDetailController * friendDelegate;
 
+
+@property (nonatomic,assign)FriendDetailController * friendDelegate;
+//空白提示
+@property (nonatomic,copy)NSString * placeHolder;
+//内容 //群名
+@property (nonatomic,copy)NSString * content;
+
+@property (nonatomic,assign)GroupHostInfoController * hostDelegate;
+@property (nonatomic,assign)GroupMemberInfoController * memberDelegate;
+#pragma mark-用来刷新SDK
+//群头像
+@property (nonatomic,copy)NSString * headUrl;
 
 @end

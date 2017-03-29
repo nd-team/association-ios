@@ -18,10 +18,14 @@
 #import "FriendDetailController.h"
 #import "UnknownFriendDetailController.h"
 #import "SetPersonController.h"
+#import "GroupMemberInfoController.h"
+#import "GroupHostInfoController.h"
 
 #define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
 //判断是否是好友
 #define TESTURL @"http://192.168.0.209:90/appapi/app/CheckMobile"
+
+#define GroupInfoURL @"http://192.168.0.209:90/appapi/app/groupInfo"
 
 @interface ChatDetailController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,RCChatSessionInputBarControlDelegate,RCLocationPickerViewControllerDelegate,RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate>
@@ -30,6 +34,8 @@ RealTimeLocationStatusViewDelegate>
 @property (nonatomic,strong)UIWindow * window;
 @property(nonatomic, weak) id<RCRealTimeLocationProxy> realTimeLocation;
 @property(nonatomic, strong) RealTimeLocationStatusView *realTimeLocationStatusView;
+//用户ID
+@property (nonatomic,copy)NSString * userId;
 
 @end
 
@@ -78,6 +84,8 @@ RealTimeLocationStatusViewDelegate>
      error:^(RCRealTimeLocationErrorCode status) {
          NSLog(@"get location share failure with code %d", (int)status);
      }];
+    self.userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+
     //如何在会话页面插入提醒消息
     /*
     RCInformationNotificationMessage *warningMsg =
@@ -326,7 +334,54 @@ RealTimeLocationStatusViewDelegate>
 }
 //进入群信息
 -(void)groupChatClick{
-    
+    //请求群信息
+    [self postGroupInfomation];
+}
+-(void)postGroupInfomation{
+    [AFNetData postDataWithUrl:GroupInfoURL andParams:@{@"groupId":self.targetId,@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"获取群组信息失败：%@",error);
+        }else{
+            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSNumber * code = jsonDic[@"code"];
+            if ([code intValue] == 200) {
+                NSDictionary * dict = jsonDic[@"data"];
+                int  role = [[NSString stringWithFormat:@"%@",dict[@"role"]]intValue];
+                if (role == 0) {
+                    //群员
+                    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+                    GroupMemberInfoController * member = [sb instantiateViewControllerWithIdentifier:@"GroupMemberInfoController"];
+                    member.groupId = self.targetId;
+                    member.groupName = dict[@"groupName"];
+                    if (![dict[@"noticeContent"] isKindOfClass:[NSNull class]]) {
+                        member.publicNotice = [NSString stringWithFormat:@"%@",dict[@"noticeContent"]];
+                    }
+                    member.nickname = [NSString stringWithFormat:@"%@",dict[@"groupNickName"]];
+                    member.userId = self.userId;
+                    member.headUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:[NSString stringWithFormat:@"%@",dict[@"groupPortraitUrl"]]]];
+                    [self.navigationController pushViewController:member animated:YES];
+
+                }else{
+                    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+                    GroupHostInfoController * host = [sb instantiateViewControllerWithIdentifier:@"GroupHostInfoController"];
+                    host.groupId = self.targetId;
+                    host.groupName = dict[@"groupName"];
+                    if (![dict[@"noticeContent"] isKindOfClass:[NSNull class]]) {
+                        host.publicNotice = [NSString stringWithFormat:@"%@",dict[@"noticeContent"]];
+                    }
+                    host.nickname = [NSString stringWithFormat:@"%@",dict[@"groupNickName"]];
+                    host.userId = self.userId;
+                    host.headUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:[NSString stringWithFormat:@"%@",dict[@"groupPortraitUrl"]]]];
+                    if (role == 2) {
+                        host.isHost = YES;
+                    }else{
+                        host.isHost = NO;
+                    }
+                    [self.navigationController pushViewController:host animated:YES];
+                }
+            }
+        }
+    }];
 }
 -(void)willDisplayMessageCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     RCMessageModel * model = self.conversationDataRepository[indexPath.row];
@@ -350,7 +405,6 @@ RealTimeLocationStatusViewDelegate>
         label.font = [UIFont systemFontOfSize:11];
         label.backgroundColor = UIColorFromRGB(0xb5b7b8);
         label.attributedText = [ImageUrl changeTextColor:otherCell.tipMessageLabel.text andColor:UIColorFromRGB(0xffffff) andRangeStr:userInfo.name andChangeColor:UIColorFromRGB(0xed0d0d)];
-
     }else if ([cell isMemberOfClass:[RCFileMessageCell class]]){
         RCFileMessageCell * fileCell = (RCFileMessageCell *)cell;
         if (model.messageDirection == 1) {
@@ -486,9 +540,8 @@ RealTimeLocationStatusViewDelegate>
     }else if (self.conversationType == 3){
         //请求网络 判断是否是好友 是就跳转好友发消息界面，否就跳转加好友界面
         //把请求回来的数据传参给下个界面
-        NSString * user = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
         //用户自己
-        if ([userId isEqualToString:user]) {
+        if ([userId isEqualToString:self.userId]) {
             [self pushFriendId:YES andUserId:userId];
         }else{
             [self testUserIsFriendMobile:userId];
@@ -500,9 +553,8 @@ RealTimeLocationStatusViewDelegate>
 //判断是否是好友
 -(void)testUserIsFriendMobile:(NSString *)selectUserId{
     WeakSelf;
-    NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
 
-    [AFNetData postDataWithUrl:TESTURL andParams:@{@"userId":userId,@"mobile":selectUserId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:TESTURL andParams:@{@"userId":self.userId,@"mobile":selectUserId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"判断是否为好友失败：%@",error);
         }else{
@@ -539,7 +591,7 @@ RealTimeLocationStatusViewDelegate>
                     detail.friendId = userId;
                     //请求网络数据获取用户详细资料
                     detail.name = dict[@"nickname"];
-                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                         detail.age = dict[@"age"];
@@ -582,7 +634,7 @@ RealTimeLocationStatusViewDelegate>
                     detail.friendId = userId;
                     //请求网络数据获取用户详细资料
                     detail.name = dict[@"nickname"];
-                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                         detail.age = dict[@"age"];

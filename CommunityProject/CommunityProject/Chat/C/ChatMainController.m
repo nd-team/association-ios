@@ -24,6 +24,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    //强制刷新SDK
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -61,6 +62,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf addView];
     });
+    
 }
 -(void)tapClick{
     self.topView.hidden = YES;

@@ -37,7 +37,6 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(disagreePerson:) name:@"OverlookMessage" object:nil];
 
     [self getAllData];
-    
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"AgreeGroupMessage" object:nil];
@@ -146,7 +145,7 @@
 }
 -(void)getTwoData{
     NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
-    NSDictionary * params = @{@"userId":userId,@"group_id":self.groupId};
+    NSDictionary * params = @{@"userId":userId,@"groupId":self.groupId};
     WeakSelf;
     [AFNetData postDataWithUrl:ApplicationURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -158,6 +157,7 @@
             }
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSNumber * code = jsonDic[@"code"];
+            NSSLog(@"%@",jsonDic);
             if ([code intValue] == 200) {
                 NSArray * msgArr = jsonDic[@"data"];
                 for (NSDictionary * dic in msgArr) {
@@ -174,6 +174,8 @@
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     GroupMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GroupMessageCell"];
+    cell.titleLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"申请加入 %@",self.groupName] andColor:UIColorFromRGB(0x999999) andRangeStr:self.groupName andChangeColor:UIColorFromRGB(0x333333)];
+  
     if (indexPath.section == 0) {
         cell.groupModel = self.dataArr[indexPath.row];
         cell.dataArr = self.dataArr;
@@ -183,9 +185,10 @@
         cell.dataTwoArr = self.dataTwoArr;
 //        cell.isFirst = NO;
     }
-    cell.groupName = self.groupName;
+   
     cell.myTableView = self.tableView;
     cell.groupId = self.groupId;
+    
     return cell;
     
     
@@ -195,7 +198,6 @@
         return self.dataArr.count;
     }else{
         return self.dataTwoArr.count;
- 
     }
     
 }

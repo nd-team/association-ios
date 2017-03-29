@@ -238,7 +238,7 @@
         self.scrollView.scrollEnabled = YES;
   
     }
-    NSSLog(@"%f==%f===%f",KMainScreenWidth,self.scrollView.frame.size.width,self.deleteView.frame.size.width);
+//    NSSLog(@"%f==%f===%f",KMainScreenWidth,self.scrollView.frame.size.width,self.deleteView.frame.size.width);
 }
 
 @end

@@ -16,7 +16,6 @@
     [self setButtonStatus:self.unseeBtn];
     self.headImageView.layer.masksToBounds = YES;
     self.headImageView.layer.cornerRadius = 5;
-    self.titleLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"申请加入 %@",self.groupName] andColor:UIColorFromRGB(0x999999) andRangeStr:self.groupName andChangeColor:UIColorFromRGB(0x333333)];
 
 }
 -(void)setButtonStatus:(UIButton *)btn{
@@ -34,7 +33,7 @@
     _groupModel = groupModel;
     self.nameLabel.text = _groupModel.nickname;
     self.msgLabel.text = _groupModel.addMessage;
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:_groupModel.avatarImage]];
+    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:_groupModel.avatarImage]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.userIdLabel.text = _groupModel.userId;
     switch ([_groupModel.status intValue]) {
@@ -62,7 +61,7 @@
     _twoModel = twoModel;
     self.nameLabel.text = _twoModel.nickname;
     self.msgLabel.text = [NSString stringWithFormat:@"邀请人是：%@(%@)",_twoModel.pullNickname,_twoModel.pullUserid];
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:_twoModel.userPortraitUrl]];
+    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:_twoModel.userPortraitUrl]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.userIdLabel.text = _twoModel.userId;
 

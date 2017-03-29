@@ -124,6 +124,13 @@
 		456CCE711E827CD8005EC051 /* JYangToolKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE5C1E827CD7005EC051 /* JYangToolKit.framework */; };
 		456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 456CCE5D1E827CD7005EC051 /* WalletResource.bundle */; };
 		456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */ = {isa = PBXBuildFile; fileRef = 456CCE5F1E827CD7005EC051 /* release_notes_ios.txt */; };
+		4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBEF1E8B583F0047D1F4 /* GroupHostInfoController.m */; };
+		4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBF21E8B58700047D1F4 /* GroupMemberInfoController.m */; };
+		4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBF81E8B893D0047D1F4 /* MemberListModel.m */; };
+		4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBFE1E8B8DDD0047D1F4 /* MemberListCell.m */; };
+		4573CC011E8B8DDD0047D1F4 /* MemberListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4573CBFF1E8B8DDD0047D1F4 /* MemberListCell.xib */; };
+		4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC031E8BA7050047D1F4 /* MemberListController.m */; };
+		4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC061E8BB0C60047D1F4 /* GroupNoticeViewController.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -331,6 +338,19 @@
 		456CCE5D1E827CD7005EC051 /* WalletResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WalletResource.bundle; sourceTree = "<group>"; };
 		456CCE5E1E827CD7005EC051 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/JrmfInfo.strings"; sourceTree = "<group>"; };
 		456CCE5F1E827CD7005EC051 /* release_notes_ios.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes_ios.txt; sourceTree = "<group>"; };
+		4573CBEE1E8B583F0047D1F4 /* GroupHostInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupHostInfoController.h; sourceTree = "<group>"; };
+		4573CBEF1E8B583F0047D1F4 /* GroupHostInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupHostInfoController.m; sourceTree = "<group>"; };
+		4573CBF11E8B58700047D1F4 /* GroupMemberInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMemberInfoController.h; sourceTree = "<group>"; };
+		4573CBF21E8B58700047D1F4 /* GroupMemberInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupMemberInfoController.m; sourceTree = "<group>"; };
+		4573CBF71E8B893D0047D1F4 /* MemberListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberListModel.h; sourceTree = "<group>"; };
+		4573CBF81E8B893D0047D1F4 /* MemberListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberListModel.m; sourceTree = "<group>"; };
+		4573CBFD1E8B8DDD0047D1F4 /* MemberListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberListCell.h; sourceTree = "<group>"; };
+		4573CBFE1E8B8DDD0047D1F4 /* MemberListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberListCell.m; sourceTree = "<group>"; };
+		4573CBFF1E8B8DDD0047D1F4 /* MemberListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberListCell.xib; sourceTree = "<group>"; };
+		4573CC021E8BA7050047D1F4 /* MemberListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberListController.h; sourceTree = "<group>"; };
+		4573CC031E8BA7050047D1F4 /* MemberListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberListController.m; sourceTree = "<group>"; };
+		4573CC051E8BB0C60047D1F4 /* GroupNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupNoticeViewController.h; sourceTree = "<group>"; };
+		4573CC061E8BB0C60047D1F4 /* GroupNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupNoticeViewController.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -1002,6 +1022,14 @@
 				4562D7441E7FAC0200C6EE56 /* CreateActivityController.m */,
 				458DD5271E8A624A00650F2E /* GroupMessageController.h */,
 				458DD5281E8A624A00650F2E /* GroupMessageController.m */,
+				4573CBEE1E8B583F0047D1F4 /* GroupHostInfoController.h */,
+				4573CBEF1E8B583F0047D1F4 /* GroupHostInfoController.m */,
+				4573CBF11E8B58700047D1F4 /* GroupMemberInfoController.h */,
+				4573CBF21E8B58700047D1F4 /* GroupMemberInfoController.m */,
+				4573CC021E8BA7050047D1F4 /* MemberListController.h */,
+				4573CC031E8BA7050047D1F4 /* MemberListController.m */,
+				4573CC051E8BB0C60047D1F4 /* GroupNoticeViewController.h */,
+				4573CC061E8BB0C60047D1F4 /* GroupNoticeViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1023,6 +1051,8 @@
 				458DD52E1E8A6A3D00650F2E /* ApplicationTwoModel.m */,
 				458DD52A1E8A639300650F2E /* GroupApplicationModel.h */,
 				458DD52B1E8A639300650F2E /* GroupApplicationModel.m */,
+				4573CBF71E8B893D0047D1F4 /* MemberListModel.h */,
+				4573CBF81E8B893D0047D1F4 /* MemberListModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1038,6 +1068,9 @@
 				4562D7531E7FD6BD00C6EE56 /* ActImageCell.m */,
 				458DD5241E8A614B00650F2E /* GroupMessageCell.h */,
 				458DD5251E8A614B00650F2E /* GroupMessageCell.m */,
+				4573CBFD1E8B8DDD0047D1F4 /* MemberListCell.h */,
+				4573CBFE1E8B8DDD0047D1F4 /* MemberListCell.m */,
+				4573CBFF1E8B8DDD0047D1F4 /* MemberListCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1160,6 +1193,7 @@
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
 				450A50F41E86219F00433A61 /* record1.gif in Resources */,
+				4573CC011E8B8DDD0047D1F4 /* MemberListCell.xib in Resources */,
 				456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */,
 				455FA3601E76A5370039B155 /* Login.storyboard in Resources */,
 				455FA31E1E7631A90039B155 /* LaunchScreen.storyboard in Resources */,
@@ -1233,6 +1267,8 @@
 				4562D7511E7FBD3A00C6EE56 /* UploadImageModel.m in Sources */,
 				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
 				455FA1701E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m in Sources */,
+				4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */,
+				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
 				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
@@ -1248,6 +1284,7 @@
 				45A080C81E88C41100514FFC /* AddFriendController.m in Sources */,
 				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
+				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
@@ -1263,6 +1300,7 @@
 				4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */,
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
+				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
 				4556F0C51E85116B00E1E2FE /* MyLocationViewController.m in Sources */,
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
 				450A50E11E853BA800433A61 /* RCAnnotationView.m in Sources */,
@@ -1288,6 +1326,7 @@
 				450A51001E8670B400433A61 /* NameViewController.m in Sources */,
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
 				450A50DE1E853B9500433A61 /* RCDUtilities.m in Sources */,
+				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
 				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
 				4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */,
@@ -1306,6 +1345,7 @@
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,
 				455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */,
 				4562D7421E7F88C200C6EE56 /* NowDate.m in Sources */,
+				4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */,
 				4568FB131E89FBBA007BA5BB /* SearchController.m in Sources */,
 				45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */,
 				45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */,

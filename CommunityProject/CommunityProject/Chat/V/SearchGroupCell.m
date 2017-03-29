@@ -25,7 +25,7 @@
 }
 -(void)setGroupModel:(SearchGroupModel *)groupModel{
     _groupModel = groupModel;
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:_groupModel.groupPortraitUrl]];
+    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:_groupModel.groupPortraitUrl]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"Carial.jpg"]];
     
     self.nameLabel.text = _groupModel.groupName;
