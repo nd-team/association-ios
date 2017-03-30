@@ -13,6 +13,7 @@
 #import "AddressDataBaseSingleton.h"
 #import "GroupModel.h"
 #import "GroupDatabaseSingleton.h"
+#import "MemberListModel.h"
 
 #define LoginURL @"http://192.168.0.209:90/appapi/app/login"
 #define MemberURL @"http://192.168.0.209:90/appapi/app/groupMember"
@@ -27,6 +28,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
     //融云
     [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
     //应用的Scheme
@@ -68,8 +71,7 @@
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].translucent = NO;
     [RCIM sharedRCIM].globalNavigationBarTintColor = UIColorFromRGB(0x121212);
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+  
     return YES;
 }
 -(void)netWork{
@@ -99,6 +101,10 @@
             if ([code intValue] == 200) {
                 NSArray * array = jsonDic[@"data"];
                 for (NSDictionary * dic in array) {
+                    MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:member.userPortraitUrl]]];
+                    //刷新群组成员的信息
+                    [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:member.userId];
                     [ret addObject:dic[@"userId"]];
                 }
                 resultBlock(ret);
@@ -229,7 +235,9 @@
                 //昵称
                 [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
                 //头像
-                [userDefaults setValue:msg[@"userPortraitUrl"] forKey:@"userPortraitUrl"];
+                NSString * url = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
+
+                [userDefaults setValue:url forKey:@"userPortraitUrl"];
                 //token
                 [userDefaults setValue:msg[@"token"] forKey:@"token"];
                 //sex
@@ -261,8 +269,9 @@
                 }
                 [userDefaults synchronize];
                 //设置当前用户的用户信息
-                 NSString * str = [ImageUrl changeUrl:msg[@"userPortraitUrl"]];
-                [RCIMClient sharedRCIMClient].currentUserInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.209:90%@",str]];
+                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
+                [RCIMClient sharedRCIMClient].currentUserInfo = userInfo;
+                [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
                 [weakSelf loginMain];
             }else if ([code intValue] == 0){
                 NSSLog(@"账号不存在！");

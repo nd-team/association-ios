@@ -575,7 +575,7 @@ RealTimeLocationStatusViewDelegate>
 }
 //好友界面
 -(void)pushFriendId:(BOOL)isFriend andUserId:(NSString *)userId{
-    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
         }else{
@@ -623,9 +623,25 @@ RealTimeLocationStatusViewDelegate>
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                         detail.areaStr = dict[@"address"];
                     }
-                    if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                        detail.display = dict[@""];
+                    NSInteger status = [[NSString stringWithFormat:@"%@",dict[@"status"]]integerValue];
+                    //好友
+                    NSString * name;
+                    if (status == 1) {
+                        if (![dict[@"friendNickname"] isKindOfClass:[NSNull class]]) {
+                            detail.display = dict[@"friendNickname"];
+                        }
+                        if (dict[@"friendNickname"] != nil) {
+                            name = dict[@"friendNickname"];
+                        }else{
+                            name = dict[@"nickname"];
+                        }
+                    }else if (status == 2){
+                        //自己
+                        name = dict[@"nickname"];
                     }
+                    
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:name portrait:encodeUrl];
+                    [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userId];
                     [self.navigationController pushViewController:detail animated:YES];
                 }else{
                     //不是好友
@@ -667,6 +683,9 @@ RealTimeLocationStatusViewDelegate>
                         detail.areaStr = dict[@"address"];
                     }
                     detail.isRegister = YES;
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:dict[@"nickname"] portrait:encodeUrl];
+                    [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userId];
+                    [self.navigationController pushViewController:detail animated:YES];
                     [self.navigationController pushViewController:detail animated:YES];
 
                 }

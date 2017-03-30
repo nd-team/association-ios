@@ -116,7 +116,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)getApplicationGroupList{
-    NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    NSString * userId = [DEFAULTS objectForKey:@"userId"];
     NSDictionary * params = @{@"userId":userId,@"group_id":self.groupId};
     WeakSelf;
     [AFNetData postDataWithUrl:GroupApplicationURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {

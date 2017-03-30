@@ -228,6 +228,15 @@
                     FriendsListModel * search = [[FriendsListModel alloc]initWithDictionary:dic error:nil];
                     [[AddressDataBaseSingleton shareDatabase]insertDatabase:search];
                     [weakSelf.dataArr addObject:search];
+                    RCUserInfo * userInfo2 = [RCUserInfo new];
+                    userInfo2.userId = search.userId;
+                    if (search.displayName.length != 0) {
+                        userInfo2.name = search.displayName;
+                    }else{
+                        userInfo2.name = search.nickname;
+                    }
+                    userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:search.userPortraitUrl]];
+                    [[RCIM sharedRCIM]refreshUserInfoCache:userInfo2 withUserId:search.userId];
                 }
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
@@ -397,7 +406,7 @@
     }];
 }
 -(void)pushFriendId:(NSString *)friend{
-    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":friend,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friend,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
         }else{
@@ -443,11 +452,26 @@
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     detail.areaStr = dict[@"address"];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    detail.display = dict[@""];
-                }
                 detail.listDelegate = self;
                 detail.isAddress = YES;
+                NSInteger status = [[NSString stringWithFormat:@"%@",dict[@"status"]]integerValue];
+                //好友
+                NSString * name;
+                if (status == 1) {
+                    if (![dict[@"friendNickname"] isKindOfClass:[NSNull class]]) {
+                        detail.display = dict[@"friendNickname"];
+                    }
+                    if (dict[@"friendNickname"] != nil) {
+                        name = dict[@"friendNickname"];
+                    }else{
+                        name = dict[@"nickname"];
+                    }
+                }else if (status == 2){
+                    //自己
+                    name = dict[@"nickname"];
+                }
+                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friend name:name portrait:encodeUrl];
+                [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friend];
                 [self.navigationController pushViewController:detail animated:YES];
             }
         }
@@ -469,7 +493,7 @@
     }
 }
 -(void)comeInUnknown:(NSString *)friendId{
-    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
         }else{
@@ -514,6 +538,8 @@
                     detail.areaStr = dict[@"address"];
                 }
                 detail.isRegister = YES;
+                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friendId name:dict[@"nickname"] portrait:encodeUrl];
+                [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friendId];
                 [self.navigationController pushViewController:detail animated:YES];
             }
         }

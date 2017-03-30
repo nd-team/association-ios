@@ -101,6 +101,9 @@
                 for (NSDictionary * dic in array) {
                     MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
                     [self.dataArr addObject:member];
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:member.userPortraitUrl]]];
+                    //刷新群组成员的信息
+                    [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:member.userId];
                 }
                 [self.collectionView reloadData];
             }

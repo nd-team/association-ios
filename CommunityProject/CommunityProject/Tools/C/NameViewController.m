@@ -103,15 +103,18 @@
             NSNumber * code = jsonDic[@"code"];
             if ([code intValue] == 200) {
                 if (symbol == 1) {
+                    //好友昵称修改
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:weakSelf.friendId name:self.nameTF.text portrait:self.headUrl];
+                    [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:weakSelf.friendId];
                     weakSelf.friendDelegate.display = self.nameTF.text;
                 }else if (symbol == 2){
                     weakSelf.hostDelegate.nickname = self.nameTF.text;
                     weakSelf.memberDelegate.nickname = self.nameTF.text;
                 }else{
                     //群名修改完要刷新SDK
-                    RCGroup * group = [[RCGroup alloc]initWithGroupId:self.groupId groupName:self.nameTF.text portraitUri:self.headUrl];
-                    [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:self.groupId];
-                    weakSelf.hostDelegate.groupName = self.nameTF.text;
+                    RCGroup * group = [[RCGroup alloc]initWithGroupId:weakSelf.groupId groupName:weakSelf.nameTF.text portraitUri:weakSelf.headUrl];
+                    [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:weakSelf.groupId];
+                    weakSelf.hostDelegate.groupName = weakSelf.nameTF.text;
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.navigationController popViewControllerAnimated:YES];

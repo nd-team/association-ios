@@ -22,5 +22,6 @@
 
 #define WeakSelf __weak __typeof(self) weakSelf = self
 
+#define DEFAULTS [NSUserDefaults standardUserDefaults]
 
 #endif /* CommonHeader_h */

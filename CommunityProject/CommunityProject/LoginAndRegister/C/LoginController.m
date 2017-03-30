@@ -223,7 +223,8 @@
                 //昵称
                 [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
                 //头像
-                [userDefaults setValue:msg[@"userPortraitUrl"] forKey:@"userPortraitUrl"];
+                NSString * url = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
+                [userDefaults setValue:url forKey:@"userPortraitUrl"];
                 //token
                 [userDefaults setValue:msg[@"token"] forKey:@"token"];
                 [userDefaults setValue:self.secretTF.text forKey:@"password"];
@@ -255,12 +256,13 @@
                     [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
                 }
                 [userDefaults synchronize];
-               NSString *  str = [ImageUrl changeUrl:msg[@"userPortraitUrl"]];
-                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:[NSString stringWithFormat:@"http://192.168.0.209:90%@",str]];
+                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
+                [RCIM sharedRCIM].currentUserInfo = userInfo;
+                [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
+
                 [weakSelf loginRongServicer:msg[@"token"]];
 
                 //设置当前用户
-                [RCIM sharedRCIM].currentUserInfo = userInfo;
                 
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"账号不存在！"];
@@ -364,7 +366,7 @@
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     WeakSelf;
-//    if (textField == self.passwordTF) {
+    if (textField == self.passwordTF) {
         CGFloat offset = KMainScreenHeight - 258;
     CGFloat height = textField.frame.origin.y+45+218;
     NSSLog(@"%f==%f=%f==%f",self.passwordTF.frame.origin.y+45,self.view.frame.size.height,offset,height);
@@ -387,7 +389,7 @@
 //        dispatch_async(dispatch_get_main_queue(), ^{
         
 //        });
-//    }
+    }
     return YES;
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{
