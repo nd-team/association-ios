@@ -24,8 +24,14 @@
     _listModel = listModel;
     NSString * str = [ImageUrl changeUrl:_listModel.userPortraitUrl];
     NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",str];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"Carial.jpg"]];
-    if (_listModel.displayName.length != 0) {
+    NSString * userId = [DEFAULTS objectForKey:@"userId"];
+    if ([userId isEqualToString:_listModel.userId]) {
+        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_listModel.userPortraitUrl]];
+        
+    }else{
+        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
+        
+    }    if (_listModel.displayName.length != 0) {
         self.nameLabel.text = _listModel.displayName;
     }else{
         self.nameLabel.text = _listModel.nickname;

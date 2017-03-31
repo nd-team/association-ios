@@ -207,8 +207,10 @@
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSNumber * code = jsonDic[@"code"];
             if ([code intValue] == 100) {
+                //删除会话列表
+                [[RCIMClient sharedRCIMClient]removeConversation:ConversationType_GROUP targetId:weakSelf.groupId];
                 //解散群成功 刷新SDK
-                [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:self.groupId];
+                [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:weakSelf.groupId];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     for (UIViewController* vc in self.navigationController.viewControllers) {
                         

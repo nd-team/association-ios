@@ -14,6 +14,7 @@
 #import "MemberListController.h"
 #import "GroupNoticeViewController.h"
 #import "ChatMainController.h"
+#import "ManageGroupViewController.h"
 
 #define MemberURL @"http://192.168.0.209:90/appapi/app/groupMember"
 #define DissolveURL @"http://192.168.0.209:90/appapi/app/dissolutionGroup"
@@ -162,7 +163,10 @@
 }
 //群管理
 - (IBAction)manageClick:(id)sender {
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+    ManageGroupViewController * manager = [sb instantiateViewControllerWithIdentifier:@"ManageGroupViewController"];
+    manager.groupId = self.groupId;
+    [self.navigationController pushViewController:manager animated:YES];
 }
 //进群申请
 - (IBAction)comeInGroupClick:(id)sender {
@@ -250,6 +254,8 @@
             NSNumber * code = jsonDic[@"code"];
             if ([code intValue] == 200 ||[code intValue] == 100) {
                 //解散群成功 刷新SDK
+//                删除会话
+                [[RCIMClient sharedRCIMClient]removeConversation:ConversationType_GROUP targetId:weakSelf.groupId];
                 [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:weakSelf.groupId];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     for (UIViewController* vc in self.navigationController.viewControllers) {

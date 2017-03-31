@@ -151,7 +151,9 @@
             NSSLog(@"%@",jsonDic);
             NSNumber * code = jsonDic[@"code"];
             if ([code intValue] == 200) {
-                //刷新SDK缓存 
+                //删除会话列表里朋友的消息
+                [[RCIMClient sharedRCIMClient]removeConversation:ConversationType_PRIVATE targetId:self.friendId];
+                //刷新SDK缓存
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:self.userId];
                 //返回通讯录刷新通讯录
                 if (weakSelf.isAddress) {

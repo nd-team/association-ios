@@ -127,7 +127,7 @@
     self.button.hidden = YES;
     [self.view addSubview:self.button];
     [self.button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(66);
+        make.top.equalTo(self.view).offset(2);
         make.right.equalTo(self.view).offset(-15);
         make.width.mas_equalTo(113);
         make.height.mas_equalTo(33.5);
@@ -159,11 +159,7 @@
     conver.conversationType = ConversationType_GROUP;
     conver.targetId = group.groupId;
     //会话人备注
-    conver.title = group.groupName;
-//    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
-//    
-//    self.navigationItem.backBarButtonItem = backItem;
-    
+    conver.title = group.groupName;    
     [self.navigationController pushViewController:conver animated:YES];
 
 }

@@ -138,24 +138,10 @@ RealTimeLocationStatusViewDelegate>
         [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"file.png"] title:@"文件" atIndex:7 tag:PLUGIN_BOARD_ITEM_FILE_TAG];
 
     }
-    
-    [self setImage];
-    CGFloat height = KMainScreenHeight-50;
-    if (self.chatSessionInputBarControl.recordButton.hidden&&self.chatSessionInputBarControl.frame.origin.y != height) {
-        [self setImage];
-    }
-    [self.chatSessionInputBarControl.additionalButton setImage:[UIImage imageNamed:@"addtion.png"] forState:UIControlStateNormal];
-    [self.chatSessionInputBarControl.additionalButton setImage:[UIImage imageNamed:@"addtion.png"] forState:UIControlStateHighlighted];
     self.chatSessionInputBarControl.inputTextView.backgroundColor = UIColorFromRGB(0xe5e5e5);
     self.chatSessionInputBarControl.inputTextView.layer.borderWidth = 0;
     //发送那栏空白view颜色改变
     self.chatSessionInputBarControl.emojiBoardView.backgroundColor = UIColorFromRGB(0xeceef0);
-    BOOL isHidden = self.chatSessionInputBarControl.emojiBoardView.emojiBackgroundView.hidden;
-    if (isHidden) {
-        //emoji_hover
-        [self.chatSessionInputBarControl.emojiButton setImage:[UIImage imageNamed:@"emoji_hover.png"] forState:UIControlStateNormal];
-        [self.chatSessionInputBarControl.emojiButton setImage:[UIImage imageNamed:@"emoji_hover.png"] forState:UIControlStateHighlighted];
-    }
 }
 -(void)leftBarButtonItemPressed:(id)sender{
     [super leftBarButtonItemPressed:sender];
@@ -191,9 +177,6 @@ RealTimeLocationStatusViewDelegate>
             }
             
         }
-            break;
-        case PLUGIN_BOARD_ITEM_FILE_TAG:
-            
             break;
         case 105:
         {
@@ -418,8 +401,6 @@ RealTimeLocationStatusViewDelegate>
         if (model.messageDirection == 1) {
             voiceCell.bubbleBackgroundView.image = [UIImage imageNamed:@"mineImg.png"];
             voiceCell.voiceDurationLabel.textColor = UIColorFromRGB(0xffffff);
-            voiceCell.voiceUnreadTagView.image = [UIImage sd_animatedGIFNamed:@"record1.png"];
-            voiceCell.playVoiceView.image = [UIImage imageNamed:@"record.png"];
         }else{
             voiceCell.bubbleBackgroundView.image = [UIImage imageNamed:@"othersImg.png"];
             voiceCell.voiceDurationLabel.textColor = UIColorFromRGB(0xbbbbbb);
@@ -498,10 +479,6 @@ RealTimeLocationStatusViewDelegate>
     RCImageMessage * image = [RCImageMessage messageWithImage:originalImage];
     [self sendMediaMessage:image pushContent:@"对方处于离线状态哦~" appUpload:NO];
     [picker dismissViewControllerAnimated:YES completion:nil];
-}
--(void)setImage{
-    [self.chatSessionInputBarControl.switchButton setImage:[UIImage imageNamed:@"voice.png"] forState:UIControlStateNormal];
-    [self.chatSessionInputBarControl.switchButton setImage:[UIImage imageNamed:@"voice.png"] forState:UIControlStateHighlighted];
 }
 -(void)presentViewController:(UIViewController *)viewController functionTag:(NSInteger)functionTag{
     

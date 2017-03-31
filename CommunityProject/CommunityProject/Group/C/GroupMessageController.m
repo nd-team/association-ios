@@ -117,7 +117,7 @@
 }
 -(void)getApplicationGroupList{
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
-    NSDictionary * params = @{@"userId":userId,@"group_id":self.groupId};
+    NSDictionary * params = @{@"userId":userId,@"groupId":self.groupId};
     WeakSelf;
     [AFNetData postDataWithUrl:GroupApplicationURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -129,6 +129,7 @@
             }
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSNumber * code = jsonDic[@"code"];
+            NSSLog(@"%@",jsonDic);
             if ([code intValue] == 200) {
                 NSArray * msgArr = jsonDic[@"data"];
                 for (NSDictionary * dic in msgArr) {
@@ -179,11 +180,9 @@
     if (indexPath.section == 0) {
         cell.groupModel = self.dataArr[indexPath.row];
         cell.dataArr = self.dataArr;
-//        cell.isFirst = YES;
     }else{
         cell.twoModel = self.dataTwoArr[indexPath.row];
         cell.dataTwoArr = self.dataTwoArr;
-//        cell.isFirst = NO;
     }
    
     cell.myTableView = self.tableView;

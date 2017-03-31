@@ -64,9 +64,11 @@
     //强制刷新SDK
     self.conversationListTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf refreshConversationTableViewIfNeeded];
-//        [weakSelf.conversationListTableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.conversationListTableView reloadData];
+            [weakSelf.conversationListTableView.mj_header endRefreshing];
+        });
     }];
-
     
 }
 -(void)tapClick{

@@ -17,7 +17,6 @@
 		450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50E91E853C1300433A61 /* UIColor+RCColor.m */; };
 		450A50ED1E853C3200433A61 /* DefaultPortraitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50EC1E853C3200433A61 /* DefaultPortraitView.m */; };
 		450A50F11E853CB200433A61 /* RCDUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50F01E853CB200433A61 /* RCDUserInfo.m */; };
-		450A50F41E86219F00433A61 /* record1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 450A50F31E86219F00433A61 /* record1.gif */; };
 		450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50F61E86225D00433A61 /* FriendDetailController.m */; };
 		450A50FA1E86227900433A61 /* UnknownFriendDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50F91E86227900433A61 /* UnknownFriendDetailController.m */; };
 		450A50FD1E8648D300433A61 /* SetPersonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50FC1E8648D300433A61 /* SetPersonController.m */; };
@@ -131,6 +130,9 @@
 		4573CC011E8B8DDD0047D1F4 /* MemberListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4573CBFF1E8B8DDD0047D1F4 /* MemberListCell.xib */; };
 		4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC031E8BA7050047D1F4 /* MemberListController.m */; };
 		4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC061E8BB0C60047D1F4 /* GroupNoticeViewController.m */; };
+		4573CC0A1E8E56060047D1F4 /* ChooseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC091E8E56060047D1F4 /* ChooseCell.m */; };
+		4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC0C1E8E56A90047D1F4 /* ChooseFriendsController.m */; };
+		4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC0F1E8E58450047D1F4 /* ManageGroupViewController.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -180,7 +182,6 @@
 		450A50EC1E853C3200433A61 /* DefaultPortraitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultPortraitView.m; sourceTree = "<group>"; };
 		450A50EF1E853CB200433A61 /* RCDUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDUserInfo.h; sourceTree = "<group>"; };
 		450A50F01E853CB200433A61 /* RCDUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDUserInfo.m; sourceTree = "<group>"; };
-		450A50F31E86219F00433A61 /* record1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = record1.gif; sourceTree = "<group>"; };
 		450A50F51E86225D00433A61 /* FriendDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendDetailController.h; sourceTree = "<group>"; };
 		450A50F61E86225D00433A61 /* FriendDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendDetailController.m; sourceTree = "<group>"; };
 		450A50F81E86227900433A61 /* UnknownFriendDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnknownFriendDetailController.h; sourceTree = "<group>"; };
@@ -351,6 +352,12 @@
 		4573CC031E8BA7050047D1F4 /* MemberListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberListController.m; sourceTree = "<group>"; };
 		4573CC051E8BB0C60047D1F4 /* GroupNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupNoticeViewController.h; sourceTree = "<group>"; };
 		4573CC061E8BB0C60047D1F4 /* GroupNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupNoticeViewController.m; sourceTree = "<group>"; };
+		4573CC081E8E56060047D1F4 /* ChooseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCell.h; sourceTree = "<group>"; };
+		4573CC091E8E56060047D1F4 /* ChooseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseCell.m; sourceTree = "<group>"; };
+		4573CC0B1E8E56A90047D1F4 /* ChooseFriendsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseFriendsController.h; sourceTree = "<group>"; };
+		4573CC0C1E8E56A90047D1F4 /* ChooseFriendsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseFriendsController.m; sourceTree = "<group>"; };
+		4573CC0E1E8E58450047D1F4 /* ManageGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageGroupViewController.h; sourceTree = "<group>"; };
+		4573CC0F1E8E58450047D1F4 /* ManageGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageGroupViewController.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -479,7 +486,6 @@
 		455FA30A1E7631A90039B155 /* CommunityProject */ = {
 			isa = PBXGroup;
 			children = (
-				450A50F31E86219F00433A61 /* record1.gif */,
 				4562D7BB1E80C29900C6EE56 /* Third */,
 				455FA3251E763C070039B155 /* Main */,
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
@@ -1030,6 +1036,10 @@
 				4573CC031E8BA7050047D1F4 /* MemberListController.m */,
 				4573CC051E8BB0C60047D1F4 /* GroupNoticeViewController.h */,
 				4573CC061E8BB0C60047D1F4 /* GroupNoticeViewController.m */,
+				4573CC0B1E8E56A90047D1F4 /* ChooseFriendsController.h */,
+				4573CC0C1E8E56A90047D1F4 /* ChooseFriendsController.m */,
+				4573CC0E1E8E58450047D1F4 /* ManageGroupViewController.h */,
+				4573CC0F1E8E58450047D1F4 /* ManageGroupViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1071,6 +1081,8 @@
 				4573CBFD1E8B8DDD0047D1F4 /* MemberListCell.h */,
 				4573CBFE1E8B8DDD0047D1F4 /* MemberListCell.m */,
 				4573CBFF1E8B8DDD0047D1F4 /* MemberListCell.xib */,
+				4573CC081E8E56060047D1F4 /* ChooseCell.h */,
+				4573CC091E8E56060047D1F4 /* ChooseCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1192,7 +1204,6 @@
 				455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
-				450A50F41E86219F00433A61 /* record1.gif in Resources */,
 				4573CC011E8B8DDD0047D1F4 /* MemberListCell.xib in Resources */,
 				456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */,
 				455FA3601E76A5370039B155 /* Login.storyboard in Resources */,
@@ -1285,11 +1296,13 @@
 				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
+				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
+				4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */,
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
 				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
@@ -1341,6 +1354,7 @@
 				4562D74B1E7FB9BA00C6EE56 /* ReduceImage.m in Sources */,
 				4562D75D1E7FDC1B00C6EE56 /* UIButton+button.m in Sources */,
 				4562D7481E7FB9A000C6EE56 /* UploadImageNet.m in Sources */,
+				4573CC0A1E8E56060047D1F4 /* ChooseCell.m in Sources */,
 				455FA3541E76A2C60039B155 /* MineController.m in Sources */,
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,
 				455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */,
