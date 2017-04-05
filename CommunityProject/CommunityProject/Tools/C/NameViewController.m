@@ -8,11 +8,11 @@
 
 #import "NameViewController.h"
 //修改好友备注
-#define ChangeNameURL @"http://192.168.0.209:90/appapi/app/editFriendName"
+#define ChangeNameURL @"appapi/app/editFriendName"
 //修改群名
-#define ChangeGroupNameURL @"http://192.168.0.209:90/appapi/app/changeGroupName"
+#define ChangeGroupNameURL @"appapi/app/changeGroupName"
 //修改群昵称
-#define ChangeNickNameURL @"http://192.168.0.209:90/appapi/app/changeUserName"
+#define ChangeNickNameURL @"appapi/app/changeUserName"
 
 @interface NameViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameTF;
@@ -68,14 +68,14 @@
             NSMutableDictionary * dic = [NSMutableDictionary new];
             [dic setValuesForKeysWithDictionary:params];
             [dic setValue:self.nameTF.text forKey:@"displayname"];
-            [self changeDisplayName:dic andUrl:ChangeNameURL andSymbol:1];
+            [self changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,ChangeNameURL] andSymbol:1];
             //群昵称
         }else if (self.titleCount == 2){
             NSDictionary * params = @{@"userId":self.userId,@"groupId":self.groupId};
             NSMutableDictionary * dic = [NSMutableDictionary new];
             [dic setValuesForKeysWithDictionary:params];
             [dic setValue:self.nameTF.text forKey:@"groupName"];
-            [self changeDisplayName:dic andUrl:ChangeNickNameURL andSymbol:2];
+            [self changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,ChangeNickNameURL] andSymbol:2];
 
             //群名称
         }else if (self.titleCount == 3){
@@ -83,7 +83,7 @@
             NSMutableDictionary * dic = [NSMutableDictionary new];
             [dic setValuesForKeysWithDictionary:params];
             [dic setValue:self.nameTF.text forKey:@"groupName"];
-            [self changeDisplayName:dic andUrl:ChangeGroupNameURL andSymbol:3];
+            [self changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,ChangeGroupNameURL] andSymbol:3];
         }
     }else{
         [self leftClick];
@@ -98,9 +98,7 @@
             NSSLog(@"修改备注失败%@",error);
 //            [weakSelf showMessage:@"修改备注失败"];
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSSLog(@"%@",jsonDic);
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 if (symbol == 1) {
                     //好友昵称修改

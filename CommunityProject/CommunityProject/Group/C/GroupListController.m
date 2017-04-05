@@ -12,7 +12,7 @@
 #import "GroupListCell.h"
 #import "ChatDetailController.h"
 
-#define GroupURL @"http://192.168.0.209:90/appapi/app/groupData"
+#define GroupURL @"appapi/app/groupData"
 
 @interface GroupListController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -91,7 +91,7 @@
 -(void)getGroupList{
     NSString * userID = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
     WeakSelf;
-    [AFNetData postDataWithUrl:GroupURL andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupURL] andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取群组列表失败%@",error);
         }else{
@@ -102,10 +102,9 @@
                 }
                 [weakSelf.dataArr removeAllObjects];
             }
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * arr = jsonDic[@"data"];
+                NSArray * arr = data[@"data"];
                 for (NSDictionary * dic in arr) {
                     GroupModel * model = [[GroupModel alloc]initWithDictionary:dic error:nil];
                     [[GroupDatabaseSingleton shareDatabase]insertDatabase:model];

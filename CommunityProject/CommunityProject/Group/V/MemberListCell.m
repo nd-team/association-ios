@@ -17,7 +17,7 @@
 -(void)setListModel:(MemberListModel *)listModel{
     _listModel = listModel;
     self.nameLabel.text = _listModel.userName;
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:_listModel.userPortraitUrl]];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_listModel.userPortraitUrl]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
 }
 

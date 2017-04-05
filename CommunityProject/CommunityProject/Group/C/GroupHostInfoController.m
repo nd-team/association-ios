@@ -16,8 +16,8 @@
 #import "ChatMainController.h"
 #import "ManageGroupViewController.h"
 
-#define MemberURL @"http://192.168.0.209:90/appapi/app/groupMember"
-#define DissolveURL @"http://192.168.0.209:90/appapi/app/dissolutionGroup"
+#define MemberURL @"appapi/app/groupMember"
+#define DissolveURL @"appapi/app/dissolutionGroup"
 @interface GroupHostInfoController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UILabel *groupNameLabel;
@@ -69,9 +69,8 @@
     [self.topBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
     [self.msgBtn setBackgroundImage:[UIImage imageNamed:@"switchOff.png"] forState:UIControlStateNormal];
     [self.msgBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    self.userId = [userDefaults objectForKey:@"userId"];
-    BOOL isTop = [userDefaults boolForKey:@"topGroupOne"];
+    self.userId = [DEFAULTS objectForKey:@"userId"];
+    BOOL isTop = [DEFAULTS boolForKey:@"topGroupOne"];
     self.topBtn.selected = isTop;
     //设置按钮状态
     WeakSelf;
@@ -93,21 +92,20 @@
 
 -(void)getMemberList{
     NSDictionary * dict = @{@"groupId":self.groupId,@"userId":self.userId};
-    [AFNetData postDataWithUrl:MemberURL andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MemberURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取群成员失败%@",error);
         }else{
             if (self.dataArr.count !=0) {
                 [self.dataArr removeAllObjects];
             }
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * array = jsonDic[@"data"];
+                NSArray * array = data[@"data"];
                 for (NSDictionary * dic in array) {
                     MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
                     [self.dataArr addObject:member];
-                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:member.userPortraitUrl]]];
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:member.userPortraitUrl]]];
                     //刷新群组成员的信息
                     [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:member.userId];
                 }
@@ -166,6 +164,7 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
     ManageGroupViewController * manager = [sb instantiateViewControllerWithIdentifier:@"ManageGroupViewController"];
     manager.groupId = self.groupId;
+    manager.hostId = self.hostId;
     [self.navigationController pushViewController:manager animated:YES];
 }
 //进群申请
@@ -246,12 +245,11 @@
 -(void)dismissGroup{
     WeakSelf;
     RCGroup * group = [[RCGroup alloc]initWithGroupId:self.groupId groupName:self.groupName portraitUri:self.headUrl];
-    [AFNetData postDataWithUrl:DissolveURL andParams:@{@"groupId":self.groupId,@"groupUser":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,DissolveURL] andParams:@{@"groupId":self.groupId,@"groupUser":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"解散群或退群失败%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200 ||[code intValue] == 100) {
                 //解散群成功 刷新SDK
 //                删除会话

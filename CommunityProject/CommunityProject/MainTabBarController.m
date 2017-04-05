@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//隐藏顶部线条
+   //隐藏顶部线条
     UIImage * img = [UIColor imageWithColor:[UIColor whiteColor]];
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth, self.tabBar.frame.size.height)];
     imageView.image = img;

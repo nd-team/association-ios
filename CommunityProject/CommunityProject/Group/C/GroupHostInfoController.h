@@ -23,5 +23,7 @@
 @property (nonatomic,copy)NSString * headUrl;
 //区分群主和管理员
 @property (nonatomic,assign)BOOL isHost;
+//群主ID
+@property (nonatomic,copy)NSString * hostId;
 
 @end

@@ -12,7 +12,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    [self.chooseBtn setBackgroundImage:[UIImage imageNamed:@"noSelBtn"] forState:UIControlStateNormal];
+    [self.chooseBtn setBackgroundImage:[UIImage imageNamed:@"selBtn"] forState:UIControlStateSelected];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -21,8 +23,25 @@
     // Configure the view for the selected state
 }
 - (IBAction)chooseClick:(id)sender {
-    
+    self.chooseBtn.selected = !self.chooseBtn.selected;
+    UIButton * button = (UIButton *)sender;
+    ChooseCell * cell = (ChooseCell *)[[button superview]superview];
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    MemberListModel * model = self.dataArr[indexPath.section][indexPath.row];
+    if (self.isSingle == 1) {
+        if (self.chooseBtn.selected) {
+            self.managerBlock(model.userId,YES);
+            self.selectBlock(indexPath);
+        }
+    }
     
 }
+-(void)setMemberModel:(MemberListModel *)memberModel{
+    _memberModel = memberModel;
+    self.nameLabel.text = _memberModel.userName;
+    NSString *  str = [ImageUrl changeUrl:_memberModel.userPortraitUrl];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
 
+}
 @end

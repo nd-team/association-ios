@@ -11,7 +11,7 @@
 #import "ChatDetailController.h"
 #import "ChatMainController.h"
 
-#define DeleteURL @"http://192.168.0.209:90/appapi/app/deleteUser"
+#define DeleteURL @"appapi/app/deleteUser"
 
 @interface FriendDetailController ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthContraints;
@@ -141,15 +141,13 @@
     NSString * nickname = [user objectForKey:@"nickname"];
     NSString * headUrl = [user objectForKey:@"userPortraitUrl"];
     NSString * url = [ImageUrl changeUrl:headUrl];
-    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:self.userId name:nickname portrait:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",url]];
+    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:self.userId name:nickname portrait:[NSString stringWithFormat:NetURL,url]];
     WeakSelf;
-    [AFNetData postDataWithUrl:DeleteURL andParams:@{@"userId":self.userId,@"friendUserid":self.friendId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,DeleteURL] andParams:@{@"userId":self.userId,@"friendUserid":self.friendId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"删除好友失败%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSSLog(@"%@",jsonDic);
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //删除会话列表里朋友的消息
                 [[RCIMClient sharedRCIMClient]removeConversation:ConversationType_PRIVATE targetId:self.friendId];
@@ -200,7 +198,12 @@
     chat.conversationType = ConversationType_PRIVATE;
     chat.targetId = self.friendId;
     //会话人备注
-    chat.title = self.display;
+    if (self.display.length != 0) {
+        chat.title = self.display;
+    }else{
+        chat.title = self.name;
+
+    }
     [self.navigationController pushViewController:chat animated:YES];
 }
 #pragma mark- 解决scrollView的屏幕适配

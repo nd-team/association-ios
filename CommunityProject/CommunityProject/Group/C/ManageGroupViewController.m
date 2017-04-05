@@ -31,6 +31,8 @@
     ChooseFriendsController * choose = [sb instantiateViewControllerWithIdentifier:@"ChooseFriendsController"];
     choose.groupId = self.groupId;
     choose.name = @"选择副群主";
+    choose.dif = 1;
+    choose.hostId = self.hostId;
     [self.navigationController pushViewController:choose animated:YES];
 
 }

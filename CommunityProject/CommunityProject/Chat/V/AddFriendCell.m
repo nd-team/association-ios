@@ -23,7 +23,7 @@
 -(void)setSearchModel:(SearchFriendModel *)searchModel{
     _searchModel = searchModel;
     
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:_searchModel.userPortraitUrl]];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_searchModel.userPortraitUrl]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"Carial.jpg"]];
 
     self.nameLabel.text = _searchModel.nickname;

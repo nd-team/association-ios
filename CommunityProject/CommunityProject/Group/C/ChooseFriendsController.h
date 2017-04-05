@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ChooseFriendsController : UIViewController
-
+//群主ID
+@property (nonatomic,copy)NSString * hostId;
 //群ID
 @property (nonatomic,copy)NSString * groupId;
 //标题

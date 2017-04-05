@@ -7,8 +7,8 @@
 //
 
 #import "LoginController.h"
-#define LoginURL @"http://192.168.0.209:90/appapi/app/login"
-#define RegisterURL @"http://192.168.0.209:90/appapi/app/register"
+#define LoginURL @"appapi/app/login"
+#define RegisterURL @"appapi/app/register"
 @interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
@@ -150,13 +150,11 @@
 -(void)registerMessage{
     WeakSelf;
     NSDictionary * params = @{@"nickname":self.nicknameTF.text,@"mobile":self.phoneTF.text,@"password":self.passwordTF.text,@"recommendId":self.codeTF.text};
-    [AFNetData postDataWithUrl:RegisterURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RegisterURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"注册失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSSLog(@"%@",jsonDic);
-            NSNumber *code = jsonDic[@"code"];
+            NSNumber *code = data[@"code"];
             NSSLog(@"%@",code);
             if ([code intValue] == 200) {
                 NSSLog(@"注册成功");
@@ -203,19 +201,17 @@
 -(void)loginNet{
     WeakSelf;
     NSDictionary * dic = @{@"mobile":self.usernameTF.text,@"password":self.secretTF.text};
-    [AFNetData postDataWithUrl:LoginURL andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         
         if (error) {
             NSSLog(@"登录失败：%@",error);
             [weakSelf showMessage:@"登录失败！"];
 
-        }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            
-            NSNumber * code = jsonDic[@"code"];
+        }else{            
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //成功
-                NSDictionary * msg = jsonDic[@"data"];
+                NSDictionary * msg = data[@"data"];
                 //保存用户数据
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 //用户ID
@@ -223,7 +219,7 @@
                 //昵称
                 [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
                 //头像
-                NSString * url = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
+                NSString * url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
                 [userDefaults setValue:url forKey:@"userPortraitUrl"];
                 //token
                 [userDefaults setValue:msg[@"token"] forKey:@"token"];

@@ -162,9 +162,6 @@
 //    if ([touch.view isKindOfClass:[UITableView class]]) {
 //        return NO;
 //    }
-//    if ([touch.view isKindOfClass:[UITableViewCell class]]) {
-//        return NO;
-//    }
     return YES;
 }
 @end

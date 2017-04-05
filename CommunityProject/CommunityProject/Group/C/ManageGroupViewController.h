@@ -11,5 +11,7 @@
 @interface ManageGroupViewController : UIViewController
 //群ID
 @property (nonatomic,copy)NSString * groupId;
+//群主ID
+@property (nonatomic,copy)NSString * hostId;
 
 @end

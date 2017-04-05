@@ -23,10 +23,9 @@
 
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",nil];
     
-
     [manager POST:urlStr parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        block(task.response,nil,responseObject);
+        NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        block(task.response,nil,jsonDic);
                 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         

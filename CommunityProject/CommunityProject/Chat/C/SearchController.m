@@ -13,8 +13,8 @@
 #import "SearchGroupModel.h"
 #import "UnknownFriendDetailController.h"
 
-#define SearchURL @"http://192.168.0.209:90/appapi/app/lookupUser"
-#define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
+#define SearchURL @"appapi/app/lookupUser"
+#define FriendDetailURL @"appapi/app/selectUserInfo"
 
 @interface SearchController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *searchTF;
@@ -63,7 +63,7 @@
 
 -(void)searchData:(NSString *)phone{
     WeakSelf;
-    [AFNetData postDataWithUrl:SearchURL andParams:@{@"number":phone} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SearchURL] andParams:@{@"number":phone} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"搜索获取失败%@",error);
             //            [weakSelf showMessage:@"获取失败"];
@@ -74,12 +74,9 @@
             if (weakSelf.groupArr.count != 0) {
                 [weakSelf.groupArr removeAllObjects];
             }
-            
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
-            NSSLog(@"%@",jsonDic);
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * msgDic = jsonDic[@"data"];
+                NSDictionary * msgDic = data[@"data"];
                 //用户
                 if ([msgDic[@"status"]intValue] == 0) {
                     SearchFriendModel * search = [[SearchFriendModel alloc]initWithDictionary:msgDic error:nil];
@@ -136,18 +133,17 @@
          UnknownFriendDetailController * know = [[UIStoryboard storyboardWithName:@"Address" bundle:nil]instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
          SearchFriendModel * model = self.personArr[indexPath.row];
          //请求网络获取朋友的基本信息
-         [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":model.userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+         [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":model.userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
              if (error) {
                  NSSLog(@"好友详情请求失败：%@",error);
              }else{
-                 NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                 NSNumber * code = jsonDic[@"code"];
+                 NSNumber * code = data[@"code"];
                  if ([code intValue] == 200) {
-                     NSDictionary * dict = jsonDic[@"data"];
+                     NSDictionary * dict = data[@"data"];
                      know.friendId = model.userId;
                      //请求网络数据获取用户详细资料
                      know.name = dict[@"nickname"];
-                     NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                      know.url = encodeUrl;
                      if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                          know.age = dict[@"age"];

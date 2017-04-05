@@ -12,9 +12,9 @@
 #import "FriendDetailController.h"
 #import "UnknownFriendDetailController.h"
 //好友详情
-#define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
+#define FriendDetailURL @"appapi/app/selectUserInfo"
 //判断是否是好友
-#define TESTURL @"http://192.168.0.209:90/appapi/app/CheckMobile"
+#define TESTURL @"appapi/app/CheckMobile"
 
 @interface MemberListController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -46,16 +46,19 @@
     
     MemberListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MemberListCell" forIndexPath:indexPath];
     if (self.isManager) {
-        if (indexPath.row == self.collectArr.count-1) {
+        if (indexPath.row == self.collectArr.count+1) {
             cell.headImageView.image = [UIImage imageNamed:@"deleteFriend"];
-        }else if (indexPath.row == self.collectArr.count -2){
+            cell.nameLabel.text = @"";
+        }else if (indexPath.row == self.collectArr.count){
             cell.headImageView.image = [UIImage imageNamed:@"addFriend"];
+            cell.nameLabel.text = @"";
         }else{
             cell.listModel = self.collectArr[indexPath.row];
         }
     }else{
-        if (indexPath.row == self.collectArr.count-1) {
+        if (indexPath.row == self.collectArr.count) {
             cell.headImageView.image = [UIImage imageNamed:@"addFriend"];
+            cell.nameLabel.text = @"";
         }else{
             cell.listModel = self.collectArr[indexPath.row];
         }
@@ -66,16 +69,18 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     MemberListModel * model = self.collectArr[indexPath.row];
     if (self.isManager) {
-        if (indexPath.row == self.collectArr.count-1) {
-
-        }else if (indexPath.row == self.collectArr.count -2){
-
+        if (indexPath.row == self.collectArr.count+1) {
+//删除
+            
+        }else if (indexPath.row == self.collectArr.count){
+//拉人
+            
         }else{
             [self testUserIsFriendMobile:model.userId];
         }
     }else{
-        if (indexPath.row == self.collectArr.count-1) {
-
+        if (indexPath.row == self.collectArr.count) {
+//拉人
         }else{
             [self testUserIsFriendMobile:model.userId];
         }
@@ -86,14 +91,13 @@
 -(void)testUserIsFriendMobile:(NSString *)selectUserId{
     WeakSelf;
     
-    [AFNetData postDataWithUrl:TESTURL andParams:@{@"userId":self.userId,@"mobile":selectUserId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TESTURL] andParams:@{@"userId":self.userId,@"mobile":selectUserId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"判断是否为好友失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
                 NSNumber * status = dict[@"status"];
                 if ([status intValue] == 1) {
                     //好友
@@ -107,14 +111,13 @@
 }
 //好友界面
 -(void)pushFriendId:(BOOL)isFriend andUserId:(NSString *)userId{
-    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
                 if (isFriend) {
                     //传参
                     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
@@ -122,7 +125,7 @@
                     detail.friendId = userId;
                     //请求网络数据获取用户详细资料
                     detail.name = dict[@"nickname"];
-                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                         detail.age = dict[@"age"];
@@ -181,7 +184,7 @@
                     detail.friendId = userId;
                     //请求网络数据获取用户详细资料
                     detail.name = dict[@"nickname"];
-                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                         detail.age = dict[@"age"];

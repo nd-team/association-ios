@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.headImageView.layer.masksToBounds = YES;
+    self.headImageView.layer.cornerRadius = 5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -23,7 +24,7 @@
 -(void)setListModel:(FriendsListModel *)listModel{
     _listModel = listModel;
     NSString * str = [ImageUrl changeUrl:_listModel.userPortraitUrl];
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",str];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     if ([userId isEqualToString:_listModel.userId]) {
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_listModel.userPortraitUrl]];

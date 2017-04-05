@@ -11,11 +11,11 @@
 #import "GroupApplicationModel.h"
 #import "ApplicationTwoModel.h"
 //有留言的申请
-#define GroupApplicationURL @"http://192.168.0.209:90/appapi/app/groupApplyUser"
+#define GroupApplicationURL @"appapi/app/groupApplyUser"
 //拉人的申请
-#define ApplicationURL @"http://192.168.0.209:90/appapi/app/groupAuditingAllUser"
+#define ApplicationURL @"appapi/app/groupAuditingAllUser"
 
-#define AgreeGroupFriendURL @"http://192.168.0.209:90/appapi/app/checkJoinUser"
+#define AgreeGroupFriendURL @"appapi/app/checkJoinUser"
 
 @interface GroupMessageController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -34,7 +34,7 @@
     [super viewDidLoad];
     [self setUI];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(agreeAddFriend:) name:@"AgreeGroupMessage" object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(disagreePerson:) name:@"OverlookMessage" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(agreeAddFriend:) name:@"OverlookMessage" object:nil];
 
     [self getAllData];
 }
@@ -45,43 +45,33 @@
 -(void)agreeAddFriend:(NSNotification *)nofi{
     WeakSelf;
     NSDictionary * dic = [nofi object];
-    [AFNetData postDataWithUrl:AgreeGroupFriendURL andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AgreeGroupFriendURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
-            NSSLog(@"同意添加好友失败%@",error);
-            //  [weakSelf showMessage:@"同意添加好友失败"];
+            NSSLog(@"审核群员失败%@",error);
+            //  [weakSelf showMessage:@"审核群员失败"];
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSSLog(@"%@",jsonDic);
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             //1拒绝加入2同意3忽略
-            if ([code intValue] == 2) {
-                [weakSelf getAllData];
-            }else if ([code intValue] == 0){
-                // [weakSelf showMessage:@"同意添加好友失败"];
+            if ([code intValue] == 2||[code intValue] == 3) {
+                [weakSelf commonDataSendMsg:[NSString stringWithFormat:@"%@已经加入群聊了，可以聊天啦！",dic[@"userId"]] andIdStr:dic[@"groupId"] andType:ConversationType_GROUP];
+            }
+           else if ([code intValue] == 0){
+                // [weakSelf showMessage:@"审核群员失败"];
             }
         }
     }];
     
 }
--(void)disagreePerson:(NSNotification *)nofi{
+-(void)commonDataSendMsg:(NSString *)textStr andIdStr:(NSString *)idStr andType:(RCConversationType)type{
     WeakSelf;
-    NSDictionary * dic = [nofi object];
-    [AFNetData postDataWithUrl:AgreeGroupFriendURL andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        if (error) {
-            NSSLog(@"同意添加好友失败%@",error);
-            // [weakSelf showMessage:@"同意添加好友失败"];
-        }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSSLog(@"%@",jsonDic);
-            NSNumber * code = jsonDic[@"code"];
-            if ([code intValue] == 3) {
-                [weakSelf getAllData];
-            }else if ([code intValue] == 0){
-                //[weakSelf showMessage:@"同意添加好友失败"];
-            }
-        }
-    }];
+    RCTextMessage * textMsg = [RCTextMessage messageWithContent:textStr];
+    [[RCIM sharedRCIM]sendMessage:type targetId:idStr content:textMsg pushContent:textStr pushData:nil success:^(long messageId) {
+        [weakSelf getAllData];
 
+    } error:^(RCErrorCode nErrorCode, long messageId) {
+//        [weakSelf showMessage:@"发送消息失败"];
+        
+    }];
 }
 -(void)getAllData{
 
@@ -119,7 +109,7 @@
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     NSDictionary * params = @{@"userId":userId,@"groupId":self.groupId};
     WeakSelf;
-    [AFNetData postDataWithUrl:GroupApplicationURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupApplicationURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"群申请获取失败%@",error);
             //            [weakSelf showMessage:@"添加好友列表获取失败"];
@@ -127,11 +117,9 @@
             if (weakSelf.dataArr.count != 0 || weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
             }
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
-            NSSLog(@"%@",jsonDic);
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * msgArr = jsonDic[@"data"];
+                NSArray * msgArr = data[@"data"];
                 for (NSDictionary * dic in msgArr) {
                     GroupApplicationModel * search = [[GroupApplicationModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:search];
@@ -148,7 +136,7 @@
     NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     NSDictionary * params = @{@"userId":userId,@"groupId":self.groupId};
     WeakSelf;
-    [AFNetData postDataWithUrl:ApplicationURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ApplicationURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"群申请获取失败%@",error);
             //            [weakSelf showMessage:@"添加好友列表获取失败"];
@@ -156,11 +144,9 @@
             if (weakSelf.dataTwoArr.count != 0 || weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataTwoArr removeAllObjects];
             }
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
-            NSSLog(@"%@",jsonDic);
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * msgArr = jsonDic[@"data"];
+                NSArray * msgArr = data[@"data"];
                 for (NSDictionary * dic in msgArr) {
                     ApplicationTwoModel * search = [[ApplicationTwoModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataTwoArr addObject:search];

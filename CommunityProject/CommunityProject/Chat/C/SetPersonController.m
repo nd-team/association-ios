@@ -9,8 +9,8 @@
 #import "SetPersonController.h"
 #import "ChatMainController.h"
 
-#define DeleteURL @"http://192.168.0.209:90/appapi/app/deleteUser"
-#define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
+#define DeleteURL @"appapi/app/deleteUser"
+#define FriendDetailURL @"appapi/app/selectUserInfo"
 
 @interface SetPersonController ()
 
@@ -101,7 +101,6 @@
     self.birthdayLabel.text = @"生日：";
     self.prestigeLabel.text = @"信誉值：";
     self.areaLabel.text = @"地址：";
-    
 }
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
@@ -109,16 +108,16 @@
 -(void)getUserInformation{
     WeakSelf;
     //获取数据初始化数据
-    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":self.friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"otherUserId":self.friendId,@"status":@"1",@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
+//                NSSLog(@"%@",dict);
                 //请求网络数据获取用户详细资料
-                NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                 [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
                 if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                     weakSelf.nameLabel.text = [NSString stringWithFormat:@"%@  %@岁",self.nickname,dict[@"age"]];
@@ -130,26 +129,26 @@
                         weakSelf.sexImageView.image = [UIImage imageNamed:@"woman.png"];
                     }
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    weakSelf.recomendLabel.text = [NSString stringWithFormat:@"推荐：%@",dict[@""]];
+                if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                    weakSelf.recomendLabel.text = [NSString stringWithFormat:@"推荐人：%@",dict[@"recommendUserId"]];
                 }
                 if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
                     weakSelf.emailLabel.text = [NSString stringWithFormat:@"邮箱：%@",dict[@"email"]];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    weakSelf.knowLabel.text = [NSString stringWithFormat:@"认领：%@",dict[@""]];
+                if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                    weakSelf.knowLabel.text = [NSString stringWithFormat:@"认领人：%@",dict[@"claimUserId"]];
                 }
                 if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
                     weakSelf.phoneLabel.text = [NSString stringWithFormat:@"电话：%@",dict[@"mobile"]];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    weakSelf.contributeLabel.text = [NSString stringWithFormat:@"贡献值：%@",dict[@""]];
+                if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
+                    weakSelf.contributeLabel.text = [NSString stringWithFormat:@"贡献值：%@",dict[@"contributionScore"]];
                 }
                 if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
                    weakSelf.birthdayLabel.text = [NSString stringWithFormat:@"生日：%@",dict[@"birthday"]];
                 }
-                if (![dict[@""] isKindOfClass:[NSNull class]]) {
-                    weakSelf.prestigeLabel.text = [NSString stringWithFormat:@"信誉值：%@",dict[@""]];
+                if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
+                    weakSelf.prestigeLabel.text = [NSString stringWithFormat:@"信誉值：%@",dict[@"creditScore"]];
                 }
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     weakSelf.areaLabel.text = [NSString stringWithFormat:@"地址：%@",dict[@"address"]];
@@ -175,15 +174,13 @@
     NSString * nickname = [user objectForKey:@"nickname"];
     NSString * headUrl = [user objectForKey:@"userPortraitUrl"];
     NSString * url = [ImageUrl changeUrl:headUrl];
-    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:self.userId name:nickname portrait:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",url]];
+    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:self.userId name:nickname portrait:[NSString stringWithFormat:NetURL,url]];
     WeakSelf;
-    [AFNetData postDataWithUrl:DeleteURL andParams:@{@"userId":self.userId,@"friendUserid":self.friendId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,DeleteURL] andParams:@{@"userId":self.userId,@"friendUserid":self.friendId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"删除好友失败%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSSLog(@"%@",jsonDic);
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //刷新SDK缓存
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:self.userId];

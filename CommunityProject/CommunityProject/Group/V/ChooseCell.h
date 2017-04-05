@@ -7,10 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MemberListModel.h"
+
+typedef void(^ChooseManagerBlock)(NSString * groupUserId,BOOL isSingle);
+typedef void(^SelectRowBlock)(NSIndexPath * selectPath);
 
 @interface ChooseCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
+@property (nonatomic,strong)MemberListModel * memberModel;
+@property (nonatomic,assign)int isSingle;
+@property (nonatomic,copy)ChooseManagerBlock managerBlock;
+@property (nonatomic,strong)UITableView * tableView;
+@property (nonatomic,strong)NSMutableArray * dataArr;
+@property (nonatomic,copy)SelectRowBlock selectBlock;
 
 @end

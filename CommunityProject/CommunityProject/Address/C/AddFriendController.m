@@ -8,7 +8,7 @@
 
 #import "AddFriendController.h"
 
-#define AddFriendURL @"http://192.168.0.209:90/appapi/app/addfriendRequest"
+#define AddFriendURL @"appapi/app/addfriendRequest"
 
 @interface AddFriendController ()
 @property (weak, nonatomic) IBOutlet UITextView *contentTV;
@@ -63,13 +63,12 @@
 }
 -(void)postAddFriend:(NSMutableDictionary *)mDic{
     WeakSelf;
-    [AFNetData postDataWithUrl:AddFriendURL andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AddFriendURL] andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"添加好友失败：%@",error);
 //            [weakSelf showMessage:@"添加好友失败"];
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.navigationController popViewControllerAnimated:YES];

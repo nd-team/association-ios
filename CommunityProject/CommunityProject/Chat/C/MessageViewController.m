@@ -11,8 +11,8 @@
 #import "ApplicationFriendsModel.h"
 #import "ApplicationDatabaseSingle.h"
 
-#define ApplicationURL @"http://192.168.0.209:90/appapi/app/allAddfriendRequest"
-#define AddFriendURL @"http://192.168.0.209:90/appapi/app/confirmFriend"
+#define ApplicationURL @"appapi/app/allAddfriendRequest"
+#define AddFriendURL @"appapi/app/confirmFriend"
 
 @interface MessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,22 +44,32 @@
 -(void)agreeAddFriend:(NSNotification *)nofi{
     WeakSelf;
     NSDictionary * dic = [nofi object];
-    [AFNetData postDataWithUrl:AddFriendURL andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AddFriendURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"同意添加好友失败%@",error);
 //            [weakSelf showMessage:@"同意添加好友失败"];
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSSLog(@"%@",jsonDic);
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                [weakSelf getApplicationFriendList];
+                //申请人发送消息
+                [weakSelf commonDataSendMsg:@"我们已经是好友了，可以聊天啦！" andIdStr:dic[@"friendUserId"] andType:ConversationType_PRIVATE];
+
             }else if ([code intValue] == 0){
 //                [weakSelf showMessage:@"同意添加好友失败"];
             }
         }
     }];
     
+}
+-(void)commonDataSendMsg:(NSString *)textStr andIdStr:(NSString *)idStr andType:(RCConversationType)type{
+    WeakSelf;
+    RCTextMessage * textMsg = [RCTextMessage messageWithContent:textStr];
+    [[RCIM sharedRCIM]sendMessage:type targetId:idStr content:textMsg pushContent:textStr pushData:nil success:^(long messageId) {
+        [weakSelf getApplicationFriendList];
+    } error:^(RCErrorCode nErrorCode, long messageId) {
+//        [weakSelf showMessage:@"发送消息失败"];
+        
+    }];
 }
 
 -(void)localData{
@@ -86,7 +96,7 @@
     NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     NSDictionary * params = @{@"userId":userId};
     WeakSelf;
-    [AFNetData postDataWithUrl:ApplicationURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ApplicationURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"添加好友列表获取失败%@",error);
 //            [weakSelf showMessage:@"添加好友列表获取失败"];
@@ -97,10 +107,9 @@
                 }
                 [weakSelf.dataArr removeAllObjects];
             }
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * msgArr = jsonDic[@"data"];
+                NSArray * msgArr = data[@"data"];
                 for (NSDictionary * dic in msgArr) {
                     ApplicationFriendsModel * search = [[ApplicationFriendsModel alloc]initWithDictionary:dic error:nil];
                     [[ApplicationDatabaseSingle shareDatabase]insertDatabase:search];

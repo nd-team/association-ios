@@ -33,7 +33,7 @@
     _groupModel = groupModel;
     self.nameLabel.text = _groupModel.nickname;
     self.msgLabel.text = _groupModel.addMessage;
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:_groupModel.avatarImage]];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_groupModel.avatarImage]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.userIdLabel.text = _groupModel.userId;
     switch ([_groupModel.status intValue]) {
@@ -61,13 +61,13 @@
     _twoModel = twoModel;
     self.nameLabel.text = _twoModel.nickname;
     self.msgLabel.text = [NSString stringWithFormat:@"邀请人是：%@(%@)",_twoModel.pullNickname,_twoModel.pullUserid];
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:_twoModel.userPortraitUrl]];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_twoModel.userPortraitUrl]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.userIdLabel.text = _twoModel.userId;
 
 }
 - (IBAction)agreeClick:(id)sender {
-    NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    NSString * userId = [DEFAULTS objectForKey:@"userId"];
     //同意好友申请
     UIButton * button = (UIButton *)sender;
     GroupMessageCell * cell = (GroupMessageCell *)[[button superview]superview];
@@ -87,7 +87,7 @@
 
 }
 - (IBAction)unseeClick:(id)sender {
-        NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+        NSString * userId = [DEFAULTS objectForKey:@"userId"];
         //忽略好友申请
         UIButton * button = (UIButton *)sender;
         GroupMessageCell * cell = (GroupMessageCell *)[[button superview]superview];

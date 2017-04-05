@@ -133,6 +133,7 @@
 		4573CC0A1E8E56060047D1F4 /* ChooseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC091E8E56060047D1F4 /* ChooseCell.m */; };
 		4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC0C1E8E56A90047D1F4 /* ChooseFriendsController.m */; };
 		4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC0F1E8E58450047D1F4 /* ManageGroupViewController.m */; };
+		4573CC151E9482920047D1F4 /* BMChineseSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC141E9482920047D1F4 /* BMChineseSort.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -358,6 +359,8 @@
 		4573CC0C1E8E56A90047D1F4 /* ChooseFriendsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseFriendsController.m; sourceTree = "<group>"; };
 		4573CC0E1E8E58450047D1F4 /* ManageGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageGroupViewController.h; sourceTree = "<group>"; };
 		4573CC0F1E8E58450047D1F4 /* ManageGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageGroupViewController.m; sourceTree = "<group>"; };
+		4573CC131E9482920047D1F4 /* BMChineseSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMChineseSort.h; sourceTree = "<group>"; };
+		4573CC141E9482920047D1F4 /* BMChineseSort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMChineseSort.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -782,6 +785,8 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				4573CC131E9482920047D1F4 /* BMChineseSort.h */,
+				4573CC141E9482920047D1F4 /* BMChineseSort.m */,
 				450A50EF1E853CB200433A61 /* RCDUserInfo.h */,
 				450A50F01E853CB200433A61 /* RCDUserInfo.m */,
 				450A50EB1E853C3200433A61 /* DefaultPortraitView.h */,
@@ -1359,6 +1364,7 @@
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,
 				455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */,
 				4562D7421E7F88C200C6EE56 /* NowDate.m in Sources */,
+				4573CC151E9482920047D1F4 /* BMChineseSort.m in Sources */,
 				4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */,
 				4568FB131E89FBBA007BA5BB /* SearchController.m in Sources */,
 				45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */,

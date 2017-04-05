@@ -17,7 +17,7 @@
 #import "ClaimModel.h"
 #import "AppCenterController.h"
 
-#define ClaimURL @"http://192.168.0.209:90/appapi/app/allFriendsClaim"
+#define ClaimURL @"appapi/app/allFriendsClaim"
 @interface FirstController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headView;
@@ -174,30 +174,28 @@
     //0：未认领
     WeakSelf;
     NSDictionary * params = @{@"userId":userId,@"status":@"0"};
-    [AFNetData postDataWithUrl:ClaimURL andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
         }else{
-//            if (weakSelf.claimArr.count !=0||weakSelf.claimTableView.mj_header.isRefreshing) {
-//                for (ClaimModel * model in weakSelf.claimArr) {
-//                    [[ClaimDataBaseSingleton shareDatabase]deleteDatabase:model];
-//                }
-//                [weakSelf.claimArr removeAllObjects];
-//            }
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            
-            NSNumber * code = jsonDic[@"code"];
+            if (weakSelf.claimArr.count !=0||weakSelf.claimTableView.mj_header.isRefreshing) {
+                for (ClaimModel * model in weakSelf.claimArr) {
+                    [[ClaimDataBaseSingleton shareDatabase]deleteDatabase:model];
+                }
+                [weakSelf.claimArr removeAllObjects];
+            }            
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * array = jsonDic[@"data"];
+                NSArray * array = data[@"data"];
                 NSSLog(@"%@",array);
                 for (NSDictionary * dict in array) {
                     ClaimModel * claim = [[ClaimModel alloc]initWithDictionary:dict error:nil];
                     [weakSelf.claimArr addObject:claim];
                 }
                 [weakSelf.claimTableView reloadData];
-//                [weakSelf.claimTableView.mj_header endRefreshing];
+                [weakSelf.claimTableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
-                NSString * msg = jsonDic[@"msgs"];
+                NSString * msg = data[@"msgs"];
                 NSSLog(@"失败错误信息：%@",msg);
             }
         }
@@ -218,7 +216,7 @@
         return cell;
     }else{
         ClaimCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ClaimCell"];
-//        cell.claimModel = self.claimArr[indexPath.row];
+        cell.claimModel = self.claimArr[indexPath.row];
         return cell;
     }
 }
@@ -227,8 +225,8 @@
         return 10;
 //        return self.dataArr.count;
     }else{
-        return 3;
-//        return self.claimArr.count;
+//        return 3;
+        return self.claimArr.count;
     }
     
 }

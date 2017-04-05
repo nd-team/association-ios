@@ -24,4 +24,5 @@
 
 #define DEFAULTS [NSUserDefaults standardUserDefaults]
 
+#define NetURL @"http://192.168.0.99:90/%@"
 #endif /* CommonHeader_h */

@@ -15,10 +15,10 @@
 #import "GroupDatabaseSingleton.h"
 #import "MemberListModel.h"
 
-#define LoginURL @"http://192.168.0.209:90/appapi/app/login"
-#define MemberURL @"http://192.168.0.209:90/appapi/app/groupMember"
-#define FriendListURL @"http://192.168.0.209:90/appapi/app/friends"
-#define GroupURL @"http://192.168.0.209:90/appapi/app/group_data"
+#define LoginURL @"appapi/app/login"
+#define MemberURL @"appapi/app/groupMember"
+#define FriendListURL @"appapi/app/friends"
+#define GroupURL @"appapi/app/groupData"
 
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMGroupMemberDataSource,RCIMConnectionStatusDelegate>
 
@@ -91,18 +91,17 @@
     NSString * userId = [userDefaults objectForKey:@"userId"];
     //用groupID查找用户ID
     NSDictionary * dict = @{@"groupId":groupId,@"userId":userId};
-    [AFNetData postDataWithUrl:MemberURL andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MemberURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取群成员失败%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             NSMutableArray * ret = [NSMutableArray new];
             if ([code intValue] == 200) {
-                NSArray * array = jsonDic[@"data"];
+                NSArray * array = data[@"data"];
                 for (NSDictionary * dic in array) {
                     MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
-                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:member.userPortraitUrl]]];
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:member.userPortraitUrl]]];
                     //刷新群组成员的信息
                     [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:member.userId];
                     [ret addObject:dic[@"userId"]];
@@ -133,7 +132,7 @@
                     userInfo2.portraitUri = list.userPortraitUrl;
                     
                 }else{
-                    userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:list.userPortraitUrl]];
+                    userInfo2.portraitUri = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:list.userPortraitUrl]];
                     
                 }
               return  completion(userInfo2);
@@ -145,7 +144,7 @@
         NSString * head = [DEFAULTS objectForKey:@"userPortraitUrl"];
         NSString * email = [DEFAULTS objectForKey:@"email"];
         //从服务器获取好友列表
-        [AFNetData postDataWithUrl:FriendListURL andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendListURL] andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
             if (error) {
                 NSSLog(@"获取好友列表失败：%@",error);
             }else{
@@ -154,10 +153,9 @@
                 for (FriendsListModel * list in arr1) {
                     [[AddressDataBaseSingleton shareDatabase]deleteDatabase:list];
                 }
-                NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                NSNumber * code = jsonDic[@"code"];
+                NSNumber * code = data[@"code"];
                 if ([code intValue] == 200) {
-                    NSArray * arr = jsonDic[@"data"];
+                    NSArray * arr = data[@"data"];
                     NSMutableArray * array = [NSMutableArray new];
                     NSMutableDictionary * mutDic = [NSMutableDictionary new];
                     NSDictionary * dict = @{@"userId":userID,@"nickname":nickname,@"userPortraitUrl":head,@"mobile":userID};
@@ -168,19 +166,22 @@
                     for (NSDictionary * dic in array) {
                         FriendsListModel * search = [[FriendsListModel alloc]initWithDictionary:dic error:nil];
                         [[AddressDataBaseSingleton shareDatabase]insertDatabase:search];
-                        RCUserInfo * userInfo2 = [RCUserInfo new];
-                        userInfo2.userId = search.userId;
-                        if (search.displayName.length != 0) {
-                            userInfo2.name = search.displayName;
-                        }else{
-                            userInfo2.name = search.nickname;
+                        if ([search.userId isEqualToString:userId]) {
+                            RCUserInfo * userInfo2 = [RCUserInfo new];
+                            userInfo2.userId = search.userId;
+                            if (search.displayName.length != 0) {
+                                userInfo2.name = search.displayName;
+                            }else{
+                                userInfo2.name = search.nickname;
+                            }
+                            if ([search.userId isEqualToString:userID]) {
+                                userInfo2.portraitUri = search.userPortraitUrl;
+                            }else{
+                                userInfo2.portraitUri = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:search.userPortraitUrl]];
+                            }
+                            return completion(userInfo2);
+
                         }
-                        if ([search.userId isEqualToString:userID]) {
-                            userInfo2.portraitUri = search.userPortraitUrl;
-                        }else{
-                            userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:search.userPortraitUrl]];
-                        }
-                        return completion(userInfo2);
                     }
                 }else if ([code intValue] == 0){
                     NSSLog(@"获取失败");
@@ -202,27 +203,28 @@
                 RCGroup * group = [RCGroup new];
                 group.groupId = model.groupId;
                 group.groupName = model.groupName;
-                group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:model.groupPortraitUrl]];
+                group.portraitUri = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.groupPortraitUrl]];
               return  completion(group);
             }
         }
     }else{
         NSString * userID = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
-        [AFNetData postDataWithUrl:GroupURL andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupURL] andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
             if (error) {
                 NSSLog(@"获取群组列表失败%@",error);
             }else{
-                NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-                NSNumber * code = jsonDic[@"code"];
+                NSNumber * code = data[@"code"];
                 if ([code intValue] == 200) {
-                    NSArray * arr = jsonDic[@"data"];
+                    NSArray * arr = data[@"data"];
                     for (NSDictionary * dic in arr) {
                         GroupModel * model = [[GroupModel alloc]initWithDictionary:dic error:nil];
-                        RCGroup * group = [RCGroup new];
-                        group.groupId = model.groupId;
-                        group.groupName = model.groupName;
-                        group.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:model.groupPortraitUrl]];
-                        return  completion(group);
+                        if ([model.groupId isEqualToString:groupId]) {
+                            RCGroup * group = [RCGroup new];
+                            group.groupId = model.groupId;
+                            group.groupName = model.groupName;
+                            group.portraitUri = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.groupPortraitUrl]];
+                            return  completion(group);
+                        }
                     }
                 }
                 
@@ -234,23 +236,22 @@
 -(void)loginNet:(NSString *)phone andPassword:(NSString *)password{
     WeakSelf;
     NSDictionary * dic = @{@"mobile":phone,@"password":password};
-    [AFNetData postDataWithUrl:LoginURL andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"登录失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //成功
-                NSDictionary * msg = jsonDic[@"data"];
+                NSDictionary * msg = data[@"data"];
                 //保存用户数据
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 [userDefaults setValue:msg[@"userId"] forKey:@"userId"];
                 //昵称
                 [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
                 //头像
-                NSString * url = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
+                NSString * url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
 
                 [userDefaults setValue:url forKey:@"userPortraitUrl"];
                 //token

@@ -14,11 +14,11 @@
 #import "FriendDetailController.h"
 #import "UnknownFriendDetailController.h"
 
-#define FriendListURL @"http://192.168.0.209:90/appapi/app/friends"
-#define TESTURL @"http://192.168.0.209:90/appapi/app/CheckMobile"
-#define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
+#define FriendListURL @"appapi/app/friends"
+#define TESTURL @"appapi/app/CheckMobile"
+#define FriendDetailURL @"appapi/app/selectUserInfo"
 
-@interface AddressListController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface AddressListController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
 //通讯录的数据
@@ -66,6 +66,8 @@
     self.searchTF.leftViewMode = UITextFieldViewModeAlways;
     //手势隐藏键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+    tap.delegate = self;
+    tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
     WeakSelf;
     self.tableView.mj_footer.hidden = YES;
@@ -201,7 +203,7 @@
     NSString * email = [userDefaults objectForKey:@"email"];
     WeakSelf;
     //从服务器获取好友列表
-    [AFNetData postDataWithUrl:FriendListURL andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendListURL] andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取好友列表失败：%@",error);
         }else{
@@ -213,10 +215,9 @@
                 }
                 [weakSelf.dataArr removeAllObjects];
             }
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * arr = jsonDic[@"data"];
+                NSArray * arr = data[@"data"];
                 NSMutableArray * array = [NSMutableArray new];
                 NSMutableDictionary * mutDic = [NSMutableDictionary new];
                 NSDictionary * dict = @{@"userId":userID,@"nickname":nickname,@"userPortraitUrl":head,@"mobile":userID};
@@ -235,7 +236,7 @@
                     }else{
                         userInfo2.name = search.nickname;
                     }
-                    userInfo2.portraitUri = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:search.userPortraitUrl]];
+                    userInfo2.portraitUri = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:search.userPortraitUrl]];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo2 withUserId:search.userId];
                 }
                 [weakSelf.tableView reloadData];
@@ -382,14 +383,13 @@
 }
 -(void)testUserIsFriendMobile:(NSString *)mobile andName:(NSString *)name{
     WeakSelf;
-    [AFNetData postDataWithUrl:TESTURL andParams:@{@"userId":self.userID,@"mobile":mobile} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TESTURL] andParams:@{@"userId":self.userID,@"mobile":mobile} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"通讯录失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
                 NSNumber * status = dict[@"status"];
                 if ([status intValue] == 1) {
                     //好友
@@ -406,21 +406,20 @@
     }];
 }
 -(void)pushFriendId:(NSString *)friend{
-    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friend,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friend,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
                 //传参
                 UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
                 FriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"FriendDetailController"];
                 detail.friendId = friend;
                 //请求网络数据获取用户详细资料
                 detail.name = dict[@"nickname"];
-                NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                 detail.url = encodeUrl;
                 if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                     detail.age = dict[@"age"];
@@ -455,19 +454,21 @@
                 detail.listDelegate = self;
                 detail.isAddress = YES;
                 NSInteger status = [[NSString stringWithFormat:@"%@",dict[@"status"]]integerValue];
-                //好友
                 NSString * name;
+                //好友
                 if (status == 1) {
-                    if (![dict[@"friendNickname"] isKindOfClass:[NSNull class]]) {
+                    if (![dict[@"friendNickname"] isEqualToString:@""]) {
                         detail.display = dict[@"friendNickname"];
-                    }
-                    if (dict[@"friendNickname"] != nil) {
                         name = dict[@"friendNickname"];
-                    }else{
+                    }
+                    else{
+                        detail.name = dict[@"nickname"];
                         name = dict[@"nickname"];
+
                     }
                 }else if (status == 2){
                     //自己
+                    detail.name = dict[@"nickname"];
                     name = dict[@"nickname"];
                 }
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friend name:name portrait:encodeUrl];
@@ -493,18 +494,17 @@
     }
 }
 -(void)comeInUnknown:(NSString *)friendId{
-    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
                 UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
                 UnknownFriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
                 detail.name = dict[@"nickname"];
-                NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                 detail.url = encodeUrl;
                 detail.friendId = friendId;
                 if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
@@ -618,6 +618,12 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+//手势代理方法
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
+    return YES;
+}
 
 @end

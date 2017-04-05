@@ -27,7 +27,7 @@
     _model = model;
     self.nameLabel.text = _model.groupName;
    NSString *  str = [ImageUrl changeUrl:_model.groupPortraitUrl];
-    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",str];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
 }
 @end

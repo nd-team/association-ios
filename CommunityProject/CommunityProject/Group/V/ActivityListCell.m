@@ -28,7 +28,7 @@
     
     NSString * str = [ImageUrl changeUrl:_actModel.activesImage];
    
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",str]]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,str]]];
     self.areaLabel.text = [NSString stringWithFormat:@"地点：%@",_actModel.activesAddress];
     self.titleLabel.text = _actModel.activesTitle;
     self.timeLabel.text = [NSString stringWithFormat:@"时间：%@~%@",_actModel.activesStart,_actModel.activesEnd];

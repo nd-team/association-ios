@@ -8,7 +8,7 @@
 
 #import "GroupNoticeViewController.h"
 
-#define NoticeURL @"http://192.168.0.209:90/appapi/app/groupNotice"
+#define NoticeURL @"appapi/app/groupNotice"
 @interface GroupNoticeViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *noticeTV;
 
@@ -64,8 +64,7 @@
         if (error) {
             NSSLog(@"创建公告失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 weakSelf.hostDelegate.publicNotice = self.noticeTV.text;
                 dispatch_async(dispatch_get_main_queue(), ^{

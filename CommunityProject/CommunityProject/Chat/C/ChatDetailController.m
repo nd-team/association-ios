@@ -21,11 +21,11 @@
 #import "GroupMemberInfoController.h"
 #import "GroupHostInfoController.h"
 
-#define FriendDetailURL @"http://192.168.0.209:90/appapi/app/selectUserInfo"
+#define FriendDetailURL @"appapi/app/selectUserInfo"
 //判断是否是好友
-#define TESTURL @"http://192.168.0.209:90/appapi/app/CheckMobile"
+#define TESTURL @"appapi/app/CheckMobile"
 
-#define GroupInfoURL @"http://192.168.0.209:90/appapi/app/groupInfo"
+#define GroupInfoURL @"appapi/app/groupInfo"
 
 @interface ChatDetailController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,RCChatSessionInputBarControlDelegate,RCLocationPickerViewControllerDelegate,RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate>
@@ -104,25 +104,19 @@ RealTimeLocationStatusViewDelegate>
     }
     [self appendAndDisplayMessage:savedMsg];
 */
+    NSSLog(@"%d==%d==%d",PLUGIN_BOARD_ITEM_ALBUM_TAG,PLUGIN_BOARD_ITEM_CAMERA_TAG,PLUGIN_BOARD_ITEM_FILE_TAG)
     //+区域共有功能
-    //照片100 101 102 PLUGIN_BOARD_ITEM_VIDEO_VOIP_TAG
-//    [self.chatSessionInputBarControl.pluginBoardView removeAllItems];
-//    [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:0 image:[UIImage imageNamed:@"photos.png"] title:@"照片"];
-    [self.chatSessionInputBarControl.pluginBoardView updateItemWithTag:1001 image:[UIImage imageNamed:@"photos.png"] title:@"照片"];
-//    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"photos.png"] title:@"照片" atIndex:0 tag:PLUGIN_BOARD_ITEM_ALBUM_TAG];
-//    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"camera.png"] title:@"拍摄" atIndex:1 tag:PLUGIN_BOARD_ITEM_CAMERA_TAG];
+    //照片100 101 102 PLUGIN_BOARD_ITEM_ALBUM_TAG
+    [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:0 image:[UIImage imageNamed:@"photos.png"] title:@"照片"];
+     //PLUGIN_BOARD_ITEM_CAMERA_TAG
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:1 image:[UIImage imageNamed:@"camera.png"] title:@"拍摄"];
 
     [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"videoChat.png"] title:@"视频聊天" atIndex:4 tag:PLUGIN_BOARD_ITEM_VIDEO_VOIP_TAG];
 
-    //红包PLUGIN_BOARD_ITEM_EVA_TAG 103
-//    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"redPacket.png"] title:@"红包" atIndex:3 tag:PLUGIN_BOARD_ITEM_EVA_TAG];
-    [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:3 image:[UIImage imageNamed:@"redPacket.png"] title:@"红包"];
-
-    //位置PLUGIN_BOARD_ITEM_LOCATION_TAG 104
-//    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"location.png"] title:@"位置" atIndex:4 tag:PLUGIN_BOARD_ITEM_LOCATION_TAG];
+    //位置PLUGIN_BOARD_ITEM_LOCATION_TAG
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:2 image:[UIImage imageNamed:@"location.png"] title:@"位置"];
-
+    //红包PLUGIN_BOARD_ITEM_EVA_TAG
+    [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:3 image:[UIImage imageNamed:@"redPacket.png"] title:@"红包"];
     //单聊
     if (self.conversationType == 1) {
         UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"person.png"  and:self Action:@selector(singlePersonChatClick)];
@@ -151,14 +145,14 @@ RealTimeLocationStatusViewDelegate>
 //点击更多操作
 -(void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag{
     switch (tag) {
-        case 1001:
-            //照片
-            [self showPickerUI:1001];
-            break;
-        case 1002:
-            //照相机
-            [self showPickerUI:1002];
-            break;
+//        case 1001:
+//            //照片
+//            [self showPickerUI:1001];
+//            break;
+//        case 1002:
+//            //照相机
+//            [self showPickerUI:1002];
+//            break;
             
         case PLUGIN_BOARD_ITEM_VIDEO_VOIP_TAG:
             //视频
@@ -193,12 +187,13 @@ RealTimeLocationStatusViewDelegate>
             
             break;
         default:
-            
+            //红包，文件，相机和相册
             [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
 
             break;
     }
 }
+
 -(void)showBackViewUI{
     
     self.backView = [UIView locationViewFrame:CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight) andTarget:self andAction:@selector(buttonAction:)];
@@ -321,14 +316,14 @@ RealTimeLocationStatusViewDelegate>
     [self postGroupInfomation];
 }
 -(void)postGroupInfomation{
-    [AFNetData postDataWithUrl:GroupInfoURL andParams:@{@"groupId":self.targetId,@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupInfoURL] andParams:@{@"groupId":self.targetId,@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取群组信息失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
+            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
                 int  role = [[NSString stringWithFormat:@"%@",dict[@"role"]]intValue];
                 if (role == 0) {
                     //群员
@@ -341,7 +336,7 @@ RealTimeLocationStatusViewDelegate>
                     }
                     member.nickname = [NSString stringWithFormat:@"%@",dict[@"groupNickName"]];
                     member.userId = self.userId;
-                    member.headUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:[NSString stringWithFormat:@"%@",dict[@"groupPortraitUrl"]]]];
+                    member.headUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:[NSString stringWithFormat:@"%@",dict[@"groupPortraitUrl"]]]];
                     [self.navigationController pushViewController:member animated:YES];
 
                 }else{
@@ -354,9 +349,10 @@ RealTimeLocationStatusViewDelegate>
                     }
                     host.nickname = [NSString stringWithFormat:@"%@",dict[@"groupNickName"]];
                     host.userId = self.userId;
-                    host.headUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:[NSString stringWithFormat:@"%@",dict[@"groupPortraitUrl"]]]];
+                    host.headUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:[NSString stringWithFormat:@"%@",dict[@"groupPortraitUrl"]]]];
                     if (role == 2) {
                         host.isHost = YES;
+                        host.hostId = self.userId;
                     }else{
                         host.isHost = NO;
                     }
@@ -452,7 +448,7 @@ RealTimeLocationStatusViewDelegate>
     label.font = [UIFont systemFontOfSize:11];
 }
 
-
+/*
 #pragma mark-拍照和照片
 -(void)showPickerUI:(int) tagValue{
     
@@ -480,6 +476,7 @@ RealTimeLocationStatusViewDelegate>
     [self sendMediaMessage:image pushContent:@"对方处于离线状态哦~" appUpload:NO];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+ */
 -(void)presentViewController:(UIViewController *)viewController functionTag:(NSInteger)functionTag{
     
 }
@@ -531,14 +528,13 @@ RealTimeLocationStatusViewDelegate>
 -(void)testUserIsFriendMobile:(NSString *)selectUserId{
     WeakSelf;
 
-    [AFNetData postDataWithUrl:TESTURL andParams:@{@"userId":self.userId,@"mobile":selectUserId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TESTURL] andParams:@{@"userId":self.userId,@"mobile":selectUserId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"判断是否为好友失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
                 NSNumber * status = dict[@"status"];
                 if ([status intValue] == 1) {
                     //好友
@@ -552,14 +548,13 @@ RealTimeLocationStatusViewDelegate>
 }
 //好友界面
 -(void)pushFriendId:(BOOL)isFriend andUserId:(NSString *)userId{
-    [AFNetData postDataWithUrl:FriendDetailURL andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * dict = jsonDic[@"data"];
+                NSDictionary * dict = data[@"data"];
 //                NSSLog(@"%@",dict);
                 if (isFriend) {
                     //传参
@@ -568,7 +563,7 @@ RealTimeLocationStatusViewDelegate>
                     detail.friendId = userId;
                     //请求网络数据获取用户详细资料
                     detail.name = dict[@"nickname"];
-                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                         detail.age = dict[@"age"];
@@ -604,19 +599,20 @@ RealTimeLocationStatusViewDelegate>
                     //好友
                     NSString * name;
                     if (status == 1) {
-                        if (![dict[@"friendNickname"] isKindOfClass:[NSNull class]]) {
+                        if (![dict[@"friendNickname"] isEqualToString:@""]) {
                             detail.display = dict[@"friendNickname"];
-                        }
-                        if (dict[@"friendNickname"] != nil) {
                             name = dict[@"friendNickname"];
-                        }else{
+                        }
+                        else{
+                            detail.name = dict[@"nickname"];
                             name = dict[@"nickname"];
+                            
                         }
                     }else if (status == 2){
                         //自己
+                        detail.name = dict[@"nickname"];
                         name = dict[@"nickname"];
                     }
-                    
                     RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:name portrait:encodeUrl];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userId];
                     [self.navigationController pushViewController:detail animated:YES];
@@ -627,7 +623,7 @@ RealTimeLocationStatusViewDelegate>
                     detail.friendId = userId;
                     //请求网络数据获取用户详细资料
                     detail.name = dict[@"nickname"];
-                    NSString * encodeUrl = [NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
                         detail.age = dict[@"age"];

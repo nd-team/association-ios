@@ -15,8 +15,8 @@
 #import "GroupNoticeViewController.h"
 #import "ChatMainController.h"
 
-#define MemberURL @"http://192.168.0.209:90/appapi/app/groupMember"
-#define DissolveURL @"http://192.168.0.209:90/appapi/app/dissolutionGroup"
+#define MemberURL @"appapi/app/groupMember"
+#define DissolveURL @"appapi/app/dissolutionGroup"
 
 @interface GroupMemberInfoController ()
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -87,21 +87,20 @@
 
 -(void)getMemberList{
     NSDictionary * dict = @{@"groupId":self.groupId,@"userId":self.userId};
-    [AFNetData postDataWithUrl:MemberURL andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MemberURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取群成员失败%@",error);
         }else{
             if (self.dataArr.count !=0) {
                 [self.dataArr removeAllObjects];
             }
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * array = jsonDic[@"data"];
+                NSArray * array = data[@"data"];
                 for (NSDictionary * dic in array) {
                     MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
                     [self.dataArr addObject:member];
-                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:@"http://192.168.0.209:90/%@",[ImageUrl changeUrl:member.userPortraitUrl]]];
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:member.userPortraitUrl]]];
                     //刷新群组成员的信息
                     [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:member.userId];
                 }
@@ -200,12 +199,11 @@
 -(void)dismissGroup{
     WeakSelf;
     RCGroup * group = [[RCGroup alloc]initWithGroupId:self.groupId groupName:self.groupName portraitUri:self.headUrl];
-    [AFNetData postDataWithUrl:DissolveURL andParams:@{@"groupId":self.groupId,@"groupUser":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,DissolveURL] andParams:@{@"groupId":self.groupId,@"groupUser":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"退群失败%@",error);
         }else{
-            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSNumber * code = jsonDic[@"code"];
+            NSNumber * code = data[@"code"];
             if ([code intValue] == 100) {
                 //删除会话列表
                 [[RCIMClient sharedRCIMClient]removeConversation:ConversationType_GROUP targetId:weakSelf.groupId];
