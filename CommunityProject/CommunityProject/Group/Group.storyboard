@@ -803,7 +803,7 @@
                                 <rect key="frame" x="-4" y="25" width="383" height="642"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="5Ao-Zx-6Oo">
-                                    <size key="itemSize" width="77" height="85"/>
+                                    <size key="itemSize" width="70" height="85"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1065,7 +1065,7 @@
                                                             <constraint firstAttribute="height" constant="85" id="JS8-0Q-BKi"/>
                                                         </constraints>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="qhy-Bu-tHC">
-                                                            <size key="itemSize" width="77" height="85"/>
+                                                            <size key="itemSize" width="70" height="85"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1581,7 +1581,7 @@
                                                             <constraint firstAttribute="height" constant="85" id="ex5-cZ-mUU"/>
                                                         </constraints>
                                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Snf-9m-4r2">
-                                                            <size key="itemSize" width="77" height="85"/>
+                                                            <size key="itemSize" width="70" height="85"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>

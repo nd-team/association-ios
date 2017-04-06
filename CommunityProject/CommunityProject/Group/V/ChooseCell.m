@@ -27,14 +27,58 @@
     UIButton * button = (UIButton *)sender;
     ChooseCell * cell = (ChooseCell *)[[button superview]superview];
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    MemberListModel * model = self.dataArr[indexPath.section][indexPath.row];
-    if (self.isSingle == 1) {
-        if (self.chooseBtn.selected) {
-            self.managerBlock(model.userId,YES);
-            self.selectBlock(indexPath);
+    switch (self.isSingle) {
+        case 1:
+        {
+            //单选 选择管理员 群组成员
+            MemberListModel * model = self.dataArr[indexPath.section][indexPath.row];
+            if (self.chooseBtn.selected) {
+                self.managerBlock(model.userId,YES,NO);
+                //单选需要实现的方法
+                self.selectBlock(indexPath);
+            }
         }
+            break;
+          case 2:
+        {
+            //多选 新建群聊 好友列表
+            FriendsListModel * model = self.dataArr[indexPath.section][indexPath.row];
+            if (self.chooseBtn.selected) {
+                self.managerBlock(model.userId,NO,NO);
+            }else{
+                //移除这个ID
+                self.managerBlock(model.userId,NO,YES);
+            }
+        }
+            break;
+            
+            case 3:
+        {
+            //多选 拉人 好友列表
+            FriendsListModel * model = self.dataArr[indexPath.section][indexPath.row];
+            if (self.chooseBtn.selected) {
+                self.managerBlock(model.userId,NO,NO);
+            }else{
+                //移除这个ID
+                self.managerBlock(model.userId,NO,YES);
+            }
+        }
+            
+            break;
+            
+        default:
+        {
+            //多选 踢人 群组成员
+            MemberListModel * model = self.dataArr[indexPath.section][indexPath.row];
+            if (self.chooseBtn.selected) {
+                self.managerBlock(model.userId,NO,NO);
+            }else{
+                //移除这个ID
+                self.managerBlock(model.userId,NO,YES);
+            }
+        }
+            break;
     }
-    
 }
 -(void)setMemberModel:(MemberListModel *)memberModel{
     _memberModel = memberModel;
@@ -43,5 +87,16 @@
     NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
 
+}
+-(void)setListModel:(FriendsListModel *)listModel{
+    _listModel = listModel;
+    if (_listModel.displayName.length != 0) {
+        self.nameLabel.text = _listModel.displayName;
+    }else{
+        self.nameLabel.text = _listModel.nickname;
+    }
+    NSString *  str = [ImageUrl changeUrl:_listModel.userPortraitUrl];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
 }
 @end

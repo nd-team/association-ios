@@ -19,17 +19,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wp0-yF-SlZ">
-                        <rect key="frame" x="10" y="5" width="60" height="60"/>
+                        <rect key="frame" x="8.5" y="5" width="60" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="246-VU-phB"/>
                             <constraint firstAttribute="width" constant="60" id="kb7-uu-YQE"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bH-AV-zDF">
-                        <rect key="frame" x="3" y="70" width="70" height="14"/>
+                        <rect key="frame" x="8" y="70" width="60" height="14"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="14" id="E01-c2-YgZ"/>
-                            <constraint firstAttribute="width" constant="70" id="Zvj-xp-6t3"/>
+                            <constraint firstAttribute="width" constant="60" id="Zvj-xp-6t3"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -39,10 +39,10 @@
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Wp0-yF-SlZ" firstAttribute="leading" secondItem="2FY-HA-bib" secondAttribute="leading" constant="10" id="Eq6-Gt-v5d"/>
                 <constraint firstItem="Wp0-yF-SlZ" firstAttribute="top" secondItem="2FY-HA-bib" secondAttribute="top" constant="5" id="L6R-Ak-GRx"/>
                 <constraint firstItem="2bH-AV-zDF" firstAttribute="centerX" secondItem="2FY-HA-bib" secondAttribute="centerX" id="ox8-Rr-xhM"/>
                 <constraint firstItem="2bH-AV-zDF" firstAttribute="top" secondItem="Wp0-yF-SlZ" secondAttribute="bottom" constant="5" id="pQh-gQ-Htk"/>
+                <constraint firstItem="Wp0-yF-SlZ" firstAttribute="centerX" secondItem="2FY-HA-bib" secondAttribute="centerX" id="thY-ev-wRy"/>
             </constraints>
             <connections>
                 <outlet property="headImageView" destination="Wp0-yF-SlZ" id="tes-WD-Cp0"/>

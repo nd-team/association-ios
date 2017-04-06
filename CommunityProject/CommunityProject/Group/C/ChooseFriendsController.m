@@ -9,14 +9,19 @@
 #import "ChooseFriendsController.h"
 #import "ChooseCell.h"
 #import "BMChineseSort.h"
+#import "NameViewController.h"
 
 //拉人踢人 管理员
 #import "MemberListModel.h"
 //新建群聊
 #import "FriendsListModel.h"
-
+#import "UIView+ChatMoreView.h"
 #define MemberURL @"appapi/app/groupMember"
 #define  ManagerURL @"appapi/app/vicePrincipal"
+#define DeleteURL @"appapi/app/kickGroupUser"
+#define FriendListURL @"appapi/app/friends"
+#define JoinURL @"appapi/app/recommendUser"
+
 @interface ChooseFriendsController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *searchTF;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -34,11 +39,21 @@
 //单选
 @property (nonatomic,strong)NSIndexPath * selectPath;
 
+//多选
+@property (nonatomic,strong)NSMutableArray * usersIdsArray;
 
+@property (nonatomic,strong) UIView * backView;
+
+@property (nonatomic,strong)UIWindow * window;
+@property (nonatomic,strong)NSString * result;
 @end
 
 @implementation ChooseFriendsController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -51,13 +66,19 @@
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     [self setUI];
-    if (self.dif == 1) {
+    
+    if (self.dif == 1||self.dif == 4) {
         //获取群成员列表选择群管理
         [self getMemberList];
+    }else{
+        //新建群聊2,拉人3，好友列表
+        [self getFriendList];
+        
     }
 }
 -(void)setUI{
     self.tableView.sectionIndexColor = UIColorFromRGB(0x666666);
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.userId = [DEFAULTS objectForKey:@"userId"];
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 42, 50)];
     
@@ -68,7 +89,6 @@
     [backView addSubview:leftView];
     
     self.searchTF.leftView = backView;
-    
     self.searchTF.leftViewMode = UITextFieldViewModeAlways;
     self.selectPath = nil;
 
@@ -89,9 +109,6 @@
                 for (NSDictionary * dic in array) {
                     MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:member];
-                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:member.userId name:member.userName portrait:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:member.userPortraitUrl]]];
-                    //刷新群组成员的信息
-                    [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:member.userId];
                 }
                 //组头字母
                 weakSelf.sectionArr = [BMChineseSort IndexWithArray:weakSelf.dataArr Key:@"userName"];
@@ -104,18 +121,170 @@
         }
     }];
 }
+-(void)getFriendList{
+    WeakSelf;
+    //从服务器获取好友列表
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendListURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"获取好友列表失败：%@",error);
+        }else{
+            if (weakSelf.dataArr.count != 0) {
+                [weakSelf.dataArr removeAllObjects];
+            }
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                NSArray * arr = data[@"data"];
+                for (NSDictionary * dic in arr) {
+                    FriendsListModel * search = [[FriendsListModel alloc]initWithDictionary:dic error:nil];
+                    [weakSelf.dataArr addObject:search];
+                    if (search.displayName.length != 0) {
+                        //组头字母
+                        weakSelf.sectionArr = [BMChineseSort IndexWithArray:weakSelf.dataArr Key:@"displayName"];
+                    }else{
+                        //组头字母
+                        weakSelf.sectionArr = [BMChineseSort IndexWithArray:weakSelf.dataArr Key:@"nickname"];
+                    }
+                }
+               
+                //数据
+                weakSelf.rowArr = [BMChineseSort sortObjectArray:weakSelf.dataArr Key:@"nickname"];
+                [weakSelf.tableView reloadData];
+                NSSLog(@"%@",weakSelf.sectionArr);
+            }else if ([code intValue] == 0){
+                NSSLog(@"获取失败");
+            }
+        }
+        
+    }];
+    
+}
+
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)rightItemClick{
-    if (self.managerId.length == 0) {
+    //单选
+    if (self.dif == 1&&self.managerId.length == 0) {
+        return;
+    }//多选
+    if (self.dif != 1&& self.usersIdsArray.count == 0) {
         return;
     }
-    if (self.dif == 1) {
-        //选择群管理员
-        [self addManager];
+    if (self.dif == 2) {
+        //把当前用户加上
+        [self.usersIdsArray addObject:self.userId];
+        NSData * data = [NSJSONSerialization dataWithJSONObject:self.usersIdsArray options:NSJSONWritingPrettyPrinted error:nil];
+
+        self.result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    }else{
+        NSData * data = [NSJSONSerialization dataWithJSONObject:self.usersIdsArray options:NSJSONWritingPrettyPrinted error:nil];
+        self.result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    }
+
+    switch (self.dif) {
+        case 1:
+            //选择群管理员
+            [self addManager];
+            break;
+           case 2:
+            //新建群聊
+        {
+            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+            NameViewController * nameVC = [sb instantiateViewControllerWithIdentifier:@"NameViewController"];
+            nameVC.name = @"群名称";
+            nameVC.titleCount = 3;
+            nameVC.placeHolder = @"设置群名称";
+            nameVC.isChangeGroupName = NO;
+            nameVC.userStr = self.result;
+            [self.navigationController pushViewController:nameVC animated:YES];
+
+        }
+            break;
+            case 3:
+            
+        {
+            if (self.hostId.length != 0) {
+                //群主拉人
+                [self showBackViewUI:@"确认添加成员"];
+            }else{
+                [self showBackViewUI:@"确认添加成员/n等待群主审核"];
+  
+            }
+
+        }
+            break;
+        default:
+            //移除成员
+        {
+            [self showBackViewUI:@"确认移除成员"];
+  
+        }
+            
+        break;
     }
 }
+-(void)showBackViewUI:(NSString *)title{
+    
+    self.backView = [UIView sureViewTitle:title andTag:50 andTarget:self andAction:@selector(buttonAction:)];
+    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
+    
+    [self.backView addGestureRecognizer:tap];
+    
+    [self.window addSubview:self.backView];
+    
+}
+-(void)buttonAction:(UIButton *)btn{
+    switch (btn.tag) {
+        case 50:
+            //确定
+        {
+            if (self.dif == 3) {
+                NSDictionary * params = @{@"groupId":self.groupId,@"friendsUsers":self.result,@"userId":self.userId};
+                [self deletePerson:params andUrl:JoinURL];
+            }else{
+                NSDictionary * params = @{@"groupId":self.groupId,@"users":self.result,@"groupUserId":self.hostId};
+                [self deletePerson:params andUrl:DeleteURL];
+            }
+            self.backView.hidden = YES;
+        }
+            break;
+            
+        default:
+            //取消
+            self.backView.hidden = YES;
+            break;
+    }
+}
+-(void)hideViewAction{
+    
+    self.backView.hidden = YES;
+    
+}
+-(void)deletePerson:(NSDictionary *)params andUrl:(NSString *)url{
+    WeakSelf;
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,url] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"踢人/拉人/新建群聊失败%@",error);
+//            [weakSelf showMessage:@"踢人失败"];
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                [weakSelf.usersIdsArray removeAllObjects];
+                if (weakSelf.dif == 3 || weakSelf.dif == 4) {
+                    weakSelf.delegate.isRef = YES;
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
+            }else{
+//                [weakSelf showMessage:@"踢人失败"];
+            }
+        }
+    }];
+    
+}
+
 -(void)addManager{
     WeakSelf;
     NSDictionary * dict = @{@"groupId":self.groupId,@"userId":self.hostId,@"groupUserId":self.managerId};
@@ -141,14 +310,41 @@
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ChooseCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ChooseCell"];
-    cell.memberModel = [[self.rowArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
-    cell.isSingle = 1;
+    cell.isSingle = self.dif;
     cell.tableView = self.tableView;
     cell.dataArr = self.rowArr;
+    switch (self.dif) {
+        case 1://管理员
+            cell.memberModel = [[self.rowArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+            break;
+        case 2:
+            //新建群聊
+            cell.listModel = [[self.rowArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+            break;
+        case 3://拉人
+            cell.listModel = [[self.rowArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+            break;
+        default://踢人
+            cell.memberModel = [[self.rowArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+            break;
+    }
     WeakSelf;
-    cell.managerBlock = ^(NSString * groupUserId,BOOL isSingle){
+    cell.managerBlock = ^(NSString * groupUserId,BOOL isSingle,BOOL isRemove){
         if (isSingle) {
             weakSelf.managerId = groupUserId;
+        }else{
+            //多选
+            if (!isRemove) {
+                [weakSelf.usersIdsArray addObject:groupUserId];
+            }else{
+                for (NSString * str  in weakSelf.usersIdsArray) {
+                    if ([str isEqualToString:groupUserId]) {
+                        [weakSelf.usersIdsArray removeObject:str];
+                    }
+                }
+            }
+            //改变标题和搜索框的左侧图片样式
+            weakSelf.navigationItem.title = [NSString stringWithFormat:@"%@(%ld)",weakSelf.name,weakSelf.usersIdsArray.count];
         }
     };
     //实现单选
@@ -215,5 +411,11 @@
         _sectionArr = [NSMutableArray new];
     }
     return _sectionArr;
+}
+-(NSMutableArray *)usersIdsArray{
+    if (!_usersIdsArray) {
+        _usersIdsArray = [NSMutableArray new];
+    }
+    return _usersIdsArray;
 }
 @end

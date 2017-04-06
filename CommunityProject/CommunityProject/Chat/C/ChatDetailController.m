@@ -26,8 +26,7 @@
 #define TESTURL @"appapi/app/CheckMobile"
 
 #define GroupInfoURL @"appapi/app/groupInfo"
-
-@interface ChatDetailController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,RCChatSessionInputBarControlDelegate,RCLocationPickerViewControllerDelegate,RCRealTimeLocationObserver,
+@interface ChatDetailController ()<RCLocationPickerViewControllerDelegate,RCRealTimeLocationObserver,
 RealTimeLocationStatusViewDelegate>
 @property (nonatomic,strong) UIView * backView;
 
@@ -104,7 +103,6 @@ RealTimeLocationStatusViewDelegate>
     }
     [self appendAndDisplayMessage:savedMsg];
 */
-    NSSLog(@"%d==%d==%d",PLUGIN_BOARD_ITEM_ALBUM_TAG,PLUGIN_BOARD_ITEM_CAMERA_TAG,PLUGIN_BOARD_ITEM_FILE_TAG)
     //+区域共有功能
     //照片100 101 102 PLUGIN_BOARD_ITEM_ALBUM_TAG
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:0 image:[UIImage imageNamed:@"photos.png"] title:@"照片"];
@@ -144,16 +142,7 @@ RealTimeLocationStatusViewDelegate>
 }
 //点击更多操作
 -(void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag{
-    switch (tag) {
-//        case 1001:
-//            //照片
-//            [self showPickerUI:1001];
-//            break;
-//        case 1002:
-//            //照相机
-//            [self showPickerUI:1002];
-//            break;
-            
+    switch (tag) {            
         case PLUGIN_BOARD_ITEM_VIDEO_VOIP_TAG:
             //视频
             
@@ -446,39 +435,6 @@ RealTimeLocationStatusViewDelegate>
     label.textColor = UIColorFromRGB(0xffffff);
     label.backgroundColor = UIColorFromRGB(0xb5b7b8);
     label.font = [UIFont systemFontOfSize:11];
-}
-
-/*
-#pragma mark-拍照和照片
--(void)showPickerUI:(int) tagValue{
-    
-    UIImagePickerController * picker = [UIImagePickerController new];
-    
-    picker.delegate = self;
-    
-    if (tagValue == 1002) {
-        
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        
-    }else{
-        
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        
-    }
-    [self presentViewController:picker animated:YES completion:nil];
-    
-}
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    
-    UIImage * originalImage = info[UIImagePickerControllerOriginalImage];
-    
-    RCImageMessage * image = [RCImageMessage messageWithImage:originalImage];
-    [self sendMediaMessage:image pushContent:@"对方处于离线状态哦~" appUpload:NO];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
- */
--(void)presentViewController:(UIViewController *)viewController functionTag:(NSInteger)functionTag{
-    
 }
 //-(RCMessageContent *)willSendMessage:(RCMessageContent *)messageContent{
 //    return messageContent;

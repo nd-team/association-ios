@@ -294,6 +294,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [UIApplication sharedApplication].keyWindow.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
+        [UIApplication sharedApplication].keyWindow.backgroundColor = [UIColor whiteColor];
     });
 }
 - (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {

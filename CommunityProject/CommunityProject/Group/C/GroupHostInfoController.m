@@ -143,6 +143,7 @@
     nameVC.placeHolder = @"设置群名称";
     nameVC.content = self.groupName;
     nameVC.headUrl = self.headUrl;
+    nameVC.isChangeGroupName = YES;
     [self.navigationController pushViewController:nameVC animated:YES];
 
 }
@@ -224,7 +225,11 @@
     mem.groupId = self.groupId;
     mem.userId = self.userId;
     mem.collectArr = self.dataArr;
+    mem.groupName = self.groupName;
+    mem.groupUrl = self.headUrl;
     mem.isManager = YES;
+    //管理员ID
+    mem.hostId = self.userId;
     [self.navigationController pushViewController:mem animated:YES];
 }
 //解散群
@@ -256,7 +261,7 @@
                 [[RCIMClient sharedRCIMClient]removeConversation:ConversationType_GROUP targetId:weakSelf.groupId];
                 [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:weakSelf.groupId];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    for (UIViewController* vc in self.navigationController.viewControllers) {
+                    for (UIViewController* vc in weakSelf.navigationController.viewControllers) {
                         
                         if ([vc isKindOfClass:[ChatMainController class]]) {
                             

@@ -21,6 +21,7 @@
 #define GroupURL @"appapi/app/groupData"
 
 @interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMGroupMemberDataSource,RCIMConnectionStatusDelegate>
+@property (nonatomic,strong) UIImageView * imageView;
 
 @end
 
@@ -28,8 +29,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     //融云
     [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
     //应用的Scheme
@@ -71,7 +72,6 @@
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].translucent = NO;
     [RCIM sharedRCIM].globalNavigationBarTintColor = UIColorFromRGB(0x121212);
-  
     return YES;
 }
 -(void)netWork{
@@ -239,6 +239,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"登录失败：%@",error);
+            weakSelf.imageView.hidden = YES;
         }else{
             
             NSNumber * code = data[@"code"];
@@ -304,7 +305,7 @@
                 
             }else{
                 NSSLog(@"登录失败！");
-                
+                weakSelf.imageView.hidden = YES;
             }
         }
     }];
@@ -314,6 +315,8 @@
     WeakSelf;
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
         NSSLog(@"登录成功%@",userId);
+        [self.window addSubview:self.imageView];
+        [self.window bringSubviewToFront:self.imageView];
         [weakSelf loginNet:phone andPassword:password];
     } error:^(RCConnectErrorCode status) {
         NSSLog(@"错误码：%ld",(long)status);
@@ -345,17 +348,20 @@
     });
 }
 -(void)loginMain{
+    self.imageView.hidden = YES;
     WeakSelf;
     dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
-        
+        [weakSelf.window makeKeyAndVisible];
+
     });
 }
 -(void)login{
+    self.imageView.hidden = YES;
     WeakSelf;
     dispatch_async(dispatch_get_main_queue(), ^{
         weakSelf.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
-        
+        [weakSelf.window makeKeyAndVisible];
     });
 }
 //红包需要实现的两个方法
@@ -444,5 +450,16 @@
         abort();
     }
 }
-
+-(UIImageView *)imageView{
+    
+    if (!_imageView) {
+        
+        _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight)];
+//        _imageView.image = [UIImage imageNamed:@""];
+        _imageView.backgroundColor = UIColorFromRGB(0xffffff);
+        
+    }
+    return _imageView;
+    
+}
 @end

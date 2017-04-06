@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MemberListController.h"
+
 @interface ChooseFriendsController : UIViewController
 //群主ID
 @property (nonatomic,copy)NSString * hostId;
@@ -17,5 +19,7 @@
 @property (nonatomic,copy)NSString * name;
 //区别是干什么的 1:选择管理员2：新建群聊3：拉人4：踢人（单选、多选）
 @property (nonatomic,assign)int dif;
+
+@property (nonatomic,assign)MemberListController * delegate;
 
 @end

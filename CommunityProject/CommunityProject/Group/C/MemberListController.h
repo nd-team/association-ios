@@ -13,9 +13,18 @@
 @property (nonatomic,strong)NSMutableArray * collectArr;
 //群ID
 @property (nonatomic,copy)NSString * groupId;
+//群名称
+@property (nonatomic,copy)NSString * groupName;
+//群头像
+@property (nonatomic,copy)NSString * groupUrl;
+
 //当前用户ID
 @property (nonatomic,copy)NSString * userId;
 //是否是管理员
 @property (nonatomic,assign)BOOL isManager;
+//群主ID
+@property (nonatomic,copy)NSString * hostId;
+//刷新成员列表
+@property (nonatomic,assign)BOOL isRef;
 
 @end

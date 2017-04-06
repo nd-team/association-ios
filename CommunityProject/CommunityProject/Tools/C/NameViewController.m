@@ -7,12 +7,16 @@
 //
 
 #import "NameViewController.h"
+#import "ChatMainController.h"
+
 //修改好友备注
 #define ChangeNameURL @"appapi/app/editFriendName"
 //修改群名
 #define ChangeGroupNameURL @"appapi/app/changeGroupName"
 //修改群昵称
 #define ChangeNickNameURL @"appapi/app/changeUserName"
+//创建群聊
+#define CreateGroup @"appapi/app/createGroup"
 
 @interface NameViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameTF;
@@ -43,21 +47,29 @@
     self.navigationItem.title = self.name;
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateBackButtonWithFrame:CGRectMake(0, 0,50, 30) andTitle:@"返回" andTarget:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
-    UIButton * rightBtn = [UIButton CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) andBackgroundColor:UIColorFromRGB(0xffffff) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:@"保存"];
-    rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-    [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    if (self.titleCount == 3 && !self.isChangeGroupName) {
+        [self rightButton:@"创建"];
+    }else{
+        [self rightButton:@"保存"];
+    }
+    
     //手势隐藏键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     [self.view addGestureRecognizer:tap];
 
 }
+-(void)rightButton:(NSString *)name{
+    UIButton * rightBtn = [UIButton CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) andBackgroundColor:UIColorFromRGB(0xffffff) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:name];
+    rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+    [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
 -(void)tapClick{
     [self.nameTF resignFirstResponder];
 }
 -(void)leftClick{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self back];
 }
 -(void)rightItemClick{
     [self tapClick];
@@ -79,11 +91,23 @@
 
             //群名称
         }else if (self.titleCount == 3){
-            NSDictionary * params = @{@"userId":self.userId,@"groupId":self.groupId};
-            NSMutableDictionary * dic = [NSMutableDictionary new];
-            [dic setValuesForKeysWithDictionary:params];
-            [dic setValue:self.nameTF.text forKey:@"groupName"];
-            [self changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,ChangeGroupNameURL] andSymbol:3];
+            if (self.isChangeGroupName) {
+                NSDictionary * params = @{@"userId":self.userId,@"groupId":self.groupId};
+                NSMutableDictionary * dic = [NSMutableDictionary new];
+                [dic setValuesForKeysWithDictionary:params];
+                [dic setValue:self.nameTF.text forKey:@"groupName"];
+                [self changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,ChangeGroupNameURL] andSymbol:3];
+            }else{
+                //新建群聊
+                NSDictionary * params = @{@"groupUser":self.userStr,@"userId":self.userId};
+                NSMutableDictionary * dic = [NSMutableDictionary new];
+                [dic setValuesForKeysWithDictionary:params];
+                [dic setValue:self.nameTF.text forKey:@"groupName"];
+                NSSLog(@"%@",dic);
+                [self changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,CreateGroup] andSymbol:3];
+ 
+            }
+           
         }
     }else{
         [self leftClick];
@@ -96,7 +120,8 @@
     [AFNetData postDataWithUrl:url andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"修改备注失败%@",error);
-//            [weakSelf showMessage:@"修改备注失败"];
+            NSSLog(@"%@",data);
+            //            [weakSelf showMessage:@"修改备注失败"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -105,24 +130,54 @@
                     RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:weakSelf.friendId name:self.nameTF.text portrait:self.headUrl];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:weakSelf.friendId];
                     weakSelf.friendDelegate.display = self.nameTF.text;
+                    [self back];
                 }else if (symbol == 2){
                     weakSelf.hostDelegate.nickname = self.nameTF.text;
                     weakSelf.memberDelegate.nickname = self.nameTF.text;
+                    [self back];
                 }else{
-                    //群名修改完要刷新SDK
-                    RCGroup * group = [[RCGroup alloc]initWithGroupId:weakSelf.groupId groupName:weakSelf.nameTF.text portraitUri:weakSelf.headUrl];
-                    [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:weakSelf.groupId];
-                    weakSelf.hostDelegate.groupName = weakSelf.nameTF.text;
+                    if (self.isChangeGroupName) {
+                        //群名修改完要刷新SDK
+                        RCGroup * group = [[RCGroup alloc]initWithGroupId:weakSelf.groupId groupName:weakSelf.nameTF.text portraitUri:weakSelf.headUrl];
+                        [[RCIM sharedRCIM]refreshGroupInfoCache:group withGroupId:weakSelf.groupId];
+                        weakSelf.hostDelegate.groupName = weakSelf.nameTF.text;
+                        [self back];
+                    }else{
+                        //创建群聊 返回聊天
+                        //发送消息可以聊天了
+                        NSDictionary * group = data[@"data"];
+                        RCTextMessage * textMsg = [RCTextMessage messageWithContent:@"创建了群聊，大家一起交流吧！"];
+                        [[RCIM sharedRCIM]sendMessage:ConversationType_GROUP targetId:group[@"groupId"] content:textMsg pushContent:nil pushData:nil success:^(long messageId) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                for (UIViewController* vc in weakSelf.navigationController.viewControllers) {
+                                    
+                                    if ([vc isKindOfClass:[ChatMainController class]]) {
+                                        
+                                        [weakSelf.navigationController popToViewController:vc animated:YES];
+                                    }
+                                }
+                            });
+                        } error:^(RCErrorCode nErrorCode, long messageId) {
+                            //        [weakSelf showMessage:@"发送消息失败"];
+                            
+                        }];
+                       
+                    }
+                    
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.navigationController popViewControllerAnimated:YES];
-                });
             }else{
-//                [weakSelf showMessage:@"修改备注失败"];
+                //                [weakSelf showMessage:@"修改备注失败"];
             }
         }
     }];
     
+}
+-(void)back{
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    });
+
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self tapClick];

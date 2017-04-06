@@ -15,6 +15,7 @@
 #import "AddFriendController.h"
 #import "SearchController.h"
 #import "MessageViewController.h"
+#import "ChooseFriendsController.h"
 
 @interface ChatMainController ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong)UIView * topView;
@@ -118,7 +119,13 @@
             }
                 break;
             case 24:
-                
+            {
+                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+                ChooseFriendsController * choose = [sb instantiateViewControllerWithIdentifier:@"ChooseFriendsController"];
+                choose.name = @"选择好友";
+                choose.dif = 2;
+                [self.navigationController pushViewController:choose animated:YES];
+            }
                 break;
             case 25:
             {

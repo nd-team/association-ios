@@ -11,10 +11,13 @@
 #import "MemberListModel.h"
 #import "FriendDetailController.h"
 #import "UnknownFriendDetailController.h"
+#import "ChooseFriendsController.h"
+
 //好友详情
 #define FriendDetailURL @"appapi/app/selectUserInfo"
 //判断是否是好友
 #define TESTURL @"appapi/app/CheckMobile"
+#define MemberURL @"appapi/app/groupMember"
 
 @interface MemberListController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
@@ -22,7 +25,13 @@
 @end
 
 @implementation MemberListController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.isRef) {
+        //刷新成员列表
+        [self getMemberList];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = [NSString stringWithFormat:@"群成员(%ld)",self.collectArr.count];
@@ -30,6 +39,33 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     [self.collectionView registerNib:[UINib nibWithNibName:@"MemberListCell" bundle:nil] forCellWithReuseIdentifier:@"MemberListCell"];
 }
+-(void)getMemberList{
+    WeakSelf;
+    NSDictionary * dict = @{@"groupId":self.groupId,@"userId":self.userId};
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MemberURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"获取群成员失败%@",error);
+        }else{
+            if (weakSelf.collectArr.count !=0) {
+                [weakSelf.collectArr removeAllObjects];
+            }
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                NSArray * array = data[@"data"];
+                for (NSDictionary * dic in array) {
+                    MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
+                    [weakSelf.collectArr addObject:member];
+                }
+                [weakSelf.collectionView reloadData];
+                RCGroup * group = [[RCGroup alloc]initWithGroupId:weakSelf.groupId groupName:weakSelf.groupName portraitUri:[NSString stringWithFormat:NetURL,weakSelf.groupUrl]];
+                //刷新群组成员的信息
+                [[RCIM sharedRCIM] refreshGroupInfoCache:group withGroupId:weakSelf.groupId];
+            }
+            
+        }
+    }];
+}
+
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -70,22 +106,32 @@
     MemberListModel * model = self.collectArr[indexPath.row];
     if (self.isManager) {
         if (indexPath.row == self.collectArr.count+1) {
-//删除
-            
+             //删除
+            [self pushChoose:@"删除成员" andDiff:4];
         }else if (indexPath.row == self.collectArr.count){
-//拉人
-            
+            //拉人
+            [self pushChoose:@"添加成员" andDiff:3];
         }else{
             [self testUserIsFriendMobile:model.userId];
         }
     }else{
         if (indexPath.row == self.collectArr.count) {
-//拉人
+            //拉人
+            [self pushChoose:@"添加成员" andDiff:3];
         }else{
             [self testUserIsFriendMobile:model.userId];
         }
     }
 
+}
+-(void)pushChoose:(NSString *)name andDiff:(int)dif{
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+    ChooseFriendsController * choose = [sb instantiateViewControllerWithIdentifier:@"ChooseFriendsController"];
+    choose.groupId = self.groupId;
+    choose.name = name;
+    choose.dif = dif;
+    choose.hostId = self.hostId;
+    [self.navigationController pushViewController:choose animated:YES];
 }
 //判断是否是好友
 -(void)testUserIsFriendMobile:(NSString *)selectUserId{

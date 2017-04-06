@@ -16,6 +16,10 @@
 @property (nonatomic,copy)NSString * name;
 //1:个人昵称2：群昵称3：群名字
 @property (nonatomic,assign)int titleCount;
+//是否是新建群聊
+@property (nonatomic,assign)BOOL isChangeGroupName;
+//新建群聊的成员ID
+@property (nonatomic,copy)NSString * userStr;
 //好友ID
 @property (nonatomic,copy)NSString * friendId;
 //群ID

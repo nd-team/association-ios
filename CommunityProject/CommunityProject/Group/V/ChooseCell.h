@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MemberListModel.h"
+#import "FriendsListModel.h"
 
-typedef void(^ChooseManagerBlock)(NSString * groupUserId,BOOL isSingle);
+typedef void(^ChooseManagerBlock)(NSString * groupUserId,BOOL isSingle,BOOL isRemove);
 typedef void(^SelectRowBlock)(NSIndexPath * selectPath);
 
 @interface ChooseCell : UITableViewCell
@@ -17,6 +18,8 @@ typedef void(^SelectRowBlock)(NSIndexPath * selectPath);
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *chooseBtn;
 @property (nonatomic,strong)MemberListModel * memberModel;
+@property (nonatomic,strong)FriendsListModel * listModel;
+
 @property (nonatomic,assign)int isSingle;
 @property (nonatomic,copy)ChooseManagerBlock managerBlock;
 @property (nonatomic,strong)UITableView * tableView;
