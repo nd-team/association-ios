@@ -10,6 +10,7 @@
 #import "ChooseCell.h"
 #import "BMChineseSort.h"
 #import "NameViewController.h"
+#import "HeadImageCell.h"
 
 //拉人踢人 管理员
 #import "MemberListModel.h"
@@ -22,7 +23,7 @@
 #define FriendListURL @"appapi/app/friends"
 #define JoinURL @"appapi/app/recommendUser"
 
-@interface ChooseFriendsController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ChooseFriendsController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *searchTF;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -43,9 +44,18 @@
 @property (nonatomic,strong)NSMutableArray * usersIdsArray;
 
 @property (nonatomic,strong) UIView * backView;
+@property (nonatomic,strong) UIView * leftView;
 
 @property (nonatomic,strong)UIWindow * window;
 @property (nonatomic,strong)NSString * result;
+@property (nonatomic,strong)UICollectionView * collectionView;
+//存头像的数据
+@property (nonatomic,strong)NSMutableArray * imageArr;
+//搜索返回数据
+@property (nonatomic,strong)NSMutableArray * searchArr;
+//标记是否搜索
+@property (nonatomic,assign)BOOL isSearch;
+
 @end
 
 @implementation ChooseFriendsController
@@ -77,21 +87,37 @@
     }
 }
 -(void)setUI{
+    self.isSearch = NO;
     self.tableView.sectionIndexColor = UIColorFromRGB(0x666666);
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.userId = [DEFAULTS objectForKey:@"userId"];
-    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 42, 50)];
-    
-    UIImageView * leftView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 15, 18, 20)];
-    
-    leftView.image = [UIImage imageNamed:@"search.png"];
-    
-    [backView addSubview:leftView];
-    
-    self.searchTF.leftView = backView;
-    self.searchTF.leftViewMode = UITextFieldViewModeAlways;
+    self.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 42, 50)];
+    UIImageView * leftImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 15, 18, 20)];
+    leftImageView.image = [UIImage imageNamed:@"search.png"];
+    [self.leftView addSubview:leftImageView];
     self.selectPath = nil;
+    self.searchTF.leftViewMode = UITextFieldViewModeAlways;
+    [self showCollectionView];
 
+}
+-(void)showCollectionView{
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing = 0.01;
+    layout.minimumLineSpacing = 0.01;
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"HeadImageCell" bundle:nil] forCellWithReuseIdentifier:@"headCell"];
+    self.collectionView.showsHorizontalScrollIndicator = NO;
+    if (self.imageArr.count == 0) {
+        self.searchTF.leftView = self.leftView;
+    }else{
+        self.searchTF.leftView = self.collectionView;
+    }
+    
+    
 }
 -(void)getMemberList{
     WeakSelf;
@@ -100,8 +126,10 @@
         if (error) {
             NSSLog(@"获取群成员失败%@",error);
         }else{
-            if (weakSelf.dataArr.count !=0) {
+            if (weakSelf.dataArr.count != 0 || weakSelf.sectionArr.count != 0 || weakSelf.rowArr.count != 0) {
                 [weakSelf.dataArr removeAllObjects];
+                [weakSelf.sectionArr removeAllObjects];
+                [weakSelf.rowArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -128,8 +156,10 @@
         if (error) {
             NSSLog(@"获取好友列表失败：%@",error);
         }else{
-            if (weakSelf.dataArr.count != 0) {
+            if (weakSelf.dataArr.count != 0 || weakSelf.sectionArr.count != 0 || weakSelf.rowArr.count != 0) {
                 [weakSelf.dataArr removeAllObjects];
+                [weakSelf.sectionArr removeAllObjects];
+                [weakSelf.rowArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -137,19 +167,27 @@
                 for (NSDictionary * dic in arr) {
                     FriendsListModel * search = [[FriendsListModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:search];
+                    //过滤已经存在群组的用户 拉人
+                    if (weakSelf.dif == 3) {
+                        for (MemberListModel * member in weakSelf.baseArr) {
+                            if ([member.userId isEqualToString:search.userId]) {
+                                [weakSelf.dataArr removeObject:search];
+                            }
+                        }
+                    }
                     if (search.displayName.length != 0) {
                         //组头字母
                         weakSelf.sectionArr = [BMChineseSort IndexWithArray:weakSelf.dataArr Key:@"displayName"];
+                        weakSelf.rowArr = [BMChineseSort sortObjectArray:weakSelf.dataArr Key:@"displayName"];
+
                     }else{
                         //组头字母
                         weakSelf.sectionArr = [BMChineseSort IndexWithArray:weakSelf.dataArr Key:@"nickname"];
+                        weakSelf.rowArr = [BMChineseSort sortObjectArray:weakSelf.dataArr Key:@"nickname"];
+
                     }
                 }
-               
-                //数据
-                weakSelf.rowArr = [BMChineseSort sortObjectArray:weakSelf.dataArr Key:@"nickname"];
                 [weakSelf.tableView reloadData];
-                NSSLog(@"%@",weakSelf.sectionArr);
             }else if ([code intValue] == 0){
                 NSSLog(@"获取失败");
             }
@@ -207,7 +245,7 @@
                 //群主拉人
                 [self showBackViewUI:@"确认添加成员"];
             }else{
-                [self showBackViewUI:@"确认添加成员/n等待群主审核"];
+                [self showBackViewUI:@"等待群主审核"];
   
             }
 
@@ -226,13 +264,17 @@
 -(void)showBackViewUI:(NSString *)title{
     
     self.backView = [UIView sureViewTitle:title andTag:50 andTarget:self andAction:@selector(buttonAction:)];
-    
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
     
     [self.backView addGestureRecognizer:tap];
     
     [self.window addSubview:self.backView];
-    
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(-64);
+        make.left.equalTo(self.view);
+        make.width.mas_equalTo(KMainScreenWidth);
+        make.height.mas_equalTo(KMainScreenHeight);
+    }];
 }
 -(void)buttonAction:(UIButton *)btn{
     switch (btn.tag) {
@@ -329,22 +371,42 @@
             break;
     }
     WeakSelf;
-    cell.managerBlock = ^(NSString * groupUserId,BOOL isSingle,BOOL isRemove){
+    cell.managerBlock = ^(NSString * groupUserId,NSString * headUrl,BOOL isSingle,BOOL isRemove){
         if (isSingle) {
             weakSelf.managerId = groupUserId;
         }else{
+            [weakSelf.usersIdsArray addObject:groupUserId];
+            [weakSelf.imageArr addObject:headUrl];
             //多选
-            if (!isRemove) {
-                [weakSelf.usersIdsArray addObject:groupUserId];
-            }else{
+            if (isRemove) {
                 for (NSString * str  in weakSelf.usersIdsArray) {
                     if ([str isEqualToString:groupUserId]) {
                         [weakSelf.usersIdsArray removeObject:str];
+                        break;
+                    }
+                }
+                for (NSString * str  in weakSelf.imageArr) {
+                    if ([str isEqualToString:headUrl]) {
+                        [weakSelf.imageArr removeObject:str];
+                        break;
                     }
                 }
             }
+            //改变frame
+            if (self.imageArr.count*49<(KMainScreenWidth-60)) {
+                self.collectionView.frame = CGRectMake(0, 0, self.imageArr.count*49, 50);
+            }else{
+                self.collectionView.frame = CGRectMake(0, 0, KMainScreenWidth-60, 50);
+            }
             //改变标题和搜索框的左侧图片样式
             weakSelf.navigationItem.title = [NSString stringWithFormat:@"%@(%ld)",weakSelf.name,weakSelf.usersIdsArray.count];
+            if (weakSelf.imageArr.count == 0) {
+                self.searchTF.leftView = self.leftView;
+            }else{
+                self.searchTF.leftView = self.collectionView;
+                //刷新collection
+                [weakSelf.collectionView reloadData];
+            }
         }
     };
     //实现单选
@@ -394,6 +456,68 @@
 -(NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
     return index;
 }
+#pragma mark - collectionView的代理方法-表头左侧的视图
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    
+    return self.imageArr.count;
+}
+-(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    HeadImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"headCell" forIndexPath:indexPath];
+    NSString * url = [ImageUrl changeUrl:self.imageArr[indexPath.row]];
+    [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,url]]];
+    return cell;
+    
+}
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(49, 50);
+}
+#pragma mark-发起搜索
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    //发起搜索
+    self.isSearch = YES;
+    [self.searchTF resignFirstResponder];
+    [self sendSearch];
+    return YES;
+}
+-(void)sendSearch{
+    [self.searchArr removeAllObjects];
+    [self.rowArr removeAllObjects];
+    [self.sectionArr removeAllObjects];
+    if (self.dif == 1 && self.dif == 4) {
+        //群成员
+        for (MemberListModel * member in self.dataArr) {
+            if ([self.searchTF.text containsString:member.userName]||[member.userName containsString:self.searchTF.text]) {
+                [self.searchArr addObject:member];
+            }
+        }
+        //组头字母
+        self.sectionArr = [BMChineseSort IndexWithArray:self.searchArr Key:@"userName"];
+        //数据
+        self.rowArr = [BMChineseSort sortObjectArray:self.searchArr Key:@"userName"];
+
+    }else{
+        //好友列表
+        for (FriendsListModel * list in self.dataArr) {
+            if ([self.searchTF.text containsString:list.nickname]||[list.nickname containsString:self.searchTF.text]) {
+                [self.searchArr addObject:list];
+            }
+            if (list.displayName.length != 0) {
+                //组头字母
+                self.sectionArr = [BMChineseSort IndexWithArray:self.searchArr Key:@"displayName"];
+                self.rowArr = [BMChineseSort sortObjectArray:self.searchArr Key:@"displayName"];
+                
+            }else{
+                //组头字母
+                self.sectionArr = [BMChineseSort IndexWithArray:self.searchArr Key:@"nickname"];
+                self.rowArr = [BMChineseSort sortObjectArray:self.searchArr Key:@"nickname"];
+                
+            }
+        }
+    }
+        [self.tableView reloadData];
+    
+}
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSMutableArray new];
@@ -417,5 +541,23 @@
         _usersIdsArray = [NSMutableArray new];
     }
     return _usersIdsArray;
+}
+-(NSMutableArray *)baseArr{
+    if (!_baseArr) {
+        _baseArr = [NSMutableArray new];
+    }
+    return _baseArr;
+}
+-(NSMutableArray *)imageArr{
+    if (!_imageArr) {
+        _imageArr = [NSMutableArray new];
+    }
+    return _imageArr;
+}
+-(NSMutableArray *)searchArr{
+    if (!_searchArr) {
+        _searchArr = [NSMutableArray new];
+    }
+    return _searchArr;
 }
 @end

@@ -134,6 +134,8 @@
 		4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC0C1E8E56A90047D1F4 /* ChooseFriendsController.m */; };
 		4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC0F1E8E58450047D1F4 /* ManageGroupViewController.m */; };
 		4573CC151E9482920047D1F4 /* BMChineseSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC141E9482920047D1F4 /* BMChineseSort.m */; };
+		4573CC191E976FA20047D1F4 /* HeadImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC171E976F9F0047D1F4 /* HeadImageCell.m */; };
+		4573CC1A1E976FA30047D1F4 /* HeadImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4573CC181E976F9F0047D1F4 /* HeadImageCell.xib */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -361,6 +363,9 @@
 		4573CC0F1E8E58450047D1F4 /* ManageGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageGroupViewController.m; sourceTree = "<group>"; };
 		4573CC131E9482920047D1F4 /* BMChineseSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMChineseSort.h; sourceTree = "<group>"; };
 		4573CC141E9482920047D1F4 /* BMChineseSort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMChineseSort.m; sourceTree = "<group>"; };
+		4573CC161E976F9F0047D1F4 /* HeadImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadImageCell.h; sourceTree = "<group>"; };
+		4573CC171E976F9F0047D1F4 /* HeadImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadImageCell.m; sourceTree = "<group>"; };
+		4573CC181E976F9F0047D1F4 /* HeadImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadImageCell.xib; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -1088,6 +1093,9 @@
 				4573CBFF1E8B8DDD0047D1F4 /* MemberListCell.xib */,
 				4573CC081E8E56060047D1F4 /* ChooseCell.h */,
 				4573CC091E8E56060047D1F4 /* ChooseCell.m */,
+				4573CC161E976F9F0047D1F4 /* HeadImageCell.h */,
+				4573CC171E976F9F0047D1F4 /* HeadImageCell.m */,
+				4573CC181E976F9F0047D1F4 /* HeadImageCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1214,6 +1222,7 @@
 				455FA3601E76A5370039B155 /* Login.storyboard in Resources */,
 				455FA31E1E7631A90039B155 /* LaunchScreen.storyboard in Resources */,
 				456CCE651E827CD8005EC051 /* RongCloud.bundle in Resources */,
+				4573CC1A1E976FA30047D1F4 /* HeadImageCell.xib in Resources */,
 				456CCE631E827CD7005EC051 /* Emoji.plist in Resources */,
 				456CCE6E1E827CD8005EC051 /* jrmf.cer in Resources */,
 				456CCE6D1E827CD8005EC051 /* JResource.bundle in Resources */,
@@ -1368,6 +1377,7 @@
 				4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */,
 				4568FB131E89FBBA007BA5BB /* SearchController.m in Sources */,
 				45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */,
+				4573CC191E976FA20047D1F4 /* HeadImageCell.m in Sources */,
 				45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */,
 				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
 				458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */,

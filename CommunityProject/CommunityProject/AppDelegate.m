@@ -312,6 +312,7 @@
 }
 //登录融云服务器
 -(void)loginRongServicer:(NSString *)token andPhone:(NSString *)phone andPassword:(NSString *)password{
+    self.window.backgroundColor = [UIColor whiteColor];
     WeakSelf;
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
         NSSLog(@"登录成功%@",userId);

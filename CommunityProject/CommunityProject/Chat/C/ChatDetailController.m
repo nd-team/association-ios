@@ -35,6 +35,8 @@ RealTimeLocationStatusViewDelegate>
 @property(nonatomic, strong) RealTimeLocationStatusView *realTimeLocationStatusView;
 //用户ID
 @property (nonatomic,copy)NSString * userId;
+@property (nonatomic,strong)UIBarButtonItem * rightItemOne;
+@property (nonatomic,strong)UIBarButtonItem * rightItemTwo;
 
 @end
 
@@ -117,12 +119,12 @@ RealTimeLocationStatusViewDelegate>
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:3 image:[UIImage imageNamed:@"redPacket.png"] title:@"红包"];
     //单聊
     if (self.conversationType == 1) {
-        UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"person.png"  and:self Action:@selector(singlePersonChatClick)];
-        self.navigationItem.rightBarButtonItem = rightItem;
+        self.rightItemOne = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"person.png"  and:self Action:@selector(singlePersonChatClick)];
+        self.navigationItem.rightBarButtonItem = self.rightItemOne;
         //群聊
     }else if(self.conversationType == 3){
-        UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"group.png"  and:self Action:@selector(groupChatClick)];
-        self.navigationItem.rightBarButtonItem = rightItem;
+        self.rightItemTwo = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"group.png"  and:self Action:@selector(groupChatClick)];
+        self.navigationItem.rightBarButtonItem = self.rightItemTwo;
         [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"groupAct.png"] title:@"群活动" atIndex:5 tag:105];
 
         [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"groupVote.png"] title:@"群投票" atIndex:6 tag:106];
@@ -301,16 +303,20 @@ RealTimeLocationStatusViewDelegate>
 }
 //进入群信息
 -(void)groupChatClick{
+    self.rightItemTwo.enabled = NO;
     //请求群信息
     [self postGroupInfomation];
 }
 -(void)postGroupInfomation{
+    WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupInfoURL] andParams:@{@"groupId":self.targetId,@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取群组信息失败：%@",error);
+            weakSelf.rightItemTwo.enabled = YES;
+
         }else{
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@",data);
+//            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 int  role = [[NSString stringWithFormat:@"%@",dict[@"role"]]intValue];
@@ -347,6 +353,7 @@ RealTimeLocationStatusViewDelegate>
                     }
                     [self.navigationController pushViewController:host animated:YES];
                 }
+                weakSelf.rightItemTwo.enabled = YES;
             }
         }
     }];
@@ -492,11 +499,15 @@ RealTimeLocationStatusViewDelegate>
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 NSNumber * status = dict[@"status"];
+                NSSLog(@"%@",data);
                 if ([status intValue] == 1) {
                     //好友
                     [weakSelf pushFriendId:YES andUserId:selectUserId];
                 }else{
-                    [weakSelf pushFriendId:NO andUserId:selectUserId];
+                    //过滤系统账号
+                    if (![dict[@"mobile"] isEqualToString:@"00001"]) {
+                        [weakSelf pushFriendId:NO andUserId:selectUserId];
+                    }
                 }
             }
         }

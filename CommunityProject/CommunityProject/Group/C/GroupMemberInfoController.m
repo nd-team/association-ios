@@ -236,7 +236,7 @@
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
     self.widthContraints.constant = KMainScreenWidth;
-    NSInteger width = self.dataArr.count*77;
+    NSInteger width = self.dataArr.count*70;
     int count = width/KMainScreenWidth;
     NSInteger remainder = width%(NSInteger)KMainScreenWidth;
     //一行coll

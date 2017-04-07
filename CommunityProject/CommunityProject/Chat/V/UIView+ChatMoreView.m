@@ -49,9 +49,10 @@
     UIView * view = [UIView new];
     view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
     UIView * smallView = [UIView new];
+    smallView.backgroundColor = [UIColor whiteColor];
     smallView.layer.cornerRadius = 5;
     [view addSubview:smallView];
-    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+    [smallView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(view);
         make.width.mas_equalTo(215);
         make.height.mas_equalTo(128);
@@ -60,21 +61,22 @@
     label.textColor = UIColorFromRGB(0x333333);
     label.font = [UIFont boldSystemFontOfSize:15];
     label.textAlignment = NSTextAlignmentCenter;
-    label.numberOfLines = 0;
+    label.numberOfLines = 1;
+    label.text = title;
     label.lineBreakMode = NSLineBreakByWordWrapping;
-    [view addSubview:label];
+    [smallView addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(smallView);
-        make.top.mas_equalTo(smallView).offset(39.5);
-        make.height.mas_equalTo(30);
-        make.width.mas_equalTo(91);
+        make.top.equalTo(smallView).offset(39.5);
+        make.height.mas_equalTo(35);
+        make.width.mas_equalTo(100);
     }];
     UIButton * sureBtn = [UIButton CreateMyButtonWithFrame:CGRectZero Image:@"greenSure" SelectedImage:@"greenSure" title:@"确定" color:UIColorFromRGB(0x333333) SelectColor:UIColorFromRGB(0x333333) font:15 and:target Action:action];
     sureBtn.tag = tag;
-    [view addSubview:sureBtn];
+    [smallView addSubview:sureBtn];
     [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(smallView).offset(0);
-        make.left.mas_equalTo(smallView);
+        make.bottom.equalTo(smallView);
+        make.left.equalTo(smallView);
         make.width.mas_equalTo(215);
         make.height.mas_equalTo(40);
     }];
@@ -82,10 +84,46 @@
     [view addSubview:closeBtn];
     closeBtn.tag = tag+1;
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(sureBtn.mas_top).offset(88);
-        make.right.mas_equalTo(view).offset((KMainScreenWidth-215)/2);
+        make.bottom.equalTo(sureBtn.mas_top).offset(-73);
+        make.right.equalTo(view).offset(-(KMainScreenWidth-215)/2+15);
         make.width.height.mas_equalTo(30);
     }];
+    return view;
+}
++(UIView *)timeViewTag:(CGFloat)tag andTarget:(id)target andAction:(SEL)action{
+    UIView * view = [[UIView alloc]init];
+    view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    UIView * bottomView = [UIView new];
+    bottomView.backgroundColor = UIColorFromRGB(0xebebeb);
+    [view addSubview:bottomView];
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(KMainScreenWidth);
+        make.height.mas_equalTo(230.5);
+        make.bottom.equalTo(view);
+        make.left.equalTo(view);
+    }];
+    UIButton * finishBtn = [UIButton CreateTitleButtonWithFrame:CGRectZero andBackgroundColor:UIColorFromRGB(0xebebeb) titleColor:UIColorFromRGB(0x27a9ec) font:17 andTitle:@"完成"];
+    [finishBtn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    finishBtn.tag = tag;
+    [bottomView addSubview:finishBtn];
+    [finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(50);
+        make.right.equalTo(bottomView);
+        make.height.mas_equalTo(40);
+        make.top.equalTo(bottomView);
+    }];
+    UIDatePicker * datePicker = [[UIDatePicker alloc]init];
+    datePicker.datePickerMode = UIDatePickerModeDateAndTime;
+    [datePicker addTarget:target action:action forControlEvents:UIControlEventValueChanged];
+    datePicker.tag = tag+1;
+    [bottomView addSubview:datePicker];
+    [datePicker mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(KMainScreenWidth);
+        make.height.mas_equalTo(190.5);
+        make.bottom.equalTo(bottomView);
+        make.left.equalTo(bottomView);
+    }];
+    
     return view;
 }
 @end

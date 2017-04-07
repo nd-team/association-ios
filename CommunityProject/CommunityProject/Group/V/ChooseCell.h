@@ -10,7 +10,7 @@
 #import "MemberListModel.h"
 #import "FriendsListModel.h"
 
-typedef void(^ChooseManagerBlock)(NSString * groupUserId,BOOL isSingle,BOOL isRemove);
+typedef void(^ChooseManagerBlock)(NSString * groupUserId,NSString * headUrl,BOOL isSingle,BOOL isRemove);
 typedef void(^SelectRowBlock)(NSIndexPath * selectPath);
 
 @interface ChooseCell : UITableViewCell

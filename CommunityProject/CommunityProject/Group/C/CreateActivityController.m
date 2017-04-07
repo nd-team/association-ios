@@ -29,17 +29,23 @@
 @end
 
 @implementation CreateActivityController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
 }
 
 - (IBAction)moreClick:(id)sender {
+    
 }
 - (IBAction)backClick:(id)sender {
+    
 }
 - (IBAction)sendClick:(id)sender {
+    
 }
 
 @end

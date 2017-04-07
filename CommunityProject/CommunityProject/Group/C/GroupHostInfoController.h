@@ -26,4 +26,5 @@
 //群主ID
 @property (nonatomic,copy)NSString * hostId;
 
+@property (nonatomic,assign)BOOL isRef;
 @end

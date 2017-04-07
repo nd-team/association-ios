@@ -47,6 +47,10 @@
     self.groupNameLabel.text = [NSString stringWithFormat:@"%@",self.groupName];
     self.publicNoticeLabel.text = [NSString stringWithFormat:@"%@",self.publicNotice];
     self.nicknameLabel.text = [NSString stringWithFormat:@"%@",self.nickname];
+    if (self.isRef) {
+        [self getMemberList];
+    }
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -230,6 +234,7 @@
     mem.isManager = YES;
     //管理员ID
     mem.hostId = self.userId;
+    mem.delegate = self;
     [self.navigationController pushViewController:mem animated:YES];
 }
 //解散群
@@ -284,7 +289,7 @@
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
     self.widthContraints.constant = KMainScreenWidth+5;
-     NSInteger width = self.dataArr.count*77;
+     NSInteger width = self.dataArr.count*70;
      int count = width/KMainScreenWidth;
      NSInteger remainder = width%(NSInteger)KMainScreenWidth;
      //一行coll

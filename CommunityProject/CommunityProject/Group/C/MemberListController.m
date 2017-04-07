@@ -67,6 +67,9 @@
 }
 
 -(void)leftClick{
+    if (self.isRef) {
+        self.delegate.isRef = YES;
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - collectionView的代理方法
@@ -103,7 +106,7 @@
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    MemberListModel * model = self.collectArr[indexPath.row];
+   
     if (self.isManager) {
         if (indexPath.row == self.collectArr.count+1) {
              //删除
@@ -112,6 +115,7 @@
             //拉人
             [self pushChoose:@"添加成员" andDiff:3];
         }else{
+             MemberListModel * model = self.collectArr[indexPath.row];
             [self testUserIsFriendMobile:model.userId];
         }
     }else{
@@ -119,6 +123,7 @@
             //拉人
             [self pushChoose:@"添加成员" andDiff:3];
         }else{
+             MemberListModel * model = self.collectArr[indexPath.row];
             [self testUserIsFriendMobile:model.userId];
         }
     }
@@ -131,6 +136,8 @@
     choose.name = name;
     choose.dif = dif;
     choose.hostId = self.hostId;
+    choose.delegate = self;
+    choose.baseArr = self.collectArr;
     [self.navigationController pushViewController:choose animated:YES];
 }
 //判断是否是好友

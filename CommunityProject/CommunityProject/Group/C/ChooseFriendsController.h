@@ -22,4 +22,6 @@
 
 @property (nonatomic,assign)MemberListController * delegate;
 
+@property (nonatomic,strong)NSMutableArray * baseArr;
+
 @end

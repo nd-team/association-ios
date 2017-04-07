@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GroupHostInfoController.h"
 
 @interface MemberListController : UIViewController
 
@@ -26,5 +27,7 @@
 @property (nonatomic,copy)NSString * hostId;
 //刷新成员列表
 @property (nonatomic,assign)BOOL isRef;
+
+@property (nonatomic,assign)GroupHostInfoController * delegate;
 
 @end

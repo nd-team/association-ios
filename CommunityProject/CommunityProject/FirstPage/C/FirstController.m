@@ -187,7 +187,7 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * array = data[@"data"];
-                NSSLog(@"%@",array);
+//                NSSLog(@"%@",array);
                 for (NSDictionary * dict in array) {
                     ClaimModel * claim = [[ClaimModel alloc]initWithDictionary:dict error:nil];
                     [weakSelf.claimArr addObject:claim];

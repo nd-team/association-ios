@@ -33,7 +33,7 @@
             //单选 选择管理员 群组成员
             MemberListModel * model = self.dataArr[indexPath.section][indexPath.row];
             if (self.chooseBtn.selected) {
-                self.managerBlock(model.userId,YES,NO);
+                self.managerBlock(model.userId,nil,YES,NO);
                 //单选需要实现的方法
                 self.selectBlock(indexPath);
             }
@@ -44,10 +44,10 @@
             //多选 新建群聊 好友列表
             FriendsListModel * model = self.dataArr[indexPath.section][indexPath.row];
             if (self.chooseBtn.selected) {
-                self.managerBlock(model.userId,NO,NO);
+                self.managerBlock(model.userId,model.userPortraitUrl,NO,NO);
             }else{
                 //移除这个ID
-                self.managerBlock(model.userId,NO,YES);
+                self.managerBlock(model.userId,model.userPortraitUrl,NO,YES);
             }
         }
             break;
@@ -57,10 +57,10 @@
             //多选 拉人 好友列表
             FriendsListModel * model = self.dataArr[indexPath.section][indexPath.row];
             if (self.chooseBtn.selected) {
-                self.managerBlock(model.userId,NO,NO);
+                self.managerBlock(model.userId,model.userPortraitUrl,NO,NO);
             }else{
                 //移除这个ID
-                self.managerBlock(model.userId,NO,YES);
+                self.managerBlock(model.userId,model.userPortraitUrl,NO,YES);
             }
         }
             
@@ -71,10 +71,10 @@
             //多选 踢人 群组成员
             MemberListModel * model = self.dataArr[indexPath.section][indexPath.row];
             if (self.chooseBtn.selected) {
-                self.managerBlock(model.userId,NO,NO);
+                self.managerBlock(model.userId,model.userPortraitUrl,NO,NO);
             }else{
                 //移除这个ID
-                self.managerBlock(model.userId,NO,YES);
+                self.managerBlock(model.userId,model.userPortraitUrl,NO,YES);
             }
         }
             break;

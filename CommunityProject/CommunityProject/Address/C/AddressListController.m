@@ -557,14 +557,14 @@
     [self.searchArr removeAllObjects];
     //第一组
     for (FriendsListModel * list in self.dataArr) {
-        if ([list.nickname containsString:self.searchTF.text]||[list.displayName containsString:self.searchTF.text]) {
+        if ([list.nickname containsString:self.searchTF.text]||[list.displayName containsString:self.searchTF.text]||[self.searchTF.text containsString:list.nickname]||[self.searchTF.text containsString:list.displayName]) {
             self.person = 0;
             [self.searchArr addObject:list];
         }
     }
     //第二组
     for (FriendsListModel * list in self.dataTwoArr) {
-        if ([list.nickname containsString:self.searchTF.text]||[list.displayName containsString:self.searchTF.text]) {
+        if ([list.nickname containsString:self.searchTF.text]||[list.displayName containsString:self.searchTF.text]||[self.searchTF.text containsString:list.nickname]||[self.searchTF.text containsString:list.displayName]) {
             self.person = 1;
             [self.searchArr addObject:list];
         }
