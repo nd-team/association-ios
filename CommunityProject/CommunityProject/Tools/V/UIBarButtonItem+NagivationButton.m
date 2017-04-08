@@ -12,7 +12,7 @@
 + (UIBarButtonItem *)CreateTitleButtonWithFrame:(CGRect)frame titleColor:(UIColor *)color font:(CGFloat)font andTitle:(NSString *)title and:(id)target Action:(SEL)action{
     
     UIButton * btn = [[UIButton alloc] initWithFrame:frame];
-    btn.titleLabel.font = [UIFont systemFontOfSize:font];
+    btn.titleLabel.font = [UIFont boldSystemFontOfSize:font];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:color forState:UIControlStateNormal];
     [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
@@ -41,7 +41,7 @@
 }
 +(UIBarButtonItem *)CreateBackButtonWithFrame:(CGRect)frame andTitle:(NSString *)title andTarget:(id)target Action:(SEL)action{
     UIButton * btn = [[UIButton alloc] initWithFrame:frame];
-    btn.titleLabel.font = [UIFont systemFontOfSize:16];
+    btn.titleLabel.font = [UIFont boldSystemFontOfSize:16];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:UIColorFromRGB(0x10db9f) forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];

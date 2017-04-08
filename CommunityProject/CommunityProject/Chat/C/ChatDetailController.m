@@ -20,6 +20,7 @@
 #import "SetPersonController.h"
 #import "GroupMemberInfoController.h"
 #import "GroupHostInfoController.h"
+#import "VoteListController.h"
 
 #define FriendDetailURL @"appapi/app/selectUserInfo"
 //判断是否是好友
@@ -175,7 +176,14 @@ RealTimeLocationStatusViewDelegate>
             break;
            case 106:
             //群投票
-            
+        {
+            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+            VoteListController * voteList = [sb instantiateViewControllerWithIdentifier:@"VoteListController"];
+            voteList.groupId = self.targetId;
+            voteList.groupName = self.title;
+            [self.navigationController pushViewController:voteList animated:YES];
+
+        }
             break;
         default:
             //红包，文件，相机和相册

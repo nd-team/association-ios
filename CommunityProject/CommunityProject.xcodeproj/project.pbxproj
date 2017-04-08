@@ -136,6 +136,13 @@
 		4573CC151E9482920047D1F4 /* BMChineseSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC141E9482920047D1F4 /* BMChineseSort.m */; };
 		4573CC191E976FA20047D1F4 /* HeadImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC171E976F9F0047D1F4 /* HeadImageCell.m */; };
 		4573CC1A1E976FA30047D1F4 /* HeadImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4573CC181E976F9F0047D1F4 /* HeadImageCell.xib */; };
+		4573CC1D1E98794B0047D1F4 /* VoteListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC1C1E98794A0047D1F4 /* VoteListCell.m */; };
+		4573CC201E987ACD0047D1F4 /* VoteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC1F1E987ACD0047D1F4 /* VoteListController.m */; };
+		4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC221E987F950047D1F4 /* VoteListModel.m */; };
+		4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC251E9882670047D1F4 /* VoteViewController.m */; };
+		4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC281E9885A20047D1F4 /* VoteCell.m */; };
+		4573CC2C1E98912D0047D1F4 /* VoteTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2B1E98912D0047D1F4 /* VoteTypeController.m */; };
+		4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -366,6 +373,20 @@
 		4573CC161E976F9F0047D1F4 /* HeadImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadImageCell.h; sourceTree = "<group>"; };
 		4573CC171E976F9F0047D1F4 /* HeadImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadImageCell.m; sourceTree = "<group>"; };
 		4573CC181E976F9F0047D1F4 /* HeadImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadImageCell.xib; sourceTree = "<group>"; };
+		4573CC1B1E98794A0047D1F4 /* VoteListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteListCell.h; sourceTree = "<group>"; };
+		4573CC1C1E98794A0047D1F4 /* VoteListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteListCell.m; sourceTree = "<group>"; };
+		4573CC1E1E987ACD0047D1F4 /* VoteListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteListController.h; sourceTree = "<group>"; };
+		4573CC1F1E987ACD0047D1F4 /* VoteListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteListController.m; sourceTree = "<group>"; };
+		4573CC211E987F950047D1F4 /* VoteListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteListModel.h; sourceTree = "<group>"; };
+		4573CC221E987F950047D1F4 /* VoteListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteListModel.m; sourceTree = "<group>"; };
+		4573CC241E9882670047D1F4 /* VoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteViewController.h; sourceTree = "<group>"; };
+		4573CC251E9882670047D1F4 /* VoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteViewController.m; sourceTree = "<group>"; };
+		4573CC271E9885A20047D1F4 /* VoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteCell.h; sourceTree = "<group>"; };
+		4573CC281E9885A20047D1F4 /* VoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteCell.m; sourceTree = "<group>"; };
+		4573CC2A1E98912D0047D1F4 /* VoteTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTypeController.h; sourceTree = "<group>"; };
+		4573CC2B1E98912D0047D1F4 /* VoteTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTypeController.m; sourceTree = "<group>"; };
+		4573CC2D1E98914C0047D1F4 /* VoteTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTypeCell.h; sourceTree = "<group>"; };
+		4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTypeCell.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -1050,6 +1071,12 @@
 				4573CC0C1E8E56A90047D1F4 /* ChooseFriendsController.m */,
 				4573CC0E1E8E58450047D1F4 /* ManageGroupViewController.h */,
 				4573CC0F1E8E58450047D1F4 /* ManageGroupViewController.m */,
+				4573CC1E1E987ACD0047D1F4 /* VoteListController.h */,
+				4573CC1F1E987ACD0047D1F4 /* VoteListController.m */,
+				4573CC241E9882670047D1F4 /* VoteViewController.h */,
+				4573CC251E9882670047D1F4 /* VoteViewController.m */,
+				4573CC2A1E98912D0047D1F4 /* VoteTypeController.h */,
+				4573CC2B1E98912D0047D1F4 /* VoteTypeController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1073,6 +1100,8 @@
 				458DD52B1E8A639300650F2E /* GroupApplicationModel.m */,
 				4573CBF71E8B893D0047D1F4 /* MemberListModel.h */,
 				4573CBF81E8B893D0047D1F4 /* MemberListModel.m */,
+				4573CC211E987F950047D1F4 /* VoteListModel.h */,
+				4573CC221E987F950047D1F4 /* VoteListModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1096,6 +1125,12 @@
 				4573CC161E976F9F0047D1F4 /* HeadImageCell.h */,
 				4573CC171E976F9F0047D1F4 /* HeadImageCell.m */,
 				4573CC181E976F9F0047D1F4 /* HeadImageCell.xib */,
+				4573CC1B1E98794A0047D1F4 /* VoteListCell.h */,
+				4573CC1C1E98794A0047D1F4 /* VoteListCell.m */,
+				4573CC271E9885A20047D1F4 /* VoteCell.h */,
+				4573CC281E9885A20047D1F4 /* VoteCell.m */,
+				4573CC2D1E98914C0047D1F4 /* VoteTypeCell.h */,
+				4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1296,7 +1331,9 @@
 				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
+				4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */,
 				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
+				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
 				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
 				4562D73C1E7F7B6A00C6EE56 /* UIView+ChatWhiteView.m in Sources */,
@@ -1310,6 +1347,7 @@
 				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
+				4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */,
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
@@ -1319,12 +1357,14 @@
 				4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */,
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
+				4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */,
 				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
 				4562D7311E7F6DFC00C6EE56 /* GroupActivityListController.m in Sources */,
 				45D110331E85390D009F2C4E /* RealTimeLocationStatusView.m in Sources */,
 				450A50FD1E8648D300433A61 /* SetPersonController.m in Sources */,
 				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
 				4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */,
+				4573CC201E987ACD0047D1F4 /* VoteListController.m in Sources */,
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
@@ -1376,6 +1416,8 @@
 				4573CC151E9482920047D1F4 /* BMChineseSort.m in Sources */,
 				4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */,
 				4568FB131E89FBBA007BA5BB /* SearchController.m in Sources */,
+				4573CC2C1E98912D0047D1F4 /* VoteTypeController.m in Sources */,
+				4573CC1D1E98794B0047D1F4 /* VoteListCell.m in Sources */,
 				45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */,
 				4573CC191E976FA20047D1F4 /* HeadImageCell.m in Sources */,
 				45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */,
