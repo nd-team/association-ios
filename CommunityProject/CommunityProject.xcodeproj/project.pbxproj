@@ -143,6 +143,7 @@
 		4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC281E9885A20047D1F4 /* VoteCell.m */; };
 		4573CC2C1E98912D0047D1F4 /* VoteTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2B1E98912D0047D1F4 /* VoteTypeController.m */; };
 		4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */; };
+		4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC311E9B10900047D1F4 /* VoteDetailController.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -164,6 +165,12 @@
 		45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080CD1E891AF800514FFC /* AddFriendCell.m */; };
 		45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D01E891C9300514FFC /* SearchFriendModel.m */; };
 		45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D31E891DFA00514FFC /* SearchGroupCell.m */; };
+		45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997941E9B20D100F6E984 /* HeadDetailCell.m */; };
+		45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C997951E9B20D100F6E984 /* HeadDetailCell.xib */; };
+		45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997991E9B21DE00F6E984 /* VoteTitleCell.m */; };
+		45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9979F1E9B23AB00F6E984 /* JoinUserModel.m */; };
+		45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997A51E9B7DB800F6E984 /* RecommendImageCell.m */; };
+		45C997A91E9B7E3800F6E984 /* ActivityRecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997A81E9B7E3800F6E984 /* ActivityRecommendController.m */; };
 		45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D110291E8538A6009F2C4E /* RealTimeLocationEndCell.m */; };
 		45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D1102C1E8538C0009F2C4E /* RealTimeLocationStartCell.m */; };
 		45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D1102F1E8538E2009F2C4E /* RealTimeLocationViewController.m */; };
@@ -387,6 +394,8 @@
 		4573CC2B1E98912D0047D1F4 /* VoteTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTypeController.m; sourceTree = "<group>"; };
 		4573CC2D1E98914C0047D1F4 /* VoteTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTypeCell.h; sourceTree = "<group>"; };
 		4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTypeCell.m; sourceTree = "<group>"; };
+		4573CC301E9B10900047D1F4 /* VoteDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteDetailController.h; sourceTree = "<group>"; };
+		4573CC311E9B10900047D1F4 /* VoteDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteDetailController.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -429,6 +438,17 @@
 		45A080D01E891C9300514FFC /* SearchFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendModel.m; sourceTree = "<group>"; };
 		45A080D21E891DFA00514FFC /* SearchGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGroupCell.h; sourceTree = "<group>"; };
 		45A080D31E891DFA00514FFC /* SearchGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGroupCell.m; sourceTree = "<group>"; };
+		45C997931E9B20D100F6E984 /* HeadDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadDetailCell.h; sourceTree = "<group>"; };
+		45C997941E9B20D100F6E984 /* HeadDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadDetailCell.m; sourceTree = "<group>"; };
+		45C997951E9B20D100F6E984 /* HeadDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadDetailCell.xib; sourceTree = "<group>"; };
+		45C997981E9B21DE00F6E984 /* VoteTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteTitleCell.h; sourceTree = "<group>"; };
+		45C997991E9B21DE00F6E984 /* VoteTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTitleCell.m; sourceTree = "<group>"; };
+		45C9979E1E9B23AB00F6E984 /* JoinUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinUserModel.h; sourceTree = "<group>"; };
+		45C9979F1E9B23AB00F6E984 /* JoinUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinUserModel.m; sourceTree = "<group>"; };
+		45C997A41E9B7DB800F6E984 /* RecommendImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendImageCell.h; sourceTree = "<group>"; };
+		45C997A51E9B7DB800F6E984 /* RecommendImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendImageCell.m; sourceTree = "<group>"; };
+		45C997A71E9B7E3800F6E984 /* ActivityRecommendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityRecommendController.h; sourceTree = "<group>"; };
+		45C997A81E9B7E3800F6E984 /* ActivityRecommendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityRecommendController.m; sourceTree = "<group>"; };
 		45D110281E8538A6009F2C4E /* RealTimeLocationEndCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationEndCell.h; sourceTree = "<group>"; };
 		45D110291E8538A6009F2C4E /* RealTimeLocationEndCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationEndCell.m; sourceTree = "<group>"; };
 		45D1102B1E8538C0009F2C4E /* RealTimeLocationStartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationStartCell.h; sourceTree = "<group>"; };
@@ -1077,6 +1097,10 @@
 				4573CC251E9882670047D1F4 /* VoteViewController.m */,
 				4573CC2A1E98912D0047D1F4 /* VoteTypeController.h */,
 				4573CC2B1E98912D0047D1F4 /* VoteTypeController.m */,
+				4573CC301E9B10900047D1F4 /* VoteDetailController.h */,
+				4573CC311E9B10900047D1F4 /* VoteDetailController.m */,
+				45C997A71E9B7E3800F6E984 /* ActivityRecommendController.h */,
+				45C997A81E9B7E3800F6E984 /* ActivityRecommendController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1102,6 +1126,8 @@
 				4573CBF81E8B893D0047D1F4 /* MemberListModel.m */,
 				4573CC211E987F950047D1F4 /* VoteListModel.h */,
 				4573CC221E987F950047D1F4 /* VoteListModel.m */,
+				45C9979E1E9B23AB00F6E984 /* JoinUserModel.h */,
+				45C9979F1E9B23AB00F6E984 /* JoinUserModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1131,6 +1157,13 @@
 				4573CC281E9885A20047D1F4 /* VoteCell.m */,
 				4573CC2D1E98914C0047D1F4 /* VoteTypeCell.h */,
 				4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */,
+				45C997931E9B20D100F6E984 /* HeadDetailCell.h */,
+				45C997941E9B20D100F6E984 /* HeadDetailCell.m */,
+				45C997951E9B20D100F6E984 /* HeadDetailCell.xib */,
+				45C997981E9B21DE00F6E984 /* VoteTitleCell.h */,
+				45C997991E9B21DE00F6E984 /* VoteTitleCell.m */,
+				45C997A41E9B7DB800F6E984 /* RecommendImageCell.h */,
+				45C997A51E9B7DB800F6E984 /* RecommendImageCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1249,6 +1282,7 @@
 				4562D7F31E80DC1900C6EE56 /* Address.storyboard in Resources */,
 				456CCE6A1E827CD8005EC051 /* AlipaySDK.bundle in Resources */,
 				456CCE6C1E827CD8005EC051 /* JrmfInfo.strings in Resources */,
+				45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */,
 				455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
@@ -1332,6 +1366,7 @@
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
 				4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */,
+				45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */,
 				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
@@ -1351,9 +1386,11 @@
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
+				45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
+				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
 				4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */,
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
@@ -1394,11 +1431,13 @@
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
 				450A50DE1E853B9500433A61 /* RCDUtilities.m in Sources */,
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
+				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
 				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
 				4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */,
 				4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */,
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
+				45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */,
 				450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */,
 				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,
 				450A50FA1E86227900433A61 /* UnknownFriendDetailController.m in Sources */,
@@ -1408,6 +1447,7 @@
 				4562D74B1E7FB9BA00C6EE56 /* ReduceImage.m in Sources */,
 				4562D75D1E7FDC1B00C6EE56 /* UIButton+button.m in Sources */,
 				4562D7481E7FB9A000C6EE56 /* UploadImageNet.m in Sources */,
+				45C997A91E9B7E3800F6E984 /* ActivityRecommendController.m in Sources */,
 				4573CC0A1E8E56060047D1F4 /* ChooseCell.m in Sources */,
 				455FA3541E76A2C60039B155 /* MineController.m in Sources */,
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,

@@ -41,4 +41,8 @@
 //    return @"";
 ////    NSString * longitude = nslocalizastringFromTable
 //}
+//-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    //改变选择的view
+//    
+//}
 @end

@@ -11,5 +11,15 @@
 @interface CreateActivityController : UIViewController
 @property (nonatomic,copy)NSString * groupID;
 @property (nonatomic,copy)NSString * userID;
+//活动名称
+@property (nonatomic,strong)NSString *name;
+//活动限制人数
+@property (nonatomic,strong)NSString * limitPeople;
+
+@property (nonatomic,strong)NSMutableArray * dataArr;
+
+@property (nonatomic,copy)NSString * area;
+
+@property (nonatomic,copy)NSString * recommendStr;
 
 @end

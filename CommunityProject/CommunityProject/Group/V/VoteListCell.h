@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VoteListModel.h"
+#import "VoteListController.h"
 
 typedef void(^PushBlock)(UIViewController * vc);
 @interface VoteListCell : UITableViewCell
@@ -23,4 +24,9 @@ typedef void(^PushBlock)(UIViewController * vc);
 @property (nonatomic,copy)PushBlock block;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonWidthCons;
+//群ID
+@property (nonatomic,copy)NSString * groupID;
+
+@property (nonatomic,strong)VoteListController * listVC;
+
 @end

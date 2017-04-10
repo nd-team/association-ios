@@ -7,6 +7,7 @@
 //
 
 #import "VoteListCell.h"
+#import "VoteDetailController.h"
 
 @implementation VoteListCell
 
@@ -22,7 +23,36 @@
 
 }
 - (IBAction)voteClick:(id)sender {
-    
+    self.voteBtn.selected = !self.voteBtn.selected;
+    UIButton * button = (UIButton *)sender;
+    VoteListCell * cell = (VoteListCell *)[[[button superview]superview]superview];
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    VoteListModel * model = self.dataArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+    VoteDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"VoteDetailController"];
+    detail.groupID = self.groupID;
+    detail.voteID = model.voteId;
+    detail.createTime = model.addTime;
+    int timeStatus = [model.timeStatus intValue];
+    int status = [model.status intValue];
+    if (timeStatus == 0) {
+        //活动已结束
+        detail.statusStr = @"活动结束";
+    }else{
+        //进行中
+        detail.statusStr = @"进行中";
+    }
+    if (status == 0) {
+        detail.isVote = NO;
+    }else{
+        detail.isVote = YES;
+    }
+    detail.topic = model.voteTitle;
+    detail.topicUrl = model.voteImage;
+    detail.endTime = model.endTime;
+    detail.delegate = self.listVC;
+    self.block(detail);
+ 
     
 }
 -(void)setVoteModel:(VoteListModel *)voteModel{

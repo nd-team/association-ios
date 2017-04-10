@@ -10,11 +10,12 @@
 #import "FriendDetailController.h"
 #import "GroupHostInfoController.h"
 #import "GroupMemberInfoController.h"
+#import "CreateActivityController.h"
 
 @interface NameViewController : UIViewController
 //标题
 @property (nonatomic,copy)NSString * name;
-//1:个人昵称2：群昵称3：群名字
+//1:个人昵称2：群昵称3：群名字4:活动名称5：活动限制人数
 @property (nonatomic,assign)int titleCount;
 //是否是新建群聊
 @property (nonatomic,assign)BOOL isChangeGroupName;
@@ -35,6 +36,8 @@
 
 @property (nonatomic,assign)GroupHostInfoController * hostDelegate;
 @property (nonatomic,assign)GroupMemberInfoController * memberDelegate;
+@property (nonatomic,assign)CreateActivityController * createDelegate;
+
 #pragma mark-用来刷新SDK
 //群头像
 @property (nonatomic,copy)NSString * headUrl;

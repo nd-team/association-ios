@@ -108,6 +108,13 @@
  
             }
            
+        }else if (self.titleCount == 4){
+            self.createDelegate.name = self.nameTF.text;
+            [self back];
+            
+        }else if (self.titleCount == 5){
+            self.createDelegate.limitPeople = self.nameTF.text;
+            [self back];
         }
     }else{
         [self leftClick];

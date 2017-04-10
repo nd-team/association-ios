@@ -10,6 +10,7 @@
 #import "VoteListModel.h"
 #import "VoteListCell.h"
 #import "VoteViewController.h"
+#import "VoteDetailController.h"
 
 #define VoteListURL @"appapi/app/voteList"
 
@@ -29,6 +30,8 @@
 }
 -(void)setBar{
     //导航栏按钮 创建群组
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateBackButtonWithFrame:CGRectMake(0, 0,50, 40) andTitle:@"返回" andTarget:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.title = @"群投票";
@@ -55,7 +58,6 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
-                NSSLog(@"%@",arr);
                 for (NSDictionary * dic in arr) {
                     VoteListModel * model = [[VoteListModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:model];
@@ -86,6 +88,8 @@
     cell.voteModel = self.dataArr[indexPath.row];
     cell.tableView = self.tableView;
     cell.dataArr = self.dataArr;
+    cell.groupID = self.groupId;
+    cell.listVC = self;
     WeakSelf;
     cell.block = ^(UIViewController * vc){
         [weakSelf.navigationController pushViewController:vc animated:YES];
@@ -99,7 +103,32 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    VoteListModel * model = self.dataArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+    VoteDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"VoteDetailController"];
+    detail.groupID = self.groupId;
+    detail.voteID = model.voteId;
+    detail.createTime = model.addTime;
+    int timeStatus = [model.timeStatus intValue];
+    int status = [model.status intValue];
+    if (timeStatus == 0) {
+        //活动已结束
+        detail.statusStr = @"活动结束";
+    }else{
+        //进行中
+        detail.statusStr = @"进行中";
+    }
+    if (status == 0) {
+        detail.isVote = NO;
+    }else{
+        detail.isVote = YES;
+    }
+    detail.topic = model.voteTitle;
+    detail.topicUrl = model.voteImage;
+    detail.endTime = model.endTime;
+    detail.delegate = self;
+    [self.navigationController pushViewController:detail animated:YES];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{

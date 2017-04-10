@@ -7,16 +7,17 @@
 //
 
 #import <JSONModel/JSONModel.h>
-
 @protocol OptionModel <NSObject>
 
 
 
 @end
 @interface OptionModel : JSONModel
-@property (nonatomic,assign)NSInteger  idStr;
+@property (nonatomic,assign)NSInteger  id;
 //主题
 @property (nonatomic,copy)NSString * content;
+//投票人数
+@property (nonatomic,assign)NSInteger count;
 
 @end
 @interface VoteListModel : JSONModel
@@ -26,9 +27,9 @@
 @property (nonatomic,copy)NSString * voteTitle;
 //头像
 @property (nonatomic,copy)NSString * voteImage;
-//
+//创建时间
 @property (nonatomic,copy)NSString * addTime;
-
+//结束时间
 @property (nonatomic,copy)NSString * endTime;
 //1当前用户已投票  0未投票
 @property (nonatomic,copy)NSString * status;

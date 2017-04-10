@@ -7,7 +7,10 @@
 //
 
 #import <RongIMKit/RongIMKit.h>
+#import "CreateActivityController.h"
 
 @interface MyLocationViewController : RCLocationPickerViewController
+
+@property (nonatomic,assign)CreateActivityController * actDelegate;
 
 @end

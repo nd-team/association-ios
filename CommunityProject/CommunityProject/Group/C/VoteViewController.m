@@ -192,13 +192,15 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.count--;
+        VoteCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+        //清空TF内容
+        cell.chooseTF.text = @"";
         //删除那行的数据
         [self.chooseArr removeObjectAtIndex:indexPath.row];
         [_tableView beginUpdates];
         //删除一个cell
         NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
         [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:index] withRowAnimation:UITableViewRowAnimationNone];
-        
         [_tableView endUpdates];
     } else if (editingStyle == UITableViewCellEditingStyleInsert){
         self.count++;
