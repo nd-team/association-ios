@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UploadImageModel.h"
 
 @interface ActImageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
+@property (nonatomic,strong) UploadImageModel * uploadModel;
 
 @end

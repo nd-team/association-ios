@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GroupActivityListController.h"
 
 @interface CreateActivityController : UIViewController
 @property (nonatomic,copy)NSString * groupID;
@@ -21,5 +22,7 @@
 @property (nonatomic,copy)NSString * area;
 
 @property (nonatomic,copy)NSString * recommendStr;
+
+@property (nonatomic,assign)GroupActivityListController * delegate;
 
 @end

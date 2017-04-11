@@ -119,18 +119,23 @@
                 NSDictionary * dict = data[@"data"];
                 //图文消息
                 RCRichContentMessage *rich = [RCRichContentMessage messageWithTitle:weakSelf.titleTV.text digest:str imageURL:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"voteImage"]]] extra:[NSString stringWithFormat:@"活动结束时间:%@",weakSelf.endTimeLabel.text]];
-                [[RCIM sharedRCIM]sendMediaMessage:ConversationType_GROUP targetId:self.groupID content:rich pushContent:[NSString stringWithFormat:@"%@在%@发起了群投票“%@”",nickname,self.groupName,self.titleTV.text] pushData:nil progress:nil success:^(long messageId) {
+                [[RCIM sharedRCIM]sendMediaMessage:ConversationType_GROUP targetId:self.groupID content:rich pushContent:[NSString stringWithFormat:@"%@在%@发起了群投票“%@”",nickname,self.groupName,self.titleTV.text] pushData:nil progress:^(int progress, long messageId) {
+                    //风火轮加载
+                    
+                    
+                } success:^(long messageId) {
                     NSSLog(@"发送成功")
-
+                    weakSelf.delegate.isRef = YES;
+                    [weakSelf leftClick];
                 } error:^(RCErrorCode errorCode, long messageId) {
-                   
+                    weakSelf.delegate.isRef = YES;
+                    [weakSelf leftClick];
                     NSSLog(@"发送失败")
                 } cancel:^(long messageId) {
                    
                     NSSLog(@"取消了发送");
                 }];
-                weakSelf.delegate.isRef = YES;
-                [weakSelf leftClick];
+               
             }else{
                 // [weakSelf showMessage:@"创建投票失败"];
             }

@@ -51,10 +51,11 @@
 
                 if (imageData) {
                     if (i == 0) {
-                        [formData appendPartWithFileData:imageData name:@"file1" fileName:imageName mimeType:@"image/jpg"];
+                        //活动海报
+                        [formData appendPartWithFileData:imageData name:@"file" fileName:imageName mimeType:@"image/jpg"];
  
                     }else{
-                        [formData appendPartWithFileData:imageData name:@"file2" fileName:imageName mimeType:@"image/jpg"];
+                        [formData appendPartWithFileData:imageData name:@"files" fileName:imageName mimeType:@"image/jpg"];
 
                     }
                 }

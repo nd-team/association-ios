@@ -11,6 +11,7 @@
 #import "ActivityListCell.h"
 #import "ActivityListDatabaseSingleton.h"
 #import "CreateActivityController.h"
+#import "ActivityDetailController.h"
 
 #define ActURL @"appapi/app/listActives"
 @interface GroupActivityListController ()<UITableViewDelegate,UITableViewDataSource>
@@ -112,7 +113,22 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    ActivityListModel * model = self.dataArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+    ActivityDetailController * act = [sb instantiateViewControllerWithIdentifier:@"ActivityDetailController"];
+    act.actives_id = model.activesId;
+    act.time = [NSString stringWithFormat:@"%@-%@",model.activesStart,model.activesEnd];
+    act.area = model.activesAddress;
+    act.recomend = model.activesContent;
+    act.headStr = model.activesImage;
+    act.titleStr = model.activesTitle;
+    if ([model.status isEqualToString:@"0"]) {
+        act.isSign = NO;
+    }else{
+        act.isSign = YES;
+    }
+    [self.navigationController pushViewController:act animated:YES];
+
 }
 
 

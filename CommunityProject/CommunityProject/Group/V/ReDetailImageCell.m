@@ -1,14 +1,14 @@
 //
-//  ActImageCell.m
+//  ReDetailImageCell.m
 //  CommunityProject
 //
-//  Created by bjike on 17/3/20.
+//  Created by bjike on 17/4/11.
 //  Copyright © 2017年 来自任性傲娇的女王. All rights reserved.
 //
 
-#import "ActImageCell.h"
+#import "ReDetailImageCell.h"
 
-@implementation ActImageCell
+@implementation ReDetailImageCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -20,11 +20,5 @@
 
     // Configure the view for the selected state
 }
--(void)setUploadModel:(UploadImageModel *)uploadModel{
-    
-    _uploadModel = uploadModel;
-        
-    self.headImageView.image = _uploadModel.image;
-    
-}
+
 @end

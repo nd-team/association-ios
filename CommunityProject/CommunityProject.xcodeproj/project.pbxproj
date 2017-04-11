@@ -28,6 +28,9 @@
 		451B28581E7D27FC0024B336 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28571E7D27FC0024B336 /* CoreMotion.framework */; };
 		451B285A1E7D28210024B336 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28591E7D28210024B336 /* libz.tbd */; };
 		451B285C1E7D282D0024B336 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B285B1E7D282D0024B336 /* libc++.tbd */; };
+		452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D866D1E9CA51600AAFFB1 /* ActivityDetailController.m */; };
+		452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86701E9CC17C00AAFFB1 /* ActiveUsers.m */; };
+		452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */; };
 		4556F0C51E85116B00E1E2FE /* MyLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4556F0C41E85116B00E1E2FE /* MyLocationViewController.m */; };
 		4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB741E7B982800F22E70 /* AppCenterController.m */; };
 		4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB771E7BB95400F22E70 /* AppTwoCell.m */; };
@@ -214,6 +217,12 @@
 		451B28571E7D27FC0024B336 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		451B28591E7D28210024B336 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		451B285B1E7D282D0024B336 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		452D866C1E9CA51600AAFFB1 /* ActivityDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailController.h; sourceTree = "<group>"; };
+		452D866D1E9CA51600AAFFB1 /* ActivityDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailController.m; sourceTree = "<group>"; };
+		452D866F1E9CC17C00AAFFB1 /* ActiveUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveUsers.h; sourceTree = "<group>"; };
+		452D86701E9CC17C00AAFFB1 /* ActiveUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveUsers.m; sourceTree = "<group>"; };
+		452D86751E9CC8AA00AAFFB1 /* ReDetailImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReDetailImageCell.h; sourceTree = "<group>"; };
+		452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReDetailImageCell.m; sourceTree = "<group>"; };
 		4556F0C31E85116B00E1E2FE /* MyLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLocationViewController.h; sourceTree = "<group>"; };
 		4556F0C41E85116B00E1E2FE /* MyLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLocationViewController.m; sourceTree = "<group>"; };
 		4557CB731E7B982800F22E70 /* AppCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCenterController.h; sourceTree = "<group>"; };
@@ -1101,6 +1110,8 @@
 				4573CC311E9B10900047D1F4 /* VoteDetailController.m */,
 				45C997A71E9B7E3800F6E984 /* ActivityRecommendController.h */,
 				45C997A81E9B7E3800F6E984 /* ActivityRecommendController.m */,
+				452D866C1E9CA51600AAFFB1 /* ActivityDetailController.h */,
+				452D866D1E9CA51600AAFFB1 /* ActivityDetailController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1128,6 +1139,8 @@
 				4573CC221E987F950047D1F4 /* VoteListModel.m */,
 				45C9979E1E9B23AB00F6E984 /* JoinUserModel.h */,
 				45C9979F1E9B23AB00F6E984 /* JoinUserModel.m */,
+				452D866F1E9CC17C00AAFFB1 /* ActiveUsers.h */,
+				452D86701E9CC17C00AAFFB1 /* ActiveUsers.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1164,6 +1177,8 @@
 				45C997991E9B21DE00F6E984 /* VoteTitleCell.m */,
 				45C997A41E9B7DB800F6E984 /* RecommendImageCell.h */,
 				45C997A51E9B7DB800F6E984 /* RecommendImageCell.m */,
+				452D86751E9CC8AA00AAFFB1 /* ReDetailImageCell.h */,
+				452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1362,6 +1377,7 @@
 				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
 				455FA1701E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m in Sources */,
 				4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */,
+				452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */,
 				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
@@ -1391,6 +1407,7 @@
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
 				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
+				452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */,
 				4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */,
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
@@ -1405,6 +1422,7 @@
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
+				452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */,
 				4556F0C51E85116B00E1E2FE /* MyLocationViewController.m in Sources */,
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
 				450A50E11E853BA800433A61 /* RCAnnotationView.m in Sources */,

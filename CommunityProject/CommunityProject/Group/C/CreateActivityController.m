@@ -11,7 +11,9 @@
 #import "MyLocationViewController.h"
 #import "ActImageCell.h"
 #import "ActivityRecommendController.h"
+#import "UploadActImageNet.h"
 
+#define CreateActivityURL @"appapi/app/foundActives"
 @interface CreateActivityController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *actImage;
@@ -32,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (nonatomic,assign)int time;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (nonatomic,strong)NSMutableArray * actArr;
 
 @end
 
@@ -74,13 +77,21 @@
     //dismiss系统的设置自定义
     [self dismissViewControllerAnimated:YES completion:nil];
     UIImage * originalImage = info[UIImagePickerControllerOriginalImage];
+    UploadImageModel * item = [UploadImageModel new];
+    
+    item.image = originalImage;
+    
+    item.isPlaceHolder = NO;
+    
+    item.isHide = YES;
+    [self.actArr addObject:item];
     self.actImage.image = originalImage;
     
 }
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ActImageCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ActImageCell"];
-//    cell.headImageView.image = self.dataArr[indexPath.row];
+    cell.uploadModel = self.dataArr[indexPath.row];
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -140,60 +151,73 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)sendClick:(id)sender {
-//    if (self.area.length != 0 && self.personCount.length != 0 && self.content.length != 0 && self.titleTF.text.length != 0&&self.startTF.text.length != 0 && self.endTF.text.length != 0 && self.actImage.image != nil) {
-//        [self postCreateActivity];
-//    }else{
+    if (self.area.length != 0 && self.limitPeople.length != 0 && self.name.length != 0 && self.recommendStr.length != 0&&self.startTimeLabel.text.length != 0 && self.endTF.text.length != 0 && self.actImage.image != nil&& self.endTimeLabel.text.length != 0) {
+        [self postCreateActivity];
+    }else{
+        return;
 //        [self showMessage:@"请填写完整信息"];
-//    }
+    }
  
 }
 -(void)postCreateActivity{
-    //    NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
-    //    WeakSelf;
-    //    NSDictionary * params = @{@"userId":self.userID,@"group_id":self.groupID,@"actives_title":self.titleLabel.text,@"actives_content":self.contentLabel.text,@"actives_limit":self.personTF.text,@"actives_start":self.startTF.text,@"actives_end":self.endTF.text,@"actives_address":self.areaTF.text};
-    //    [UploadImageNet postDataWithUrl:CreateActURL andParams:params andImage:self.headImageView.image getBlock:^(NSURLResponse *response, NSError *error, id data) {
-    //        if (error) {
-    //            NSSLog(@"建活动失败%@",error);
-    //            [weakSelf showMessage:@"创建活动失败"];
-    //        }else{
-    //            NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-    //            NSNumber * code = jsonDic[@"code"];
-    //            if ([code intValue] == 200) {
-    //                NSDictionary * data = jsonDic[@"data"];
-    //                //发送一条消息富文本
-    //                RCRichContentMessage * richMsg = [RCRichContentMessage messageWithTitle:self.titleTF.text digest:self.contentLabel.text imageURL:[NSString stringWithFormat:@"https://al.bjike.com/%@",[NowDate changeUrl:data[@"avatar_image"]]]  extra:nil];
-    //                [[RCIM sharedRCIM]sendMediaMessage:ConversationType_GROUP targetId:self.groupID content:richMsg pushContent:[NSString stringWithFormat:@"%@发起活动%@",nickname,self.titleTF.text] pushData:self.contentLabel.text progress:^(int progress, long messageId) {
-    //
-    //
-    //                } success:^(long messageId) {
-    //                    //发送消息成功
-    //                    weakSelf.delegate.isRef = YES;
-    //                    dispatch_async(dispatch_get_main_queue(), ^{
-    //                        [weakSelf.navigationController popViewControllerAnimated:YES];
-    //                    });
-    //                } error:^(RCErrorCode errorCode, long messageId) {
-    //                    //发送失败
-    //                    [weakSelf showMessage:@"发送消息失败"];
-    //
-    //                } cancel:^(long messageId) {
-    //                    //取消发送消息
-    //                    [weakSelf showMessage:@"你取消了发送消息"];
-    //
-    //                }];
-    //
-    //            }else{
-    //                [weakSelf showMessage:@"创建活动失败"];
-    //            }
-    //        }
-    //    }];
-    
-}
+        NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
+        WeakSelf;
+        NSDictionary * params = @{@"userId":self.userID,@"groupId":self.groupID,@"activesTitle":self.titleLabel.text,@"activesContent":self.recommendStr,@"activesLimit":self.limitTF.text,@"activesStart":self.startTimeLabel.text,@"activesEnd":self.endTimeLabel.text,@"activesAddress":self.areaTF.text,@"activesClosing":self.endTF.text};
+    [self.actArr addObjectsFromArray:self.dataArr];
+    [UploadActImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,CreateActivityURL] andParams:params andArray:self.actArr getBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"建活动失败%@",error);
+//            [weakSelf showMessage:@"创建活动失败"];
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                NSDictionary * data = data[@"data"];
+                //发送一条消息富文本
+                RCRichContentMessage * richMsg = [RCRichContentMessage messageWithTitle:self.titleLabel.text digest:self.contentLabel.text imageURL:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:data[@"activesImage"]]]  extra:nil];
+                [[RCIM sharedRCIM]sendMediaMessage:ConversationType_GROUP targetId:self.groupID content:richMsg pushContent:[NSString stringWithFormat:@"%@发起活动%@",nickname,self.titleLabel.text] pushData:self.contentLabel.text progress:^(int progress, long messageId) {
+                    //风火轮加载
+                    
+                    
+                } success:^(long messageId) {
+                    //发送消息成功
+                    [weakSelf back];
+                } error:^(RCErrorCode errorCode, long messageId) {
+                    //发送失败
+//                    [weakSelf showMessage:@"发送消息失败"];
+                    [weakSelf back];
 
+                } cancel:^(long messageId) {
+                    //取消发送消息
+//                    [weakSelf showMessage:@"你取消了发送消息"];
+                    
+                }];
+                
+            }else{
+//                [weakSelf showMessage:@"创建活动失败"];
+            }
+        }
+
+    }];
+
+}
+-(void)back{
+    WeakSelf;
+    self.delegate.isRef = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    });
+}
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSMutableArray new];
     }
     return _dataArr;
+}
+-(NSMutableArray *)actArr{
+    if (!_actArr) {
+        _actArr = [NSMutableArray new];
+    }
+    return _actArr;
 }
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];

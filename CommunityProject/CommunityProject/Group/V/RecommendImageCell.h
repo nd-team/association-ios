@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UploadImageModel.h"
 
 @interface RecommendImageCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
+
+@property (nonatomic,strong) UploadImageModel * uploadModel;
+
+@property (weak, nonatomic) IBOutlet UIButton *delectButton;
 
 @end

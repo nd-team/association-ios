@@ -25,5 +25,7 @@
 @property (nonatomic,copy)NSString * activesAddress;
 //活动介绍
 @property (nonatomic,copy)NSString * activesContent;
+//是否报名
+@property (nonatomic,copy)NSString * status;
 
 @end

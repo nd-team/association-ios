@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface ImageUrl : NSObject
+//过滤反斜杠
 +(NSString *)changeUrl:(NSString *)url;
 +(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andColor:(UIColor*)color andRangeStr:(NSString *)rangeStr andChangeColor:(UIColor *)chCplor;
 @end
