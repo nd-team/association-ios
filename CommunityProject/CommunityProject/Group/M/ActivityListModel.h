@@ -21,11 +21,14 @@
 @property (nonatomic,copy)NSString * activesStart;
 //活动结束时间
 @property (nonatomic,copy)NSString * activesEnd;
+//活动截止时间
+@property (nonatomic,copy)NSString * activesClosing;
+
 //活动地址
 @property (nonatomic,copy)NSString * activesAddress;
 //活动介绍
 @property (nonatomic,copy)NSString * activesContent;
-//是否报名
-@property (nonatomic,copy)NSString * status;
+//是否报名0：没报名1已报名
+@property (nonatomic)NSInteger  status;
 
 @end

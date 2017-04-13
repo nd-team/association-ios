@@ -26,4 +26,16 @@
 
     return str;
 }
++(NSArray *)cutString:(NSString *)time{
+    NSArray * arr = [time componentsSeparatedByString:@" "];
+    return arr;
+}
++(NSArray *)cutBigTime:(NSString *)time{
+    NSArray * arr = [time componentsSeparatedByString:@"-"];
+    return arr;
+}
++(NSArray *)cutSmallTime:(NSString *)time{
+    NSArray * arr = [time componentsSeparatedByString:@":"];
+    return arr;
+}
 @end

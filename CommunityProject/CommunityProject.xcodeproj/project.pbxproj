@@ -147,6 +147,11 @@
 		4573CC2C1E98912D0047D1F4 /* VoteTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2B1E98912D0047D1F4 /* VoteTypeController.m */; };
 		4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */; };
 		4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC311E9B10900047D1F4 /* VoteDetailController.m */; };
+		457781CF1E9F74CF0004BBE7 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */; };
+		457781D41E9F7C060004BBE7 /* InterestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457781D21E9F7C060004BBE7 /* InterestCell.xib */; };
+		457781D71E9F7C6D0004BBE7 /* InterestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781D61E9F7C6D0004BBE7 /* InterestCell.m */; };
+		457781DA1E9F84EB0004BBE7 /* ChooseInterestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */; };
+		457781DD1E9F85260004BBE7 /* InterestTeamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781DC1E9F85260004BBE7 /* InterestTeamController.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -405,6 +410,15 @@
 		4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTypeCell.m; sourceTree = "<group>"; };
 		4573CC301E9B10900047D1F4 /* VoteDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteDetailController.h; sourceTree = "<group>"; };
 		4573CC311E9B10900047D1F4 /* VoteDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteDetailController.m; sourceTree = "<group>"; };
+		457781CD1E9F74CF0004BBE7 /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
+		457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
+		457781D21E9F7C060004BBE7 /* InterestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InterestCell.xib; sourceTree = "<group>"; };
+		457781D51E9F7C6D0004BBE7 /* InterestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCell.h; sourceTree = "<group>"; };
+		457781D61E9F7C6D0004BBE7 /* InterestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCell.m; sourceTree = "<group>"; };
+		457781D81E9F84EB0004BBE7 /* ChooseInterestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseInterestCell.h; sourceTree = "<group>"; };
+		457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseInterestCell.m; sourceTree = "<group>"; };
+		457781DB1E9F85260004BBE7 /* InterestTeamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestTeamController.h; sourceTree = "<group>"; };
+		457781DC1E9F85260004BBE7 /* InterestTeamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestTeamController.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -611,6 +625,10 @@
 				4568FB121E89FBBA007BA5BB /* SearchController.m */,
 				458DD51B1E8A488D00650F2E /* MessageViewController.h */,
 				458DD51C1E8A488D00650F2E /* MessageViewController.m */,
+				457781CD1E9F74CF0004BBE7 /* DiscoverViewController.h */,
+				457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */,
+				457781DB1E9F85260004BBE7 /* InterestTeamController.h */,
+				457781DC1E9F85260004BBE7 /* InterestTeamController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -643,6 +661,11 @@
 				45A080D31E891DFA00514FFC /* SearchGroupCell.m */,
 				458DD5181E8A46DA00650F2E /* MessageCell.h */,
 				458DD5191E8A46DA00650F2E /* MessageCell.m */,
+				457781D51E9F7C6D0004BBE7 /* InterestCell.h */,
+				457781D61E9F7C6D0004BBE7 /* InterestCell.m */,
+				457781D21E9F7C060004BBE7 /* InterestCell.xib */,
+				457781D81E9F84EB0004BBE7 /* ChooseInterestCell.h */,
+				457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1300,6 +1323,7 @@
 				45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */,
 				455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
+				457781D41E9F7C060004BBE7 /* InterestCell.xib in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
 				4573CC011E8B8DDD0047D1F4 /* MemberListCell.xib in Resources */,
 				456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */,
@@ -1400,6 +1424,7 @@
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
 				4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */,
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
+				457781CF1E9F74CF0004BBE7 /* DiscoverViewController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
 				45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */,
@@ -1455,6 +1480,7 @@
 				4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */,
 				4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */,
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
+				457781D71E9F7C6D0004BBE7 /* InterestCell.m in Sources */,
 				45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */,
 				450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */,
 				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,
@@ -1464,6 +1490,7 @@
 				455FA16D1E7A8C6D00C85AE7 /* ClaimModel.m in Sources */,
 				4562D74B1E7FB9BA00C6EE56 /* ReduceImage.m in Sources */,
 				4562D75D1E7FDC1B00C6EE56 /* UIButton+button.m in Sources */,
+				457781DD1E9F85260004BBE7 /* InterestTeamController.m in Sources */,
 				4562D7481E7FB9A000C6EE56 /* UploadImageNet.m in Sources */,
 				45C997A91E9B7E3800F6E984 /* ActivityRecommendController.m in Sources */,
 				4573CC0A1E8E56060047D1F4 /* ChooseCell.m in Sources */,
@@ -1481,6 +1508,7 @@
 				45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */,
 				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
 				458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */,
+				457781DA1E9F84EB0004BBE7 /* ChooseInterestCell.m in Sources */,
 				450A50D81E853B5A00433A61 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

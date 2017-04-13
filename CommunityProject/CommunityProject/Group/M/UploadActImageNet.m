@@ -47,8 +47,6 @@
                 
                 NSString * imageName = [NSString stringWithFormat:@"%@-%d.jpg",str,i];
                 
-                i++;
-
                 if (imageData) {
                     if (i == 0) {
                         //活动海报
@@ -60,7 +58,7 @@
                     }
                 }
             }
-            
+            i++;
         }
         
         
@@ -68,11 +66,8 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        NSString * str = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
-        
-        NSData * data = [[NSData alloc]initWithData:[str dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        block((NSHTTPURLResponse *)task.response,nil,data);
+        NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        block(task.response,nil,jsonDic);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         

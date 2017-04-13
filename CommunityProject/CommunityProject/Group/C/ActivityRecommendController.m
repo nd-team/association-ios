@@ -10,7 +10,7 @@
 #import "RecommendImageCell.h"
 #import "UploadImageModel.h"
 
-@interface ActivityRecommendController ()<UICollectionViewDelegate,UICollectionViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface ActivityRecommendController ()<UICollectionViewDelegate,UICollectionViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (weak, nonatomic) IBOutlet UITextView *recomTV;
@@ -31,7 +31,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"活动介绍";
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
-    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,60, 40) titleColor:UIColorFromRGB(0x121212) font:14 andTitle:@"完 成" and:self Action:@selector(rightClick)];
+    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,40, 30) titleColor:UIColorFromRGB(0x121212) font:14 andTitle:@"完 成" and:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
     //初始化数据源
     [self.collectArr addObject:[self getImageData]];
@@ -79,6 +79,7 @@
 }
 
 -(void)rightClick{
+    [self.recomTV resignFirstResponder];
     self.delegate.recommendStr = self.recomTV.text;
     NSMutableArray * array = [NSMutableArray new];
     for (UploadImageModel * model in self.collectArr) {
@@ -99,6 +100,11 @@
     
     RecommendImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RecommendImageCell" forIndexPath:indexPath];
     cell.uploadModel = self.collectArr[indexPath.row];
+    if (indexPath.row != 0) {
+        cell.nameLabel.hidden = YES;
+    }else{
+        cell.nameLabel.hidden = NO;
+    }
     return cell;
     
 }
@@ -112,6 +118,12 @@
         }
     }
 }
+//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+//    UIEdgeInsetsMake(0, 0, 0, <#CGFloat right#>)
+//}
+//-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+//    return 0;
+//}
 #pragma mark-删除图片
 -(void)showTapUI{
     
@@ -185,7 +197,7 @@
     
     item.isHide = YES;
     self.count++;
-    if (self.count == 3) {
+    if (self.count == 4) {
         [self.collectArr replaceObjectAtIndex:0 withObject:item];
         //标记提示用户
         self.isOver = YES;

@@ -15,5 +15,6 @@
 @property (nonatomic,strong) UploadImageModel * uploadModel;
 
 @property (weak, nonatomic) IBOutlet UIButton *delectButton;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end

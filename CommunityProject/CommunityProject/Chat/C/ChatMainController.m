@@ -16,6 +16,7 @@
 #import "SearchController.h"
 #import "MessageViewController.h"
 #import "ChooseFriendsController.h"
+#import "DiscoverViewController.h"
 
 @interface ChatMainController ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong)UIView * topView;
@@ -109,7 +110,13 @@
             }
                 break;
             case 22:
-                
+            {
+                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
+                DiscoverViewController * search = [sb instantiateViewControllerWithIdentifier:@"DiscoverViewController"];
+                UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+                self.navigationItem.backBarButtonItem = backItem;
+                [self.navigationController pushViewController:search animated:YES];
+            }
                 break;
             case 23:
             {

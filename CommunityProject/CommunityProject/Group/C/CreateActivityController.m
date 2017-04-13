@@ -15,6 +15,7 @@
 
 #define CreateActivityURL @"appapi/app/foundActives"
 @interface CreateActivityController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *actImage;
 
@@ -35,6 +36,11 @@
 @property (nonatomic,assign)int time;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic,strong)NSMutableArray * actArr;
+@property (weak, nonatomic) IBOutlet UILabel *changeLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tbTopCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *recomHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *conTopCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightCons;
 
 @end
 
@@ -52,21 +58,40 @@
         self.areaTF.text = self.area;
     }
     if (self.dataArr.count != 0) {
-        self.tbHeightContraints.constant = self.dataArr.count *195;
+        self.tbTopCons.constant = 14;
+        self.tbHeightContraints.constant = self.dataArr.count *205;
         [self.tableView reloadData];
     }
     if (self.recommendStr != 0) {
+        self.conTopCons.constant = 10;
         self.contentLabel.text = self.recommendStr;
+        CGSize size = [self.contentLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+        if (self.dataArr.count != 0) {
+            self.recomHeightCons.constant = 69+self.tbHeightContraints.constant+size.height;
+        }else{
+            self.recomHeightCons.constant = 69+size.height;
+        }
+        self.moreImage.hidden = NO;
+        self.moreLabel.hidden = YES;
     }
+    self.heightCons.constant = 578+self.recomHeightCons.constant;
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setUI];
+    
+}
+-(void)setUI{
     self.bottomView.hidden = YES;
+    self.moreImage.hidden = YES;
+    self.tbHeightContraints.constant = 0;
     UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
     UITapGestureRecognizer * tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pushAlbums)];
     [self.actImage addGestureRecognizer:tap1];
 }
+
 -(void)pushAlbums{
     UIImagePickerController * picker = [UIImagePickerController new];
     picker.delegate = self;
@@ -74,15 +99,13 @@
     [self presentViewController:picker animated:YES completion:nil];
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    self.changeLabel.hidden = YES;
     //dismiss系统的设置自定义
     [self dismissViewControllerAnimated:YES completion:nil];
     UIImage * originalImage = info[UIImagePickerControllerOriginalImage];
     UploadImageModel * item = [UploadImageModel new];
-    
     item.image = originalImage;
-    
     item.isPlaceHolder = NO;
-    
     item.isHide = YES;
     [self.actArr addObject:item];
     self.actImage.image = originalImage;
@@ -115,7 +138,8 @@
 
     }else if (textField == self.areaTF){
         MyLocationViewController * location = [MyLocationViewController new];
-        
+        location.actDelegate = self;
+        location.isAct = YES;
         [self.navigationController pushViewController:location animated:YES];
     }
     return NO;
@@ -142,6 +166,7 @@
 }
 
 - (IBAction)moreClick:(id)sender {
+    [self.dataArr removeAllObjects];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
     ActivityRecommendController * recom = [sb instantiateViewControllerWithIdentifier:@"ActivityRecommendController"];
     recom.delegate = self;
@@ -164,27 +189,28 @@
         WeakSelf;
         NSDictionary * params = @{@"userId":self.userID,@"groupId":self.groupID,@"activesTitle":self.titleLabel.text,@"activesContent":self.recommendStr,@"activesLimit":self.limitTF.text,@"activesStart":self.startTimeLabel.text,@"activesEnd":self.endTimeLabel.text,@"activesAddress":self.areaTF.text,@"activesClosing":self.endTF.text};
     [self.actArr addObjectsFromArray:self.dataArr];
-    [UploadActImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,CreateActivityURL] andParams:params andArray:self.actArr getBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [UploadActImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,CreateActivityURL] andParams:params andArray:self.dataArr getBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"建活动失败%@",error);
 //            [weakSelf showMessage:@"创建活动失败"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * data = data[@"data"];
+                NSDictionary * dict = data[@"data"];
+                NSSLog(@"%@",dict);
+                [weakSelf back];
                 //发送一条消息富文本
-                RCRichContentMessage * richMsg = [RCRichContentMessage messageWithTitle:self.titleLabel.text digest:self.contentLabel.text imageURL:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:data[@"activesImage"]]]  extra:nil];
+                RCRichContentMessage * richMsg = [RCRichContentMessage messageWithTitle:self.titleLabel.text digest:self.contentLabel.text imageURL:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"activesImage"]]]  extra:nil];
                 [[RCIM sharedRCIM]sendMediaMessage:ConversationType_GROUP targetId:self.groupID content:richMsg pushContent:[NSString stringWithFormat:@"%@发起活动%@",nickname,self.titleLabel.text] pushData:self.contentLabel.text progress:^(int progress, long messageId) {
                     //风火轮加载
                     
                     
                 } success:^(long messageId) {
                     //发送消息成功
-                    [weakSelf back];
+                    
                 } error:^(RCErrorCode errorCode, long messageId) {
                     //发送失败
 //                    [weakSelf showMessage:@"发送消息失败"];
-                    [weakSelf back];
 
                 } cancel:^(long messageId) {
                     //取消发送消息

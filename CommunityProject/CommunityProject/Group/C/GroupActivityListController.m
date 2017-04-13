@@ -26,11 +26,10 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    
     self.tabBarController.tabBar.hidden = YES;
-//    if (self.isRef) {
-//        [self getActivivtyData];
-//    }
+    if (self.isRef) {
+        [self getActivivtyData];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,7 +67,6 @@
 -(void)getActivivtyData{
     WeakSelf;
     NSDictionary * dict = @{@"groupId":self.groupID,@"userId":self.userID};
-    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ActURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取活动列表失败%@",error);
@@ -122,15 +120,15 @@
     act.recomend = model.activesContent;
     act.headStr = model.activesImage;
     act.titleStr = model.activesTitle;
-    if ([model.status isEqualToString:@"0"]) {
-        act.isSign = NO;
-    }else{
+    act.listDelegate = self;
+    if (model.status == 1) {
         act.isSign = YES;
+    }else{
+        act.isSign = NO;
     }
     [self.navigationController pushViewController:act animated:YES];
 
 }
-
 
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
@@ -144,7 +142,6 @@
         CreateActivityController * create = segue.destinationViewController;
         create.groupID = self.groupID;
         create.userID = self.userID;
-        [self.navigationController pushViewController:create animated:YES];
     }
 }
 -(NSMutableArray *)dataArr{

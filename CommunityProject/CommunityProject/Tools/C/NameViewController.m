@@ -40,6 +40,7 @@
     self.nameTF.leftViewMode = UITextFieldViewModeAlways;
     self.nameTF.placeholder = self.placeHolder;
     self.nameTF.text = self.content;
+    [self.nameTF becomeFirstResponder];
 }
 -(void)setBar{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];

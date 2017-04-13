@@ -12,5 +12,7 @@
 @interface MyLocationViewController : RCLocationPickerViewController
 
 @property (nonatomic,assign)CreateActivityController * actDelegate;
+//创建活动
+@property (nonatomic,assign)BOOL isAct;
 
 @end

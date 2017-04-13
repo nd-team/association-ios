@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GroupActivityListController.h"
 
 @interface ActivityDetailController : UIViewController
 
@@ -18,5 +19,7 @@
 @property (nonatomic,copy)NSString * headStr;
 //是否报名
 @property (nonatomic,assign)BOOL isSign;
+
+@property (nonatomic,assign)GroupActivityListController * listDelegate;
 
 @end

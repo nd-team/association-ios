@@ -39,7 +39,7 @@
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists ActivityListModel (id integer primary key autoincrement, activesId text,activesTitle text,activesImage text,activesStart text,activesEnd text,activesAddress text,activesContent text,activesLimit text)"]) {
+        if (![_database executeUpdate:@"create table if not exists ActivityListModel (id integer primary key autoincrement, activesId text,activesTitle text,activesImage text,activesStart text,activesEnd text,activesAddress text,activesContent text,activesLimit text,status integer,activesClosing text)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -50,7 +50,7 @@
 -(void)insertDatabase:(ActivityListModel *)model{
     
     
-    if (![_database executeUpdate:@"insert into ActivityListModel (activesId,activesTitle,activesImage,activesStart,activesEnd,activesAddress,activesContent,activesLimit) values (?,?,?,?,?,?,?,?)",model.activesId,model.activesTitle,model.activesImage,model.activesStart,model.activesEnd,model.activesAddress,model.activesContent,model.activesLimit]) {
+    if (![_database executeUpdate:@"insert into ActivityListModel (activesId,activesTitle,activesImage,activesStart,activesEnd,activesAddress,activesContent,activesLimit,status,activesClosing) values (?,?,?,?,?,?,?,?,?,?)",model.activesId,model.activesTitle,model.activesImage,model.activesStart,model.activesEnd,model.activesAddress,model.activesContent,model.activesLimit,model.status,model.activesClosing]) {
         
         NSSLog(@"插入失败");
     }
@@ -75,7 +75,8 @@
         model.activesAddress = [set stringForColumn:@"activesAddress"];
         model.activesContent = [set stringForColumn:@"activesContent"];
         model.activesLimit = [set stringForColumn:@"activesLimit"];
-
+        model.status = [set intForColumn:@"status"];
+        model.activesClosing = [set stringForColumn:@"activesClosing"];
         [newArr addObject:model];
     }
     

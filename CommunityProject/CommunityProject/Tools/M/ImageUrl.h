@@ -12,4 +12,10 @@
 //过滤反斜杠
 +(NSString *)changeUrl:(NSString *)url;
 +(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andColor:(UIColor*)color andRangeStr:(NSString *)rangeStr andChangeColor:(UIColor *)chCplor;
+//剪切年月日和时分秒
++(NSArray *)cutString:(NSString *)time;
+//剪切年月日
++(NSArray *)cutBigTime:(NSString *)time;
+//剪切时分秒
++(NSArray *)cutSmallTime:(NSString *)time;
 @end
