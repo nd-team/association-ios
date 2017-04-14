@@ -40,6 +40,10 @@
 		4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB831E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m */; };
 		4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB861E7BE88900F22E70 /* ChatDetailController.m */; };
 		455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 455930CE1E835A110041F6F9 /* ImageUrl.m */; };
+		455C6B0B1EA076C000E0B3F3 /* InterestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B0A1EA076C000E0B3F3 /* InterestModel.m */; };
+		455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B0D1EA0B24200E0B3F3 /* HobbyCell.m */; };
+		455C6B101EA0B24200E0B3F3 /* HobbyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B0E1EA0B24200E0B3F3 /* HobbyCell.xib */; };
+		455C6B131EA0B34500E0B3F3 /* HobbyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B121EA0B34500E0B3F3 /* HobbyController.m */; };
 		455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1631E7A660F00C85AE7 /* TravelCell.m */; };
 		455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1661E7A831000C85AE7 /* ClaimCell.m */; };
 		455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1691E7A833000C85AE7 /* ApplicationCenterCell.m */; };
@@ -246,6 +250,13 @@
 		4557CB861E7BE88900F22E70 /* ChatDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDetailController.m; sourceTree = "<group>"; };
 		455930CD1E835A110041F6F9 /* ImageUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUrl.h; sourceTree = "<group>"; };
 		455930CE1E835A110041F6F9 /* ImageUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUrl.m; sourceTree = "<group>"; };
+		455C6B091EA076C000E0B3F3 /* InterestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestModel.h; sourceTree = "<group>"; };
+		455C6B0A1EA076C000E0B3F3 /* InterestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestModel.m; sourceTree = "<group>"; };
+		455C6B0C1EA0B24200E0B3F3 /* HobbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyCell.h; sourceTree = "<group>"; };
+		455C6B0D1EA0B24200E0B3F3 /* HobbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyCell.m; sourceTree = "<group>"; };
+		455C6B0E1EA0B24200E0B3F3 /* HobbyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HobbyCell.xib; sourceTree = "<group>"; };
+		455C6B111EA0B34500E0B3F3 /* HobbyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyController.h; sourceTree = "<group>"; };
+		455C6B121EA0B34500E0B3F3 /* HobbyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyController.m; sourceTree = "<group>"; };
 		455FA1621E7A660F00C85AE7 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
 		455FA1631E7A660F00C85AE7 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		455FA1651E7A831000C85AE7 /* ClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCell.h; sourceTree = "<group>"; };
@@ -629,6 +640,8 @@
 				457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */,
 				457781DB1E9F85260004BBE7 /* InterestTeamController.h */,
 				457781DC1E9F85260004BBE7 /* InterestTeamController.m */,
+				455C6B111EA0B34500E0B3F3 /* HobbyController.h */,
+				455C6B121EA0B34500E0B3F3 /* HobbyController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -644,6 +657,8 @@
 				4568FB0F1E89F261007BA5BB /* SearchGroupModel.m */,
 				458DD5211E8A4EC900650F2E /* ApplicationDatabaseSingle.h */,
 				458DD5221E8A4EC900650F2E /* ApplicationDatabaseSingle.m */,
+				455C6B091EA076C000E0B3F3 /* InterestModel.h */,
+				455C6B0A1EA076C000E0B3F3 /* InterestModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -666,6 +681,9 @@
 				457781D21E9F7C060004BBE7 /* InterestCell.xib */,
 				457781D81E9F84EB0004BBE7 /* ChooseInterestCell.h */,
 				457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */,
+				455C6B0C1EA0B24200E0B3F3 /* HobbyCell.h */,
+				455C6B0D1EA0B24200E0B3F3 /* HobbyCell.m */,
+				455C6B0E1EA0B24200E0B3F3 /* HobbyCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1334,6 +1352,7 @@
 				456CCE631E827CD7005EC051 /* Emoji.plist in Resources */,
 				456CCE6E1E827CD8005EC051 /* jrmf.cer in Resources */,
 				456CCE6D1E827CD8005EC051 /* JResource.bundle in Resources */,
+				455C6B101EA0B24200E0B3F3 /* HobbyCell.xib in Resources */,
 				4562D7331E7F6E2700C6EE56 /* Group.storyboard in Resources */,
 				455FA3481E7694020039B155 /* Mine.storyboard in Resources */,
 				455FA31B1E7631A90039B155 /* Assets.xcassets in Resources */,
@@ -1416,6 +1435,7 @@
 				450A50ED1E853C3200433A61 /* DefaultPortraitView.m in Sources */,
 				458DD51D1E8A488D00650F2E /* MessageViewController.m in Sources */,
 				457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */,
+				455C6B0B1EA076C000E0B3F3 /* InterestModel.m in Sources */,
 				458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				45A080C81E88C41100514FFC /* AddFriendController.m in Sources */,
@@ -1428,6 +1448,7 @@
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
 				45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */,
+				455C6B131EA0B34500E0B3F3 /* HobbyController.m in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
@@ -1474,6 +1495,7 @@
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
 				450A50DE1E853B9500433A61 /* RCDUtilities.m in Sources */,
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
+				455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */,
 				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
 				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,

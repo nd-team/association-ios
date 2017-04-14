@@ -21,5 +21,9 @@
 @property (nonatomic,copy)NSString * userId;
 //群头像
 @property (nonatomic,copy)NSString * headUrl;
+//区分是群还是兴趣联盟
+@property (nonatomic,assign)BOOL isGroup;
+//兴趣联盟爱好
+@property (nonatomic,copy)NSString * hobby;
 
 @end

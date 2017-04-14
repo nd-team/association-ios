@@ -33,6 +33,7 @@
     choose.name = @"选择副群主";
     choose.dif = 1;
     choose.hostId = self.hostId;
+    choose.rightName = @"确认";
     [self.navigationController pushViewController:choose animated:YES];
 
 }

@@ -138,6 +138,7 @@
     choose.hostId = self.hostId;
     choose.delegate = self;
     choose.baseArr = self.collectArr;
+    choose.rightName = @"确认";
     [self.navigationController pushViewController:choose animated:YES];
 }
 //判断是否是好友

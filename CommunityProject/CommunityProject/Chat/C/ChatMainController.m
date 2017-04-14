@@ -84,8 +84,8 @@
     self.topView.hidden = YES;
     [self.view addSubview:self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(231);
-        make.width.mas_equalTo(113);
+        make.height.mas_equalTo(262.5);
+        make.width.mas_equalTo(123);
         make.top.equalTo(self.view).offset(64);
         make.right.equalTo(self.view).offset(-13);
     }];
@@ -131,6 +131,7 @@
                 ChooseFriendsController * choose = [sb instantiateViewControllerWithIdentifier:@"ChooseFriendsController"];
                 choose.name = @"选择好友";
                 choose.dif = 2;
+                choose.rightName = @"下一步";
                 [self.navigationController pushViewController:choose animated:YES];
             }
                 break;

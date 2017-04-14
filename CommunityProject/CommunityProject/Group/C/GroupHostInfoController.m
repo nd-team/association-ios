@@ -38,6 +38,11 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *dissolveBtn;
 
+@property (weak, nonatomic) IBOutlet UILabel *hobbyLabel;
+@property (weak, nonatomic) IBOutlet UIButton *hobbyBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hobbyHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineViewHeightCons;
+
 @end
 
 @implementation GroupHostInfoController
@@ -63,6 +68,17 @@
         [self.dissolveBtn setTitle:@"解散本群" forState:UIControlStateNormal];
     }else{
         [self.dissolveBtn setTitle:@"退出该群" forState:UIControlStateNormal];
+    }
+    if (self.isGroup) {
+        self.hobbyBtn.hidden = YES;
+        self.hobbyHeightCons.constant = 0;
+        self.lineViewHeightCons.constant = 0;
+        
+    }else{
+        self.hobbyBtn.hidden = NO;
+        self.hobbyHeightCons.constant = 50;
+        self.lineViewHeightCons.constant = 1;
+        [self.hobbyBtn setTitle:@"舞蹈" forState:UIControlStateNormal];
     }
 }
 -(void)setUI{
@@ -148,6 +164,7 @@
     nameVC.content = self.groupName;
     nameVC.headUrl = self.headUrl;
     nameVC.isChangeGroupName = YES;
+    nameVC.rightStr = @"保存";
     [self.navigationController pushViewController:nameVC animated:YES];
 
 }
@@ -192,6 +209,7 @@
     nameVC.titleCount = 2;
     nameVC.placeHolder = @"设置备注";
     nameVC.content = self.nickname;
+    nameVC.rightStr = @"保存";
     [self.navigationController pushViewController:nameVC animated:YES];
 
 }

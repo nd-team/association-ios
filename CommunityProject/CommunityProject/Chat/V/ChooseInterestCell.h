@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ChooseInterestCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end

@@ -10,5 +10,4 @@
 
 @interface DataSource : NSObject
 -(NSArray *)getApplictionData;
-
 @end

@@ -15,7 +15,7 @@
 @interface NameViewController : UIViewController
 //标题
 @property (nonatomic,copy)NSString * name;
-//1:个人昵称2：群昵称3：群名字4:活动名称5：活动限制人数
+//1:个人昵称2：群昵称3：群名字4:活动名称5：活动限制人数6:兴趣联盟名字
 @property (nonatomic,assign)int titleCount;
 //是否是新建群聊
 @property (nonatomic,assign)BOOL isChangeGroupName;
@@ -41,5 +41,9 @@
 #pragma mark-用来刷新SDK
 //群头像
 @property (nonatomic,copy)NSString * headUrl;
+//右侧按钮标题
+@property (nonatomic,copy)NSString * rightStr;
+//新建兴趣联盟爱好ID
+@property (nonatomic,copy)NSString * hobbyId;
 
 @end

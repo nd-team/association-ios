@@ -15,14 +15,16 @@
     view.layer.masksToBounds = YES;
     view.layer.cornerRadius = 10;
     for (int i = 0; i<titleArr.count; i++) {
-        UIButton * button = [UIButton CreateTitleButtonWithFrame:CGRectMake(3, i*33, 107, 33) andBackgroundColor:UIColorFromRGB(0x1AE2A7)  titleColor:UIColorFromRGB(0x444343) font:14 andTitle:titleArr[i]];
+        UIButton * button = [UIButton CreateTitleButtonWithFrame:CGRectMake(3, i*37.5, 123, 37.5) andBackgroundColor:UIColorFromRGB(0x1AE2A7)  titleColor:UIColorFromRGB(0x444343) font:14 andTitle:titleArr[i]];
         [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         button.backgroundColor = UIColorFromRGB(0x1AE2A7);
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
         button.tag = 20+i;
         [view addSubview:button];
     }
     for (int i = 0; i<titleArr.count-1; i++) {
-        UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(3, (i+1)*33, 107, 1)];
+        UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(3, (i+1)*37.5, 123, 1)];
         lineView.backgroundColor = UIColorFromRGB(0x0f8d68);
         [view addSubview:lineView];
     }
@@ -61,15 +63,15 @@
     label.textColor = UIColorFromRGB(0x333333);
     label.font = [UIFont boldSystemFontOfSize:15];
     label.textAlignment = NSTextAlignmentCenter;
-    label.numberOfLines = 1;
+    label.numberOfLines = 0;
     label.text = title;
     label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.preferredMaxLayoutWidth = (180);
+    [label setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [smallView addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(smallView);
         make.top.equalTo(smallView).offset(39.5);
-        make.height.mas_equalTo(35);
-        make.width.mas_equalTo(100);
     }];
     UIButton * sureBtn = [UIButton CreateMyButtonWithFrame:CGRectZero Image:@"greenSure" SelectedImage:@"greenSure" title:@"确定" color:UIColorFromRGB(0x333333) SelectColor:UIColorFromRGB(0x333333) font:15 and:target Action:action];
     sureBtn.tag = tag;

@@ -34,6 +34,10 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collHeightContraints;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *smallViewHeightCons;
+@property (weak, nonatomic) IBOutlet UILabel *hobbyLabel;
+@property (weak, nonatomic) IBOutlet UIButton *hobbyBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hobbyHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineViewHeightCons;
 
 @end
 
@@ -62,6 +66,17 @@
     [self.topBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
     [self.msgBtn setBackgroundImage:[UIImage imageNamed:@"switchOff.png"] forState:UIControlStateNormal];
     [self.msgBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
+    if (self.isGroup) {
+        self.hobbyBtn.hidden = YES;
+        self.hobbyHeightCons.constant = 0;
+        self.lineViewHeightCons.constant = 0;
+        
+    }else{
+        self.hobbyBtn.hidden = NO;
+        self.hobbyHeightCons.constant = 50;
+        self.lineViewHeightCons.constant = 1;
+        [self.hobbyBtn setTitle:@"舞蹈" forState:UIControlStateNormal];
+    }
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     self.userId = [userDefaults objectForKey:@"userId"];
     BOOL isTop = [userDefaults boolForKey:@"topGroupOne"];
@@ -148,6 +163,7 @@
     nameVC.titleCount = 2;
     nameVC.placeHolder = @"设置备注";
     nameVC.content = self.nickname;
+    nameVC.rightStr = @"保存";
     [self.navigationController pushViewController:nameVC animated:YES];
     
 }

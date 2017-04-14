@@ -66,10 +66,22 @@
             
             break;
             
-        default:
+        case 4:
         {
             //多选 踢人 群组成员
             MemberListModel * model = self.dataArr[indexPath.section][indexPath.row];
+            if (self.chooseBtn.selected) {
+                self.managerBlock(model.userId,model.userPortraitUrl,NO,NO);
+            }else{
+                //移除这个ID
+                self.managerBlock(model.userId,model.userPortraitUrl,NO,YES);
+            }
+        }
+            break;
+        default:
+        {
+            //多选 新建兴趣联盟 好友列表
+            FriendsListModel * model = self.dataArr[indexPath.section][indexPath.row];
             if (self.chooseBtn.selected) {
                 self.managerBlock(model.userId,model.userPortraitUrl,NO,NO);
             }else{

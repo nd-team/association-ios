@@ -151,6 +151,7 @@
     nameVC.titleCount = type;
     nameVC.placeHolder = place;
     nameVC.createDelegate = self;
+    nameVC.rightStr = @"保存";
     [self.navigationController pushViewController:nameVC animated:YES];
 
 }

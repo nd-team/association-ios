@@ -27,4 +27,9 @@
 @property (nonatomic,copy)NSString * hostId;
 
 @property (nonatomic,assign)BOOL isRef;
+//区分是群还是兴趣联盟
+@property (nonatomic,assign)BOOL isGroup;
+//兴趣联盟爱好
+@property (nonatomic,copy)NSString * hobby;
+
 @end

@@ -27,7 +27,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="舞蹈" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S96-Uh-dsR">
-                        <rect key="frame" x="85" y="34" width="180" height="17"/>
+                        <rect key="frame" x="85" y="28" width="180" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="e4m-Wl-6k8"/>
                         </constraints>
@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8aU-Rr-GoJ">
-                        <rect key="frame" x="275" y="34" width="82" height="30"/>
+                        <rect key="frame" x="275" y="28" width="82" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="82" id="PJv-5E-rqs"/>
                             <constraint firstAttribute="height" constant="30" id="b3k-hG-hNL"/>
@@ -48,7 +48,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="群人数：100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ppC-jk-cSg">
-                        <rect key="frame" x="85" y="59" width="150" height="15"/>
+                        <rect key="frame" x="85" y="53" width="150" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="150" id="FfB-Rp-JIu"/>
                             <constraint firstAttribute="height" constant="15" id="cMc-sn-8uq"/>
@@ -60,13 +60,13 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="S96-Uh-dsR" firstAttribute="leading" secondItem="GmE-ce-Fo6" secondAttribute="trailing" constant="9" id="07Z-Nt-nDE"/>
-                    <constraint firstItem="8aU-Rr-GoJ" firstAttribute="top" secondItem="VO3-Ia-gpR" secondAttribute="topMargin" constant="26" id="9uV-wj-FB1"/>
                     <constraint firstItem="GmE-ce-Fo6" firstAttribute="leading" secondItem="VO3-Ia-gpR" secondAttribute="leading" constant="14" id="OcM-LT-iKd"/>
                     <constraint firstItem="ppC-jk-cSg" firstAttribute="leading" secondItem="GmE-ce-Fo6" secondAttribute="trailing" constant="9" id="P23-HR-BLo"/>
                     <constraint firstItem="GmE-ce-Fo6" firstAttribute="centerY" secondItem="VO3-Ia-gpR" secondAttribute="centerY" id="RZt-4f-2Sr"/>
                     <constraint firstAttribute="trailingMargin" secondItem="8aU-Rr-GoJ" secondAttribute="trailing" constant="10" id="THK-GA-VGe"/>
                     <constraint firstItem="ppC-jk-cSg" firstAttribute="top" secondItem="S96-Uh-dsR" secondAttribute="bottom" constant="8" id="Ug8-Zm-FdS"/>
-                    <constraint firstItem="S96-Uh-dsR" firstAttribute="top" secondItem="VO3-Ia-gpR" secondAttribute="topMargin" constant="26" id="g2Y-kJ-8Wr"/>
+                    <constraint firstItem="S96-Uh-dsR" firstAttribute="top" secondItem="VO3-Ia-gpR" secondAttribute="topMargin" constant="20" id="g2Y-kJ-8Wr"/>
+                    <constraint firstItem="8aU-Rr-GoJ" firstAttribute="centerY" secondItem="VO3-Ia-gpR" secondAttribute="centerY" id="icl-K8-lbh"/>
                     <constraint firstItem="8aU-Rr-GoJ" firstAttribute="leading" secondItem="S96-Uh-dsR" secondAttribute="trailing" constant="10" id="jJH-ha-Ps6"/>
                 </constraints>
             </tableViewCellContentView>

@@ -12,6 +12,7 @@
 #import "SearchGroupCell.h"
 #import "SearchGroupModel.h"
 #import "UnknownFriendDetailController.h"
+#import "AddFriendController.h"
 
 #define SearchURL @"appapi/app/lookupUser"
 #define FriendDetailURL @"appapi/app/selectUserInfo"
@@ -181,6 +182,13 @@
          }];
          
          [self.navigationController pushViewController:know animated:YES];
+     }else{
+         SearchGroupModel * search = self.groupArr[indexPath.row];
+         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+         AddFriendController * add = [sb instantiateViewControllerWithIdentifier:@"AddFriendController"];
+         add.buttonName = @"申请加群";
+         add.groupId = search.groupId;
+         [self.navigationController pushViewController:add animated:YES];
      }
  }
 

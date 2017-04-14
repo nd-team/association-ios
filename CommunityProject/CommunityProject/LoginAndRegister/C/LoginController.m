@@ -251,6 +251,15 @@
                 if (![msg[@"claimUserId"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
                 }
+                if (![msg[@"experience"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"experience"] forKey:@"experience"];
+                }
+                if (![msg[@"creditScore"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"creditScore"] forKey:@"creditScore"];
+                }
+                if (![msg[@"contributionScore"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"contributionScore"] forKey:@"contributionScore"];
+                }
                 [userDefaults synchronize];
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;

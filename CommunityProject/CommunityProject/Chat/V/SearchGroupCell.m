@@ -26,7 +26,7 @@
 -(void)setGroupModel:(SearchGroupModel *)groupModel{
     _groupModel = groupModel;
     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_groupModel.groupPortraitUrl]];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"Carial.jpg"]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"default"]];
     
     self.nameLabel.text = _groupModel.groupName;
     self.peopleLabel.text = [NSString stringWithFormat:@"群人数：%@",_groupModel.groupUserNumber];

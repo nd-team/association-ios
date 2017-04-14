@@ -11,6 +11,7 @@
 #import "BMChineseSort.h"
 #import "NameViewController.h"
 #import "HeadImageCell.h"
+#import "HobbyController.h"
 
 //拉人踢人 管理员
 #import "MemberListModel.h"
@@ -70,8 +71,8 @@
     self.navigationItem.title = self.name;
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateBackButtonWithFrame:CGRectMake(0, 0,50, 40) andTitle:@"返回" andTarget:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
-    UIButton * rightBtn = [UIButton CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) andBackgroundColor:UIColorFromRGB(0xffffff) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:@"确定"];
-    rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+    UIButton * rightBtn = [UIButton CreateTitleButtonWithFrame:CGRectMake(0, 0,70, 30) andBackgroundColor:UIColorFromRGB(0xffffff) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:self.rightName];
+    rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
     [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -81,7 +82,7 @@
         //获取群成员列表选择群管理
         [self getMemberList];
     }else{
-        //新建群聊2,拉人3，好友列表
+        //新建群聊2,拉人3，好友列表5新建兴趣联盟
         [self getFriendList];
         
     }
@@ -208,7 +209,7 @@
     if (self.dif != 1&& self.usersIdsArray.count == 0) {
         return;
     }
-    if (self.dif == 2) {
+    if (self.dif == 2 || self.dif == 5) {
         //把当前用户加上
         [self.usersIdsArray addObject:self.userId];
         NSData * data = [NSJSONSerialization dataWithJSONObject:self.usersIdsArray options:NSJSONWritingPrettyPrinted error:nil];
@@ -234,6 +235,7 @@
             nameVC.placeHolder = @"设置群名称";
             nameVC.isChangeGroupName = NO;
             nameVC.userStr = self.result;
+            nameVC.rightStr = @"创建";
             [self.navigationController pushViewController:nameVC animated:YES];
 
         }
@@ -251,7 +253,7 @@
 
         }
             break;
-        default:
+        case 4:
             //移除成员
         {
             [self showBackViewUI:@"确认移除成员"];
@@ -259,6 +261,17 @@
         }
             
         break;
+        default:
+            //进入爱好界面
+        {
+            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
+            HobbyController  * hobby = [sb instantiateViewControllerWithIdentifier:@"HobbyController"];
+            hobby.resultStr = self.result;
+            UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+            self.navigationItem.backBarButtonItem = backItem;
+            [self.navigationController pushViewController:hobby animated:YES];
+        }
+            break;
     }
 }
 -(void)showBackViewUI:(NSString *)title{
@@ -366,8 +379,12 @@
         case 3://拉人
             cell.listModel = [[self.rowArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
             break;
-        default://踢人
+        case 4://踢人
             cell.memberModel = [[self.rowArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+
+            break;
+        default://新建兴趣联盟
+            cell.listModel = [[self.rowArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
             break;
     }
     WeakSelf;

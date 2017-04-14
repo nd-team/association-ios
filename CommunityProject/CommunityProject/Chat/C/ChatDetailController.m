@@ -340,6 +340,10 @@ RealTimeLocationStatusViewDelegate>
                     member.nickname = [NSString stringWithFormat:@"%@",dict[@"groupNickName"]];
                     member.userId = self.userId;
                     member.headUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:[NSString stringWithFormat:@"%@",dict[@"groupPortraitUrl"]]]];
+                    member.isGroup = NO;
+                    if (![dict[@"hobby"] isKindOfClass:[NSNull class]]) {
+                        member.hobby = [NSString stringWithFormat:@"%@",dict[@"hobby"]];
+                    }
                     [self.navigationController pushViewController:member animated:YES];
 
                 }else{
@@ -358,6 +362,10 @@ RealTimeLocationStatusViewDelegate>
                         host.hostId = self.userId;
                     }else{
                         host.isHost = NO;
+                    }
+                    host.isGroup = NO;
+                    if (![dict[@"hobby"] isKindOfClass:[NSNull class]]) {
+                        host.hobby = [NSString stringWithFormat:@"%@",dict[@"hobby"]];
                     }
                     [self.navigationController pushViewController:host animated:YES];
                 }

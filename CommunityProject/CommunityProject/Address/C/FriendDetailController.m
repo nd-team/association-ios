@@ -188,6 +188,7 @@
     nameVC.titleCount = 1;
     nameVC.placeHolder = @"设置备注";
     nameVC.content = self.display;
+    nameVC.rightStr = @"保存";
     [self.navigationController pushViewController:nameVC animated:YES];
 
 }
