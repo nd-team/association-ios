@@ -31,7 +31,7 @@
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,str]]];
     self.areaLabel.text = [NSString stringWithFormat:@"地点：%@",_actModel.activesAddress];
     self.titleLabel.text = _actModel.activesTitle;
-    self.timeLabel.text = [NSString stringWithFormat:@"时间：%@~%@",_actModel.activesStart,_actModel.activesEnd];
+    self.timeLabel.text = [NSString stringWithFormat:@"时间：%@",_actModel.activesStart];
     self.introduceLabel.text = [NSString stringWithFormat:@"介绍：%@",_actModel.activesContent];
     NSString * detailTime = [NowDate currentDetailTime];
     NSComparisonResult result = [detailTime compare:_actModel.activesClosing];

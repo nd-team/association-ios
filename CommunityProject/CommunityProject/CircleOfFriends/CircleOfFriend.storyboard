@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0ar-SU-Ksd">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="eWF-Is-dcH">
+            <objects>
+                <navigationController id="0ar-SU-Ksd" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="X8N-Cq-sIq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="GPz-3R-thE" kind="relationship" relationship="rootViewController" id="Dfi-Wv-mPT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gXU-Io-1oM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-474" y="97"/>
+        </scene>
+        <!--朋友圈-->
+        <scene sceneID="mlT-uJ-cnZ">
+            <objects>
+                <viewController storyboardIdentifier="CircleOfListController" id="GPz-3R-thE" customClass="CircleOfListController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3tE-C1-2pE"/>
+                        <viewControllerLayoutGuide type="bottom" id="mic-Bn-3Kh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qhy-kP-BaQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="300" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="RFv-Fw-got">
+                                <rect key="frame" x="-4" y="66" width="383" height="601"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="GPz-3R-thE" id="HZk-50-9BO"/>
+                                    <outlet property="delegate" destination="GPz-3R-thE" id="N74-gq-1h2"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="mic-Bn-3Kh" firstAttribute="top" secondItem="RFv-Fw-got" secondAttribute="bottom" id="K0l-Mh-7qf"/>
+                            <constraint firstItem="RFv-Fw-got" firstAttribute="leading" secondItem="Qhy-kP-BaQ" secondAttribute="leadingMargin" constant="-20" id="Obf-XI-1rp"/>
+                            <constraint firstItem="RFv-Fw-got" firstAttribute="top" secondItem="3tE-C1-2pE" secondAttribute="bottom" constant="2" id="RFi-aY-aD9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RFv-Fw-got" secondAttribute="trailing" constant="-20" id="T96-xN-7X0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="朋友圈" id="nNE-in-zN2">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="NJb-jO-hZz">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9uT-T1-GMu">
+                                <rect key="frame" x="289" y="11" width="70" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="imageEdgeInsets" minX="38" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" image="sendCircle"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="RFv-Fw-got" id="fZ5-s2-ErE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JG1-aa-wY8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="281" y="97"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="sendCircle" width="16" height="16"/>
+    </resources>
+</document>

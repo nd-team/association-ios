@@ -11,6 +11,7 @@
 #import "InterestTeamController.h"
 #import "InterestModel.h"
 #import "AddFriendController.h"
+#import "CircleOfListController.h"
 
 #define InterestURL @"appapi/app/hobbyGroupList"
 
@@ -64,7 +65,9 @@
 }
 
 - (IBAction)friendClick:(id)sender {
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
+    CircleOfListController * search = [sb instantiateViewControllerWithIdentifier:@"CircleOfListController"];
+    [self.navigationController pushViewController:search animated:YES];
 }
 - (IBAction)interestClick:(id)sender {
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];

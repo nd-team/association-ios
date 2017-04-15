@@ -446,6 +446,7 @@
                         <outlet property="emailLabel" destination="wfU-FN-F7g" id="cSX-og-bYa"/>
                         <outlet property="headImageView" destination="Dby-ak-mFr" id="25I-dD-ABH"/>
                         <outlet property="knowLabel" destination="TGB-9Q-nHF" id="IrZ-Ze-adO"/>
+                        <outlet property="moreHeightCons" destination="3pS-IS-qNi" id="jMb-2f-xVN"/>
                         <outlet property="moreImage" destination="fzt-Xt-K8o" id="yAX-0c-PPW"/>
                         <outlet property="moreLabel" destination="TtQ-ds-vX1" id="DOH-0l-vem"/>
                         <outlet property="moreView" destination="LYY-vH-QUn" id="2d8-pE-bgc"/>

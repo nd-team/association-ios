@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *moreLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *moreImage;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *moreHeightCons;
 
 @end
 
@@ -61,15 +62,11 @@
     self.headImageView.layer.masksToBounds = YES;
     if (self.isRegister) {
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
-        self.moreImage.hidden = NO;
-        self.moreLabel.hidden = NO;
-        self.moreView.backgroundColor = UIColorFromRGB(0xffffff);
+        self.moreHeightCons.constant = 50;
         [self.addFriendBtn setTitle:@"加为好友" forState:UIControlStateNormal];
     }else{
         [self.headImageView setImage:[UIImage imageNamed:@"default.png"]];
-        self.moreImage.hidden = YES;
-        self.moreLabel.hidden = YES;
-        self.moreView.backgroundColor = UIColorFromRGB(0xECEEF0);
+        self.moreHeightCons.constant = 0;
         [self.addFriendBtn setTitle:@"推荐好友" forState:UIControlStateNormal];
 
     }

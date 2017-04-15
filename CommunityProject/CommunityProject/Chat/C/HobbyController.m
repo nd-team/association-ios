@@ -17,6 +17,7 @@
 //单选
 @property (nonatomic,strong)NSIndexPath * selectPath;
 @property (nonatomic,copy)NSString * hobbyId;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collHeightCons;
 
 @end
 
@@ -78,8 +79,9 @@
 }
 -(NSArray *)collectionArr{
     if (!_collectionArr) {
-        _collectionArr = @[@"动漫",@"音乐",@"舞蹈",@"书法",@"美术",@"魔术",@"汽车",@"运动",@"美食",@"养生",@"旅游",@"钓鱼",@"天文",@"亲子",@"宠物",@"娱乐",@"小说"];
+        _collectionArr = @[@"棋牌",@"游戏",@"数码",@"理财",@"动漫",@"音乐",@"舞蹈",@"书法",@"美术",@"魔术",@"汽车",@"运动",@"美食",@"养生",@"旅游",@"钓鱼",@"天文",@"亲子",@"宠物",@"娱乐",@"小说"];
     }
     return _collectionArr;
 }
+
 @end

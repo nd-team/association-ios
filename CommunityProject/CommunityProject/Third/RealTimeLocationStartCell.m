@@ -82,58 +82,60 @@
   if (MessageDirection_SEND == self.messageDirection) {
     messageContentViewRect.size.width = __bubbleSize.width;
     messageContentViewRect.size.height = __bubbleSize.height;
+      messageContentViewRect.origin.x =
+      self.baseContentView.bounds.size.width -
+      (messageContentViewRect.size.width + HeadAndContentSpacing +
+       [RCIM sharedRCIM].globalMessagePortraitSize.width + 10);
+
     self.messageContentView.frame = messageContentViewRect;
 
     self.bubbleBackgroundView.frame =
         CGRectMake(0, 0, __bubbleSize.width, __bubbleSize.height);
-    self.bubbleBackgroundView.image =
-        [RCKitUtility imageNamed:@"chat_from_bg_normal"
-                        ofBundle:@"RongCloud.bundle"];
-    self.locationView.frame =
-        CGRectMake(15, self.bubbleBackgroundView.frame.size.height / 2 -
-                           RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT / 2,
-                   RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_WIDTH,
-                   RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT);
-    self.textLabel.frame = CGRectMake(
-        CGRectGetMaxX(self.locationView.frame) + 4, 20 - __labelSize.height / 2,
-        __labelSize.width, __labelSize.height);
-    UIImage *image = self.bubbleBackgroundView.image;
-    self.bubbleBackgroundView.image = [self.bubbleBackgroundView.image
-        resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.8,
-                                                     image.size.width * 0.8,
-                                                     image.size.height * 0.2,
-                                                     image.size.width * 0.2)];
-  } else {
-    messageContentViewRect.size.width = __bubbleSize.width;
-    messageContentViewRect.size.height = __bubbleSize.height;
-    messageContentViewRect.origin.x =
-        self.baseContentView.bounds.size.width -
-        (messageContentViewRect.size.width + HeadAndContentSpacing +
-         [RCIM sharedRCIM].globalMessagePortraitSize.width + 10);
-    self.messageContentView.frame = messageContentViewRect;
-
-    self.bubbleBackgroundView.frame =
-        CGRectMake(0, 0, __bubbleSize.width, __bubbleSize.height);
-
-    self.textLabel.frame = CGRectMake(15, 20 - __labelSize.height / 2,
-                                      __labelSize.width, __labelSize.height);
-
-    self.locationView.frame =
-        CGRectMake(15 + __labelSize.width + 4,
-                   self.bubbleBackgroundView.frame.size.height / 2 -
-                       RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT / 2,
-                   RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_WIDTH,
-                   RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT);
-
     self.bubbleBackgroundView.image =
         [RCKitUtility imageNamed:@"chat_to_bg_normal"
                         ofBundle:@"RongCloud.bundle"];
+    self.locationView.frame =
+      CGRectMake(15 + __labelSize.width + 4,
+                 self.bubbleBackgroundView.frame.size.height / 2 -
+                 RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT / 2,
+                 RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_WIDTH,
+                 RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT);
+    self.textLabel.frame = CGRectMake(15, 20 - __labelSize.height / 2,
+                                        __labelSize.width, __labelSize.height);
     UIImage *image = self.bubbleBackgroundView.image;
+   
     self.bubbleBackgroundView.image = [self.bubbleBackgroundView.image
-        resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.8,
-                                                     image.size.width * 0.2,
-                                                     image.size.height * 0.2,
-                                                     image.size.width * 0.8)];
+                                         resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.8,
+                                                                                      image.size.width * 0.2,
+                                                                                      image.size.height * 0.2,
+                                                                                      image.size.width * 0.8)];
+  } else {
+    messageContentViewRect.size.width = __bubbleSize.width;
+    messageContentViewRect.size.height = __bubbleSize.height;
+    self.messageContentView.frame = messageContentViewRect;
+
+    self.bubbleBackgroundView.frame =
+        CGRectMake(0, 0, __bubbleSize.width, __bubbleSize.height);
+
+   
+    self.textLabel.frame = CGRectMake(
+                                        CGRectGetMaxX(self.locationView.frame) + 4, 20 - __labelSize.height / 2,
+                                        __labelSize.width, __labelSize.height);
+    self.locationView.frame =
+      CGRectMake(15, self.bubbleBackgroundView.frame.size.height / 2 -
+                 RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT / 2,
+                 RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_WIDTH,
+                 RC_REAL_TIME_LOCATION_CELL_LOCATION_ICON_HEIGHT);
+    self.bubbleBackgroundView.image =
+        [RCKitUtility imageNamed:@"chat_from_bg_normal"
+                        ofBundle:@"RongCloud.bundle"];
+    UIImage *image = self.bubbleBackgroundView.image;
+      self.bubbleBackgroundView.image = [self.bubbleBackgroundView.image
+                                         resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height * 0.8,
+                                                                                      image.size.width * 0.8,
+                                                                                      image.size.height * 0.2,
+                                                                                      image.size.width * 0.2)];
+   
   }
 }
 - (void)longPressed:(id)sender {

@@ -78,7 +78,7 @@
         self.hobbyBtn.hidden = NO;
         self.hobbyHeightCons.constant = 50;
         self.lineViewHeightCons.constant = 1;
-        [self.hobbyBtn setTitle:@"舞蹈" forState:UIControlStateNormal];
+        [self.hobbyBtn setTitle:self.hobby forState:UIControlStateNormal];
     }
 }
 -(void)setUI{

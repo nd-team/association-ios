@@ -19,6 +19,8 @@
 @property (nonatomic,copy)NSString * headStr;
 //是否报名
 @property (nonatomic,assign)BOOL isSign;
+//活动是否结束
+@property (nonatomic,assign)BOOL isOver;
 
 @property (nonatomic,assign)GroupActivityListController * listDelegate;
 

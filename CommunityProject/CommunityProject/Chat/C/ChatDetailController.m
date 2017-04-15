@@ -340,9 +340,11 @@ RealTimeLocationStatusViewDelegate>
                     member.nickname = [NSString stringWithFormat:@"%@",dict[@"groupNickName"]];
                     member.userId = self.userId;
                     member.headUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:[NSString stringWithFormat:@"%@",dict[@"groupPortraitUrl"]]]];
-                    member.isGroup = NO;
-                    if (![dict[@"hobby"] isKindOfClass:[NSNull class]]) {
-                        member.hobby = [NSString stringWithFormat:@"%@",dict[@"hobby"]];
+                        member.hobby = [NSString stringWithFormat:@"%@",dict[@"hobbyName"]];              
+                    if ([dict[@"hobbyName"] isEqualToString:@""]) {
+                        member.isGroup = YES;
+                    }else{
+                        member.isGroup = NO;
                     }
                     [self.navigationController pushViewController:member animated:YES];
 
@@ -363,9 +365,12 @@ RealTimeLocationStatusViewDelegate>
                     }else{
                         host.isHost = NO;
                     }
-                    host.isGroup = NO;
-                    if (![dict[@"hobby"] isKindOfClass:[NSNull class]]) {
-                        host.hobby = [NSString stringWithFormat:@"%@",dict[@"hobby"]];
+                        host.hobby = [NSString stringWithFormat:@"%@",dict[@"hobbyName"]];
+                    
+                    if ([dict[@"hobbyName"] isEqualToString:@""]) {
+                        host.isGroup = YES;
+                    }else{
+                        host.isGroup = NO;
                     }
                     [self.navigationController pushViewController:host animated:YES];
                 }
@@ -382,12 +387,6 @@ RealTimeLocationStatusViewDelegate>
         UILabel * realLabel = (UILabel *)realCell.textLabel;
         realLabel.textColor = UIColorFromRGB(0x333333);
         realLabel.font = [UIFont systemFontOfSize:14];
-        if (model.messageDirection == 1) {
-            realCell.bubbleBackgroundView.image = [UIImage imageNamed:@"mineImg.png"];
-        }else{
-            realCell.bubbleBackgroundView.image = [UIImage imageNamed:@"othersImg.png"];
-            
-        }
     }
     else if ([cell isMemberOfClass:[RCTipMessageCell class]]){
         //提示信息label
@@ -407,20 +406,13 @@ RealTimeLocationStatusViewDelegate>
     else if ([cell isMemberOfClass:[RCVoiceMessageCell class]]){
         RCVoiceMessageCell * voiceCell = (RCVoiceMessageCell *)cell;
         if (model.messageDirection == 1) {
-            voiceCell.bubbleBackgroundView.image = [UIImage imageNamed:@"mineImg.png"];
             voiceCell.voiceDurationLabel.textColor = UIColorFromRGB(0xffffff);
         }else{
-            voiceCell.bubbleBackgroundView.image = [UIImage imageNamed:@"othersImg.png"];
             voiceCell.voiceDurationLabel.textColor = UIColorFromRGB(0xbbbbbb);
         }
     }//图文混合
     else if ([cell isMemberOfClass:[RCRichContentMessageCell class]]){
         RCRichContentMessageCell * textCell = (RCRichContentMessageCell *)cell;
-        if (model.messageDirection == 1) {
-            textCell.bubbleBackgroundView.image = [UIImage imageNamed:@"mineImg.png"];
-        }else{
-            textCell.bubbleBackgroundView.image = [UIImage imageNamed:@"othersImg.png"];
-        }
         UILabel * titleLabel = (UILabel *)textCell.titleLabel;
         titleLabel.textColor = UIColorFromRGB(0x333333);
         titleLabel.font = [UIFont systemFontOfSize:14];
@@ -440,12 +432,8 @@ RealTimeLocationStatusViewDelegate>
         }
     }
     else if ([cell isMemberOfClass:[RealTimeLocationStartCell class]]){
-        RealTimeLocationStartCell * startCell = (RealTimeLocationStartCell *)cell;
-        if (model.messageDirection == 1) {
-            startCell.bubbleBackgroundView.image = [UIImage imageNamed:@"mineImg.png"];
-        }else{
-            startCell.bubbleBackgroundView.image = [UIImage imageNamed:@"othersImg.png"];
-        }
+//        RealTimeLocationStartCell * startCell = (RealTimeLocationStartCell *)cell;
+
     }
     else if ([cell isMemberOfClass:[RealTimeLocationEndCell class]]){
         RealTimeLocationEndCell * endCell = (RealTimeLocationEndCell *)cell;

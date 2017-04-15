@@ -44,6 +44,13 @@
 		455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B0D1EA0B24200E0B3F3 /* HobbyCell.m */; };
 		455C6B101EA0B24200E0B3F3 /* HobbyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B0E1EA0B24200E0B3F3 /* HobbyCell.xib */; };
 		455C6B131EA0B34500E0B3F3 /* HobbyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B121EA0B34500E0B3F3 /* HobbyController.m */; };
+		455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B141EA1AFC800E0B3F3 /* CircleOfFriend.storyboard */; };
+		455C6B1C1EA1ED6700E0B3F3 /* CircleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B1A1EA1ED6700E0B3F3 /* CircleCell.m */; };
+		455C6B1D1EA1ED6700E0B3F3 /* CircleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B1B1EA1ED6700E0B3F3 /* CircleCell.xib */; };
+		455C6B201EA1EDD200E0B3F3 /* CircleOfListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B1F1EA1EDD200E0B3F3 /* CircleOfListController.m */; };
+		455C6B241EA1FDB900E0B3F3 /* CircleImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B221EA1FDB900E0B3F3 /* CircleImageCell.m */; };
+		455C6B251EA1FDB900E0B3F3 /* CircleImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B231EA1FDB900E0B3F3 /* CircleImageCell.xib */; };
+		455C6B281EA209E700E0B3F3 /* CircleListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B271EA209E700E0B3F3 /* CircleListModel.m */; };
 		455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1631E7A660F00C85AE7 /* TravelCell.m */; };
 		455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1661E7A831000C85AE7 /* ClaimCell.m */; };
 		455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1691E7A833000C85AE7 /* ApplicationCenterCell.m */; };
@@ -257,6 +264,17 @@
 		455C6B0E1EA0B24200E0B3F3 /* HobbyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HobbyCell.xib; sourceTree = "<group>"; };
 		455C6B111EA0B34500E0B3F3 /* HobbyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyController.h; sourceTree = "<group>"; };
 		455C6B121EA0B34500E0B3F3 /* HobbyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyController.m; sourceTree = "<group>"; };
+		455C6B141EA1AFC800E0B3F3 /* CircleOfFriend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CircleOfFriend.storyboard; sourceTree = "<group>"; };
+		455C6B191EA1ED6700E0B3F3 /* CircleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCell.h; sourceTree = "<group>"; };
+		455C6B1A1EA1ED6700E0B3F3 /* CircleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCell.m; sourceTree = "<group>"; };
+		455C6B1B1EA1ED6700E0B3F3 /* CircleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircleCell.xib; sourceTree = "<group>"; };
+		455C6B1E1EA1EDD200E0B3F3 /* CircleOfListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleOfListController.h; sourceTree = "<group>"; };
+		455C6B1F1EA1EDD200E0B3F3 /* CircleOfListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleOfListController.m; sourceTree = "<group>"; };
+		455C6B211EA1FDB900E0B3F3 /* CircleImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleImageCell.h; sourceTree = "<group>"; };
+		455C6B221EA1FDB900E0B3F3 /* CircleImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleImageCell.m; sourceTree = "<group>"; };
+		455C6B231EA1FDB900E0B3F3 /* CircleImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircleImageCell.xib; sourceTree = "<group>"; };
+		455C6B261EA209E700E0B3F3 /* CircleListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleListModel.h; sourceTree = "<group>"; };
+		455C6B271EA209E700E0B3F3 /* CircleListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleListModel.m; sourceTree = "<group>"; };
 		455FA1621E7A660F00C85AE7 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
 		455FA1631E7A660F00C85AE7 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		455FA1651E7A831000C85AE7 /* ClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCell.h; sourceTree = "<group>"; };
@@ -1079,6 +1097,7 @@
 		457D3CBE1E77CD4A00FD0309 /* CircleOfFriends */ = {
 			isa = PBXGroup;
 			children = (
+				455C6B141EA1AFC800E0B3F3 /* CircleOfFriend.storyboard */,
 				457D3CBF1E77CD4A00FD0309 /* C */,
 				457D3CC01E77CD4A00FD0309 /* M */,
 				457D3CC11E77CD4A00FD0309 /* V */,
@@ -1089,6 +1108,8 @@
 		457D3CBF1E77CD4A00FD0309 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				455C6B1E1EA1EDD200E0B3F3 /* CircleOfListController.h */,
+				455C6B1F1EA1EDD200E0B3F3 /* CircleOfListController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1096,6 +1117,8 @@
 		457D3CC01E77CD4A00FD0309 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				455C6B261EA209E700E0B3F3 /* CircleListModel.h */,
+				455C6B271EA209E700E0B3F3 /* CircleListModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1103,6 +1126,12 @@
 		457D3CC11E77CD4A00FD0309 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				455C6B191EA1ED6700E0B3F3 /* CircleCell.h */,
+				455C6B1A1EA1ED6700E0B3F3 /* CircleCell.m */,
+				455C6B1B1EA1ED6700E0B3F3 /* CircleCell.xib */,
+				455C6B211EA1FDB900E0B3F3 /* CircleImageCell.h */,
+				455C6B221EA1FDB900E0B3F3 /* CircleImageCell.m */,
+				455C6B231EA1FDB900E0B3F3 /* CircleImageCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1335,11 +1364,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				455FA3461E7693F00039B155 /* WeChat.storyboard in Resources */,
+				455C6B1D1EA1ED6700E0B3F3 /* CircleCell.xib in Resources */,
 				4562D7F31E80DC1900C6EE56 /* Address.storyboard in Resources */,
 				456CCE6A1E827CD8005EC051 /* AlipaySDK.bundle in Resources */,
 				456CCE6C1E827CD8005EC051 /* JrmfInfo.strings in Resources */,
 				45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */,
 				455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */,
+				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				457781D41E9F7C060004BBE7 /* InterestCell.xib in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
@@ -1354,6 +1385,7 @@
 				456CCE6D1E827CD8005EC051 /* JResource.bundle in Resources */,
 				455C6B101EA0B24200E0B3F3 /* HobbyCell.xib in Resources */,
 				4562D7331E7F6E2700C6EE56 /* Group.storyboard in Resources */,
+				455C6B251EA1FDB900E0B3F3 /* CircleImageCell.xib in Resources */,
 				455FA3481E7694020039B155 /* Mine.storyboard in Resources */,
 				455FA31B1E7631A90039B155 /* Assets.xcassets in Resources */,
 				456CCE641E827CD8005EC051 /* RongCloudKit.strings in Resources */,
@@ -1421,11 +1453,13 @@
 				455FA1701E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m in Sources */,
 				4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */,
 				452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */,
+				455C6B1C1EA1ED6700E0B3F3 /* CircleCell.m in Sources */,
 				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
 				4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */,
 				45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */,
+				455C6B281EA209E700E0B3F3 /* CircleListModel.m in Sources */,
 				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
@@ -1481,8 +1515,10 @@
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
 				455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */,
 				4557CB7E1E7BBD2600F22E70 /* DataSource.m in Sources */,
+				455C6B201EA1EDD200E0B3F3 /* CircleOfListController.m in Sources */,
 				450A50D51E853B3700433A61 /* HeadCollectionView.m in Sources */,
 				4562D7F91E80FF2800C6EE56 /* AddressListController.m in Sources */,
+				455C6B241EA1FDB900E0B3F3 /* CircleImageCell.m in Sources */,
 				450A50E41E853BBD00433A61 /* RCLocationView.m in Sources */,
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				450A50DB1E853B7000433A61 /* RCAnnotation.m in Sources */,

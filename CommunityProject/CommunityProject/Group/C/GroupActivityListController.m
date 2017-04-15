@@ -115,7 +115,13 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
     ActivityDetailController * act = [sb instantiateViewControllerWithIdentifier:@"ActivityDetailController"];
     act.actives_id = model.activesId;
-    act.time = [NSString stringWithFormat:@"%@-%@",model.activesStart,model.activesEnd];
+    NSArray * bigTime = [ImageUrl cutString:model.activesStart];
+    NSArray * bigEndTime = [ImageUrl cutString:model.activesEnd];
+    NSArray * month = [ImageUrl cutBigTime:bigTime[0]];
+    NSArray * monthEnd = [ImageUrl cutBigTime:bigEndTime[0]];
+    NSArray * hour = [ImageUrl cutSmallTime:bigTime[1]];
+    NSArray * hourEnd = [ImageUrl cutSmallTime:bigEndTime[1]];
+    act.time = [NSString stringWithFormat:@"%02d月%02d日 %02d:%02d-%02d月%02d日 %02d:%02d",[month[1] intValue],[month[2]intValue],[hour[0] intValue],[hour[1]intValue],[monthEnd[1] intValue],[monthEnd[2]intValue],[hourEnd[0]intValue],[hourEnd[1]intValue]];
     act.area = model.activesAddress;
     act.recomend = model.activesContent;
     act.headStr = model.activesImage;
@@ -126,6 +132,16 @@
     }else{
         act.isSign = NO;
     }
+    NSString * detailTime = [NowDate currentDetailTime];
+    NSComparisonResult result = [detailTime compare:model.activesClosing];
+    if (result == NSOrderedDescending||model.status == 0){
+     //已结束
+        act.isOver = YES;
+    }else{
+        //进行中
+        act.isOver = NO;
+    }
+
     [self.navigationController pushViewController:act animated:YES];
 
 }

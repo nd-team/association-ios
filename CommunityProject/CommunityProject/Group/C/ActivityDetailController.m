@@ -89,13 +89,18 @@
     [self.signUpBtn setTitle:@"立即报名" forState:UIControlStateNormal];
     [self.signUpBtn setTitleColor:UIColorFromRGB(0x444343) forState:UIControlStateNormal];
     [self.signUpBtn setTitleColor:UIColorFromRGB(0x444343) forState:UIControlStateDisabled];
-    [self.signUpBtn setTitle:@"已报名" forState:UIControlStateDisabled];
     self.upBtn.hidden = YES;
     //用户是否报名
     if (self.isSign) {
         self.signUpBtn.enabled = NO;
-    }else{
+        [self.signUpBtn setTitle:@"已报名" forState:UIControlStateDisabled];
+    }
+    else if(!self.isOver && !self.isSign){
         self.signUpBtn.enabled = YES;
+    }
+    else if (self.isOver &&!self.isSign) {
+        self.signUpBtn.enabled = NO;
+        [self.signUpBtn setTitle:@"活动结束" forState:UIControlStateDisabled];
     }
 }
 -(void)getJoinActivityPerson{
