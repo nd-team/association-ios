@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CircleListModel.h"
 
 @interface CircleOfListController : UIViewController
+//插入一个cell
+@property (nonatomic,assign)BOOL isRef;
+@property (nonatomic,strong)CircleListModel * model;
 
 @end

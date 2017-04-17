@@ -50,7 +50,7 @@
                 
                 if (imageData) {
                     
-                    [formData appendPartWithFileData:imageData name:@"file" fileName:imageName mimeType:@"image/jpg"];
+                    [formData appendPartWithFileData:imageData name:@"files[]" fileName:imageName mimeType:@"image/jpg"];
                     
                 }
             }

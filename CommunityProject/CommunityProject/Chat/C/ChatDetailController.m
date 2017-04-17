@@ -396,12 +396,8 @@ RealTimeLocationStatusViewDelegate>
         label.backgroundColor = UIColorFromRGB(0xb5b7b8);
         label.attributedText = [ImageUrl changeTextColor:otherCell.tipMessageLabel.text andColor:UIColorFromRGB(0xffffff) andRangeStr:userInfo.name andChangeColor:UIColorFromRGB(0xed0d0d)];
     }else if ([cell isMemberOfClass:[RCFileMessageCell class]]){
-        RCFileMessageCell * fileCell = (RCFileMessageCell *)cell;
-        if (model.messageDirection == 1) {
-            fileCell.bubbleBackgroundView.image = [UIImage imageNamed:@"mineImg.png"];
-        }else{
-            fileCell.bubbleBackgroundView.image = [UIImage imageNamed:@"othersImg.png"];
-        }
+//        RCFileMessageCell * fileCell = (RCFileMessageCell *)cell;
+
     }
     else if ([cell isMemberOfClass:[RCVoiceMessageCell class]]){
         RCVoiceMessageCell * voiceCell = (RCVoiceMessageCell *)cell;

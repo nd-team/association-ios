@@ -32,21 +32,35 @@
     self.nameLabel.text = _circleModel.nickname;
     self.timeLabel.text = _circleModel.releaseTime;
     self.contentLabel.text = _circleModel.content;
-    [self.loveBtn setTitle:_circleModel.likedNumber forState:UIControlStateNormal];
-    [self.judgeBtn setTitle:_circleModel.commentNumber forState:UIControlStateNormal];
+    if (![_circleModel.likedNumber isEqualToString:@"0"]) {
+        [self.loveBtn setTitle:_circleModel.likedNumber forState:UIControlStateNormal];
+    }else{
+        [self.loveBtn setTitle:@"" forState:UIControlStateNormal];
+    }
+    if (![_circleModel.commentNumber isEqualToString:@"0"]) {
+        [self.judgeBtn setTitle:_circleModel.commentNumber forState:UIControlStateNormal];
+    }else{
+        [self.judgeBtn setTitle:@"" forState:UIControlStateNormal];
+    }
     if ([_circleModel.likeStatus isEqualToString:@"0"]) {
         self.loveBtn.selected = NO;
     }else{
         self.loveBtn.selected = YES;
     }
-    [self.collectionArr addObjectsFromArray:_circleModel.images];
     [self.collectionView reloadData];
 }
 - (IBAction)loveClick:(id)sender {
     self.loveBtn.selected = !self.loveBtn.selected;
-    
+    UIButton * button = (UIButton *)sender;
+    CircleCell * cell = (CircleCell *)[[button superview]superview];
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSString * userId = [DEFAULTS objectForKey:@"userId"];
+    CircleListModel * model = self.dataArr[indexPath.row];
+    NSDictionary * dic = @{@"userId":userId,@"articleId":[NSString stringWithFormat:@"%ld",model.id],@"type":@"2",@"status":self.loveBtn.selected?@"1":@"0"};
+    self.block(dic,indexPath,self.loveBtn.selected);
     
 }
+
 - (IBAction)judgeClick:(id)sender {
     //进入详情
     
@@ -54,22 +68,22 @@
 #pragma mark - collectionView的代理方法
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return self.collectionArr.count;
+    return _circleModel.images.count;
 }
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     CircleImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CircleImageCell" forIndexPath:indexPath];
-    [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.collectionArr[indexPath.row]]]] placeholderImage:[UIImage imageNamed:@"default"]];
+    [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_circleModel.images[indexPath.row]]]] placeholderImage:[UIImage imageNamed:@"default"]];
     return cell;
     
 }
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake((KMainScreenWidth-73)/3, 103);
 }
--(NSMutableArray *)collectionArr{
-    if (!_collectionArr) {
-        _collectionArr = [NSMutableArray new];
-    }
-    return _collectionArr;
-}
+//-(NSMutableArray *)collectionArr{
+//    if (!_collectionArr) {
+//        _collectionArr = [NSMutableArray new];
+//    }
+//    return _collectionArr;
+//}
 @end

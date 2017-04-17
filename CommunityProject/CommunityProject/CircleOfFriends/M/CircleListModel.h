@@ -9,22 +9,22 @@
 #import <JSONModel/JSONModel.h>
 
 @interface CircleListModel : JSONModel
-@property (nonatomic,copy)NSString * userId;
+@property (nonatomic,strong)NSString * userId;
 //昵称
-@property (nonatomic,copy)NSString * nickname;
+@property (nonatomic,strong)NSString * nickname;
 //头像
-@property (nonatomic,copy)NSString * userPortraitUrl;
+@property (nonatomic,strong)NSString * userPortraitUrl;
 
 //内容
-@property (nonatomic,copy)NSString * content;
+@property (nonatomic,strong)NSString * content;
 //发布时间
-@property (nonatomic,copy)NSString * releaseTime;
+@property (nonatomic,strong)NSString * releaseTime;
 //点赞数量
-@property (nonatomic,copy)NSString * likedNumber;
+@property (nonatomic,strong)NSString * likedNumber;
 //评论数量
-@property (nonatomic,copy)NSString * commentNumber;
+@property (nonatomic,strong)NSString * commentNumber;
 //0:未点赞1：已点赞
-@property (nonatomic,copy)NSString * likeStatus;
+@property (nonatomic,strong)NSString * likeStatus;
 //图片
 @property (nonatomic,strong)NSArray * images;
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CircleListModel.h"
 
+typedef void(^LoveBlock)(NSDictionary * params,NSIndexPath * index,BOOL isSel);
 @interface CircleCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -19,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collHeightCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *conHeightCons;
-@property (nonatomic,strong)NSMutableArray * collectionArr;
 @property (nonatomic,strong)CircleListModel * circleModel;
+
+@property (nonatomic,copy)LoveBlock block;
+@property (nonatomic,strong)UITableView * tableView;
+@property (nonatomic,strong)NSMutableArray * dataArr;
 @end

@@ -58,10 +58,12 @@
                     <navigationItem key="navigationItem" title="朋友圈" id="nNE-in-zN2">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="NJb-jO-hZz">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9uT-T1-GMu">
-                                <rect key="frame" x="289" y="11" width="70" height="22"/>
+                                <rect key="frame" x="329" y="11" width="30" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <inset key="imageEdgeInsets" minX="38" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" image="sendCircle"/>
+                                <connections>
+                                    <action selector="rightClick:" destination="GPz-3R-thE" eventType="touchUpInside" id="0Ei-c9-d67"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>

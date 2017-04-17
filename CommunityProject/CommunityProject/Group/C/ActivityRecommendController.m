@@ -9,8 +9,12 @@
 #import "ActivityRecommendController.h"
 #import "RecommendImageCell.h"
 #import "UploadImageModel.h"
+#import "UploadMulDocuments.h"
+#import "CircleListModel.h"
 
-@interface ActivityRecommendController ()<UICollectionViewDelegate,UICollectionViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDelegateFlowLayout>
+#define SendURL @"appapi/app/releaseFriendsCircle"
+
+@interface ActivityRecommendController ()<UICollectionViewDelegate,UICollectionViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDelegateFlowLayout,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (weak, nonatomic) IBOutlet UITextView *recomTV;
@@ -22,21 +26,27 @@
 @property (nonatomic,assign) CGPoint touchPoint;
 //标记已经有3张照片
 @property (nonatomic,assign)BOOL isOver;
-
+@property (weak, nonatomic) IBOutlet UILabel *placeLabel;
+@property (nonatomic,strong)UIBarButtonItem * rightItem;
 @end
 
 @implementation ActivityRecommendController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"活动介绍";
+    self.navigationItem.title = self.name;
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
-    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,40, 30) titleColor:UIColorFromRGB(0x121212) font:14 andTitle:@"完 成" and:self Action:@selector(rightClick)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    self.rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,40, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:self.rightStr and:self Action:@selector(rightClick)];
+    self.navigationItem.rightBarButtonItem = self.rightItem;
     //初始化数据源
     [self.collectArr addObject:[self getImageData]];
     self.count = self.collectArr.count;
-
+    if (self.type == 1) {
+        self.placeLabel.hidden = YES;
+    }else{
+        self.placeLabel.hidden = NO;
+        self.rightItem.enabled = NO;
+    }
     //长按删除
     [self showTapUI];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(delectImageCell) name:@"DelectImage" object:nil];
@@ -77,19 +87,63 @@
     
     
 }
-
+-(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    self.placeLabel.hidden = YES;
+    return YES;
+}
+-(void)textViewDidChange:(UITextView *)textView{
+    self.rightItem.enabled = YES;
+}
 -(void)rightClick{
     [self.recomTV resignFirstResponder];
-    self.delegate.recommendStr = self.recomTV.text;
     NSMutableArray * array = [NSMutableArray new];
     for (UploadImageModel * model in self.collectArr) {
         if (!model.isPlaceHolder) {
             [array addObject:model];
         }
     }
-    self.delegate.dataArr = array;
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.type == 1) {
+        self.delegate.recommendStr = self.recomTV.text;
+        self.delegate.dataArr = array;
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }else{
+        //发布朋友圈
+        [self send:array];
+    }
     
+}
+-(void)send:(NSMutableArray *)arr{
+    WeakSelf;
+    NSString * userId = [DEFAULTS objectForKey:@"userId"];
+    NSMutableDictionary * mDic = [NSMutableDictionary new];
+    [mDic setValue:userId forKey:@"userId"];
+    [mDic setValue:self.recomTV.text forKey:@"content"];
+     [UploadMulDocuments postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:mDic andArray:arr getBlock:^(NSURLResponse *response, NSError *error, id data) {
+         if (error) {
+             NSSLog(@"发布朋友圈失败：%@",error);
+         }else{
+             NSNumber * code = data[@"code"];
+             if ([code intValue] == 200) {
+                 NSDictionary * dic = data[@"data"];
+                 NSSLog(@"%@",dic);
+                 weakSelf.circleDelegate.isRef = YES;
+                 CircleListModel * list = [CircleListModel new];
+                 list.userId = userId;
+                 list.userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
+                 list.nickname = [DEFAULTS objectForKey:@"nickname"];
+                 list.likeStatus = @"0";
+                 list.content = weakSelf.recomTV.text;
+                 list.releaseTime = [NowDate currentDetailTime];
+                 list.likedNumber = @"0";
+                 list.commentNumber = @"0";
+                 list.images = dic[@"images"];
+                 list.id = [dic[@"id"] integerValue];
+                 weakSelf.circleDelegate.model = list;
+                 [weakSelf.navigationController popViewControllerAnimated:YES];
+             }
+         }
+     }];
 }
 #pragma mark - collectionView的代理方法
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -100,30 +154,43 @@
     
     RecommendImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RecommendImageCell" forIndexPath:indexPath];
     cell.uploadModel = self.collectArr[indexPath.row];
-    if (indexPath.row != 0) {
-        cell.nameLabel.hidden = YES;
+    if (self.type == 1) {
+        if (indexPath.row != 0) {
+            cell.nameLabel.hidden = YES;
+        }else{
+            cell.nameLabel.hidden = NO;
+        }
     }else{
-        cell.nameLabel.hidden = NO;
+        cell.nameLabel.hidden = YES;
     }
+   
     return cell;
     
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-
-    if (indexPath.row == 0) {
-        if (self.isOver) {
-            NSSLog(@"已有三张");
-        }else{
-            [self pushAlbums];
+    if (self.type == 1) {
+        if (indexPath.row == 0) {
+            if (self.isOver) {
+                NSSLog(@"已有三张");
+            }else{
+                [self pushAlbums];
+            }
+        }
+    }else{
+        //9张
+        if (indexPath.row == 0) {
+            if (self.isOver) {
+                NSSLog(@"已有9张");
+            }else{
+                [self pushAlbums];
+            }
         }
     }
+    
 }
-//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-//    UIEdgeInsetsMake(0, 0, 0, <#CGFloat right#>)
-//}
-//-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-//    return 0;
-//}
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+   return  UIEdgeInsetsMake(0, 0, 0, 10);
+}
 #pragma mark-删除图片
 -(void)showTapUI{
     
@@ -197,15 +264,29 @@
     
     item.isHide = YES;
     self.count++;
-    if (self.count == 4) {
-        [self.collectArr replaceObjectAtIndex:0 withObject:item];
-        //标记提示用户
-        self.isOver = YES;
+    if (self.type == 1) {
+        if (self.count == 4) {
+            [self.collectArr replaceObjectAtIndex:0 withObject:item];
+            //标记提示用户
+            self.isOver = YES;
+        }else{
+            [self.collectArr insertObject:item atIndex:1];
+            self.isOver = NO;
+        }
     }else{
-        [self.collectArr insertObject:item atIndex:1];
+        //发布朋友圈
+        self.rightItem.enabled = YES;
+        if (self.count == 10) {
+            [self.collectArr replaceObjectAtIndex:0 withObject:item];
+            //标记提示用户
+            self.isOver = YES;
+        }else{
+            [self.collectArr insertObject:item atIndex:1];
+            self.isOver = NO;
+        }
     }
     
-    
+
     [self.collectionView reloadData];
     
     [picker dismissViewControllerAnimated:YES completion:nil];

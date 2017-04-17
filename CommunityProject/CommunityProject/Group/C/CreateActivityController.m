@@ -170,6 +170,9 @@
     [self.dataArr removeAllObjects];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
     ActivityRecommendController * recom = [sb instantiateViewControllerWithIdentifier:@"ActivityRecommendController"];
+    recom.rightStr = @"完 成";
+    recom.name = @"活动介绍";
+    recom.type = 1;
     recom.delegate = self;
     [self.navigationController pushViewController:recom animated:YES];
 }
