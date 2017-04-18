@@ -10,6 +10,7 @@
 #import "CircleListModel.h"
 
 typedef void(^LoveBlock)(NSDictionary * params,NSIndexPath * index,BOOL isSel);
+typedef void(^Push)(UIViewController * vc);
 @interface CircleCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -25,4 +26,6 @@ typedef void(^LoveBlock)(NSDictionary * params,NSIndexPath * index,BOOL isSel);
 @property (nonatomic,copy)LoveBlock block;
 @property (nonatomic,strong)UITableView * tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
+@property (nonatomic,copy)Push pushBlock;
+
 @end

@@ -51,6 +51,13 @@
 		455C6B241EA1FDB900E0B3F3 /* CircleImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B221EA1FDB900E0B3F3 /* CircleImageCell.m */; };
 		455C6B251EA1FDB900E0B3F3 /* CircleImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B231EA1FDB900E0B3F3 /* CircleImageCell.xib */; };
 		455C6B281EA209E700E0B3F3 /* CircleListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B271EA209E700E0B3F3 /* CircleListModel.m */; };
+		455C6B2C1EA5B75F00E0B3F3 /* CircleCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B2A1EA5B75F00E0B3F3 /* CircleCommentCell.m */; };
+		455C6B2D1EA5B75F00E0B3F3 /* CircleCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B2B1EA5B75F00E0B3F3 /* CircleCommentCell.xib */; };
+		455C6B311EA5BC6A00E0B3F3 /* AnswerCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B2F1EA5BC6A00E0B3F3 /* AnswerCommentCell.m */; };
+		455C6B321EA5BC6A00E0B3F3 /* AnswerCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B301EA5BC6A00E0B3F3 /* AnswerCommentCell.xib */; };
+		455C6B351EA5BF1D00E0B3F3 /* CircleCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B341EA5BF1D00E0B3F3 /* CircleCommentController.m */; };
+		455C6B381EA5C5CD00E0B3F3 /* CircleCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B371EA5C5CD00E0B3F3 /* CircleCommentModel.m */; };
+		455C6B3B1EA5E89800E0B3F3 /* LookBigImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B3A1EA5E89800E0B3F3 /* LookBigImageController.m */; };
 		455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1631E7A660F00C85AE7 /* TravelCell.m */; };
 		455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1661E7A831000C85AE7 /* ClaimCell.m */; };
 		455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455FA1691E7A833000C85AE7 /* ApplicationCenterCell.m */; };
@@ -275,6 +282,18 @@
 		455C6B231EA1FDB900E0B3F3 /* CircleImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircleImageCell.xib; sourceTree = "<group>"; };
 		455C6B261EA209E700E0B3F3 /* CircleListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleListModel.h; sourceTree = "<group>"; };
 		455C6B271EA209E700E0B3F3 /* CircleListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleListModel.m; sourceTree = "<group>"; };
+		455C6B291EA5B75F00E0B3F3 /* CircleCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCommentCell.h; sourceTree = "<group>"; };
+		455C6B2A1EA5B75F00E0B3F3 /* CircleCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCommentCell.m; sourceTree = "<group>"; };
+		455C6B2B1EA5B75F00E0B3F3 /* CircleCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CircleCommentCell.xib; sourceTree = "<group>"; };
+		455C6B2E1EA5BC6A00E0B3F3 /* AnswerCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerCommentCell.h; sourceTree = "<group>"; };
+		455C6B2F1EA5BC6A00E0B3F3 /* AnswerCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerCommentCell.m; sourceTree = "<group>"; };
+		455C6B301EA5BC6A00E0B3F3 /* AnswerCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnswerCommentCell.xib; sourceTree = "<group>"; };
+		455C6B331EA5BF1D00E0B3F3 /* CircleCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCommentController.h; sourceTree = "<group>"; };
+		455C6B341EA5BF1D00E0B3F3 /* CircleCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCommentController.m; sourceTree = "<group>"; };
+		455C6B361EA5C5CD00E0B3F3 /* CircleCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCommentModel.h; sourceTree = "<group>"; };
+		455C6B371EA5C5CD00E0B3F3 /* CircleCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCommentModel.m; sourceTree = "<group>"; };
+		455C6B391EA5E89800E0B3F3 /* LookBigImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookBigImageController.h; sourceTree = "<group>"; };
+		455C6B3A1EA5E89800E0B3F3 /* LookBigImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookBigImageController.m; sourceTree = "<group>"; };
 		455FA1621E7A660F00C85AE7 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
 		455FA1631E7A660F00C85AE7 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		455FA1651E7A831000C85AE7 /* ClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCell.h; sourceTree = "<group>"; };
@@ -1110,6 +1129,10 @@
 			children = (
 				455C6B1E1EA1EDD200E0B3F3 /* CircleOfListController.h */,
 				455C6B1F1EA1EDD200E0B3F3 /* CircleOfListController.m */,
+				455C6B331EA5BF1D00E0B3F3 /* CircleCommentController.h */,
+				455C6B341EA5BF1D00E0B3F3 /* CircleCommentController.m */,
+				455C6B391EA5E89800E0B3F3 /* LookBigImageController.h */,
+				455C6B3A1EA5E89800E0B3F3 /* LookBigImageController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1119,6 +1142,8 @@
 			children = (
 				455C6B261EA209E700E0B3F3 /* CircleListModel.h */,
 				455C6B271EA209E700E0B3F3 /* CircleListModel.m */,
+				455C6B361EA5C5CD00E0B3F3 /* CircleCommentModel.h */,
+				455C6B371EA5C5CD00E0B3F3 /* CircleCommentModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1132,6 +1157,12 @@
 				455C6B211EA1FDB900E0B3F3 /* CircleImageCell.h */,
 				455C6B221EA1FDB900E0B3F3 /* CircleImageCell.m */,
 				455C6B231EA1FDB900E0B3F3 /* CircleImageCell.xib */,
+				455C6B291EA5B75F00E0B3F3 /* CircleCommentCell.h */,
+				455C6B2A1EA5B75F00E0B3F3 /* CircleCommentCell.m */,
+				455C6B2B1EA5B75F00E0B3F3 /* CircleCommentCell.xib */,
+				455C6B2E1EA5BC6A00E0B3F3 /* AnswerCommentCell.h */,
+				455C6B2F1EA5BC6A00E0B3F3 /* AnswerCommentCell.m */,
+				455C6B301EA5BC6A00E0B3F3 /* AnswerCommentCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1370,6 +1401,7 @@
 				456CCE6C1E827CD8005EC051 /* JrmfInfo.strings in Resources */,
 				45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */,
 				455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */,
+				455C6B2D1EA5B75F00E0B3F3 /* CircleCommentCell.xib in Resources */,
 				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				457781D41E9F7C060004BBE7 /* InterestCell.xib in Resources */,
@@ -1379,6 +1411,7 @@
 				455FA3601E76A5370039B155 /* Login.storyboard in Resources */,
 				455FA31E1E7631A90039B155 /* LaunchScreen.storyboard in Resources */,
 				456CCE651E827CD8005EC051 /* RongCloud.bundle in Resources */,
+				455C6B321EA5BC6A00E0B3F3 /* AnswerCommentCell.xib in Resources */,
 				4573CC1A1E976FA30047D1F4 /* HeadImageCell.xib in Resources */,
 				456CCE631E827CD7005EC051 /* Emoji.plist in Resources */,
 				456CCE6E1E827CD8005EC051 /* jrmf.cer in Resources */,
@@ -1491,6 +1524,7 @@
 				4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */,
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
+				455C6B351EA5BF1D00E0B3F3 /* CircleCommentController.m in Sources */,
 				4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */,
 				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
 				4562D7311E7F6DFC00C6EE56 /* GroupActivityListController.m in Sources */,
@@ -1509,6 +1543,7 @@
 				4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */,
 				457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */,
 				457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */,
+				455C6B3B1EA5E89800E0B3F3 /* LookBigImageController.m in Sources */,
 				455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */,
 				457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
@@ -1535,6 +1570,7 @@
 				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
 				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
+				455C6B2C1EA5B75F00E0B3F3 /* CircleCommentCell.m in Sources */,
 				4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */,
 				4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */,
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
@@ -1563,7 +1599,9 @@
 				4573CC1D1E98794B0047D1F4 /* VoteListCell.m in Sources */,
 				45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */,
 				4573CC191E976FA20047D1F4 /* HeadImageCell.m in Sources */,
+				455C6B381EA5C5CD00E0B3F3 /* CircleCommentModel.m in Sources */,
 				45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */,
+				455C6B311EA5BC6A00E0B3F3 /* AnswerCommentCell.m in Sources */,
 				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
 				458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */,
 				457781DA1E9F84EB0004BBE7 /* ChooseInterestCell.m in Sources */,

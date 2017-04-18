@@ -9,6 +9,7 @@
 #import "CircleOfListController.h"
 #import "CircleCell.h"
 #import "ActivityRecommendController.h"
+#import "CircleCommentController.h"
 
 #define CircleListURL @"appapi/app/selectFriendsCircle"
 #define ZanURL @"appapi/app/userPraise"
@@ -26,16 +27,20 @@
     [super viewWillAppear:animated];
     
     self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+
+    self.page = 1;
+
     if (self.isRef) {
-        
-        [self.dataArr insertObject:self.model atIndex:0];
-        //不受影响但是耗费性能
+        [self getList];
+//        [self.dataArr insertObject:self.model atIndex:0];
+        //不受影响但是耗费性能 同时间别人发的不能刷新到
 //        [self.tableView reloadData];
         //cell以前的高度不受影响的bug
-        [self.tableView beginUpdates];
-        NSIndexPath * refPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.tableView insertRowsAtIndexPaths:@[refPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
+//        [self.tableView beginUpdates];
+//        NSIndexPath * refPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//        [self.tableView insertRowsAtIndexPaths:@[refPath] withRowAnimation:UITableViewRowAnimationNone];
+//        [self.tableView endUpdates];
     }
 }
 - (void)viewDidLoad {
@@ -46,7 +51,6 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"CircleCell" bundle:nil] forCellReuseIdentifier:@"CircleCell"];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 200;
-    self.page = 1;
     WeakSelf;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;
@@ -128,6 +132,9 @@
     cell.block = ^(NSDictionary *dic,NSIndexPath * index,BOOL isSel){
         [weakSelf userLike:dic andIndexPath:index andIsLove:isSel];
     };
+    cell.pushBlock = ^(UIViewController * vc){
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    };
     return cell;
     
     
@@ -140,7 +147,6 @@
         }else{
             
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@",code);
             if ([code intValue] == 200) {
                 //+1刷新列表-1
                 //刷新当前cell
@@ -171,8 +177,20 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CircleListModel * model = self.dataArr[indexPath.row];
     //进入详情
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
+    CircleCommentController * comment = [sb instantiateViewControllerWithIdentifier:@"CircleCommentController"];
+    comment.headUrl = model.userPortraitUrl;
+    comment.name = model.nickname;
+    comment.time = model.releaseTime;
+    comment.content = model.content;
+    [comment.collectionArr addObjectsFromArray: model.images];
+    comment.likeCount = model.likedNumber;
+    comment.commentCount = model.commentNumber;
+    comment.isLike = model.likeStatus;
+    comment.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    [self.navigationController pushViewController: comment animated:YES];
 }
 - (IBAction)rightClick:(id)sender {
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];

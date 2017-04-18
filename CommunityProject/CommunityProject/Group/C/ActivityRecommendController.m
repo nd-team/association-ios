@@ -108,8 +108,14 @@
         [self.navigationController popViewControllerAnimated:YES];
 
     }else{
-        //发布朋友圈
-        [self send:array];
+        if (self.recomTV.text.length == 0&&self.collectArr.count == 1) {
+            //提示不能发布空的
+            return;
+        }else{
+            //发布朋友圈
+            [self send:array];
+        }
+       
     }
     
 }

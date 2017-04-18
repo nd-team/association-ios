@@ -27,7 +27,7 @@
 @property (nonatomic,strong)NSString * likeStatus;
 //图片
 @property (nonatomic,strong)NSArray * images;
-
+//说说ID
 @property (nonatomic,assign)NSInteger  id;
 
 @end

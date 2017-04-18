@@ -8,6 +8,7 @@
 
 #import "CircleCell.h"
 #import "CircleImageCell.h"
+#import "LookBigImageController.h"
 
 @implementation CircleCell
 
@@ -80,10 +81,12 @@
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake((KMainScreenWidth-73)/3, 103);
 }
-//-(NSMutableArray *)collectionArr{
-//    if (!_collectionArr) {
-//        _collectionArr = [NSMutableArray new];
-//    }
-//    return _collectionArr;
-//}
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //看大图
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
+    LookBigImageController * look = [sb instantiateViewControllerWithIdentifier:@"LookBigImageController"];
+    look.imageArr = _circleModel.images;
+    look.count = indexPath.row;
+    self.pushBlock(look);
+}
 @end
