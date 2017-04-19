@@ -16,6 +16,7 @@
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:color forState:UIControlStateNormal];
     [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    btn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
     btn.enabled = YES;
     UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     return item;

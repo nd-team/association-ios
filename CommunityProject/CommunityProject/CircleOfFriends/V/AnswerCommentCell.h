@@ -10,7 +10,7 @@
 #import "CircleCommentModel.h"
 
 @interface AnswerCommentCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (nonatomic,strong)CircleAnswerModel * answerModel;
 
 @end

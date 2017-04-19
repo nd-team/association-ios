@@ -13,11 +13,13 @@
 @property (nonatomic,copy)NSString * name;
 @property (nonatomic,copy)NSString * time;
 @property (nonatomic,copy)NSString * content;
-@property (nonatomic,strong)NSMutableArray * collectionArr;
+@property (nonatomic,strong)NSArray * collectionArr;
 @property (nonatomic,copy)NSString * commentCount;
 @property (nonatomic,copy)NSString * likeCount;
 @property (nonatomic,copy)NSString * isLike;
 //说说ID
 @property (nonatomic,copy)NSString * idStr;
+//placeHolder
+@property (nonatomic,copy)NSString * placeStr;
 
 @end

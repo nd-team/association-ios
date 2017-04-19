@@ -115,7 +115,7 @@
                   moduleName = "CommunityProject"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/bjike/Desktop/association-ios/CommunityProject/CommunityProject/Chat/C/MyLocationViewController.m"
-                  timestampString = "514202746.701187"
+                  timestampString = "514289475.032951"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "74"
@@ -130,7 +130,7 @@
                   moduleName = "CommunityProject"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/bjike/Desktop/association-ios/CommunityProject/CommunityProject/Chat/C/MyLocationViewController.m"
-                  timestampString = "514202746.702704"
+                  timestampString = "514289475.034176"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "75"
@@ -138,6 +138,54 @@
                   offsetFromSymbolStart = "140">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CommunityProject/CircleOfFriends/C/CircleCommentController.m"
+            timestampString = "514288591.299607"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
+            landmarkName = "-postSendComment:andParams:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CommunityProject/CircleOfFriends/V/CircleCommentCell.m"
+            timestampString = "514289373.650585"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CommunityProject/CircleOfFriends/V/AnswerCommentCell.m"
+            timestampString = "514289377.081928"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "-setAnswerModel:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

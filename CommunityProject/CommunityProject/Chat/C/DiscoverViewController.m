@@ -32,6 +32,7 @@
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"InterestCell" bundle:nil] forCellReuseIdentifier:@"InterestCell"];
+    //异步请求两条数据
     [self getInterestListData:@"1"];
 }
 #pragma mark-获取数据

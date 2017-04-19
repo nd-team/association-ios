@@ -10,6 +10,7 @@
 #import "CircleCell.h"
 #import "ActivityRecommendController.h"
 #import "CircleCommentController.h"
+#import "CircleMessageController.h"
 
 #define CircleListURL @"appapi/app/selectFriendsCircle"
 #define ZanURL @"appapi/app/userPraise"
@@ -19,6 +20,11 @@
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,assign)int page;
 @property (nonatomic,assign)CGFloat height;
+@property (weak, nonatomic) IBOutlet UIButton *msgBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *headImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+
 @end
 
 @implementation CircleOfListController
@@ -28,10 +34,9 @@
     
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
-
-    self.page = 1;
-
+    
     if (self.isRef) {
+        self.page = 1;
         [self getList];
 //        [self.dataArr insertObject:self.model atIndex:0];
         //不受影响但是耗费性能 同时间别人发的不能刷新到
@@ -45,12 +50,29 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
-
     [self.tableView registerNib:[UINib nibWithNibName:@"CircleCell" bundle:nil] forCellReuseIdentifier:@"CircleCell"];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 200;
+    //初始化传参过来的消息数据
+    
+    [self.tableView beginUpdates];
+    CGRect frame = self.headerView.frame;
+    if ([self.countStr isEqualToString:@"0"]) {
+        self.viewHeightCons.constant = 0;
+        frame.size.height = 0;
+    }else{
+        [self.msgBtn setTitle:[NSString stringWithFormat:@"%@条新消息",self.countStr] forState:UIControlStateNormal];
+        //第一条数据的头像
+        
+        self.viewHeightCons.constant = 64;
+        frame.size.height = 64;
+    }
+    self.headerView.frame = frame;
+    self.tableView.tableHeaderView = self.headerView;
+    [self.headerView layoutIfNeeded];
+    [self.tableView endUpdates];
+
+    self.page = 1;
     WeakSelf;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;
@@ -77,7 +99,7 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
-//                NSSLog(@"%@",arr);
+                NSSLog(@"%@",arr);
                 for (NSDictionary * dic in arr) {
                     CircleListModel * list = [[CircleListModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:list];
@@ -92,7 +114,6 @@
 }
 #pragma mark - tableView-delegate and DataSources
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-        //有图
         return self.height;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -112,7 +133,7 @@
     }else{
         cell.contentLabel.text = model.content;        
         //取到label的高度
-        CGRect rect = [cell.contentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
+        CGRect rect = [cell.contentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-37, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
         labelHeight = rect.size.height;
         cell.conHeightCons.constant = labelHeight;
     }
@@ -125,15 +146,17 @@
     }else if(model.images.count <= 9){
         cell.collHeightCons.constant = 309;
     }
-    [cell layoutIfNeeded];
     imageHeight = cell.collHeightCons.constant;
     self.height = 112+labelHeight+imageHeight;
+    [cell layoutIfNeeded];
     //点赞请求
     cell.block = ^(NSDictionary *dic,NSIndexPath * index,BOOL isSel){
         [weakSelf userLike:dic andIndexPath:index andIsLove:isSel];
     };
     cell.pushBlock = ^(UIViewController * vc){
-        [weakSelf.navigationController pushViewController:vc animated:YES];
+        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+        weakSelf.navigationItem.backBarButtonItem = backItem;
+        [weakSelf.navigationController pushViewController:vc animated:NO];
     };
     return cell;
     
@@ -185,11 +208,14 @@
     comment.name = model.nickname;
     comment.time = model.releaseTime;
     comment.content = model.content;
-    [comment.collectionArr addObjectsFromArray: model.images];
+    comment.collectionArr = model.images;
     comment.likeCount = model.likedNumber;
     comment.commentCount = model.commentNumber;
     comment.isLike = model.likeStatus;
     comment.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    comment.placeStr = [NSString stringWithFormat:@"评论%@",model.nickname];
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController: comment animated:YES];
 }
 - (IBAction)rightClick:(id)sender {
@@ -201,6 +227,17 @@
     recom.circleDelegate = self;
     [self.navigationController pushViewController:recom animated:YES];
 }
+- (IBAction)msgClick:(id)sender {
+    //查看与我相关的消息
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
+    CircleMessageController * message = [sb instantiateViewControllerWithIdentifier:@"CircleMessageController"];
+    message.dataArr = self.msgArr;
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"朋友圈" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
+    [self.navigationController pushViewController: message animated:YES];
+
+}
+
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSMutableArray new];

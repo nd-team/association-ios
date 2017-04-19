@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CircleCommentModel.h"
 
+typedef void(^ReplyCommentBlock)(NSString * commentId,NSString * nickname);
 @interface CircleCommentCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -19,5 +20,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *conHeightCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tbHeightCons;
 @property (nonatomic,strong)CircleCommentModel * commentModel;
+@property (nonatomic,copy)ReplyCommentBlock  block;
+@property (nonatomic,strong)NSMutableArray * baseArr;
+@property (nonatomic,strong)UITableView * tbView;
 
 @end

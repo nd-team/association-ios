@@ -13,4 +13,7 @@
 @property (nonatomic,strong)NSArray * imageArr;
 //点击的第几个 scrollView滑到第几个
 @property (nonatomic,assign)NSInteger count;
+//小图
+@property (nonatomic,strong)NSMutableArray * smallImg;
+
 @end

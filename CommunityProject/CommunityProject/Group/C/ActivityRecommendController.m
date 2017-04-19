@@ -131,9 +131,10 @@
          }else{
              NSNumber * code = data[@"code"];
              if ([code intValue] == 200) {
-                 NSDictionary * dic = data[@"data"];
-                 NSSLog(@"%@",dic);
+//                 NSDictionary * dic = data[@"data"];
+//                 NSSLog(@"%@",dic);
                  weakSelf.circleDelegate.isRef = YES;
+                 /*
                  CircleListModel * list = [CircleListModel new];
                  list.userId = userId;
                  list.userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
@@ -146,6 +147,7 @@
                  list.images = dic[@"images"];
                  list.id = [dic[@"id"] integerValue];
                  weakSelf.circleDelegate.model = list;
+                  */
                  [weakSelf.navigationController popViewControllerAnimated:YES];
              }
          }

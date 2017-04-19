@@ -37,7 +37,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
-                <outlet property="contentLabel" destination="CaZ-d8-ISv" id="fWT-xy-6qo"/>
+                <outlet property="detailLabel" destination="CaZ-d8-ISv" id="5nf-J7-ksm"/>
             </connections>
             <point key="canvasLocation" x="34" y="55.5"/>
         </tableViewCell>

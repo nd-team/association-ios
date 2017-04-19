@@ -12,6 +12,8 @@
 @interface CircleOfListController : UIViewController
 //插入一个cell
 @property (nonatomic,assign)BOOL isRef;
-@property (nonatomic,strong)CircleListModel * model;
-
+//@property (nonatomic,strong)CircleListModel * model;
+//消息数据
+@property (nonatomic,strong)NSArray * msgArr;
+@property (nonatomic,copy)NSString * countStr;
 @end

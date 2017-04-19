@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageCon;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidthCons;
+@property (nonatomic,assign)CGFloat height;
 
 @end
 
@@ -23,8 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pageCon.numberOfPages = self.imageArr.count;
+    NSSLog(@"%ld",self.count);
     self.pageCon.currentPage = self.count;
-    [self.scrollView setContentOffset:CGPointMake(self.pageCon.currentPage * KMainScreenWidth, 0) animated:NO];
      //放大图片手势
     [self setTapUI];
     //点击手势返回
@@ -33,28 +34,25 @@
     
 }
 -(void)tapClick{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)setTapUI{
-    WeakSelf;
+//    WeakSelf;
     for (int i = 0; i < self.imageArr.count; i++) {
-        
-        __block CGFloat height;
+        UIImageView * imageView = [UIImageView new];
         [[SDWebImageDownloader sharedDownloader]downloadImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.imageArr[i]]]] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            
+            //风火轮加载
+//            imageView.frame = CGRectMake(i*((KMainScreenWidth-100)/2),(KMainScreenHeight-100)/2, 100, 100);
+
         } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-            height = image.size.height+10;
-        }];
-        //alloc]initWithFrame:CGRectMake(i*KMainScreenWidth, 0, KMainScreenWidth, height)
-         UIImageView * imageView = [UIImageView new];
-        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(weakSelf.scrollView).offset(KMainScreenWidth*i);
-            make.centerY.equalTo(weakSelf.view);
-            make.width.mas_equalTo(KMainScreenWidth);
-            make.height.mas_equalTo(height);
+            NSSLog(@"%f==%f==",image.size.height,image.size.width);
+            if (finished) {
+                imageView.frame = CGRectMake(i*(KMainScreenWidth+5),(KMainScreenHeight- image.size.height)/2, (KMainScreenWidth+5), image.size.height);
+            }
         }];
         [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.imageArr[i]]]] placeholderImage:[UIImage imageNamed:@"banner2"]];
-        
+
+//        NSSLog(@"%f",weakSelf.height);
         [self.scrollView addSubview:imageView];
         //缩放手势
         UIPinchGestureRecognizer * pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinchClicked:)];
@@ -65,10 +63,10 @@
         UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
         
         [imageView addGestureRecognizer:pan];
+        [self.scrollView setContentOffset:CGPointMake(self.pageCon.currentPage * KMainScreenWidth, 0) animated:NO];
     }
 
-  
-    
+    self.viewWidthCons.constant = KMainScreenWidth*self.imageArr.count;
     
 }
 -(void)pinchClicked:(UIPinchGestureRecognizer *)pinch{
@@ -107,9 +105,5 @@
     
     _pageCon.currentPage = page;
     
-}
--(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    self.viewWidthCons.constant = KMainScreenWidth;
 }
 @end

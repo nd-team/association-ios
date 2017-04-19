@@ -9,6 +9,7 @@
 #import "CircleCell.h"
 #import "CircleImageCell.h"
 #import "LookBigImageController.h"
+#import "CircleCommentController.h"
 
 @implementation CircleCell
 
@@ -64,7 +65,25 @@
 
 - (IBAction)judgeClick:(id)sender {
     //进入详情
-    
+    UIButton * button = (UIButton *)sender;
+    CircleCell * cell = (CircleCell *)[[button superview]superview];
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    CircleListModel * model = self.dataArr[indexPath.row];
+    //进入详情
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
+    CircleCommentController * comment = [sb instantiateViewControllerWithIdentifier:@"CircleCommentController"];
+    comment.headUrl = model.userPortraitUrl;
+    comment.name = model.nickname;
+    comment.time = model.releaseTime;
+    comment.content = model.content;
+    comment.collectionArr = model.images;
+    comment.likeCount = model.likedNumber;
+    comment.commentCount = model.commentNumber;
+    comment.isLike = model.likeStatus;
+    comment.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    comment.placeStr = [NSString stringWithFormat:@"评论%@",model.nickname];
+    self.pushBlock(comment);
+
 }
 #pragma mark - collectionView的代理方法
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -86,7 +105,15 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
     LookBigImageController * look = [sb instantiateViewControllerWithIdentifier:@"LookBigImageController"];
     look.imageArr = _circleModel.images;
-    look.count = indexPath.row;
+    look.count = indexPath.row+1;
+    NSSLog(@"%ld",indexPath.row+1);
     self.pushBlock(look);
+}
+-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    UIView * view = [super hitTest:point withEvent:event];
+    if ([view isKindOfClass:[UICollectionView class]]) {
+        return self;
+    }
+    return [super hitTest:point withEvent:event];
 }
 @end

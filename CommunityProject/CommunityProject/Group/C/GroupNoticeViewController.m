@@ -26,11 +26,13 @@
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateBackButtonWithFrame:CGRectMake(0, 0,50, 30) andTitle:@"返回" andTarget:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
     if (self.isHost) {
-        UIButton * rightBtn = [UIButton CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) andBackgroundColor:UIColorFromRGB(0xffffff) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:@"创建"];
-        UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-        rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-        [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,40, 30) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:@"创建" and:self Action:@selector(rightItemClick)];
         self.navigationItem.rightBarButtonItem = rightItem;
+//        UIButton * rightBtn = [UIButton CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) andBackgroundColor:UIColorFromRGB(0xffffff) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:@"创建"];
+//        UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+//        rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+//        [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
+//        self.navigationItem.rightBarButtonItem = rightItem;
         self.noticeTV.userInteractionEnabled = YES;
     }else{
         self.noticeTV.userInteractionEnabled = NO;
