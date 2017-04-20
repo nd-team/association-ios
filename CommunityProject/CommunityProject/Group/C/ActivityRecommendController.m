@@ -36,7 +36,7 @@
     [super viewDidLoad];
     self.navigationItem.title = self.name;
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
-    self.rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,40, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:self.rightStr and:self Action:@selector(rightClick)];
+    self.rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:self.rightStr and:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = self.rightItem;
     //初始化数据源
     [self.collectArr addObject:[self getImageData]];
@@ -131,10 +131,10 @@
          }else{
              NSNumber * code = data[@"code"];
              if ([code intValue] == 200) {
-//                 NSDictionary * dic = data[@"data"];
+                 NSDictionary * dic = data[@"data"];
 //                 NSSLog(@"%@",dic);
                  weakSelf.circleDelegate.isRef = YES;
-                 /*
+               
                  CircleListModel * list = [CircleListModel new];
                  list.userId = userId;
                  list.userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
@@ -147,7 +147,6 @@
                  list.images = dic[@"images"];
                  list.id = [dic[@"id"] integerValue];
                  weakSelf.circleDelegate.model = list;
-                  */
                  [weakSelf.navigationController popViewControllerAnimated:YES];
              }
          }

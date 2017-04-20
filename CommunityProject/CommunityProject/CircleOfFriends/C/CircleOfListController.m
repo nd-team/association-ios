@@ -24,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *conViewHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeightCons;
 
 @end
 
@@ -37,15 +40,11 @@
     
     if (self.isRef) {
         self.page = 1;
-        [self getList];
 //        [self.dataArr insertObject:self.model atIndex:0];
-        //不受影响但是耗费性能 同时间别人发的不能刷新到
+//        不受影响但是耗费性能 同时间别人发的不能刷新到
 //        [self.tableView reloadData];
-        //cell以前的高度不受影响的bug
-//        [self.tableView beginUpdates];
-//        NSIndexPath * refPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//        [self.tableView insertRowsAtIndexPaths:@[refPath] withRowAnimation:UITableViewRowAnimationNone];
-//        [self.tableView endUpdates];
+        [self.dataArr removeAllObjects];
+        [self getList];
     }
 }
 - (void)viewDidLoad {
@@ -54,17 +53,22 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 200;
     //初始化传参过来的消息数据
-    
     [self.tableView beginUpdates];
     CGRect frame = self.headerView.frame;
-    if ([self.countStr isEqualToString:@"0"]) {
+    if (self.msgArr.count == 0) {
         self.viewHeightCons.constant = 0;
         frame.size.height = 0;
+        self.btnHeightCons.constant = 0;
+        self.imageHeightCons.constant = 0;
+        self.conViewHeightCons.constant = 0;
     }else{
-        [self.msgBtn setTitle:[NSString stringWithFormat:@"%@条新消息",self.countStr] forState:UIControlStateNormal];
+        [self.msgBtn setTitle:[NSString stringWithFormat:@"%ld条新消息",self.msgArr.count] forState:UIControlStateNormal];
         //第一条数据的头像
-        
+        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.firstHead] placeholderImage:[UIImage imageNamed:@"default"]];
+        self.btnHeightCons.constant = 40;
+        self.imageHeightCons.constant = 31;
         self.viewHeightCons.constant = 64;
+        self.conViewHeightCons.constant = 40;
         frame.size.height = 64;
     }
     self.headerView.frame = frame;
@@ -88,7 +92,7 @@
     WeakSelf;
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     NSDictionary * params = @{@"userId":userId,@"status":@"1",@"page":[NSString stringWithFormat:@"%d",self.page]};
-    NSSLog(@"%@",params);
+//    NSSLog(@"%@",params);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈：%@",error);
@@ -99,7 +103,7 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
-                NSSLog(@"%@",arr);
+//                NSSLog(@"%@",arr);
                 for (NSDictionary * dic in arr) {
                     CircleListModel * list = [[CircleListModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:list];
@@ -166,7 +170,7 @@
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ZanURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
-            NSSLog(@"朋友圈：%@",error);
+            NSSLog(@"朋友圈点赞失败：%@",error);
         }else{
             
             NSNumber * code = data[@"code"];
@@ -237,7 +241,22 @@
     [self.navigationController pushViewController: message animated:YES];
 
 }
-
+-(void)backClick{
+    [self.tableView beginUpdates];
+    CGRect frame = self.headerView.frame;
+    self.viewHeightCons.constant = 0;
+    frame.size.height = 0;
+    self.headerView.frame = frame;
+    self.btnHeightCons.constant = 0;
+    self.imageHeightCons.constant = 0;
+    self.conViewHeightCons.constant = 0;
+    self.tableView.tableHeaderView = self.headerView;
+    [self.headerView layoutIfNeeded];
+    [self.tableView endUpdates];
+//发送通知到发现隐藏消息提示并清空
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"CircleMessage" object:nil];
+    
+}
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSMutableArray new];

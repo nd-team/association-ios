@@ -27,5 +27,7 @@ typedef void(^Push)(UIViewController * vc);
 @property (nonatomic,strong)UITableView * tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,copy)Push pushBlock;
+//保存加载的图片
+@property (nonatomic,strong)NSMutableArray * imgArr;
 
 @end

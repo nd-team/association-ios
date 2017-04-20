@@ -29,6 +29,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //新的window
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     //融云
@@ -321,12 +322,11 @@
 }
 //登录融云服务器
 -(void)loginRongServicer:(NSString *)token andPhone:(NSString *)phone andPassword:(NSString *)password{
-    self.window.backgroundColor = [UIColor whiteColor];
     WeakSelf;
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
         NSSLog(@"登录成功%@",userId);
-        [self.window addSubview:self.imageView];
-        [self.window bringSubviewToFront:self.imageView];
+//        [self.window addSubview:self.imageView];
+//        [self.window bringSubviewToFront:self.imageView];
         [weakSelf loginNet:phone andPassword:password];
     } error:^(RCConnectErrorCode status) {
         NSSLog(@"错误码：%ld",(long)status);
@@ -464,7 +464,7 @@
     
     if (!_imageView) {
         
-        _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight)];
+        _imageView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
 //        _imageView.image = [UIImage imageNamed:@""];
         _imageView.backgroundColor = UIColorFromRGB(0xffffff);
         

@@ -24,6 +24,7 @@
 //钱包
 #import <JrmfWalletKit/JrmfWalletKit.h>
 #import "AFNetData.h"
+#import "MBProgressHUD.h"
 
 #import "MessageAlertView.h"
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CircleUnreadMessageModel.h"
 
 @interface CircleMessageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
@@ -14,5 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *rightImage;
+
+@property (nonatomic,strong)CircleUnreadMessageModel * messageModel;
 
 @end

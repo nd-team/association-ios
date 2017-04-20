@@ -128,21 +128,47 @@
                                                 <constraint firstAttribute="height" constant="10" id="OpC-g5-s5X"/>
                                             </constraints>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qkj-9G-gSE">
+                                            <rect key="frame" x="120" y="33" width="5" height="5"/>
+                                            <color key="backgroundColor" red="0.90588235294117647" green="0.090196078431372548" blue="0.090196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="5" id="I8h-TU-9ja"/>
+                                                <constraint firstAttribute="width" constant="5" id="RSI-p4-Soa"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RzK-wf-weV">
+                                            <rect key="frame" x="127.5" y="25" width="20" height="20"/>
+                                            <color key="backgroundColor" red="0.90588235289999997" green="0.090196078430000007" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="el6-Sn-Wy7"/>
+                                                <constraint firstAttribute="width" constant="20" id="oMk-Oa-xW4"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstItem="Qkj-9G-gSE" firstAttribute="centerX" secondItem="VcJ-m8-0XQ" secondAttribute="centerX" constant="-65" id="4tx-3P-WPN"/>
                                         <constraint firstItem="XsR-Ks-j4S" firstAttribute="top" secondItem="VcJ-m8-0XQ" secondAttribute="top" constant="25" id="64b-Hl-hez"/>
                                         <constraint firstAttribute="trailing" secondItem="YQL-Wp-7ye" secondAttribute="trailing" id="7Fi-v5-ahV"/>
                                         <constraint firstItem="iRH-xX-ggu" firstAttribute="centerX" secondItem="VcJ-m8-0XQ" secondAttribute="centerX" constant="85" id="F4a-tX-qwH"/>
                                         <constraint firstAttribute="bottom" secondItem="POt-AY-gSL" secondAttribute="bottom" constant="25" id="LYT-Rn-PGt"/>
                                         <constraint firstItem="YQL-Wp-7ye" firstAttribute="leading" secondItem="VcJ-m8-0XQ" secondAttribute="leading" id="Nf1-gK-Ug5"/>
+                                        <constraint firstItem="Qkj-9G-gSE" firstAttribute="top" secondItem="VcJ-m8-0XQ" secondAttribute="top" constant="33" id="QOk-Wc-AZF"/>
                                         <constraint firstItem="UrL-CC-Zxz" firstAttribute="centerX" secondItem="VcJ-m8-0XQ" secondAttribute="centerX" constant="85" id="SBo-db-pxz"/>
                                         <constraint firstItem="POt-AY-gSL" firstAttribute="centerX" secondItem="VcJ-m8-0XQ" secondAttribute="centerX" constant="-85" id="TLC-k0-dzQ"/>
                                         <constraint firstAttribute="height" constant="102" id="XSc-UG-8dU"/>
                                         <constraint firstAttribute="bottom" secondItem="iRH-xX-ggu" secondAttribute="bottom" constant="25" id="bpw-v2-Kgo"/>
                                         <constraint firstItem="XsR-Ks-j4S" firstAttribute="centerX" secondItem="VcJ-m8-0XQ" secondAttribute="centerX" constant="-85" id="d3q-tQ-ayA"/>
+                                        <constraint firstItem="RzK-wf-weV" firstAttribute="centerX" secondItem="VcJ-m8-0XQ" secondAttribute="centerX" constant="-50" id="eOJ-6b-Glr"/>
                                         <constraint firstItem="UrL-CC-Zxz" firstAttribute="top" secondItem="VcJ-m8-0XQ" secondAttribute="top" constant="25" id="mvK-7F-UMH"/>
                                         <constraint firstAttribute="bottom" secondItem="YQL-Wp-7ye" secondAttribute="bottom" id="q3F-eM-INA"/>
+                                        <constraint firstItem="RzK-wf-weV" firstAttribute="top" secondItem="VcJ-m8-0XQ" secondAttribute="top" constant="25" id="teQ-l8-Uk1"/>
                                     </constraints>
                                 </view>
                                 <connections>
@@ -160,6 +186,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dotLabel" destination="Qkj-9G-gSE" id="yh8-iX-Lhy"/>
+                        <outlet property="msgLabel" destination="RzK-wf-weV" id="TIq-I3-tGa"/>
                         <outlet property="tableView" destination="zh3-8G-Sw9" id="N1E-3X-PXA"/>
                     </connections>
                 </viewController>

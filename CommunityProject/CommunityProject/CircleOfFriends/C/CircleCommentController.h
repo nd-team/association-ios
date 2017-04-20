@@ -21,5 +21,9 @@
 @property (nonatomic,copy)NSString * idStr;
 //placeHolder
 @property (nonatomic,copy)NSString * placeStr;
+//评论ID
+@property (nonatomic,copy)NSString *commentId;
+//消息push进来的界面
+@property (nonatomic,assign)BOOL isMsg;
 
 @end

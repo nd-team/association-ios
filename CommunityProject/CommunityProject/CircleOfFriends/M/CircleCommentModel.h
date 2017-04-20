@@ -39,6 +39,8 @@
 @property (nonatomic,strong)NSString * fromContent;
 //回复时间
 @property (nonatomic,strong)NSString * commentTime;
+//保存tableview的行高
+@property (nonatomic,assign)CGFloat height;
 
 @end
 @interface CircleCommentModel : JSONModel
@@ -55,4 +57,7 @@
 //评论ID
 @property (nonatomic,assign)NSInteger  id;
 @property (nonatomic,strong)NSArray<CircleAnswerModel> *replyUsers;
+//保存tableview的行高
+@property (nonatomic,assign)CGFloat height;
+
 @end

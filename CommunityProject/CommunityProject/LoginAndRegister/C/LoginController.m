@@ -9,7 +9,9 @@
 #import "LoginController.h"
 #define LoginURL @"appapi/app/login"
 #define RegisterURL @"appapi/app/register"
-@interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>
+@interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>{
+    MBProgressHUD *hud;
+}
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *oneLine;
@@ -183,15 +185,18 @@
             [weakSelf showMessage:@"你已进入网络异次元，快去打开网络吧！"];
             
         }else{
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,0.001*NSEC_PER_SEC),dispatch_get_main_queue(), ^{
-//                [HUDTool showLoadView:[UIApplication sharedApplication].keyWindow withText:@"正在登陆..." andHudBlock:^{
-            if (isLogin) {
-                [weakSelf loginNet];
-            }else{
-                [weakSelf registerMessage];
-            }
-//                }];
-//            });
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                if (isLogin) {
+                    [weakSelf loginNet];
+                }else{
+                    [weakSelf registerMessage];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                });
+            });
+           
         }
         
         

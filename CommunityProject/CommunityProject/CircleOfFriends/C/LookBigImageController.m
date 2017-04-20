@@ -37,36 +37,49 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)setTapUI{
-//    WeakSelf;
+    WeakSelf;
     for (int i = 0; i < self.imageArr.count; i++) {
         UIImageView * imageView = [UIImageView new];
         [[SDWebImageDownloader sharedDownloader]downloadImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.imageArr[i]]]] options:SDWebImageDownloaderUseNSURLCache progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             //风火轮加载
-//            imageView.frame = CGRectMake(i*((KMainScreenWidth-100)/2),(KMainScreenHeight-100)/2, 100, 100);
-
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                NSSLog(@"%ld==%ld",receivedSize,expectedSize);
+                if (receivedSize != 100) {
+                    imageView.frame = CGRectMake(i*((KMainScreenWidth-100)/2),(KMainScreenHeight-100)/2, 100, 100);
+                    imageView.image = weakSelf.smallImg[i];
+                }else{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    });
+                }
+               
+            });
         } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
             NSSLog(@"%f==%f==",image.size.height,image.size.width);
             if (finished) {
                 imageView.frame = CGRectMake(i*(KMainScreenWidth+5),(KMainScreenHeight- image.size.height)/2, (KMainScreenWidth+5), image.size.height);
+                [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.imageArr[i]]]] placeholderImage:[UIImage imageNamed:@"banner2"]];
+
             }
         }];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.imageArr[i]]]] placeholderImage:[UIImage imageNamed:@"banner2"]];
 
 //        NSSLog(@"%f",weakSelf.height);
         [self.scrollView addSubview:imageView];
-        //缩放手势
-        UIPinchGestureRecognizer * pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinchClicked:)];
-        
-        [imageView addGestureRecognizer:pinch];
-        
-        //平移手势
-        UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
-        
-        [imageView addGestureRecognizer:pan];
-        [self.scrollView setContentOffset:CGPointMake(self.pageCon.currentPage * KMainScreenWidth, 0) animated:NO];
     }
+    [self.scrollView setContentOffset:CGPointMake(self.pageCon.currentPage * KMainScreenWidth, 0) animated:NO];
 
     self.viewWidthCons.constant = KMainScreenWidth*self.imageArr.count;
+    //缩放手势
+    UIPinchGestureRecognizer * pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinchClicked:)];
+    
+    [self.scrollView addGestureRecognizer:pinch];
+    
+    //平移手势
+    UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+    
+    [self.scrollView addGestureRecognizer:pan];
+
     
 }
 -(void)pinchClicked:(UIPinchGestureRecognizer *)pinch{
