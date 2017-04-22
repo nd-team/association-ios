@@ -21,4 +21,6 @@
 @property (nonatomic,copy)NSString * rightStr;
 //区分1：活动介绍2：发布朋友圈
 @property (nonatomic,assign)int type;
+
+
 @end

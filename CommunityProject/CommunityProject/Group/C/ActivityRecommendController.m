@@ -11,10 +11,11 @@
 #import "UploadImageModel.h"
 #import "UploadMulDocuments.h"
 #import "CircleListModel.h"
+#import <CTAssetsPickerController/CTAssetsPickerController.h>
 
 #define SendURL @"appapi/app/releaseFriendsCircle"
 
-@interface ActivityRecommendController ()<UICollectionViewDelegate,UICollectionViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDelegateFlowLayout,UITextViewDelegate>
+@interface ActivityRecommendController ()<UICollectionViewDelegate,UICollectionViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UICollectionViewDelegateFlowLayout,UITextViewDelegate,CTAssetsPickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (weak, nonatomic) IBOutlet UITextView *recomTV;
@@ -22,12 +23,17 @@
 @property (nonatomic,strong)NSMutableArray * collectArr;
 
 @property (nonatomic,assign) NSUInteger count;
+//总图片个数
+@property (nonatomic,assign) NSUInteger allCount;
 
 @property (nonatomic,assign) CGPoint touchPoint;
-//标记已经有3张照片
-@property (nonatomic,assign)BOOL isOver;
 @property (weak, nonatomic) IBOutlet UILabel *placeLabel;
 @property (nonatomic,strong)UIBarButtonItem * rightItem;
+//保存上一个长按的index
+@property (nonatomic,strong)NSIndexPath * lastPath;
+
+@property (nonatomic, strong) PHImageRequestOptions *requestOption;
+
 @end
 
 @implementation ActivityRecommendController
@@ -38,9 +44,13 @@
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
     self.rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:self.rightStr and:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = self.rightItem;
+    self.requestOption = [[PHImageRequestOptions alloc] init];
+    self.requestOption.resizeMode   = PHImageRequestOptionsResizeModeExact;
+    self.requestOption.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
     //初始化数据源
     [self.collectArr addObject:[self getImageData]];
-    self.count = self.collectArr.count;
+    self.allCount = 0;
+//    self.cameraCount = 0;
     if (self.type == 1) {
         self.placeLabel.hidden = YES;
     }else{
@@ -59,32 +69,22 @@
     
 }
 -(void)delectImageCell{
-
-    self.count --;
-    
     NSIndexPath * index = [self.collectionView indexPathForItemAtPoint:self.touchPoint];
-    
     [self.collectArr removeObjectAtIndex:index.row];
-    
     NSIndexPath * indexPath = [NSIndexPath indexPathForRow:index.row inSection:0];
-    
     NSArray * delectArr = @[indexPath];
-    
     [self.collectionView deleteItemsAtIndexPaths:delectArr];
-    if (self.isOver) {
-        //删除的那张之后把第一张插入默认的
-        [self.collectArr insertObject:[self getImageData] atIndex:0];
-        NSIndexPath * insertIndex = [NSIndexPath indexPathForRow:0 inSection:0];
-        
-        NSArray * insertArr = @[insertIndex];
-        
-        [self.collectionView insertItemsAtIndexPaths:insertArr];
-        
-        self.isOver = NO;
-        
+    if ((self.type == 1 && self.allCount == 3)||(self.type == 2 && self.allCount == 9)) {
+            //删除的那张之后把第一张插入默认的
+            [self.collectArr insertObject:[self getImageData] atIndex:0];
+            NSIndexPath * insertIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+            
+            NSArray * insertArr = @[insertIndex];
+            
+            [self.collectionView insertItemsAtIndexPaths:insertArr];
     }
+    self.allCount -- ;
     [self.collectionView reloadData];
-    
     
 }
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
@@ -175,25 +175,132 @@
     
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.type == 1) {
         if (indexPath.row == 0) {
-            if (self.isOver) {
-                NSSLog(@"已有三张");
+                //弹出相册
+            [self.recomTV resignFirstResponder];
+            if (self.type == 1) {
+                if (self.allCount == 3) {
+                    return;
+                }else{
+                    [self pushMulPhotos];
+                }
             }else{
-                [self pushAlbums];
+                if (self.allCount == 9) {
+                    //自行删除
+                    return;
+                }else{
+                    [self showAlert];
+                }
             }
         }
-    }else{
-        //9张
-        if (indexPath.row == 0) {
-            if (self.isOver) {
-                NSSLog(@"已有9张");
-            }else{
-                [self pushAlbums];
-            }
-        }
-    }
+}
+-(void)showAlert{
+    WeakSelf;
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf pushAlbums];
+    }]];
+    [alertVC addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf pushMulPhotos];
+    }]];
     
+    [self presentViewController:alertVC animated:YES completion:nil];
+
+}
+-(void)pushMulPhotos{
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        CTAssetsPickerController * picker = [[CTAssetsPickerController alloc]init];
+        picker.delegate = self;
+        picker.showsSelectionIndex = YES;
+        picker.doneButtonTitle = @"确定";
+        picker.showsEmptyAlbums = NO;
+        // create options for fetching photo only
+        PHFetchOptions *fetchOptions = [PHFetchOptions new];
+        fetchOptions.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", PHAssetMediaTypeImage];
+        
+        // assign options
+        picker.assetsFetchOptions = fetchOptions;
+        [self presentViewController:picker animated:YES completion:nil];
+    }];
+}
+//选择完成
+-(void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    self.allCount += assets.count;
+    WeakSelf;
+    //刷新collection
+    int i = 1;
+    for (PHAsset * asset in assets) {
+        CGFloat scale = UIScreen.mainScreen.scale;
+        CGSize targetSize = CGSizeMake(60 * scale, 60 * scale);
+       __block UploadImageModel * item = [UploadImageModel new];
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:targetSize contentMode:PHImageContentModeAspectFill options:self.requestOption resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                item.image = result;
+                
+                item.isPlaceHolder = NO;
+                
+                item.isHide = YES;
+                //活动介绍
+                if (weakSelf.type == 1) {
+
+                    if (weakSelf.allCount == 3 && i == assets.count) {
+                        weakSelf.count = 3;
+                        //3张
+                        [weakSelf.collectArr replaceObjectAtIndex:0 withObject:item];
+                    }else{
+                        [weakSelf.collectArr addObject:item];
+                    }
+                    
+                }else{
+                    //朋友圈
+                    if (weakSelf.allCount == 9 && i == assets.count) {
+                        weakSelf.count = 9;
+                        //9张
+                        [weakSelf.collectArr replaceObjectAtIndex:0 withObject:item];
+                    }else{
+                        [weakSelf.collectArr addObject:item];
+
+                    }
+        
+                }
+            if (weakSelf.collectArr.count -1 == assets.count || weakSelf.count == 3|| weakSelf.count == 9) {
+                [weakSelf.collectionView reloadData];
+            }
+        }];
+        i++;
+    }
+
+}
+-(BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset{
+    NSInteger max = 0;
+    if (self.type == 1) {
+        max = 3-self.allCount;
+    }else{
+        max = 9-self.allCount;
+    }
+    if (picker.selectedAssets.count >= max) {
+        [self showMessage:max andView:picker];
+    }
+    return picker.selectedAssets.count < max;
+
+}
+
+-(void)showMessage:(NSInteger)max andView:(CTAssetsPickerController*)picker{
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:@"温馨提示"
+                                        message:[NSString stringWithFormat:@"请选择不要超过 %ld 张的图片", (long)max]
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action =
+    [UIAlertAction actionWithTitle:@"确定"
+                             style:UIAlertActionStyleDefault
+                           handler:nil];
+    
+    [alert addAction:action];
+    
+    [picker presentViewController:alert animated:YES completion:nil];
+
 }
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
    return  UIEdgeInsetsMake(0, 0, 0, 10);
@@ -220,18 +327,9 @@
             NSLog(@"空");
             
         }else{
-            
+            self.lastPath = index;
             UploadImageModel * model = self.collectArr[index.row];
-            //第一个隐藏删除键
-            if (index.row == 0) {
-                
-                model.isHide = YES;
-            }else{
-                
-                model.isHide = NO;
-                
-            }
-            
+            model.isHide = NO;
             [self.collectionView reloadData];
         }
         
@@ -256,11 +354,14 @@
 -(void)pushAlbums{
     UIImagePickerController * picker = [UIImagePickerController new];
     picker.delegate = self;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     [self presentViewController:picker animated:YES completion:nil];
 }
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     //dismiss系统的设置自定义
+    [picker dismissViewControllerAnimated:YES completion:nil];
+
     UIImage * originalImage = info[UIImagePickerControllerOriginalImage];
     
     UploadImageModel * item = [UploadImageModel new];
@@ -270,33 +371,27 @@
     item.isPlaceHolder = NO;
     
     item.isHide = YES;
-    self.count++;
+    self.allCount++;
+    //总个数
     if (self.type == 1) {
-        if (self.count == 4) {
+        if (self.allCount == 3) {
             [self.collectArr replaceObjectAtIndex:0 withObject:item];
-            //标记提示用户
-            self.isOver = YES;
         }else{
-            [self.collectArr insertObject:item atIndex:1];
-            self.isOver = NO;
+            [self.collectArr addObject:item];
         }
     }else{
         //发布朋友圈
         self.rightItem.enabled = YES;
-        if (self.count == 10) {
+        if (self.allCount == 9) {
             [self.collectArr replaceObjectAtIndex:0 withObject:item];
-            //标记提示用户
-            self.isOver = YES;
         }else{
-            [self.collectArr insertObject:item atIndex:1];
-            self.isOver = NO;
+            [self.collectArr addObject:item];
         }
     }
     
 
     [self.collectionView reloadData];
     
-    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 -(NSMutableArray *)collectArr{
     if (!_collectArr) {

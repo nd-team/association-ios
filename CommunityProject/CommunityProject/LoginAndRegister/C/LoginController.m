@@ -266,13 +266,13 @@
                     [userDefaults setValue:msg[@"contributionScore"] forKey:@"contributionScore"];
                 }
                 [userDefaults synchronize];
+                //设置当前用户
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
 
                 [weakSelf loginRongServicer:msg[@"token"]];
 
-                //设置当前用户
                 
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"账号不存在！"];

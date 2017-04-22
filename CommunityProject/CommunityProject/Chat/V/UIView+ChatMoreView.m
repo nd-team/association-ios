@@ -9,6 +9,7 @@
 #import "UIView+ChatMoreView.h"
 
 @implementation UIView (ChatMoreView)
+UIView * dotView;
 +(UIView *)createViewFrame:(CGRect)frame andTarget:(id)target andSel:(SEL)action{
     NSArray *titleArr = @[@"聊天大厅",@"通讯录",@"发现",@"添加朋友/群",@"新建群聊",@"群列表",@"消息"];
     UIView * view = [[UIView alloc]initWithFrame:frame];
@@ -28,6 +29,14 @@
         lineView.backgroundColor = UIColorFromRGB(0x0f8d68);
         [view addSubview:lineView];
     }
+    //93.5发现
+    dotView = [[UIView alloc]initWithFrame:CGRectMake(65, 240.5, 5, 5)];
+    dotView.layer.masksToBounds = YES;
+    dotView.layer.cornerRadius = 2.5;
+    dotView.backgroundColor = UIColorFromRGB(0xE71717);
+    dotView.hidden = YES;
+    dotView.tag = 100;
+    [view addSubview:dotView];
     return view;
 }
 +(UIView *)locationViewFrame:(CGRect)frame andTarget:(id)target andAction:(SEL)action{

@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CTAssetsPickerController-CTAssetsPickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CTAssetsPickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PureLayout.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SDCycleScrollView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,7 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>296D09ECEBB8B773DEB2E70D38019566</key>
+		<key>1324C976051777A1416CADBF58BBE3E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>26602609050DC3B7AFB659B9D5AB15F1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>33D1DC9454D60F093149BC53DE44796C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,12 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
+		<key>7DB600BD44352C33ACCE8F1759C0562B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8EF74147BA3BC6AFE69F0C98D8838E2C</key>
+		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,7 +107,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9EF61A08475A03DACA7A018578E0D4F4</key>
+		<key>A4F2CE327CB98E06F61720C041446582</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A95BB17C6D89BAB000F7D30C9960A6D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -232,6 +232,8 @@
     [self.navigationController pushViewController:recom animated:YES];
 }
 - (IBAction)msgClick:(id)sender {
+    //清空数据
+    [self backClick];
     //查看与我相关的消息
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
     CircleMessageController * message = [sb instantiateViewControllerWithIdentifier:@"CircleMessageController"];

@@ -63,6 +63,9 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf addView];
     });
+    //显示消息提示点
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showMessage) name:@"FriendsMessage"  object:nil];
+
     //强制刷新SDK
     self.conversationListTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf refreshConversationTableViewIfNeeded];
@@ -71,6 +74,14 @@
             [weakSelf.conversationListTableView.mj_header endRefreshing];
         });
     }];
+    
+}
+-(void)showMessage{
+    UIView * dotView = [self.topView viewWithTag:100];
+    dotView.hidden = NO;
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
     
 }
 -(void)tapClick{
@@ -143,7 +154,9 @@
             }
                 break;
             default:
-            {
+            {//消息
+                UIView * dotView = [self.topView viewWithTag:100];
+                dotView.hidden = YES;
                 UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
                 MessageViewController  * msg = [sb instantiateViewControllerWithIdentifier:@"MessageViewController"];
                 [self.navigationController pushViewController:msg animated:YES];

@@ -12,6 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+//    self.layer.borderWidth = 1;
+//    self.layer.borderColor = [UIColor orangeColor].CGColor;
 
 }
 

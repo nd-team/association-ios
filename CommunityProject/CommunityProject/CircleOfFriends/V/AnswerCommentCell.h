@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (nonatomic,strong)CircleAnswerModel * answerModel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *conHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomCons;
 
 @end

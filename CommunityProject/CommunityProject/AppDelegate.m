@@ -20,7 +20,7 @@
 #define FriendListURL @"appapi/app/friends"
 #define GroupURL @"appapi/app/groupData"
 
-@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMGroupMemberDataSource,RCIMConnectionStatusDelegate>
+@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource,RCIMGroupMemberDataSource,RCIMConnectionStatusDelegate,RCIMReceiveMessageDelegate>
 @property (nonatomic,strong) UIImageView * imageView;
 
 @end
@@ -32,6 +32,8 @@
     //新的window
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+
     //融云
     [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
     //应用的Scheme
@@ -58,6 +60,8 @@
     [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
     //多端同步
     [RCIM sharedRCIM].enableSyncReadStatus = YES;
+    //设置接收消息代理
+    [RCIM sharedRCIM].receiveMessageDelegate = self;
     //设置头像为矩形 会话界面
     [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_RECTANGLE;
     //会话界面和列表头像大小
@@ -75,12 +79,30 @@
     [RCIM sharedRCIM].globalNavigationBarTintColor = UIColorFromRGB(0x121212);
     return YES;
 }
+- (void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left {
+    //如果是系统消息 通知发现显示小红点
+    if ([message.content isMemberOfClass:[RCCommandNotificationMessage class]]) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"SystemMessage" object:nil];
+        
+    }else if([message.content isMemberOfClass:[RCContactNotificationMessage class]]){
+        //好友请求消息类
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"FriendsMessage" object:nil];
+
+    }
+}
 -(void)netWork{
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * token = [userDefaults objectForKey:@"token"];
-    NSString * phone = [userDefaults objectForKey:@"userId"];
-    NSString * password = [userDefaults objectForKey:@"password"];
+    NSString * token = [DEFAULTS objectForKey:@"token"];
+    NSString * phone = [DEFAULTS objectForKey:@"userId"];
+    NSString * password = [DEFAULTS objectForKey:@"password"];
+    NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
+    NSString * userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
+
     if (token != nil && phone != nil && password != nil) {
+        [self loginMain];
+        //设置当前用户的用户信息
+        RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:phone name:nickname portrait:userPortraitUrl];
+        [RCIMClient sharedRCIMClient].currentUserInfo = userInfo;
+        [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:phone];
         [self loginRongServicer:token andPhone:phone andPassword:password];
     }else{
         [self login];
@@ -240,7 +262,6 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"登录失败：%@",error);
-            weakSelf.imageView.hidden = YES;
         }else{
             
             NSNumber * code = data[@"code"];
@@ -295,46 +316,56 @@
                     [userDefaults setValue:msg[@"contributionScore"] forKey:@"contributionScore"];
                 }
                 [userDefaults synchronize];
-                //设置当前用户的用户信息
+                //设置当前用户
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
-                [RCIMClient sharedRCIMClient].currentUserInfo = userInfo;
-                [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
-                [weakSelf loginMain];
+                [RCIM sharedRCIM].currentUserInfo = userInfo;
+//                [weakSelf loginMain];
             }else if ([code intValue] == 0){
                 NSSLog(@"账号不存在！");
-                [weakSelf login];
+                [weakSelf showMessage:@"账号不存在！"];
                 
             }else if ([code intValue] == 1000){
                 NSSLog(@"账号禁止登录！");
-                [weakSelf login];
-                
+                [weakSelf showMessage:@"账号禁止登录！"];
             }else if ([code intValue] == 1001){
                 NSSLog(@"密码错误！");
-                [weakSelf login];
+                [weakSelf showMessage:@"密码错误！"];
                 //传账号
                 
             }else{
+                [weakSelf showMessage:@"未知错误！"];
                 NSSLog(@"登录失败！");
-                weakSelf.imageView.hidden = YES;
             }
         }
     }];
+}
+-(void)showMessage:(NSString *)msg{
+    WeakSelf;
+    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"取消",@"确定"] Action:^(NSInteger indexpath) {
+        if (indexpath == 1) {
+            [weakSelf login];
+            
+        }else{
+            NSSLog(@"无网登录失败");
+        }
+        
+    } viewController:self.window.rootViewController];
+    
 }
 //登录融云服务器
 -(void)loginRongServicer:(NSString *)token andPhone:(NSString *)phone andPassword:(NSString *)password{
     WeakSelf;
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
         NSSLog(@"登录成功%@",userId);
-//        [self.window addSubview:self.imageView];
-//        [self.window bringSubviewToFront:self.imageView];
         [weakSelf loginNet:phone andPassword:password];
     } error:^(RCConnectErrorCode status) {
         NSSLog(@"错误码：%ld",(long)status);
+        [weakSelf loginMain];
         //SDK自动重新连接
         [[RCIM sharedRCIM]setConnectionStatusDelegate:self];
     } tokenIncorrect:^{
         NSSLog(@"token错误");
-        [weakSelf loginMain];
+        [weakSelf loginNet:phone andPassword:password];
     }];
 }
 - (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
@@ -343,36 +374,41 @@
         if (status == ConnectionStatus_Connected) {
             [RCIM sharedRCIM].connectionStatusDelegate = (id<RCIMConnectionStatusDelegate>)[UIApplication sharedApplication].delegate;
         } else if (status == ConnectionStatus_NETWORK_UNAVAILABLE) {
-//            [weakSelf showMessage:@"网络进入异次元，请检查！"];
             [weakSelf loginMain];
         } else if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-//            [self showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
-            [weakSelf login];
+            [self showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
         } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
             NSSLog(@"Token无效");
 //            [self showMessage:@"无法连接到服务器！"];
-            [weakSelf loginMain];
+//            [weakSelf loginMain];
+            //重连token
+            NSString * token = [DEFAULTS objectForKey:@"token"];
+            [[RCIM sharedRCIM] connectWithToken:token
+                                        success:^(NSString *userId) {
+                                            
+                                        } error:^(RCConnectErrorCode status) {
+                                            
+                                        } tokenIncorrect:^{
+                                            
+                                        }];
+
         } else {
             NSLog(@"RCConnectErrorCode is %zd", status);
         }
     });
 }
 -(void)loginMain{
-    self.imageView.hidden = YES;
-    WeakSelf;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
-        [weakSelf.window makeKeyAndVisible];
+//    WeakSelf;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+        self.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
 
-    });
+//    });
 }
 -(void)login{
-    self.imageView.hidden = YES;
-    WeakSelf;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        weakSelf.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
-        [weakSelf.window makeKeyAndVisible];
-    });
+//    WeakSelf;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+        self.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
+//    });
 }
 //红包需要实现的两个方法
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
@@ -459,17 +495,5 @@
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
     }
-}
--(UIImageView *)imageView{
-    
-    if (!_imageView) {
-        
-        _imageView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-//        _imageView.image = [UIImage imageNamed:@""];
-        _imageView.backgroundColor = UIColorFromRGB(0xffffff);
-        
-    }
-    return _imageView;
-    
 }
 @end

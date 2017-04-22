@@ -1339,7 +1339,7 @@
                                     <constraint firstAttribute="height" constant="10" id="c0n-Xz-gTQ"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ND4-KI-b3e">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ND4-KI-b3e">
                                 <rect key="frame" x="2" y="309" width="377" height="358"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="fyr-Uu-oWD">
@@ -1374,10 +1374,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pbG-d0-rYS">
-                                                    <rect key="frame" x="55" y="0.0" width="15" height="15"/>
+                                                    <rect key="frame" x="50" y="0.0" width="20" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="15" id="KnA-l1-Xtx"/>
-                                                        <constraint firstAttribute="height" constant="15" id="vQ6-Ro-2NT"/>
+                                                        <constraint firstAttribute="width" constant="20" id="KnA-l1-Xtx"/>
+                                                        <constraint firstAttribute="height" constant="20" id="vQ6-Ro-2NT"/>
                                                     </constraints>
                                                     <state key="normal" backgroundImage="del"/>
                                                     <connections>

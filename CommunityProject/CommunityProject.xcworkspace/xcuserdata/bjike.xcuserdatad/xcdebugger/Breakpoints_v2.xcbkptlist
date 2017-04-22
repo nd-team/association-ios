@@ -115,7 +115,7 @@
                   moduleName = "CommunityProject"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/bjike/Desktop/association-ios/CommunityProject/CommunityProject/Chat/C/MyLocationViewController.m"
-                  timestampString = "514384919.158352"
+                  timestampString = "514549197.776559"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "74"
@@ -130,7 +130,7 @@
                   moduleName = "CommunityProject"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/bjike/Desktop/association-ios/CommunityProject/CommunityProject/Chat/C/MyLocationViewController.m"
-                  timestampString = "514384919.159604"
+                  timestampString = "514549197.7778"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "75"
@@ -138,6 +138,22 @@
                   offsetFromSymbolStart = "140">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CommunityProject/AppDelegate.m"
+            timestampString = "514443886.191687"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-onRCIMReceiveMessage:left:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

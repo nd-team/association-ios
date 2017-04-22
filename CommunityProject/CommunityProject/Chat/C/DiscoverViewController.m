@@ -41,13 +41,16 @@
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"InterestCell" bundle:nil] forCellReuseIdentifier:@"InterestCell"];
     self.dotLabel.layer.masksToBounds = YES;
-    self.dotLabel.layer.cornerRadius = 2.5;
+    self.dotLabel.layer.cornerRadius = 3;
     self.dotLabel.hidden = YES;
     self.msgLabel.layer.masksToBounds = YES;
     self.msgLabel.layer.cornerRadius = 10;
     self.msgLabel.hidden = YES;
 
     self.userId = [DEFAULTS objectForKey:@"userId"];
+    //SystemMessage
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(systemMessage) name:@"SystemMessage" object:nil];
+
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recieve) name:@"CircleMessage" object:nil];
     //异步请求两条数据
     [self getAllData];
@@ -55,8 +58,13 @@
 -(void)recieve{
     self.msgLabel.hidden = YES;
 }
+-(void)systemMessage{
+    self.dotLabel.hidden = NO;
+}
 -(void)dealloc{
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"CircleMessage" object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"SystemMessage" object:nil];
+
 }
 //网络获取数据
 -(void)getAllData{
@@ -138,6 +146,7 @@
     }];
 }
 - (IBAction)friendClick:(id)sender {
+    self.dotLabel.hidden = YES;
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
     CircleOfListController * list = [sb instantiateViewControllerWithIdentifier:@"CircleOfListController"];
     list.msgArr = self.unreadArr;
