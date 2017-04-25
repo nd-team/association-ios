@@ -12,6 +12,7 @@
 #import "CircleImageCell.h"
 #import "LookBigImageController.h"
 
+
 #define CommentURL @"appapi/app/selectArticleComment"
 #define JudgeURL @"appapi/app/articleComment"
 #define ReplyCommentURL @"appapi/app/replyArticleComment"
@@ -54,7 +55,6 @@
 //回复评论的参数
 @property (nonatomic,strong)NSMutableDictionary * params;
 @property (weak, nonatomic) IBOutlet UIButton *zanBtn;
-@property (nonatomic,strong)NSMutableArray * imgArr;
 
 @end
 
@@ -295,12 +295,12 @@
     
     CircleImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CircleImageCell" forIndexPath:indexPath];
     [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.collectionArr[indexPath.row]]]] placeholderImage:[UIImage imageNamed:@"default"]];
-    [self.imgArr addObject:cell.headImageView.image];
     return cell;
     
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //看大图
+    /*
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
     LookBigImageController * look = [sb instantiateViewControllerWithIdentifier:@"LookBigImageController"];
     look.imageArr = self.collectionArr;
@@ -308,6 +308,8 @@
     look.smallImg = self.imgArr;
     NSSLog(@"%ld",indexPath.row+1);
     [self.navigationController pushViewController:look animated:YES];
+     */
+    
 }
 //原文的评论
 - (IBAction)judgeClick:(id)sender {
@@ -434,6 +436,7 @@
         
     }];
 }
+
 //手势代理方法
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     if ([touch.view isKindOfClass:[UITableView class]]) {
@@ -449,11 +452,5 @@
         _dataArr = [NSMutableArray new];
     }
     return _dataArr;
-}
--(NSMutableArray *)imgArr{
-    if (!_imgArr) {
-        _imgArr = [NSMutableArray new];
-    }
-    return _imgArr;
 }
 @end

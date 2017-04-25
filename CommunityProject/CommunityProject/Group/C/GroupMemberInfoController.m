@@ -77,9 +77,8 @@
         self.lineViewHeightCons.constant = 1;
         [self.hobbyBtn setTitle:self.hobby forState:UIControlStateNormal];
     }
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    self.userId = [userDefaults objectForKey:@"userId"];
-    BOOL isTop = [userDefaults boolForKey:@"topGroupOne"];
+    self.userId = [DEFAULTS objectForKey:@"userId"];
+    BOOL isTop = [DEFAULTS boolForKey:@"topGroupOne"];
     self.topBtn.selected = isTop;
     //设置按钮状态
     WeakSelf;
@@ -145,10 +144,14 @@
 
 //群公告
 - (IBAction)publicNoticeClick:(id)sender {
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
     GroupNoticeViewController * notice = [sb instantiateViewControllerWithIdentifier:@"GroupNoticeViewController"];
     notice.publicNotice = self.publicNotice;
     notice.isHost = NO;
+    notice.dif = 3;
+    notice.name = @"群公告";
     [self.navigationController pushViewController:notice animated:YES];
 
 }
@@ -190,9 +193,8 @@
 - (IBAction)topClick:(id)sender {
     self.topBtn.selected = !self.topBtn.selected;
     [[RCIMClient sharedRCIMClient]setConversationToTop:ConversationType_GROUP targetId:self.groupId isTop:self.topBtn.selected];
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:self.topBtn.selected forKey:@"topGroupOne"];
-    [userDefaults synchronize];
+    [DEFAULTS setBool:self.topBtn.selected forKey:@"topGroupOne"];
+    [DEFAULTS synchronize];
 }
 //更多成员
 - (IBAction)moreMemberClick:(id)sender {

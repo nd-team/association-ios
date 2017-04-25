@@ -32,7 +32,6 @@
 @property (nonatomic,strong)NSArray * leftArr;
 @property (nonatomic,strong)NSMutableArray * rightArr;
 @property (nonatomic,strong) UIView * backView;
-
 @property (nonatomic,strong)UIWindow * window;
 
 @end

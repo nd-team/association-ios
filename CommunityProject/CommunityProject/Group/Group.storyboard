@@ -2313,28 +2313,58 @@
                                     <constraint firstAttribute="height" constant="5" id="csH-fq-QDG"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9lC-Ud-xkw">
-                                <rect key="frame" x="-4" y="27" width="383" height="260"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lY7-Tu-bzW">
+                                <rect key="frame" x="-4" y="25" width="383" height="260"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="我是你的" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9lC-Ud-xkw">
+                                        <rect key="frame" x="7" y="10" width="366" height="260"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="260" id="ti4-Mm-Ion"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="McT-A6-EN0" id="q6B-B2-gqg"/>
+                                        </connections>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="填写你需要反馈的信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iq0-n6-lBC">
+                                        <rect key="frame" x="10" y="20" width="200" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="4Sg-4Y-NqX"/>
+                                            <constraint firstAttribute="width" constant="200" id="jGD-7M-NeG"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="260" id="ti4-Mm-Ion"/>
+                                    <constraint firstItem="9lC-Ud-xkw" firstAttribute="leading" secondItem="lY7-Tu-bzW" secondAttribute="leading" constant="7" id="61N-88-PTM"/>
+                                    <constraint firstItem="iq0-n6-lBC" firstAttribute="top" secondItem="lY7-Tu-bzW" secondAttribute="top" constant="20" id="RQc-7p-WTA"/>
+                                    <constraint firstItem="iq0-n6-lBC" firstAttribute="leading" secondItem="lY7-Tu-bzW" secondAttribute="leading" constant="10" id="cE5-rx-YKE"/>
+                                    <constraint firstItem="9lC-Ud-xkw" firstAttribute="top" secondItem="lY7-Tu-bzW" secondAttribute="top" constant="10" id="tip-S4-8Ph"/>
+                                    <constraint firstAttribute="trailing" secondItem="9lC-Ud-xkw" secondAttribute="trailing" constant="10" id="uqT-ks-Z04"/>
+                                    <constraint firstAttribute="height" constant="260" id="y2w-op-Ue8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="9lC-Ud-xkw" firstAttribute="top" secondItem="T1P-uM-aYG" secondAttribute="bottom" constant="2" id="4vD-eZ-SeM"/>
-                            <constraint firstItem="9lC-Ud-xkw" firstAttribute="leading" secondItem="tUI-RM-LQ3" secondAttribute="leadingMargin" constant="-20" id="5VQ-r1-MgR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9lC-Ud-xkw" secondAttribute="trailing" constant="-20" id="K0w-9e-3CS"/>
+                            <constraint firstItem="lY7-Tu-bzW" firstAttribute="leading" secondItem="tUI-RM-LQ3" secondAttribute="leadingMargin" constant="-20" id="0Iq-NR-dB1"/>
+                            <constraint firstItem="lY7-Tu-bzW" firstAttribute="top" secondItem="T1P-uM-aYG" secondAttribute="bottom" id="34r-8w-ROS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lY7-Tu-bzW" secondAttribute="trailing" constant="-20" id="FhS-GV-xjZ"/>
                             <constraint firstItem="T1P-uM-aYG" firstAttribute="leading" secondItem="tUI-RM-LQ3" secondAttribute="leadingMargin" constant="-20" id="TR0-01-JGQ"/>
                             <constraint firstItem="T1P-uM-aYG" firstAttribute="top" secondItem="taW-5i-Rsz" secondAttribute="bottom" id="Vyo-f5-6Ts"/>
                             <constraint firstAttribute="trailingMargin" secondItem="T1P-uM-aYG" secondAttribute="trailing" constant="-20" id="wC1-M2-QPy"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="conHeightCons" destination="ti4-Mm-Ion" id="Gm8-0C-bXi"/>
                         <outlet property="noticeTV" destination="9lC-Ud-xkw" id="PqO-iL-IC1"/>
+                        <outlet property="placeLabel" destination="iq0-n6-lBC" id="7Of-ff-iHC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bmj-tS-ET6" userLabel="First Responder" sceneMemberID="firstResponder"/>

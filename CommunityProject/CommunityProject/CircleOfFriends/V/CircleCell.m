@@ -94,7 +94,6 @@
     
     CircleImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CircleImageCell" forIndexPath:indexPath];
     [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_circleModel.images[indexPath.row]]]] placeholderImage:[UIImage imageNamed:@"default"]];
-    [self.imgArr addObject:cell.headImageView.image];
     return cell;
     
 }
@@ -103,13 +102,18 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //看大图
+    
+    
+/*
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
     LookBigImageController * look = [sb instantiateViewControllerWithIdentifier:@"LookBigImageController"];
     look.imageArr = _circleModel.images;
-    look.smallImg = self.imgArr;
     look.count = indexPath.row+1;
     NSSLog(@"%ld",indexPath.row+1);
+
     self.pushBlock(look);
+  */
+    
 }
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
     UIView * view = [super hitTest:point withEvent:event];
@@ -118,10 +122,5 @@
     }
     return [super hitTest:point withEvent:event];
 }
--(NSMutableArray *)imgArr{
-    if (!_imgArr) {
-        _imgArr = [NSMutableArray new];
-    }
-    return _imgArr;
-}
+
 @end

@@ -38,6 +38,7 @@
 @property (nonatomic,copy)NSString * userId;
 @property (weak, nonatomic) IBOutlet UIView *sendView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 
 @end
 
@@ -64,10 +65,11 @@
     self.headImageView.layer.cornerRadius = 5;
     self.headImageView.layer.masksToBounds = YES;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
+    self.nameLabel.text = self.name;
     if (self.age.length == 0) {
-        self.nameLabel.text = [NSString stringWithFormat:@"%@  0岁",self.name];
+        self.ageLabel.text = @"0岁";
     }else{
-        self.nameLabel.text = [NSString stringWithFormat:@"%@  %@岁",self.name,self.age];
+        self.ageLabel.text = [NSString stringWithFormat:@"%@岁",self.age];
     }
     if (self.sex == 1) {
         self.sexImageView.image = [UIImage imageNamed:@"man.png"];

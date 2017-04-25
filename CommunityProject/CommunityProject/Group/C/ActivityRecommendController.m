@@ -29,8 +29,6 @@
 @property (nonatomic,assign) CGPoint touchPoint;
 @property (weak, nonatomic) IBOutlet UILabel *placeLabel;
 @property (nonatomic,strong)UIBarButtonItem * rightItem;
-//保存上一个长按的index
-@property (nonatomic,strong)NSIndexPath * lastPath;
 
 @property (nonatomic, strong) PHImageRequestOptions *requestOption;
 
@@ -327,9 +325,26 @@
             NSLog(@"空");
             
         }else{
-            self.lastPath = index;
-            UploadImageModel * model = self.collectArr[index.row];
-            model.isHide = NO;
+            NSInteger i = 0;
+            for (UploadImageModel * model in self.collectArr) {
+                if (self.type == 1) {
+                    //活动介绍
+                    if ((index.row == i && index.row != 0 && self.allCount < 3)||(index.row == i && self.allCount == 3)) {
+                        model.isHide = NO;
+                    }else{
+                        model.isHide = YES;
+                    }
+                }else{
+                    //朋友圈
+                    if ((index.row == i && index.row != 0 && self.allCount < 9)||(index.row == i && self.allCount == 9)) {
+                        model.isHide = NO;
+                    }else{
+                        model.isHide = YES;
+                    }
+                }
+                i++;
+ 
+            }
             [self.collectionView reloadData];
         }
         

@@ -107,7 +107,7 @@ RealTimeLocationStatusViewDelegate>
     [self appendAndDisplayMessage:savedMsg];
 */
     //+区域共有功能
-    //照片100 101 102 PLUGIN_BOARD_ITEM_ALBUM_TAG
+    //照片 PLUGIN_BOARD_ITEM_ALBUM_TAG
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:0 image:[UIImage imageNamed:@"photos.png"] title:@"照片"];
      //PLUGIN_BOARD_ITEM_CAMERA_TAG
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:1 image:[UIImage imageNamed:@"camera.png"] title:@"拍摄"];

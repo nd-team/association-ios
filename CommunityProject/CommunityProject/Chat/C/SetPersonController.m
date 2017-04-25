@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (weak, nonatomic) IBOutlet UIView *deleteView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 
 @end
 
@@ -92,7 +93,8 @@
     self.headImageView.layer.cornerRadius = 5;
     self.headImageView.layer.masksToBounds = YES;
     self.userLabel.text = [NSString stringWithFormat:@"账号：%@",self.friendId];
-    self.nameLabel.text = [NSString stringWithFormat:@"%@  0岁",self.nickname];
+    self.nameLabel.text = self.nickname;
+    self.ageLabel.text = @"0岁";
     self.recomendLabel.text = @"推荐：";
     self.emailLabel.text = @"邮箱：";
     self.knowLabel.text = @"认领：";
@@ -120,7 +122,7 @@
                 NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                 [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
                 if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                    weakSelf.nameLabel.text = [NSString stringWithFormat:@"%@  %@岁",self.nickname,dict[@"age"]];
+                    weakSelf.ageLabel.text = [NSString stringWithFormat:@"%@岁",dict[@"age"]];
                 }
                 if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                     if ([dict[@"sex"]intValue] == 1) {
@@ -153,6 +155,7 @@
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     weakSelf.areaLabel.text = [NSString stringWithFormat:@"地址：%@",dict[@"address"]];
                 }
+        
             }
         }
     }];

@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *moreLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *moreImage;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *moreHeightCons;
+@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 
 @end
 
@@ -70,10 +71,11 @@
         [self.addFriendBtn setTitle:@"推荐好友" forState:UIControlStateNormal];
 
     }
+    self.nameLabel.text = self.name;
     if (self.age.length == 0) {
-        self.nameLabel.text = [NSString stringWithFormat:@"%@  0岁",self.name];
+        self.ageLabel.text = @"0岁";
     }else{
-        self.nameLabel.text = [NSString stringWithFormat:@"%@  %@岁",self.name,self.age];
+        self.ageLabel.text = [NSString stringWithFormat:@"%@岁",self.age];
     }
     if (self.sex == 1) {
         self.sexImageView.image = [UIImage imageNamed:@"man.png"];

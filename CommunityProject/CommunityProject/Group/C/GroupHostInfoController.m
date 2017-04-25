@@ -178,6 +178,11 @@
     notice.publicNotice = self.publicNotice;
     notice.isHost = YES;
     notice.hostId = self.userId;
+    notice.rightStr = @"创建";
+    notice.name = @"群公告";
+    notice.dif = 1;
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:notice animated:YES];
 
 }
