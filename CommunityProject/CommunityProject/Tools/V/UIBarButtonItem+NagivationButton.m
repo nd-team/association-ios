@@ -9,14 +9,14 @@
 #import "UIBarButtonItem+NagivationButton.h"
 
 @implementation UIBarButtonItem (NagivationButton)
-+ (UIBarButtonItem *)CreateTitleButtonWithFrame:(CGRect)frame titleColor:(UIColor *)color font:(CGFloat)font andTitle:(NSString *)title and:(id)target Action:(SEL)action{
++ (UIBarButtonItem *)CreateTitleButtonWithFrame:(CGRect)frame titleColor:(UIColor *)color font:(CGFloat)font andTitle:(NSString *)title andLeft:(CGFloat)left  andTarget:(id)target Action:(SEL)action{
     
     UIButton * btn = [[UIButton alloc] initWithFrame:frame];
     btn.titleLabel.font = [UIFont boldSystemFontOfSize:font];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:color forState:UIControlStateNormal];
     [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    btn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+    btn.titleEdgeInsets = UIEdgeInsetsMake(0, left, 0, 0);
     btn.enabled = YES;
     UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     return item;

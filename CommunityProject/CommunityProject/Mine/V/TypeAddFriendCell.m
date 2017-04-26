@@ -12,13 +12,16 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.headImageView.layer.masksToBounds = YES;
+    self.headImageView.layer.cornerRadius = 5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+- (IBAction)addFriendClick:(id)sender {
 }
 
 @end

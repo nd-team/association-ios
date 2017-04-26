@@ -10,4 +10,6 @@
 
 @interface MyPeopleDetailController : UIViewController
 
+@property (nonatomic,copy)NSString * name;
+
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIBarButtonItem (NagivationButton)
-+ (UIBarButtonItem *)CreateTitleButtonWithFrame:(CGRect)frame titleColor:(UIColor *)color font:(CGFloat)font andTitle:(NSString *)title and:(id)target Action:(SEL)action;
++ (UIBarButtonItem *)CreateTitleButtonWithFrame:(CGRect)frame titleColor:(UIColor *)color font:(CGFloat)font andTitle:(NSString *)title andLeft:(CGFloat)left andTarget:(id)target Action:(SEL)action;
 
 + (UIBarButtonItem *)CreateImageButtonWithFrame:(CGRect)frame backImage:(NSString *)sImage and:(id)target Action:(SEL)action;
 

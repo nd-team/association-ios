@@ -11,6 +11,7 @@
 #import "SettingViewController.h"
 #import "MyCardController.h"
 #import "MyPeopleController.h"
+#import "AreadyRecommendController.h"
 
 @interface MineController ()
 
@@ -184,12 +185,23 @@
 - (IBAction)editClick:(id)sender {
     
 }
+//我的钱包
+- (IBAction)myWalletCclick:(id)sender {
+    [JrmfWalletSDK openWallet];
+}
+//已推荐人
+- (IBAction)alreadyRecommendClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    AreadyRecommendController * recommend = [sb instantiateViewControllerWithIdentifier:@"AreadyRecommendController"];
+    [self.navigationController pushViewController:recommend animated:YES];
+
+}
 
 //解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
     
     [super viewWillLayoutSubviews];
-    if (self.lastView.frame.origin.y+50<KMainScreenHeight) {
+    if (self.lastView.frame.origin.y+178<KMainScreenHeight) {
         self.scrollView.scrollEnabled = NO;
     }else{
         self.scrollView.scrollEnabled = YES;

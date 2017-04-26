@@ -10,4 +10,13 @@
 
 @interface TypeAddFriendCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *headImageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *userLabel;
+@property (weak, nonatomic) IBOutlet UILabel *recomendLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *sexImage;
+
 @end

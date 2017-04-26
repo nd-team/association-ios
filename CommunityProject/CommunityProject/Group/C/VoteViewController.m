@@ -57,7 +57,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.userId = [DEFAULTS objectForKey:@"userId"];
     //导航栏按钮 创建群组
-    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 50, 40) titleColor:UIColorFromRGB(0x121212) font:14 andTitle:@"发 布" and:self Action:@selector(rightClick)];
+    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 50, 40) titleColor:UIColorFromRGB(0x121212) font:14 andTitle:@"发 布" andLeft:15 andTarget:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
     self.endTimeLabel.text = [NowDate currentDetailTime];
     self.timeView.hidden = YES;

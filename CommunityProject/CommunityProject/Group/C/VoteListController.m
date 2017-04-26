@@ -35,7 +35,7 @@
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateBackButtonWithFrame:CGRectMake(0, 0,50, 40) andTitle:@"返回" andTarget:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.navigationItem.title = @"群投票";
-    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,60, 40) titleColor:UIColorFromRGB(0x121212) font:14 andTitle:@"新建投票" and:self Action:@selector(rightClick)];
+    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,60, 40) titleColor:UIColorFromRGB(0x121212) font:14 andTitle:@"新建投票" andLeft:15 andTarget:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
     WeakSelf;
     self.tableView.mj_footer.hidden = YES;

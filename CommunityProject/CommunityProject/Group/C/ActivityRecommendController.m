@@ -40,7 +40,7 @@
     [super viewDidLoad];
     self.navigationItem.title = self.name;
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
-    self.rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:self.rightStr and:self Action:@selector(rightClick)];
+    self.rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:self.rightStr andLeft:15 andTarget:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = self.rightItem;
     self.requestOption = [[PHImageRequestOptions alloc] init];
     self.requestOption.resizeMode   = PHImageRequestOptionsResizeModeExact;

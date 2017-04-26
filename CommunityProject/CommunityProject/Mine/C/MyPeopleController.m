@@ -8,6 +8,7 @@
 
 #import "MyPeopleController.h"
 #import "MyPeopleCell.h"
+#import "MyPeopleDetailController.h"
 
 @interface MyPeopleController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -47,6 +48,12 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    MyPeopleDetailController * people = [sb instantiateViewControllerWithIdentifier:@"MyPeopleDetailController"];
+    people.name = self.dataArr[indexPath.row];
+    [self.navigationController pushViewController:people animated:YES];
+    
+
     
 }
 

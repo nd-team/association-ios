@@ -205,6 +205,10 @@
 		45B977151EAF51FF00A42D55 /* MyPeopleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977141EAF51FF00A42D55 /* MyPeopleController.m */; };
 		45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977171EAF57AC00A42D55 /* MyPeopleDetailController.m */; };
 		45B9771B1EAF57CF00A42D55 /* TypeAddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9771A1EAF57CF00A42D55 /* TypeAddFriendCell.m */; };
+		45B9771E1EB0872300A42D55 /* AlreadyRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9771D1EB0872300A42D55 /* AlreadyRecommendCell.m */; };
+		45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977201EB087B500A42D55 /* AreadyRecommendController.m */; };
+		45B977241EB088BB00A42D55 /* AlreadyRecommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977231EB088BB00A42D55 /* AlreadyRecommendModel.m */; };
+		45B977271EB08A9300A42D55 /* PersonBaseInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */; };
 		45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997941E9B20D100F6E984 /* HeadDetailCell.m */; };
 		45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C997951E9B20D100F6E984 /* HeadDetailCell.xib */; };
 		45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997991E9B21DE00F6E984 /* VoteTitleCell.m */; };
@@ -550,6 +554,14 @@
 		45B977171EAF57AC00A42D55 /* MyPeopleDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPeopleDetailController.m; sourceTree = "<group>"; };
 		45B977191EAF57CF00A42D55 /* TypeAddFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeAddFriendCell.h; sourceTree = "<group>"; };
 		45B9771A1EAF57CF00A42D55 /* TypeAddFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeAddFriendCell.m; sourceTree = "<group>"; };
+		45B9771C1EB0872300A42D55 /* AlreadyRecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlreadyRecommendCell.h; sourceTree = "<group>"; };
+		45B9771D1EB0872300A42D55 /* AlreadyRecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlreadyRecommendCell.m; sourceTree = "<group>"; };
+		45B9771F1EB087B500A42D55 /* AreadyRecommendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreadyRecommendController.h; sourceTree = "<group>"; };
+		45B977201EB087B500A42D55 /* AreadyRecommendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreadyRecommendController.m; sourceTree = "<group>"; };
+		45B977221EB088BB00A42D55 /* AlreadyRecommendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlreadyRecommendModel.h; sourceTree = "<group>"; };
+		45B977231EB088BB00A42D55 /* AlreadyRecommendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlreadyRecommendModel.m; sourceTree = "<group>"; };
+		45B977251EB08A9300A42D55 /* PersonBaseInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonBaseInfoController.h; sourceTree = "<group>"; };
+		45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonBaseInfoController.m; sourceTree = "<group>"; };
 		45C997931E9B20D100F6E984 /* HeadDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadDetailCell.h; sourceTree = "<group>"; };
 		45C997941E9B20D100F6E984 /* HeadDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadDetailCell.m; sourceTree = "<group>"; };
 		45C997951E9B20D100F6E984 /* HeadDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadDetailCell.xib; sourceTree = "<group>"; };
@@ -855,6 +867,10 @@
 				45B977141EAF51FF00A42D55 /* MyPeopleController.m */,
 				45B977161EAF57AC00A42D55 /* MyPeopleDetailController.h */,
 				45B977171EAF57AC00A42D55 /* MyPeopleDetailController.m */,
+				45B9771F1EB087B500A42D55 /* AreadyRecommendController.h */,
+				45B977201EB087B500A42D55 /* AreadyRecommendController.m */,
+				45B977251EB08A9300A42D55 /* PersonBaseInfoController.h */,
+				45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -862,6 +878,8 @@
 		455FA3311E763C250039B155 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				45B977221EB088BB00A42D55 /* AlreadyRecommendModel.h */,
+				45B977231EB088BB00A42D55 /* AlreadyRecommendModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -873,6 +891,8 @@
 				45B977111EAF519600A42D55 /* MyPeopleCell.m */,
 				45B977191EAF57CF00A42D55 /* TypeAddFriendCell.h */,
 				45B9771A1EAF57CF00A42D55 /* TypeAddFriendCell.m */,
+				45B9771C1EB0872300A42D55 /* AlreadyRecommendCell.h */,
+				45B9771D1EB0872300A42D55 /* AlreadyRecommendCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1562,6 +1582,7 @@
 				4562D7511E7FBD3A00C6EE56 /* UploadImageModel.m in Sources */,
 				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
 				455FA1701E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m in Sources */,
+				45B977241EB088BB00A42D55 /* AlreadyRecommendModel.m in Sources */,
 				4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */,
 				452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */,
 				455C6B1C1EA1ED6700E0B3F3 /* CircleCell.m in Sources */,
@@ -1596,6 +1617,7 @@
 				457781CF1E9F74CF0004BBE7 /* DiscoverViewController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
+				45B9771E1EB0872300A42D55 /* AlreadyRecommendCell.m in Sources */,
 				45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */,
 				455C6B131EA0B34500E0B3F3 /* HobbyController.m in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
@@ -1633,6 +1655,7 @@
 				459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
+				45B977271EB08A9300A42D55 /* PersonBaseInfoController.m in Sources */,
 				459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */,
 				455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */,
 				4557CB7E1E7BBD2600F22E70 /* DataSource.m in Sources */,
@@ -1652,6 +1675,7 @@
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
 				450A50DE1E853B9500433A61 /* RCDUtilities.m in Sources */,
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
+				45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */,
 				455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */,
 				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
 				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,

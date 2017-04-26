@@ -33,7 +33,7 @@
     UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
     self.navigationItem.title = @"消息";
-    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) titleColor:UIColorFromRGB(0x121212) font:16 andTitle:@"清空" and:self Action:@selector(rightClick)];
+    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) titleColor:UIColorFromRGB(0x121212) font:16 andTitle:@"清空" andLeft:15 andTarget:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
     [self getMessageData];
     
