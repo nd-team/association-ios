@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MineController : UIViewController
+@property (nonatomic,assign)BOOL isRef;
 
 @end

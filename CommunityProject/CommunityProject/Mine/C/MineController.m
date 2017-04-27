@@ -12,6 +12,7 @@
 #import "MyCardController.h"
 #import "MyPeopleController.h"
 #import "AreadyRecommendController.h"
+#import "PersonBaseInfoController.h"
 
 @interface MineController ()
 
@@ -39,10 +40,23 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
 @property (weak, nonatomic) IBOutlet UIView *lastView;
+//头像
 @property (nonatomic,copy)NSString * url;
 //性别
 @property (nonatomic,assign)NSInteger sex;
 @property (weak, nonatomic) IBOutlet UILabel *ageLabel;
+@property (nonatomic,copy)NSString * nickname;
+@property (nonatomic,copy)NSString * mobile;
+@property (nonatomic,copy)NSString * address;
+
+@property (nonatomic,copy)NSString * birth;
+@property (nonatomic,copy)NSString * age;
+@property (nonatomic,copy)NSString * email;
+@property (nonatomic,copy)NSString * recomend;
+@property (nonatomic,copy)NSString * lingStr;
+@property (nonatomic,copy)NSString * presCount;
+@property (nonatomic,copy)NSString * expCount;
+@property (nonatomic,copy)NSString * conCount;
 
 @end
 
@@ -53,24 +67,26 @@
     
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
-    
+    if (self.isRef) {
+        [self setUI];
+    }
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    
     [self setUI];
+
 }
 -(void)setUI{
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x121212);
     self.headImageView.layer.masksToBounds = YES;
     self.headImageView.layer.cornerRadius = 5;
     //设置头像和名字
-    NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
+    self.nickname = [DEFAULTS objectForKey:@"nickname"];
     NSInteger age = [DEFAULTS integerForKey:@"age"];
     self.url = [DEFAULTS objectForKey:@"userPortraitUrl"];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
-    self.nameLabel.text = nickname;
+    self.nameLabel.text = self.nickname;
     if (age == 0) {
         self.ageLabel.text = @"0岁";
     }else{
@@ -82,43 +98,45 @@
     }else{
         self.sexImageView.image = [UIImage imageNamed:@"woman.png"];
     }
-    self.userLabel.text = [NSString stringWithFormat:@"账号：%@",[DEFAULTS objectForKey:@"userId"]];
-    self.recomendLabel.text = [NSString stringWithFormat:@"推荐：%@",[DEFAULTS objectForKey:@"recommendUserId"]];
-    NSString * email = [DEFAULTS objectForKey:@"email"];
-    if (email.length != 0) {
-        self.emailLabel.text = [NSString stringWithFormat:@"邮箱：%@",email];
+    self.userId = [DEFAULTS objectForKey:@"numberId"];
+    self.userLabel.text = [NSString stringWithFormat:@"账号：%@",self.userId];
+    self.recomend = [DEFAULTS objectForKey:@"recommendUserId"];
+    self.recomendLabel.text = [NSString stringWithFormat:@"推荐：%@",self.recomend];
+    self.email = [DEFAULTS objectForKey:@"email"];
+    if (self.email.length != 0) {
+        self.emailLabel.text = [NSString stringWithFormat:@"邮箱：%@",self.email];
 
     }else{
         self.emailLabel.text = @"邮箱：";
     }
-    NSString * ling = [DEFAULTS objectForKey:@"claimUserId"];
-    if (ling.length != 0) {
-        self.knowLabel.text = [NSString stringWithFormat:@"认领：%@",ling];
+    self.lingStr = [DEFAULTS objectForKey:@"claimUserId"];
+    if (self.lingStr.length != 0) {
+        self.knowLabel.text = [NSString stringWithFormat:@"认领：%@",self.lingStr];
 
     }else{
         self.knowLabel.text = @"认领：";
     }
-    NSString * mobile  = [DEFAULTS objectForKey:@"mobile"];
-    if (mobile.length != 0) {
-        self.phoneLabel.text = [NSString stringWithFormat:@"电话：%@",mobile];
+    self.mobile  = [DEFAULTS objectForKey:@"mobile"];
+    if (self.mobile.length != 0) {
+        self.phoneLabel.text = [NSString stringWithFormat:@"电话：%@",self.mobile];
     }else{
         self.phoneLabel.text = @"电话：";
    
     }
-    NSString * contri = [DEFAULTS objectForKey:@"contributionScore"];
-    self.contributeLabel.text = [NSString stringWithFormat:@"贡献值：%@",contri];
+    self.conCount = [DEFAULTS objectForKey:@"contributionScore"];
+    self.contributeLabel.text = [NSString stringWithFormat:@"贡献值：%@",self.conCount];
+    self.presCount = [DEFAULTS objectForKey:@"creditScore"];
+    self.prestigeLabel.text = [NSString stringWithFormat:@"信誉值：%@",self.presCount];
     
-    self.prestigeLabel.text = [NSString stringWithFormat:@"信誉值：%@",[DEFAULTS objectForKey:@"creditScore"]];
-    
-    NSString * birth = [DEFAULTS objectForKey:@"birthday"];
-    if (birth.length != 0) {
-        self.birthdayLabel.text = [NSString stringWithFormat:@"生日：%@",birth];
+    self.birth = [DEFAULTS objectForKey:@"birthday"];
+    if (self.birth.length != 0) {
+        self.birthdayLabel.text = [NSString stringWithFormat:@"生日：%@",self.birth];
     }else{
        self.birthdayLabel.text = @"生日：";
     }
-    NSString * area = [DEFAULTS objectForKey:@"address"];
-    if (area.length != 0) {
-        self.areaLabel.text = [NSString stringWithFormat:@"地址：%@",area];
+    self.address = [DEFAULTS objectForKey:@"address"];
+    if (self.address.length != 0) {
+        self.areaLabel.text = [NSString stringWithFormat:@"地址：%@",self.address];
     }else{
       self.areaLabel.text = @"地址：";
     }
@@ -183,7 +201,26 @@
 }
 //编辑个人信息
 - (IBAction)editClick:(id)sender {
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    PersonBaseInfoController * person = [sb instantiateViewControllerWithIdentifier:@"PersonBaseInfoController"];
+    person.delegete = self;
+    //传参
+    person.userId = self.userId;
+    person.nickname = self.nickname;
+    person.userPortraitUrl = self.url;
+    person.sex = self.sex;
+    person.mobile = self.mobile;
+    person.email = self.email;
+    person.recommendStr = self.recomend;
+    person.lingStr = self.lingStr;
+    person.birthday = self.birth;
+    person.contributeCount = self.conCount;
+    person.prestigeCount = self.presCount;
+    person.address = self.address;
+    person.ageStr = self.age;
+    person.expCount = [NSString stringWithFormat:@"%@",[DEFAULTS objectForKey:@"experience"]];
+    [self.navigationController pushViewController:person animated:YES];
+
 }
 //我的钱包
 - (IBAction)myWalletCclick:(id)sender {

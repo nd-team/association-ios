@@ -307,13 +307,13 @@
                     [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
                 }
                 if (![msg[@"experience"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"experience"] forKey:@"experience"];
+                    [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"experience"]] forKey:@"experience"];
                 }
                 if (![msg[@"creditScore"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"creditScore"] forKey:@"creditScore"];
+                    [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"creditScore"]] forKey:@"creditScore"];
                 }
                 if (![msg[@"contributionScore"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"contributionScore"] forKey:@"contributionScore"];
+                    [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"contributionScore"]] forKey:@"contributionScore"];
                 }
                 [userDefaults synchronize];
                 //设置当前用户

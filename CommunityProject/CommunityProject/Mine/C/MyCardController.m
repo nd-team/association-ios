@@ -58,7 +58,7 @@
     }else{
         self.sexImageView.image = [UIImage imageNamed:@"woman.png"];
     }
-    self.userLabel.text = [NSString stringWithFormat:@"账号：%@",self.userId];
+    self.userLabel.text = self.userId;
    
     self.recomendLabel.text = self.recommendStr;
     

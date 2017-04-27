@@ -196,6 +196,7 @@
 		45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080CD1E891AF800514FFC /* AddFriendCell.m */; };
 		45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D01E891C9300514FFC /* SearchFriendModel.m */; };
 		45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D31E891DFA00514FFC /* SearchGroupCell.m */; };
+		45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */; };
 		45B977071EADEB9D00A42D55 /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */; };
 		45B977081EADEB9D00A42D55 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977031EADEB9D00A42D55 /* SDPhotoBrowser.m */; };
 		45B977091EADEB9D00A42D55 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977061EADEB9D00A42D55 /* SDWaitingView.m */; };
@@ -209,6 +210,9 @@
 		45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977201EB087B500A42D55 /* AreadyRecommendController.m */; };
 		45B977241EB088BB00A42D55 /* AlreadyRecommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977231EB088BB00A42D55 /* AlreadyRecommendModel.m */; };
 		45B977271EB08A9300A42D55 /* PersonBaseInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */; };
+		45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977291EB1D32600A42D55 /* AreaCell.m */; };
+		45B9772C1EB1D32600A42D55 /* AreaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B9772A1EB1D32600A42D55 /* AreaCell.xib */; };
+		45B9772E1EB1D57400A42D55 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45B9772D1EB1D57400A42D55 /* Address.plist */; };
 		45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997941E9B20D100F6E984 /* HeadDetailCell.m */; };
 		45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C997951E9B20D100F6E984 /* HeadDetailCell.xib */; };
 		45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997991E9B21DE00F6E984 /* VoteTitleCell.m */; };
@@ -535,6 +539,8 @@
 		45A080D01E891C9300514FFC /* SearchFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendModel.m; sourceTree = "<group>"; };
 		45A080D21E891DFA00514FFC /* SearchGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGroupCell.h; sourceTree = "<group>"; };
 		45A080D31E891DFA00514FFC /* SearchGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGroupCell.m; sourceTree = "<group>"; };
+		45AA3DD31EB219ED007F02E5 /* PersonMoreInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonMoreInfoController.h; sourceTree = "<group>"; };
+		45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonMoreInfoController.m; sourceTree = "<group>"; };
 		45B977001EADEB9D00A42D55 /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
 		45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
 		45B977021EADEB9D00A42D55 /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
@@ -562,6 +568,10 @@
 		45B977231EB088BB00A42D55 /* AlreadyRecommendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlreadyRecommendModel.m; sourceTree = "<group>"; };
 		45B977251EB08A9300A42D55 /* PersonBaseInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonBaseInfoController.h; sourceTree = "<group>"; };
 		45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonBaseInfoController.m; sourceTree = "<group>"; };
+		45B977281EB1D32600A42D55 /* AreaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaCell.h; sourceTree = "<group>"; };
+		45B977291EB1D32600A42D55 /* AreaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaCell.m; sourceTree = "<group>"; };
+		45B9772A1EB1D32600A42D55 /* AreaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AreaCell.xib; sourceTree = "<group>"; };
+		45B9772D1EB1D57400A42D55 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		45C997931E9B20D100F6E984 /* HeadDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadDetailCell.h; sourceTree = "<group>"; };
 		45C997941E9B20D100F6E984 /* HeadDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadDetailCell.m; sourceTree = "<group>"; };
 		45C997951E9B20D100F6E984 /* HeadDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadDetailCell.xib; sourceTree = "<group>"; };
@@ -676,6 +686,7 @@
 				455FA31A1E7631A90039B155 /* Assets.xcassets */,
 				455FA31C1E7631A90039B155 /* LaunchScreen.storyboard */,
 				455FA31F1E7631A90039B155 /* Info.plist */,
+				45B9772D1EB1D57400A42D55 /* Address.plist */,
 				455FA3171E7631A90039B155 /* CommunityProject.xcdatamodeld */,
 				455FA30B1E7631A90039B155 /* Supporting Files */,
 			);
@@ -871,6 +882,8 @@
 				45B977201EB087B500A42D55 /* AreadyRecommendController.m */,
 				45B977251EB08A9300A42D55 /* PersonBaseInfoController.h */,
 				45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */,
+				45AA3DD31EB219ED007F02E5 /* PersonMoreInfoController.h */,
+				45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -950,6 +963,9 @@
 				4557CB801E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m */,
 				457D3CB31E778E8B00FD0309 /* MessageAlertView.h */,
 				457D3CB41E778E8B00FD0309 /* MessageAlertView.m */,
+				45B977281EB1D32600A42D55 /* AreaCell.h */,
+				45B977291EB1D32600A42D55 /* AreaCell.m */,
+				45B9772A1EB1D32600A42D55 /* AreaCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1494,12 +1510,14 @@
 			files = (
 				455FA3461E7693F00039B155 /* WeChat.storyboard in Resources */,
 				455C6B1D1EA1ED6700E0B3F3 /* CircleCell.xib in Resources */,
+				45B9772C1EB1D32600A42D55 /* AreaCell.xib in Resources */,
 				4562D7F31E80DC1900C6EE56 /* Address.storyboard in Resources */,
 				456CCE6A1E827CD8005EC051 /* AlipaySDK.bundle in Resources */,
 				456CCE6C1E827CD8005EC051 /* JrmfInfo.strings in Resources */,
 				45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */,
 				455FA3441E7693C70039B155 /* FirstPage.storyboard in Resources */,
 				455C6B2D1EA5B75F00E0B3F3 /* CircleCommentCell.xib in Resources */,
+				45B9772E1EB1D57400A42D55 /* Address.plist in Resources */,
 				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				457781D41E9F7C060004BBE7 /* InterestCell.xib in Resources */,
@@ -1597,6 +1615,7 @@
 				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
+				45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */,
 				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
 				4562D73C1E7F7B6A00C6EE56 /* UIView+ChatWhiteView.m in Sources */,
 				4562D73F1E7F828D00C6EE56 /* ActivityListDatabaseSingleton.m in Sources */,
@@ -1621,6 +1640,7 @@
 				45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */,
 				455C6B131EA0B34500E0B3F3 /* HobbyController.m in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
+				45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */,
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
 				45B977091EADEB9D00A42D55 /* SDWaitingView.m in Sources */,
