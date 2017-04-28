@@ -87,18 +87,9 @@
         [self.usernameTF resignFirstResponder];
         [self.secretTF resignFirstResponder];
     }
-   
-   
-    WeakSelf;
-    [UIView animateWithDuration:0.3 animations:^{
-        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
-        
-    }];
+    self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
+
     
-//    WeakSelf;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
-//    });
 }
 -(void)leftView:(UITextField *)textField{
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 45)];
@@ -354,6 +345,7 @@
         }else {
             [self.usernameTF resignFirstResponder];
             [self.secretTF resignFirstResponder];
+            self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
         }
     }else{
         if (textField == self.phoneTF) {
@@ -370,46 +362,19 @@
             [self.passwordTF resignFirstResponder];
             [self.nicknameTF resignFirstResponder];
             [self.codeTF resignFirstResponder];
+            self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
+
         }
     }
    
     return YES;
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    WeakSelf;
-    if (textField == self.passwordTF) {
-        CGFloat offset = KMainScreenHeight - 258;
-    CGFloat height = textField.frame.origin.y+45+218;
-    NSSLog(@"%f==%f=%f==%f",self.passwordTF.frame.origin.y+45,self.view.frame.size.height,offset,height);
-
-        if (offset <= height) {
-            [UIView animateWithDuration:0.3 animations:^{
-                weakSelf.view.frame = CGRectMake(0, -height-300, KMainScreenWidth, KMainScreenHeight);
-            }];
-        }
-        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            weakSelf.view.frame = CGRectMake(0, -600, KMainScreenWidth, KMainScreenHeight);
-//
-//        });
-//    }else if (textField == self.codeTF){
-//        [UIView animateWithDuration:0.3 animations:^{
-//            weakSelf.view.frame = CGRectMake(0, -self.height-280, KMainScreenWidth, KMainScreenHeight);
- 
-//        }];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-        
-//        });
+    CGFloat offset = self.registerView.frame.origin.y+textField.frame.origin.y+50-(KMainScreenHeight-216);
+    if (textField == self.passwordTF||textField == self.codeTF){
+        self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);
     }
+   
     return YES;
-}
--(void)textFieldDidEndEditing:(UITextField *)textField{
-    WeakSelf;
-    if (textField == self.codeTF) {
-        [UIView animateWithDuration:0.3 animations:^{
-            weakSelf.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
-            
-        }];
-    }
 }
 @end

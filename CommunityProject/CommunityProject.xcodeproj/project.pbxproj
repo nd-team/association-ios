@@ -197,6 +197,7 @@
 		45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D01E891C9300514FFC /* SearchFriendModel.m */; };
 		45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D31E891DFA00514FFC /* SearchGroupCell.m */; };
 		45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */; };
+		45AA3DD81EB32B78007F02E5 /* RecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DD71EB32B78007F02E5 /* RecommendController.m */; };
 		45B977071EADEB9D00A42D55 /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */; };
 		45B977081EADEB9D00A42D55 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977031EADEB9D00A42D55 /* SDPhotoBrowser.m */; };
 		45B977091EADEB9D00A42D55 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977061EADEB9D00A42D55 /* SDWaitingView.m */; };
@@ -541,6 +542,8 @@
 		45A080D31E891DFA00514FFC /* SearchGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGroupCell.m; sourceTree = "<group>"; };
 		45AA3DD31EB219ED007F02E5 /* PersonMoreInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonMoreInfoController.h; sourceTree = "<group>"; };
 		45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonMoreInfoController.m; sourceTree = "<group>"; };
+		45AA3DD61EB32B78007F02E5 /* RecommendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendController.h; sourceTree = "<group>"; };
+		45AA3DD71EB32B78007F02E5 /* RecommendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendController.m; sourceTree = "<group>"; };
 		45B977001EADEB9D00A42D55 /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
 		45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
 		45B977021EADEB9D00A42D55 /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
@@ -884,6 +887,8 @@
 				45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */,
 				45AA3DD31EB219ED007F02E5 /* PersonMoreInfoController.h */,
 				45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */,
+				45AA3DD61EB32B78007F02E5 /* RecommendController.h */,
+				45AA3DD71EB32B78007F02E5 /* RecommendController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1707,6 +1712,7 @@
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
 				457781D71E9F7C6D0004BBE7 /* InterestCell.m in Sources */,
 				45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */,
+				45AA3DD81EB32B78007F02E5 /* RecommendController.m in Sources */,
 				459E85091EA9F1B700E5A331 /* LookBigImageController.m in Sources */,
 				450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */,
 				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,
