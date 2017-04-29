@@ -14,6 +14,7 @@
 #import "GroupModel.h"
 #import "GroupDatabaseSingleton.h"
 #import "MemberListModel.h"
+#import "ViewController.h"
 
 #define LoginURL @"appapi/app/login"
 #define MemberURL @"appapi/app/groupMember"
@@ -70,7 +71,6 @@
     [RCIM sharedRCIM].portraitImageViewCornerRadius = 5;
     //会话列表头像globalConversationPortraitSize
     [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_RECTANGLE;
-    
     //设置当前用户
     [self netWork];
     [[UINavigationBar appearance]setShadowImage:[UIImage new]];//nagivationBar.png
@@ -96,17 +96,25 @@
     NSString * password = [DEFAULTS objectForKey:@"password"];
     NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
     NSString * userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
+//    NSFileManager * fileManager = [NSFileManager defaultManager];
+//    BOOL  isTruing = [fileManager fileExistsAtPath:[NSHomeDirectory() stringByAppendingString:@"file.txt"]];
+//    if (isTruing) {
+        if (token != nil && phone != nil && password != nil) {
+            [self loginMain];
+            //设置当前用户的用户信息
+            RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:phone name:nickname portrait:userPortraitUrl];
+            [RCIMClient sharedRCIMClient].currentUserInfo = userInfo;
+            [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:phone];
+            [self loginRongServicer:token andPhone:phone andPassword:password];
+        }else{
+            [self login];
+        }
+//    }else{
+//        ViewController * vc = [ViewController new];
+//        self.window.rootViewController = vc;
+//    }
 
-    if (token != nil && phone != nil && password != nil) {
-        [self loginMain];
-        //设置当前用户的用户信息
-        RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:phone name:nickname portrait:userPortraitUrl];
-        [RCIMClient sharedRCIMClient].currentUserInfo = userInfo;
-        [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:phone];
-        [self loginRongServicer:token andPhone:phone andPassword:password];
-    }else{
-        [self login];
-    }
+   
 }
 //@功能实现给融云提供群成员 本地
 -(void)getAllMembersOfGroup:(NSString *)groupId result:(void (^)(NSArray<NSString *> *))resultBlock{

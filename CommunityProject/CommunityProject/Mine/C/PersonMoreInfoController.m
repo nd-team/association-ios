@@ -350,6 +350,16 @@
 -(void)saveInfo{
     [self resign];
     WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf postData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
+}
+-(void)postData{
+    WeakSelf;
     NSMutableDictionary * params = [NSMutableDictionary new];
     [params setValue:self.nameTF.text forKey:@"fullName"];
     [params setValue:self.nameBtn.selected?@"1":@"0" forKey:@"SfullName"];

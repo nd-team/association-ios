@@ -198,6 +198,9 @@
 		45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D31E891DFA00514FFC /* SearchGroupCell.m */; };
 		45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */; };
 		45AA3DD81EB32B78007F02E5 /* RecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DD71EB32B78007F02E5 /* RecommendController.m */; };
+		45AA3DDB1EB421DC007F02E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DDA1EB421DC007F02E5 /* ViewController.m */; };
+		45AA3DDE1EB4701A007F02E5 /* ProductCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DDD1EB4701A007F02E5 /* ProductCodeController.m */; };
+		45AA3DE01EB47179007F02E5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AA3DDF1EB47179007F02E5 /* CoreImage.framework */; };
 		45B977071EADEB9D00A42D55 /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */; };
 		45B977081EADEB9D00A42D55 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977031EADEB9D00A42D55 /* SDPhotoBrowser.m */; };
 		45B977091EADEB9D00A42D55 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977061EADEB9D00A42D55 /* SDWaitingView.m */; };
@@ -544,6 +547,11 @@
 		45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonMoreInfoController.m; sourceTree = "<group>"; };
 		45AA3DD61EB32B78007F02E5 /* RecommendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendController.h; sourceTree = "<group>"; };
 		45AA3DD71EB32B78007F02E5 /* RecommendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendController.m; sourceTree = "<group>"; };
+		45AA3DD91EB421DC007F02E5 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		45AA3DDA1EB421DC007F02E5 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		45AA3DDC1EB4701A007F02E5 /* ProductCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCodeController.h; sourceTree = "<group>"; };
+		45AA3DDD1EB4701A007F02E5 /* ProductCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCodeController.m; sourceTree = "<group>"; };
+		45AA3DDF1EB47179007F02E5 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		45B977001EADEB9D00A42D55 /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
 		45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
 		45B977021EADEB9D00A42D55 /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
@@ -604,6 +612,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45AA3DE01EB47179007F02E5 /* CoreImage.framework in Frameworks */,
 				4562D7B61E80BC3B00C6EE56 /* Photos.framework in Frameworks */,
 				459E85331EAA03AE00E5A331 /* MobileCoreServices.framework in Frameworks */,
 				459E85311EAA038B00E5A331 /* CoreFoundation.framework in Frameworks */,
@@ -712,6 +721,8 @@
 				455FA30F1E7631A90039B155 /* AppDelegate.m */,
 				455FA3491E769C8C0039B155 /* MainTabBarController.h */,
 				455FA34A1E769C8C0039B155 /* MainTabBarController.m */,
+				45AA3DD91EB421DC007F02E5 /* ViewController.h */,
+				45AA3DDA1EB421DC007F02E5 /* ViewController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -889,6 +900,8 @@
 				45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */,
 				45AA3DD61EB32B78007F02E5 /* RecommendController.h */,
 				45AA3DD71EB32B78007F02E5 /* RecommendController.m */,
+				45AA3DDC1EB4701A007F02E5 /* ProductCodeController.h */,
+				45AA3DDD1EB4701A007F02E5 /* ProductCodeController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1404,6 +1417,7 @@
 		55BFAB6FB609C76103B710A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45AA3DDF1EB47179007F02E5 /* CoreImage.framework */,
 				459E85321EAA03AE00E5A331 /* MobileCoreServices.framework */,
 				459E85301EAA038B00E5A331 /* CoreFoundation.framework */,
 				4562D7FC1E810DED00C6EE56 /* Contacts.framework */,
@@ -1661,6 +1675,7 @@
 				4562D7311E7F6DFC00C6EE56 /* GroupActivityListController.m in Sources */,
 				45D110331E85390D009F2C4E /* RealTimeLocationStatusView.m in Sources */,
 				450A50FD1E8648D300433A61 /* SetPersonController.m in Sources */,
+				45AA3DDB1EB421DC007F02E5 /* ViewController.m in Sources */,
 				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
 				4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */,
 				4573CC201E987ACD0047D1F4 /* VoteListController.m in Sources */,
@@ -1737,6 +1752,7 @@
 				4573CC2C1E98912D0047D1F4 /* VoteTypeController.m in Sources */,
 				45B9770F1EAEE86E00A42D55 /* SettingViewController.m in Sources */,
 				4573CC1D1E98794B0047D1F4 /* VoteListCell.m in Sources */,
+				45AA3DDE1EB4701A007F02E5 /* ProductCodeController.m in Sources */,
 				45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */,
 				4573CC191E976FA20047D1F4 /* HeadImageCell.m in Sources */,
 				455C6B381EA5C5CD00E0B3F3 /* CircleCommentModel.m in Sources */,

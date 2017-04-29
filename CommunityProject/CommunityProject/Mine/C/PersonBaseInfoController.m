@@ -63,7 +63,7 @@
 
 @property (nonatomic,assign)NSInteger cityIndex;
 @property (nonatomic,assign)NSInteger districtIndex;
-//标记tableview的数据源
+//标记pickerView的数据源
 @property (nonatomic,assign)int flag;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
@@ -133,10 +133,6 @@
     self.birthTF.text = self.birthday;
     self.ageTF.text = self.ageStr;
     self.emailTF.text = self.email;
-    [self.pickerView selectRow:0 inComponent:0 animated:NO];
-    if ([self.pickerView.delegate respondsToSelector:@selector(pickerView:didSelectRow:inComponent:)]) {
-        [self.pickerView.delegate pickerView:self.pickerView didSelectRow:0 inComponent:0];
-    }
 
 //    NSSLog(@"%@",self.address);
     //手势回收键盘
@@ -277,7 +273,7 @@
 }
 
 - (IBAction)finishClick:(id)sender {
-    //获取tableview滑动到哪行
+    //
     if (self.flag == 1) {
         self.provinceTF.text = self.provinceArr[self.proIndex];
     }else if (self.flag == 2){
@@ -308,8 +304,6 @@
     for (NSDictionary *dci in self.allArr) {
         [self.provinceArr addObject:[[dci allKeys] firstObject]];
     }
-    [self.pickerView reloadComponent:0];
-    [self.pickerView selectRow:0 inComponent:0 animated:YES];
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     if (textField == self.birthTF) {
@@ -317,11 +311,13 @@
         self.pickerView.hidden = YES;
         self.datePicker.hidden = NO;
         self.flag = 4;
+        [self resign];
         return NO;
     }else if (textField == self.provinceTF||textField == self.cityTF || textField == self.countryTF){
         self.bottomView.hidden = NO;
         self.datePicker.hidden = YES;
         self.pickerView.hidden = NO;
+        [self resign];
         if (textField == self.provinceTF) {
             self.flag = 1;
             [self getAllData];
@@ -336,8 +332,6 @@
                         break;
                     }
                 }
-                [self.pickerView reloadComponent:0];
-                [self.pickerView selectRow:0 inComponent:0 animated:YES];
             }
         }else{
             if (self.provinceArr.count != 0) {
@@ -349,11 +343,13 @@
                         
                     }
                 }
-                
-                [self.pickerView reloadComponent:0];
-                [self.pickerView selectRow:0 inComponent:0 animated:YES];
 
             }
+        }
+        [self.pickerView reloadComponent:0];
+        [self.pickerView selectRow:0 inComponent:0 animated:YES];
+        if ([self.pickerView.delegate respondsToSelector:@selector(pickerView:didSelectRow:inComponent:)]) {
+            [self.pickerView.delegate pickerView:self.pickerView didSelectRow:0 inComponent:0];
         }
         return NO;
     }else{

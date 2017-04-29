@@ -13,6 +13,7 @@
 #import "MyPeopleController.h"
 #import "AreadyRecommendController.h"
 #import "PersonBaseInfoController.h"
+#import "RecommendController.h"
 
 @interface MineController ()
 
@@ -168,8 +169,9 @@
 }
 //推荐
 - (IBAction)recomendClick:(id)sender {
-   
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    RecommendController * recomm = [sb instantiateViewControllerWithIdentifier:@"RecommendController"];
+    [self.navigationController pushViewController:recomm animated:YES];
 }
 //我的人脉
 - (IBAction)myPeopleClick:(id)sender {
