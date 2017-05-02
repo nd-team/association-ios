@@ -164,7 +164,7 @@
     self.childScLabel.hidden = isHidden;
     self.lineOneView.hidden = isHidden;
     if (isHidden) {
-        self.viewHeightCons.constant = 900;
+        self.viewHeightCons.constant = 1050;
     }else{
         self.viewHeightCons.constant = 1250;
 
@@ -589,10 +589,12 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
     if (textField == self.companyTF||textField == self.schoolTF||textField == self.fatherNameTF||textField == self.motherNameTF){
+        self.bottomView.hidden = YES;
         self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);
         return YES;
-
+        
     }else if (textField == self.wifeNameTF||textField == self.childNameTF||textField == self.childSchoolTF){
+        self.bottomView.hidden = YES;
         CGFloat offset1 = self.marryView.frame.origin.y+textField.frame.origin.y+50-(KMainScreenHeight-216);
         self.view.frame = CGRectMake(0, -offset1, KMainScreenWidth, KMainScreenHeight);
         return YES;
@@ -600,29 +602,24 @@
     }
     else if (textField == self.liveProTF||textField == self.liveCityTF||textField == self.liveDisTF||textField == self.relationshipTF||textField == self.presiTF||textField == self.homeProTF||textField == self.homeCityTF||textField == self.homeDisTF||textField == self.marryTF){
         [self resign];
-        self.bottomView.hidden = NO;
-        self.datePicker.hidden = YES;
-        self.pickerView.hidden = NO;
         if (textField == self.liveProTF) {
+            [self hidden];
             self.flag = 1;
             [self getAllData];
         }else if (textField == self.liveCityTF){
-            [self.provinceArr removeAllObjects];
-            if (self.allArr.count != 0) {
+            if (self.liveProTF.text.length != 0) {
+                [self hidden];
                 self.flag = 2;
                 for (NSDictionary *dict in self.allArr) {
-                    
                     if ([dict objectForKey:self.provinceArr[self.proIndex]]) {
                         self.cityArr = [NSMutableArray arrayWithArray:[[dict objectForKey:self.provinceArr[self.proIndex]] allKeys]];
                         break;
                     }
                 }
-                [self.pickerView reloadComponent:0];
-                [self.pickerView selectRow:0 inComponent:0 animated:YES];
             }
         }else if(textField == self.liveDisTF){
-            [self.districtArr removeAllObjects];
-            if (self.provinceArr.count != 0) {
+            if (self.liveCityTF.text.length != 0) {
+                [self hidden];
                 self.flag = 3;
                 for (NSDictionary *dict in self.allArr) {
                     
@@ -631,16 +628,16 @@
                         break;
                         
                     }
+                    
                 }
-                
             }
         }else  if (textField == self.homeProTF) {
+            [self hidden];
             self.flag = 7;
             [self getAllData];
         }else if (textField == self.homeCityTF){
-            [self.provinceArr removeAllObjects];
-
-            if (self.allArr.count != 0) {
+            if (self.homeProTF.text.length != 0) {
+                [self hidden];
                 self.flag = 8;
                 for (NSDictionary *dict in self.allArr) {
                     
@@ -651,9 +648,8 @@
                 }
             }
         }else if(textField == self.homeDisTF){
-            [self.districtArr removeAllObjects];
-
-            if (self.provinceArr.count != 0) {
+            if (self.homeCityTF.text.length != 0) {
+                [self hidden];
                 self.flag = 9;
                 for (NSDictionary *dict in self.allArr) {
                     
@@ -662,20 +658,21 @@
                         break;
                     }
                 }
-                
-                
             }
         }else if (textField == self.relationshipTF){
+            [self hidden];
             self.flag = 4;
             self.relationshipArr = @[@"亲人",@"同事",@"校友",@"同乡"];
         }else if (textField == self.presiTF){
+            [self hidden];
             self.flag = 5;
             //信誉分
             self.presiCountArr = @[@"0",@"10",@"20",@"30",@"40",@"50",@"60",@"70",@"80",@"90",@"100"];
         }else if (textField == self.marryTF){
+            [self hidden];
             self.flag = 6;
-            //信誉分
-            self.presiCountArr = @[@"未婚",@"已婚"];
+            //婚姻
+            self.marryArr = @[@"未婚",@"已婚"];
         }
         [self.pickerView reloadComponent:0];
         [self.pickerView selectRow:0 inComponent:0 animated:YES];
@@ -692,8 +689,14 @@
         return NO;
     }
     else{
+        self.bottomView.hidden = YES;
         return YES;
     }
+}
+-(void)hidden{
+    self.bottomView.hidden = NO;
+    self.datePicker.hidden = YES;
+    self.pickerView.hidden = NO;
 }
 - (IBAction)datePickerClick:(id)sender {
     [self common];
@@ -786,7 +789,7 @@
 //返回组件高度
 -(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
     
-    return 50;
+    return 45;
 }
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     //改变选择时的颜色

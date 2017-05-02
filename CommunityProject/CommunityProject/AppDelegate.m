@@ -16,6 +16,17 @@
 #import "MemberListModel.h"
 #import "ViewController.h"
 
+//ShareSDK
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+//QQ
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+//wechat
+#import "WXApi.h"
+//新浪微博
+#import "WeiboSDK.h"
+
 #define LoginURL @"appapi/app/login"
 #define MemberURL @"appapi/app/groupMember"
 #define FriendListURL @"appapi/app/friends"
@@ -71,6 +82,66 @@
     [RCIM sharedRCIM].portraitImageViewCornerRadius = 5;
     //会话列表头像globalConversationPortraitSize
     [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_RECTANGLE;
+    //shareSDK  @(SSDKPlatformTypeRenren)
+    /*
+    [ShareSDK registerApp:@"1d7a4e9e033cd" activePlatforms:@[@(SSDKPlatformTypeSinaWeibo),
+                                                @(SSDKPlatformTypeMail),
+                                                @(SSDKPlatformTypeSMS),
+                                                @(SSDKPlatformTypeCopy),
+                                                @(SSDKPlatformTypeWechat),
+                                                @(SSDKPlatformTypeQQ)] onImport:^(SSDKPlatformType platformType) {
+                                                    switch (platformType)
+                                                    {
+                                                        case SSDKPlatformTypeWechat:
+                                                            [ShareSDKConnector connectWeChat:[WXApi class]];
+                                                            break;
+                                                        case SSDKPlatformTypeQQ:
+                                                            [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                                                            break;
+                                                        case SSDKPlatformTypeSinaWeibo:
+                                                            [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+                                                            break;
+//                                                        case SSDKPlatformTypeRenren:
+//                                                            [ShareSDKConnector connectRenren:[RennClient class]];
+//                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                } onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+                                                    switch (platformType)
+                                                    {
+                                                        case SSDKPlatformTypeSinaWeibo:
+                                                            //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+                                                            [appInfo SSDKSetupSinaWeiboByAppKey:@"2851807147"
+                                                                                      appSecret:@"5baea328af2e0d4f4ab9185b746db408"
+                                                                                    redirectUri:@"http://www.sharesdk.cn"
+                                                                                       authType:SSDKAuthTypeBoth];
+                                                            break;
+                                                        case SSDKPlatformTypeWechat:
+                                                            [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885"
+                                                                                  appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
+                                                            break;
+                                                        case SSDKPlatformTypeQQ:
+                                                            [appInfo SSDKSetupQQByAppId:@"1106057589"
+                                                                                 appKey:@"YBWSnpD1KCgvNW5B"
+                                                                               authType:SSDKAuthTypeBoth];
+                                                            break;
+//                                                        case SSDKPlatformTypeRenren:
+//                                                            [appInfo        SSDKSetupRenRenByAppId:@"226427"
+//                                                                                            appKey:@"fc5b8aed373c4c27a05b712acba0f8c3"
+//                                                                                         secretKey:@"f29df781abdd4f49beca5a2194676ca4"
+//                                                                                          authType:SSDKAuthTypeBoth];
+//                                                            break;
+//                                                        case SSDKPlatformTypeGooglePlus:
+//                                                            [appInfo SSDKSetupGooglePlusByClientID:@"232554794995.apps.googleusercontent.com"
+//                                                                                      clientSecret:@"PEdFgtrMw97aCvf0joQj7EMk"
+//                                                                                       redirectUri:@"http://localhost"];
+//                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                }];
+    */
     //设置当前用户
     [self netWork];
     [[UINavigationBar appearance]setShadowImage:[UIImage new]];//nagivationBar.png

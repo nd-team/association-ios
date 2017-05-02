@@ -68,7 +68,7 @@
     [self showScrollViewUI];
     [self applicationCenter];
     //判断网络
-    [self netWork];
+//    [self netWork];
 }
 -(void)netWork{
     NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
@@ -197,6 +197,7 @@
 //                NSSLog(@"%@",array);
                 for (NSDictionary * dict in array) {
                     ClaimModel * claim = [[ClaimModel alloc]initWithDictionary:dict error:nil];
+                    [[ClaimDataBaseSingleton shareDatabase]insertDatabase:claim];
                     [weakSelf.claimArr addObject:claim];
                 }
                 [weakSelf.claimTableView reloadData];

@@ -314,16 +314,14 @@
         [self resign];
         return NO;
     }else if (textField == self.provinceTF||textField == self.cityTF || textField == self.countryTF){
-        self.bottomView.hidden = NO;
-        self.datePicker.hidden = YES;
-        self.pickerView.hidden = NO;
         [self resign];
         if (textField == self.provinceTF) {
+            [self hidden];
             self.flag = 1;
             [self getAllData];
         }else if (textField == self.cityTF){
-            if (self.allArr.count != 0) {
-                
+            if (self.provinceTF.text.length != 0) {
+                [self hidden];
                 self.flag = 2;
                 for (NSDictionary *dict in self.allArr) {
                     
@@ -334,7 +332,8 @@
                 }
             }
         }else{
-            if (self.provinceArr.count != 0) {
+            if (self.cityTF.text.length != 0) {
+                [self hidden];
                 self.flag = 3;
                 for (NSDictionary *dict in self.allArr) {
                     
@@ -353,10 +352,15 @@
         }
         return NO;
     }else{
+        self.bottomView.hidden = YES;
         return YES;
     }
 }
-
+-(void)hidden{
+    self.bottomView.hidden = NO;
+    self.datePicker.hidden = YES;
+    self.pickerView.hidden = NO;
+}
 #pragma mark - pickerView-delegate and DataSources
 -(UIView*)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     UILabel* pickerLabel = (UILabel*)view;
@@ -375,7 +379,7 @@
 //返回组件高度
 -(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
     
-    return 50;
+    return 45;
 }
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     //改变选择时的颜色
