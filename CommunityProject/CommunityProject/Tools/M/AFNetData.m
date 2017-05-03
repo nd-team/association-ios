@@ -19,8 +19,8 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
-
+    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+    manager.requestSerializer.timeoutInterval = 10.f;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",nil];
     
     [manager POST:urlStr parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

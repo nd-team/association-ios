@@ -12,7 +12,7 @@
 
 +(AFSecurityPolicy *)customSecurityPolicy{
     //导入证书，证书路径
-    NSString * cerPath = [[NSBundle mainBundle]pathForResource:@"issp" ofType:@"cer"];
+    NSString * cerPath = [[NSBundle mainBundle]pathForResource:@"space" ofType:@"cer"];
     
     NSData * cerData = [NSData dataWithContentsOfFile:cerPath];
     //证书验证模式

@@ -68,7 +68,7 @@
     [self showScrollViewUI];
     [self applicationCenter];
     //判断网络
-//    [self netWork];
+    [self netWork];
 }
 -(void)netWork{
     NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];

@@ -22,7 +22,8 @@
     [manager.requestSerializer setValue:@"text/html;application/xhtml+xml;application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
     
     [manager.requestSerializer setHTTPShouldHandleCookies:YES];
-    
+    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+
     
     NSString * boundary = [NSString stringWithFormat:@"WebKitFormBoundary%08X%08X",arc4random(),arc4random()];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=----%@",boundary] forHTTPHeaderField:@"Content-Type"];

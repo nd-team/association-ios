@@ -261,6 +261,7 @@
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
+                [weakSelf loginMain];
 
                 [weakSelf loginRongServicer:msg[@"token"]];
 
@@ -285,7 +286,6 @@
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
         NSSLog(@"登录成功%@",userId);
         //登录主界面
-        [weakSelf loginMain];
     } error:^(RCConnectErrorCode status) {
         NSSLog(@"错误码：%ld",(long)status);
         //SDK自动重新连接

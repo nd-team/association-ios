@@ -19,7 +19,8 @@
     manager.requestSerializer.timeoutInterval = 20.0f;
     
     [manager.requestSerializer setValue:@"text/html;application/xhtml+xml;application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
-    
+    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+
     [manager.requestSerializer setHTTPShouldHandleCookies:YES];
     
     NSString * boundary = [NSString stringWithFormat:@"WebKitFormBoundary%08X%08X",arc4random(),arc4random()];

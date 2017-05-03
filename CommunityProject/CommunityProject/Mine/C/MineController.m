@@ -14,6 +14,7 @@
 #import "AreadyRecommendController.h"
 #import "PersonBaseInfoController.h"
 #import "RecommendController.h"
+#import "SignInViewController.h"
 
 @interface MineController ()
 
@@ -144,8 +145,10 @@
 }
 //签到
 - (IBAction)arriveClick:(id)sender {
-    
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    SignInViewController * sign = [sb instantiateViewControllerWithIdentifier:@"SignInViewController"];
+    [self.navigationController pushViewController:sign animated:YES];
+
 }
 //名片
 - (IBAction)cardClick:(id)sender {
