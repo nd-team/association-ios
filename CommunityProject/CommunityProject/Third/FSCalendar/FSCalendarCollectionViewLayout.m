@@ -130,8 +130,6 @@
                     default:
                         break;
                 }
-            } else {
-                height = self.calendar.rowHeight;
             }
             height;
         });

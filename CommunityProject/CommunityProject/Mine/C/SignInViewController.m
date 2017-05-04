@@ -23,19 +23,16 @@
 @property (nonatomic,copy)NSString * userId;
 //签到的日期
 @property (nonatomic,strong)NSDictionary * dateArr;
-//保存当天签到的日期
-@property (nonatomic,assign)BOOL isToday;
 
 @property (nonatomic,strong) UIView * backView;
 @property (nonatomic,strong)UIWindow * window;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *calendarHeightCons;
-
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @end
 
 @implementation SignInViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.userId = [DEFAULTS objectForKey:@"userId"];
     self.navigationItem.title = @"签到";
     UIBarButtonItem * backItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 40, 30) titleColor:UIColorFromRGB(0x10DB9F) font:16 andTitle:@"返回" andLeft:-15 andTarget:self Action:@selector(backClick)];
     self.navigationItem.leftBarButtonItem = backItem;
@@ -59,16 +56,13 @@
 //    self.calendarView.appearance.titlePlaceholderColor = UIColorFromRGB(0x999999);
    
     //当天圆的背景色
-    self.calendarView.appearance.todayColor = UIColorFromRGB(0xffffff);
+    self.calendarView.appearance.todayColor = UIColorFromRGB(0x10DB9F);
     self.calendarView.appearance.todaySelectionColor = UIColorFromRGB(0x10DB9F);
 
     //选中线条颜色
     self.calendarView.appearance.borderSelectionColor = UIColorFromRGB(0x10DB9F);
     //选中时圆的背景色
     self.calendarView.appearance.selectionColor = UIColorFromRGB(0x10DB9F);
-
-    //没选中的圆的线条颜色
-//    self.calendarView.appearance.borderDefaultColor = UIColorFromRGB(0xffffff);
     //选中的小点的颜色 小点
     self.calendarView.appearance.eventSelectionColor = UIColorFromRGB(0xffffff);
     //未选择的小点默认圆颜色
@@ -88,28 +82,47 @@
     self.calendarView.placeholderType = FSCalendarPlaceholderTypeNone;
     //设置月的高度
     self.calendarView.headerHeight = 52;
-    self.signInBtn.layer.masksToBounds = YES;
-    self.signInBtn.layer.cornerRadius = 5;
+//    self.signInBtn.layer.masksToBounds = YES;
+//    self.signInBtn.layer.cornerRadius = 5;
+    [self.signInBtn setBackgroundImage:[UIImage imageNamed:@"signIn"] forState:UIControlStateNormal];
+    [self.signInBtn setBackgroundImage:[UIImage imageNamed:@"disSignIn"] forState:UIControlStateDisabled];
+    [self.signInBtn setTitle:@"签到" forState:UIControlStateNormal];
+    [self.signInBtn setTitle:@"已签到" forState:UIControlStateDisabled];
+    [self.signInBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateDisabled];
+    [self.signInBtn setTitleColor:UIColorFromRGB(0x444343) forState:UIControlStateNormal];
+
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd";
+    self.calendarView.accessibilityIdentifier = @"calendar";
+    self.userId = [DEFAULTS objectForKey:@"userId"];
     [self getEventDateData];
 
 }
 -(void)getEventDateData{
-    NSMutableDictionary * param = [NSMutableDictionary new];
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,HistorySignURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"签到日期请求失败：%@",error);
         }else{
             NSNumber * code = data[@"code"];
+            NSMutableDictionary * param = [NSMutableDictionary new];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
-                for (NSString * date in arr) {
-                    [param setValue:UIColorFromRGB(0x10DB9F) forKey:date];
+                NSString * today = [NowDate currentTime];
+                for (NSDictionary * dateDic in arr) {
+                    [param setValue:UIColorFromRGB(0x10DB9F) forKey:dateDic[@"date"]];
+                    if ([today isEqualToString:dateDic[@"date"]]) {
+                        weakSelf.signInBtn.enabled = NO;
+                    }
                 }
+
                 //2017-05-03
-                weakSelf.dateArr = param;
-//                [weakSelf.calendarView reloadData];
-                NSSLog(@"%@",weakSelf.dateArr);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!weakSelf) return;
+                    weakSelf.dateArr = param;
+                    [weakSelf.calendarView reloadData];
+                });
+
                 }
             
         }
@@ -119,9 +132,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)signInClick:(id)sender {
-    if (self.isToday) {
-        [self signIn];
-    }
+    [self signIn];
+
 }
 -(void)signIn{
     WeakSelf;
@@ -133,7 +145,8 @@
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 [weakSelf showBackViewUI:[NSString stringWithFormat:@"连续签到%@天，奖励%@贡献值",dict[@"days"],dict[@"experience"]]];
-
+               //保存状态
+                weakSelf.signInBtn.enabled = NO;
             }
             
         }
@@ -160,21 +173,24 @@
 -(void)hideViewAction{
     self.backView.hidden = YES;
 }
-//选中日历事件==签到
--(void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition{
-    //只有当天可以签到
-    self.isToday = [self.gregorian isDateInToday:date];
-}
 //事件显示圆的线条颜色
 - (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderDefaultColorForDate:(NSDate *)date
 {
      NSString * key = [NowDate getTime:date];
-    NSSLog(@"%@",self.dateArr.allKeys);
     if ([self.dateArr.allKeys containsObject:key]) {
         return self.dateArr[key];
     }
     return UIColorFromRGB(0xffffff);
     
+}
+- (NSDate *)minimumDateForCalendar:(FSCalendar *)calendar
+{
+    return [self.dateFormatter dateFromString:@"2016-02-03"];
+}
+
+- (NSDate *)maximumDateForCalendar:(FSCalendar *)calendar
+{
+    return [self.dateFormatter dateFromString:@"2018-04-10"];
 }
 - (IBAction)lastMonthClick:(id)sender {
     NSDate *currentMonth = self.calendarView.currentPage;

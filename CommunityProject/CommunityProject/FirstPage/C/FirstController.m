@@ -16,9 +16,13 @@
 #import "ClaimDataBaseSingleton.h"
 #import "ClaimModel.h"
 #import "AppCenterController.h"
+#import "TravelModel.h"
+#import "TravelDatabaseSingleton.h"
 
 #define ClaimURL @"appapi/app/allFriendsClaim"
-@interface FirstController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+#define FirstURL @"appapi/app/indexData"
+
+@interface FirstController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *headView;
 
@@ -28,6 +32,8 @@
 @property (nonatomic,strong)NSMutableArray * claimArr;
 //旅游数据源
 @property (nonatomic,strong)NSMutableArray * dataArr;
+@property (nonatomic,strong)NSMutableArray * scrollArr;
+
 //应用中心数据
 @property (nonatomic,strong)NSMutableArray * applicationArr;
 @property (nonatomic,strong) SDCycleScrollView * playView;
@@ -79,7 +85,7 @@
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [weakSelf getAllData];
+            [weakSelf getClaimUserData];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
@@ -92,15 +98,10 @@
     WeakSelf;
     self.tableView.mj_footer.hidden = YES;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//        [weakSelf ];
+        [weakSelf getClaimUserData];
     }];
-    //轮播图
-    NSArray * imageArr = @[@"banner.png",@"banner2.png",@"banner3.png"];
-    //本地
-    self.playView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero imageNamesGroup:imageArr];
-
       //网络
-//    self.playView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:[UIImage imageNamed:@"banner.png"]];
+    self.playView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:[UIImage imageNamed:@"banner.png"]];
     [self.headView addSubview:self.playView];
     [self.playView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(200);
@@ -143,65 +144,61 @@
     
     [self.claimArr addObjectsFromArray:[singleton searchDatabase]];
     
-    if (self.claimArr.count != 0) {
-        
-        [self.claimTableView reloadData];
-    }
     //旅游
+    TravelDatabaseSingleton * travelSingleton = [TravelDatabaseSingleton shareDatabase];
     
+    [self.dataArr addObjectsFromArray:[travelSingleton searchDatabase]];
+    
+    if (self.dataArr.count != 0&&self.claimArr.count != 0) {
+        [self.claimTableView reloadData];
+        [self.tableView reloadData];
+    }
 
 }
-//网络获取数据
--(void)getAllData{
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_group_t group = dispatch_group_create();
-    WeakSelf;
-    dispatch_group_async(group,queue , ^{
-    //请求轮播图
-        
-    });
-    dispatch_group_async(group,queue , ^{
-      //请求未领数据
-        [weakSelf getClaimUserData];
-    });
-    dispatch_group_async(group,queue , ^{
-        //请求旅游数据
-        
-    });
-    dispatch_group_notify(group, queue, ^{
-       
-        
-    });
-
-}
-//获取所有认领用户
+//获取所有
 -(void)getClaimUserData{
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * userId = [userDefaults objectForKey:@"userId"];
-    //0：未认领
+    NSString * userId = [DEFAULTS objectForKey:@"userId"];
     WeakSelf;
-    NSDictionary * params = @{@"userId":userId,@"status":@"0"};
-    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    NSDictionary * params = @{@"userId":userId};
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FirstURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
         }else{
-            if (weakSelf.claimArr.count !=0||weakSelf.claimTableView.mj_header.isRefreshing) {
+            if (weakSelf.dataArr.count !=0||weakSelf.tableView.mj_header.isRefreshing) {
                 for (ClaimModel * model in weakSelf.claimArr) {
                     [[ClaimDataBaseSingleton shareDatabase]deleteDatabase:model];
                 }
                 [weakSelf.claimArr removeAllObjects];
+                for (TravelModel * travelModel in weakSelf.dataArr) {
+                    [[TravelDatabaseSingleton shareDatabase]deleteDatabase:travelModel];
+                }
+                [weakSelf.dataArr removeAllObjects];
+
             }            
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSArray * array = data[@"data"];
-//                NSSLog(@"%@",array);
-                for (NSDictionary * dict in array) {
+                NSDictionary * allDic = data[@"data"];
+//                NSSLog(@"%@",allDic);
+                NSArray * advArr = allDic[@"advs"];
+                for (NSDictionary * dic1 in advArr) {
+                    [weakSelf.scrollArr addObject:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dic1[@"articleImage"]]]];
+                }
+                weakSelf.playView.imageURLStringsGroup = weakSelf.scrollArr;
+                NSArray *claim = allDic[@"claimUsers"];
+                for (NSDictionary * dict in claim) {
                     ClaimModel * claim = [[ClaimModel alloc]initWithDictionary:dict error:nil];
                     [[ClaimDataBaseSingleton shareDatabase]insertDatabase:claim];
                     [weakSelf.claimArr addObject:claim];
                 }
                 [weakSelf.claimTableView reloadData];
-                [weakSelf.claimTableView.mj_header endRefreshing];
+                NSArray * travel = allDic[@"actives"];
+                for (NSDictionary * dic2 in travel) {
+                    TravelModel * tvModel = [[TravelModel alloc]initWithDictionary:dic2 error:nil];
+                    [[TravelDatabaseSingleton shareDatabase]insertDatabase:tvModel];
+                    [weakSelf.dataArr addObject:tvModel];
+                }
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
                 NSString * msg = data[@"msgs"];
                 NSSLog(@"失败错误信息：%@",msg);
@@ -220,7 +217,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.tableView) {
         TravelCell * cell = [tableView dequeueReusableCellWithIdentifier:@"TravelCell"];
-        
+        cell.travelModel = self.dataArr[indexPath.row];
         return cell;
     }else{
         ClaimCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ClaimCell"];
@@ -230,10 +227,8 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView == self.tableView) {
-        return 10;
-//        return self.dataArr.count;
+        return self.dataArr.count;
     }else{
-//        return 3;
         return self.claimArr.count;
     }
     
@@ -277,5 +272,11 @@
         _applicationArr = [NSMutableArray new];
     }
     return _applicationArr;
+}
+-(NSMutableArray *)scrollArr{
+    if (!_scrollArr) {
+        _scrollArr = [NSMutableArray new];
+    }
+    return _scrollArr;
 }
 @end

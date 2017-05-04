@@ -44,7 +44,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="205" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="rdd-zN-2yz">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="205" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="rdd-zN-2yz">
                                 <rect key="frame" x="-4" y="64" width="383" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="CEB-UB-uj9">
@@ -293,20 +293,16 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner2" translatesAutoresizingMaskIntoConstraints="NO" id="UX7-tR-sKJ">
                                                     <rect key="frame" x="3" y="2.5" width="377" height="200"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="香港海洋公园两日一夜游" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUk-DK-mkG">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="香港海洋公园两日一夜游" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUk-DK-mkG">
                                                     <rect key="frame" x="66" y="84" width="250" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="250" id="TVb-Da-g0S"/>
+                                                        <constraint firstAttribute="width" priority="400" constant="250" id="TVb-Da-g0S"/>
                                                         <constraint firstAttribute="height" constant="21" id="qiW-qM-MyL"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9P-aP-mBF">
-                                                    <rect key="frame" x="3" y="2.5" width="377" height="200"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="statusDark" translatesAutoresizingMaskIntoConstraints="NO" id="COf-V6-4do">
                                                     <rect key="frame" x="3" y="15" width="70" height="28"/>
                                                     <constraints>
@@ -327,7 +323,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="香港" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHP-OH-maC">
                                                     <rect key="frame" x="177" y="120" width="29" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" priority="80" constant="40" id="cdx-mI-l5Y"/>
+                                                        <constraint firstAttribute="width" priority="150" constant="40" id="cdx-mI-l5Y"/>
                                                         <constraint firstAttribute="height" constant="15" id="x9y-CS-DvI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -365,6 +361,10 @@
                                                         <constraint firstAttribute="height" constant="1" id="HPo-vh-jKV"/>
                                                         <constraint firstAttribute="width" constant="42" id="OHg-UT-Gbq"/>
                                                     </constraints>
+                                                </view>
+                                                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v9P-aP-mBF">
+                                                    <rect key="frame" x="3" y="2.5" width="377" height="200"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                             <color key="backgroundColor" red="0.90588235294117647" green="0.91764705882352937" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
@@ -544,8 +544,8 @@
         <image name="banner2" width="375" height="200"/>
         <image name="claim" width="73" height="27"/>
         <image name="download" width="28" height="28"/>
-        <image name="firstNor" width="26" height="24"/>
-        <image name="firstSel" width="33" height="32"/>
+        <image name="firstNor" width="29" height="29"/>
+        <image name="firstSel" width="29" height="29"/>
         <image name="head" width="74" height="74"/>
         <image name="more" width="9" height="14"/>
         <image name="recommend" width="18" height="18"/>

@@ -43,7 +43,7 @@
     CIImage * outImage = [filter outputImage];
     //转换并生成指定大小二维码显示
     self.codeImageView.image =  [self createNonInterpolatedUIImageFormCIImage:outImage withSize:111];
-    NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"me.png"];
+    NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"code.png"];
     
     NSFileManager * file= [NSFileManager defaultManager];
     
@@ -110,6 +110,13 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
+                           //移除分享图片
+                           NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"code.png"];
+                           
+                           NSFileManager * file= [NSFileManager defaultManager];
+                           
+                           [file removeItemAtPath:path error:nil];
+
                            [weakSelf showMessage:@"分享成功"];
                                                      break;
                        }

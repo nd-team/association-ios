@@ -39,7 +39,7 @@
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists ClaimModel (id integer primary key autoincrement, claimNumberId text,nickname text,userPortraitUrl text,fullName text,numberId text,recommendId text,claimNickName text,claimFullName text)"]) {
+        if (![_database executeUpdate:@"create table if not exists ClaimModel (id integer primary key autoincrement, claimUsersId text,nickname text,userPortraitUrl text,fullName text,recommendId text,claimUsersName text)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -50,7 +50,7 @@
 -(void)insertDatabase:(ClaimModel *)model{
     
     
-    if (![_database executeUpdate:@"insert into ClaimModel (recommendId,nickname,userPortraitUrl,fullName,numberId,claimNumberId,claimNickName,claimFullName) values (?,?,?,?,?,?,?,?)",model.recommendId,model.nickname,model.userPortraitUrl,model.fullName,model.numberId,model.claimNumberId,model.claimNickName,model.claimFullName]) {
+    if (![_database executeUpdate:@"insert into ClaimModel (recommendId,nickname,userPortraitUrl,fullName,claimUsersId,claimUsersName) values (?,?,?,?,?,?)",model.recommendId,model.nickname,model.userPortraitUrl,model.fullName,model.claimUsersId,model.claimUsersName]) {
         
         NSSLog(@"插入失败");
     }
@@ -67,14 +67,12 @@
         
         ClaimModel * model = [ClaimModel new];
         
-        model.claimNumberId = [set stringForColumn:@"claimNumberId"];
+        model.claimUsersId = [set stringForColumn:@"claimUsersId"];
         model.nickname = [set stringForColumn:@"nickname"];
         model.userPortraitUrl = [set stringForColumn:@"userPortraitUrl"];
         model.fullName = [set stringForColumn:@"fullName"];
-        model.numberId = [set stringForColumn:@"numberId"];
         model.recommendId = [set stringForColumn:@"recommendId"];
-        model.claimNickName = [set stringForColumn:@"claimNickName"];
-        model.claimFullName = [set stringForColumn:@"claimFullName"];
+        model.claimUsersName = [set stringForColumn:@"claimUsersName"];
         [newArr addObject:model];
     }
     

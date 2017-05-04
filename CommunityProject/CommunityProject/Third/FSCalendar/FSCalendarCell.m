@@ -255,6 +255,7 @@
     
     _eventIndicator.numberOfEvents = self.numberOfEvents;
     _eventIndicator.color = self.colorsForEvents;
+    
 
 }
 
@@ -378,6 +379,7 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
 @property (weak, nonatomic) UIView *contentView;
 
 @property (strong, nonatomic) NSPointerArray *eventLayers;
+@property (assign, nonatomic) BOOL needsInvalidatingColor;
 
 @end
 
@@ -399,6 +401,8 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
             [self.contentView.layer addSublayer:layer];
             [self.eventLayers addPointer:(__bridge void * _Nullable)(layer)];
         }
+        
+        _needsInvalidatingColor = YES;
         
     }
     return self;
@@ -429,6 +433,25 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
                 }
             }
         }
+        
+        if (_needsInvalidatingColor) {
+            _needsInvalidatingColor = NO;
+            if ([_color isKindOfClass:[UIColor class]]) {
+                [self.eventLayers.allObjects makeObjectsPerformSelector:@selector(setBackgroundColor:) withObject:(id)[_color CGColor]];
+            } else if ([_color isKindOfClass:[NSArray class]]) {
+                NSArray *colors = (NSArray *)_color;
+                if (colors.count) {
+                    UIColor *lastColor = colors.firstObject;
+                    for (int i = 0; i < self.eventLayers.count; i++) {
+                        if (i < colors.count) {
+                            lastColor = colors[i];
+                        }
+                        CALayer *eventLayer = [self.eventLayers pointerAtIndex:i];
+                        eventLayer.backgroundColor = lastColor.CGColor;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -436,20 +459,8 @@ OFFSET_PROPERTY(preferredEventOffset, PreferredEventOffset, _appearance.eventOff
 {
     if (![_color isEqual:color]) {
         _color = color;
-        
-        if ([_color isKindOfClass:[UIColor class]]) {
-            for (NSInteger i = 0; i < self.eventLayers.count; i++) {
-                CALayer *layer = [self.eventLayers pointerAtIndex:i];
-                layer.backgroundColor = [_color CGColor];
-            }
-        } else if ([_color isKindOfClass:[NSArray class]]) {
-            NSArray<UIColor *> *colors = (NSArray *)_color;
-            for (int i = 0; i < self.eventLayers.count; i++) {
-                CALayer *eventLayer = [self.eventLayers pointerAtIndex:i];
-                eventLayer.backgroundColor = colors[MIN(i,colors.count-1)].CGColor;
-            }
-        }
-        
+        _needsInvalidatingColor = YES;
+        [self setNeedsLayout];
     }
 }
 

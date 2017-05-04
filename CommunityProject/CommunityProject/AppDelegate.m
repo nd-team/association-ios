@@ -83,7 +83,7 @@
     //会话列表头像globalConversationPortraitSize
     [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_RECTANGLE;
     //shareSDK  @(SSDKPlatformTypeRenren)
-    /*
+   
     [ShareSDK registerApp:@"1d7a4e9e033cd" activePlatforms:@[@(SSDKPlatformTypeSinaWeibo),
                                                 @(SSDKPlatformTypeMail),
                                                 @(SSDKPlatformTypeSMS),
@@ -141,7 +141,6 @@
                                                             break;
                                                     }
                                                 }];
-    */
     //设置当前用户
     [self netWork];
     [[UINavigationBar appearance]setShadowImage:[UIImage new]];//nagivationBar.png
@@ -167,9 +166,10 @@
     NSString * password = [DEFAULTS objectForKey:@"password"];
     NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
     NSString * userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
-//    NSFileManager * fileManager = [NSFileManager defaultManager];
-//    BOOL  isTruing = [fileManager fileExistsAtPath:[NSHomeDirectory() stringByAppendingString:@"file.txt"]];
-//    if (isTruing) {
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
+    BOOL  isTruing = [fileManager fileExistsAtPath:path];
+    if (isTruing) {
         if (token != nil && phone != nil && password != nil) {
             [self loginMain];
             //设置当前用户的用户信息
@@ -180,10 +180,12 @@
         }else{
             [self login];
         }
-//    }else{
-//        ViewController * vc = [ViewController new];
-//        self.window.rootViewController = vc;
-//    }
+    }else{
+        //创建文件
+        [fileManager createFileAtPath:path contents:nil attributes:nil];
+        ViewController * vc = [ViewController new];
+        self.window.rootViewController = vc;
+    }
 
    
 }

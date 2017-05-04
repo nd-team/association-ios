@@ -68,6 +68,12 @@
     NSFileManager * fileManager = [NSFileManager defaultManager];
     NSString * addressPath = [NSHomeDirectory()stringByAppendingString:@"/Documents"];
     [fileManager removeItemAtPath:addressPath error:nil];
+    //解决启动页问题
+    NSString *firstPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
+    
+    NSFileManager * file= [NSFileManager defaultManager];
+    //创建文件
+    [file createFileAtPath:firstPath contents:nil attributes:nil];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
     LoginController * login = [sb instantiateViewControllerWithIdentifier:@"LoginController"];
     [self presentViewController:login animated:YES completion:nil];

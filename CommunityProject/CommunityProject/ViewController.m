@@ -17,7 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-
+   
+    
     [self leadNewPage];
     
 
@@ -50,12 +51,10 @@
             [leadView addSubview:backImageView];
     
         }
-    
+
     UIButton * startButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    startButton.frame = CGRectMake(KMainScreenWidth*2+KMainScreenWidth/2-50, KMainScreenHeight-70, 100, 30);
-    [startButton setTitle:@"立即体验" forState:UIControlStateNormal];
-    startButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    [startButton setBackgroundImage:[UIImage imageNamed:@"experience"] forState:UIControlStateNormal];
+    startButton.frame = CGRectMake(KMainScreenWidth*2+KMainScreenWidth/2-61.5, KMainScreenHeight-70-35, 123, 35);
+    [startButton setBackgroundImage:[UIImage imageNamed:@"experience"] forState:UIControlStateNormal];    
     [startButton addTarget:self action:@selector(startButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [leadView addSubview:startButton];
     [self.view addSubview:leadView];
@@ -73,7 +72,7 @@
     UIPageControl * pageCon = [self.view viewWithTag:120];
     
     [pageCon removeFromSuperview];
-    
+
     [UIApplication sharedApplication].keyWindow.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
     
     
@@ -82,7 +81,7 @@
 -(void)showPageControl{
     
     
-    UIPageControl * pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, KMainScreenHeight-15, KMainScreenWidth, 20)];
+    UIPageControl * pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, KMainScreenHeight-40, KMainScreenWidth, 20)];
     
     pageControl.numberOfPages = 3;
     
