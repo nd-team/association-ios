@@ -2268,6 +2268,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = AllianceiOS20170502;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7";
+				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Debug;
 		};
@@ -2307,6 +2308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = AllianceiOS20170502;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "arm64 armv7";
+				WARNING_CFLAGS = "-Wno-documentation";
 			};
 			name = Release;
 		};

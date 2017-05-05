@@ -214,9 +214,6 @@
     self.homeCityTF.layer.borderWidth = 1;
     self.homeProTF.layer.borderWidth = 1;
     self.homeDisTF.layer.borderWidth = 1;
-    self.recomendBtn.layer.cornerRadius = 5;
-    self.recomendBtn.layer.masksToBounds = YES;
-    
     //手势回收键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(resign)];
     [self.view addGestureRecognizer:tap];
@@ -253,7 +250,7 @@
     if (!self.manBtn.selected && !self.famaleBtn.selected) {
         return;
     }
-    if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.livelyBtn.selected && !self.coolBtn.selected&&!self.honestBtn.selected && !self.cuteBtn.selected) {
+    if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
         return;
     }
     if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0 || self.relationshipTF.text.length == 0 || self.presiTF.text.length == 0) {
@@ -343,7 +340,7 @@
     [params setValue:self.presiTF.text forKey:@"creditScore"];
     
     [params setValue:self.birthday forKey:@"birthday"];
-    [params setValue:[NSString stringWithFormat:@"%@%@%@",self.homeProTF.text,self.homeCityTF.text,self.homeDisTF.text] forKey:@"homeplace"];
+    [params setValue:[NSString stringWithFormat:@"%@,%@,%@",self.homeProTF.text,self.homeCityTF.text,self.homeDisTF.text] forKey:@"homeplace"];
     //性格
     NSMutableString * character = [NSMutableString new];
     if (self.quiteBtn.selected) {
@@ -398,9 +395,9 @@
     
     [params setValue:self.motherNameTF.text forKey:@"motherName"];
     
-    [params setValue:@"" forKey:@"spouseName"];
-    [params setValue:@"" forKey:@"childrenName"];
-    [params setValue:@"" forKey:@"childrenSchool"];
+    [params setValue:self.wifeNameTF.text forKey:@"spouseName"];
+    [params setValue:self.childNameTF.text forKey:@"childrenName"];
+    [params setValue:self.childSchoolTF.text forKey:@"childrenSchool"];
 
     [params setValue:self.userId forKey:@"userId"];
     WeakSelf;

@@ -118,8 +118,8 @@
                                                                                        authType:SSDKAuthTypeBoth];
                                                             break;
                                                         case SSDKPlatformTypeWechat:
-                                                            [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885"
-                                                                                  appSecret:@"64020361b8ec4c99936c0e3999a9f249"];
+                                                            [appInfo SSDKSetupWeChatByAppId:@"wx99349512bda3fee4"
+                                                                                  appSecret:@"f3e9340c0e75f9d18bdf4e063191b4d0"];
                                                             break;
                                                         case SSDKPlatformTypeQQ:
                                                             [appInfo SSDKSetupQQByAppId:@"1106057589"
@@ -132,11 +132,11 @@
 //                                                                                         secretKey:@"f29df781abdd4f49beca5a2194676ca4"
 //                                                                                          authType:SSDKAuthTypeBoth];
 //                                                            break;
-//                                                        case SSDKPlatformTypeGooglePlus:
-//                                                            [appInfo SSDKSetupGooglePlusByClientID:@"232554794995.apps.googleusercontent.com"
-//                                                                                      clientSecret:@"PEdFgtrMw97aCvf0joQj7EMk"
-//                                                                                       redirectUri:@"http://localhost"];
-//                                                            break;
+                                                        case SSDKPlatformTypeGooglePlus:
+                                                            [appInfo SSDKSetupGooglePlusByClientID:@"232554794995.apps.googleusercontent.com"
+                                                                                      clientSecret:@"PEdFgtrMw97aCvf0joQj7EMk"
+                                                                                       redirectUri:@"http://localhost"];
+                                                            break;
                                                         default:
                                                             break;
                                                     }
@@ -461,7 +461,6 @@
         } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
             NSSLog(@"Token无效");
 //            [self showMessage:@"无法连接到服务器！"];
-//            [weakSelf loginMain];
             //重连token
             NSString * token = [DEFAULTS objectForKey:@"token"];
             [[RCIM sharedRCIM] connectWithToken:token

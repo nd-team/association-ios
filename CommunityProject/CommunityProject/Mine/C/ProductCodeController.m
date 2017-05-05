@@ -35,8 +35,8 @@
     CIFilter * filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     //滤镜默认属性
     [filter setDefaults];
-    //转换邀请码为图片
-    NSData * data = [self.code dataUsingEncoding:NSUTF8StringEncoding];
+    //转换APP的应用网址跳转商店为图片
+    NSData * data = [@"https://itunes.apple.com/app/id1232130045" dataUsingEncoding:NSUTF8StringEncoding];
     //设置滤镜输入数据
     [filter setValue:data forKey:@"inputMessage"];
     //获取滤镜输出数据
@@ -88,14 +88,13 @@
 }
 -(void)share{
     //分享还是发送短信  二进制流
-//    NSData *imageData = UIImageJPEGRepresentation(self.codeImageView.image, 0.5);
 //路径
     NSArray * imageArr = @[[UIImage imageWithContentsOfFile:[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"code.png"]]];
     //应用路径
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:self.code
+    [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"扫描二维码下载APP，用邀请码：%@注册应用",self.code]
                                      images:imageArr
-                                        url:[NSURL URLWithString:@""]
+                                        url:[NSURL URLWithString:@"https://itunes.apple.com/app/id1232130045"]
                                       title:@"注册邀请码"
                                        type:SSDKContentTypeAuto];
     //有的平台要客户端分享需要加此方法，例如微博

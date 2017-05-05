@@ -7,6 +7,8 @@
 //
 
 #import "LoginController.h"
+#import "ConfirmInfoController.h"
+
 #define LoginURL @"appapi/app/login"
 #define RegisterURL @"appapi/app/register"
 @interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>{
@@ -20,12 +22,12 @@
 @property (weak, nonatomic) IBOutlet UIView *registerView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTF;
 @property (weak, nonatomic) IBOutlet UITextField *secretTF;
+//注册
 @property (weak, nonatomic) IBOutlet UITextField *phoneTF;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTF;
 @property (weak, nonatomic) IBOutlet UITextField *nicknameTF;
 @property (weak, nonatomic) IBOutlet UITextField *codeTF;
 @property (weak, nonatomic) IBOutlet UILabel *msgLabel;
-//@property (nonatomic,assign)CGFloat height;
 @end
 
 @implementation LoginController
@@ -33,23 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
-    //监听键盘
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    
-
 }
-//-(void)keyboardWillShow:(NSNotification *)nofi{
-//    NSDictionary * userInfo = [nofi userInfo];
-//    NSValue * aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-//    CGRect keyRect = [aValue CGRectValue];
-//    NSSLog(@"%f",keyRect.size.height);
-//    self.height = keyRect.size.height;
-//    
-//   
-//}
-//-(void)dealloc{
-//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-//}
+
 -(void)setUI{
     self.msgLabel.hidden = YES;
     self.twoLine.hidden = YES;
@@ -87,7 +74,7 @@
         [self.usernameTF resignFirstResponder];
         [self.secretTF resignFirstResponder];
     }
-    self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
+    self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
 
     
 }
@@ -131,6 +118,8 @@
     self.registerView.hidden = YES;
     self.oneLine.hidden = NO;
     self.twoLine.hidden = YES;
+    [self.usernameTF becomeFirstResponder];
+    
 }
 - (IBAction)registerButtonClick:(id)sender {
     self.loginBtn.selected = NO;
@@ -139,6 +128,8 @@
     self.registerView.hidden = NO;
     self.oneLine.hidden = YES;
     self.twoLine.hidden = NO;
+    [self.phoneTF becomeFirstResponder];
+
 }
 -(void)registerMessage{
     WeakSelf;
@@ -152,7 +143,7 @@
             if ([code intValue] == 200) {
                 NSSLog(@"注册成功");
                //进入信息确认界面
-                
+                [weakSelf presentSureInfoUI:weakSelf.phoneTF.text andPassword:weakSelf.passwordTF.text];
             }else if ([code intValue] == 1000){
                 [weakSelf showMessage:@"邀请码填写失误了么！"];
             }else if ([code intValue] == 0){
@@ -160,6 +151,15 @@
             }
         }
     }];
+}
+-(void)presentSureInfoUI:(NSString *)phone andPassword:(NSString *)password{
+    //进入信息确认界面
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+    ConfirmInfoController * confirm = [sb instantiateViewControllerWithIdentifier:@"ConfirmInfoController"];
+    confirm.phone = phone;
+    confirm.password = password;
+    [self presentViewController:confirm animated:NO completion:nil];
+
 }
 //判断网络状态
 -(void)netWork:(BOOL)isLogin{
@@ -210,16 +210,10 @@
                 NSDictionary * msg = data[@"data"];
                 //保存用户数据
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-                //用户ID
-                [userDefaults setValue:msg[@"userId"] forKey:@"userId"];
-                //昵称
-                [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
                 //头像
                 NSString * url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
                 [userDefaults setValue:url forKey:@"userPortraitUrl"];
-                //token
-                [userDefaults setValue:msg[@"token"] forKey:@"token"];
-                [userDefaults setValue:self.secretTF.text forKey:@"password"];
+                [userDefaults setValue:weakSelf.secretTF.text forKey:@"password"];
                 //sex
                 NSNumber * sex = msg[@"sex"];
                 [userDefaults setInteger:[sex integerValue] forKey:@"sex"];
@@ -256,14 +250,30 @@
                 if (![msg[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"contributionScore"]] forKey:@"contributionScore"];
                 }
-                [userDefaults synchronize];
                 //设置当前用户
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
-                [weakSelf loginMain];
+                NSInteger status = [msg[@"status"] integerValue];
+                if (status == 0) {
+                    //信息未确认进入确认界面
+                    [weakSelf presentSureInfoUI:weakSelf.usernameTF.text andPassword:weakSelf.secretTF.text];
 
-                [weakSelf loginRongServicer:msg[@"token"]];
+                }else{
+                    //已确认登录
+                    //用户ID
+                    [userDefaults setValue:msg[@"userId"] forKey:@"userId"];
+                    //昵称
+                    [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
+                    //token
+                    [userDefaults setValue:msg[@"token"] forKey:@"token"];
+
+                    [weakSelf loginMain];
+                    [weakSelf loginRongServicer:msg[@"token"]];
+
+                }
+                [userDefaults synchronize];
+
 
                 
             }else if ([code intValue] == 0){
@@ -282,7 +292,6 @@
 }
 //登录融云服务器
 -(void)loginRongServicer:(NSString *)token{
-    WeakSelf;
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
         NSSLog(@"登录成功%@",userId);
         //登录主界面
@@ -292,7 +301,6 @@
         [[RCIM sharedRCIM]setConnectionStatusDelegate:self];
     } tokenIncorrect:^{
         NSSLog(@"token错误");
-        [weakSelf loginMain];
     }];
 }
 -(void)loginMain{
@@ -303,21 +311,17 @@
     });
 }
 - (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
-    WeakSelf;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (status == ConnectionStatus_Connected) {
             [RCIM sharedRCIM].connectionStatusDelegate = (id<RCIMConnectionStatusDelegate>)[UIApplication sharedApplication].delegate;
-            [weakSelf loginMain];
         } else if (status == ConnectionStatus_NETWORK_UNAVAILABLE) {
 //            [weakSelf showMessage:@"当前网络不可用，请检查！"];
-            [weakSelf loginMain];
 
         } else if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-            [weakSelf showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
+//            [weakSelf showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
         } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
             NSSLog(@"Token无效");
 //            [weakSelf showMessage:@"无法连接到服务器！"];
-            [weakSelf loginMain];
         } else {
             NSLog(@"RCConnectErrorCode is %zd", status);
         }
@@ -345,7 +349,7 @@
         }else {
             [self.usernameTF resignFirstResponder];
             [self.secretTF resignFirstResponder];
-            self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
+            self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
         }
     }else{
         if (textField == self.phoneTF) {
@@ -362,7 +366,7 @@
             [self.passwordTF resignFirstResponder];
             [self.nicknameTF resignFirstResponder];
             [self.codeTF resignFirstResponder];
-            self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
+            self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
 
         }
     }
@@ -370,9 +374,15 @@
     return YES;
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    CGFloat offset = self.registerView.frame.origin.y+textField.frame.origin.y+50-(KMainScreenHeight-216);
-    if (textField == self.passwordTF||textField == self.codeTF){
-        self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);
+    
+    CGFloat offset = self.registerView.frame.origin.y+textField.frame.origin.y+200-(KMainScreenHeight-216);
+    NSSLog(@"%f",offset);
+    //textField == self.passwordTF||textField == self.codeTF
+    if (offset>0){
+        WeakSelf;
+        [UIView animateWithDuration:0.5 animations:^{
+            weakSelf.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);
+        }];
     }
    
     return YES;

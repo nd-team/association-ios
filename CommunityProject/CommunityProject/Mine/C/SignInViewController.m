@@ -82,8 +82,6 @@
     self.calendarView.placeholderType = FSCalendarPlaceholderTypeNone;
     //设置月的高度
     self.calendarView.headerHeight = 52;
-//    self.signInBtn.layer.masksToBounds = YES;
-//    self.signInBtn.layer.cornerRadius = 5;
     [self.signInBtn setBackgroundImage:[UIImage imageNamed:@"signIn"] forState:UIControlStateNormal];
     [self.signInBtn setBackgroundImage:[UIImage imageNamed:@"disSignIn"] forState:UIControlStateDisabled];
     [self.signInBtn setTitle:@"签到" forState:UIControlStateNormal];
