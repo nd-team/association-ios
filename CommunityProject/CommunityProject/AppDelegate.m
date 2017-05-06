@@ -15,6 +15,7 @@
 #import "GroupDatabaseSingleton.h"
 #import "MemberListModel.h"
 #import "ViewController.h"
+//#import <IQKeyboardManager.h>
 
 //ShareSDK
 #import <ShareSDK/ShareSDK.h>
@@ -45,7 +46,12 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-
+    //键盘设置
+//    [IQKeyboardManager sharedManager].enable = YES;
+//    //手势收起键盘
+//    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside =YES;
+//    //隐藏toolBar
+//    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     //融云
     [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
     //应用的Scheme

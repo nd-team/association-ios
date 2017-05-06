@@ -402,74 +402,6 @@
             </objects>
             <point key="canvasLocation" x="933.60000000000002" y="95.802098950524751"/>
         </scene>
-        <!--Look Big Image Controller-->
-        <scene sceneID="htk-OF-D7W">
-            <objects>
-                <viewController storyboardIdentifier="LookBigImageController" id="bCf-8X-S3d" customClass="LookBigImageController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="G5b-17-ogX"/>
-                        <viewControllerLayoutGuide type="bottom" id="V1d-eF-eYT"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0bs-Ua-39v">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EyE-dS-hzZ">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w2Y-Q6-GlN">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="667"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="383" id="arp-z8-B0y"/>
-                                            <constraint firstAttribute="height" constant="667" id="oNm-hp-7UJ"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="w2Y-Q6-GlN" firstAttribute="top" secondItem="EyE-dS-hzZ" secondAttribute="top" id="8xb-kk-eKn"/>
-                                    <constraint firstItem="w2Y-Q6-GlN" firstAttribute="leading" secondItem="EyE-dS-hzZ" secondAttribute="leading" id="q03-ZS-FSt"/>
-                                    <constraint firstAttribute="trailing" secondItem="w2Y-Q6-GlN" secondAttribute="trailing" id="tHK-xG-TGc"/>
-                                    <constraint firstAttribute="bottom" secondItem="w2Y-Q6-GlN" secondAttribute="bottom" id="zT7-Gz-hig"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="bCf-8X-S3d" id="fvD-Eg-rIz"/>
-                                </connections>
-                            </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="A8z-5K-Ebz">
-                                <rect key="frame" x="137.5" y="647" width="100" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="2S8-yT-i8r"/>
-                                    <constraint firstAttribute="width" constant="100" id="GSM-1o-2oQ"/>
-                                </constraints>
-                                <color key="pageIndicatorTintColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="currentPageIndicatorTintColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="pageAction:" destination="bCf-8X-S3d" eventType="valueChanged" id="k2h-8m-Dos"/>
-                                </connections>
-                            </pageControl>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="V1d-eF-eYT" firstAttribute="top" secondItem="A8z-5K-Ebz" secondAttribute="bottom" id="7Jd-Zq-dDe"/>
-                            <constraint firstAttribute="bottom" secondItem="EyE-dS-hzZ" secondAttribute="bottom" id="DB6-dS-kmV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="EyE-dS-hzZ" secondAttribute="trailing" constant="-20" id="JxI-tU-24Y"/>
-                            <constraint firstItem="A8z-5K-Ebz" firstAttribute="centerX" secondItem="0bs-Ua-39v" secondAttribute="centerX" id="TKR-mN-SaI"/>
-                            <constraint firstItem="EyE-dS-hzZ" firstAttribute="leading" secondItem="0bs-Ua-39v" secondAttribute="leadingMargin" constant="-20" id="kDZ-MV-BBr"/>
-                            <constraint firstItem="EyE-dS-hzZ" firstAttribute="top" secondItem="0bs-Ua-39v" secondAttribute="top" id="wnS-fw-i96"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="pageCon" destination="A8z-5K-Ebz" id="SVk-FS-VCm"/>
-                        <outlet property="scrollView" destination="EyE-dS-hzZ" id="Top-1n-ZSF"/>
-                        <outlet property="viewWidthCons" destination="arp-z8-B0y" id="Qz9-go-q43"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="k3n-wA-tHs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1672.8" y="91.304347826086968"/>
-        </scene>
         <!--Circle Message Controller-->
         <scene sceneID="dzN-jG-A0P">
             <objects>
@@ -582,7 +514,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GVc-wz-8lA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2356" y="91"/>
+            <point key="canvasLocation" x="1636" y="97"/>
         </scene>
     </scenes>
     <resources>

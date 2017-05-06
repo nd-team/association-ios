@@ -8,8 +8,8 @@
 
 #import "CircleCell.h"
 #import "CircleImageCell.h"
-#import "LookBigImageController.h"
 #import "CircleCommentController.h"
+#import "MJPhotoBrowser.h"
 
 @implementation CircleCell
 
@@ -101,18 +101,27 @@
     return CGSizeMake((KMainScreenWidth-73)/3, 103);
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    //看大图
-    
-    
-/*
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
-    LookBigImageController * look = [sb instantiateViewControllerWithIdentifier:@"LookBigImageController"];
-    look.imageArr = _circleModel.images;
-    look.count = indexPath.row+1;
-    NSSLog(@"%ld",indexPath.row+1);
+    CircleImageCell * cell = (CircleImageCell *) [collectionView cellForItemAtIndexPath:indexPath];
 
-    self.pushBlock(look);
-  */
+    //看大图
+    MJPhotoBrowser *brower = [[MJPhotoBrowser alloc] init];
+    //2.告诉图片浏览器显示所有的图片
+    NSMutableArray *photos = [NSMutableArray array];
+    for (int i = 0 ; i < _circleModel.images.count; i++) {
+        //传递数据给浏览器
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_circleModel.images[i]]]];
+        photo.srcImageView = cell.headImageView; //设置来源哪一个UIImageView
+        [photos addObject:photo];
+    }
+    brower.photos = photos;
+    
+    //3.设置默认显示的图片索引
+    brower.currentPhotoIndex = indexPath.row;
+    
+    //4.显示浏览器
+    [brower show];
+
     
 }
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{

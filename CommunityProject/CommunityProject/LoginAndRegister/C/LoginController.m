@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *oneLine;
 @property (weak, nonatomic) IBOutlet UIImageView *twoLine;
 @property (weak, nonatomic) IBOutlet UIView *loginView;
-@property (weak, nonatomic) IBOutlet UIView *registerView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTF;
 @property (weak, nonatomic) IBOutlet UITextField *secretTF;
 //注册
@@ -28,6 +27,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *nicknameTF;
 @property (weak, nonatomic) IBOutlet UITextField *codeTF;
 @property (weak, nonatomic) IBOutlet UILabel *msgLabel;
+@property (nonatomic,assign)BOOL isHidden;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topCons;
+
 @end
 
 @implementation LoginController
@@ -40,7 +42,6 @@
 -(void)setUI{
     self.msgLabel.hidden = YES;
     self.twoLine.hidden = YES;
-    self.registerView.hidden = YES;
     [self.loginBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
     [self.loginBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateSelected];
     [self.registerBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
@@ -65,16 +66,13 @@
     [self.view addGestureRecognizer:tap];
 }
 -(void)tapClick{
-    if (self.loginView.hidden) {
         [self.phoneTF resignFirstResponder];
         [self.passwordTF resignFirstResponder];
         [self.nicknameTF resignFirstResponder];
         [self.codeTF resignFirstResponder];
-    }else{
         [self.usernameTF resignFirstResponder];
         [self.secretTF resignFirstResponder];
-    }
-    self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
+        self.topCons.constant = 0;
 
     
 }
@@ -112,20 +110,21 @@
 }
 //上面的登录和注册
 - (IBAction)loginButtonClick:(id)sender {
+    self.topCons.constant = 0;
+    self.isHidden = NO;
     self.loginBtn.selected = YES;
     self.registerBtn.selected = NO;
     self.loginView.hidden = NO;
-    self.registerView.hidden = YES;
     self.oneLine.hidden = NO;
     self.twoLine.hidden = YES;
     [self.usernameTF becomeFirstResponder];
     
 }
 - (IBAction)registerButtonClick:(id)sender {
+    self.isHidden = YES;
     self.loginBtn.selected = NO;
     self.registerBtn.selected = YES;
     self.loginView.hidden = YES;
-    self.registerView.hidden = NO;
     self.oneLine.hidden = YES;
     self.twoLine.hidden = NO;
     [self.phoneTF becomeFirstResponder];
@@ -342,14 +341,13 @@
     
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if (!self.loginView.hidden) {
+    if (!self.isHidden) {
         if (textField == self.usernameTF) {
             [self.usernameTF resignFirstResponder];
             [self.secretTF becomeFirstResponder];
         }else {
             [self.usernameTF resignFirstResponder];
             [self.secretTF resignFirstResponder];
-            self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
         }
     }else{
         if (textField == self.phoneTF) {
@@ -366,25 +364,26 @@
             [self.passwordTF resignFirstResponder];
             [self.nicknameTF resignFirstResponder];
             [self.codeTF resignFirstResponder];
-            self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
-
+            self.topCons.constant = 0;
         }
     }
    
     return YES;
 }
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
     
-    CGFloat offset = self.registerView.frame.origin.y+textField.frame.origin.y+200-(KMainScreenHeight-216);
-    NSSLog(@"%f",offset);
-    //textField == self.passwordTF||textField == self.codeTF
+    CGFloat offset = textField.frame.origin.y+120-(KMainScreenHeight-216);
     if (offset>0){
         WeakSelf;
-        [UIView animateWithDuration:0.5 animations:^{
-            weakSelf.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);
+        [UIView animateWithDuration:0.2 animations:^{
+            weakSelf.topCons.constant = -offset;
+        }];
+    }else{
+        WeakSelf;
+        [UIView animateWithDuration:0.2 animations:^{
+            weakSelf.topCons.constant = 0;
         }];
     }
-   
-    return YES;
+
 }
 @end

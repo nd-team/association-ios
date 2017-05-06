@@ -225,6 +225,16 @@
 		458959D61EBB150400CBADDD /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959C41EBB150400CBADDD /* FSCalendarTransitionCoordinator.m */; };
 		458959D71EBB150400CBADDD /* FSCalendarWeekdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959C61EBB150400CBADDD /* FSCalendarWeekdayView.m */; };
 		458959D81EBB150400CBADDD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 458959C71EBB150400CBADDD /* Info.plist */; };
+		458959F31EBDBF1A00CBADDD /* MBProgressHUD+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959E11EBDBF1A00CBADDD /* MBProgressHUD+Add.m */; };
+		458959F41EBDBF1A00CBADDD /* MJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959E31EBDBF1A00CBADDD /* MJPhoto.m */; };
+		458959F51EBDBF1A00CBADDD /* MJPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 458959E41EBDBF1A00CBADDD /* MJPhotoBrowser.bundle */; };
+		458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959E61EBDBF1A00CBADDD /* MJPhotoBrowser.m */; };
+		458959F71EBDBF1A00CBADDD /* MJPhotoLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959E81EBDBF1A00CBADDD /* MJPhotoLoadingView.m */; };
+		458959F81EBDBF1A00CBADDD /* MJPhotoProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959EA1EBDBF1A00CBADDD /* MJPhotoProgressView.m */; };
+		458959F91EBDBF1A00CBADDD /* MJPhotoToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959EC1EBDBF1A00CBADDD /* MJPhotoToolbar.m */; };
+		458959FA1EBDBF1A00CBADDD /* MJPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959EE1EBDBF1A00CBADDD /* MJPhotoView.m */; };
+		458959FB1EBDBF1A00CBADDD /* SDWebImageManager+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959F01EBDBF1A00CBADDD /* SDWebImageManager+MJ.m */; };
+		458959FC1EBDBF1A00CBADDD /* UIImageView+MJWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959F21EBDBF1A00CBADDD /* UIImageView+MJWebCache.m */; };
 		458DD51A1E8A46DA00650F2E /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD5191E8A46DA00650F2E /* MessageCell.m */; };
 		458DD51D1E8A488D00650F2E /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD51C1E8A488D00650F2E /* MessageViewController.m */; };
 		458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD51F1E8A4D9A00650F2E /* ApplicationFriendsModel.m */; };
@@ -236,7 +246,6 @@
 		459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */; };
 		459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CE1EA6F90300E5A331 /* CircleMessageCell.m */; };
 		459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84D11EA8444500E5A331 /* CircleUnreadMessageModel.m */; };
-		459E85091EA9F1B700E5A331 /* LookBigImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E85081EA9F1B700E5A331 /* LookBigImageController.m */; };
 		459E85311EAA038B00E5A331 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 459E85301EAA038B00E5A331 /* CoreFoundation.framework */; };
 		459E85331EAA03AE00E5A331 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 459E85321EAA03AE00E5A331 /* MobileCoreServices.framework */; };
 		45A080C81E88C41100514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080C71E88C41100514FFC /* AddFriendController.m */; };
@@ -248,9 +257,6 @@
 		45AA3DDB1EB421DC007F02E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DDA1EB421DC007F02E5 /* ViewController.m */; };
 		45AA3DDE1EB4701A007F02E5 /* ProductCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DDD1EB4701A007F02E5 /* ProductCodeController.m */; };
 		45AA3DE01EB47179007F02E5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AA3DDF1EB47179007F02E5 /* CoreImage.framework */; };
-		45B977071EADEB9D00A42D55 /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */; };
-		45B977081EADEB9D00A42D55 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977031EADEB9D00A42D55 /* SDPhotoBrowser.m */; };
-		45B977091EADEB9D00A42D55 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977061EADEB9D00A42D55 /* SDWaitingView.m */; };
 		45B9770C1EAEDE6700A42D55 /* MyCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9770B1EAEDE6700A42D55 /* MyCardController.m */; };
 		45B9770F1EAEE86E00A42D55 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9770E1EAEE86E00A42D55 /* SettingViewController.m */; };
 		45B977121EAF519600A42D55 /* MyPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977111EAF519600A42D55 /* MyPeopleCell.m */; };
@@ -365,7 +371,6 @@
 		455C6B341EA5BF1D00E0B3F3 /* CircleCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCommentController.m; sourceTree = "<group>"; };
 		455C6B361EA5C5CD00E0B3F3 /* CircleCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCommentModel.h; sourceTree = "<group>"; };
 		455C6B371EA5C5CD00E0B3F3 /* CircleCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCommentModel.m; sourceTree = "<group>"; };
-		455C6B391EA5E89800E0B3F3 /* LookBigImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookBigImageController.h; sourceTree = "<group>"; };
 		455FA1621E7A660F00C85AE7 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
 		455FA1631E7A660F00C85AE7 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		455FA1651E7A831000C85AE7 /* ClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCell.h; sourceTree = "<group>"; };
@@ -637,6 +642,25 @@
 		458959C51EBB150400CBADDD /* FSCalendarWeekdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarWeekdayView.h; sourceTree = "<group>"; };
 		458959C61EBB150400CBADDD /* FSCalendarWeekdayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarWeekdayView.m; sourceTree = "<group>"; };
 		458959C71EBB150400CBADDD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		458959E01EBDBF1A00CBADDD /* MBProgressHUD+Add.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Add.h"; sourceTree = "<group>"; };
+		458959E11EBDBF1A00CBADDD /* MBProgressHUD+Add.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Add.m"; sourceTree = "<group>"; };
+		458959E21EBDBF1A00CBADDD /* MJPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhoto.h; sourceTree = "<group>"; };
+		458959E31EBDBF1A00CBADDD /* MJPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhoto.m; sourceTree = "<group>"; };
+		458959E41EBDBF1A00CBADDD /* MJPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJPhotoBrowser.bundle; sourceTree = "<group>"; };
+		458959E51EBDBF1A00CBADDD /* MJPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoBrowser.h; sourceTree = "<group>"; };
+		458959E61EBDBF1A00CBADDD /* MJPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoBrowser.m; sourceTree = "<group>"; };
+		458959E71EBDBF1A00CBADDD /* MJPhotoLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoLoadingView.h; sourceTree = "<group>"; };
+		458959E81EBDBF1A00CBADDD /* MJPhotoLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoLoadingView.m; sourceTree = "<group>"; };
+		458959E91EBDBF1A00CBADDD /* MJPhotoProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoProgressView.h; sourceTree = "<group>"; };
+		458959EA1EBDBF1A00CBADDD /* MJPhotoProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoProgressView.m; sourceTree = "<group>"; };
+		458959EB1EBDBF1A00CBADDD /* MJPhotoToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoToolbar.h; sourceTree = "<group>"; };
+		458959EC1EBDBF1A00CBADDD /* MJPhotoToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoToolbar.m; sourceTree = "<group>"; };
+		458959ED1EBDBF1A00CBADDD /* MJPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPhotoView.h; sourceTree = "<group>"; };
+		458959EE1EBDBF1A00CBADDD /* MJPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPhotoView.m; sourceTree = "<group>"; };
+		458959EF1EBDBF1A00CBADDD /* SDWebImageManager+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDWebImageManager+MJ.h"; sourceTree = "<group>"; };
+		458959F01EBDBF1A00CBADDD /* SDWebImageManager+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDWebImageManager+MJ.m"; sourceTree = "<group>"; };
+		458959F11EBDBF1A00CBADDD /* UIImageView+MJWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MJWebCache.h"; sourceTree = "<group>"; };
+		458959F21EBDBF1A00CBADDD /* UIImageView+MJWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MJWebCache.m"; sourceTree = "<group>"; };
 		458DD5181E8A46DA00650F2E /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
 		458DD5191E8A46DA00650F2E /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
 		458DD51B1E8A488D00650F2E /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
@@ -659,7 +683,6 @@
 		459E84CE1EA6F90300E5A331 /* CircleMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMessageCell.m; sourceTree = "<group>"; };
 		459E84D01EA8444500E5A331 /* CircleUnreadMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleUnreadMessageModel.h; sourceTree = "<group>"; };
 		459E84D11EA8444500E5A331 /* CircleUnreadMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleUnreadMessageModel.m; sourceTree = "<group>"; };
-		459E85081EA9F1B700E5A331 /* LookBigImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookBigImageController.m; sourceTree = "<group>"; };
 		459E85301EAA038B00E5A331 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		459E85321EAA03AE00E5A331 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		45A080C61E88C41100514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
@@ -679,13 +702,6 @@
 		45AA3DDC1EB4701A007F02E5 /* ProductCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCodeController.h; sourceTree = "<group>"; };
 		45AA3DDD1EB4701A007F02E5 /* ProductCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCodeController.m; sourceTree = "<group>"; };
 		45AA3DDF1EB47179007F02E5 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
-		45B977001EADEB9D00A42D55 /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
-		45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
-		45B977021EADEB9D00A42D55 /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
-		45B977031EADEB9D00A42D55 /* SDPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPhotoBrowser.m; sourceTree = "<group>"; };
-		45B977041EADEB9D00A42D55 /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
-		45B977051EADEB9D00A42D55 /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
-		45B977061EADEB9D00A42D55 /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
 		45B9770A1EAEDE6700A42D55 /* MyCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCardController.h; sourceTree = "<group>"; };
 		45B9770B1EAEDE6700A42D55 /* MyCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCardController.m; sourceTree = "<group>"; };
 		45B9770D1EAEE86E00A42D55 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -1181,6 +1197,7 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				458959DF1EBDBF1A00CBADDD /* MJPhotoBrowser */,
 				458959A61EBB150400CBADDD /* FSCalendar */,
 				4589591D1EB825D900CBADDD /* ShareSDK */,
 				4573CC131E9482920047D1F4 /* BMChineseSort.h */,
@@ -1213,7 +1230,6 @@
 				45D1102C1E8538C0009F2C4E /* RealTimeLocationStartCell.m */,
 				45D110281E8538A6009F2C4E /* RealTimeLocationEndCell.h */,
 				45D110291E8538A6009F2C4E /* RealTimeLocationEndCell.m */,
-				45B976FF1EADEB9D00A42D55 /* SDPhotoBrowser */,
 				456CCE401E827CD7005EC051 /* Rong_Cloud_iOS_IMKit_SDK_v2_8_8_Stable_e1260 */,
 			);
 			path = Third;
@@ -1397,8 +1413,6 @@
 				455C6B1F1EA1EDD200E0B3F3 /* CircleOfListController.m */,
 				455C6B331EA5BF1D00E0B3F3 /* CircleCommentController.h */,
 				455C6B341EA5BF1D00E0B3F3 /* CircleCommentController.m */,
-				455C6B391EA5E89800E0B3F3 /* LookBigImageController.h */,
-				459E85081EA9F1B700E5A331 /* LookBigImageController.m */,
 				459E84CA1EA6F8DF00E5A331 /* CircleMessageController.h */,
 				459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */,
 			);
@@ -1704,18 +1718,30 @@
 			path = FSCalendar;
 			sourceTree = "<group>";
 		};
-		45B976FF1EADEB9D00A42D55 /* SDPhotoBrowser */ = {
+		458959DF1EBDBF1A00CBADDD /* MJPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				45B977001EADEB9D00A42D55 /* SDBrowserImageView.h */,
-				45B977011EADEB9D00A42D55 /* SDBrowserImageView.m */,
-				45B977021EADEB9D00A42D55 /* SDPhotoBrowser.h */,
-				45B977031EADEB9D00A42D55 /* SDPhotoBrowser.m */,
-				45B977041EADEB9D00A42D55 /* SDPhotoBrowserConfig.h */,
-				45B977051EADEB9D00A42D55 /* SDWaitingView.h */,
-				45B977061EADEB9D00A42D55 /* SDWaitingView.m */,
+				458959E01EBDBF1A00CBADDD /* MBProgressHUD+Add.h */,
+				458959E11EBDBF1A00CBADDD /* MBProgressHUD+Add.m */,
+				458959E21EBDBF1A00CBADDD /* MJPhoto.h */,
+				458959E31EBDBF1A00CBADDD /* MJPhoto.m */,
+				458959E41EBDBF1A00CBADDD /* MJPhotoBrowser.bundle */,
+				458959E51EBDBF1A00CBADDD /* MJPhotoBrowser.h */,
+				458959E61EBDBF1A00CBADDD /* MJPhotoBrowser.m */,
+				458959E71EBDBF1A00CBADDD /* MJPhotoLoadingView.h */,
+				458959E81EBDBF1A00CBADDD /* MJPhotoLoadingView.m */,
+				458959E91EBDBF1A00CBADDD /* MJPhotoProgressView.h */,
+				458959EA1EBDBF1A00CBADDD /* MJPhotoProgressView.m */,
+				458959EB1EBDBF1A00CBADDD /* MJPhotoToolbar.h */,
+				458959EC1EBDBF1A00CBADDD /* MJPhotoToolbar.m */,
+				458959ED1EBDBF1A00CBADDD /* MJPhotoView.h */,
+				458959EE1EBDBF1A00CBADDD /* MJPhotoView.m */,
+				458959EF1EBDBF1A00CBADDD /* SDWebImageManager+MJ.h */,
+				458959F01EBDBF1A00CBADDD /* SDWebImageManager+MJ.m */,
+				458959F11EBDBF1A00CBADDD /* UIImageView+MJWebCache.h */,
+				458959F21EBDBF1A00CBADDD /* UIImageView+MJWebCache.m */,
 			);
-			path = SDPhotoBrowser;
+			path = MJPhotoBrowser;
 			sourceTree = "<group>";
 		};
 		55BFAB6FB609C76103B710A7 /* Frameworks */ = {
@@ -1868,6 +1894,7 @@
 				4562D7331E7F6E2700C6EE56 /* Group.storyboard in Resources */,
 				455C6B251EA1FDB900E0B3F3 /* CircleImageCell.xib in Resources */,
 				455FA3481E7694020039B155 /* Mine.storyboard in Resources */,
+				458959F51EBDBF1A00CBADDD /* MJPhotoBrowser.bundle in Resources */,
 				455FA31B1E7631A90039B155 /* Assets.xcassets in Resources */,
 				4589595C1EB825D900CBADDD /* WeiboSDK.bundle in Resources */,
 				456CCE641E827CD8005EC051 /* RongCloudKit.strings in Resources */,
@@ -1931,6 +1958,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				458959F91EBDBF1A00CBADDD /* MJPhotoToolbar.m in Sources */,
 				4562D7511E7FBD3A00C6EE56 /* UploadImageModel.m in Sources */,
 				458959D01EBB150400CBADDD /* FSCalendarDelegationFactory.m in Sources */,
 				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
@@ -1943,11 +1971,14 @@
 				458959CC1EBB150400CBADDD /* FSCalendarCell.m in Sources */,
 				45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
+				458959F41EBDBF1A00CBADDD /* MJPhoto.m in Sources */,
+				458959F81EBDBF1A00CBADDD /* MJPhotoProgressView.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
 				4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */,
 				45B977121EAF519600A42D55 /* MyPeopleCell.m in Sources */,
 				45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */,
 				455C6B281EA209E700E0B3F3 /* CircleListModel.m in Sources */,
+				458959F31EBDBF1A00CBADDD /* MBProgressHUD+Add.m in Sources */,
 				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
@@ -1962,11 +1993,11 @@
 				455C6B0B1EA076C000E0B3F3 /* InterestModel.m in Sources */,
 				458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
+				458959FB1EBDBF1A00CBADDD /* SDWebImageManager+MJ.m in Sources */,
 				458959CE1EBB150400CBADDD /* FSCalendarCollectionViewLayout.m in Sources */,
 				45A080C81E88C41100514FFC /* AddFriendController.m in Sources */,
 				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
-				45B977071EADEB9D00A42D55 /* SDBrowserImageView.m in Sources */,
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
 				459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */,
 				4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */,
@@ -1981,7 +2012,6 @@
 				45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */,
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
-				45B977091EADEB9D00A42D55 /* SDWaitingView.m in Sources */,
 				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
 				452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */,
 				458959D41EBB150400CBADDD /* FSCalendarScopeHandle.m in Sources */,
@@ -1992,6 +2022,7 @@
 				455C6B351EA5BF1D00E0B3F3 /* CircleCommentController.m in Sources */,
 				4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */,
 				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
+				458959F71EBDBF1A00CBADDD /* MJPhotoLoadingView.m in Sources */,
 				4562D7311E7F6DFC00C6EE56 /* GroupActivityListController.m in Sources */,
 				45D110331E85390D009F2C4E /* RealTimeLocationStatusView.m in Sources */,
 				450A50FD1E8648D300433A61 /* SetPersonController.m in Sources */,
@@ -2006,7 +2037,6 @@
 				452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */,
 				4556F0C51E85116B00E1E2FE /* MyLocationViewController.m in Sources */,
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
-				45B977081EADEB9D00A42D55 /* SDPhotoBrowser.m in Sources */,
 				450A50E11E853BA800433A61 /* RCAnnotationView.m in Sources */,
 				4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */,
 				457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */,
@@ -2014,11 +2044,13 @@
 				455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */,
 				457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */,
 				459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */,
+				458959FA1EBDBF1A00CBADDD /* MJPhotoView.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
 				45B977271EB08A9300A42D55 /* PersonBaseInfoController.m in Sources */,
 				458959D21EBB150400CBADDD /* FSCalendarExtensions.m in Sources */,
 				459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */,
+				458959FC1EBDBF1A00CBADDD /* UIImageView+MJWebCache.m in Sources */,
 				455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */,
 				4557CB7E1E7BBD2600F22E70 /* DataSource.m in Sources */,
 				455C6B201EA1EDD200E0B3F3 /* CircleOfListController.m in Sources */,
@@ -2041,6 +2073,7 @@
 				458959CD1EBB150400CBADDD /* FSCalendarCollectionView.m in Sources */,
 				458959CA1EBB150400CBADDD /* FSCalendarAppearance.m in Sources */,
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
+				458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */,
 				45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */,
 				455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */,
 				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
@@ -2054,7 +2087,6 @@
 				457781D71E9F7C6D0004BBE7 /* InterestCell.m in Sources */,
 				45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */,
 				45AA3DD81EB32B78007F02E5 /* RecommendController.m in Sources */,
-				459E85091EA9F1B700E5A331 /* LookBigImageController.m in Sources */,
 				450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */,
 				4589599D1EB9779500CBADDD /* SignInViewController.m in Sources */,
 				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,

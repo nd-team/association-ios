@@ -10,7 +10,7 @@
 #import "CircleCommentCell.h"
 #import "CircleCommentModel.h"
 #import "CircleImageCell.h"
-#import "LookBigImageController.h"
+#import "MJPhotoBrowser.h"
 
 
 #define CommentURL @"appapi/app/selectArticleComment"
@@ -272,10 +272,6 @@
         [weakSelf.params setValue:weakSelf.userId forKey:@"userId"];
         [weakSelf.params setValue:@"2" forKey:@"type"];
     };
-//    cell.refreshBlock = ^(void){
-//        
-//        [weakSelf.tableView reloadData];
-//    };
     
     return cell;
     
@@ -300,16 +296,27 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //看大图
-    /*
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
-    LookBigImageController * look = [sb instantiateViewControllerWithIdentifier:@"LookBigImageController"];
-    look.imageArr = self.collectionArr;
-    look.count = indexPath.row+1;
-    look.smallImg = self.imgArr;
-    NSSLog(@"%ld",indexPath.row+1);
-    [self.navigationController pushViewController:look animated:YES];
-     */
+    CircleImageCell * cell = (CircleImageCell *) [collectionView cellForItemAtIndexPath:indexPath];
+
+    MJPhotoBrowser *brower = [[MJPhotoBrowser alloc] init];
     
+    //2.告诉图片浏览器显示所有的图片
+    NSMutableArray *photos = [NSMutableArray array];
+    for (int i = 0 ; i < self.collectionArr.count; i++) {
+        //传递数据给浏览器
+        MJPhoto *photo = [[MJPhoto alloc] init];
+        photo.url = [NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.collectionArr[i]]]];
+        photo.srcImageView = cell.headImageView; //设置来源哪一个UIImageView
+        [photos addObject:photo];
+    }
+    brower.photos = photos;
+    
+    //3.设置默认显示的图片索引
+    brower.currentPhotoIndex = indexPath.row;
+    
+    //4.显示浏览器
+    [brower show];
+
 }
 //原文的评论
 - (IBAction)judgeClick:(id)sender {

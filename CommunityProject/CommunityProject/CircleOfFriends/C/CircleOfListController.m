@@ -82,6 +82,7 @@
         weakSelf.page ++;
         [weakSelf getList];
     }];
+    self.tableView.mj_footer.automaticallyHidden = YES;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakSelf.page = 1;
         [weakSelf getList];
