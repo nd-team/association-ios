@@ -311,7 +311,7 @@
 #pragma mark- 解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.widthContraints.constant = KMainScreenWidth+5;
+    self.widthContraints.constant = KMainScreenWidth;
      NSInteger width = self.dataArr.count*70;
      int count = width/KMainScreenWidth;
      NSInteger remainder = width%(NSInteger)KMainScreenWidth;

@@ -10,4 +10,12 @@
 
 @interface PersonMoreInfoController : UIViewController
 
+//是否是当前用户
+@property (nonatomic,assign)BOOL isCurrent;
+
+@property (nonatomic,copy)NSString * friendId;
+
+@property (nonatomic,copy)NSString * name;
+
+
 @end

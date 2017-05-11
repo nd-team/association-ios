@@ -36,7 +36,7 @@
     CircleCommentCell * cell = (CircleCommentCell *)[[button superview]superview];
     NSIndexPath * indexPath = [self.tbView indexPathForCell:cell];
     CircleCommentModel * model = self.baseArr[indexPath.row];
-    self.block([NSString stringWithFormat:@"%ld",model.id],model.nickname);
+    self.block([NSString stringWithFormat:@"%ld",(long)model.id],model.nickname);
 
 }
 -(void)setCommentModel:(CircleCommentModel *)commentModel{
@@ -102,7 +102,7 @@
     if ([model.userId isEqualToString:userId]) {
         self.block(model.fromId,model.fromNickname);
     }else{
-        self.block([NSString stringWithFormat:@"%ld",model.id],model.nickname);
+        self.block([NSString stringWithFormat:@"%ld",(long)model.id],model.nickname);
   
     }
 }

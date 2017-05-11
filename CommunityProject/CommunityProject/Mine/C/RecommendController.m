@@ -101,6 +101,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *childSchoolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *childScLabel;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @property (nonatomic,copy)NSString * userId;
 //生日
 @property (nonatomic,copy)NSString * birthday;
@@ -163,6 +165,9 @@
     self.childSchoolLabel.hidden = isHidden;
     self.childScLabel.hidden = isHidden;
     self.lineOneView.hidden = isHidden;
+    self.wifeNameTF.hidden = isHidden;
+    self.childNameTF.hidden = isHidden;
+    self.childSchoolTF.hidden = isHidden;
     if (isHidden) {
         self.viewHeightCons.constant = 1050;
     }else{
@@ -566,8 +571,12 @@
         [self.fatherNameTF resignFirstResponder];
         [self.motherNameTF becomeFirstResponder];
     }else if (textField == self.motherNameTF){
-        [self.motherNameTF resignFirstResponder];
-        [self.wifeNameTF becomeFirstResponder];
+        if (self.marryHeightCons.constant == 0) {
+            [self resign];
+        }else{
+            [self.motherNameTF resignFirstResponder];
+            [self.wifeNameTF becomeFirstResponder];
+        }
         
     }else if (textField == self.wifeNameTF){
         [self.wifeNameTF resignFirstResponder];
@@ -584,16 +593,16 @@
     return YES;
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
-    if (textField == self.companyTF||textField == self.schoolTF||textField == self.fatherNameTF||textField == self.motherNameTF){
+    if (textField == self.fatherNameTF||textField == self.motherNameTF){
         self.bottomView.hidden = YES;
-        self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);
+        CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
+        self.view.frame = CGRectMake(0, -offset-64, KMainScreenWidth, KMainScreenHeight+offset+64);
         return YES;
         
     }else if (textField == self.wifeNameTF||textField == self.childNameTF||textField == self.childSchoolTF){
         self.bottomView.hidden = YES;
         CGFloat offset1 = self.marryView.frame.origin.y+textField.frame.origin.y+50-(KMainScreenHeight-216);
-        self.view.frame = CGRectMake(0, -offset1, KMainScreenWidth, KMainScreenHeight);
+        self.view.frame = CGRectMake(0, -offset1-64, KMainScreenWidth, KMainScreenHeight+offset1+64);
         return YES;
         
     }

@@ -161,7 +161,7 @@
     NSMutableDictionary * params = [NSMutableDictionary new];
     [params setValue:self.nicknameLabel.text forKey:@"nickname"];
     [params setValue:userID forKey:@"userId"];
-    NSString * status = [NSString stringWithFormat:@"%ld",self.sexInt];
+    NSString * status = [NSString stringWithFormat:@"%ld",(long)self.sexInt];
     [params setValue:status forKey:@"sex"];
     [params setValue:self.emailTF.text forKey:@"email"];
     [params setValue:self.phoneTF.text forKey:@"mobile"];
@@ -234,6 +234,8 @@
 - (IBAction)moreClick:(id)sender {
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
     PersonMoreInfoController * person = [sb instantiateViewControllerWithIdentifier:@"PersonMoreInfoController"];
+    person.isCurrent = YES;
+    person.name = @"个人信息";
     [self.navigationController pushViewController:person animated:YES];
     
 }

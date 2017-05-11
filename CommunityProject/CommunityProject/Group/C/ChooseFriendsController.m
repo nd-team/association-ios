@@ -416,7 +416,7 @@
                 self.collectionView.frame = CGRectMake(0, 0, KMainScreenWidth-60, 50);
             }
             //改变标题和搜索框的左侧图片样式
-            weakSelf.navigationItem.title = [NSString stringWithFormat:@"%@(%ld)",weakSelf.name,weakSelf.usersIdsArray.count];
+            weakSelf.navigationItem.title = [NSString stringWithFormat:@"%@(%ld)",weakSelf.name,(unsigned long)weakSelf.usersIdsArray.count];
             if (weakSelf.imageArr.count == 0) {
                 self.searchTF.leftView = self.leftView;
             }else{

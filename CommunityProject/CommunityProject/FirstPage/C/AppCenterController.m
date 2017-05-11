@@ -10,6 +10,7 @@
 #import "AppModel.h"
 #import "DataSource.h"
 #import "AppTwoCell.h"
+#import "ClaimCenterListController.h"
 
 @interface AppCenterController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -66,6 +67,13 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     AppModel * model = self.dataArr[indexPath.row];
+
+    if ([model.name isEqualToString:@"认领中心"]) {
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
+        ClaimCenterListController * claim = [sb instantiateViewControllerWithIdentifier:@"ClaimCenterListController"];
+        [self.navigationController pushViewController:claim animated:YES];
+ 
+    }
     for (AppModel * app in self.nameArr) {
         if (![model.name isEqualToString:app.name]) {
             //下载 通知首页 传参 提示用户已经有这个选项

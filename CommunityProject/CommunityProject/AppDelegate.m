@@ -15,7 +15,7 @@
 #import "GroupDatabaseSingleton.h"
 #import "MemberListModel.h"
 #import "ViewController.h"
-//#import <IQKeyboardManager.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 //ShareSDK
 #import <ShareSDK/ShareSDK.h>
@@ -46,12 +46,6 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    //键盘设置
-//    [IQKeyboardManager sharedManager].enable = YES;
-//    //手势收起键盘
-//    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside =YES;
-//    //隐藏toolBar
-//    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     //融云
     [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
     //应用的Scheme
@@ -89,7 +83,7 @@
     //会话列表头像globalConversationPortraitSize
     [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_RECTANGLE;
     //shareSDK  @(SSDKPlatformTypeRenren)
-   
+   //Mob分享
     [ShareSDK registerApp:@"1d7a4e9e033cd" activePlatforms:@[@(SSDKPlatformTypeSinaWeibo),
                                                 @(SSDKPlatformTypeMail),
                                                 @(SSDKPlatformTypeSMS),
@@ -147,6 +141,9 @@
                                                             break;
                                                     }
                                                 }];
+    //高德地图
+    [AMapServices sharedServices].apiKey = @"a6bca6b19ec2f4c52428fd977fd553d8";
+    [[AMapServices sharedServices] setEnableHTTPS:YES];
     //设置当前用户
     [self netWork];
     [[UINavigationBar appearance]setShadowImage:[UIImage new]];//nagivationBar.png
@@ -406,34 +403,41 @@
                 //设置当前用户
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
-//                [weakSelf loginMain];
             }else if ([code intValue] == 0){
                 NSSLog(@"账号不存在！");
-                [weakSelf showMessage:@"账号不存在！"];
+//                [weakSelf showMessage:@"账号不存在！"];
                 
             }else if ([code intValue] == 1000){
                 NSSLog(@"账号禁止登录！");
                 [weakSelf showMessage:@"账号禁止登录！"];
             }else if ([code intValue] == 1001){
                 NSSLog(@"密码错误！");
-                [weakSelf showMessage:@"密码错误！"];
+//                [weakSelf showMessage:@"密码错误！"];
                 //传账号
                 
             }else{
-                [weakSelf showMessage:@"未知错误！"];
+//                [weakSelf showMessage:@"未知错误！"];
                 NSSLog(@"登录失败！");
             }
         }
     }];
 }
 -(void)showMessage:(NSString *)msg{
+    NSString * token = [DEFAULTS objectForKey:@"token"];
+    NSString * phone = [DEFAULTS objectForKey:@"userId"];
+    NSString * password = [DEFAULTS objectForKey:@"password"];
+    NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
+    NSString * userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
     WeakSelf;
-    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"取消",@"确定"] Action:^(NSInteger indexpath) {
+    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"退出",@"重新登录"] Action:^(NSInteger indexpath) {
         if (indexpath == 1) {
-            [weakSelf login];
-            
+            //重新登录融云和账号
+            RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:phone name:nickname portrait:userPortraitUrl];
+            [RCIMClient sharedRCIMClient].currentUserInfo = userInfo;
+            [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:phone];
+            [self loginRongServicer:token andPhone:phone andPassword:password];
         }else{
-            NSSLog(@"无网登录失败");
+            [weakSelf login];
         }
         
     } viewController:self.window.rootViewController];
@@ -466,7 +470,6 @@
             [self showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
         } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
             NSSLog(@"Token无效");
-//            [self showMessage:@"无法连接到服务器！"];
             //重连token
             NSString * token = [DEFAULTS objectForKey:@"token"];
             [[RCIM sharedRCIM] connectWithToken:token

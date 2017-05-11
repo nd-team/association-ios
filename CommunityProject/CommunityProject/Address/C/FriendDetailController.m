@@ -10,6 +10,7 @@
 #import "NameViewController.h"
 #import "ChatDetailController.h"
 #import "ChatMainController.h"
+#import "PersonMoreInfoController.h"
 
 #define DeleteURL @"appapi/app/deleteUser"
 
@@ -179,7 +180,13 @@
 
 //网络请求更多数据
 - (IBAction)moreClick:(id)sender {
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    PersonMoreInfoController * person = [sb instantiateViewControllerWithIdentifier:@"PersonMoreInfoController"];
+    person.isCurrent = NO;
+    person.friendId = self.friendId;
+    person.name = @"更多资料";
+    [self.navigationController pushViewController:person animated:YES];
+
 }
 - (IBAction)changeNicknameClick:(id)sender {
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];

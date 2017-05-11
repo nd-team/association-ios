@@ -127,7 +127,7 @@
                 if (arr.count != 0) {
                     weakSelf.unreadArr = data[@"data"];
                     weakSelf.msgLabel.hidden = NO;
-                    weakSelf.msgLabel.text = [NSString stringWithFormat:@"%ld",arr.count];
+                    weakSelf.msgLabel.text = [NSString stringWithFormat:@"%ld",(unsigned long)arr.count];
                     int i = 0;
                     for (NSDictionary * dic in arr) {
                         if (i == 0) {

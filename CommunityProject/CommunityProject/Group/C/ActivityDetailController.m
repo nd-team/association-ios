@@ -95,10 +95,10 @@
         self.signUpBtn.enabled = NO;
         [self.signUpBtn setTitle:@"已报名" forState:UIControlStateDisabled];
     }
-    else if(!self.isOver && !self.isSign){
+    if(!self.isOver && !self.isSign){
         self.signUpBtn.enabled = YES;
     }
-    else if (self.isOver &&!self.isSign) {
+    if (self.isOver) {
         self.signUpBtn.enabled = NO;
         [self.signUpBtn setTitle:@"活动结束" forState:UIControlStateDisabled];
     }
@@ -125,6 +125,10 @@
                 for (NSDictionary * subDic in users) {
                     ActiveUsers * user = [[ActiveUsers alloc]initWithDictionary:subDic error:nil];
                     [weakSelf.collectionArr addObject:user];
+                }
+                if (weakSelf.collectionArr.count == 0) {
+                    self.collHeightCons.constant = 0;
+
                 }
                 [weakSelf.collectionView reloadData];
             }
@@ -265,6 +269,10 @@
 }
 - (IBAction)moreClick:(id)sender {
     self.moreBtn.selected = !self.moreBtn.selected;
+    if (self.collectionArr.count == 0) {
+        self.collHeightCons.constant = 0;
+        return;
+    }
     if (self.moreBtn.selected) {
         NSInteger width = self.collectionArr.count*75;
         int line = width/(KMainScreenWidth-8);
@@ -283,7 +291,7 @@
 }
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.viewWidthCons.constant = KMainScreenWidth+5;
+    self.viewWidthCons.constant = KMainScreenWidth;
     
 }
 @end

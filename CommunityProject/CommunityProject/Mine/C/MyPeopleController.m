@@ -51,9 +51,8 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
     MyPeopleDetailController * people = [sb instantiateViewControllerWithIdentifier:@"MyPeopleDetailController"];
     people.name = self.dataArr[indexPath.row];
+    people.type = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
     [self.navigationController pushViewController:people animated:YES];
-    
-
     
 }
 

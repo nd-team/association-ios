@@ -428,10 +428,10 @@
                 NSInteger zan = [weakSelf.likeCount integerValue];
                 if (weakSelf.zanBtn.selected) {
                     weakSelf.zanImage.image = [UIImage imageNamed:@"heart"];
-                    self.zanLabel.text = [NSString stringWithFormat:@"%ld",zan+1];
+                    self.zanLabel.text = [NSString stringWithFormat:@"%ld",(long)zan+1];
                 }else{
                     weakSelf.zanImage.image = [UIImage imageNamed:@"darkHeart"];
-                    self.zanLabel.text = [NSString stringWithFormat:@"%ld",zan-1];
+                    self.zanLabel.text = [NSString stringWithFormat:@"%ld",(long)zan-1];
 
                 }
             }else if ([code intValue] == 100){

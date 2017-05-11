@@ -36,10 +36,15 @@
 
 }
 - (IBAction)messageClick:(id)sender {
+    [MessageAlertView alertViewWithTitle:@"温馨提示" message:@"此功能下个版本见" buttonTitle:@[@"确定"] Action:^(NSInteger indexpath) {
+        NSSLog(@"消息提示");
+    } viewController:self];
+    /*
     self.msgBtn.selected = !self.msgBtn.selected;
     //保存状态
     [DEFAULTS setBool:self.msgBtn.selected forKey:@"MessageNotice"];
     [DEFAULTS synchronize];
+     */
 }
 
 - (IBAction)exitClick:(id)sender {

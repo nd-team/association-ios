@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface AreaCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *areaLabel;
 
 @end

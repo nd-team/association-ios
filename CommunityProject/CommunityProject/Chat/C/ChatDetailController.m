@@ -28,7 +28,7 @@
 
 #define GroupInfoURL @"appapi/app/groupInfo"
 @interface ChatDetailController ()<RCLocationPickerViewControllerDelegate,RCRealTimeLocationObserver,
-RealTimeLocationStatusViewDelegate>
+RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
 @property (nonatomic,strong) UIView * backView;
 
 @property (nonatomic,strong)UIWindow * window;
@@ -148,7 +148,9 @@ RealTimeLocationStatusViewDelegate>
     switch (tag) {            
         case PLUGIN_BOARD_ITEM_VIDEO_VOIP_TAG:
             //视频
-            
+            [MessageAlertView alertViewWithTitle:@"温馨提示" message:@"此功能正在完善" buttonTitle:@[@"确定"] Action:^(NSInteger indexpath) {
+                NSSLog(@"消息提示");
+            } viewController:self];
             break;
         case PLUGIN_BOARD_ITEM_LOCATION_TAG:
             //位置
@@ -295,8 +297,12 @@ RealTimeLocationStatusViewDelegate>
 }
 
 -(void)pushLocationUI{
-    MyLocationViewController * location = [MyLocationViewController new];
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
+    MyLocationViewController * location = [sb instantiateViewControllerWithIdentifier:@"MyLocationViewController"];
     location.delegate = self;
+    location.isAct = NO;
     [self.navigationController pushViewController:location animated:YES];
 }
 -(void)singlePersonChatClick{
@@ -515,6 +521,7 @@ RealTimeLocationStatusViewDelegate>
 }
 //好友界面
 -(void)pushFriendId:(BOOL)isFriend andUserId:(NSString *)userId{
+    WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
@@ -582,7 +589,7 @@ RealTimeLocationStatusViewDelegate>
                     }
                     RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:name portrait:encodeUrl];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userId];
-                    [self.navigationController pushViewController:detail animated:YES];
+                    [weakSelf.navigationController pushViewController:detail animated:YES];
                 }else{
                     //不是好友
                     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
@@ -625,8 +632,7 @@ RealTimeLocationStatusViewDelegate>
                     detail.isRegister = YES;
                     RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:dict[@"nickname"] portrait:encodeUrl];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userId];
-                    [self.navigationController pushViewController:detail animated:YES];
-                    [self.navigationController pushViewController:detail animated:YES];
+                    [weakSelf.navigationController pushViewController:detail animated:YES];
 
                 }
             }
@@ -638,5 +644,14 @@ RealTimeLocationStatusViewDelegate>
 -(void)didTapPhoneNumberInMessageCell:(NSString *)phoneNumber model:(RCMessageModel *)model{
     NSURL * urlStr = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneNumber]];
     [[UIApplication sharedApplication]openURL:urlStr];
+}
+//位置发送实现功能 :(MyLocationViewController *)locationPicker d
+-(void)locationDidSelectLocation:(CLLocationCoordinate2D)location locationName:(NSString *)locationName mapScreenShot:(UIImage *)mapScreenShot{
+    RCLocationMessage *locationMessage =
+    [RCLocationMessage messageWithLocationImage:mapScreenShot
+                                       location:location
+                                   locationName:locationName];
+    [self sendMessage:locationMessage pushContent:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

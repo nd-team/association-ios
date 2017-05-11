@@ -18,6 +18,7 @@
 #import "AppCenterController.h"
 #import "TravelModel.h"
 #import "TravelDatabaseSingleton.h"
+#import "RecommendController.h"
 
 #define ClaimURL @"appapi/app/allFriendsClaim"
 #define FirstURL @"appapi/app/indexData"
@@ -94,13 +95,8 @@
     }
 }
 -(void)showScrollViewUI{
-    //刷新
-    WeakSelf;
-    self.tableView.mj_footer.hidden = YES;
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [weakSelf getClaimUserData];
-    }];
       //网络
+    WeakSelf;
     self.playView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:[UIImage imageNamed:@"banner.png"]];
     [self.headView addSubview:self.playView];
     [self.playView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -111,6 +107,11 @@
     self.playView.autoScrollTimeInterval = 1;
     self.playView.currentPageDotColor = UIColorFromRGB(0xFED604);
     self.playView.pageDotColor = UIColorFromRGB(0x243234);
+    //刷新
+    self.tableView.mj_footer.hidden = YES;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf getClaimUserData];
+    }];
 }
 -(void)applicationCenter{
     //应用中心
@@ -207,11 +208,13 @@
     }];
 }
 - (IBAction)moreClick:(id)sender {
+    
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"FirstPage" bundle:nil];
     AppCenterController * app = [sb instantiateViewControllerWithIdentifier:@"AppCenterController"];
     app.delegate = self;
     app.nameArr = self.applicationArr;
     [self.navigationController pushViewController:app animated:YES];
+    
 }
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -253,7 +256,14 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    
 }
+- (IBAction)recomendClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    RecommendController * recomm = [sb instantiateViewControllerWithIdentifier:@"RecommendController"];
+    [self.navigationController pushViewController:recomm animated:YES];
+}
+
 #pragma mark-懒加载
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {

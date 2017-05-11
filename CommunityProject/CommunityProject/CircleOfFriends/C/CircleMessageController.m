@@ -99,7 +99,7 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
     CircleCommentController * comment = [sb instantiateViewControllerWithIdentifier:@"CircleCommentController"];
     comment.idStr = model.articleId;
-    comment.commentId = [NSString stringWithFormat:@"%ld",model.id];
+    comment.commentId = [NSString stringWithFormat:@"%ld",(long)model.id];
     comment.placeStr = [NSString stringWithFormat:@"回复%@",model.nickname];
     comment.isMsg = YES;
     [self.navigationController pushViewController: comment animated:YES];

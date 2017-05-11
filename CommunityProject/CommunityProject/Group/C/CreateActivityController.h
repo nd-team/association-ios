@@ -18,7 +18,7 @@
 @property (nonatomic,strong)NSString * limitPeople;
 
 @property (nonatomic,strong)NSMutableArray * dataArr;
-
+//代理传参过来的地址
 @property (nonatomic,copy)NSString * area;
 
 @property (nonatomic,copy)NSString * recommendStr;

@@ -49,6 +49,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.page = 1;
     [self.tableView registerNib:[UINib nibWithNibName:@"CircleCell" bundle:nil] forCellReuseIdentifier:@"CircleCell"];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 200;
@@ -62,7 +63,7 @@
         self.imageHeightCons.constant = 0;
         self.conViewHeightCons.constant = 0;
     }else{
-        [self.msgBtn setTitle:[NSString stringWithFormat:@"%ld条新消息",self.msgArr.count] forState:UIControlStateNormal];
+        [self.msgBtn setTitle:[NSString stringWithFormat:@"%ld条新消息",(unsigned long)self.msgArr.count] forState:UIControlStateNormal];
         //第一条数据的头像
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.firstHead] placeholderImage:[UIImage imageNamed:@"default"]];
         self.btnHeightCons.constant = 40;
@@ -75,14 +76,18 @@
     self.tableView.tableHeaderView = self.headerView;
     [self.headerView layoutIfNeeded];
     [self.tableView endUpdates];
-
-    self.page = 1;
     WeakSelf;
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+
+    MJRefreshAutoGifFooter * footer = [MJRefreshAutoGifFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;
         [weakSelf getList];
+
     }];
-    self.tableView.mj_footer.automaticallyHidden = YES;
+    [footer setTitle:@"" forState:MJRefreshStateIdle];
+    [footer setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
+    [footer setTitle:@"数据全部加载完毕" forState:MJRefreshStateNoMoreData];
+    self.tableView.mj_footer = footer;
+//    self.tableView.mj_footer.automaticallyHidden = YES;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakSelf.page = 1;
         [weakSelf getList];
@@ -93,7 +98,6 @@
     WeakSelf;
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     NSDictionary * params = @{@"userId":userId,@"status":@"1",@"page":[NSString stringWithFormat:@"%d",self.page]};
-//    NSSLog(@"%@",params);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈：%@",error);
@@ -101,18 +105,24 @@
             if (weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
             }
+            NSSLog(@"%@",data);
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
-//                NSSLog(@"%@",arr);
-                for (NSDictionary * dic in arr) {
-                    CircleListModel * list = [[CircleListModel alloc]initWithDictionary:dic error:nil];
-                    [weakSelf.dataArr addObject:list];
+                if (arr.count == 0) {
+                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    for (NSDictionary * dic in arr) {
+                        CircleListModel * list = [[CircleListModel alloc]initWithDictionary:dic error:nil];
+                        [weakSelf.dataArr addObject:list];
+                    }
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView.mj_header endRefreshing];
+                    [weakSelf.tableView.mj_footer endRefreshing];
+  
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
-                [weakSelf.tableView.mj_footer endRefreshing];
-            }
+//                NSSLog(@"%@",arr);
+                }
             
         }
     }];
@@ -217,7 +227,7 @@
     comment.likeCount = model.likedNumber;
     comment.commentCount = model.commentNumber;
     comment.isLike = model.likeStatus;
-    comment.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    comment.idStr = [NSString stringWithFormat:@"%ld",(long)model.id];
     comment.placeStr = [NSString stringWithFormat:@"评论%@",model.nickname];
     UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;

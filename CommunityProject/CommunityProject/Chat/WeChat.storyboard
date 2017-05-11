@@ -841,11 +841,61 @@
             </objects>
             <point key="canvasLocation" x="2015" y="-5"/>
         </scene>
+        <!--My Location View Controller-->
+        <scene sceneID="zTx-v6-54u">
+            <objects>
+                <viewController storyboardIdentifier="MyLocationViewController" id="zA5-aw-V12" customClass="MyLocationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KDK-7b-4QJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="CFB-NE-hIe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RwN-bs-LuB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spf-gK-Q6o" customClass="MAMapView">
+                                <rect key="frame" x="-4" y="20" width="383" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="QwE-cC-htF"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="45" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="77M-mY-D3C">
+                                <rect key="frame" x="-4" y="270" width="383" height="397"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="zA5-aw-V12" id="ZRc-JO-gFT"/>
+                                    <outlet property="delegate" destination="zA5-aw-V12" id="qEX-VT-gYE"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="spf-gK-Q6o" firstAttribute="top" secondItem="KDK-7b-4QJ" secondAttribute="bottom" id="4y7-Bx-aen"/>
+                            <constraint firstItem="77M-mY-D3C" firstAttribute="top" secondItem="spf-gK-Q6o" secondAttribute="bottom" id="9l1-N2-yLz"/>
+                            <constraint firstItem="spf-gK-Q6o" firstAttribute="leading" secondItem="RwN-bs-LuB" secondAttribute="leadingMargin" constant="-20" id="F2D-hb-eT9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="spf-gK-Q6o" secondAttribute="trailing" constant="-20" id="LO9-ri-shq"/>
+                            <constraint firstItem="77M-mY-D3C" firstAttribute="leading" secondItem="RwN-bs-LuB" secondAttribute="leadingMargin" constant="-20" id="a6g-w4-3rg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="77M-mY-D3C" secondAttribute="trailing" constant="-20" id="nPf-ub-aRx"/>
+                            <constraint firstItem="CFB-NE-hIe" firstAttribute="top" secondItem="77M-mY-D3C" secondAttribute="bottom" id="oju-47-v7a"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="spf-gK-Q6o" id="34d-1a-ZZg"/>
+                        <outlet property="tableView" destination="77M-mY-D3C" id="OVf-TW-nLj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ax-kZ-UDZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2792.8000000000002" y="-5.8470764617691158"/>
+        </scene>
     </scenes>
     <resources>
         <image name="applicationBtn" width="82" height="30"/>
-        <image name="chat" width="27" height="25"/>
-        <image name="chatSel" width="34" height="30"/>
+        <image name="chat" width="29" height="29"/>
+        <image name="chatSel" width="29" height="29"/>
         <image name="friendCircle" width="34" height="28"/>
         <image name="interest" width="33" height="28"/>
     </resources>

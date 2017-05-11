@@ -98,7 +98,7 @@
 #pragma mark-pageControl执行方法
 -(void)pageControlAction:(UIPageControl *)pageC{
     
-    NSLog(@"page:%ld",pageC.currentPage);
+    NSLog(@"page:%ld",(long)pageC.currentPage);
     
     UIScrollView * scView = [self.view viewWithTag:121];
     

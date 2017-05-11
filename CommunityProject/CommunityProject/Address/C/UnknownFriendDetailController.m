@@ -8,6 +8,8 @@
 
 #import "UnknownFriendDetailController.h"
 #import "AddFriendController.h"
+#import "PersonMoreInfoController.h"
+#import "RecommendController.h"
 
 @interface UnknownFriendDetailController ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *widthContraints;
@@ -137,7 +139,14 @@
 }
 //更多
 - (IBAction)moreClick:(id)sender {
-    
+    //
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    PersonMoreInfoController * person = [sb instantiateViewControllerWithIdentifier:@"PersonMoreInfoController"];
+    person.isCurrent = NO;
+    person.friendId = self.friendId;
+    person.name = @"更多资料";
+    [self.navigationController pushViewController:person animated:YES];
+
 }
 //推荐好友或者加为好友
 - (IBAction)addClick:(id)sender {
@@ -150,7 +159,9 @@
         [self.navigationController pushViewController:add animated:YES];
     }else{
        //推荐好友
-        
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+        RecommendController * recomm = [sb instantiateViewControllerWithIdentifier:@"RecommendController"];
+        [self.navigationController pushViewController:recomm animated:YES];
     }
 }
 

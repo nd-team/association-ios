@@ -177,7 +177,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.leftTbView) {
-        [self getInterestListData:[NSString stringWithFormat:@"%ld",indexPath.row+5]];
+        [self getInterestListData:[NSString stringWithFormat:@"%ld",(long)indexPath.row+5]];
     }else{
         InterestModel * model = self.rightArr[indexPath.row];
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];

@@ -422,6 +422,9 @@
                     <navigationItem key="navigationItem" title="社群联盟" id="DVz-2w-mff">
                         <barButtonItem key="rightBarButtonItem" image="recommend" id="lgR-6G-hP5">
                             <color key="tintColor" red="0.1019607843" green="0.8862745098" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="recomendClick:" destination="kRo-Iw-u6f" id="4gU-yR-Kdk"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>

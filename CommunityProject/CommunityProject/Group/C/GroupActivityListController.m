@@ -134,7 +134,7 @@
     }
     NSString * detailTime = [NowDate currentDetailTime];
     NSComparisonResult result = [detailTime compare:model.activesClosing];
-    if (result == NSOrderedDescending||model.status == 0){
+    if (result == NSOrderedDescending){
      //已结束
         act.isOver = YES;
     }else{

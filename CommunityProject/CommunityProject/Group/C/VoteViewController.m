@@ -125,17 +125,15 @@
                     
                 } success:^(long messageId) {
                     NSSLog(@"发送成功")
-                    weakSelf.delegate.isRef = YES;
-                    [weakSelf leftClick];
+                  
                 } error:^(RCErrorCode errorCode, long messageId) {
-                    weakSelf.delegate.isRef = YES;
-                    [weakSelf leftClick];
                     NSSLog(@"发送失败")
                 } cancel:^(long messageId) {
                    
                     NSSLog(@"取消了发送");
                 }];
-               
+                weakSelf.delegate.isRef = YES;
+                [weakSelf leftClick];
             }else{
                 // [weakSelf showMessage:@"创建投票失败"];
             }

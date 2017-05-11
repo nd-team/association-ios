@@ -58,7 +58,7 @@
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     CircleListModel * model = self.dataArr[indexPath.row];
-    NSDictionary * dic = @{@"userId":userId,@"articleId":[NSString stringWithFormat:@"%ld",model.id],@"type":@"2",@"status":self.loveBtn.selected?@"1":@"0"};
+    NSDictionary * dic = @{@"userId":userId,@"articleId":[NSString stringWithFormat:@"%ld",(long)model.id],@"type":@"2",@"status":self.loveBtn.selected?@"1":@"0"};
     self.block(dic,indexPath,self.loveBtn.selected);
     
 }
@@ -80,7 +80,7 @@
     comment.likeCount = model.likedNumber;
     comment.commentCount = model.commentNumber;
     comment.isLike = model.likeStatus;
-    comment.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    comment.idStr = [NSString stringWithFormat:@"%ld",(long)model.id];
     comment.placeStr = [NSString stringWithFormat:@"评论%@",model.nickname];
     self.pushBlock(comment);
 

@@ -50,7 +50,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setUI];
     [self getStartData];
-    [self readPhoneAddress];
     [self netWork];
 }
 -(void)setUI{
@@ -86,21 +85,74 @@
     }
    
 }
+-(void)netWork{
+    AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
+    [net startMonitoring];
+    WeakSelf;
+    [net setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        if (status == AFNetworkReachabilityStatusNotReachable) {
+            [weakSelf localData];
+        }else{
+            [weakSelf refresh];
+        }
+    }];
+}
+-(void)refresh{
+    [self readPhoneAddress];
+    [self getFriendList];
+}
+-(void)localData{
+    NSMutableArray * array = [NSMutableArray new];
+    AddressDataBaseSingleton * single = [AddressDataBaseSingleton shareDatabase];
+    [array addObjectsFromArray:[single searchDatabase]];
+    if (array.count != 0) {
+        for (FriendsListModel * list in array) {
+            if (list.userId.length != 0) {
+                [self.dataArr addObject:list];
+            }else{
+                [self.dataTwoArr addObject:list];
+            }
+        }
+        [self.tableView reloadData];
+    }
+}
 -(void)readPhoneAddress{
+    //删除本地数据库的通讯录
+    NSMutableArray * array = [NSMutableArray new];
+    AddressDataBaseSingleton * single = [AddressDataBaseSingleton shareDatabase];
+    [array addObjectsFromArray:[single searchDatabase]];
+    if (array.count != 0) {
+        for (FriendsListModel * list in array) {
+            if (list.userId.length == 0) {
+                [self.dataTwoArr addObject:list];
+            }
+        }
+    }
+    if (self.tableView.mj_header.isRefreshing||self.dataTwoArr.count != 0) {
+        for (FriendsListModel * model in self.dataTwoArr) {
+            if (model.userId.length == 0) {
+                [[AddressDataBaseSingleton shareDatabase]deleteDatabase:model];
+            }
+        }
+        [self.dataTwoArr removeAllObjects];
+    }
+    WeakSelf;
     //获取手机通讯录
-    NSString * filePath = [[NSBundle mainBundle]pathForResource:@"default" ofType:@"png"];
-    NSMutableArray * mArr = [NSMutableArray new];
-    //授权
-    if ([CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts] == CNAuthorizationStatusNotDetermined) {
+    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+    //已经授权
+    if (status == CNAuthorizationStatusAuthorized||status == CNAuthorizationStatusNotDetermined) {
         CNContactStore * store = [CNContactStore new];
         [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (granted) {
-                NSMutableDictionary *mDic = [NSMutableDictionary new];
+                NSMutableArray * mArr = [NSMutableArray new];
                 NSSLog(@"授权成功");
                 CNContactStore * st = [CNContactStore new];//CNContactImageDataKey
                 NSArray * keys = @[CNContactGivenNameKey,CNContactFamilyNameKey,CNContactPhoneNumbersKey,CNContactNicknameKey,CNContactEmailAddressesKey];
                 CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:keys];
                 [st enumerateContactsWithFetchRequest:request error:nil usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
+                    NSMutableDictionary *mDic = [NSMutableDictionary new];
+                    //路径头像
                     //获取名字
                     NSString * firstname = contact.givenName;
                     NSString * lastname = contact.familyName;
@@ -113,7 +165,7 @@
                     for (CNLabeledValue * label in phones) {
                         CNPhoneNumber * phoneNumber = label.value;
                         phone = phoneNumber.stringValue;
-                        NSSLog(@"%@==%@",phoneNumber.stringValue,label.label);
+                        NSSLog(@"%@==",phoneNumber.stringValue);
                     }
                     NSString * email = nil;
                     //获取邮件
@@ -132,68 +184,38 @@
                     [mDic setValue:displayName forKey:@"displayName"];
                     [mDic setValue:phone forKey:@"mobile"];
                     [mDic setValue:email forKey:@"email"];
-                    [mDic setValue:filePath forKey:@"userPortraitUrl"];
-                    [mArr addObjectsFromArray:@[mDic]];
+                    [mArr addObject:mDic];
                 }];
+//                NSSLog(@"===%@",mArr);
+
+                if (mArr.count != 0) {
+                    for (NSDictionary * dic in mArr) {
+                        FriendsListModel * search = [[FriendsListModel alloc]initWithDictionary:dic error:nil];
+                        [[AddressDataBaseSingleton shareDatabase]insertDatabase:search];
+                        [weakSelf.dataTwoArr addObject:search];
+                    }
+                }
             }else{
                 return ;
             }
         }];
-    }
-//    if (self.dataTwoArr.count != 0 || self.tableView.mj_header.isRefreshing) {
-//        for (FriendsListModel * model in self.dataTwoArr) {
-//            [[AddressDataBaseSingleton shareDatabase]deleteDatabase:model];
-//        }
-//        [self.dataTwoArr removeAllObjects];
-//    }
-    if (mArr.count != 0) {
-        for (NSDictionary * dic in mArr) {
-            FriendsListModel * search = [[FriendsListModel alloc]initWithDictionary:dic error:nil];
-            [[AddressDataBaseSingleton shareDatabase]insertDatabase:search];
-            [self.dataTwoArr addObject:search];
-        }
-    }
-}
--(void)netWork{
-    AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
-    [net startMonitoring];
-    WeakSelf;
-    [net setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        
-        if (status == AFNetworkReachabilityStatusNotReachable) {
-            [weakSelf localData];
-        }else{
-            [weakSelf refresh];
-        }
-    }];
-}
--(void)refresh{
-    NSMutableArray * array = [NSMutableArray new];
-    AddressDataBaseSingleton * single = [AddressDataBaseSingleton shareDatabase];
-    [array addObjectsFromArray:[single searchDatabase]];
-    if (array.count != 0) {
-        for (FriendsListModel * list in array) {
-            if (list.userId.length == 0) {
-                [self.dataTwoArr addObject:list];
-            }
-        }
-    }
-    [self getFriendList];
-}
--(void)localData{
-    NSMutableArray * array = [NSMutableArray new];
-    AddressDataBaseSingleton * single = [AddressDataBaseSingleton shareDatabase];
-    [array addObjectsFromArray:[single searchDatabase]];
-    if (array.count != 0) {
-        for (FriendsListModel * list in array) {
-            if (list.userId.length != 0) {
-                [self.dataArr addObject:list];
+    }else if (status == CNAuthorizationStatusRestricted ||status == CNAuthorizationStatusDenied){
+        //被限制或者拒绝提示用户
+        [MessageAlertView alertViewWithTitle:@"温馨提示" message:@"请到设置中打开通讯录权限" buttonTitle:@[@"取消",@"设置"] Action:^(NSInteger indexpath) {
+            if (indexpath == 1) {
+                //到设置中
+                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                    [[UIApplication sharedApplication] openURL:url];
+                }
             }else{
-                [self.dataTwoArr addObject:list];
+                NSSLog(@"取消");
             }
-        }
-        [self.tableView reloadData];
+                
+        } viewController:self];
+        
     }
+   
 }
 -(void)getFriendList{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
@@ -406,6 +428,7 @@
     }];
 }
 -(void)pushFriendId:(NSString *)friend{
+    WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friend,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
@@ -473,7 +496,7 @@
                 }
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friend name:name portrait:encodeUrl];
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friend];
-                [self.navigationController pushViewController:detail animated:YES];
+                [weakSelf.navigationController pushViewController:detail animated:YES];
             }
         }
     }];
@@ -494,6 +517,7 @@
     }
 }
 -(void)comeInUnknown:(NSString *)friendId{
+    WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
@@ -540,7 +564,7 @@
                 detail.isRegister = YES;
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friendId name:dict[@"nickname"] portrait:encodeUrl];
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friendId];
-                [self.navigationController pushViewController:detail animated:YES];
+                [weakSelf.navigationController pushViewController:detail animated:YES];
             }
         }
     }];

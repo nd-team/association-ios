@@ -31,7 +31,8 @@
 		452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D866D1E9CA51600AAFFB1 /* ActivityDetailController.m */; };
 		452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86701E9CC17C00AAFFB1 /* ActiveUsers.m */; };
 		452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */; };
-		4556F0C51E85116B00E1E2FE /* MyLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4556F0C41E85116B00E1E2FE /* MyLocationViewController.m */; };
+		452DB66C1EC2A4DC00A4FE0C /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452DB66B1EC2A4DC00A4FE0C /* AMapLocationKit.framework */; };
+		452DB66F1EC2B36200A4FE0C /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 452DB66E1EC2B36200A4FE0C /* POIAnnotation.m */; };
 		4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB741E7B982800F22E70 /* AppCenterController.m */; };
 		4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB771E7BB95400F22E70 /* AppTwoCell.m */; };
 		4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB7A1E7BBC8200F22E70 /* AppModel.m */; };
@@ -143,6 +144,10 @@
 		456CCE711E827CD8005EC051 /* JYangToolKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE5C1E827CD7005EC051 /* JYangToolKit.framework */; };
 		456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 456CCE5D1E827CD7005EC051 /* WalletResource.bundle */; };
 		456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */ = {isa = PBXBuildFile; fileRef = 456CCE5F1E827CD7005EC051 /* release_notes_ios.txt */; };
+		457182AD1EC44F2A00860F38 /* ClaimCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457182AC1EC44F2A00860F38 /* ClaimCenter.storyboard */; };
+		457182B01EC457F100860F38 /* ClaimCenterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457182AF1EC457F100860F38 /* ClaimCenterListController.m */; };
+		457182B31EC4582500860F38 /* ClaimCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457182B21EC4582500860F38 /* ClaimCenterCell.m */; };
+		457182B61EC45A3900860F38 /* ClaimCenterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 457182B51EC45A3900860F38 /* ClaimCenterModel.m */; };
 		4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBEF1E8B583F0047D1F4 /* GroupHostInfoController.m */; };
 		4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBF21E8B58700047D1F4 /* GroupMemberInfoController.m */; };
 		4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBF81E8B893D0047D1F4 /* MemberListModel.m */; };
@@ -268,7 +273,6 @@
 		45B977241EB088BB00A42D55 /* AlreadyRecommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977231EB088BB00A42D55 /* AlreadyRecommendModel.m */; };
 		45B977271EB08A9300A42D55 /* PersonBaseInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */; };
 		45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977291EB1D32600A42D55 /* AreaCell.m */; };
-		45B9772C1EB1D32600A42D55 /* AreaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B9772A1EB1D32600A42D55 /* AreaCell.xib */; };
 		45B9772E1EB1D57400A42D55 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45B9772D1EB1D57400A42D55 /* Address.plist */; };
 		45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997941E9B20D100F6E984 /* HeadDetailCell.m */; };
 		45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C997951E9B20D100F6E984 /* HeadDetailCell.xib */; };
@@ -276,6 +280,20 @@
 		45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9979F1E9B23AB00F6E984 /* JoinUserModel.m */; };
 		45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997A51E9B7DB800F6E984 /* RecommendImageCell.m */; };
 		45C997A91E9B7E3800F6E984 /* ActivityRecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997A81E9B7E3800F6E984 /* ActivityRecommendController.m */; };
+		45CE5F4F1EC0571300225534 /* MyPeopleListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CE5F4E1EC0571300225534 /* MyPeopleListModel.m */; };
+		45CE5F521EC1966600225534 /* SearchAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CE5F511EC1966600225534 /* SearchAreaViewController.m */; };
+		45CE5F551EC1972000225534 /* HistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CE5F541EC1972000225534 /* HistoryModel.m */; };
+		45CE5F581EC1972900225534 /* AreaHistrorySingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CE5F571EC1972900225534 /* AreaHistrorySingleton.m */; };
+		45CE5F601EC19BB200225534 /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45CE5F5F1EC19BB200225534 /* AMap.bundle */; };
+		45CE5F621EC19C4600225534 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CE5F611EC19C4600225534 /* Security.framework */; };
+		45CE5F641EC19C7A00225534 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CE5F631EC19C7A00225534 /* AdSupport.framework */; };
+		45CE5F661EC19CAD00225534 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CE5F651EC19CAD00225534 /* libstdc++.6.0.9.tbd */; };
+		45CE5F681EC19CE400225534 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CE5F671EC19CE400225534 /* GLKit.framework */; };
+		45CE5F6C1EC19D8400225534 /* AMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CE5F691EC19D8400225534 /* AMapSearchKit.framework */; };
+		45CE5F6D1EC19D8400225534 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CE5F6A1EC19D8400225534 /* AMapFoundationKit.framework */; };
+		45CE5F6E1EC19D8400225534 /* MAMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CE5F6B1EC19D8400225534 /* MAMapKit.framework */; };
+		45CE5F701EC29FF900225534 /* AreaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45CE5F6F1EC29FF900225534 /* AreaCell.xib */; };
+		45CE5F731EC2A13800225534 /* MyLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CE5F721EC2A13800225534 /* MyLocationViewController.m */; };
 		45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D110291E8538A6009F2C4E /* RealTimeLocationEndCell.m */; };
 		45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D1102C1E8538C0009F2C4E /* RealTimeLocationStartCell.m */; };
 		45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D1102F1E8538E2009F2C4E /* RealTimeLocationViewController.m */; };
@@ -325,8 +343,9 @@
 		452D86701E9CC17C00AAFFB1 /* ActiveUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveUsers.m; sourceTree = "<group>"; };
 		452D86751E9CC8AA00AAFFB1 /* ReDetailImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReDetailImageCell.h; sourceTree = "<group>"; };
 		452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReDetailImageCell.m; sourceTree = "<group>"; };
-		4556F0C31E85116B00E1E2FE /* MyLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLocationViewController.h; sourceTree = "<group>"; };
-		4556F0C41E85116B00E1E2FE /* MyLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLocationViewController.m; sourceTree = "<group>"; };
+		452DB66B1EC2A4DC00A4FE0C /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
+		452DB66D1EC2B36200A4FE0C /* POIAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIAnnotation.h; sourceTree = "<group>"; };
+		452DB66E1EC2B36200A4FE0C /* POIAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIAnnotation.m; sourceTree = "<group>"; };
 		4557CB731E7B982800F22E70 /* AppCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCenterController.h; sourceTree = "<group>"; };
 		4557CB741E7B982800F22E70 /* AppCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCenterController.m; sourceTree = "<group>"; };
 		4557CB761E7BB95400F22E70 /* AppTwoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppTwoCell.h; sourceTree = "<group>"; };
@@ -495,6 +514,13 @@
 		456CCE5D1E827CD7005EC051 /* WalletResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WalletResource.bundle; sourceTree = "<group>"; };
 		456CCE5E1E827CD7005EC051 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/JrmfInfo.strings"; sourceTree = "<group>"; };
 		456CCE5F1E827CD7005EC051 /* release_notes_ios.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes_ios.txt; sourceTree = "<group>"; };
+		457182AC1EC44F2A00860F38 /* ClaimCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ClaimCenter.storyboard; sourceTree = "<group>"; };
+		457182AE1EC457F100860F38 /* ClaimCenterListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCenterListController.h; sourceTree = "<group>"; };
+		457182AF1EC457F100860F38 /* ClaimCenterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimCenterListController.m; sourceTree = "<group>"; };
+		457182B11EC4582500860F38 /* ClaimCenterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCenterCell.h; sourceTree = "<group>"; };
+		457182B21EC4582500860F38 /* ClaimCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimCenterCell.m; sourceTree = "<group>"; };
+		457182B41EC45A3900860F38 /* ClaimCenterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCenterModel.h; sourceTree = "<group>"; };
+		457182B51EC45A3900860F38 /* ClaimCenterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimCenterModel.m; sourceTree = "<group>"; };
 		4573CBEE1E8B583F0047D1F4 /* GroupHostInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupHostInfoController.h; sourceTree = "<group>"; };
 		4573CBEF1E8B583F0047D1F4 /* GroupHostInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupHostInfoController.m; sourceTree = "<group>"; };
 		4573CBF11E8B58700047D1F4 /* GroupMemberInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMemberInfoController.h; sourceTree = "<group>"; };
@@ -724,7 +750,6 @@
 		45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonBaseInfoController.m; sourceTree = "<group>"; };
 		45B977281EB1D32600A42D55 /* AreaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaCell.h; sourceTree = "<group>"; };
 		45B977291EB1D32600A42D55 /* AreaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaCell.m; sourceTree = "<group>"; };
-		45B9772A1EB1D32600A42D55 /* AreaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AreaCell.xib; sourceTree = "<group>"; };
 		45B9772D1EB1D57400A42D55 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
 		45C997931E9B20D100F6E984 /* HeadDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadDetailCell.h; sourceTree = "<group>"; };
 		45C997941E9B20D100F6E984 /* HeadDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadDetailCell.m; sourceTree = "<group>"; };
@@ -737,6 +762,25 @@
 		45C997A51E9B7DB800F6E984 /* RecommendImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendImageCell.m; sourceTree = "<group>"; };
 		45C997A71E9B7E3800F6E984 /* ActivityRecommendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityRecommendController.h; sourceTree = "<group>"; };
 		45C997A81E9B7E3800F6E984 /* ActivityRecommendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityRecommendController.m; sourceTree = "<group>"; };
+		45CE5F4D1EC0571300225534 /* MyPeopleListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPeopleListModel.h; sourceTree = "<group>"; };
+		45CE5F4E1EC0571300225534 /* MyPeopleListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPeopleListModel.m; sourceTree = "<group>"; };
+		45CE5F501EC1966600225534 /* SearchAreaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAreaViewController.h; sourceTree = "<group>"; };
+		45CE5F511EC1966600225534 /* SearchAreaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAreaViewController.m; sourceTree = "<group>"; };
+		45CE5F531EC1972000225534 /* HistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryModel.h; sourceTree = "<group>"; };
+		45CE5F541EC1972000225534 /* HistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryModel.m; sourceTree = "<group>"; };
+		45CE5F561EC1972900225534 /* AreaHistrorySingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaHistrorySingleton.h; sourceTree = "<group>"; };
+		45CE5F571EC1972900225534 /* AreaHistrorySingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaHistrorySingleton.m; sourceTree = "<group>"; };
+		45CE5F5F1EC19BB200225534 /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
+		45CE5F611EC19C4600225534 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		45CE5F631EC19C7A00225534 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		45CE5F651EC19CAD00225534 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		45CE5F671EC19CE400225534 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		45CE5F691EC19D8400225534 /* AMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapSearchKit.framework; sourceTree = "<group>"; };
+		45CE5F6A1EC19D8400225534 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		45CE5F6B1EC19D8400225534 /* MAMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MAMapKit.framework; sourceTree = "<group>"; };
+		45CE5F6F1EC29FF900225534 /* AreaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AreaCell.xib; sourceTree = "<group>"; };
+		45CE5F711EC2A13800225534 /* MyLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLocationViewController.h; sourceTree = "<group>"; };
+		45CE5F721EC2A13800225534 /* MyLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLocationViewController.m; sourceTree = "<group>"; };
 		45D110281E8538A6009F2C4E /* RealTimeLocationEndCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationEndCell.h; sourceTree = "<group>"; };
 		45D110291E8538A6009F2C4E /* RealTimeLocationEndCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationEndCell.m; sourceTree = "<group>"; };
 		45D1102B1E8538C0009F2C4E /* RealTimeLocationStartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationStartCell.h; sourceTree = "<group>"; };
@@ -755,10 +799,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45CE5F681EC19CE400225534 /* GLKit.framework in Frameworks */,
+				45CE5F661EC19CAD00225534 /* libstdc++.6.0.9.tbd in Frameworks */,
+				45CE5F641EC19C7A00225534 /* AdSupport.framework in Frameworks */,
+				45CE5F621EC19C4600225534 /* Security.framework in Frameworks */,
 				458959671EB8267500CBADDD /* MessageUI.framework in Frameworks */,
 				458959651EB8264600CBADDD /* JavaScriptCore.framework in Frameworks */,
 				458959631EB8263E00CBADDD /* libicucore.tbd in Frameworks */,
 				45AA3DE01EB47179007F02E5 /* CoreImage.framework in Frameworks */,
+				45CE5F6E1EC19D8400225534 /* MAMapKit.framework in Frameworks */,
 				4562D7B61E80BC3B00C6EE56 /* Photos.framework in Frameworks */,
 				4589595D1EB825D900CBADDD /* libWeChatSDK.a in Frameworks */,
 				458959541EB825D900CBADDD /* QQConnector.framework in Frameworks */,
@@ -777,6 +826,7 @@
 				4562D7B81E80BC4300C6EE56 /* SafariServices.framework in Frameworks */,
 				4562D7B41E80BC3400C6EE56 /* UIKit.framework in Frameworks */,
 				4562D7B21E80BC2A00C6EE56 /* SystemConfiguration.framework in Frameworks */,
+				45CE5F6C1EC19D8400225534 /* AMapSearchKit.framework in Frameworks */,
 				456CCE621E827CD7005EC051 /* RongCallLib.framework in Frameworks */,
 				4562D7B01E80BC1200C6EE56 /* OpenGLES.framework in Frameworks */,
 				456CCE701E827CD8005EC051 /* JrmfWalletKit.framework in Frameworks */,
@@ -789,6 +839,7 @@
 				456CCE601E827CD7005EC051 /* RongCallKit.framework in Frameworks */,
 				458959561EB825D900CBADDD /* SMSConnector.framework in Frameworks */,
 				4589594E1EB825D900CBADDD /* ShareSDKExtension.framework in Frameworks */,
+				45CE5F6D1EC19D8400225534 /* AMapFoundationKit.framework in Frameworks */,
 				458959521EB825D900CBADDD /* FacebookConnector.framework in Frameworks */,
 				4562D7AA1E80BBF200C6EE56 /* libstdc++.tbd in Frameworks */,
 				458959611EB825D900CBADDD /* ShareSDKConnector.framework in Frameworks */,
@@ -817,6 +868,7 @@
 				451B28541E7D27DF0024B336 /* CoreText.framework in Frameworks */,
 				456CCE691E827CD8005EC051 /* RongIMLib.framework in Frameworks */,
 				451B28521E7D27CE0024B336 /* QuartzCore.framework in Frameworks */,
+				452DB66C1EC2A4DC00A4FE0C /* AMapLocationKit.framework in Frameworks */,
 				451B28501E7D27C00024B336 /* CoreTelephony.framework in Frameworks */,
 				A7A6D25426573DF78E3813F3 /* libPods-CommunityProject.a in Frameworks */,
 			);
@@ -850,10 +902,10 @@
 				455FA3251E763C070039B155 /* Main */,
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
 				455FA32A1E763C250039B155 /* FirstPage */,
+				457182A81EC44EEE00860F38 /* Claim */,
 				455FA3261E763C250039B155 /* Chat */,
 				457D3CB61E77CD4A00FD0309 /* Address */,
 				457D3CC81E77CDAB00FD0309 /* Group */,
-				457D3CBA1E77CD4A00FD0309 /* ChatHall */,
 				457D3CBE1E77CD4A00FD0309 /* CircleOfFriends */,
 				455FA32F1E763C250039B155 /* Mine */,
 				455FA32E1E763C250039B155 /* HeadFile */,
@@ -908,8 +960,6 @@
 				455FA3501E76A2B60039B155 /* ChatMainController.m */,
 				4557CB851E7BE88900F22E70 /* ChatDetailController.h */,
 				4557CB861E7BE88900F22E70 /* ChatDetailController.m */,
-				4556F0C31E85116B00E1E2FE /* MyLocationViewController.h */,
-				4556F0C41E85116B00E1E2FE /* MyLocationViewController.m */,
 				450A50FB1E8648D300433A61 /* SetPersonController.h */,
 				450A50FC1E8648D300433A61 /* SetPersonController.m */,
 				4568FB111E89FBBA007BA5BB /* SearchController.h */,
@@ -922,6 +972,8 @@
 				457781DC1E9F85260004BBE7 /* InterestTeamController.m */,
 				455C6B111EA0B34500E0B3F3 /* HobbyController.h */,
 				455C6B121EA0B34500E0B3F3 /* HobbyController.m */,
+				45CE5F711EC2A13800225534 /* MyLocationViewController.h */,
+				45CE5F721EC2A13800225534 /* MyLocationViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -929,6 +981,8 @@
 		455FA3281E763C250039B155 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				452DB66D1EC2B36200A4FE0C /* POIAnnotation.h */,
+				452DB66E1EC2B36200A4FE0C /* POIAnnotation.m */,
 				458DD51E1E8A4D9A00650F2E /* ApplicationFriendsModel.h */,
 				458DD51F1E8A4D9A00650F2E /* ApplicationFriendsModel.m */,
 				45A080CF1E891C9300514FFC /* SearchFriendModel.h */,
@@ -1080,6 +1134,8 @@
 			children = (
 				45B977221EB088BB00A42D55 /* AlreadyRecommendModel.h */,
 				45B977231EB088BB00A42D55 /* AlreadyRecommendModel.m */,
+				45CE5F4D1EC0571300225534 /* MyPeopleListModel.h */,
+				45CE5F4E1EC0571300225534 /* MyPeopleListModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1111,6 +1167,8 @@
 		455FA3341E763C250039B155 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				45CE5F501EC1966600225534 /* SearchAreaViewController.h */,
+				45CE5F511EC1966600225534 /* SearchAreaViewController.m */,
 				450A50FE1E8670B400433A61 /* NameViewController.h */,
 				450A50FF1E8670B400433A61 /* NameViewController.m */,
 			);
@@ -1120,6 +1178,10 @@
 		455FA3351E763C250039B155 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				45CE5F561EC1972900225534 /* AreaHistrorySingleton.h */,
+				45CE5F571EC1972900225534 /* AreaHistrorySingleton.m */,
+				45CE5F531EC1972000225534 /* HistoryModel.h */,
+				45CE5F541EC1972000225534 /* HistoryModel.m */,
 				4562D74F1E7FBD3A00C6EE56 /* UploadImageModel.h */,
 				4562D7501E7FBD3A00C6EE56 /* UploadImageModel.m */,
 				4562D7491E7FB9BA00C6EE56 /* ReduceImage.h */,
@@ -1153,7 +1215,7 @@
 				457D3CB41E778E8B00FD0309 /* MessageAlertView.m */,
 				45B977281EB1D32600A42D55 /* AreaCell.h */,
 				45B977291EB1D32600A42D55 /* AreaCell.m */,
-				45B9772A1EB1D32600A42D55 /* AreaCell.xib */,
+				45CE5F6F1EC29FF900225534 /* AreaCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1197,6 +1259,11 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				452DB66B1EC2A4DC00A4FE0C /* AMapLocationKit.framework */,
+				45CE5F691EC19D8400225534 /* AMapSearchKit.framework */,
+				45CE5F6A1EC19D8400225534 /* AMapFoundationKit.framework */,
+				45CE5F6B1EC19D8400225534 /* MAMapKit.framework */,
+				45CE5F5F1EC19BB200225534 /* AMap.bundle */,
 				458959DF1EBDBF1A00CBADDD /* MJPhotoBrowser */,
 				458959A61EBB150400CBADDD /* FSCalendar */,
 				4589591D1EB825D900CBADDD /* ShareSDK */,
@@ -1318,6 +1385,44 @@
 			path = JrmfIMLib;
 			sourceTree = "<group>";
 		};
+		457182A81EC44EEE00860F38 /* Claim */ = {
+			isa = PBXGroup;
+			children = (
+				457182AC1EC44F2A00860F38 /* ClaimCenter.storyboard */,
+				457182A91EC44EEE00860F38 /* C */,
+				457182AA1EC44EEE00860F38 /* M */,
+				457182AB1EC44EEE00860F38 /* V */,
+			);
+			path = Claim;
+			sourceTree = "<group>";
+		};
+		457182A91EC44EEE00860F38 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				457182AE1EC457F100860F38 /* ClaimCenterListController.h */,
+				457182AF1EC457F100860F38 /* ClaimCenterListController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		457182AA1EC44EEE00860F38 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				457182B41EC45A3900860F38 /* ClaimCenterModel.h */,
+				457182B51EC45A3900860F38 /* ClaimCenterModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		457182AB1EC44EEE00860F38 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				457182B11EC4582500860F38 /* ClaimCenterCell.h */,
+				457182B21EC4582500860F38 /* ClaimCenterCell.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
 		457D3CB61E77CD4A00FD0309 /* Address */ = {
 			isa = PBXGroup;
 			children = (
@@ -1360,37 +1465,6 @@
 			children = (
 				4562D7F41E80F8A900C6EE56 /* AddressCell.h */,
 				4562D7F51E80F8A900C6EE56 /* AddressCell.m */,
-			);
-			path = V;
-			sourceTree = "<group>";
-		};
-		457D3CBA1E77CD4A00FD0309 /* ChatHall */ = {
-			isa = PBXGroup;
-			children = (
-				457D3CBB1E77CD4A00FD0309 /* C */,
-				457D3CBC1E77CD4A00FD0309 /* M */,
-				457D3CBD1E77CD4A00FD0309 /* V */,
-			);
-			path = ChatHall;
-			sourceTree = "<group>";
-		};
-		457D3CBB1E77CD4A00FD0309 /* C */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = C;
-			sourceTree = "<group>";
-		};
-		457D3CBC1E77CD4A00FD0309 /* M */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = M;
-			sourceTree = "<group>";
-		};
-		457D3CBD1E77CD4A00FD0309 /* V */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1747,6 +1821,10 @@
 		55BFAB6FB609C76103B710A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45CE5F671EC19CE400225534 /* GLKit.framework */,
+				45CE5F651EC19CAD00225534 /* libstdc++.6.0.9.tbd */,
+				45CE5F631EC19C7A00225534 /* AdSupport.framework */,
+				45CE5F611EC19C4600225534 /* Security.framework */,
 				458959661EB8267500CBADDD /* MessageUI.framework */,
 				458959641EB8264600CBADDD /* JavaScriptCore.framework */,
 				458959621EB8263E00CBADDD /* libicucore.tbd */,
@@ -1864,7 +1942,6 @@
 				455FA3461E7693F00039B155 /* WeChat.storyboard in Resources */,
 				455C6B1D1EA1ED6700E0B3F3 /* CircleCell.xib in Resources */,
 				458959601EB825D900CBADDD /* ShareSDK.bundle in Resources */,
-				45B9772C1EB1D32600A42D55 /* AreaCell.xib in Resources */,
 				4562D7F31E80DC1900C6EE56 /* Address.storyboard in Resources */,
 				456CCE6A1E827CD8005EC051 /* AlipaySDK.bundle in Resources */,
 				456CCE6C1E827CD8005EC051 /* JrmfInfo.strings in Resources */,
@@ -1875,6 +1952,7 @@
 				45B9772E1EB1D57400A42D55 /* Address.plist in Resources */,
 				4589599F1EB9DA2E00CBADDD /* space.cer in Resources */,
 				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
+				457182AD1EC44F2A00860F38 /* ClaimCenter.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				4589594C1EB825D900CBADDD /* ShareSDKConfigFile.bundle in Resources */,
 				457781D41E9F7C060004BBE7 /* InterestCell.xib in Resources */,
@@ -1892,9 +1970,11 @@
 				456CCE6D1E827CD8005EC051 /* JResource.bundle in Resources */,
 				455C6B101EA0B24200E0B3F3 /* HobbyCell.xib in Resources */,
 				4562D7331E7F6E2700C6EE56 /* Group.storyboard in Resources */,
+				45CE5F601EC19BB200225534 /* AMap.bundle in Resources */,
 				455C6B251EA1FDB900E0B3F3 /* CircleImageCell.xib in Resources */,
 				455FA3481E7694020039B155 /* Mine.storyboard in Resources */,
 				458959F51EBDBF1A00CBADDD /* MJPhotoBrowser.bundle in Resources */,
+				45CE5F701EC29FF900225534 /* AreaCell.xib in Resources */,
 				455FA31B1E7631A90039B155 /* Assets.xcassets in Resources */,
 				4589595C1EB825D900CBADDD /* WeiboSDK.bundle in Resources */,
 				456CCE641E827CD8005EC051 /* RongCloudKit.strings in Resources */,
@@ -1969,6 +2049,7 @@
 				455C6B1C1EA1ED6700E0B3F3 /* CircleCell.m in Sources */,
 				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
 				458959CC1EBB150400CBADDD /* FSCalendarCell.m in Sources */,
+				45CE5F4F1EC0571300225534 /* MyPeopleListModel.m in Sources */,
 				45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				458959F41EBDBF1A00CBADDD /* MJPhoto.m in Sources */,
@@ -1981,6 +2062,7 @@
 				458959F31EBDBF1A00CBADDD /* MBProgressHUD+Add.m in Sources */,
 				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
+				45CE5F581EC1972900225534 /* AreaHistrorySingleton.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
 				45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */,
 				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
@@ -2035,7 +2117,7 @@
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
 				458959D31EBB150400CBADDD /* FSCalendarHeaderView.m in Sources */,
 				452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */,
-				4556F0C51E85116B00E1E2FE /* MyLocationViewController.m in Sources */,
+				45CE5F551EC1972000225534 /* HistoryModel.m in Sources */,
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
 				450A50E11E853BA800433A61 /* RCAnnotationView.m in Sources */,
 				4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */,
@@ -2043,6 +2125,7 @@
 				457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */,
 				455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */,
 				457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */,
+				457182B61EC45A3900860F38 /* ClaimCenterModel.m in Sources */,
 				459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */,
 				458959FA1EBDBF1A00CBADDD /* MJPhotoView.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
@@ -2064,6 +2147,8 @@
 				458959C81EBB150400CBADDD /* FSCalendar+Deprecated.m in Sources */,
 				4562D7361E7F75EA00C6EE56 /* ActivityListCell.m in Sources */,
 				4562D7601E7FDFD900C6EE56 /* UIView+ChatMoreView.m in Sources */,
+				45CE5F521EC1966600225534 /* SearchAreaViewController.m in Sources */,
+				457182B31EC4582500860F38 /* ClaimCenterCell.m in Sources */,
 				4562D7391E7F792D00C6EE56 /* ActivityListModel.m in Sources */,
 				458959A51EBAD81700CBADDD /* TravelDatabaseSingleton.m in Sources */,
 				450A50F11E853CB200433A61 /* RCDUserInfo.m in Sources */,
@@ -2076,6 +2161,7 @@
 				458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */,
 				45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */,
 				455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */,
+				452DB66F1EC2B36200A4FE0C /* POIAnnotation.m in Sources */,
 				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
 				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,
 				45B977151EAF51FF00A42D55 /* MyPeopleController.m in Sources */,
@@ -2095,6 +2181,7 @@
 				457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */,
 				455FA16D1E7A8C6D00C85AE7 /* ClaimModel.m in Sources */,
 				4562D74B1E7FB9BA00C6EE56 /* ReduceImage.m in Sources */,
+				457182B01EC457F100860F38 /* ClaimCenterListController.m in Sources */,
 				4562D75D1E7FDC1B00C6EE56 /* UIButton+button.m in Sources */,
 				457781DD1E9F85260004BBE7 /* InterestTeamController.m in Sources */,
 				4562D7481E7FB9A000C6EE56 /* UploadImageNet.m in Sources */,
@@ -2124,6 +2211,7 @@
 				45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */,
 				458959D61EBB150400CBADDD /* FSCalendarTransitionCoordinator.m in Sources */,
 				455C6B311EA5BC6A00E0B3F3 /* AnswerCommentCell.m in Sources */,
+				45CE5F731EC2A13800225534 /* MyLocationViewController.m in Sources */,
 				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
 				458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */,
 				457781DA1E9F84EB0004BBE7 /* ChooseInterestCell.m in Sources */,
@@ -2175,6 +2263,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2192,9 +2281,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HuanLai huang (Q4J8HDK83K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HuanLai huang (Q4J8HDK83K)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Q4J8HDK83K;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -2224,6 +2315,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2241,9 +2333,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HuanLai huang (Q4J8HDK83K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HuanLai huang (Q4J8HDK83K)";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Q4J8HDK83K;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2269,6 +2363,8 @@
 			baseConfigurationReference = DDF9FD536E6AA7BFF19AA014 /* Pods-CommunityProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Q4J8HDK83K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2309,6 +2405,8 @@
 			baseConfigurationReference = 754849117AB8F9CD0A93FA3B /* Pods-CommunityProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Q4J8HDK83K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

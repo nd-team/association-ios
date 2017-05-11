@@ -23,16 +23,22 @@
 }
 -(void)setListModel:(FriendsListModel *)listModel{
     _listModel = listModel;
-    NSString * str = [ImageUrl changeUrl:_listModel.userPortraitUrl];
-    NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
-    NSString * userId = [DEFAULTS objectForKey:@"userId"];
-    if ([userId isEqualToString:_listModel.userId]) {
-        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_listModel.userPortraitUrl]];
-        
+    if (_listModel.userId.length != 0) {
+        NSString * str = [ImageUrl changeUrl:_listModel.userPortraitUrl];
+        NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
+        NSString * userId = [DEFAULTS objectForKey:@"userId"];
+        if ([userId isEqualToString:_listModel.userId]) {
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_listModel.userPortraitUrl]];
+            
+        }else{
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
+            
+        }
     }else{
-        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
-        
-    }    if (_listModel.displayName.length != 0) {
+        //通讯录默认头像
+        self.headImageView.image = [UIImage imageNamed:@"default.png"];
+    }
+    if (_listModel.displayName.length != 0) {
         self.nameLabel.text = _listModel.displayName;
     }else{
         self.nameLabel.text = _listModel.nickname;

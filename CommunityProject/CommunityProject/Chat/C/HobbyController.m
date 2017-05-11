@@ -61,7 +61,7 @@
     WeakSelf;
     cell.block = ^(NSIndexPath * selectPath){
         weakSelf.selectPath = selectPath;
-        weakSelf.hobbyId = [NSString stringWithFormat:@"%ld",selectPath.row+1];
+        weakSelf.hobbyId = [NSString stringWithFormat:@"%ld",(unsigned long)selectPath.row+1];
         [weakSelf.collectionView reloadData];
     };
     if (self.selectPath == nil) {

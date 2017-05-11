@@ -137,10 +137,14 @@
         self.time = 2;
 
     }else if (textField == self.areaTF){
-        MyLocationViewController * location = [MyLocationViewController new];
+        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+        self.navigationItem.backBarButtonItem = backItem;
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
+        MyLocationViewController * location = [sb instantiateViewControllerWithIdentifier:@"MyLocationViewController"];
         location.actDelegate = self;
         location.isAct = YES;
         [self.navigationController pushViewController:location animated:YES];
+
     }
     return NO;
 }
@@ -202,7 +206,6 @@
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 NSSLog(@"%@",dict);
-                [weakSelf back];
                 //发送一条消息富文本
                 RCRichContentMessage * richMsg = [RCRichContentMessage messageWithTitle:self.titleLabel.text digest:self.contentLabel.text imageURL:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"activesImage"]]]  extra:nil];
                 [[RCIM sharedRCIM]sendMediaMessage:ConversationType_GROUP targetId:self.groupID content:richMsg pushContent:[NSString stringWithFormat:@"%@发起活动%@",nickname,self.titleLabel.text] pushData:self.contentLabel.text progress:^(int progress, long messageId) {
@@ -221,7 +224,8 @@
 //                    [weakSelf showMessage:@"你取消了发送消息"];
                     
                 }];
-                
+                [weakSelf back];
+
             }else{
 //                [weakSelf showMessage:@"创建活动失败"];
             }
@@ -251,6 +255,6 @@
 }
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.widthContraints.constant = KMainScreenWidth+5;
+    self.widthContraints.constant = KMainScreenWidth;
 }
 @end

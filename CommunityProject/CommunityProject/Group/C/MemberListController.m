@@ -34,7 +34,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = [NSString stringWithFormat:@"群成员(%ld)",self.collectArr.count];
+    self.navigationItem.title = [NSString stringWithFormat:@"群成员(%ld)",(unsigned long)self.collectArr.count];
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateBackButtonWithFrame:CGRectMake(0, 0,50, 40) andTitle:@"返回" andTarget:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
     [self.collectionView registerNib:[UINib nibWithNibName:@"MemberListCell" bundle:nil] forCellWithReuseIdentifier:@"MemberListCell"];
@@ -165,6 +165,7 @@
 }
 //好友界面
 -(void)pushFriendId:(BOOL)isFriend andUserId:(NSString *)userId{
+    WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
@@ -230,7 +231,7 @@
                     
                     RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:name portrait:encodeUrl];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userId];
-                    [self.navigationController pushViewController:detail animated:YES];
+                    [weakSelf.navigationController pushViewController:detail animated:YES];
                 }else{
                     //不是好友
                     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
@@ -273,8 +274,7 @@
                     detail.isRegister = YES;
                     RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:dict[@"nickname"] portrait:encodeUrl];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userId];
-                    [self.navigationController pushViewController:detail animated:YES];
-                    [self.navigationController pushViewController:detail animated:YES];
+                    [weakSelf.navigationController pushViewController:detail animated:YES];
                     
                 }
             }

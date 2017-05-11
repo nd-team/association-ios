@@ -1325,6 +1325,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addBtn" destination="QUN-uV-F5V" id="163-Lo-I58"/>
                                             <outlet property="headImageView" destination="WeF-VB-r9v" id="WT4-J1-cSO"/>
                                             <outlet property="nicknameLabel" destination="eWa-RP-wf2" id="igz-5C-QdK"/>
                                             <outlet property="recomendLabel" destination="nIM-ig-uwJ" id="GMe-PW-3UF"/>
@@ -2493,7 +2494,7 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="RZH-sS-Paq" id="HIf-aG-rpo"/>
                                                 </connections>
@@ -2750,7 +2751,7 @@
                                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="填写已婚或者未婚" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qzB-2R-5Ln">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qzB-2R-5Ln">
                                                 <rect key="frame" x="100" y="574.5" width="145.5" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="pnd-Jt-PTr"/>
@@ -2959,13 +2960,65 @@
                                     <constraint firstAttribute="trailing" secondItem="fxn-08-07i" secondAttribute="trailing" id="xXX-ir-b6f"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIC-PV-omP">
+                                <rect key="frame" x="0.0" y="387" width="375" height="280"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3wH-3F-vSH">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqe-Ge-jvd">
+                                                <rect key="frame" x="325" y="0.0" width="50" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="1rM-Oy-cNe"/>
+                                                    <constraint firstAttribute="height" constant="40" id="CZg-cI-tl2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="完成">
+                                                    <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="finishClick:" destination="RZH-sS-Paq" eventType="touchUpInside" id="uAq-dR-AHh"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="2P3-Nq-aaW"/>
+                                            <constraint firstAttribute="bottom" secondItem="wqe-Ge-jvd" secondAttribute="bottom" id="PBP-o9-1aL"/>
+                                            <constraint firstAttribute="trailing" secondItem="wqe-Ge-jvd" secondAttribute="trailing" id="Rg7-Hy-4RL"/>
+                                        </constraints>
+                                    </view>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a75-3D-beS">
+                                        <rect key="frame" x="0.0" y="40" width="375" height="240"/>
+                                        <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="RZH-sS-Paq" id="sin-2a-mze"/>
+                                            <outlet property="delegate" destination="RZH-sS-Paq" id="u3h-1Y-sM5"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.83921568629999999" green="0.83921568629999999" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="a75-3D-beS" firstAttribute="leading" secondItem="hIC-PV-omP" secondAttribute="leading" id="2WI-7K-squ"/>
+                                    <constraint firstItem="a75-3D-beS" firstAttribute="top" secondItem="3wH-3F-vSH" secondAttribute="bottom" id="4HB-Xv-Z1z"/>
+                                    <constraint firstAttribute="height" constant="280" id="9NJ-tE-U5C"/>
+                                    <constraint firstItem="3wH-3F-vSH" firstAttribute="top" secondItem="hIC-PV-omP" secondAttribute="top" id="Jmt-3E-m5Z"/>
+                                    <constraint firstAttribute="bottom" secondItem="a75-3D-beS" secondAttribute="bottom" id="LIn-b6-nC9"/>
+                                    <constraint firstAttribute="trailing" secondItem="3wH-3F-vSH" secondAttribute="trailing" id="gG6-6k-CyZ"/>
+                                    <constraint firstItem="3wH-3F-vSH" firstAttribute="leading" secondItem="hIC-PV-omP" secondAttribute="leading" id="hLr-Wp-qeq"/>
+                                    <constraint firstAttribute="trailing" secondItem="a75-3D-beS" secondAttribute="trailing" id="yKd-h3-ISY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="hIC-PV-omP" secondAttribute="trailing" id="4tG-cE-98P"/>
                             <constraint firstItem="VD8-Le-6KK" firstAttribute="top" secondItem="IDt-HW-nW2" secondAttribute="bottom" constant="10" id="D1B-6B-Vn0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="VD8-Le-6KK" secondAttribute="trailing" constant="-20" id="U52-5f-mjJ"/>
+                            <constraint firstItem="Eij-Y4-WEc" firstAttribute="top" secondItem="hIC-PV-omP" secondAttribute="bottom" id="ZOS-Me-gKQ"/>
                             <constraint firstItem="Eij-Y4-WEc" firstAttribute="top" secondItem="VD8-Le-6KK" secondAttribute="bottom" id="p2z-ZA-YBm"/>
                             <constraint firstItem="VD8-Le-6KK" firstAttribute="leading" secondItem="pqT-eq-DNZ" secondAttribute="leadingMargin" constant="-20" id="qd9-ZJ-91L"/>
+                            <constraint firstItem="hIC-PV-omP" firstAttribute="leading" secondItem="pqT-eq-DNZ" secondAttribute="leading" id="whi-1e-L2w"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2975,6 +3028,7 @@
                         <outlet property="bloodBtn" destination="laV-o6-pZf" id="Jgb-DH-md7"/>
                         <outlet property="bloodTF" destination="I21-cQ-R2i" id="qyF-u5-GyR"/>
                         <outlet property="bookBtn" destination="ea0-1f-CC5" id="gBJ-sM-icX"/>
+                        <outlet property="bottomView" destination="hIC-PV-omP" id="c2g-9e-k02"/>
                         <outlet property="chatBtn" destination="ufR-rx-son" id="bNh-iV-HiX"/>
                         <outlet property="chatTF" destination="wEV-gK-BD7" id="SMi-GF-lkU"/>
                         <outlet property="chessBtn" destination="ijZ-qP-gTI" id="ufq-6D-yZc"/>
@@ -2991,6 +3045,7 @@
                         <outlet property="nameBtn" destination="SHQ-PM-TMy" id="DOw-ph-bHC"/>
                         <outlet property="nameTF" destination="KHv-8b-qSC" id="xiO-QR-EOx"/>
                         <outlet property="pianoBtn" destination="cr9-p4-x63" id="o9p-2t-ua2"/>
+                        <outlet property="pickerView" destination="a75-3D-beS" id="VEO-or-bUM"/>
                         <outlet property="postBtn" destination="wXr-tC-1tX" id="OZz-N1-BqO"/>
                         <outlet property="postTF" destination="AIy-u4-llD" id="EiR-Xl-qkN"/>
                         <outlet property="printBtn" destination="BoK-UI-pdO" id="gjG-hi-j0E"/>
@@ -4024,7 +4079,7 @@
                                                         </constraints>
                                                         <color key="textColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                         <connections>
                                                             <outlet property="delegate" destination="Nrv-4W-WOc" id="13k-58-G3K"/>
                                                         </connections>
@@ -4410,6 +4465,9 @@
                                     <constraint firstAttribute="trailing" secondItem="oRs-2a-Vif" secondAttribute="trailing" id="u5K-qm-hKO"/>
                                     <constraint firstItem="oRs-2a-Vif" firstAttribute="leading" secondItem="Mdx-v4-Mn9" secondAttribute="leading" id="ySH-Ts-7Od"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Nrv-4W-WOc" id="l7L-Ce-ntf"/>
+                                </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRi-Gk-tbV">
                                 <rect key="frame" x="0.0" y="387" width="375" height="280"/>
@@ -4428,7 +4486,6 @@
                                                     <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="finishClick:" destination="24Z-Ro-h5R" eventType="touchUpInside" id="bKb-PA-wa5"/>
                                                     <action selector="finishClick:" destination="Nrv-4W-WOc" eventType="touchUpInside" id="p1U-PJ-8Fs"/>
                                                 </connections>
                                             </button>
@@ -4540,6 +4597,7 @@
                         <outlet property="recomendBtn" destination="OCW-SQ-Ir6" id="L0s-It-dhG"/>
                         <outlet property="relationshipTF" destination="yOG-8F-fl1" id="1QJ-8y-IYP"/>
                         <outlet property="schoolTF" destination="p4q-Qb-qEQ" id="dgN-Bq-peB"/>
+                        <outlet property="scrollView" destination="Mdx-v4-Mn9" id="CMr-ah-Brg"/>
                         <outlet property="smailBtn" destination="MDy-Ia-Fuf" id="6gE-hm-oi8"/>
                         <outlet property="travelBtn" destination="HsW-tl-hwM" id="MWx-mt-vOq"/>
                         <outlet property="unfaithBtn" destination="alG-At-qjz" id="aeK-hy-GCf"/>
