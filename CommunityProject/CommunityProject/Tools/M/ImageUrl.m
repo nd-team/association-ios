@@ -57,6 +57,14 @@
     return str;
 
 }
++(CAShapeLayer *)maskLayer:(CGRect)rect andleftCorner:(UIRectCorner)left andRightCorner:(UIRectCorner)right{
+    UIBezierPath * maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:left | right cornerRadii:CGSizeMake(5, 5)];
+//    UIBezierPath * maskPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:10];
+    CAShapeLayer * maskLayer = [CAShapeLayer new];
+    maskLayer.frame = rect;
+    maskLayer.path = maskPath.CGPath;
+    return maskLayer;
+}
 +(NSArray *)cutString:(NSString *)time{
     NSArray * arr = [time componentsSeparatedByString:@" "];
     return arr;

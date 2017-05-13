@@ -33,5 +33,6 @@
 @property (nonatomic,assign)AddressListController * listDelegate;
 //判断是从通讯录进入该界面
 @property (nonatomic,assign)BOOL isAddress;
-
+//亲密度
+@property (nonatomic,copy)NSString * intimacy;
 @end

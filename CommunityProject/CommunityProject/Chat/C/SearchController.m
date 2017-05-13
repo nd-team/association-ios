@@ -176,6 +176,10 @@
                      if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                          know.areaStr = dict[@"address"];
                      }
+                     if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
+                         know.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
+                     }
+
                      know.isRegister = YES;
                  }
              }

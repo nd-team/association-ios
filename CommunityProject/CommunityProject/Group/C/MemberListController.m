@@ -212,6 +212,10 @@
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                         detail.areaStr = dict[@"address"];
                     }
+                    if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
+                        detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
+                    }
+
                     NSInteger status = [[NSString stringWithFormat:@"%@",dict[@"status"]]integerValue];
                     //好友
                     NSString * name;
@@ -271,6 +275,10 @@
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                         detail.areaStr = dict[@"address"];
                     }
+                    if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
+                        detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
+                    }
+
                     detail.isRegister = YES;
                     RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:dict[@"nickname"] portrait:encodeUrl];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userId];

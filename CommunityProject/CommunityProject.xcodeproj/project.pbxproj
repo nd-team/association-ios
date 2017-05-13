@@ -144,6 +144,7 @@
 		456CCE711E827CD8005EC051 /* JYangToolKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE5C1E827CD7005EC051 /* JYangToolKit.framework */; };
 		456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 456CCE5D1E827CD7005EC051 /* WalletResource.bundle */; };
 		456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */ = {isa = PBXBuildFile; fileRef = 456CCE5F1E827CD7005EC051 /* release_notes_ios.txt */; };
+		456E34DC1EC543C0004CD257 /* ClaimInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456E34DB1EC543C0004CD257 /* ClaimInfoController.m */; };
 		457182AD1EC44F2A00860F38 /* ClaimCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457182AC1EC44F2A00860F38 /* ClaimCenter.storyboard */; };
 		457182B01EC457F100860F38 /* ClaimCenterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457182AF1EC457F100860F38 /* ClaimCenterListController.m */; };
 		457182B31EC4582500860F38 /* ClaimCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457182B21EC4582500860F38 /* ClaimCenterCell.m */; };
@@ -174,6 +175,12 @@
 		457781D71E9F7C6D0004BBE7 /* InterestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781D61E9F7C6D0004BBE7 /* InterestCell.m */; };
 		457781DA1E9F84EB0004BBE7 /* ChooseInterestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */; };
 		457781DD1E9F85260004BBE7 /* InterestTeamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781DC1E9F85260004BBE7 /* InterestTeamController.m */; };
+		45783BE01EC6AB130013DC6D /* MyClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BDF1EC6AB130013DC6D /* MyClaimCell.m */; };
+		45783BE31EC6ABD20013DC6D /* MyClaimController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE21EC6ABD20013DC6D /* MyClaimController.m */; };
+		45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE51EC6F9590013DC6D /* ClaimMessageController.m */; };
+		45783BE91EC6F9AB0013DC6D /* OthersClaimSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE81EC6F9AB0013DC6D /* OthersClaimSuccessCell.m */; };
+		45783BEC1EC6F9C60013DC6D /* MeClaimSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BEB1EC6F9C60013DC6D /* MeClaimSuccessCell.m */; };
+		45783BEF1EC6F9D80013DC6D /* WaitClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BEE1EC6F9D80013DC6D /* WaitClaimCell.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -514,6 +521,8 @@
 		456CCE5D1E827CD7005EC051 /* WalletResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WalletResource.bundle; sourceTree = "<group>"; };
 		456CCE5E1E827CD7005EC051 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/JrmfInfo.strings"; sourceTree = "<group>"; };
 		456CCE5F1E827CD7005EC051 /* release_notes_ios.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes_ios.txt; sourceTree = "<group>"; };
+		456E34DA1EC543C0004CD257 /* ClaimInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimInfoController.h; sourceTree = "<group>"; };
+		456E34DB1EC543C0004CD257 /* ClaimInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimInfoController.m; sourceTree = "<group>"; };
 		457182AC1EC44F2A00860F38 /* ClaimCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ClaimCenter.storyboard; sourceTree = "<group>"; };
 		457182AE1EC457F100860F38 /* ClaimCenterListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCenterListController.h; sourceTree = "<group>"; };
 		457182AF1EC457F100860F38 /* ClaimCenterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimCenterListController.m; sourceTree = "<group>"; };
@@ -570,6 +579,18 @@
 		457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseInterestCell.m; sourceTree = "<group>"; };
 		457781DB1E9F85260004BBE7 /* InterestTeamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestTeamController.h; sourceTree = "<group>"; };
 		457781DC1E9F85260004BBE7 /* InterestTeamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestTeamController.m; sourceTree = "<group>"; };
+		45783BDE1EC6AB130013DC6D /* MyClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClaimCell.h; sourceTree = "<group>"; };
+		45783BDF1EC6AB130013DC6D /* MyClaimCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClaimCell.m; sourceTree = "<group>"; };
+		45783BE11EC6ABD20013DC6D /* MyClaimController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClaimController.h; sourceTree = "<group>"; };
+		45783BE21EC6ABD20013DC6D /* MyClaimController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClaimController.m; sourceTree = "<group>"; };
+		45783BE41EC6F9590013DC6D /* ClaimMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimMessageController.h; sourceTree = "<group>"; };
+		45783BE51EC6F9590013DC6D /* ClaimMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimMessageController.m; sourceTree = "<group>"; };
+		45783BE71EC6F9AB0013DC6D /* OthersClaimSuccessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OthersClaimSuccessCell.h; sourceTree = "<group>"; };
+		45783BE81EC6F9AB0013DC6D /* OthersClaimSuccessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OthersClaimSuccessCell.m; sourceTree = "<group>"; };
+		45783BEA1EC6F9C60013DC6D /* MeClaimSuccessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeClaimSuccessCell.h; sourceTree = "<group>"; };
+		45783BEB1EC6F9C60013DC6D /* MeClaimSuccessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeClaimSuccessCell.m; sourceTree = "<group>"; };
+		45783BED1EC6F9D80013DC6D /* WaitClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitClaimCell.h; sourceTree = "<group>"; };
+		45783BEE1EC6F9D80013DC6D /* WaitClaimCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitClaimCell.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -1401,6 +1422,12 @@
 			children = (
 				457182AE1EC457F100860F38 /* ClaimCenterListController.h */,
 				457182AF1EC457F100860F38 /* ClaimCenterListController.m */,
+				456E34DA1EC543C0004CD257 /* ClaimInfoController.h */,
+				456E34DB1EC543C0004CD257 /* ClaimInfoController.m */,
+				45783BE11EC6ABD20013DC6D /* MyClaimController.h */,
+				45783BE21EC6ABD20013DC6D /* MyClaimController.m */,
+				45783BE41EC6F9590013DC6D /* ClaimMessageController.h */,
+				45783BE51EC6F9590013DC6D /* ClaimMessageController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1419,6 +1446,14 @@
 			children = (
 				457182B11EC4582500860F38 /* ClaimCenterCell.h */,
 				457182B21EC4582500860F38 /* ClaimCenterCell.m */,
+				45783BDE1EC6AB130013DC6D /* MyClaimCell.h */,
+				45783BDF1EC6AB130013DC6D /* MyClaimCell.m */,
+				45783BE71EC6F9AB0013DC6D /* OthersClaimSuccessCell.h */,
+				45783BE81EC6F9AB0013DC6D /* OthersClaimSuccessCell.m */,
+				45783BEA1EC6F9C60013DC6D /* MeClaimSuccessCell.h */,
+				45783BEB1EC6F9C60013DC6D /* MeClaimSuccessCell.m */,
+				45783BED1EC6F9D80013DC6D /* WaitClaimCell.h */,
+				45783BEE1EC6F9D80013DC6D /* WaitClaimCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2057,6 +2092,7 @@
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
 				4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */,
 				45B977121EAF519600A42D55 /* MyPeopleCell.m in Sources */,
+				45783BE91EC6F9AB0013DC6D /* OthersClaimSuccessCell.m in Sources */,
 				45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */,
 				455C6B281EA209E700E0B3F3 /* CircleListModel.m in Sources */,
 				458959F31EBDBF1A00CBADDD /* MBProgressHUD+Add.m in Sources */,
@@ -2078,6 +2114,7 @@
 				458959FB1EBDBF1A00CBADDD /* SDWebImageManager+MJ.m in Sources */,
 				458959CE1EBB150400CBADDD /* FSCalendarCollectionViewLayout.m in Sources */,
 				45A080C81E88C41100514FFC /* AddFriendController.m in Sources */,
+				45783BE01EC6AB130013DC6D /* MyClaimCell.m in Sources */,
 				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
@@ -2093,6 +2130,7 @@
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
 				45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */,
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
+				45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
 				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
 				452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */,
@@ -2116,6 +2154,7 @@
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
 				458959D31EBB150400CBADDD /* FSCalendarHeaderView.m in Sources */,
+				45783BEF1EC6F9D80013DC6D /* WaitClaimCell.m in Sources */,
 				452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */,
 				45CE5F551EC1972000225534 /* HistoryModel.m in Sources */,
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
@@ -2139,11 +2178,13 @@
 				455C6B201EA1EDD200E0B3F3 /* CircleOfListController.m in Sources */,
 				450A50D51E853B3700433A61 /* HeadCollectionView.m in Sources */,
 				4562D7F91E80FF2800C6EE56 /* AddressListController.m in Sources */,
+				45783BEC1EC6F9C60013DC6D /* MeClaimSuccessCell.m in Sources */,
 				455C6B241EA1FDB900E0B3F3 /* CircleImageCell.m in Sources */,
 				450A50E41E853BBD00433A61 /* RCLocationView.m in Sources */,
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				450A50DB1E853B7000433A61 /* RCAnnotation.m in Sources */,
 				4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */,
+				45783BE31EC6ABD20013DC6D /* MyClaimController.m in Sources */,
 				458959C81EBB150400CBADDD /* FSCalendar+Deprecated.m in Sources */,
 				4562D7361E7F75EA00C6EE56 /* ActivityListCell.m in Sources */,
 				4562D7601E7FDFD900C6EE56 /* UIView+ChatMoreView.m in Sources */,
@@ -2187,6 +2228,7 @@
 				4562D7481E7FB9A000C6EE56 /* UploadImageNet.m in Sources */,
 				45C997A91E9B7E3800F6E984 /* ActivityRecommendController.m in Sources */,
 				458959C91EBB150400CBADDD /* FSCalendar.m in Sources */,
+				456E34DC1EC543C0004CD257 /* ClaimInfoController.m in Sources */,
 				4573CC0A1E8E56060047D1F4 /* ChooseCell.m in Sources */,
 				45B9770C1EAEDE6700A42D55 /* MyCardController.m in Sources */,
 				455FA3541E76A2C60039B155 /* MineController.m in Sources */,

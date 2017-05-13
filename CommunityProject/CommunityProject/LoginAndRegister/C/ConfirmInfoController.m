@@ -157,7 +157,7 @@
 }
 -(void)getData{
     WeakSelf;
-    [AFNetData postDataWithUrl:RecommendURL andParams:@{@"userId":self.phone} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RecommendURL] andParams:@{@"userId":self.phone,@"recommendId":self.code} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"推荐好友的信息获取失败：%@",error);
         }else{
@@ -236,7 +236,7 @@
     }];
 }
 -(void)resign{
-    self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
+    self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
     [self.nameLabel resignFirstResponder];
     [self.phoneTF resignFirstResponder];
     [self.schoolTF resignFirstResponder];
@@ -306,6 +306,7 @@
 -(void)recommendSubmit{
     NSMutableDictionary * params = [NSMutableDictionary new];
     [params setValue:self.phoneTF.text forKey:@"userId"];
+    [params setValue:self.code forKey:@"recommendId"];
 
     [params setValue:self.nameLabel.text forKey:@"fullName"];
     if (self.nameSecretBtn.selected) {
@@ -390,47 +391,47 @@
     NSString * degree;
     switch (self.degreeIndex) {
         case 0:
-            degree = @"初中";
+            degree = @"1";
 
             break;
         case 1:
-            degree = @"高中";
+            degree = @"2";
             
             break;
         case 2:
-            degree = @"中技";
+            degree = @"3";
             
             break;
         case 3:
-            degree = @"中专";
+            degree = @"4";
             
             break;
         case 4:
-            degree = @"大专";
+            degree = @"5";
             
             break;
         case 5:
-            degree = @"本科";
+            degree = @"6";
             
             break;
         case 6:
-            degree = @"硕士";
+            degree = @"7";
             
             break;
         case 7:
-            degree = @"博士";
+            degree = @"8";
             
             break;
         case 8:
-            degree = @"MBA";
+            degree = @"9";
             
             break;
         case 9:
-            degree = @"EMBA";
+            degree = @"10";
             
             break;
         default:
-            degree = @"其他";
+            degree = @"11";
 
             break;
     }
@@ -441,8 +442,9 @@
             NSSLog(@"确认请求失败：%@",error);
         }else{
             NSNumber * code = data[@"code"];
+            NSSLog(@"%@=%@",code,data);
             if ([code intValue] == 200) {
-                
+                weakSelf.backView.hidden = YES;
                 //登录进入主界面
                 [weakSelf loginNet];
             }else{

@@ -44,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UIView *deleteView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *ageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *intimacyLabel;
 
 @end
 
@@ -103,6 +104,7 @@
     self.birthdayLabel.text = @"生日：";
     self.prestigeLabel.text = @"信誉值：";
     self.areaLabel.text = @"地址：";
+    self.intimacyLabel.text = @"亲密度：";
 }
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
@@ -155,6 +157,10 @@
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     weakSelf.areaLabel.text = [NSString stringWithFormat:@"地址：%@",dict[@"address"]];
                 }
+                if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
+                    self.intimacyLabel.text = [NSString stringWithFormat:@"亲密度：%@",dict[@"intimacy"]];
+                }
+
         
             }
         }

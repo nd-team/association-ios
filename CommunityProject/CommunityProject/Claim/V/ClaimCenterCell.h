@@ -11,7 +11,7 @@
 
 @interface ClaimCenterCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIView *backView;
+@property (weak, nonatomic) IBOutlet UIView *darkView;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;

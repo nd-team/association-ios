@@ -243,6 +243,7 @@
 -(void)viewWillLayoutSubviews{
     
     [super viewWillLayoutSubviews];
+    self.widthContraints.constant = KMainScreenWidth;
     if (self.lastView.frame.origin.y+178<KMainScreenHeight) {
         self.scrollView.scrollEnabled = NO;
     }else{

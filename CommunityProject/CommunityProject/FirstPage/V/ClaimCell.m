@@ -14,6 +14,8 @@
     [super awakeFromNib];
     self.headImageView.layer.masksToBounds = YES;
     self.headImageView.layer.cornerRadius = 5;
+    //
+    self.claimBtn.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

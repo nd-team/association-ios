@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *moreHeightCons;
 @property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *intimacyLabel;
 @end
 
 @implementation UnknownFriendDetailController
@@ -120,6 +121,11 @@
         self.prestigeLabel.text = @"信誉值：";
     }else{
         self.prestigeLabel.text = [NSString stringWithFormat:@"信誉值：%@",self.prestige];
+    }
+    if (self.intimacy.length == 0) {
+        self.intimacyLabel.text = @"亲密度：";
+    }else{
+        self.intimacyLabel.text = [NSString stringWithFormat:@"亲密度：%@",self.intimacy];
     }
     if (self.areaStr.length == 0) {
         self.areaLabel.text = @"地址：";

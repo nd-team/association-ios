@@ -28,6 +28,7 @@
 @property (nonatomic,copy) NSString * claimNickName;
 //推荐人真实姓名
 @property (nonatomic,copy) NSString * claimFullName;
-
+//认领时间
+@property (nonatomic,copy) NSString * claimTime;
 
 @end

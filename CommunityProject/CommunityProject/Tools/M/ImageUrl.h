@@ -14,7 +14,8 @@
 +(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andColor:(UIColor*)color andRangeStr:(NSString *)rangeStr andChangeColor:(UIColor *)chCplor;
 +(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andFirstString:(NSString *)first andColor:(UIColor*)color andFont:(UIFont *)font andRangeStr:(NSString *)secondStr andChangeColor:(UIColor *)secondColor andSecondFont:(UIFont *)secondFont;
 +(NSMutableAttributedString*)commentTextColor:(NSString *)baseStr andFirstString:(NSString *)first andFirstColor:(UIColor*)color andFirstFont:(UIFont *)font andSecondStr:(NSString *)secondStr andSecondColor:(UIColor *)secondColor andSecondFont:(UIFont *)secondFont andThirdStr:(NSString *)thirdStr andThirdColor:(UIColor *)thirdColor andThirdFont:(UIFont *)thirdFont andFourthStr:(NSString *)fourStr andFourthColor:(UIColor *)fourColor andFourthFont:(UIFont *)fourFont;
-
+//左右圆角
++(CAShapeLayer *)maskLayer:(CGRect)rect andleftCorner:(UIRectCorner)left andRightCorner:(UIRectCorner)right;
 
 //剪切年月日和时分秒
 +(NSArray *)cutString:(NSString *)time;

@@ -139,10 +139,10 @@
         }else{
             NSNumber *code = data[@"code"];
             NSSLog(@"%@",code);
-            if ([code intValue] == 200) {
-                NSSLog(@"注册成功");
+            if ([code intValue] == 200||[code intValue] == 100) {
+                NSSLog(@"注册成功/注册过没确认");
                //进入信息确认界面
-                [weakSelf presentSureInfoUI:weakSelf.phoneTF.text andPassword:weakSelf.passwordTF.text];
+                [weakSelf presentSureInfoUI:weakSelf.phoneTF.text andPassword:weakSelf.passwordTF.text andCode:self.codeTF.text];
             }else if ([code intValue] == 1000){
                 [weakSelf showMessage:@"邀请码填写失误了么！"];
             }else if ([code intValue] == 0){
@@ -151,12 +151,13 @@
         }
     }];
 }
--(void)presentSureInfoUI:(NSString *)phone andPassword:(NSString *)password{
+-(void)presentSureInfoUI:(NSString *)phone andPassword:(NSString *)password andCode:(NSString *)code{
     //进入信息确认界面
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
     ConfirmInfoController * confirm = [sb instantiateViewControllerWithIdentifier:@"ConfirmInfoController"];
     confirm.phone = phone;
     confirm.password = password;
+    confirm.code = code;
     [self presentViewController:confirm animated:NO completion:nil];
 
 }
@@ -256,7 +257,7 @@
                 NSInteger status = [msg[@"status"] integerValue];
                 if (status == 0) {
                     //信息未确认进入确认界面
-                    [weakSelf presentSureInfoUI:weakSelf.usernameTF.text andPassword:weakSelf.secretTF.text];
+                    [weakSelf presentSureInfoUI:weakSelf.usernameTF.text andPassword:weakSelf.secretTF.text andCode:msg[@"numberId"]];
 
                 }else{
                     //已确认登录

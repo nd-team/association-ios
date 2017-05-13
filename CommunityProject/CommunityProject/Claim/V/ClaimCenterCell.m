@@ -12,14 +12,13 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    self.backView.layer.cornerRadius = 10;
-   
-    UIBezierPath * maskPath = [UIBezierPath bezierPathWithRoundedRect:self.headImageView.bounds byRoundingCorners:UIRectCornerTopLeft |UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
-    CAShapeLayer * maskLayer = [CAShapeLayer new];
-    maskLayer.frame = self.headImageView.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.headImageView.layer.mask = maskLayer;
+    self.darkView.layer.cornerRadius = 5;
     
+}
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    [self layoutIfNeeded];
+    self.headImageView.layer.mask = [ImageUrl maskLayer:self.headImageView.bounds andleftCorner:UIRectCornerTopLeft andRightCorner:UIRectCornerTopRight];
 }
 -(void)setCenterModel:(ClaimCenterModel *)centerModel{
     _centerModel = centerModel;

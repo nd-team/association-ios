@@ -8,12 +8,19 @@
 
 #import "ClaimCenterListController.h"
 #import "ClaimCenterCell.h"
+#import "ClaimInfoController.h"
+#import "UIView+ChatMoreView.h"
+#import "ClaimMessageController.h"
+#import "MyClaimController.h"
 
 #define ClaimURL @"appapi/app/allFriendsClaim"
 @interface ClaimCenterListController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (nonatomic,strong)NSMutableArray * collectionArr;
+
+@property (nonatomic,strong)UIView * moreView;
+@property (weak, nonatomic) IBOutlet UIButton *moreBtn;
 
 @end
 
@@ -29,6 +36,30 @@
 //        //Call this Block When enter the refresh status automatically
 //    }];
     [self getClaimData];
+}
+-(void)moreViewUI{
+    self.moreView = [UIView claimMessageViewFrame:CGRectMake(KMainScreenWidth-105.5, 0, 95.5, 66.5) andArray:@[@"消息",@"我的认领"] andTarget:self andSel:@selector(moreAction:) andTag:130];
+    [self.view addSubview:self.moreView];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+    [self.view addGestureRecognizer:tap];
+}
+-(void)tapClick{
+    self.moreView.hidden = YES;
+}
+-(void)moreAction:(UIButton *)btn{
+    [self tapClick];
+    if (btn.tag == 130) {
+        //消息
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
+        ClaimMessageController * msg = [sb instantiateViewControllerWithIdentifier:@"ClaimMessageController"];
+        [self.navigationController pushViewController:msg animated:YES];
+
+    }else{
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
+        MyClaimController * claim = [sb instantiateViewControllerWithIdentifier:@"MyClaimController"];
+        [self.navigationController pushViewController:claim animated:YES];
+
+    }
 }
 -(void)getClaimData{
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
@@ -72,10 +103,34 @@
     return cell;
     
 }
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ClaimCenterModel * model = self.collectionArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
+    ClaimInfoController * info = [sb instantiateViewControllerWithIdentifier:@"ClaimInfoController"];
+    info.claimUserId = model.userId;
+    info.url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.userPortraitUrl]];
+    if (model.fullName.length !=0) {
+        info.name = model.fullName;
+    }else{
+        info.name = model.nickname;
+    }
+    [self.navigationController pushViewController:info animated:YES];
+
+}
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)moreClick:(id)sender {
+    self.moreBtn.selected = !self.moreBtn.selected;
+    if (self.moreBtn.selected) {
+        WeakSelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf moreViewUI];
+        });
+    }else{
+        self.moreView.hidden = YES;
+    }
+   
 }
 
 -(NSMutableArray *)collectionArr{

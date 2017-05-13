@@ -87,7 +87,6 @@
     self.navigationItem.rightBarButtonItem = rightItem;
 
     [self setUI];
-//    [self getAllData];
 }
 //初始化传参过来的数据
 -(void)setUI{
@@ -104,13 +103,29 @@
     self.provinceTF.layer.borderWidth = 1;
     self.cityTF.layer.borderWidth = 1;
     self.countryTF.layer.borderWidth = 1;
-    self.preLeftWidthCons.constant = [self.prestigeCount integerValue];
-    self.preRightWidthCons.constant = 138-[self.prestigeCount integerValue]+4;
-    self.conLeftWidthCons.constant = [self.expCount integerValue];
-    self.conRightWidthCons.constant = 138-[self.expCount integerValue]+4;
+    //总值暂定allWidth
+    CGFloat allWidth = KMainScreenWidth-231;
+    self.preLeftWidthCons.constant = [self.prestigeCount integerValue]+4;
+    self.preRightWidthCons.constant = (allWidth-[self.prestigeCount integerValue]-4);
+    self.conLeftWidthCons.constant = [self.expCount integerValue]+4;
+    self.conRightWidthCons.constant = (allWidth-[self.expCount integerValue]-4);
+    NSSLog(@"%f=%f+%f=%f",self.preLeftWidthCons.constant,self.preRightWidthCons.constant,self.conLeftWidthCons.constant,self.conRightWidthCons.constant);
     self.flag = 1;
-    self.preLeftCons.constant = self.preLeftWidthCons.constant-4;
-    self.expLeftCons.constant = self.conLeftWidthCons.constant-4;
+    if (![self.prestigeCount isEqualToString:@"0"]) {
+        self.preLeftCons.constant = self.preLeftWidthCons.constant-4;
+
+    }else{
+        self.preLeftCons.constant = 9;
+        self.preRightWidthCons.constant = allWidth-4;
+
+    }
+    if (![self.expCount isEqualToString:@"0"]) {
+        self.expLeftCons.constant = self.conLeftWidthCons.constant-4;
+    }else{
+        self.expLeftCons.constant = 9;
+        self.conRightWidthCons.constant = allWidth-4;
+
+    }
     [self.sexNoBtn setBackgroundImage:[UIImage imageNamed:@"noSelBtn"] forState:UIControlStateNormal];
     [self.sexYesBtn setBackgroundImage:[UIImage imageNamed:@"noSelBtn"] forState:UIControlStateNormal];
     [self.sexNoBtn setBackgroundImage:[UIImage imageNamed:@"chooseSel"] forState:UIControlStateSelected];
@@ -438,6 +453,7 @@
     
     [super viewWillLayoutSubviews];
     self.viewWidthCons.constant = KMainScreenWidth+5;
+    
 }
 -(NSMutableArray *)provinceArr{
     if (!_provinceArr) {

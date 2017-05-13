@@ -86,6 +86,7 @@
 
 //标记pickerView的数据源 1:星座2：血型3：婚姻
 @property (nonatomic,assign)int flag;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidthCons;
 
 @end
 
@@ -940,7 +941,19 @@
     return 1;
 }
 
+-(void)viewWillLayoutSubviews{
+    
+    [super viewWillLayoutSubviews];
+    self.viewWidthCons.constant = KMainScreenWidth;
+    NSSLog(@"%f",KMainScreenWidth);
+    if (KMainScreenWidth == 375) {
+        self.viewWidthCons.constant = KMainScreenWidth+5;
 
+    }else{
+        self.viewWidthCons.constant = KMainScreenWidth;
+
+    }
+}
 
 
 

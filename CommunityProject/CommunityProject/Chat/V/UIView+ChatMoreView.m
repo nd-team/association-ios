@@ -18,7 +18,7 @@ UIView * dotView;
     for (int i = 0; i<titleArr.count; i++) {
         UIButton * button = [UIButton CreateTitleButtonWithFrame:CGRectMake(3, i*37.5, 123, 37.5) andBackgroundColor:UIColorFromRGB(0x1AE2A7)  titleColor:UIColorFromRGB(0x444343) font:14 andTitle:titleArr[i]];
         [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-        button.backgroundColor = UIColorFromRGB(0x1AE2A7);
+//        button.backgroundColor = UIColorFromRGB(0x1AE2A7);
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
         button.tag = 20+i;
@@ -135,6 +135,21 @@ UIView * dotView;
         make.left.equalTo(bottomView);
     }];
     
+    return view;
+}
++(UIView *)claimMessageViewFrame:(CGRect)frame andArray:(NSArray *)titleArr andTarget:(id)target andSel:(SEL)action andTag:(NSInteger)tag{
+    UIView * view = [[UIView alloc]initWithFrame:frame];
+    for (int i = 0; i<titleArr.count; i++) {
+        UIButton * button = [UIButton CreateTitleButtonWithFrame:CGRectMake(0, i*33, 95.5, 33) andBackgroundColor:UIColorFromRGB(0xffffff)  titleColor:UIColorFromRGB(0x666666) font:13 andTitle:titleArr[i]];
+        [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:button];
+        button.tag = i+tag;
+    }
+    for (int i = 0; i<titleArr.count-1; i++) {
+        UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(3, (i+1)*33, 89.5, 1)];
+        lineView.backgroundColor = UIColorFromRGB(0x0f8d68);
+        [view addSubview:lineView];
+    }
     return view;
 }
 @end

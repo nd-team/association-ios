@@ -28,5 +28,7 @@
 @property (nonatomic,copy)NSString * birthday;
 @property (nonatomic,copy)NSString * prestige;
 @property (nonatomic,copy)NSString * areaStr;
+//亲密度
+@property (nonatomic,copy)NSString * intimacy;
 
 @end

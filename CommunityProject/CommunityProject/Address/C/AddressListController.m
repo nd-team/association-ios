@@ -474,6 +474,9 @@
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     detail.areaStr = dict[@"address"];
                 }
+                if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
+                    detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
+                }
                 detail.listDelegate = self;
                 detail.isAddress = YES;
                 NSInteger status = [[NSString stringWithFormat:@"%@",dict[@"status"]]integerValue];
@@ -561,6 +564,10 @@
                 if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
                     detail.areaStr = dict[@"address"];
                 }
+                if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
+                    detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
+                }
+
                 detail.isRegister = YES;
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friendId name:dict[@"nickname"] portrait:encodeUrl];
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friendId];

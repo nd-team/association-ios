@@ -12,5 +12,6 @@
 
 @property (nonatomic,copy)NSString * phone;
 @property (nonatomic,copy)NSString * password;
+@property (nonatomic,copy)NSString * code;
 
 @end
