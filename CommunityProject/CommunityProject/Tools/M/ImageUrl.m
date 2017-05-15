@@ -17,13 +17,12 @@
     str =  [express stringByReplacingMatchesInString:str options:NSMatchingReportProgress range:NSMakeRange(0, str.length) withTemplate:replaceStr];
     return str;
 }// 
-+(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andColor:(UIColor*)color andRangeStr:(NSString *)rangeStr andChangeColor:(UIColor *)chCplor{
++(NSMutableAttributedString*)changeTextColor:(NSString *)baseStr andFirstRangeStr:(NSString *)rangeOneStr andFirstChangeColor:(UIColor *)oneColor andSecondRangeStr:(NSString *)rangeTwoStr andSecondColor:(UIColor *)twoColor{
     NSMutableAttributedString * str = [[NSMutableAttributedString alloc]initWithString:baseStr];
-    NSRange range = [[str string]rangeOfString:rangeStr];
-    [str addAttribute:NSForegroundColorAttributeName value:chCplor range:range];
-    NSRange range2 = NSMakeRange(0, baseStr.length-rangeStr.length);
-    [str addAttribute:NSForegroundColorAttributeName value:color range:range2];
-
+    NSRange range = [[str string]rangeOfString:rangeOneStr];
+    [str addAttribute:NSForegroundColorAttributeName value:oneColor range:range];
+    NSRange range2 = [[str string]rangeOfString:rangeTwoStr];
+    [str addAttribute:NSForegroundColorAttributeName value:twoColor range:range2];
     return str;
 }
 +(NSMutableAttributedString *)changeTextColor:(NSString *)baseStr andFirstString:(NSString *)first andColor:(UIColor *)color andFont:(UIFont *)font andRangeStr:(NSString *)secondStr andChangeColor:(UIColor *)secondColor andSecondFont:(UIFont *)secondFont{
@@ -59,7 +58,6 @@
 }
 +(CAShapeLayer *)maskLayer:(CGRect)rect andleftCorner:(UIRectCorner)left andRightCorner:(UIRectCorner)right{
     UIBezierPath * maskPath = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:left | right cornerRadii:CGSizeMake(5, 5)];
-//    UIBezierPath * maskPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:10];
     CAShapeLayer * maskLayer = [CAShapeLayer new];
     maskLayer.frame = rect;
     maskLayer.path = maskPath.CGPath;

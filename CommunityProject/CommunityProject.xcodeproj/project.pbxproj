@@ -149,6 +149,7 @@
 		457182B01EC457F100860F38 /* ClaimCenterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457182AF1EC457F100860F38 /* ClaimCenterListController.m */; };
 		457182B31EC4582500860F38 /* ClaimCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457182B21EC4582500860F38 /* ClaimCenterCell.m */; };
 		457182B61EC45A3900860F38 /* ClaimCenterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 457182B51EC45A3900860F38 /* ClaimCenterModel.m */; };
+		45733EF31EC94DB9004D6ED5 /* OthersClaimModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45733EF21EC94DB9004D6ED5 /* OthersClaimModel.m */; };
 		4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBEF1E8B583F0047D1F4 /* GroupHostInfoController.m */; };
 		4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBF21E8B58700047D1F4 /* GroupMemberInfoController.m */; };
 		4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CBF81E8B893D0047D1F4 /* MemberListModel.m */; };
@@ -530,6 +531,8 @@
 		457182B21EC4582500860F38 /* ClaimCenterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimCenterCell.m; sourceTree = "<group>"; };
 		457182B41EC45A3900860F38 /* ClaimCenterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClaimCenterModel.h; sourceTree = "<group>"; };
 		457182B51EC45A3900860F38 /* ClaimCenterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClaimCenterModel.m; sourceTree = "<group>"; };
+		45733EF11EC94DB9004D6ED5 /* OthersClaimModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OthersClaimModel.h; sourceTree = "<group>"; };
+		45733EF21EC94DB9004D6ED5 /* OthersClaimModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OthersClaimModel.m; sourceTree = "<group>"; };
 		4573CBEE1E8B583F0047D1F4 /* GroupHostInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupHostInfoController.h; sourceTree = "<group>"; };
 		4573CBEF1E8B583F0047D1F4 /* GroupHostInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupHostInfoController.m; sourceTree = "<group>"; };
 		4573CBF11E8B58700047D1F4 /* GroupMemberInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupMemberInfoController.h; sourceTree = "<group>"; };
@@ -1437,6 +1440,8 @@
 			children = (
 				457182B41EC45A3900860F38 /* ClaimCenterModel.h */,
 				457182B51EC45A3900860F38 /* ClaimCenterModel.m */,
+				45733EF11EC94DB9004D6ED5 /* OthersClaimModel.h */,
+				45733EF21EC94DB9004D6ED5 /* OthersClaimModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2150,6 +2155,7 @@
 				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
 				4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */,
 				4573CC201E987ACD0047D1F4 /* VoteListController.m in Sources */,
+				45733EF31EC94DB9004D6ED5 /* OthersClaimModel.m in Sources */,
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,

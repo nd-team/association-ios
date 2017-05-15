@@ -20,5 +20,10 @@
 
     // Configure the view for the selected state
 }
+-(void)setOtherModel:(OthersClaimModel *)otherModel{
+    _otherModel = otherModel;
+    self.contentLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"恭喜你！成功认领了 %@",_otherModel.nickname] andFirstRangeStr:@"恭喜你！成功认领了 " andFirstChangeColor:UIColorFromRGB(0xe64242) andSecondRangeStr:_otherModel.nickname andSecondColor:UIColorFromRGB(0x121212)];
+    self.timeLabel.text = [_otherModel.claimTime stringByReplacingOccurrencesOfString:@"-" withString:@"."];
+}
 
 @end

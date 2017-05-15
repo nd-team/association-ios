@@ -14,7 +14,7 @@
 #import "MyClaimController.h"
 
 #define ClaimURL @"appapi/app/allFriendsClaim"
-@interface ClaimCenterListController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface ClaimCenterListController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (nonatomic,strong)NSMutableArray * collectionArr;
@@ -41,6 +41,8 @@
     self.moreView = [UIView claimMessageViewFrame:CGRectMake(KMainScreenWidth-105.5, 0, 95.5, 66.5) andArray:@[@"消息",@"我的认领"] andTarget:self andSel:@selector(moreAction:) andTag:130];
     [self.view addSubview:self.moreView];
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+    tap.delegate = self;
+    tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
 }
 -(void)tapClick{
@@ -138,5 +140,11 @@
         _collectionArr = [NSMutableArray new];
     }
     return _collectionArr;
+}
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([touch.view isKindOfClass:[UICollectionView class]]) {
+        return NO;
+    }
+    return YES;
 }
 @end

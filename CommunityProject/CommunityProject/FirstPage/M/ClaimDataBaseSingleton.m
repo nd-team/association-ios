@@ -39,7 +39,7 @@
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists ClaimModel (id integer primary key autoincrement, claimUsersId text,nickname text,userPortraitUrl text,fullName text,recommendId text,claimUsersName text)"]) {
+        if (![_database executeUpdate:@"create table if not exists ClaimModel (id integer primary key autoincrement, claimUsersId text,nickname text,userPortraitUrl text,fullName text,recommendId text,claimUsersName text,userId text)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -50,7 +50,7 @@
 -(void)insertDatabase:(ClaimModel *)model{
     
     
-    if (![_database executeUpdate:@"insert into ClaimModel (recommendId,nickname,userPortraitUrl,fullName,claimUsersId,claimUsersName) values (?,?,?,?,?,?)",model.recommendId,model.nickname,model.userPortraitUrl,model.fullName,model.claimUsersId,model.claimUsersName]) {
+    if (![_database executeUpdate:@"insert into ClaimModel (recommendId,nickname,userPortraitUrl,fullName,claimUsersId,claimUsersName,idStr) values (?,?,?,?,?,?,?)",model.recommendId,model.nickname,model.userPortraitUrl,model.fullName,model.claimUsersId,model.claimUsersName,model.userId]) {
         
         NSSLog(@"插入失败");
     }
@@ -73,6 +73,8 @@
         model.fullName = [set stringForColumn:@"fullName"];
         model.recommendId = [set stringForColumn:@"recommendId"];
         model.claimUsersName = [set stringForColumn:@"claimUsersName"];
+        model.userId = [set stringForColumn:@"userId"];
+
         [newArr addObject:model];
     }
     

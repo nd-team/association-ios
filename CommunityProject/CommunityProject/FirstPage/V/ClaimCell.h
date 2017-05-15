@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ClaimModel.h"
 
+typedef void(^PushBlock)(UIViewController *vc);
 @interface ClaimCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UIButton *claimBtn;
@@ -17,5 +18,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *numberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *recomendPersonLabel;
 @property (nonatomic,strong)ClaimModel *claimModel;
+
+@property (nonatomic,strong)UITableView * tableView;
+@property (nonatomic,strong)NSMutableArray * dataArr;
+
+@property (nonatomic,copy)PushBlock block;
 
 @end

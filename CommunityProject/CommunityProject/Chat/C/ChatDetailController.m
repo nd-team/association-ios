@@ -400,7 +400,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
         UILabel * label = (UILabel *)otherCell.tipMessageLabel;
         label.font = [UIFont systemFontOfSize:11];
         label.backgroundColor = UIColorFromRGB(0xb5b7b8);
-        label.attributedText = [ImageUrl changeTextColor:otherCell.tipMessageLabel.text andColor:UIColorFromRGB(0xffffff) andRangeStr:userInfo.name andChangeColor:UIColorFromRGB(0xed0d0d)];
+        label.attributedText = [ImageUrl changeTextColor:otherCell.tipMessageLabel.text andFirstRangeStr:@"申请加入" andFirstChangeColor:UIColorFromRGB(0xffffff) andSecondRangeStr:userInfo.name andSecondColor:UIColorFromRGB(0xed0d0d)];
     }else if ([cell isMemberOfClass:[RCFileMessageCell class]]){
 //        RCFileMessageCell * fileCell = (RCFileMessageCell *)cell;
 
@@ -540,34 +540,34 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
                     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                        detail.age = dict[@"age"];
+                        detail.age = [NSString stringWithFormat:@"%@",dict[@"age"]];
                     }
                     if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                         detail.sex = [dict[@"sex"]intValue];
                     }
                     if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                        detail.recomendPerson = dict[@"recommendUserId"];
+                        detail.recomendPerson = [NSString stringWithFormat:@"%@",dict[@"recommendUserId"]];
                     }
                     if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
-                        detail.email = dict[@"email"];
+                        detail.email = [NSString stringWithFormat:@"%@",dict[@"email"]];
                     }
                     if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                        detail.lingPerson = dict[@"claimUserId"];
+                        detail.lingPerson = [NSString stringWithFormat:@"%@",dict[@"claimUserId"]];
                     }
                     if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
-                        detail.phone = dict[@"mobile"];
+                        detail.phone = [NSString stringWithFormat:@"%@",dict[@"mobile"]];
                     }
                     if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                         detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                     }
                     if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
-                        detail.birthday = dict[@"birthday"];
+                        detail.birthday = [NSString stringWithFormat:@"%@",dict[@"birthday"]];
                     }
                     if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
                         detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                     }
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
-                        detail.areaStr = dict[@"address"];
+                        detail.areaStr = [NSString stringWithFormat:@"%@",dict[@"address"]];
                     }
                     if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
                         detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
@@ -604,34 +604,34 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
                     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                        detail.age = dict[@"age"];
+                        detail.age = [NSString stringWithFormat:@"%@",dict[@"age"]];
                     }
                     if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                         detail.sex = [dict[@"sex"]intValue];
                     }
                     if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                        detail.recomendPerson = dict[@"recommendUserId"];
+                        detail.recomendPerson = [NSString stringWithFormat:@"%@",dict[@"recommendUserId"]];
                     }
                     if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
-                        detail.email = dict[@"email"];
+                        detail.email = [NSString stringWithFormat:@"%@",dict[@"email"]];
                     }
                     if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                        detail.lingPerson = dict[@"claimUserId"];
+                        detail.lingPerson = [NSString stringWithFormat:@"%@",dict[@"claimUserId"]];
                     }
                     if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
-                        detail.phone = dict[@"mobile"];
+                        detail.phone = [NSString stringWithFormat:@"%@",dict[@"mobile"]];
                     }
                     if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                         detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                     }
                     if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
-                        detail.birthday = dict[@"birthday"];
+                        detail.birthday = [NSString stringWithFormat:@"%@",dict[@"birthday"]];
                     }
                     if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
                         detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                     }
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
-                        detail.areaStr = dict[@"address"];
+                        detail.areaStr = [NSString stringWithFormat:@"%@",dict[@"address"]];
                     }
                     if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
                         detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];

@@ -21,5 +21,12 @@
 
     // Configure the view for the selected state
 }
-
+-(void)setOtherModel:(OthersClaimModel *)otherModel{
+    _otherModel = otherModel;
+    NSString * str = [ImageUrl changeUrl:_otherModel.userPortraitUrl];
+    NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
+    self.nameLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"%@ 成功认领您",_otherModel.nickname] andFirstRangeStr:_otherModel.nickname andFirstChangeColor:UIColorFromRGB(0x121212) andSecondRangeStr:@" 成功认领您" andSecondColor:UIColorFromRGB(0x999999)];
+    self.timeLabel.text = [_otherModel.claimTime stringByReplacingOccurrencesOfString:@"-" withString:@"."];
+}
 @end

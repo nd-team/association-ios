@@ -17,7 +17,7 @@
 #define SearchURL @"appapi/app/lookupUser"
 #define FriendDetailURL @"appapi/app/selectUserInfo"
 
-@interface SearchController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface SearchController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *searchTF;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray * personArr;
@@ -47,6 +47,8 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     //手势隐藏键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+    tap.delegate = self;
+    tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
 }
 -(void)tapClick{
@@ -130,62 +132,64 @@
 }
 
  -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     NSString * userId = [DEFAULTS objectForKey:@"userId"];
      if (self.isPerson == 1) {
-         UnknownFriendDetailController * know = [[UIStoryboard storyboardWithName:@"Address" bundle:nil]instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
+        
          SearchFriendModel * model = self.personArr[indexPath.row];
          //请求网络获取朋友的基本信息
-         [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":model.userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+         [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":userId,@"status":@"1",@"otherUserId":model.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
              if (error) {
                  NSSLog(@"好友详情请求失败：%@",error);
              }else{
                  NSNumber * code = data[@"code"];
+                 NSSLog(@"%@",data);
                  if ([code intValue] == 200) {
                      NSDictionary * dict = data[@"data"];
+                      UnknownFriendDetailController * know = [[UIStoryboard storyboardWithName:@"Address" bundle:nil]instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
                      know.friendId = model.userId;
                      //请求网络数据获取用户详细资料
                      know.name = dict[@"nickname"];
                      NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                      know.url = encodeUrl;
                      if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                         know.age = dict[@"age"];
+                         know.age = [NSString stringWithFormat:@"%@",dict[@"age"]];
                      }
                      if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                          know.sex = [dict[@"sex"]intValue];
                      }
                      if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                         know.recomendPerson = dict[@"recommendUserId"];
+                         know.recomendPerson = [NSString stringWithFormat:@"%@",dict[@"recommendUserId"]];
                      }
                      if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
-                         know.email = dict[@"email"];
+                         know.email = [NSString stringWithFormat:@"%@",dict[@"email"]];
                      }
                      if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                         know.lingPerson = dict[@"claimUserId"];
+                         know.lingPerson = [NSString stringWithFormat:@"%@",dict[@"claimUserId"]];
                      }
                      if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
-                         know.phone = dict[@"mobile"];
+                         know.phone = [NSString stringWithFormat:@"%@",dict[@"mobile"]];
                      }
                      if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
-                         know.contribute = dict[@"contributionScore"];
+                         know.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                      }
                      if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
-                         know.birthday = dict[@"birthday"];
+                         know.birthday = [NSString stringWithFormat:@"%@",dict[@"birthday"]];
                      }
                      if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
-                         know.prestige = dict[@"creditScore"];
+                         know.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                      }
                      if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
-                         know.areaStr = dict[@"address"];
+                         know.areaStr = [NSString stringWithFormat:@"%@",dict[@"address"]];
                      }
                      if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
                          know.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
                      }
-
                      know.isRegister = YES;
+                     [self.navigationController pushViewController:know animated:YES];
                  }
              }
          }];
-         
-         [self.navigationController pushViewController:know animated:YES];
+       
      }else{
          SearchGroupModel * search = self.groupArr[indexPath.row];
          UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
@@ -211,6 +215,12 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+}
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

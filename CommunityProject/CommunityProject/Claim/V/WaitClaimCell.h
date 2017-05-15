@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OthersClaimModel.h"
 
+typedef void(^RefreshBlock)(void);
 @interface WaitClaimCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -15,5 +17,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *upDownBtn;
 @property (weak, nonatomic) IBOutlet UIView *downView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *downHeightCons;
+@property (nonatomic,strong)OthersClaimModel * otherModel;
+@property (nonatomic,copy)RefreshBlock block;
+
+@property (nonatomic,strong)UITableView * tableView;
+@property (nonatomic,strong)NSMutableArray * dataThreeArr;
+@property (nonatomic,copy)NSString * userId;
 
 @end

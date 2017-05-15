@@ -139,7 +139,7 @@
     self.headImageView.layer.cornerRadius = 5;
     self.headImageView.layer.masksToBounds = YES;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url] placeholderImage:[UIImage imageNamed:@"default.png"]];
-    self.nameLabel.text = self.name;
+    self.nicknameLabel.text = self.name;
     self.bottomView.hidden = YES;
     [self setTitleButton:self.danceBtn];
     [self setTitleButton:self.musicBtn];
@@ -225,8 +225,8 @@
 -(void)recommendSubmit{
     NSMutableDictionary * params = [NSMutableDictionary new];
     [params setValue:self.userId forKey:@"userId"];
-    [params setValue:self.nameLabel.text forKey:@"fullName"];
     [params setValue:self.claimUserId forKey:@"claimUserId"];
+    [params setValue:self.nameLabel.text forKey:@"fullName"];
     [params setValue:self.phoneTF.text forKey:@"mobile"];
     if (self.manBtn.selected) {
         [params setValue:@"1" forKey:@"sex"];
@@ -234,11 +234,6 @@
         [params setValue:@"2" forKey:@"sex"];
         
     }
-    NSArray * arr = @[self.liveProTF.text,self.liveCityTF.text,self.liveDisTF.text,@"中国"];
-    NSData * data = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:nil];
-    NSString * result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    
-    [params setValue:result forKey:@"address"];
     NSMutableString * hobby = [NSMutableString new];
     if (self.danceBtn.selected) {
         [hobby appendString:@"舞蹈,"];
@@ -278,6 +273,13 @@
     }
     
     [params setValue:hobby forKey:@"hobby"];
+    NSArray * arr = @[self.liveProTF.text,self.liveCityTF.text,self.liveDisTF.text];
+    NSData * data = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:nil];
+    NSString * result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    
+    [params setValue:result forKey:@"address"];
+    [params setValue:self.presiTF.text forKey:@"creditScore"];
+
     NSString * relation ;
     if ([self.relationshipTF.text isEqualToString:@"亲人"]) {
         relation = @"1";
@@ -291,7 +293,6 @@
         relation = @"2";
         
     }
-    [params setValue:self.presiTF.text forKey:@"creditScore"];
 
     [params setValue:relation forKey:@"relationship"];
     [params setValue:self.birthday forKey:@"birthday"];
@@ -353,7 +354,7 @@
     [params setValue:self.qqTF.text forKey:@"QQ"];
     [params setValue:self.wechatTF.text forKey:@"wechat"];
 
-    
+//    NSSLog(@"%@",params);
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -362,6 +363,7 @@
             [weakSelf showBackViewUI:@"服务器出问题咯！"];
 
         }else{
+//            NSSLog(@"%@",data);
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 weakSelf.claim = 2;
@@ -383,7 +385,7 @@
             }else{
                 NSSLog(@"失败");
                 weakSelf.claim = 0;
-                [weakSelf showBackViewUI:@"未知原因，认领失败"];
+                [weakSelf showBackViewUI:@"回答问题正确个数不超过5个，认领失败"];
             }
             
         }

@@ -29,6 +29,7 @@
     [self.contentTV becomeFirstResponder];
     //手势隐藏键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+
     [self.view addGestureRecognizer:tap];
 }
 -(void)tapClick{
@@ -82,6 +83,5 @@
         }
     }];
 }
-
 
 @end

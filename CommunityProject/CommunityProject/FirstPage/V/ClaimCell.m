@@ -7,6 +7,7 @@
 //
 
 #import "ClaimCell.h"
+#import "ClaimInfoController.h"
 
 @implementation ClaimCell
 
@@ -14,8 +15,7 @@
     [super awakeFromNib];
     self.headImageView.layer.masksToBounds = YES;
     self.headImageView.layer.cornerRadius = 5;
-    //
-    self.claimBtn.hidden = YES;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -41,8 +41,21 @@
 }
 
 - (IBAction)calimClick:(id)sender {
-    
-    
+    UIButton * button = (UIButton *)sender;
+    ClaimCell * cell = (ClaimCell *)[[button superview]superview];
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    ClaimModel * model = self.dataArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
+    ClaimInfoController * info = [sb instantiateViewControllerWithIdentifier:@"ClaimInfoController"];
+    info.claimUserId = model.userId;
+    info.url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.userPortraitUrl]];
+    if (model.fullName.length !=0) {
+        info.name = model.fullName;
+    }else{
+        info.name = model.nickname;
+    }
+
+    self.block(info);
 }
 
 @end

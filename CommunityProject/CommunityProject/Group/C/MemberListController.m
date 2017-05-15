@@ -183,38 +183,39 @@
                     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                        detail.age = dict[@"age"];
+                        detail.age = [NSString stringWithFormat:@"%@",dict[@"age"]];
                     }
                     if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                         detail.sex = [dict[@"sex"]intValue];
                     }
                     if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                        detail.recomendPerson = dict[@"recommendUserId"];
+                        detail.recomendPerson = [NSString stringWithFormat:@"%@",dict[@"recommendUserId"]];
                     }
                     if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
-                        detail.email = dict[@"email"];
+                        detail.email = [NSString stringWithFormat:@"%@",dict[@"email"]];
                     }
                     if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                        detail.lingPerson = dict[@"claimUserId"];
+                        detail.lingPerson = [NSString stringWithFormat:@"%@",dict[@"claimUserId"]];
                     }
                     if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
-                        detail.phone = dict[@"mobile"];
+                        detail.phone = [NSString stringWithFormat:@"%@",dict[@"mobile"]];
                     }
                     if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                         detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                     }
                     if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
-                        detail.birthday = dict[@"birthday"];
+                        detail.birthday = [NSString stringWithFormat:@"%@",dict[@"birthday"]];
                     }
                     if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
                         detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                     }
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
-                        detail.areaStr = dict[@"address"];
+                        detail.areaStr = [NSString stringWithFormat:@"%@",dict[@"address"]];
                     }
                     if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
                         detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
                     }
+
 
                     NSInteger status = [[NSString stringWithFormat:@"%@",dict[@"status"]]integerValue];
                     //好友
@@ -246,38 +247,39 @@
                     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                        detail.age = dict[@"age"];
+                        detail.age = [NSString stringWithFormat:@"%@",dict[@"age"]];
                     }
                     if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                         detail.sex = [dict[@"sex"]intValue];
                     }
                     if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                        detail.recomendPerson = dict[@"recommendUserId"];
+                        detail.recomendPerson = [NSString stringWithFormat:@"%@",dict[@"recommendUserId"]];
                     }
                     if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
-                        detail.email = dict[@"email"];
+                        detail.email = [NSString stringWithFormat:@"%@",dict[@"email"]];
                     }
                     if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                        detail.lingPerson = dict[@"claimUserId"];
+                        detail.lingPerson = [NSString stringWithFormat:@"%@",dict[@"claimUserId"]];
                     }
                     if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
-                        detail.phone = dict[@"mobile"];
+                        detail.phone = [NSString stringWithFormat:@"%@",dict[@"mobile"]];
                     }
                     if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                         detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
                     }
                     if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
-                        detail.birthday = dict[@"birthday"];
+                        detail.birthday = [NSString stringWithFormat:@"%@",dict[@"birthday"]];
                     }
                     if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
                         detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
                     }
                     if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
-                        detail.areaStr = dict[@"address"];
+                        detail.areaStr = [NSString stringWithFormat:@"%@",dict[@"address"]];
                     }
                     if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
                         detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
                     }
+
 
                     detail.isRegister = YES;
                     RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:userId name:dict[@"nickname"] portrait:encodeUrl];

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OthersClaimModel.h"
+//我认领别人成功
 @interface MeClaimSuccessCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (nonatomic,strong)OthersClaimModel * otherModel;
 
 @end

@@ -22,6 +22,6 @@
 //推荐人昵称
 @property (nonatomic,copy) NSString * claimUsersName;
 
-
+@property (nonatomic,copy)NSString * userId;
 
 @end

@@ -179,7 +179,7 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSDictionary * allDic = data[@"data"];
-//                NSSLog(@"%@",allDic);
+                NSSLog(@"%@",allDic);
                 NSArray * advArr = allDic[@"advs"];
                 for (NSDictionary * dic1 in advArr) {
                     [weakSelf.scrollArr addObject:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dic1[@"articleImage"]]]];
@@ -224,7 +224,12 @@
         return cell;
     }else{
         ClaimCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ClaimCell"];
+        cell.tableView = self.claimTableView;
+        cell.dataArr = self.claimArr;
         cell.claimModel = self.claimArr[indexPath.row];
+        cell.block = ^(UIViewController *vc){
+            [self.navigationController pushViewController:vc animated:YES];
+        };
         return cell;
     }
 }

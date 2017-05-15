@@ -147,7 +147,7 @@ UIView * dotView;
     }
     for (int i = 0; i<titleArr.count-1; i++) {
         UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(3, (i+1)*33, 89.5, 1)];
-        lineView.backgroundColor = UIColorFromRGB(0x0f8d68);
+        lineView.backgroundColor = UIColorFromRGB(0xeceef0);
         [view addSubview:lineView];
     }
     return view;

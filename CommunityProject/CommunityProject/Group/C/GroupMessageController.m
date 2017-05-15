@@ -161,8 +161,8 @@
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     GroupMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GroupMessageCell"];
-    cell.titleLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"申请加入 %@",self.groupName] andColor:UIColorFromRGB(0x999999) andRangeStr:self.groupName andChangeColor:UIColorFromRGB(0x333333)];
-  
+    cell.titleLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"申请加入 %@",self.groupName] andFirstRangeStr:@"申请加入 " andFirstChangeColor:UIColorFromRGB(0x999999) andSecondRangeStr:self.groupName andSecondColor:UIColorFromRGB(0x333333)];
+
     if (indexPath.section == 0) {
         cell.groupModel = self.dataArr[indexPath.row];
         cell.dataArr = self.dataArr;
