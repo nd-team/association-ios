@@ -555,11 +555,15 @@
 -(void)postData{
     WeakSelf;
     NSMutableDictionary * params = [NSMutableDictionary new];
+    [params setValue:self.userId forKey:@"userId"];
     [params setValue:self.nameTF.text forKey:@"fullName"];
     [params setValue:self.nameBtn.selected?@"1":@"0" forKey:@"SfullName"];
     
     [params setValue:self.QQTF.text forKey:@"QQ"];
     [params setValue:self.QQBtn.selected?@"1":@"0" forKey:@"SQQ"];
+    [params setValue:self.chatTF.text forKey:@"wechat"];
+    [params setValue:self.chatBtn.selected?@"1":@"0" forKey:@"Swechat"];
+
     NSMutableString * hobby = [NSMutableString new];
     if (self.danceBtn.selected) {
         [hobby appendString:@"舞蹈,"];
@@ -623,14 +627,10 @@
 
     [params setValue:self.postTF.text forKey:@"position"];
     [params setValue:self.postBtn.selected?@"1":@"0" forKey:@"Sposition"];
-
-    [params setValue:self.chatTF.text forKey:@"wechat"];
-    [params setValue:self.chatBtn.selected?@"1":@"0" forKey:@"Swechat"];
-
-    [params setValue:self.userId forKey:@"userId"];
+    NSSLog(@"%@",params);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SaveInfoURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
-            NSSLog(@"已推荐人请求失败：%@",error);
+            NSSLog(@"个人消息更多请求失败：%@",error);
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -945,7 +945,7 @@
     
     [super viewWillLayoutSubviews];
     self.viewWidthCons.constant = KMainScreenWidth;
-    NSSLog(@"%f",KMainScreenWidth);
+//    NSSLog(@"%f",KMainScreenWidth);
     if (KMainScreenWidth == 375) {
         self.viewWidthCons.constant = KMainScreenWidth+5;
 

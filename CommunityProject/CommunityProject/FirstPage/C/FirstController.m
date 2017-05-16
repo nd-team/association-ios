@@ -19,6 +19,7 @@
 #import "TravelModel.h"
 #import "TravelDatabaseSingleton.h"
 #import "RecommendController.h"
+#import "ClaimCenterListController.h"
 
 #define ClaimURL @"appapi/app/allFriendsClaim"
 #define FirstURL @"appapi/app/indexData"
@@ -39,6 +40,7 @@
 @property (nonatomic,strong)NSMutableArray * applicationArr;
 @property (nonatomic,strong) SDCycleScrollView * playView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collHeightContraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightCons;
 
 @end
 
@@ -128,9 +130,15 @@
     //每行cell的个数
     int count = KMainScreenWidth/89;
     //行数
-    NSInteger row = self.applicationArr.count/count+self.applicationArr.count%count;
+    NSInteger retain = self.applicationArr.count%count;
+    NSInteger row;
+    if (retain != 0) {
+         row = self.applicationArr.count/count+1;
+    }else{
+         row = self.applicationArr.count/count;
+    }
     self.collHeightContraint.constant = 101*row;
-    self.tableView.sectionHeaderHeight = 637.5+self.collHeightContraint.constant;
+    self.headerHeightCons.constant = 637.5+self.collHeightContraint.constant;
     [self.collectionView reloadData];
 }
 //数据库获取数据
@@ -165,7 +173,8 @@
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
         }else{
-            if (weakSelf.dataArr.count !=0||weakSelf.tableView.mj_header.isRefreshing) {
+            if (weakSelf.dataArr.count !=0||weakSelf.tableView.mj_header.isRefreshing||weakSelf.scrollArr.count != 0 || weakSelf.claimArr.count != 0) {
+                [weakSelf.scrollArr removeAllObjects];
                 for (ClaimModel * model in weakSelf.claimArr) {
                     [[ClaimDataBaseSingleton shareDatabase]deleteDatabase:model];
                 }
@@ -179,7 +188,7 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSDictionary * allDic = data[@"data"];
-                NSSLog(@"%@",allDic);
+//                NSSLog(@"%@",allDic);
                 NSArray * advArr = allDic[@"advs"];
                 for (NSDictionary * dic1 in advArr) {
                     [weakSelf.scrollArr addObject:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dic1[@"articleImage"]]]];
@@ -260,7 +269,13 @@
     
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    AppModel * model = self.applicationArr[indexPath.row];
+    if ([model.name isEqualToString:@"认领中心"]) {
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
+        ClaimCenterListController * claim = [sb instantiateViewControllerWithIdentifier:@"ClaimCenterListController"];
+        [self.navigationController pushViewController:claim animated:YES];
+        
+    }
     
 }
 - (IBAction)recomendClick:(id)sender {

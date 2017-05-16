@@ -11,6 +11,7 @@
 #import "GroupDatabaseSingleton.h"
 #import "GroupListCell.h"
 #import "ChatDetailController.h"
+#import "ChooseFriendsController.h"
 
 #define GroupURL @"appapi/app/groupData"
 
@@ -41,7 +42,13 @@
         if (status == AFNetworkReachabilityStatusNotReachable) {
             [weakSelf localData];
         }else{
-            [weakSelf getGroupList];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [weakSelf getGroupList];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                });
+            });
         }
     }];
 }
@@ -51,12 +58,6 @@
     if (self.dataArr.count != 0) {
         [self.tableView reloadData];
     }
-//    WeakSelf;
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,0.001*NSEC_PER_SEC),dispatch_get_main_queue(), ^{
-//        [HUDTool showLoadView:[UIApplication sharedApplication].keyWindow withText:@"正在加载..." andHudBlock:^{
-//            [weakSelf getGroupList];
-//        }];
-//    });
     
 }
 -(void)setUI{
@@ -133,10 +134,12 @@
     }];
 }
 -(void)showCreateClick{
-    //    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    //    CreateGroupController * create = [sb instantiateViewControllerWithIdentifier:@"CreateGroupController"];
-    //    create.delegate = self;
-    //    [self.navigationController pushViewController:create animated:YES];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
+    ChooseFriendsController * choose = [sb instantiateViewControllerWithIdentifier:@"ChooseFriendsController"];
+    choose.name = @"选择好友";
+    choose.dif = 2;
+    choose.rightName = @"下一步";
+    [self.navigationController pushViewController:choose animated:YES];
 }
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

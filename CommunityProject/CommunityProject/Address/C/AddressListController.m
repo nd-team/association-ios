@@ -157,6 +157,7 @@
                     NSString * firstname = contact.givenName;
                     NSString * lastname = contact.familyName;
                     NSString * name = [NSString stringWithFormat:@"%@%@",lastname,firstname];
+//                    NSSLog(@"%@",contact);
                     //获取昵称
                     NSString * displayName = contact.nickname;
                     //获取电话

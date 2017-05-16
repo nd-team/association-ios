@@ -77,7 +77,7 @@
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     [self setUI];
-    
+    //选择管理员，踢人
     if (self.dif == 1||self.dif == 4) {
         //获取群成员列表选择群管理
         [self getMemberList];
@@ -137,7 +137,9 @@
                 NSArray * array = data[@"data"];
                 for (NSDictionary * dic in array) {
                     MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
-                    [weakSelf.dataArr addObject:member];
+                    if (![member.userId isEqualToString:self.userId]) {
+                        [weakSelf.dataArr addObject:member];
+                    }
                 }
                 //组头字母
                 weakSelf.sectionArr = [BMChineseSort IndexWithArray:weakSelf.dataArr Key:@"userName"];

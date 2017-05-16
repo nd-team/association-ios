@@ -32,29 +32,35 @@
 -(void)setGroupModel:(GroupApplicationModel *)groupModel{
     _groupModel = groupModel;
     self.nameLabel.text = _groupModel.nickname;
-    self.msgLabel.text = _groupModel.addMessage;
+    self.msgLabel.text = _groupModel.content;
     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_groupModel.avatarImage]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.userIdLabel.text = _groupModel.userId;
-    switch ([_groupModel.status intValue]) {
-        case 0:
-            [self.agreeBtn setTitle:@"已拒绝" forState:UIControlStateNormal];
-            self.agreeBtn.enabled = NO;
-            break;
-        case 1:
-            [self.agreeBtn setTitle:@"已同意" forState:UIControlStateNormal];
-            self.agreeBtn.enabled = NO;
-            break;
-        case 2:
-            [self.unseeBtn setTitle:@"已忽略" forState:UIControlStateNormal];
-            self.unseeBtn.enabled = NO;
-            break;
-        case 3:
-            [self.agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
-            self.agreeBtn.enabled = YES;
-            break;
-        default:
-            break;
+    if (_groupModel.status == nil) {
+        [self.agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
+        self.agreeBtn.enabled = YES; 
+    }else{
+        switch ([_groupModel.status intValue]) {
+            case 0:
+                [self.agreeBtn setTitle:@"已拒绝" forState:UIControlStateNormal];
+                self.agreeBtn.enabled = NO;
+                break;
+            case 1:
+                [self.agreeBtn setTitle:@"已同意" forState:UIControlStateNormal];
+                self.agreeBtn.enabled = NO;
+                break;
+            case 2:
+                [self.unseeBtn setTitle:@"已忽略" forState:UIControlStateNormal];
+                self.unseeBtn.enabled = NO;
+                break;
+            case 3:
+                [self.agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
+                self.agreeBtn.enabled = YES;
+                break;
+            default:
+                break;
+        }
+ 
     }
 }
 -(void)setTwoModel:(ApplicationTwoModel *)twoModel{

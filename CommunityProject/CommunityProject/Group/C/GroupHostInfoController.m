@@ -90,8 +90,9 @@
     [self.msgBtn setBackgroundImage:[UIImage imageNamed:@"switchOff.png"] forState:UIControlStateNormal];
     [self.msgBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
     self.userId = [DEFAULTS objectForKey:@"userId"];
-    BOOL isTop = [DEFAULTS boolForKey:@"topGroupOne"];
-    self.topBtn.selected = isTop;
+    RCConversation * currentConversation = [[RCIMClient sharedRCIMClient] getConversation:ConversationType_GROUP
+                                          targetId:self.groupId];
+    self.topBtn.selected = currentConversation.isTop;
     //设置按钮状态
     WeakSelf;
     [[RCIMClient sharedRCIMClient]getConversationNotificationStatus:ConversationType_GROUP targetId:self.groupId success:^(RCConversationNotificationStatus nStatus) {
@@ -241,9 +242,6 @@
 - (IBAction)topClick:(id)sender {
     self.topBtn.selected = !self.topBtn.selected;
     [[RCIMClient sharedRCIMClient]setConversationToTop:ConversationType_GROUP targetId:self.groupId isTop:self.topBtn.selected];
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:self.topBtn.selected forKey:@"topGroupOne"];
-    [userDefaults synchronize];
 }
 //更多成员
 - (IBAction)moreMemberClick:(id)sender {

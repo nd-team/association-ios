@@ -23,5 +23,10 @@ typedef void(^PushBlock)(UIViewController *vc);
 @property (nonatomic,strong)NSMutableArray * dataArr;
 
 @property (nonatomic,copy)PushBlock block;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameHeightCons;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameTopCons;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nicknameTopCons;
 
 @end

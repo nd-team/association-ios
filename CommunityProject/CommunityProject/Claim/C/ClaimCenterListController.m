@@ -106,6 +106,7 @@
     
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     ClaimCenterModel * model = self.collectionArr[indexPath.row];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
     ClaimInfoController * info = [sb instantiateViewControllerWithIdentifier:@"ClaimInfoController"];

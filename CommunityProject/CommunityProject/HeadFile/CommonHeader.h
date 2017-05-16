@@ -25,4 +25,6 @@
 #define DEFAULTS [NSUserDefaults standardUserDefaults]
 
 #define NetURL @"https://sq.bjike.com/%@"
+
+//#define kisNilString(__String) (__String==nil || __String == (id)[NSNull null] || ![__String isKindOfClass:[NSString class]] || [__String isEqualToString:@""] || [[__String stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""] || [[__String lowercaseString] isEqualToString:@"nil"] || [[__String lowercaseString] isEqualToString:@"null"] || [[__String lowercaseString] isEqualToString:@"(null)"])
 #endif /* CommonHeader_h */

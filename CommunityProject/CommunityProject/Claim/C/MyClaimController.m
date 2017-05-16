@@ -66,14 +66,14 @@
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MyClaimCell * cell = [tableView dequeueReusableCellWithIdentifier:@"MyClaimCell"];
-//    cell.claimModel = self.dataArr[indexPath.row];
+    cell.claimModel = self.dataArr[indexPath.row];
     return cell;
     
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //self.dataArr.count
-    return 3;
+    //
+    return self.dataArr.count;
     
 }
 -(NSMutableArray *)dataArr{

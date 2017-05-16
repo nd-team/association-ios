@@ -10,7 +10,6 @@
 #import "AppModel.h"
 #import "DataSource.h"
 #import "AppTwoCell.h"
-#import "ClaimCenterListController.h"
 
 @interface AppCenterController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -56,7 +55,7 @@
     AppTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AppTwoCell" forIndexPath:indexPath];
     AppModel * model = self.dataArr[indexPath.row];
     for (AppModel * app in self.nameArr) {
-        if ([model.name isEqualToString:app.name]) {
+        if ([app.name isEqualToString:model.name]) {
             cell.downloadImage.hidden = YES;
         }else{
             cell.downloadImage.hidden = NO;
@@ -66,21 +65,27 @@
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //下载到首页去
     AppModel * model = self.dataArr[indexPath.row];
-
-    if ([model.name isEqualToString:@"认领中心"]) {
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
-        ClaimCenterListController * claim = [sb instantiateViewControllerWithIdentifier:@"ClaimCenterListController"];
-        [self.navigationController pushViewController:claim animated:YES];
- 
-    }
+    NSSLog(@"%@",model);
     for (AppModel * app in self.nameArr) {
-        if (![model.name isEqualToString:app.name]) {
-            //下载 通知首页 传参 提示用户已经有这个选项
+        if ([app.name isEqualToString:model.name]) {
+            [self showMessage:@"已经下载此功能，请勿重复下载"];
+            break;
+        }else{
             self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName};
-
+            [self.navigationController popViewControllerAnimated:YES];
+            
         }
     }
+   
+   
+
+}
+-(void)showMessage:(NSString *)msg{
+    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"确定"] Action:^(NSInteger indexpath) {
+        NSSLog(@"%@",msg);
+    } viewController:self];
 }
 #pragma mark-懒加载
 -(NSMutableArray *)dataArr{

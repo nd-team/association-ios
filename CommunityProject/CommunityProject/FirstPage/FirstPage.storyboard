@@ -93,7 +93,7 @@
                                                 <constraint firstItem="dfp-B4-UDO" firstAttribute="leading" secondItem="Xm7-wm-9wc" secondAttribute="leading" constant="10" id="vh3-DA-hMm"/>
                                             </constraints>
                                         </view>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-6K-rzM">
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8UM-6K-rzM">
                                             <rect key="frame" x="0.0" y="255" width="383" height="0.0"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -199,7 +199,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="孟" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceu-K6-kWA">
                                                                         <rect key="frame" x="92.5" y="40" width="197.5" height="17"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" priority="15" id="gFa-K6-AL2"/>
+                                                                            <constraint firstAttribute="height" priority="15" constant="15" id="gFa-K6-AL2"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <color key="textColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
@@ -228,6 +228,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="trailing" secondItem="LVx-QF-hwt" secondAttribute="trailing" constant="10" id="0RG-mP-7fa"/>
                                                                     <constraint firstItem="ceu-K6-kWA" firstAttribute="leading" secondItem="Cw9-VY-WoT" secondAttribute="trailing" constant="7.5" id="4oU-q4-SgE"/>
+                                                                    <constraint firstItem="LVx-QF-hwt" firstAttribute="top" secondItem="kkm-8t-rJc" secondAttribute="bottom" constant="10" id="6BA-mC-nO5"/>
                                                                     <constraint firstItem="rgc-0G-xdQ" firstAttribute="leading" secondItem="Cw9-VY-WoT" secondAttribute="trailing" constant="7.5" id="AD0-63-qzQ"/>
                                                                     <constraint firstAttribute="trailing" secondItem="wTC-qn-Wf6" secondAttribute="trailing" constant="10" id="B1m-qa-NrH"/>
                                                                     <constraint firstItem="wTC-qn-Wf6" firstAttribute="leading" secondItem="ceu-K6-kWA" secondAttribute="trailing" constant="10" id="Csg-x8-vQR"/>
@@ -238,7 +239,6 @@
                                                                     <constraint firstItem="ceu-K6-kWA" firstAttribute="top" secondItem="rgc-0G-xdQ" secondAttribute="bottom" constant="10" id="R9f-bF-n7l"/>
                                                                     <constraint firstItem="Cw9-VY-WoT" firstAttribute="centerY" secondItem="dOy-Dq-HvV" secondAttribute="centerY" id="RlL-cc-XRF"/>
                                                                     <constraint firstItem="LVx-QF-hwt" firstAttribute="leading" secondItem="dOy-Dq-HvV" secondAttribute="leading" constant="92.5" id="Svk-Cy-aEP"/>
-                                                                    <constraint firstItem="LVx-QF-hwt" firstAttribute="top" secondItem="kkm-8t-rJc" secondAttribute="bottom" constant="10" id="VfF-Qa-wLB"/>
                                                                     <constraint firstItem="Cw9-VY-WoT" firstAttribute="leading" secondItem="dOy-Dq-HvV" secondAttribute="leading" constant="10" id="fKb-pf-kbE"/>
                                                                     <constraint firstItem="kkm-8t-rJc" firstAttribute="top" secondItem="ceu-K6-kWA" secondAttribute="bottom" constant="10" id="tRU-TS-lIR"/>
                                                                     <constraint firstItem="rgc-0G-xdQ" firstAttribute="top" secondItem="dOy-Dq-HvV" secondAttribute="top" constant="15" id="w8U-Qe-g19"/>
@@ -256,8 +256,11 @@
                                                     <connections>
                                                         <outlet property="claimBtn" destination="wTC-qn-Wf6" id="1g9-C9-P81"/>
                                                         <outlet property="headImageView" destination="Cw9-VY-WoT" id="sSF-Aa-tno"/>
+                                                        <outlet property="nameHeightCons" destination="gFa-K6-AL2" id="ZKs-xu-zxR"/>
                                                         <outlet property="nameLabel" destination="ceu-K6-kWA" id="v0P-7O-F9H"/>
+                                                        <outlet property="nameTopCons" destination="R9f-bF-n7l" id="iIA-qD-Mk1"/>
                                                         <outlet property="nicknameLabel" destination="rgc-0G-xdQ" id="6P6-92-QiW"/>
+                                                        <outlet property="nicknameTopCons" destination="w8U-Qe-g19" id="Q2F-jC-FVA"/>
                                                         <outlet property="numberLabel" destination="kkm-8t-rJc" id="nSM-um-1SX"/>
                                                         <outlet property="recomendPersonLabel" destination="LVx-QF-hwt" id="vXk-t0-c9F"/>
                                                     </connections>
@@ -279,7 +282,9 @@
                                         <constraint firstItem="8UM-6K-rzM" firstAttribute="leading" secondItem="CEB-UB-uj9" secondAttribute="leading" id="cyf-4G-SYL"/>
                                         <constraint firstAttribute="trailing" secondItem="Xm7-wm-9wc" secondAttribute="trailing" id="j1M-Gd-VfG"/>
                                         <constraint firstItem="BVe-Df-EbV" firstAttribute="leading" secondItem="CEB-UB-uj9" secondAttribute="leading" id="jAY-Za-vBH"/>
+                                        <constraint firstAttribute="width" constant="383" id="nap-g7-Tpa"/>
                                         <constraint firstItem="8UM-6K-rzM" firstAttribute="top" secondItem="Xm7-wm-9wc" secondAttribute="bottom" id="rAo-Q0-em2"/>
+                                        <constraint firstAttribute="height" constant="627.5" id="wHH-dj-lLE"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
@@ -432,6 +437,7 @@
                         <outlet property="collHeightContraint" destination="xsa-XW-GGV" id="oVF-hp-s5G"/>
                         <outlet property="collectionView" destination="8UM-6K-rzM" id="aE3-ZK-1w9"/>
                         <outlet property="headView" destination="CEB-UB-uj9" id="OhX-gh-QAN"/>
+                        <outlet property="headerHeightCons" destination="wHH-dj-lLE" id="LVM-4k-YiE"/>
                         <outlet property="tableView" destination="rdd-zN-2yz" id="zB0-aK-tCT"/>
                     </connections>
                 </viewController>

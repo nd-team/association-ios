@@ -91,10 +91,18 @@
             if ([code intValue] == 200) {
                 NSDictionary * jsonDic = data[@"data"];
                 NSSLog(@"%@",jsonDic);
+                
+                //别人认领当前用户成功的数据 （只有一条）
+                NSDictionary * first = jsonDic[@"beClaim"];
+                if (first.count != 0) {
+                    OthersClaimModel * other = [[OthersClaimModel alloc]initWithDictionary:first error:nil];
+                    [self.dataOneArr addObject:other];
+                }
                 NSArray * claimArr = jsonDic[@"claimMsg"];
                 for (NSDictionary * subDic in claimArr) {
                     //认领别人成功的数据
-                    if ([subDic[@"status"] isEqualToString:@"1"]) {
+
+                    if ([subDic[@"status"] intValue] == 1) {
                         OthersClaimModel * claiming = [[OthersClaimModel alloc]initWithDictionary:subDic error:nil];
                         [self.dataTwoArr addObject:claiming];
                     }else{
@@ -102,12 +110,6 @@
                         OthersClaimModel * wait = [[OthersClaimModel alloc]initWithDictionary:subDic error:nil];
                         [self.dataThreeArr addObject:wait];
                     }
-                }
-                //别人认领当前用户成功的数据 （只有一条）
-                if ([jsonDic[@"beClaim"] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary * first = jsonDic[@"beClaim"];
-                    OthersClaimModel * other = [[OthersClaimModel alloc]initWithDictionary:first error:nil];
-                    [self.dataOneArr addObject:other];
                 }
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];

@@ -109,18 +109,22 @@
     self.preRightWidthCons.constant = (allWidth-[self.prestigeCount integerValue]-4);
     self.conLeftWidthCons.constant = [self.expCount integerValue]+4;
     self.conRightWidthCons.constant = (allWidth-[self.expCount integerValue]-4);
-    NSSLog(@"%f=%f+%f=%f",self.preLeftWidthCons.constant,self.preRightWidthCons.constant,self.conLeftWidthCons.constant,self.conRightWidthCons.constant);
+//    NSSLog(@"%f=%f+%f=%f",self.preLeftWidthCons.constant,self.preRightWidthCons.constant,self.conLeftWidthCons.constant,self.conRightWidthCons.constant);
     self.flag = 1;
     if (![self.prestigeCount isEqualToString:@"0"]) {
         self.preLeftCons.constant = self.preLeftWidthCons.constant-4;
 
+    }else if ([self.prestigeCount intValue]<4){
+        self.preLeftCons.constant = self.preLeftWidthCons.constant;
     }else{
         self.preLeftCons.constant = 9;
         self.preRightWidthCons.constant = allWidth-4;
 
     }
-    if (![self.expCount isEqualToString:@"0"]) {
+    if ([self.expCount intValue]>4) {
         self.expLeftCons.constant = self.conLeftWidthCons.constant-4;
+    }else if ([self.expCount intValue]<4){
+        self.expLeftCons.constant = self.conLeftWidthCons.constant;
     }else{
         self.expLeftCons.constant = 9;
         self.conRightWidthCons.constant = allWidth-4;

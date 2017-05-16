@@ -93,6 +93,7 @@
         self.ageLabel.text = @"0岁";
     }else{
         self.ageLabel.text = [NSString stringWithFormat:@"%ld岁",(long)age];
+        self.age = [NSString stringWithFormat:@"%ld",(long)age];
     }
     self.sex = [DEFAULTS integerForKey:@"sex"];
     if (self.sex == 1) {

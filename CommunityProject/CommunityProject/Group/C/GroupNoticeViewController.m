@@ -42,11 +42,6 @@
     if (self.dif == 1 || self.dif == 2) {
         UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:self.rightStr andLeft:15  andTarget:self Action:@selector(rightItemClick)];
         self.navigationItem.rightBarButtonItem = rightItem;
-//        UIButton * rightBtn = [UIButton CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) andBackgroundColor:UIColorFromRGB(0xffffff) titleColor:UIColorFromRGB(0x10db9f) font:16 andTitle:@"创建"];
-//        UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-//        rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-//        [rightBtn addTarget:self action:@selector(rightItemClick) forControlEvents:UIControlEventTouchUpInside];
-//        self.navigationItem.rightBarButtonItem = rightItem;
         self.noticeTV.userInteractionEnabled = YES;
     }else{
         self.noticeTV.userInteractionEnabled = NO;
@@ -113,7 +108,7 @@
     [mDic setValue:self.hostId forKey:@"userId"];
     [mDic setValue:self.noticeTV.text forKey:@"niteceContent"];
     WeakSelf;
-    [AFNetData postDataWithUrl:NoticeURL andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,NoticeURL] andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"创建公告失败：%@",error);
         }else{

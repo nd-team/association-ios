@@ -27,16 +27,22 @@
     _claimModel = claimModel;
     NSString * str = [ImageUrl changeUrl:_claimModel.userPortraitUrl];
     NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"default"]];
     self.nicknameLabel.text = [NSString stringWithFormat:@"昵    称：%@",_claimModel.nickname];
     self.numberLabel.text = [NSString stringWithFormat:@"编    号：%@",_claimModel.recommendId];
     self.recomendPersonLabel.text = [NSString stringWithFormat:@"推 荐 人：%@  %@",_claimModel.claimUsersId,_claimModel.claimUsersName];
-    if ([_claimModel.fullName isKindOfClass:[NSNull class]]) {
+    if (_claimModel.fullName.length == 0) {
         self.nameLabel.text = @"";
+        self.nicknameTopCons.constant = 25;
+        self.nameHeightCons.constant = 0 ;
+        self.nameTopCons.constant = 0;
  
     }else{
+        self.nicknameTopCons.constant = 15;
+        self.nameHeightCons.constant = 15 ;
+        self.nameTopCons.constant = 10;
         self.nameLabel.text = [NSString stringWithFormat:@"姓    名：%@",_claimModel.fullName];
-  
+
     }
 }
 

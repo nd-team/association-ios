@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,strong)NSMutableArray * dataTwoArr;
-
+@property (nonatomic,copy)NSString * userId;
 @end
 
 @implementation GroupMessageController
@@ -29,14 +29,17 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.userId = [DEFAULTS objectForKey:@"userId"];
+
     [self setUI];
+    [self getAllData];
+
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(agreeAddFriend:) name:@"AgreeGroupMessage" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(agreeAddFriend:) name:@"OverlookMessage" object:nil];
-
-    [self getAllData];
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"AgreeGroupMessage" object:nil];
@@ -106,8 +109,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)getApplicationGroupList{
-    NSString * userId = [DEFAULTS objectForKey:@"userId"];
-    NSDictionary * params = @{@"userId":userId,@"groupId":self.groupId};
+    NSDictionary * params = @{@"userId":self.userId,@"groupId":self.groupId};
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupApplicationURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -118,12 +120,16 @@
                 [weakSelf.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
+            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 NSArray * msgArr = data[@"data"];
                 for (NSDictionary * dic in msgArr) {
                     GroupApplicationModel * search = [[GroupApplicationModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:search];
                 }
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+
             }else if ([code intValue] == 0){
                 //    [weakSelf showMessage:@"没有好友申请"];
             }
@@ -133,8 +139,7 @@
     
 }
 -(void)getTwoData{
-    NSString * userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
-    NSDictionary * params = @{@"userId":userId,@"groupId":self.groupId};
+    NSDictionary * params = @{@"userId":self.userId,@"groupId":self.groupId};
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ApplicationURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -145,12 +150,16 @@
                 [weakSelf.dataTwoArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
+            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 NSArray * msgArr = data[@"data"];
                 for (NSDictionary * dic in msgArr) {
                     ApplicationTwoModel * search = [[ApplicationTwoModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataTwoArr addObject:search];
                 }
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+
             }else if ([code intValue] == 0){
                 //    [weakSelf showMessage:@"没有好友申请"];
             }
@@ -180,8 +189,10 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
+//        NSSLog(@"%ld",self.dataArr.count);
         return self.dataArr.count;
     }else{
+//        NSSLog(@"==%ld",self.dataTwoArr.count);
         return self.dataTwoArr.count;
     }
     

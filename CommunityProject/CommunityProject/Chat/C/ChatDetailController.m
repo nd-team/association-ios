@@ -117,7 +117,9 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
     //位置PLUGIN_BOARD_ITEM_LOCATION_TAG
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:2 image:[UIImage imageNamed:@"location.png"] title:@"位置"];
     //红包PLUGIN_BOARD_ITEM_EVA_TAG
-    [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:3 image:[UIImage imageNamed:@"redPacket.png"] title:@"红包"];
+    if (self.conversationType != ConversationType_CHATROOM) {
+        [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:3 image:[UIImage imageNamed:@"redPacket.png"] title:@"红包"];
+    }
     //单聊
     if (self.conversationType == 1) {
         self.rightItemOne = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"person.png"  and:self Action:@selector(singlePersonChatClick)];

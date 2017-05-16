@@ -73,8 +73,9 @@
     [self.messageBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     self.userId = [userDefaults objectForKey:@"userId"];
-    BOOL isTop = [userDefaults boolForKey:@"topChatPerson"];
-    self.topChatBtn.selected = isTop;
+    RCConversation * currentConversation = [[RCIMClient sharedRCIMClient] getConversation:ConversationType_PRIVATE
+                                                                                 targetId:self.friendId];
+    self.topChatBtn.selected = currentConversation.isTop;
     //设置按钮状态
     WeakSelf;
     [[RCIMClient sharedRCIMClient]getConversationNotificationStatus:self.conversationType targetId:self.friendId success:^(RCConversationNotificationStatus nStatus) {

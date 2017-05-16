@@ -15,12 +15,12 @@
 @property (nonatomic,copy)NSString * nickname;
 //头像
 @property (nonatomic,copy)NSString * avatarImage;
-//状态： 0已拒绝 1已同意2已忽略
+//状态： 0已拒绝 1已同意2已忽略null未读
 @property (nonatomic,copy)NSString * status;
 //申请时间
 @property (nonatomic,copy)NSString * addtime;
 
 //申请留言
-@property (nonatomic,copy)NSString * addMessage;
+@property (nonatomic,copy)NSString * content;
 
 @end

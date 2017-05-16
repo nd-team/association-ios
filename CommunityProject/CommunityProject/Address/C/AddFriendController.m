@@ -68,7 +68,13 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AddFriendURL] andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"添加好友失败：%@",error);
-//            [weakSelf showMessage:@"添加好友失败"];
+            if ([self.buttonName isEqualToString:@"申请加群"]) {
+                [weakSelf showMessage:@"申请入群失败"];
+                
+            }else{
+                [weakSelf showMessage:@"添加好友失败"];
+                
+            }
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -76,12 +82,29 @@
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 });
             }else if ([code intValue] == 11){
-//                [weakSelf showMessage:@"已经是好友了"];
+                if ([self.buttonName isEqualToString:@"申请加群"]) {
+                    [weakSelf showMessage:@"已经入群"];
+
+                }else{
+                    [weakSelf showMessage:@"已经为好友"];
+ 
+                }
+
             }else if ([code intValue] == 0){
-//                [weakSelf showMessage:@"好友申请失败"];
+                if ([self.buttonName isEqualToString:@"申请加群"]) {
+                    [weakSelf showMessage:@"申请入群失败"];
+                    
+                }else{
+                    [weakSelf showMessage:@"好友申请失败"];
+                    
+                }
             }
         }
     }];
 }
-
+-(void)showMessage:(NSString *)msg{
+    [MessageAlertView alertViewWithTitle:msg message:nil buttonTitle:@[@"确定"] Action:^(NSInteger indexpath) {
+        NSSLog(@"%@",msg);
+    } viewController:self];
+}
 @end

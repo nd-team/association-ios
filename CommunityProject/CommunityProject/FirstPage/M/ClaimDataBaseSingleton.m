@@ -50,7 +50,7 @@
 -(void)insertDatabase:(ClaimModel *)model{
     
     
-    if (![_database executeUpdate:@"insert into ClaimModel (recommendId,nickname,userPortraitUrl,fullName,claimUsersId,claimUsersName,idStr) values (?,?,?,?,?,?,?)",model.recommendId,model.nickname,model.userPortraitUrl,model.fullName,model.claimUsersId,model.claimUsersName,model.userId]) {
+    if (![_database executeUpdate:@"insert into ClaimModel (recommendId,nickname,userPortraitUrl,fullName,claimUsersId,claimUsersName,userId) values (?,?,?,?,?,?,?)",model.recommendId,model.nickname,model.userPortraitUrl,model.fullName,model.claimUsersId,model.claimUsersName,model.userId]) {
         
         NSSLog(@"插入失败");
     }
