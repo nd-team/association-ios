@@ -69,6 +69,8 @@
     [self.applicationArr insertObject:appModel atIndex:self.applicationArr.count];
     //计算高度
     [self countHeight];
+    //清空插入数据
+    self.dict = nil;
 
 }
 - (void)viewDidLoad {
@@ -116,6 +118,7 @@
     }];
 }
 -(void)applicationCenter{
+    
     //应用中心
     FirstAppDataBaseSingleton * singleton = [FirstAppDataBaseSingleton shareDatabase];
     
@@ -137,9 +140,17 @@
     }else{
          row = self.applicationArr.count/count;
     }
+    [self.tableView beginUpdates];
     self.collHeightContraint.constant = 101*row;
-    self.headerHeightCons.constant = 637.5+self.collHeightContraint.constant;
     [self.collectionView reloadData];
+    self.headerHeightCons.constant = 637.5+self.collHeightContraint.constant;
+    CGRect frame = self.headView.frame;
+    frame.size.height = self.headerHeightCons.constant;
+    self.headView.frame = frame;
+    self.tableView.tableHeaderView = self.headView;
+    [self.headView layoutIfNeeded];
+    [self.tableView endUpdates];
+    NSSLog(@"%f===%f",self.headerHeightCons.constant,KMainScreenHeight);
 }
 //数据库获取数据
 -(void)localData{

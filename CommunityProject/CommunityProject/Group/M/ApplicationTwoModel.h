@@ -21,4 +21,6 @@
 //拉人昵称
 @property (nonatomic,copy)NSString * pullNickname;
 
+@property (nonatomic,copy)NSString * status;
+
 @end

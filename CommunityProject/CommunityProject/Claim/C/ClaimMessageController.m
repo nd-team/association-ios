@@ -91,25 +91,28 @@
             if ([code intValue] == 200) {
                 NSDictionary * jsonDic = data[@"data"];
                 NSSLog(@"%@",jsonDic);
-                
-                //别人认领当前用户成功的数据 （只有一条）
-                NSDictionary * first = jsonDic[@"beClaim"];
+                //认领别人成功的数据
+                NSArray * first = jsonDic[@"beClaim"];
                 if (first.count != 0) {
-                    OthersClaimModel * other = [[OthersClaimModel alloc]initWithDictionary:first error:nil];
-                    [self.dataOneArr addObject:other];
+                    for (NSDictionary * subDic in first) {
+                        OthersClaimModel * claiming = [[OthersClaimModel alloc]initWithDictionary:subDic error:nil];
+                        [self.dataTwoArr addObject:claiming];
+                    }
                 }
                 NSArray * claimArr = jsonDic[@"claimMsg"];
                 for (NSDictionary * subDic in claimArr) {
-                    //认领别人成功的数据
-
+                    //别人认领当前用户成功的数据 （只有一条）
                     if ([subDic[@"status"] intValue] == 1) {
-                        OthersClaimModel * claiming = [[OthersClaimModel alloc]initWithDictionary:subDic error:nil];
-                        [self.dataTwoArr addObject:claiming];
+                        OthersClaimModel * other = [[OthersClaimModel alloc]initWithDictionary:subDic error:nil];
+                        [self.dataOneArr addObject:other];
                     }else{
                         //须同意的认领数据
                         OthersClaimModel * wait = [[OthersClaimModel alloc]initWithDictionary:subDic error:nil];
                         [self.dataThreeArr addObject:wait];
                     }
+                }
+                if (self.dataOneArr.count != 0) {
+                    [self.dataThreeArr removeAllObjects];
                 }
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];

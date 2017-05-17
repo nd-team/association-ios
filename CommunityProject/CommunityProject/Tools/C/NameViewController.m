@@ -69,6 +69,7 @@
 }
 -(void)rightItemClick{
     [self tapClick];
+    WeakSelf;
     if (self.nameTF.text.length != 0) {
         //好友昵称修改
         if (self.titleCount == 1) {
@@ -100,7 +101,13 @@
                 NSMutableDictionary * dic = [NSMutableDictionary new];
                 [dic setValuesForKeysWithDictionary:params];
                 [dic setValue:self.nameTF.text forKey:@"groupName"];
-                [self changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,CreateGroup] andSymbol:3];
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                    [weakSelf changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,CreateGroup] andSymbol:3];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    });
+                });
  
             }
            
@@ -117,7 +124,13 @@
             NSMutableDictionary * dic = [NSMutableDictionary new];
             [dic setValuesForKeysWithDictionary:params];
             [dic setValue:self.nameTF.text forKey:@"groupName"];
-            [self changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,CreateGroup] andSymbol:3];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [weakSelf changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,CreateGroup] andSymbol:3];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                });
+            });
         }
     }else{
         [self leftClick];

@@ -39,7 +39,7 @@
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists ActivityListModel (id integer primary key autoincrement, activesId text,activesTitle text,activesImage text,activesStart text,activesEnd text,activesAddress text,activesContent text,activesLimit text,status integer,activesClosing text)"]) {
+        if (![_database executeUpdate:@"create table if not exists ActivityListModel (id integer primary key autoincrement, activesId text,activesTitle text,activesImage text,activesStart text,activesEnd text,activesAddress text,activesContent text,activesLimit text,status text,activesClosing text)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -75,7 +75,7 @@
         model.activesAddress = [set stringForColumn:@"activesAddress"];
         model.activesContent = [set stringForColumn:@"activesContent"];
         model.activesLimit = [set stringForColumn:@"activesLimit"];
-        model.status = [set intForColumn:@"status"];
+        model.status = [set stringForColumn:@"status"];
         model.activesClosing = [set stringForColumn:@"activesClosing"];
         [newArr addObject:model];
     }

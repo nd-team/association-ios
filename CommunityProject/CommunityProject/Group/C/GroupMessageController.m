@@ -170,8 +170,9 @@
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     GroupMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GroupMessageCell"];
-    cell.titleLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"申请加入 %@",self.groupName] andFirstRangeStr:@"申请加入 " andFirstChangeColor:UIColorFromRGB(0x999999) andSecondRangeStr:self.groupName andSecondColor:UIColorFromRGB(0x333333)];
-
+    cell.groupName = self.groupName;
+    cell.myTableView = self.tableView;
+    cell.groupId = self.groupId;
     if (indexPath.section == 0) {
         cell.groupModel = self.dataArr[indexPath.row];
         cell.dataArr = self.dataArr;
@@ -180,8 +181,6 @@
         cell.dataTwoArr = self.dataTwoArr;
     }
    
-    cell.myTableView = self.tableView;
-    cell.groupId = self.groupId;
     
     return cell;
     

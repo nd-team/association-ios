@@ -26,8 +26,8 @@
 -(void)setModel:(GroupModel *)model{
     _model = model;
     self.nameLabel.text = _model.groupName;
-   NSString *  str = [ImageUrl changeUrl:_model.groupPortraitUrl];
+    NSString *  str = [ImageUrl changeUrl:_model.groupPortraitUrl];
     NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"default"]];
 }
 @end

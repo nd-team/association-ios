@@ -55,7 +55,7 @@
     AppTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AppTwoCell" forIndexPath:indexPath];
     AppModel * model = self.dataArr[indexPath.row];
     for (AppModel * app in self.nameArr) {
-        if ([app.name isEqualToString:model.name]) {
+        if ([@"认领中心" isEqualToString:model.name]&&[@"认领中心" isEqualToString:app.name]) {
             cell.downloadImage.hidden = YES;
         }else{
             cell.downloadImage.hidden = NO;
@@ -67,18 +67,24 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     //下载到首页去
     AppModel * model = self.dataArr[indexPath.row];
-    NSSLog(@"%@",model);
+    int i = 0;
     for (AppModel * app in self.nameArr) {
         if ([app.name isEqualToString:model.name]) {
+            i++;
             [self showMessage:@"已经下载此功能，请勿重复下载"];
             break;
-        }else{
-            self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName};
-            [self.navigationController popViewControllerAnimated:YES];
-            
         }
     }
-   
+    if (i == 0) {
+        if ([@"认领中心" isEqualToString:model.name]) {
+            self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName};
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self showMessage:@"此功能还未完善，敬请期待"];
+ 
+        }
+      
+    }
    
 
 }

@@ -16,6 +16,7 @@
     [self setButtonStatus:self.unseeBtn];
     self.headImageView.layer.masksToBounds = YES;
     self.headImageView.layer.cornerRadius = 5;
+    self.titleLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"申请加入 %@",self.groupName] andFirstRangeStr:@"申请加入 " andFirstChangeColor:UIColorFromRGB(0x999999) andSecondRangeStr:self.groupName andSecondColor:UIColorFromRGB(0x333333)];
 
 }
 -(void)setButtonStatus:(UIButton *)btn{
@@ -70,7 +71,26 @@
     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_twoModel.userPortraitUrl]];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.userIdLabel.text = _twoModel.userId;
-
+    switch ([_twoModel.status intValue]) {
+        case 0:
+            [self.agreeBtn setTitle:@"已拒绝" forState:UIControlStateNormal];
+            self.agreeBtn.enabled = NO;
+            break;
+        case 1:
+            [self.agreeBtn setTitle:@"已同意" forState:UIControlStateNormal];
+            self.agreeBtn.enabled = NO;
+            break;
+        case 2:
+            [self.unseeBtn setTitle:@"已忽略" forState:UIControlStateNormal];
+            self.unseeBtn.enabled = NO;
+            break;
+        case 3:
+            [self.agreeBtn setTitle:@"同意" forState:UIControlStateNormal];
+            self.agreeBtn.enabled = YES;
+            break;
+        default:
+            break;
+    }
 }
 - (IBAction)agreeClick:(id)sender {
     NSString * userId = [DEFAULTS objectForKey:@"userId"];

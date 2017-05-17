@@ -389,7 +389,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
 }
 -(void)willDisplayMessageCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     RCMessageModel * model = self.conversationDataRepository[indexPath.row];
-    RCUserInfo * userInfo = model.userInfo;
+//    RCUserInfo * userInfo = model.userInfo;
     if ([cell isMemberOfClass:[RCTextMessageCell class]]) {
         RCTextMessageCell * realCell = (RCTextMessageCell *)cell;
         UILabel * realLabel = (UILabel *)realCell.textLabel;
@@ -402,7 +402,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
         UILabel * label = (UILabel *)otherCell.tipMessageLabel;
         label.font = [UIFont systemFontOfSize:11];
         label.backgroundColor = UIColorFromRGB(0xb5b7b8);
-        label.attributedText = [ImageUrl changeTextColor:otherCell.tipMessageLabel.text andFirstRangeStr:@"申请加入" andFirstChangeColor:UIColorFromRGB(0xffffff) andSecondRangeStr:userInfo.name andSecondColor:UIColorFromRGB(0xed0d0d)];
+//        label.attributedText = [ImageUrl changeTextColor:otherCell.tipMessageLabel.text andFirstRangeStr:@"申请加入" andFirstChangeColor:UIColorFromRGB(0xffffff) andSecondRangeStr:userInfo.name andSecondColor:UIColorFromRGB(0xed0d0d)];
     }else if ([cell isMemberOfClass:[RCFileMessageCell class]]){
 //        RCFileMessageCell * fileCell = (RCFileMessageCell *)cell;
 

@@ -46,8 +46,8 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    //融云
-    [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
+    //融云tdrvipkstdnk5
+    [[RCIM sharedRCIM]initWithAppKey:@"x18ywvqfxjesc"];
     //应用的Scheme
     [[RCIM sharedRCIM]setScheme:@"CommunityRedPacket" forExtensionModule:@"JrmfPacketManager"];
     //设置会话列表头像和会话界面头像
@@ -405,14 +405,14 @@
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
             }else if ([code intValue] == 0){
                 NSSLog(@"账号不存在！");
-//                [weakSelf showMessage:@"账号不存在！"];
+                [weakSelf showMessage:@"账号不存在！"];
                 
             }else if ([code intValue] == 1000){
                 NSSLog(@"账号禁止登录！");
                 [weakSelf showMessage:@"账号禁止登录！"];
             }else if ([code intValue] == 1001){
                 NSSLog(@"密码错误！");
-//                [weakSelf showMessage:@"密码错误！"];
+                [weakSelf showMessage:@"密码错误！"];
                 //传账号
                 
             }else{

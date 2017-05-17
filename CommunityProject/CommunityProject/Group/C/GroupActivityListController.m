@@ -127,7 +127,7 @@
     act.headStr = model.activesImage;
     act.titleStr = model.activesTitle;
     act.listDelegate = self;
-    if (model.status == 1) {
+    if ([model.status isEqualToString:@"1"]) {
         act.isSign = YES;
     }else{
         act.isSign = NO;
@@ -158,6 +158,7 @@
         CreateActivityController * create = segue.destinationViewController;
         create.groupID = self.groupID;
         create.userID = self.userID;
+        create.delegate = self;
     }
 }
 -(NSMutableArray *)dataArr{

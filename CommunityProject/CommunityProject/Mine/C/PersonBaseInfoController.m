@@ -103,41 +103,26 @@
     self.provinceTF.layer.borderWidth = 1;
     self.cityTF.layer.borderWidth = 1;
     self.countryTF.layer.borderWidth = 1;
-    //总值暂定allWidth
-    CGFloat allWidth = KMainScreenWidth-231;
-    self.preLeftWidthCons.constant = [self.prestigeCount integerValue]+4;
-    self.preRightWidthCons.constant = (allWidth-[self.prestigeCount integerValue]-4);
-    self.conLeftWidthCons.constant = [self.expCount integerValue]+4;
-    self.conRightWidthCons.constant = (allWidth-[self.expCount integerValue]-4);
-//    NSSLog(@"%f=%f+%f=%f",self.preLeftWidthCons.constant,self.preRightWidthCons.constant,self.conLeftWidthCons.constant,self.conRightWidthCons.constant);
+    //总值暂定300 宽138
     self.flag = 1;
-    if (![self.prestigeCount isEqualToString:@"0"]) {
-        self.preLeftCons.constant = self.preLeftWidthCons.constant-4;
+    NSInteger preCount = [self.prestigeCount integerValue];
+    NSInteger expCount = [self.expCount integerValue];
+    float a = (float)(preCount+4)/300;
+    float b = (float)(expCount+4)/300;
+    NSSLog(@"%.2f,%.2f",a,b);
+    self.preRightWidthCons.constant = (1-a)*138;
+    self.preLeftWidthCons.constant = a*138;
+    self.conLeftWidthCons.constant = b*138;
+    self.conRightWidthCons.constant = (1-b)*138;
+    self.preLeftCons.constant = self.preLeftWidthCons.constant+5;
+    self.expLeftCons.constant = self.conLeftWidthCons.constant+5;
 
-    }else if ([self.prestigeCount intValue]<4){
-        self.preLeftCons.constant = self.preLeftWidthCons.constant;
-    }else{
-        self.preLeftCons.constant = 9;
-        self.preRightWidthCons.constant = allWidth-4;
-
-    }
-    if ([self.expCount intValue]>4) {
-        self.expLeftCons.constant = self.conLeftWidthCons.constant-4;
-    }else if ([self.expCount intValue]<4){
-        self.expLeftCons.constant = self.conLeftWidthCons.constant;
-    }else{
-        self.expLeftCons.constant = 9;
-        self.conRightWidthCons.constant = allWidth-4;
-
-    }
     [self.sexNoBtn setBackgroundImage:[UIImage imageNamed:@"noSelBtn"] forState:UIControlStateNormal];
     [self.sexYesBtn setBackgroundImage:[UIImage imageNamed:@"noSelBtn"] forState:UIControlStateNormal];
     [self.sexNoBtn setBackgroundImage:[UIImage imageNamed:@"chooseSel"] forState:UIControlStateSelected];
     [self.sexYesBtn setBackgroundImage:[UIImage imageNamed:@"chooseSel"] forState:UIControlStateSelected];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userPortraitUrl]];
     self.contributeCountLabel.text = self.contributeCount;
-    self.prestigeCountLabel.text = self.prestigeCount;
-    self.experienceCountLabel.text = self.expCount;
     self.nicknameLabel.text = self.nickname;
     self.userLabel.text = self.userId;
     self.phoneTF.text = self.mobile;
@@ -456,7 +441,12 @@
 -(void)viewWillLayoutSubviews{
     
     [super viewWillLayoutSubviews];
-    self.viewWidthCons.constant = KMainScreenWidth+5;
+    if (KMainScreenWidth == 375) {
+        self.viewWidthCons.constant = KMainScreenWidth+5;
+    }else{
+        self.viewWidthCons.constant = KMainScreenWidth;
+  
+    }
     
 }
 -(NSMutableArray *)provinceArr{

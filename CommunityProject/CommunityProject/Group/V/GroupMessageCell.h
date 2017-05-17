@@ -25,5 +25,7 @@
 @property (nonatomic,strong)NSMutableArray * dataTwoArr;
 //群ID
 @property (nonatomic,copy)NSString * groupId;
+//群名
+@property (nonatomic,copy)NSString * groupName;
 
 @end

@@ -29,6 +29,6 @@
 //活动介绍
 @property (nonatomic,copy)NSString * activesContent;
 //是否报名0：没报名1已报名
-@property (nonatomic)NSInteger  status;
+@property (nonatomic,copy)NSString *  status;
 
 @end

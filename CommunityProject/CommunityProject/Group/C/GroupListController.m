@@ -104,6 +104,7 @@
                 [weakSelf.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
+            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
                 for (NSDictionary * dic in arr) {

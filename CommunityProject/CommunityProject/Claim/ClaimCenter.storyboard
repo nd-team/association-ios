@@ -1573,7 +1573,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlD-pf-InC">
-                                                    <rect key="frame" x="18" y="23.5" width="237" height="20"/>
+                                                    <rect key="frame" x="18" y="23.5" width="227" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="fdM-71-hka"/>
                                                     </constraints>
@@ -1582,10 +1582,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017.10.10 10:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZ0-tP-DQs">
-                                                    <rect key="frame" x="265" y="23" width="100" height="21"/>
+                                                    <rect key="frame" x="255" y="23" width="110" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="FIo-Yd-bxS"/>
-                                                        <constraint firstAttribute="width" constant="100" id="yi5-Q1-7rl"/>
+                                                        <constraint firstAttribute="width" constant="110" id="yi5-Q1-7rl"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
