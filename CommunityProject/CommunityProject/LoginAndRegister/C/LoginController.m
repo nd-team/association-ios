@@ -258,9 +258,8 @@
                 if (status == 0) {
                     //信息未确认进入确认界面
                     [weakSelf presentSureInfoUI:weakSelf.usernameTF.text andPassword:weakSelf.secretTF.text andCode:msg[@"numberId"]];
-
-                }else{
-                    //已确认登录
+                    
+                }else{              //已确认登录
                     //用户ID
                     [userDefaults setValue:msg[@"userId"] forKey:@"userId"];
                     //昵称
@@ -270,7 +269,7 @@
 
                     [weakSelf loginMain];
                     [weakSelf loginRongServicer:msg[@"token"]];
-
+                
                 }
                 [userDefaults synchronize];
 

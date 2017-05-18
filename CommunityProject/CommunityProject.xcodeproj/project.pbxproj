@@ -270,6 +270,11 @@
 		45AA3DDB1EB421DC007F02E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DDA1EB421DC007F02E5 /* ViewController.m */; };
 		45AA3DDE1EB4701A007F02E5 /* ProductCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DDD1EB4701A007F02E5 /* ProductCodeController.m */; };
 		45AA3DE01EB47179007F02E5 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AA3DDF1EB47179007F02E5 /* CoreImage.framework */; };
+		45AE199D1ECD3CB70098A7FF /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45AE199C1ECD3CB70098A7FF /* Activity.storyboard */; };
+		45AE19A01ECD406A0098A7FF /* PlatFormActController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AE199F1ECD406A0098A7FF /* PlatFormActController.m */; };
+		45AE19A41ECD41920098A7FF /* ActCommonListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AE19A21ECD41920098A7FF /* ActCommonListCell.m */; };
+		45AE19A51ECD41920098A7FF /* ActCommonListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45AE19A31ECD41920098A7FF /* ActCommonListCell.xib */; };
+		45AE19A81ECDA7120098A7FF /* PlatformActListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AE19A71ECDA7120098A7FF /* PlatformActListModel.m */; };
 		45B9770C1EAEDE6700A42D55 /* MyCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9770B1EAEDE6700A42D55 /* MyCardController.m */; };
 		45B9770F1EAEE86E00A42D55 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9770E1EAEE86E00A42D55 /* SettingViewController.m */; };
 		45B977121EAF519600A42D55 /* MyPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977111EAF519600A42D55 /* MyPeopleCell.m */; };
@@ -752,6 +757,14 @@
 		45AA3DDC1EB4701A007F02E5 /* ProductCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCodeController.h; sourceTree = "<group>"; };
 		45AA3DDD1EB4701A007F02E5 /* ProductCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCodeController.m; sourceTree = "<group>"; };
 		45AA3DDF1EB47179007F02E5 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		45AE199C1ECD3CB70098A7FF /* Activity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
+		45AE199E1ECD406A0098A7FF /* PlatFormActController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatFormActController.h; sourceTree = "<group>"; };
+		45AE199F1ECD406A0098A7FF /* PlatFormActController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlatFormActController.m; sourceTree = "<group>"; };
+		45AE19A11ECD41920098A7FF /* ActCommonListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActCommonListCell.h; sourceTree = "<group>"; };
+		45AE19A21ECD41920098A7FF /* ActCommonListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActCommonListCell.m; sourceTree = "<group>"; };
+		45AE19A31ECD41920098A7FF /* ActCommonListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActCommonListCell.xib; sourceTree = "<group>"; };
+		45AE19A61ECDA7120098A7FF /* PlatformActListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformActListModel.h; sourceTree = "<group>"; };
+		45AE19A71ECDA7120098A7FF /* PlatformActListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlatformActListModel.m; sourceTree = "<group>"; };
 		45B9770A1EAEDE6700A42D55 /* MyCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCardController.h; sourceTree = "<group>"; };
 		45B9770B1EAEDE6700A42D55 /* MyCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCardController.m; sourceTree = "<group>"; };
 		45B9770D1EAEE86E00A42D55 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -926,6 +939,7 @@
 				455FA3251E763C070039B155 /* Main */,
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
 				455FA32A1E763C250039B155 /* FirstPage */,
+				45AE19981ECD3C470098A7FF /* Activity */,
 				457182A81EC44EEE00860F38 /* Claim */,
 				455FA3261E763C250039B155 /* Chat */,
 				457D3CB61E77CD4A00FD0309 /* Address */,
@@ -1858,6 +1872,45 @@
 			path = MJPhotoBrowser;
 			sourceTree = "<group>";
 		};
+		45AE19981ECD3C470098A7FF /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				45AE199C1ECD3CB70098A7FF /* Activity.storyboard */,
+				45AE19991ECD3C470098A7FF /* C */,
+				45AE199A1ECD3C470098A7FF /* M */,
+				45AE199B1ECD3C470098A7FF /* V */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		45AE19991ECD3C470098A7FF /* C */ = {
+			isa = PBXGroup;
+			children = (
+				45AE199E1ECD406A0098A7FF /* PlatFormActController.h */,
+				45AE199F1ECD406A0098A7FF /* PlatFormActController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		45AE199A1ECD3C470098A7FF /* M */ = {
+			isa = PBXGroup;
+			children = (
+				45AE19A61ECDA7120098A7FF /* PlatformActListModel.h */,
+				45AE19A71ECDA7120098A7FF /* PlatformActListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		45AE199B1ECD3C470098A7FF /* V */ = {
+			isa = PBXGroup;
+			children = (
+				45AE19A11ECD41920098A7FF /* ActCommonListCell.h */,
+				45AE19A21ECD41920098A7FF /* ActCommonListCell.m */,
+				45AE19A31ECD41920098A7FF /* ActCommonListCell.xib */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
 		55BFAB6FB609C76103B710A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2009,6 +2062,7 @@
 				456CCE6E1E827CD8005EC051 /* jrmf.cer in Resources */,
 				456CCE6D1E827CD8005EC051 /* JResource.bundle in Resources */,
 				455C6B101EA0B24200E0B3F3 /* HobbyCell.xib in Resources */,
+				45AE199D1ECD3CB70098A7FF /* Activity.storyboard in Resources */,
 				4562D7331E7F6E2700C6EE56 /* Group.storyboard in Resources */,
 				45CE5F601EC19BB200225534 /* AMap.bundle in Resources */,
 				455C6B251EA1FDB900E0B3F3 /* CircleImageCell.xib in Resources */,
@@ -2016,6 +2070,7 @@
 				458959F51EBDBF1A00CBADDD /* MJPhotoBrowser.bundle in Resources */,
 				45CE5F701EC29FF900225534 /* AreaCell.xib in Resources */,
 				455FA31B1E7631A90039B155 /* Assets.xcassets in Resources */,
+				45AE19A51ECD41920098A7FF /* ActCommonListCell.xib in Resources */,
 				4589595C1EB825D900CBADDD /* WeiboSDK.bundle in Resources */,
 				456CCE641E827CD8005EC051 /* RongCloudKit.strings in Resources */,
 				455FA3161E7631A90039B155 /* Main.storyboard in Resources */,
@@ -2093,6 +2148,7 @@
 				45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				458959F41EBDBF1A00CBADDD /* MJPhoto.m in Sources */,
+				45AE19A41ECD41920098A7FF /* ActCommonListCell.m in Sources */,
 				458959F81EBDBF1A00CBADDD /* MJPhotoProgressView.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
 				4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */,
@@ -2216,6 +2272,7 @@
 				455C6B2C1EA5B75F00E0B3F3 /* CircleCommentCell.m in Sources */,
 				4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */,
 				4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */,
+				45AE19A01ECD406A0098A7FF /* PlatFormActController.m in Sources */,
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
 				457781D71E9F7C6D0004BBE7 /* InterestCell.m in Sources */,
 				45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */,
@@ -2239,6 +2296,7 @@
 				45B9770C1EAEDE6700A42D55 /* MyCardController.m in Sources */,
 				455FA3541E76A2C60039B155 /* MineController.m in Sources */,
 				458959CF1EBB150400CBADDD /* FSCalendarConstants.m in Sources */,
+				45AE19A81ECDA7120098A7FF /* PlatformActListModel.m in Sources */,
 				458959D51EBB150400CBADDD /* FSCalendarStickyHeader.m in Sources */,
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,
 				455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */,

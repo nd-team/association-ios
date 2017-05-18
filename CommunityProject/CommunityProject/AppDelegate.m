@@ -47,7 +47,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     //融云tdrvipkstdnk5
-    [[RCIM sharedRCIM]initWithAppKey:@"x18ywvqfxjesc"];
+    [[RCIM sharedRCIM]initWithAppKey:@"x4vkb1qpx0tmk"];
     //应用的Scheme
     [[RCIM sharedRCIM]setScheme:@"CommunityRedPacket" forExtensionModule:@"JrmfPacketManager"];
     //设置会话列表头像和会话界面头像
@@ -347,7 +347,6 @@
         if (error) {
             NSSLog(@"登录失败：%@",error);
         }else{
-            
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //成功
@@ -405,14 +404,14 @@
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
             }else if ([code intValue] == 0){
                 NSSLog(@"账号不存在！");
-                [weakSelf showMessage:@"账号不存在！"];
-                
+                [weakSelf showMessage:@"账号不存在,请退出！"];
+                //清空本地数据库
             }else if ([code intValue] == 1000){
                 NSSLog(@"账号禁止登录！");
                 [weakSelf showMessage:@"账号禁止登录！"];
             }else if ([code intValue] == 1001){
                 NSSLog(@"密码错误！");
-                [weakSelf showMessage:@"密码错误！"];
+                [weakSelf showMessage:@"密码错误,请退出！"];
                 //传账号
                 
             }else{
@@ -421,6 +420,25 @@
             }
         }
     }];
+}
+-(void)clear{
+    NSString * path = [[NSBundle mainBundle]bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults]removePersistentDomainForName:path];
+    //断开连接并不接收远程推送
+    [[RCIMClient sharedRCIMClient]logout];
+    //清空融云SDK
+    [[RCIM sharedRCIM]clearUserInfoCache];
+    [[RCIM sharedRCIM]clearGroupInfoCache];
+    //清空本地文件
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    NSString * addressPath = [NSHomeDirectory()stringByAppendingString:@"/Documents"];
+    [fileManager removeItemAtPath:addressPath error:nil];
+    //解决启动页问题
+    NSString *firstPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
+    
+    NSFileManager * file= [NSFileManager defaultManager];
+    //创建文件
+    [file createFileAtPath:firstPath contents:nil attributes:nil];
 }
 -(void)showMessage:(NSString *)msg{
     NSString * token = [DEFAULTS objectForKey:@"token"];
@@ -437,6 +455,9 @@
             [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:phone];
             [self loginRongServicer:token andPhone:phone andPassword:password];
         }else{
+            if ([msg isEqualToString:@"账号不存在,请退出！"]) {
+                [weakSelf clear];
+            }
             [weakSelf login];
         }
         

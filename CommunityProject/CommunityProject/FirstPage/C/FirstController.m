@@ -221,8 +221,7 @@
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
-                NSString * msg = data[@"msgs"];
-                NSSLog(@"失败错误信息：%@",msg);
+                NSSLog(@"失败错误信息：%@",data[@"msgs"]);
             }
         }
     }];

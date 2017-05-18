@@ -349,6 +349,7 @@
     }
     return _searchAPI;
 }
+//        [_locationManager setLocatingWithReGeocode:YES];  //设置返回逆地理信息 持续定位
 -(AMapLocationManager *)locationManager{
     if (!_locationManager) {
         _locationManager = [AMapLocationManager new];
@@ -360,10 +361,8 @@
         [_locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
         //定位延时
         _locationManager.locationTimeout = 2;
-        //逆地理请求
+        //逆地理请求单词的
         _locationManager.reGeocodeTimeout = 2;
-        //设置返回逆地理信息
-        [_locationManager setLocatingWithReGeocode:YES];
         
     }
     return _locationManager;

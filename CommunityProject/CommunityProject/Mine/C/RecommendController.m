@@ -410,6 +410,7 @@
         if (error) {
             NSSLog(@"已推荐人请求失败：%@",error);
         }else{
+            NSSLog(@"%@",data);
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //推荐码进入推荐码界面
@@ -421,11 +422,19 @@
 
                 NSSLog(@"%@",recomCode);
             }else{
+                
                 NSSLog(@"推荐失败");
+                [weakSelf showMessage:@"推荐失败"];
             }
             
         }
     }];
+}
+-(void)showMessage:(NSString *)msg{
+    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"确定"] Action:^(NSInteger indexpath) {
+        NSSLog(@"%@",msg);
+    } viewController:self];
+
 }
 - (IBAction)manClick:(id)sender {
     self.manBtn.selected = !self.manBtn.selected;

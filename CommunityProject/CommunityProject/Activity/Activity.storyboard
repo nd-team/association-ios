@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EcB-s1-Cjg">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="hGt-Dg-Bpr">
+            <objects>
+                <navigationController id="EcB-s1-Cjg" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bL2-nA-K1S">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="5te-Or-xl9" kind="relationship" relationship="rootViewController" id="qp8-VL-dzO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BED-VN-sxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1246" y="30"/>
+        </scene>
+        <!--平台活动-->
+        <scene sceneID="unr-W2-gbg">
+            <objects>
+                <viewController storyboardIdentifier="PlatFormActController" id="5te-Or-xl9" customClass="PlatFormActController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9VI-OK-3Se"/>
+                        <viewControllerLayoutGuide type="bottom" id="d4Y-wB-qd9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mB5-xx-8Ki">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="210" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="kxP-qh-fGN">
+                                <rect key="frame" x="-4" y="64" width="383" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="TDV-Ub-R2V" customClass="SDCycleScrollView">
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="200"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="dataSource" destination="5te-Or-xl9" id="Tkd-Jn-2df"/>
+                                    <outlet property="delegate" destination="5te-Or-xl9" id="009-1z-mkL"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="d4Y-wB-qd9" firstAttribute="top" secondItem="kxP-qh-fGN" secondAttribute="bottom" id="XoI-tU-dTW"/>
+                            <constraint firstItem="kxP-qh-fGN" firstAttribute="top" secondItem="9VI-OK-3Se" secondAttribute="bottom" id="Zzq-Lc-JIw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kxP-qh-fGN" secondAttribute="trailing" constant="-20" id="ep9-0X-pNb"/>
+                            <constraint firstItem="kxP-qh-fGN" firstAttribute="leading" secondItem="mB5-xx-8Ki" secondAttribute="leadingMargin" constant="-20" id="par-aE-3pa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="平台活动" id="gtm-ap-BaP">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="jl9-BC-hYB">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="isR-CG-ChW">
+                                <rect key="frame" x="16" y="11" width="9" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="back"/>
+                                <connections>
+                                    <action selector="leftClick:" destination="5te-Or-xl9" eventType="touchUpInside" id="Kfl-6F-OAo"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" id="WFm-ZB-GjM">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8dJ-o4-pAc">
+                                <rect key="frame" x="288" y="11" width="71" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" image="topMore"/>
+                                <connections>
+                                    <action selector="rightClick:" destination="5te-Or-xl9" eventType="touchUpInside" id="gnM-U6-Xbg"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="scrollView" destination="TDV-Ub-R2V" id="h2G-eS-rFQ"/>
+                        <outlet property="tableView" destination="kxP-qh-fGN" id="QdX-A7-ubZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ur-Xa-Obw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-556" y="29"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="back" width="9" height="14"/>
+        <image name="topMore" width="17" height="4"/>
+    </resources>
+</document>
