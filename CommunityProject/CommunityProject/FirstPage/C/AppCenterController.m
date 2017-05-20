@@ -55,7 +55,7 @@
     AppTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AppTwoCell" forIndexPath:indexPath];
     AppModel * model = self.dataArr[indexPath.row];
     for (AppModel * app in self.nameArr) {
-        if ([@"认领中心" isEqualToString:model.name]&&[@"认领中心" isEqualToString:app.name]) {
+        if ([app.name isEqualToString:model.name]) {
             cell.downloadImage.hidden = YES;
         }else{
             cell.downloadImage.hidden = NO;
@@ -75,15 +75,16 @@
             break;
         }
     }
+    //        if ([@"认领中心" isEqualToString:model.name]) {
+//}else{
+  //  [self showMessage:@"此功能还未完善，敬请期待"];
+    
+//}
+
     if (i == 0) {
-        if ([@"认领中心" isEqualToString:model.name]) {
             self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName};
             [self.navigationController popViewControllerAnimated:YES];
-        }else{
-            [self showMessage:@"此功能还未完善，敬请期待"];
- 
-        }
-      
+        
     }
    
 

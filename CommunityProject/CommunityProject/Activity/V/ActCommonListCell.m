@@ -28,6 +28,11 @@
     self.titleLabel.text = _actModel.title;
     self.areaLabel.text = _actModel.address;
     [self.travelImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_actModel.activesImage]]] placeholderImage:[UIImage imageNamed:@"banner"]];
-    
+    if ([_actModel.status isEqualToString:@"1"]) {
+        self.statusLabel.text = @"进行中";
+
+    }else{
+        self.statusLabel.text = @"已结束";
+    }
 }
 @end

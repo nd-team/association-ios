@@ -39,7 +39,7 @@
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists TravelModel (id integer primary key autoincrement, activesImage text,title text,address text)"]) {
+        if (![_database executeUpdate:@"create table if not exists TravelModel (id integer primary key autoincrement, activesImage text,title text,address text,idStr text)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -50,7 +50,7 @@
 -(void)insertDatabase:(TravelModel *)model{
     
     
-    if (![_database executeUpdate:@"insert into TravelModel (activesImage,title,address) values (?,?,?)",model.activesImage,model.title,model.address]) {
+    if (![_database executeUpdate:@"insert into TravelModel (activesImage,title,address,idStr) values (?,?,?,?)",model.activesImage,model.title,model.address,model.idStr]) {
         
         NSSLog(@"插入失败");
     }
@@ -70,6 +70,7 @@
         model.activesImage = [set stringForColumn:@"activesImage"];
         model.title = [set stringForColumn:@"title"];
         model.address = [set stringForColumn:@"address"];
+        model.idStr = [set stringForColumn:@"idStr"];
         [newArr addObject:model];
     }
     
@@ -79,7 +80,7 @@
 
 -(void)deleteDatabase:(TravelModel *)model{
     
-    if (![self.database executeUpdate:@"delete from TravelModel where activesImage = ?",model.activesImage]) {
+    if (![self.database executeUpdate:@"delete from TravelModel where idStr = ?",model.idStr]) {
         
         NSSLog(@"删除失败");
         

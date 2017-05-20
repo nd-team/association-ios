@@ -13,5 +13,7 @@
 @property (nonatomic,copy)NSString * userId;
 //用户头像
 @property (nonatomic,copy)NSString * userPortraitUrl;
+//用户昵称
+@property (nonatomic,copy)NSString * nickname;
 
 @end

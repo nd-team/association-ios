@@ -21,13 +21,15 @@
 
 //当前用户ID
 @property (nonatomic,copy)NSString * userId;
-//是否是管理员
-@property (nonatomic,assign)BOOL isManager;
+//是否是管理员 1:管理员 0 ：非管理 2：平台活动成员
+@property (nonatomic,assign)int isManager;
 //群主ID
 @property (nonatomic,copy)NSString * hostId;
 //刷新成员列表
 @property (nonatomic,assign)BOOL isRef;
 
 @property (nonatomic,assign)GroupHostInfoController * delegate;
+//导航标题
+@property (nonatomic,copy)NSString *name;
 
 @end

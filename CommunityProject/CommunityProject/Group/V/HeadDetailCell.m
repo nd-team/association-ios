@@ -13,7 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 30;
+    self.headImageView.layer.cornerRadius = 25;
 }
 -(void)setUserModel:(JoinUserModel *)userModel{
     _userModel = userModel;

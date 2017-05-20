@@ -10,25 +10,39 @@
 #import <SDCycleScrollView.h>
 #import "ActCommonListCell.h"
 #import "PlatformActListModel.h"
+#import "UIView+ChatMoreView.h"
+#import "MyJoinActivityController.h"
+#import "PlatformMessageController.h"
+#import "PlatformDetailController.h"
 
 #define ActListURL @"appapi/app/platformActivesList"
-@interface PlatFormActController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PlatFormActController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *scrollView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,assign)int page;
 @property (nonatomic,strong)NSMutableArray *scrollArr;
+@property (nonatomic,strong)UIView * moreView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *moreItem;
+@property (nonatomic,assign)BOOL isSelect;
+
 @end
 
 @implementation PlatFormActController
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+    [self.scrollView adjustWhenControllerViewWillAppera];
 
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ActCommonListCell" bundle:nil] forCellReuseIdentifier:@"ActCommonListCell"];
     self.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
     self.scrollView.autoScrollTimeInterval = 1;
     self.scrollView.currentPageDotColor = UIColorFromRGB(0xFED604);
     self.scrollView.pageDotColor = UIColorFromRGB(0x243234);
-    [self.tableView registerNib:[UINib nibWithNibName:@"ActCommonListCell" bundle:nil] forCellReuseIdentifier:@"ActCommonListCell"];
     self.page = 1;
     [self getActListData];
     WeakSelf;
@@ -42,6 +56,34 @@
   }];
 
 }
+-(void)moreViewUI{
+    self.moreView = [UIView claimMessageViewFrame:CGRectMake(KMainScreenWidth-105.5, 0, 95.5, 66.5) andArray:@[@"消息",@"我参与的活动"] andTarget:self andSel:@selector(moreAction:) andTag:134];
+    [self.view addSubview:self.moreView];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
+    tap.delegate = self;
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+}
+-(void)tapClick{
+    self.moreView.hidden = YES;
+}
+-(void)moreAction:(UIButton *)btn{
+    [self tapClick];
+    if (btn.tag == 134) {
+        //消息
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
+        PlatformMessageController * msg = [sb instantiateViewControllerWithIdentifier:@"PlatformMessageController"];
+        [self.navigationController pushViewController:msg animated:YES];
+        
+    }else{
+        //我参与的活动
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
+        MyJoinActivityController * join = [sb instantiateViewControllerWithIdentifier:@"MyJoinActivityController"];
+        [self.navigationController pushViewController:join animated:YES];
+        
+    }
+}
+
 -(void)getActListData{
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     WeakSelf;
@@ -79,12 +121,17 @@
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //self.dataArr.count
-    return 10;
+    //
+    return self.dataArr.count;
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    PlatformActListModel * model = self.dataArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
+    PlatformDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"PlatformDetailController"];
+    detail.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    [self.navigationController pushViewController:detail animated:YES];
+
 }
 
 - (IBAction)leftClick:(id)sender {
@@ -92,7 +139,21 @@
     
 }
 - (IBAction)rightClick:(id)sender {
-    
+    self.isSelect = !self.isSelect;
+    if (self.isSelect) {
+        WeakSelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf moreViewUI];
+        });
+    }else{
+        self.moreView.hidden = YES;
+    }
+}
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
+    return YES;
 }
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {

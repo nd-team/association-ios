@@ -28,7 +28,7 @@
     
     [manager POST:urlStr parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSSLog(@"%@,%@",responseObject,jsonDic);
+        NSSLog(@"%@",jsonDic);
 
         block(task.response,nil,jsonDic);
                 

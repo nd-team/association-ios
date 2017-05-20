@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MemberListModel.h"
+#import "JoinUserModel.h"
 
 @interface MemberListCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @property (nonatomic,strong)MemberListModel * listModel;
+@property (nonatomic,strong)JoinUserModel * userModel;
 
 @end

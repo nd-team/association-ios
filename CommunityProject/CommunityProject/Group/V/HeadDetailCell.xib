@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="smu-l4-r8G">
-                        <rect key="frame" x="8" y="10" width="61" height="61"/>
+                        <rect key="frame" x="13" y="15" width="51" height="51"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="61" id="Mze-Wu-PTm"/>
-                            <constraint firstAttribute="height" constant="61" id="kil-2R-7iB"/>
+                            <constraint firstAttribute="width" constant="51" id="Mze-Wu-PTm"/>
+                            <constraint firstAttribute="height" constant="51" id="kil-2R-7iB"/>
                         </constraints>
                     </imageView>
                 </subviews>

@@ -202,7 +202,8 @@
     mem.groupId = self.groupId;
     mem.userId = self.userId;
     mem.collectArr = self.dataArr;
-    mem.isManager = NO;
+    mem.isManager = 0;
+    mem.name = [NSString stringWithFormat:@"群成员(%ld)",(unsigned long)self.dataArr.count];
     [self.navigationController pushViewController:mem animated:YES];
 }
 - (IBAction)exitGroupClick:(id)sender {

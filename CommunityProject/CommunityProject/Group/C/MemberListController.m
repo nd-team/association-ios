@@ -34,7 +34,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = [NSString stringWithFormat:@"群成员(%ld)",(unsigned long)self.collectArr.count];
+    self.navigationItem.title = self.name;
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateBackButtonWithFrame:CGRectMake(0, 0,50, 40) andTitle:@"返回" andTarget:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
     [self.collectionView registerNib:[UINib nibWithNibName:@"MemberListCell" bundle:nil] forCellWithReuseIdentifier:@"MemberListCell"];
@@ -46,7 +46,7 @@
         if (error) {
             NSSLog(@"获取群成员失败%@",error);
         }else{
-            if (weakSelf.collectArr.count !=0) {
+            if (self.isRef) {
                 [weakSelf.collectArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
@@ -74,17 +74,19 @@
 }
 #pragma mark - collectionView的代理方法
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if (self.isManager) {
+    if (self.isManager == 1) {
         return self.collectArr.count+2;
-    }else{
+    }else if(self.isManager == 0){
         //添加一个多余的 成员
         return self.collectArr.count+1;
+    }else{
+        return self.collectArr.count;
     }
 }
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     MemberListCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MemberListCell" forIndexPath:indexPath];
-    if (self.isManager) {
+    if (self.isManager == 1) {
         if (indexPath.row == self.collectArr.count+1) {
             cell.headImageView.image = [UIImage imageNamed:@"deleteFriend"];
             cell.nameLabel.text = @"";
@@ -94,20 +96,24 @@
         }else{
             cell.listModel = self.collectArr[indexPath.row];
         }
-    }else{
+    }else if(self.isManager == 0){
         if (indexPath.row == self.collectArr.count) {
             cell.headImageView.image = [UIImage imageNamed:@"addFriend"];
             cell.nameLabel.text = @"";
         }else{
             cell.listModel = self.collectArr[indexPath.row];
         }
+    }else{
+        cell.headImageView.layer.masksToBounds = YES;
+        cell.headImageView.layer.cornerRadius = 30;
+        cell.userModel = self.collectArr[indexPath.row];
     }
     
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
    
-    if (self.isManager) {
+    if (self.isManager == 1) {
         if (indexPath.row == self.collectArr.count+1) {
              //删除
             [self pushChoose:@"删除成员" andDiff:4];
@@ -118,7 +124,7 @@
              MemberListModel * model = self.collectArr[indexPath.row];
             [self testUserIsFriendMobile:model.userId];
         }
-    }else{
+    }else if(self.isManager == 0){
         if (indexPath.row == self.collectArr.count) {
             //拉人
             [self pushChoose:@"添加成员" andDiff:3];
@@ -126,6 +132,10 @@
              MemberListModel * model = self.collectArr[indexPath.row];
             [self testUserIsFriendMobile:model.userId];
         }
+    }else{
+        JoinUserModel * model = self.collectArr[indexPath.row];
+        [self testUserIsFriendMobile:model.userId];
+ 
     }
 
 }

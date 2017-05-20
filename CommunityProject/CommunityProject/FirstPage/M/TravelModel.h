@@ -16,4 +16,6 @@
 //活动地址
 @property (nonatomic,copy) NSString * address;
 
+@property (nonatomic,copy)NSString * idStr;
+
 @end

@@ -252,10 +252,11 @@
     mem.collectArr = self.dataArr;
     mem.groupName = self.groupName;
     mem.groupUrl = self.headUrl;
-    mem.isManager = YES;
+    mem.isManager = 1;
     //管理员ID
     mem.hostId = self.userId;
     mem.delegate = self;
+    mem.name = [NSString stringWithFormat:@"群成员(%ld)",(unsigned long)self.dataArr.count];
     [self.navigationController pushViewController:mem animated:YES];
 }
 //解散群

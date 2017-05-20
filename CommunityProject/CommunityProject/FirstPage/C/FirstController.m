@@ -20,6 +20,8 @@
 #import "TravelDatabaseSingleton.h"
 #import "RecommendController.h"
 #import "ClaimCenterListController.h"
+#import "PlatFormActController.h"
+#import "PlatformDetailController.h"
 
 #define ClaimURL @"appapi/app/allFriendsClaim"
 #define FirstURL @"appapi/app/indexData"
@@ -48,6 +50,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
     [self.playView adjustWhenControllerViewWillAppera];
     //插入一条数据
     if (self.dict.count != 0) {
@@ -143,7 +146,7 @@
     [self.tableView beginUpdates];
     self.collHeightContraint.constant = 101*row;
     [self.collectionView reloadData];
-    self.headerHeightCons.constant = 637.5+self.collHeightContraint.constant;
+    self.headerHeightCons.constant = 627.5+self.collHeightContraint.constant;
     CGRect frame = self.headView.frame;
     frame.size.height = self.headerHeightCons.constant;
     self.headView.frame = frame;
@@ -221,7 +224,7 @@
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
-                NSSLog(@"失败错误信息：%@",data[@"msgs"]);
+               // NSSLog(@"失败错误信息：%@",data[@"msgs"]);
             }
         }
     }];
@@ -261,7 +264,14 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (tableView == self.tableView) {
+        TravelModel * model = self.dataArr[indexPath.row];
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
+        PlatformDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"PlatformDetailController"];
+        detail.idStr = [NSString stringWithFormat:@"%@",model.idStr];
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+ 
 }
 #pragma mark - collectionView的代理方法
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -285,6 +295,10 @@
         ClaimCenterListController * claim = [sb instantiateViewControllerWithIdentifier:@"ClaimCenterListController"];
         [self.navigationController pushViewController:claim animated:YES];
         
+    }else if ([model.name isEqualToString:@"平台活动"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
+        PlatFormActController * claim = [sb instantiateViewControllerWithIdentifier:@"PlatFormActController"];
+        [self.navigationController pushViewController:claim animated:YES];
     }
     
 }
