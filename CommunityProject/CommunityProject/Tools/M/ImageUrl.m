@@ -75,4 +75,14 @@
     NSArray * arr = [time componentsSeparatedByString:@":"];
     return arr;
 }
+//动态调节高度
++ (CGSize)boundingRectWithString:(NSString *)textStr width:(CGFloat)width height:(CGFloat)height font:(NSInteger)font{
+    CGSize size;
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:font],NSFontAttributeName, nil];
+    size = [textStr boundingRectWithSize:CGSizeMake(width, height) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:dict context:nil].size;
+    
+    return size;
+}
+
 @end

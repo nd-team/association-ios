@@ -220,6 +220,11 @@
 }
 -(void)tapClick{
     [self.contentTV resignFirstResponder];
+    if (self.contentTV.text.length == 0) {
+        self.placeLabel.hidden = NO;
+    }else{
+        self.placeLabel.hidden = YES;
+    }
 }
 -(void)getCommentListData{
     WeakSelf;
@@ -435,9 +440,12 @@
 
                 }
             }else if ([code intValue] == 100){
-                
+                NSSLog(@"重复发送失败");
             }else if ([code intValue] == 101){
-                
+                NSSLog(@"非朋友发送失败");
+            }else{
+                NSSLog(@"点赞失败");
+
             }
         }
         

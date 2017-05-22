@@ -9,5 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface PlatformCommentController : UIViewController
+//6:平台活动
+@property (nonatomic,assign)int type;
+//Id
+@property (nonatomic,copy)NSString * idStr;
+//用户头像
+@property (nonatomic,strong)NSString * headUrl;
+//内容
+@property (nonatomic,strong)NSString * content;
 
 @end

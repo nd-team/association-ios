@@ -250,6 +250,8 @@
 		458959FC1EBDBF1A00CBADDD /* UIImageView+MJWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 458959F21EBDBF1A00CBADDD /* UIImageView+MJWebCache.m */; };
 		458D81691ECFE1BF006775F1 /* PlatformDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458D81681ECFE1BF006775F1 /* PlatformDetailController.m */; };
 		458D816C1ECFE1EF006775F1 /* PlatformCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458D816B1ECFE1EF006775F1 /* PlatformCommentController.m */; };
+		458D81721ED27C0F006775F1 /* AllCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 458D81711ED27C0F006775F1 /* AllCommentsCell.m */; };
+		458D81751ED28FE8006775F1 /* CommentsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458D81741ED28FE8006775F1 /* CommentsListModel.m */; };
 		458DD51A1E8A46DA00650F2E /* MessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD5191E8A46DA00650F2E /* MessageCell.m */; };
 		458DD51D1E8A488D00650F2E /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD51C1E8A488D00650F2E /* MessageViewController.m */; };
 		458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD51F1E8A4D9A00650F2E /* ApplicationFriendsModel.m */; };
@@ -726,6 +728,10 @@
 		458D81681ECFE1BF006775F1 /* PlatformDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlatformDetailController.m; sourceTree = "<group>"; };
 		458D816A1ECFE1EF006775F1 /* PlatformCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformCommentController.h; sourceTree = "<group>"; };
 		458D816B1ECFE1EF006775F1 /* PlatformCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlatformCommentController.m; sourceTree = "<group>"; };
+		458D81701ED27C0F006775F1 /* AllCommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllCommentsCell.h; sourceTree = "<group>"; };
+		458D81711ED27C0F006775F1 /* AllCommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllCommentsCell.m; sourceTree = "<group>"; };
+		458D81731ED28FE8006775F1 /* CommentsListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsListModel.h; sourceTree = "<group>"; };
+		458D81741ED28FE8006775F1 /* CommentsListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsListModel.m; sourceTree = "<group>"; };
 		458DD5181E8A46DA00650F2E /* MessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCell.h; sourceTree = "<group>"; };
 		458DD5191E8A46DA00650F2E /* MessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCell.m; sourceTree = "<group>"; };
 		458DD51B1E8A488D00650F2E /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
@@ -1274,6 +1280,8 @@
 				45AE19AF1ECEA14A0098A7FF /* AllMessageCell.h */,
 				45AE19B01ECEA14A0098A7FF /* AllMessageCell.m */,
 				45AE19B11ECEA14A0098A7FF /* AllMessageCell.xib */,
+				458D81701ED27C0F006775F1 /* AllCommentsCell.h */,
+				458D81711ED27C0F006775F1 /* AllCommentsCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1925,6 +1933,8 @@
 			children = (
 				45AE19A61ECDA7120098A7FF /* PlatformActListModel.h */,
 				45AE19A71ECDA7120098A7FF /* PlatformActListModel.m */,
+				458D81731ED28FE8006775F1 /* CommentsListModel.h */,
+				458D81741ED28FE8006775F1 /* CommentsListModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2295,8 +2305,10 @@
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
 				458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */,
 				45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */,
+				458D81751ED28FE8006775F1 /* CommentsListModel.m in Sources */,
 				455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */,
 				452DB66F1EC2B36200A4FE0C /* POIAnnotation.m in Sources */,
+				458D81721ED27C0F006775F1 /* AllCommentsCell.m in Sources */,
 				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
 				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,
 				45B977151EAF51FF00A42D55 /* MyPeopleController.m in Sources */,

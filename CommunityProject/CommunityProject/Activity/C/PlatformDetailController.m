@@ -10,6 +10,7 @@
 #import "JoinUserModel.h"
 #import "HeadDetailCell.h"
 #import "MemberListController.h"
+#import "PlatformCommentController.h"
 
 #define PlatformDetailURL @"appapi/app/platformActivesInfo"
 #define ZanURL @"appapi/app/userPraise"
@@ -34,10 +35,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *peopleCountLabel;
 
 @property (nonatomic,strong)NSMutableArray * collectArr;
+@property (weak, nonatomic) IBOutlet UIButton *commentBtn;
 
 @property (nonatomic,strong)NSString * userId;
 @property (weak, nonatomic) IBOutlet UIView *oneView;
 @property (weak, nonatomic) IBOutlet UIView *twoView;
+@property (nonatomic,strong)NSString * likes;
 
 @end
 
@@ -64,7 +67,14 @@
     [self.loveBtn setImage:[UIImage imageNamed:@"darkHeart"] forState:UIControlStateNormal];
     [self.loveBtn setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateSelected];
     [self.collectionView registerNib:[UINib nibWithNibName:@"HeadDetailCell" bundle:nil] forCellWithReuseIdentifier:@"PlatformUsersCell"];
-    [self getActivityDetailData];
+    WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getActivityDetailData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
     
 }
 -(void)getActivityDetailData{
@@ -93,6 +103,23 @@
                     weakSelf.signBtn.enabled = NO;
                 }
                 weakSelf.peopleCountLabel.text = [NSString stringWithFormat:@"已报名：（%@）",dict[@"joinUsersNumber"]];
+                NSInteger  likeStatus = [dict[@"likesStatus"] integerValue];
+                if (likeStatus == 0) {
+                    weakSelf.loveBtn.selected = NO;
+                }else{
+                    weakSelf.loveBtn.selected = YES;
+                }
+                if (dict[@"likes"] == nil) {
+                    [weakSelf.loveBtn setTitle:@"" forState:UIControlStateNormal];
+                }else{
+                    [weakSelf.loveBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"likes"]] forState:UIControlStateNormal];
+                    weakSelf.likes = [NSString stringWithFormat:@"%@",dict[@"likes"]];
+                }
+                if (dict[@"commentNumber"] == nil) {
+                    [weakSelf.commentBtn setTitle:@"" forState:UIControlStateNormal];
+                }else{
+                    [weakSelf.commentBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"commentNumber"]] forState:UIControlStateNormal];
+                }
                 NSArray * users = dict[@"joinUsers"];
                 if (users.count != 0) {
                     for (NSDictionary * subDic in users) {
@@ -141,7 +168,13 @@
             
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                weakSelf.loveBtn.selected = YES;
+                if (self.loveBtn.selected) {
+                    self.likes = [NSString stringWithFormat:@"%ld",[self.likes integerValue]+1];
+                }else{
+                    self.likes = [NSString stringWithFormat:@"%ld",[self.likes integerValue]-1];
+                }
+                [weakSelf.loveBtn setTitle:self.likes forState:UIControlStateNormal];
+
             }else if ([code intValue] == 100){
                 weakSelf.loveBtn.selected = NO;
 
@@ -155,7 +188,11 @@
 }
 //评论
 - (IBAction)commentClick:(id)sender {
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
+    PlatformCommentController * comment = [sb instantiateViewControllerWithIdentifier:@"PlatformCommentController"];
+    comment.idStr = self.idStr;
+    comment.type = 6;
+    [self.navigationController pushViewController:comment animated:YES];
 }
 //报名
 - (IBAction)signUpClick:(id)sender {

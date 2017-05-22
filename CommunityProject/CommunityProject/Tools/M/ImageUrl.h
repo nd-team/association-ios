@@ -23,4 +23,6 @@
 +(NSArray *)cutBigTime:(NSString *)time;
 //剪切时分秒
 +(NSArray *)cutSmallTime:(NSString *)time;
++ (CGSize)boundingRectWithString:(NSString *)textStr width:(CGFloat)width height:(CGFloat)height font:(NSInteger)font;
+
 @end

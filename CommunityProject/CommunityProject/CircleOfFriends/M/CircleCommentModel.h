@@ -59,6 +59,5 @@
 @property (nonatomic,strong)NSArray<CircleAnswerModel> *replyUsers;
 //保存tableview的行高
 @property (nonatomic,assign)CGFloat height;
-+ (CGSize)boundingRectWithString:(NSString *)textStr width:(CGFloat)width height:(CGFloat)height font:(NSInteger)font;
 
 @end

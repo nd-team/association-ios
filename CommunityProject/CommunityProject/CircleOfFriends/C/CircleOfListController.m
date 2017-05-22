@@ -200,9 +200,12 @@
                     [weakSelf.tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
                 }];
             }else if ([code intValue] == 100){
+                NSSLog(@"多次点赞失败");
                 
             }else if ([code intValue] == 101){
-               
+                NSSLog(@"非朋友点赞失败");
+            }else{
+                NSSLog(@"点赞失败");
             }
         }
         
