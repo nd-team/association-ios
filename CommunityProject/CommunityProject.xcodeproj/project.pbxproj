@@ -21,6 +21,8 @@
 		450A50FA1E86227900433A61 /* UnknownFriendDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50F91E86227900433A61 /* UnknownFriendDetailController.m */; };
 		450A50FD1E8648D300433A61 /* SetPersonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50FC1E8648D300433A61 /* SetPersonController.m */; };
 		450A51001E8670B400433A61 /* NameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50FF1E8670B400433A61 /* NameViewController.m */; };
+		450C05171ED431960093B174 /* PublicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C05161ED431950093B174 /* PublicListModel.m */; };
+		450C051A1ED440080093B174 /* MyJoinPublicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C05191ED440080093B174 /* MyJoinPublicController.m */; };
 		451B28501E7D27C00024B336 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B284F1E7D27C00024B336 /* CoreTelephony.framework */; };
 		451B28521E7D27CE0024B336 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28511E7D27CE0024B336 /* QuartzCore.framework */; };
 		451B28541E7D27DF0024B336 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28531E7D27DF0024B336 /* CoreText.framework */; };
@@ -319,6 +321,10 @@
 		45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D1102C1E8538C0009F2C4E /* RealTimeLocationStartCell.m */; };
 		45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D1102F1E8538E2009F2C4E /* RealTimeLocationViewController.m */; };
 		45D110331E85390D009F2C4E /* RealTimeLocationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D110321E85390D009F2C4E /* RealTimeLocationStatusView.m */; };
+		45E4F71A1ED4143400476B64 /* Public.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45E4F7191ED4143400476B64 /* Public.storyboard */; };
+		45E4F71E1ED42C9000476B64 /* PublicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E4F71C1ED42C9000476B64 /* PublicListCell.m */; };
+		45E4F71F1ED42C9000476B64 /* PublicListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E4F71D1ED42C9000476B64 /* PublicListCell.xib */; };
+		45E4F7221ED42CFE00476B64 /* PublicListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E4F7211ED42CFE00476B64 /* PublicListController.m */; };
 		A7A6D25426573DF78E3813F3 /* libPods-CommunityProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E46915D732FF20A1CABB71B5 /* libPods-CommunityProject.a */; };
 /* End PBXBuildFile section */
 
@@ -351,6 +357,10 @@
 		450A50FC1E8648D300433A61 /* SetPersonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPersonController.m; sourceTree = "<group>"; };
 		450A50FE1E8670B400433A61 /* NameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameViewController.h; sourceTree = "<group>"; };
 		450A50FF1E8670B400433A61 /* NameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameViewController.m; sourceTree = "<group>"; };
+		450C05151ED431950093B174 /* PublicListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicListModel.h; sourceTree = "<group>"; };
+		450C05161ED431950093B174 /* PublicListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicListModel.m; sourceTree = "<group>"; };
+		450C05181ED440080093B174 /* MyJoinPublicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyJoinPublicController.h; sourceTree = "<group>"; };
+		450C05191ED440080093B174 /* MyJoinPublicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyJoinPublicController.m; sourceTree = "<group>"; };
 		451B284F1E7D27C00024B336 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		451B28511E7D27CE0024B336 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		451B28531E7D27DF0024B336 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -849,6 +859,12 @@
 		45D1102F1E8538E2009F2C4E /* RealTimeLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationViewController.m; sourceTree = "<group>"; };
 		45D110311E85390D009F2C4E /* RealTimeLocationStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationStatusView.h; sourceTree = "<group>"; };
 		45D110321E85390D009F2C4E /* RealTimeLocationStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationStatusView.m; sourceTree = "<group>"; };
+		45E4F7191ED4143400476B64 /* Public.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Public.storyboard; sourceTree = "<group>"; };
+		45E4F71B1ED42C9000476B64 /* PublicListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicListCell.h; sourceTree = "<group>"; };
+		45E4F71C1ED42C9000476B64 /* PublicListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicListCell.m; sourceTree = "<group>"; };
+		45E4F71D1ED42C9000476B64 /* PublicListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PublicListCell.xib; sourceTree = "<group>"; };
+		45E4F7201ED42CFE00476B64 /* PublicListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicListController.h; sourceTree = "<group>"; };
+		45E4F7211ED42CFE00476B64 /* PublicListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicListController.m; sourceTree = "<group>"; };
 		754849117AB8F9CD0A93FA3B /* Pods-CommunityProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommunityProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommunityProject/Pods-CommunityProject.release.xcconfig"; sourceTree = "<group>"; };
 		DDF9FD536E6AA7BFF19AA014 /* Pods-CommunityProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommunityProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommunityProject/Pods-CommunityProject.debug.xcconfig"; sourceTree = "<group>"; };
 		E46915D732FF20A1CABB71B5 /* libPods-CommunityProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CommunityProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -962,6 +978,7 @@
 				455FA3251E763C070039B155 /* Main */,
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
 				455FA32A1E763C250039B155 /* FirstPage */,
+				45E4F7151ED4142300476B64 /* PublicAct */,
 				45AE19981ECD3C470098A7FF /* Activity */,
 				457182A81EC44EEE00860F38 /* Claim */,
 				455FA3261E763C250039B155 /* Chat */,
@@ -1949,6 +1966,47 @@
 			path = V;
 			sourceTree = "<group>";
 		};
+		45E4F7151ED4142300476B64 /* PublicAct */ = {
+			isa = PBXGroup;
+			children = (
+				45E4F7191ED4143400476B64 /* Public.storyboard */,
+				45E4F7161ED4142300476B64 /* C */,
+				45E4F7171ED4142300476B64 /* M */,
+				45E4F7181ED4142300476B64 /* V */,
+			);
+			path = PublicAct;
+			sourceTree = "<group>";
+		};
+		45E4F7161ED4142300476B64 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				45E4F7201ED42CFE00476B64 /* PublicListController.h */,
+				45E4F7211ED42CFE00476B64 /* PublicListController.m */,
+				450C05181ED440080093B174 /* MyJoinPublicController.h */,
+				450C05191ED440080093B174 /* MyJoinPublicController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		45E4F7171ED4142300476B64 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				450C05151ED431950093B174 /* PublicListModel.h */,
+				450C05161ED431950093B174 /* PublicListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		45E4F7181ED4142300476B64 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				45E4F71B1ED42C9000476B64 /* PublicListCell.h */,
+				45E4F71C1ED42C9000476B64 /* PublicListCell.m */,
+				45E4F71D1ED42C9000476B64 /* PublicListCell.xib */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
 		55BFAB6FB609C76103B710A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2074,6 +2132,7 @@
 				455C6B1D1EA1ED6700E0B3F3 /* CircleCell.xib in Resources */,
 				458959601EB825D900CBADDD /* ShareSDK.bundle in Resources */,
 				4562D7F31E80DC1900C6EE56 /* Address.storyboard in Resources */,
+				45E4F71A1ED4143400476B64 /* Public.storyboard in Resources */,
 				456CCE6A1E827CD8005EC051 /* AlipaySDK.bundle in Resources */,
 				456CCE6C1E827CD8005EC051 /* JrmfInfo.strings in Resources */,
 				45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */,
@@ -2081,6 +2140,7 @@
 				455C6B2D1EA5B75F00E0B3F3 /* CircleCommentCell.xib in Resources */,
 				4589595E1EB825D900CBADDD /* README.txt in Resources */,
 				45B9772E1EB1D57400A42D55 /* Address.plist in Resources */,
+				45E4F71F1ED42C9000476B64 /* PublicListCell.xib in Resources */,
 				4589599F1EB9DA2E00CBADDD /* space.cer in Resources */,
 				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
 				457182AD1EC44F2A00860F38 /* ClaimCenter.storyboard in Resources */,
@@ -2220,6 +2280,7 @@
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
 				459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */,
 				4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */,
+				45E4F7221ED42CFE00476B64 /* PublicListController.m in Sources */,
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
 				457781CF1E9F74CF0004BBE7 /* DiscoverViewController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
@@ -2277,6 +2338,7 @@
 				459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */,
 				458959FC1EBDBF1A00CBADDD /* UIImageView+MJWebCache.m in Sources */,
 				455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */,
+				45E4F71E1ED42C9000476B64 /* PublicListCell.m in Sources */,
 				4557CB7E1E7BBD2600F22E70 /* DataSource.m in Sources */,
 				455C6B201EA1EDD200E0B3F3 /* CircleOfListController.m in Sources */,
 				450A50D51E853B3700433A61 /* HeadCollectionView.m in Sources */,
@@ -2286,6 +2348,7 @@
 				450A50E41E853BBD00433A61 /* RCLocationView.m in Sources */,
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				450A50DB1E853B7000433A61 /* RCAnnotation.m in Sources */,
+				450C051A1ED440080093B174 /* MyJoinPublicController.m in Sources */,
 				4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */,
 				45783BE31EC6ABD20013DC6D /* MyClaimController.m in Sources */,
 				458959C81EBB150400CBADDD /* FSCalendar+Deprecated.m in Sources */,
@@ -2312,6 +2375,7 @@
 				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
 				458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */,
 				45B977151EAF51FF00A42D55 /* MyPeopleController.m in Sources */,
+				450C05171ED431960093B174 /* PublicListModel.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
 				455C6B2C1EA5B75F00E0B3F3 /* CircleCommentCell.m in Sources */,
 				4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */,

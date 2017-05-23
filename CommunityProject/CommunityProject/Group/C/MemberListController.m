@@ -27,6 +27,8 @@
 @implementation MemberListController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
+
     if (self.isRef) {
         //刷新成员列表
         [self getMemberList];
@@ -122,7 +124,12 @@
             [self pushChoose:@"添加成员" andDiff:3];
         }else{
              MemberListModel * model = self.collectArr[indexPath.row];
-            [self testUserIsFriendMobile:model.userId];
+            //过滤当前用户
+            if ([self.userId isEqualToString:model.userId]) {
+                [self pushFriendId:YES andUserId:model.userId];
+            }else{
+                [self testUserIsFriendMobile:model.userId];
+            }
         }
     }else if(self.isManager == 0){
         if (indexPath.row == self.collectArr.count) {
@@ -130,11 +137,22 @@
             [self pushChoose:@"添加成员" andDiff:3];
         }else{
              MemberListModel * model = self.collectArr[indexPath.row];
-            [self testUserIsFriendMobile:model.userId];
+            //当前用户
+            if ([self.userId isEqualToString:model.userId]) {
+                [self pushFriendId:YES andUserId:model.userId];
+            }else{
+                [self testUserIsFriendMobile:model.userId];
+            }
         }
     }else{
         JoinUserModel * model = self.collectArr[indexPath.row];
-        [self testUserIsFriendMobile:model.userId];
+        NSSLog(@"%@==%@",model.userId,self.userId);
+        //当前用户进入发送消息界面
+        if ([self.userId isEqualToString:model.userId]) {
+            [self pushFriendId:YES andUserId:model.userId];
+        }else{
+            [self testUserIsFriendMobile:model.userId];
+        }
  
     }
 

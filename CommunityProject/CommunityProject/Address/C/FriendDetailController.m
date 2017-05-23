@@ -239,6 +239,7 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.displayNameLabel.text = self.display;
+    self.navigationController.navigationBar.hidden = NO;
 
 }
 @end

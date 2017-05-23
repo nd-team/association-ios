@@ -45,7 +45,12 @@
 @end
 
 @implementation UnknownFriendDetailController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setBar];

@@ -22,6 +22,7 @@
 #import "ClaimCenterListController.h"
 #import "PlatFormActController.h"
 #import "PlatformDetailController.h"
+#import "PublicListController.h"
 
 #define ClaimURL @"appapi/app/allFriendsClaim"
 #define FirstURL @"appapi/app/indexData"
@@ -299,6 +300,10 @@
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
         PlatFormActController * claim = [sb instantiateViewControllerWithIdentifier:@"PlatFormActController"];
         [self.navigationController pushViewController:claim animated:YES];
+    }else if ([model.name isEqualToString:@"公益活动"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
+        PublicListController * list = [sb instantiateViewControllerWithIdentifier:@"PublicListController"];
+        [self.navigationController pushViewController:list animated:YES];
     }
     
 }

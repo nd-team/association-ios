@@ -44,8 +44,14 @@
     self.scrollView.currentPageDotColor = UIColorFromRGB(0xFED604);
     self.scrollView.pageDotColor = UIColorFromRGB(0x243234);
     self.page = 1;
-    [self getActListData];
     WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getActListData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.page = 1;
         [weakSelf getActListData];
@@ -93,7 +99,7 @@
             NSSLog(@"平台活动数据请求失败：%@",error);
         }else{
             if (!weakSelf.tableView.mj_footer.isRefreshing) {
-                [weakSelf.scrollArr removeAllObjects];
+//                [weakSelf.scrollArr removeAllObjects];
                 [weakSelf.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
