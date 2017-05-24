@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PublicListModel.h"
 
+typedef void(^PushBlock)(UIViewController * vc);
+typedef void(^ZanBlock)(NSDictionary * params,NSIndexPath * index,BOOL isSel);
 @interface PublicListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -29,5 +31,9 @@
 
 @property (nonatomic,strong)UITableView * tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
+
+@property (nonatomic,copy)PushBlock block;
+
+@property (nonatomic,copy)ZanBlock zanBlock;
 
 @end

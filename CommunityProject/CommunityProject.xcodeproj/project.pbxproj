@@ -23,6 +23,7 @@
 		450A51001E8670B400433A61 /* NameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450A50FF1E8670B400433A61 /* NameViewController.m */; };
 		450C05171ED431960093B174 /* PublicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C05161ED431950093B174 /* PublicListModel.m */; };
 		450C051A1ED440080093B174 /* MyJoinPublicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C05191ED440080093B174 /* MyJoinPublicController.m */; };
+		450C051D1ED53E4E0093B174 /* PubicDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450C051C1ED53E4E0093B174 /* PubicDetailController.m */; };
 		451B28501E7D27C00024B336 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B284F1E7D27C00024B336 /* CoreTelephony.framework */; };
 		451B28521E7D27CE0024B336 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28511E7D27CE0024B336 /* QuartzCore.framework */; };
 		451B28541E7D27DF0024B336 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28531E7D27DF0024B336 /* CoreText.framework */; };
@@ -361,6 +362,8 @@
 		450C05161ED431950093B174 /* PublicListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicListModel.m; sourceTree = "<group>"; };
 		450C05181ED440080093B174 /* MyJoinPublicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyJoinPublicController.h; sourceTree = "<group>"; };
 		450C05191ED440080093B174 /* MyJoinPublicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyJoinPublicController.m; sourceTree = "<group>"; };
+		450C051B1ED53E4E0093B174 /* PubicDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubicDetailController.h; sourceTree = "<group>"; };
+		450C051C1ED53E4E0093B174 /* PubicDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubicDetailController.m; sourceTree = "<group>"; };
 		451B284F1E7D27C00024B336 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		451B28511E7D27CE0024B336 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		451B28531E7D27DF0024B336 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1984,6 +1987,8 @@
 				45E4F7211ED42CFE00476B64 /* PublicListController.m */,
 				450C05181ED440080093B174 /* MyJoinPublicController.h */,
 				450C05191ED440080093B174 /* MyJoinPublicController.m */,
+				450C051B1ED53E4E0093B174 /* PubicDetailController.h */,
+				450C051C1ED53E4E0093B174 /* PubicDetailController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2263,6 +2268,7 @@
 				45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */,
 				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
 				458959CB1EBB150400CBADDD /* FSCalendarCalculator.m in Sources */,
+				450C051D1ED53E4E0093B174 /* PubicDetailController.m in Sources */,
 				4562D73C1E7F7B6A00C6EE56 /* UIView+ChatWhiteView.m in Sources */,
 				4562D73F1E7F828D00C6EE56 /* ActivityListDatabaseSingleton.m in Sources */,
 				450A50ED1E853C3200433A61 /* DefaultPortraitView.m in Sources */,

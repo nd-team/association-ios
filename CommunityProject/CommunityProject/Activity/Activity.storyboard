@@ -748,6 +748,7 @@
                         <outlet property="timeLabel" destination="t5h-XV-sKG" id="8yY-st-gLB"/>
                         <outlet property="titleLabel" destination="ChA-9Y-zOy" id="Zxt-3S-7dm"/>
                         <outlet property="twoView" destination="Y4w-3X-47n" id="d4A-yS-Kmw"/>
+                        <outlet property="viewWidthCons" destination="rTB-HK-Uw0" id="IFJ-wu-RYU"/>
                         <outlet property="wechatTF" destination="FE2-Tk-ECf" id="WeX-Kr-2eA"/>
                     </connections>
                 </viewController>

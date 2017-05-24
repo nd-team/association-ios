@@ -109,7 +109,7 @@
 
 -(void)getCommentListData{
     WeakSelf;
-    NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":@"6"};
+    NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":[NSString stringWithFormat:@"%d",self.type]};
     //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentListURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -263,7 +263,7 @@
             [mDic setValue:self.idStr forKey:@"articleId"];
             [mDic setValue:self.userId forKey:@"userId"];
             [mDic setValue:self.commentTF.text forKey:@"content"];
-            [mDic setValue:@"6" forKey:@"type"];
+            [mDic setValue:[NSString stringWithFormat:@"%d",self.type] forKey:@"type"];
             [self postSendComment:[NSString stringWithFormat:NetURL,CommentURL] andParams:mDic];
 //        }
         return NO;

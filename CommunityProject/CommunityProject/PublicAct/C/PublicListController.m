@@ -11,8 +11,12 @@
 #import "UIView+ChatMoreView.h"
 #import "PublicListModel.h"
 #import "PublicListCell.h"
+#import "MyJoinPublicController.h"
+#import "PlatformMessageController.h"
 
 #define PublicURL @"appapi/app/commonwealActivesList"
+#define ZanURL @"appapi/app/userPraise"
+
 @interface PublicListController ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *scrollView;
@@ -121,15 +125,16 @@
     [self tapClick];
     if (btn.tag == 137) {
         //消息
-//        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
-//        PlatformMessageController * msg = [sb instantiateViewControllerWithIdentifier:@"PlatformMessageController"];
-//        [self.navigationController pushViewController:msg animated:YES];
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
+        PlatformMessageController * msg = [sb instantiateViewControllerWithIdentifier:@"PlatformMessageController"];
+        msg.type = 2;
+        [self.navigationController pushViewController:msg animated:YES];
         
     }else{
         //我参与的活动
-//        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
-//        MyJoinActivityController * join = [sb instantiateViewControllerWithIdentifier:@"MyJoinActivityController"];
-//        [self.navigationController pushViewController:join animated:YES];
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
+        MyJoinPublicController * join = [sb instantiateViewControllerWithIdentifier:@"MyJoinPublicController"];
+        [self.navigationController pushViewController:join animated:YES];
         
     }
 }
@@ -143,10 +148,55 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PublicListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"PublicListCell"];
+    cell.tableView = self.tableView;
+    cell.dataArr = self.dataArr;
+    cell.block = ^(UIViewController * vc){
+        [self.navigationController pushViewController:vc animated:YES];
+    };
+    WeakSelf;
+    //点赞请求
+    cell.zanBlock = ^(NSDictionary *dic,NSIndexPath * index,BOOL isSel){
+        [weakSelf userLike:dic andIndexPath:index andIsLove:isSel];
+    };
+
     cell.publicModel = self.dataArr[indexPath.row];
     return cell;
     
     
+}
+-(void)userLike:(NSDictionary *)params andIndexPath:(NSIndexPath *)index andIsLove:(BOOL) isSel{
+    WeakSelf;
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ZanURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"公益活动点赞失败：%@",error);
+        }else{
+            
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                //+1刷新列表-1
+                //刷新当前cell
+                PublicListModel * list = self.dataArr[index.row];
+                if (isSel) {
+                    list.likesStatus = @"1";
+                    list.likes =  [NSString stringWithFormat:@"%d",[list.likes intValue]+1];
+                }else{
+                    list.likesStatus = @"0";
+                    list.likes =  [NSString stringWithFormat:@"%d",[list.likes intValue]-1];
+                }
+                [UIView performWithoutAnimation:^{
+                    [weakSelf.tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+                }];
+            }else if ([code intValue] == 100){
+                NSSLog(@"多次点赞失败");
+                
+            }else if ([code intValue] == 101){
+                NSSLog(@"非朋友点赞失败");
+            }else{
+                NSSLog(@"公益活动点赞失败");
+            }
+        }
+        
+    }];
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArr.count;

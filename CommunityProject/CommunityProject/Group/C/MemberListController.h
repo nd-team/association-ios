@@ -21,7 +21,7 @@
 
 //当前用户ID
 @property (nonatomic,copy)NSString * userId;
-//是否是管理员 1:管理员 0 ：非管理 2：平台活动成员
+//是否是管理员 1:管理员 0 ：非管理 2：平台活动成员3:公益活动
 @property (nonatomic,assign)int isManager;
 //群主ID
 @property (nonatomic,copy)NSString * hostId;

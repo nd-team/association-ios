@@ -51,6 +51,7 @@
     }
     [self.collectionView reloadData];
 }
+//说说点赞
 - (IBAction)loveClick:(id)sender {
     self.loveBtn.selected = !self.loveBtn.selected;
     UIButton * button = (UIButton *)sender;
