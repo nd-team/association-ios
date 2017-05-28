@@ -13,6 +13,8 @@
 #import "PublicListCell.h"
 #import "MyJoinPublicController.h"
 #import "PlatformMessageController.h"
+#import "PubicDetailController.h"
+
 
 #define PublicURL @"appapi/app/commonwealActivesList"
 #define ZanURL @"appapi/app/userPraise"
@@ -80,13 +82,18 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
-                for (NSDictionary * dict in arr) {
-                    PublicListModel * model = [[PublicListModel alloc]initWithDictionary:dict error:nil];
-                    [self.dataArr addObject:model];
+                if (arr.count == 0) {
+                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    for (NSDictionary * dict in arr) {
+                        PublicListModel * model = [[PublicListModel alloc]initWithDictionary:dict error:nil];
+                        [self.dataArr addObject:model];
+                    }
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header endRefreshing];
+                    [self.tableView.mj_footer endRefreshing];
+ 
                 }
-                [self.tableView reloadData];
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView.mj_footer endRefreshing];
             }else{
                 NSSLog(@"请求公益活动数据失败");
             }
@@ -203,7 +210,14 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    PublicListModel * model = self.dataArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
+    PubicDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"PubicDetailController"];
+    detail.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    detail.headUrl = model.userPortraitUrl;
+    detail.titleName = model.title;
+    [self.navigationController pushViewController:detail animated:YES];
+
 }
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     if ([touch.view isKindOfClass:[UITableView class]]) {

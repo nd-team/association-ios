@@ -52,7 +52,11 @@
 @end
 
 @implementation PubicDetailController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.userId = [DEFAULTS objectForKey:@"userId"];
@@ -115,7 +119,9 @@
                 }else{
                     weakSelf.signBtn.enabled = NO;
                 }
-                weakSelf.peopleCountLabel.text = [NSString stringWithFormat:@"已报名：（%@）",dict[@"joinUsersNumber"]];
+                weakSelf.peopleCountLabel.text = [NSString stringWithFormat:@"已报名：%@人/无限制",dict[@"joinUsersNumber"]];
+                //signPeopleLabel
+                weakSelf.signPeopleLabel.text = [NSString stringWithFormat:@"已报名：（%@）",dict[@"joinUsersNumber"]];
                 NSInteger  likeStatus = [dict[@"likesStatus"] integerValue];
                 if (likeStatus == 0) {
                     weakSelf.loveBtn.selected = NO;

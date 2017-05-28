@@ -47,7 +47,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenLine" translatesAutoresizingMaskIntoConstraints="NO" id="Oo3-9W-UvK">
-                                <rect key="frame" x="216" y="231" width="74" height="7"/>
+                                <rect key="frame" x="216.5" y="231" width="74" height="7"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="74" id="WXR-wT-Rjs"/>
                                     <constraint firstAttribute="height" constant="7" id="eMR-ne-CKr"/>
@@ -82,7 +82,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Mrl-j9-ZcY">
-                                <rect key="frame" x="37" y="268" width="300" height="45"/>
+                                <rect key="frame" x="37.5" y="268" width="300" height="45"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="U1v-Oz-QeM"/>
@@ -96,7 +96,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="昵称" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="U8q-IG-37K">
-                                <rect key="frame" x="37" y="333" width="300" height="45"/>
+                                <rect key="frame" x="37.5" y="333" width="300" height="45"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="mYc-5T-XS3"/>
@@ -110,7 +110,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fNz-0c-uV7">
-                                <rect key="frame" x="37" y="398" width="300" height="45"/>
+                                <rect key="frame" x="37.5" y="398" width="300" height="45"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="07E-kY-7ca"/>
@@ -124,7 +124,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="邀请码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gcj-mH-GxE">
-                                <rect key="frame" x="37" y="463" width="300" height="45"/>
+                                <rect key="frame" x="37.5" y="463" width="300" height="45"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="J38-QX-dOh"/>
@@ -138,7 +138,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QSB-Va-VLo">
-                                <rect key="frame" x="37" y="554" width="300" height="45"/>
+                                <rect key="frame" x="37.5" y="554" width="300" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="0ho-dO-wLq"/>
                                     <constraint firstAttribute="width" constant="300" id="VK3-7G-yZ5"/>

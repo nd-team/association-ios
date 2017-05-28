@@ -116,6 +116,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
 
     //位置PLUGIN_BOARD_ITEM_LOCATION_TAG
     [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:2 image:[UIImage imageNamed:@"location.png"] title:@"位置"];
+
     //红包PLUGIN_BOARD_ITEM_EVA_TAG
     if (self.conversationType != ConversationType_CHATROOM) {
         [self.chatSessionInputBarControl.pluginBoardView updateItemAtIndex:3 image:[UIImage imageNamed:@"redPacket.png"] title:@"红包"];
@@ -128,13 +129,13 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
     }else if(self.conversationType == 3){
         self.rightItemTwo = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:-30 image:@"group.png"  and:self Action:@selector(groupChatClick)];
         self.navigationItem.rightBarButtonItem = self.rightItemTwo;
-        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"groupAct.png"] title:@"群活动" atIndex:5 tag:105];
+        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"groupAct.png"] title:@"群活动" atIndex:6 tag:105];
 
-        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"groupVote.png"] title:@"群投票" atIndex:6 tag:106];
+        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"groupVote.png"] title:@"群投票" atIndex:7 tag:106];
 //107
-        [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"file.png"] title:@"文件" atIndex:7 tag:PLUGIN_BOARD_ITEM_FILE_TAG];
-
     }
+    [self.chatSessionInputBarControl.pluginBoardView insertItemWithImage:[UIImage imageNamed:@"file.png"] title:@"文件" atIndex:5 tag:PLUGIN_BOARD_ITEM_FILE_TAG];
+
     self.chatSessionInputBarControl.inputTextView.backgroundColor = UIColorFromRGB(0xe5e5e5);
     self.chatSessionInputBarControl.inputTextView.layer.borderWidth = 0;
     //发送那栏空白view颜色改变

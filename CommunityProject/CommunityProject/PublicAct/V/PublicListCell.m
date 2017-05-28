@@ -72,6 +72,9 @@
     }else{
         self.statusLabel.text = @"未开始";
     }
+    [self.loveBtn setTitle:_publicModel.likes forState:UIControlStateNormal];
+    [self.commentBtn setTitle:_publicModel.commentNumber forState:UIControlStateNormal];
+    
 }
 
 @end

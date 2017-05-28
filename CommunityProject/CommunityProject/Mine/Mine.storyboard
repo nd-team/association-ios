@@ -1158,7 +1158,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同事" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBi-mq-zVN">
-                                                    <rect key="frame" x="10" y="-0.5" width="100" height="50"/>
+                                                    <rect key="frame" x="10" y="-1" width="100" height="51"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="3x2-3T-Gsr"/>
                                                         <constraint firstAttribute="width" constant="100" id="hT5-2E-ILe"/>

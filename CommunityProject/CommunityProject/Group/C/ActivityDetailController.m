@@ -64,7 +64,14 @@
     [super viewDidLoad];
 
     [self setUI];
-    [self getJoinActivityPerson];
+    WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getJoinActivityPerson];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });
 }
 -(void)setUI{
     self.automaticallyAdjustsScrollViewInsets = NO;
