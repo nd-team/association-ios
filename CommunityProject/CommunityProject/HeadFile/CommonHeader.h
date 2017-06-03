@@ -23,8 +23,8 @@
 #define WeakSelf __weak __typeof(self) weakSelf = self
 
 #define DEFAULTS [NSUserDefaults standardUserDefaults]
-
-#define NetURL @"https://sq.bjike.com/%@"
+//https://sq.bjike.com http://192.168.0.104:90/appapi/app
+#define NetURL @"http://192.168.0.104:90/appapi/app/%@"
 
 //#define kisNilString(__String) (__String==nil || __String == (id)[NSNull null] || ![__String isKindOfClass:[NSString class]] || [__String isEqualToString:@""] || [[__String stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""] || [[__String lowercaseString] isEqualToString:@"nil"] || [[__String lowercaseString] isEqualToString:@"null"] || [[__String lowercaseString] isEqualToString:@"(null)"])
 #endif /* CommonHeader_h */

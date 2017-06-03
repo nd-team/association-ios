@@ -16,7 +16,8 @@
 #import "MemberListModel.h"
 #import "ViewController.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
-
+//短信
+#import <SMS_SDK/SMSSDK.h>
 //ShareSDK
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
@@ -144,6 +145,8 @@
     //高德地图
     [AMapServices sharedServices].apiKey = @"a6bca6b19ec2f4c52428fd977fd553d8";
     [[AMapServices sharedServices] setEnableHTTPS:YES];
+    // 短信验证码
+//    [SMSSDK registerApp:@"1e627fcacd326" withSecret:@"7e94ccd2d1cb86aabc324432786514a3"];
     //设置当前用户
     [self netWork];
     [[UINavigationBar appearance]setShadowImage:[UIImage new]];//nagivationBar.png

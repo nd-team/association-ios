@@ -213,7 +213,7 @@
     PublicListModel * model = self.dataArr[indexPath.row];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
     PubicDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"PubicDetailController"];
-    detail.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    detail.idStr = [NSString stringWithFormat:@"%ld",(long)model.id];
     detail.headUrl = model.userPortraitUrl;
     detail.titleName = model.title;
     [self.navigationController pushViewController:detail animated:YES];

@@ -12,7 +12,7 @@
 +(UIView *)createViewFrame:(CGRect)frame andTarget:(id)target andSel:(SEL)action;
 +(UIView *)locationViewFrame:(CGRect)frame andTarget:(id)target andAction:(SEL)action;
 +(UIView *)sureViewTitle:(NSString *)title andTag:(CGFloat)tag andTarget:(id)target andAction:(SEL)action;
-+(UIView *)timeViewTag:(CGFloat)tag andTarget:(id)target andAction:(SEL)action;
 +(UIView *)claimMessageViewFrame:(CGRect)frame andArray:(NSArray *)titleArr andTarget:(id)target andSel:(SEL)action andTag:(NSInteger)tag;
++(UIView *)showMessageTitle:(NSString *)title andTarget:(id)target andSel:(SEL)action;
 
 @end

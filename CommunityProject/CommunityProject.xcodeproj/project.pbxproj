@@ -44,10 +44,6 @@
 		4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB831E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m */; };
 		4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB861E7BE88900F22E70 /* ChatDetailController.m */; };
 		455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 455930CE1E835A110041F6F9 /* ImageUrl.m */; };
-		455C6B0B1EA076C000E0B3F3 /* InterestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B0A1EA076C000E0B3F3 /* InterestModel.m */; };
-		455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B0D1EA0B24200E0B3F3 /* HobbyCell.m */; };
-		455C6B101EA0B24200E0B3F3 /* HobbyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B0E1EA0B24200E0B3F3 /* HobbyCell.xib */; };
-		455C6B131EA0B34500E0B3F3 /* HobbyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B121EA0B34500E0B3F3 /* HobbyController.m */; };
 		455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B141EA1AFC800E0B3F3 /* CircleOfFriend.storyboard */; };
 		455C6B1C1EA1ED6700E0B3F3 /* CircleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C6B1A1EA1ED6700E0B3F3 /* CircleCell.m */; };
 		455C6B1D1EA1ED6700E0B3F3 /* CircleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455C6B1B1EA1ED6700E0B3F3 /* CircleCell.xib */; };
@@ -125,8 +121,6 @@
 		4562D7FD1E810DED00C6EE56 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4562D7FC1E810DED00C6EE56 /* Contacts.framework */; };
 		4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4562D8021E81300F00C6EE56 /* GroupListCell.m */; };
 		4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4562D8051E8134A900C6EE56 /* GroupListController.m */; };
-		4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4568FB0F1E89F261007BA5BB /* SearchGroupModel.m */; };
-		4568FB131E89FBBA007BA5BB /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4568FB121E89FBBA007BA5BB /* SearchController.m */; };
 		456CCE601E827CD7005EC051 /* RongCallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE421E827CD7005EC051 /* RongCallKit.framework */; };
 		456CCE611E827CD7005EC051 /* AgoraRtcEngineKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE441E827CD7005EC051 /* AgoraRtcEngineKit.framework */; };
 		456CCE621E827CD7005EC051 /* RongCallLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456CCE451E827CD7005EC051 /* RongCallLib.framework */; };
@@ -175,10 +169,6 @@
 		4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */; };
 		4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC311E9B10900047D1F4 /* VoteDetailController.m */; };
 		457781CF1E9F74CF0004BBE7 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */; };
-		457781D41E9F7C060004BBE7 /* InterestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 457781D21E9F7C060004BBE7 /* InterestCell.xib */; };
-		457781D71E9F7C6D0004BBE7 /* InterestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781D61E9F7C6D0004BBE7 /* InterestCell.m */; };
-		457781DA1E9F84EB0004BBE7 /* ChooseInterestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */; };
-		457781DD1E9F85260004BBE7 /* InterestTeamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781DC1E9F85260004BBE7 /* InterestTeamController.m */; };
 		45783BE01EC6AB130013DC6D /* MyClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BDF1EC6AB130013DC6D /* MyClaimCell.m */; };
 		45783BE31EC6ABD20013DC6D /* MyClaimController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE21EC6ABD20013DC6D /* MyClaimController.m */; };
 		45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE51EC6F9590013DC6D /* ClaimMessageController.m */; };
@@ -269,8 +259,6 @@
 		459E85311EAA038B00E5A331 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 459E85301EAA038B00E5A331 /* CoreFoundation.framework */; };
 		459E85331EAA03AE00E5A331 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 459E85321EAA03AE00E5A331 /* MobileCoreServices.framework */; };
 		45A080C81E88C41100514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080C71E88C41100514FFC /* AddFriendController.m */; };
-		45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080CD1E891AF800514FFC /* AddFriendCell.m */; };
-		45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D01E891C9300514FFC /* SearchFriendModel.m */; };
 		45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080D31E891DFA00514FFC /* SearchGroupCell.m */; };
 		45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DD41EB219ED007F02E5 /* PersonMoreInfoController.m */; };
 		45AA3DD81EB32B78007F02E5 /* RecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AA3DD71EB32B78007F02E5 /* RecommendController.m */; };
@@ -322,6 +310,31 @@
 		45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D1102C1E8538C0009F2C4E /* RealTimeLocationStartCell.m */; };
 		45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D1102F1E8538E2009F2C4E /* RealTimeLocationViewController.m */; };
 		45D110331E85390D009F2C4E /* RealTimeLocationStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D110321E85390D009F2C4E /* RealTimeLocationStatusView.m */; };
+		45D6C0441EDEA315003F229A /* Interest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45D6C0431EDEA315003F229A /* Interest.storyboard */; };
+		45D6C0491EDEA403003F229A /* HobbyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0461EDEA403003F229A /* HobbyController.m */; };
+		45D6C04A1EDEA403003F229A /* InterestTeamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0481EDEA403003F229A /* InterestTeamController.m */; };
+		45D6C0531EDEA467003F229A /* ChooseInterestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C04C1EDEA467003F229A /* ChooseInterestCell.m */; };
+		45D6C0541EDEA467003F229A /* HobbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C04E1EDEA467003F229A /* HobbyCell.m */; };
+		45D6C0551EDEA467003F229A /* HobbyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45D6C04F1EDEA467003F229A /* HobbyCell.xib */; };
+		45D6C0561EDEA467003F229A /* InterestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0511EDEA467003F229A /* InterestCell.m */; };
+		45D6C0571EDEA467003F229A /* InterestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45D6C0521EDEA467003F229A /* InterestCell.xib */; };
+		45D6C05A1EDEA477003F229A /* InterestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0591EDEA477003F229A /* InterestModel.m */; };
+		45D6C05D1EDEC0AC003F229A /* MyCodeCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C05C1EDEC0AC003F229A /* MyCodeCardController.m */; };
+		45D6C0601EDFB637003F229A /* ApplicationVipController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C05F1EDFB637003F229A /* ApplicationVipController.m */; };
+		45D6C0631EDFC5CA003F229A /* OrdinaryRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0621EDFC5CA003F229A /* OrdinaryRegisterController.m */; };
+		45D6C0661EDFC5DB003F229A /* VipRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0651EDFC5DB003F229A /* VipRegisterController.m */; };
+		45D6C06B1EDFFB5E003F229A /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D6C0681EDFFB5E003F229A /* MOBFoundation.framework */; };
+		45D6C06C1EDFFB5E003F229A /* MOBFoundationEx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D6C0691EDFFB5E003F229A /* MOBFoundationEx.framework */; };
+		45D6C06D1EDFFB5E003F229A /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D6C06A1EDFFB5E003F229A /* SMS_SDK.framework */; };
+		45D6C06F1EDFFC6D003F229A /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D6C06E1EDFFC6D003F229A /* AddressBookUI.framework */; };
+		45D6C0731EE1688F003F229A /* AddFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0711EE1688F003F229A /* AddFriendsCell.m */; };
+		45D6C0741EE1688F003F229A /* AddFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45D6C0721EE1688F003F229A /* AddFriendsCell.xib */; };
+		45D6C0771EE16989003F229A /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0761EE16989003F229A /* SearchController.m */; };
+		45D6C07B1EE2425E003F229A /* MaybeKnowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0791EE2425E003F229A /* MaybeKnowCell.m */; };
+		45D6C0811EE26243003F229A /* SearchFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C07E1EE26243003F229A /* SearchFriendModel.m */; };
+		45D6C0821EE26243003F229A /* SearchGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0801EE26243003F229A /* SearchGroupModel.m */; };
+		45D6C0851EE2887D003F229A /* MaybeKnowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0841EE2887D003F229A /* MaybeKnowController.m */; };
+		45D6C0881EE28D22003F229A /* ScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0871EE28D22003F229A /* ScanCodeViewController.m */; };
 		45E4F71A1ED4143400476B64 /* Public.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45E4F7191ED4143400476B64 /* Public.storyboard */; };
 		45E4F71E1ED42C9000476B64 /* PublicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E4F71C1ED42C9000476B64 /* PublicListCell.m */; };
 		45E4F71F1ED42C9000476B64 /* PublicListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E4F71D1ED42C9000476B64 /* PublicListCell.xib */; };
@@ -396,13 +409,6 @@
 		4557CB861E7BE88900F22E70 /* ChatDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDetailController.m; sourceTree = "<group>"; };
 		455930CD1E835A110041F6F9 /* ImageUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUrl.h; sourceTree = "<group>"; };
 		455930CE1E835A110041F6F9 /* ImageUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUrl.m; sourceTree = "<group>"; };
-		455C6B091EA076C000E0B3F3 /* InterestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestModel.h; sourceTree = "<group>"; };
-		455C6B0A1EA076C000E0B3F3 /* InterestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestModel.m; sourceTree = "<group>"; };
-		455C6B0C1EA0B24200E0B3F3 /* HobbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyCell.h; sourceTree = "<group>"; };
-		455C6B0D1EA0B24200E0B3F3 /* HobbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyCell.m; sourceTree = "<group>"; };
-		455C6B0E1EA0B24200E0B3F3 /* HobbyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HobbyCell.xib; sourceTree = "<group>"; };
-		455C6B111EA0B34500E0B3F3 /* HobbyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyController.h; sourceTree = "<group>"; };
-		455C6B121EA0B34500E0B3F3 /* HobbyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyController.m; sourceTree = "<group>"; };
 		455C6B141EA1AFC800E0B3F3 /* CircleOfFriend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CircleOfFriend.storyboard; sourceTree = "<group>"; };
 		455C6B191EA1ED6700E0B3F3 /* CircleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCell.h; sourceTree = "<group>"; };
 		455C6B1A1EA1ED6700E0B3F3 /* CircleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCell.m; sourceTree = "<group>"; };
@@ -522,10 +528,6 @@
 		4562D8021E81300F00C6EE56 /* GroupListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListCell.m; sourceTree = "<group>"; };
 		4562D8041E8134A900C6EE56 /* GroupListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupListController.h; sourceTree = "<group>"; };
 		4562D8051E8134A900C6EE56 /* GroupListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupListController.m; sourceTree = "<group>"; };
-		4568FB0E1E89F261007BA5BB /* SearchGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGroupModel.h; sourceTree = "<group>"; };
-		4568FB0F1E89F261007BA5BB /* SearchGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGroupModel.m; sourceTree = "<group>"; };
-		4568FB111E89FBBA007BA5BB /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
-		4568FB121E89FBBA007BA5BB /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		456CCE421E827CD7005EC051 /* RongCallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongCallKit.framework; sourceTree = "<group>"; };
 		456CCE441E827CD7005EC051 /* AgoraRtcEngineKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcEngineKit.framework; sourceTree = "<group>"; };
 		456CCE451E827CD7005EC051 /* RongCallLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongCallLib.framework; sourceTree = "<group>"; };
@@ -601,13 +603,6 @@
 		4573CC311E9B10900047D1F4 /* VoteDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteDetailController.m; sourceTree = "<group>"; };
 		457781CD1E9F74CF0004BBE7 /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
 		457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
-		457781D21E9F7C060004BBE7 /* InterestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InterestCell.xib; sourceTree = "<group>"; };
-		457781D51E9F7C6D0004BBE7 /* InterestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCell.h; sourceTree = "<group>"; };
-		457781D61E9F7C6D0004BBE7 /* InterestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCell.m; sourceTree = "<group>"; };
-		457781D81E9F84EB0004BBE7 /* ChooseInterestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseInterestCell.h; sourceTree = "<group>"; };
-		457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseInterestCell.m; sourceTree = "<group>"; };
-		457781DB1E9F85260004BBE7 /* InterestTeamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestTeamController.h; sourceTree = "<group>"; };
-		457781DC1E9F85260004BBE7 /* InterestTeamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestTeamController.m; sourceTree = "<group>"; };
 		45783BDE1EC6AB130013DC6D /* MyClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClaimCell.h; sourceTree = "<group>"; };
 		45783BDF1EC6AB130013DC6D /* MyClaimCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClaimCell.m; sourceTree = "<group>"; };
 		45783BE11EC6ABD20013DC6D /* MyClaimController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClaimController.h; sourceTree = "<group>"; };
@@ -771,10 +766,6 @@
 		459E85321EAA03AE00E5A331 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		45A080C61E88C41100514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
 		45A080C71E88C41100514FFC /* AddFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendController.m; sourceTree = "<group>"; };
-		45A080CC1E891AF800514FFC /* AddFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendCell.h; sourceTree = "<group>"; };
-		45A080CD1E891AF800514FFC /* AddFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendCell.m; sourceTree = "<group>"; };
-		45A080CF1E891C9300514FFC /* SearchFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendModel.h; sourceTree = "<group>"; };
-		45A080D01E891C9300514FFC /* SearchFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendModel.m; sourceTree = "<group>"; };
 		45A080D21E891DFA00514FFC /* SearchGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGroupCell.h; sourceTree = "<group>"; };
 		45A080D31E891DFA00514FFC /* SearchGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGroupCell.m; sourceTree = "<group>"; };
 		45AA3DD31EB219ED007F02E5 /* PersonMoreInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonMoreInfoController.h; sourceTree = "<group>"; };
@@ -862,6 +853,48 @@
 		45D1102F1E8538E2009F2C4E /* RealTimeLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationViewController.m; sourceTree = "<group>"; };
 		45D110311E85390D009F2C4E /* RealTimeLocationStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealTimeLocationStatusView.h; sourceTree = "<group>"; };
 		45D110321E85390D009F2C4E /* RealTimeLocationStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealTimeLocationStatusView.m; sourceTree = "<group>"; };
+		45D6C0431EDEA315003F229A /* Interest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interest.storyboard; sourceTree = "<group>"; };
+		45D6C0451EDEA403003F229A /* HobbyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyController.h; sourceTree = "<group>"; };
+		45D6C0461EDEA403003F229A /* HobbyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyController.m; sourceTree = "<group>"; };
+		45D6C0471EDEA403003F229A /* InterestTeamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestTeamController.h; sourceTree = "<group>"; };
+		45D6C0481EDEA403003F229A /* InterestTeamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestTeamController.m; sourceTree = "<group>"; };
+		45D6C04B1EDEA467003F229A /* ChooseInterestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseInterestCell.h; sourceTree = "<group>"; };
+		45D6C04C1EDEA467003F229A /* ChooseInterestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseInterestCell.m; sourceTree = "<group>"; };
+		45D6C04D1EDEA467003F229A /* HobbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HobbyCell.h; sourceTree = "<group>"; };
+		45D6C04E1EDEA467003F229A /* HobbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HobbyCell.m; sourceTree = "<group>"; };
+		45D6C04F1EDEA467003F229A /* HobbyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HobbyCell.xib; sourceTree = "<group>"; };
+		45D6C0501EDEA467003F229A /* InterestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestCell.h; sourceTree = "<group>"; };
+		45D6C0511EDEA467003F229A /* InterestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestCell.m; sourceTree = "<group>"; };
+		45D6C0521EDEA467003F229A /* InterestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InterestCell.xib; sourceTree = "<group>"; };
+		45D6C0581EDEA477003F229A /* InterestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterestModel.h; sourceTree = "<group>"; };
+		45D6C0591EDEA477003F229A /* InterestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterestModel.m; sourceTree = "<group>"; };
+		45D6C05B1EDEC0AC003F229A /* MyCodeCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCodeCardController.h; sourceTree = "<group>"; };
+		45D6C05C1EDEC0AC003F229A /* MyCodeCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCodeCardController.m; sourceTree = "<group>"; };
+		45D6C05E1EDFB637003F229A /* ApplicationVipController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationVipController.h; sourceTree = "<group>"; };
+		45D6C05F1EDFB637003F229A /* ApplicationVipController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationVipController.m; sourceTree = "<group>"; };
+		45D6C0611EDFC5CA003F229A /* OrdinaryRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrdinaryRegisterController.h; sourceTree = "<group>"; };
+		45D6C0621EDFC5CA003F229A /* OrdinaryRegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrdinaryRegisterController.m; sourceTree = "<group>"; };
+		45D6C0641EDFC5DB003F229A /* VipRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VipRegisterController.h; sourceTree = "<group>"; };
+		45D6C0651EDFC5DB003F229A /* VipRegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VipRegisterController.m; sourceTree = "<group>"; };
+		45D6C0681EDFFB5E003F229A /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
+		45D6C0691EDFFB5E003F229A /* MOBFoundationEx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundationEx.framework; sourceTree = "<group>"; };
+		45D6C06A1EDFFB5E003F229A /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		45D6C06E1EDFFC6D003F229A /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		45D6C0701EE1688F003F229A /* AddFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendsCell.h; sourceTree = "<group>"; };
+		45D6C0711EE1688F003F229A /* AddFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendsCell.m; sourceTree = "<group>"; };
+		45D6C0721EE1688F003F229A /* AddFriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFriendsCell.xib; sourceTree = "<group>"; };
+		45D6C0751EE16989003F229A /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
+		45D6C0761EE16989003F229A /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
+		45D6C0781EE2425E003F229A /* MaybeKnowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaybeKnowCell.h; sourceTree = "<group>"; };
+		45D6C0791EE2425E003F229A /* MaybeKnowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaybeKnowCell.m; sourceTree = "<group>"; };
+		45D6C07D1EE26243003F229A /* SearchFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFriendModel.h; sourceTree = "<group>"; };
+		45D6C07E1EE26243003F229A /* SearchFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFriendModel.m; sourceTree = "<group>"; };
+		45D6C07F1EE26243003F229A /* SearchGroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGroupModel.h; sourceTree = "<group>"; };
+		45D6C0801EE26243003F229A /* SearchGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGroupModel.m; sourceTree = "<group>"; };
+		45D6C0831EE2887D003F229A /* MaybeKnowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaybeKnowController.h; sourceTree = "<group>"; };
+		45D6C0841EE2887D003F229A /* MaybeKnowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaybeKnowController.m; sourceTree = "<group>"; };
+		45D6C0861EE28D22003F229A /* ScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanCodeViewController.h; sourceTree = "<group>"; };
+		45D6C0871EE28D22003F229A /* ScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanCodeViewController.m; sourceTree = "<group>"; };
 		45E4F7191ED4143400476B64 /* Public.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Public.storyboard; sourceTree = "<group>"; };
 		45E4F71B1ED42C9000476B64 /* PublicListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicListCell.h; sourceTree = "<group>"; };
 		45E4F71C1ED42C9000476B64 /* PublicListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicListCell.m; sourceTree = "<group>"; };
@@ -878,6 +911,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D6C06F1EDFFC6D003F229A /* AddressBookUI.framework in Frameworks */,
 				45CE5F681EC19CE400225534 /* GLKit.framework in Frameworks */,
 				45CE5F661EC19CAD00225534 /* libstdc++.6.0.9.tbd in Frameworks */,
 				45CE5F641EC19C7A00225534 /* AdSupport.framework in Frameworks */,
@@ -892,6 +926,7 @@
 				458959541EB825D900CBADDD /* QQConnector.framework in Frameworks */,
 				459E85331EAA03AE00E5A331 /* MobileCoreServices.framework in Frameworks */,
 				458959511EB825D900CBADDD /* CopyConnector.framework in Frameworks */,
+				45D6C06B1EDFFB5E003F229A /* MOBFoundation.framework in Frameworks */,
 				459E85311EAA038B00E5A331 /* CoreFoundation.framework in Frameworks */,
 				451B285C1E7D282D0024B336 /* libc++.tbd in Frameworks */,
 				4589594D1EB825D900CBADDD /* ShareSDKConfigFile.framework in Frameworks */,
@@ -916,6 +951,7 @@
 				456CCE671E827CD8005EC051 /* libopencore-amrnb.a in Frameworks */,
 				4562D7AC1E80BBFC00C6EE56 /* libxml2.tbd in Frameworks */,
 				456CCE601E827CD7005EC051 /* RongCallKit.framework in Frameworks */,
+				45D6C06C1EDFFB5E003F229A /* MOBFoundationEx.framework in Frameworks */,
 				458959561EB825D900CBADDD /* SMSConnector.framework in Frameworks */,
 				4589594E1EB825D900CBADDD /* ShareSDKExtension.framework in Frameworks */,
 				45CE5F6D1EC19D8400225534 /* AMapFoundationKit.framework in Frameworks */,
@@ -948,6 +984,7 @@
 				456CCE691E827CD8005EC051 /* RongIMLib.framework in Frameworks */,
 				451B28521E7D27CE0024B336 /* QuartzCore.framework in Frameworks */,
 				452DB66C1EC2A4DC00A4FE0C /* AMapLocationKit.framework in Frameworks */,
+				45D6C06D1EDFFB5E003F229A /* SMS_SDK.framework in Frameworks */,
 				451B28501E7D27C00024B336 /* CoreTelephony.framework in Frameworks */,
 				A7A6D25426573DF78E3813F3 /* libPods-CommunityProject.a in Frameworks */,
 			);
@@ -981,6 +1018,7 @@
 				455FA3251E763C070039B155 /* Main */,
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
 				455FA32A1E763C250039B155 /* FirstPage */,
+				45D6C03F1EDEA2F8003F229A /* Interest */,
 				45E4F7151ED4142300476B64 /* PublicAct */,
 				45AE19981ECD3C470098A7FF /* Activity */,
 				457182A81EC44EEE00860F38 /* Claim */,
@@ -1043,16 +1081,10 @@
 				4557CB861E7BE88900F22E70 /* ChatDetailController.m */,
 				450A50FB1E8648D300433A61 /* SetPersonController.h */,
 				450A50FC1E8648D300433A61 /* SetPersonController.m */,
-				4568FB111E89FBBA007BA5BB /* SearchController.h */,
-				4568FB121E89FBBA007BA5BB /* SearchController.m */,
 				458DD51B1E8A488D00650F2E /* MessageViewController.h */,
 				458DD51C1E8A488D00650F2E /* MessageViewController.m */,
 				457781CD1E9F74CF0004BBE7 /* DiscoverViewController.h */,
 				457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */,
-				457781DB1E9F85260004BBE7 /* InterestTeamController.h */,
-				457781DC1E9F85260004BBE7 /* InterestTeamController.m */,
-				455C6B111EA0B34500E0B3F3 /* HobbyController.h */,
-				455C6B121EA0B34500E0B3F3 /* HobbyController.m */,
 				45CE5F711EC2A13800225534 /* MyLocationViewController.h */,
 				45CE5F721EC2A13800225534 /* MyLocationViewController.m */,
 			);
@@ -1066,14 +1098,8 @@
 				452DB66E1EC2B36200A4FE0C /* POIAnnotation.m */,
 				458DD51E1E8A4D9A00650F2E /* ApplicationFriendsModel.h */,
 				458DD51F1E8A4D9A00650F2E /* ApplicationFriendsModel.m */,
-				45A080CF1E891C9300514FFC /* SearchFriendModel.h */,
-				45A080D01E891C9300514FFC /* SearchFriendModel.m */,
-				4568FB0E1E89F261007BA5BB /* SearchGroupModel.h */,
-				4568FB0F1E89F261007BA5BB /* SearchGroupModel.m */,
 				458DD5211E8A4EC900650F2E /* ApplicationDatabaseSingle.h */,
 				458DD5221E8A4EC900650F2E /* ApplicationDatabaseSingle.m */,
-				455C6B091EA076C000E0B3F3 /* InterestModel.h */,
-				455C6B0A1EA076C000E0B3F3 /* InterestModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1081,8 +1107,6 @@
 		455FA3291E763C250039B155 /* V */ = {
 			isa = PBXGroup;
 			children = (
-				45A080CC1E891AF800514FFC /* AddFriendCell.h */,
-				45A080CD1E891AF800514FFC /* AddFriendCell.m */,
 				4562D73A1E7F7B6A00C6EE56 /* UIView+ChatWhiteView.h */,
 				4562D73B1E7F7B6A00C6EE56 /* UIView+ChatWhiteView.m */,
 				4562D75E1E7FDFD900C6EE56 /* UIView+ChatMoreView.h */,
@@ -1091,14 +1115,6 @@
 				45A080D31E891DFA00514FFC /* SearchGroupCell.m */,
 				458DD5181E8A46DA00650F2E /* MessageCell.h */,
 				458DD5191E8A46DA00650F2E /* MessageCell.m */,
-				457781D51E9F7C6D0004BBE7 /* InterestCell.h */,
-				457781D61E9F7C6D0004BBE7 /* InterestCell.m */,
-				457781D21E9F7C060004BBE7 /* InterestCell.xib */,
-				457781D81E9F84EB0004BBE7 /* ChooseInterestCell.h */,
-				457781D91E9F84EB0004BBE7 /* ChooseInterestCell.m */,
-				455C6B0C1EA0B24200E0B3F3 /* HobbyCell.h */,
-				455C6B0D1EA0B24200E0B3F3 /* HobbyCell.m */,
-				455C6B0E1EA0B24200E0B3F3 /* HobbyCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1206,6 +1222,10 @@
 				45AA3DDD1EB4701A007F02E5 /* ProductCodeController.m */,
 				4589599B1EB9779500CBADDD /* SignInViewController.h */,
 				4589599C1EB9779500CBADDD /* SignInViewController.m */,
+				45D6C05B1EDEC0AC003F229A /* MyCodeCardController.h */,
+				45D6C05C1EDEC0AC003F229A /* MyCodeCardController.m */,
+				45D6C05E1EDFB637003F229A /* ApplicationVipController.h */,
+				45D6C05F1EDFB637003F229A /* ApplicationVipController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1324,6 +1344,10 @@
 				455FA35D1E76A5260039B155 /* LoginController.m */,
 				457D3CD21E77E98200FD0309 /* ConfirmInfoController.h */,
 				457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */,
+				45D6C0611EDFC5CA003F229A /* OrdinaryRegisterController.h */,
+				45D6C0621EDFC5CA003F229A /* OrdinaryRegisterController.m */,
+				45D6C0641EDFC5DB003F229A /* VipRegisterController.h */,
+				45D6C0651EDFC5DB003F229A /* VipRegisterController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1345,6 +1369,7 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				45D6C0671EDFFB5E003F229A /* SMS_SDK */,
 				452DB66B1EC2A4DC00A4FE0C /* AMapLocationKit.framework */,
 				45CE5F691EC19D8400225534 /* AMapSearchKit.framework */,
 				45CE5F6A1EC19D8400225534 /* AMapFoundationKit.framework */,
@@ -1547,6 +1572,12 @@
 				450A50F91E86227900433A61 /* UnknownFriendDetailController.m */,
 				45A080C61E88C41100514FFC /* AddFriendController.h */,
 				45A080C71E88C41100514FFC /* AddFriendController.m */,
+				45D6C0751EE16989003F229A /* SearchController.h */,
+				45D6C0761EE16989003F229A /* SearchController.m */,
+				45D6C0831EE2887D003F229A /* MaybeKnowController.h */,
+				45D6C0841EE2887D003F229A /* MaybeKnowController.m */,
+				45D6C0861EE28D22003F229A /* ScanCodeViewController.h */,
+				45D6C0871EE28D22003F229A /* ScanCodeViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1558,6 +1589,10 @@
 				457D3CC61E77CD7400FD0309 /* FriendsListModel.m */,
 				457D3CC21E77CD6900FD0309 /* AddressDataBaseSingleton.h */,
 				457D3CC31E77CD6900FD0309 /* AddressDataBaseSingleton.m */,
+				45D6C07D1EE26243003F229A /* SearchFriendModel.h */,
+				45D6C07E1EE26243003F229A /* SearchFriendModel.m */,
+				45D6C07F1EE26243003F229A /* SearchGroupModel.h */,
+				45D6C0801EE26243003F229A /* SearchGroupModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1567,6 +1602,11 @@
 			children = (
 				4562D7F41E80F8A900C6EE56 /* AddressCell.h */,
 				4562D7F51E80F8A900C6EE56 /* AddressCell.m */,
+				45D6C0701EE1688F003F229A /* AddFriendsCell.h */,
+				45D6C0711EE1688F003F229A /* AddFriendsCell.m */,
+				45D6C0721EE1688F003F229A /* AddFriendsCell.xib */,
+				45D6C0781EE2425E003F229A /* MaybeKnowCell.h */,
+				45D6C0791EE2425E003F229A /* MaybeKnowCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1969,6 +2009,62 @@
 			path = V;
 			sourceTree = "<group>";
 		};
+		45D6C03F1EDEA2F8003F229A /* Interest */ = {
+			isa = PBXGroup;
+			children = (
+				45D6C0431EDEA315003F229A /* Interest.storyboard */,
+				45D6C0401EDEA2F8003F229A /* C */,
+				45D6C0411EDEA2F8003F229A /* M */,
+				45D6C0421EDEA2F8003F229A /* V */,
+			);
+			path = Interest;
+			sourceTree = "<group>";
+		};
+		45D6C0401EDEA2F8003F229A /* C */ = {
+			isa = PBXGroup;
+			children = (
+				45D6C0471EDEA403003F229A /* InterestTeamController.h */,
+				45D6C0481EDEA403003F229A /* InterestTeamController.m */,
+				45D6C0451EDEA403003F229A /* HobbyController.h */,
+				45D6C0461EDEA403003F229A /* HobbyController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		45D6C0411EDEA2F8003F229A /* M */ = {
+			isa = PBXGroup;
+			children = (
+				45D6C0581EDEA477003F229A /* InterestModel.h */,
+				45D6C0591EDEA477003F229A /* InterestModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		45D6C0421EDEA2F8003F229A /* V */ = {
+			isa = PBXGroup;
+			children = (
+				45D6C04B1EDEA467003F229A /* ChooseInterestCell.h */,
+				45D6C04C1EDEA467003F229A /* ChooseInterestCell.m */,
+				45D6C04D1EDEA467003F229A /* HobbyCell.h */,
+				45D6C04E1EDEA467003F229A /* HobbyCell.m */,
+				45D6C04F1EDEA467003F229A /* HobbyCell.xib */,
+				45D6C0501EDEA467003F229A /* InterestCell.h */,
+				45D6C0511EDEA467003F229A /* InterestCell.m */,
+				45D6C0521EDEA467003F229A /* InterestCell.xib */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		45D6C0671EDFFB5E003F229A /* SMS_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				45D6C0681EDFFB5E003F229A /* MOBFoundation.framework */,
+				45D6C0691EDFFB5E003F229A /* MOBFoundationEx.framework */,
+				45D6C06A1EDFFB5E003F229A /* SMS_SDK.framework */,
+			);
+			path = SMS_SDK;
+			sourceTree = "<group>";
+		};
 		45E4F7151ED4142300476B64 /* PublicAct */ = {
 			isa = PBXGroup;
 			children = (
@@ -2015,6 +2111,7 @@
 		55BFAB6FB609C76103B710A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45D6C06E1EDFFC6D003F229A /* AddressBookUI.framework */,
 				45CE5F671EC19CE400225534 /* GLKit.framework */,
 				45CE5F651EC19CAD00225534 /* libstdc++.6.0.9.tbd */,
 				45CE5F631EC19C7A00225534 /* AdSupport.framework */,
@@ -2136,6 +2233,7 @@
 				455FA3461E7693F00039B155 /* WeChat.storyboard in Resources */,
 				455C6B1D1EA1ED6700E0B3F3 /* CircleCell.xib in Resources */,
 				458959601EB825D900CBADDD /* ShareSDK.bundle in Resources */,
+				45D6C0551EDEA467003F229A /* HobbyCell.xib in Resources */,
 				4562D7F31E80DC1900C6EE56 /* Address.storyboard in Resources */,
 				45E4F71A1ED4143400476B64 /* Public.storyboard in Resources */,
 				456CCE6A1E827CD8005EC051 /* AlipaySDK.bundle in Resources */,
@@ -2146,13 +2244,14 @@
 				4589595E1EB825D900CBADDD /* README.txt in Resources */,
 				45B9772E1EB1D57400A42D55 /* Address.plist in Resources */,
 				45E4F71F1ED42C9000476B64 /* PublicListCell.xib in Resources */,
+				45D6C0571EDEA467003F229A /* InterestCell.xib in Resources */,
 				4589599F1EB9DA2E00CBADDD /* space.cer in Resources */,
 				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
 				457182AD1EC44F2A00860F38 /* ClaimCenter.storyboard in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				4589594C1EB825D900CBADDD /* ShareSDKConfigFile.bundle in Resources */,
-				457781D41E9F7C060004BBE7 /* InterestCell.xib in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
+				45D6C0741EE1688F003F229A /* AddFriendsCell.xib in Resources */,
 				4573CC011E8B8DDD0047D1F4 /* MemberListCell.xib in Resources */,
 				456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */,
 				455FA3601E76A5370039B155 /* Login.storyboard in Resources */,
@@ -2165,13 +2264,13 @@
 				456CCE631E827CD7005EC051 /* Emoji.plist in Resources */,
 				456CCE6E1E827CD8005EC051 /* jrmf.cer in Resources */,
 				456CCE6D1E827CD8005EC051 /* JResource.bundle in Resources */,
-				455C6B101EA0B24200E0B3F3 /* HobbyCell.xib in Resources */,
 				45AE199D1ECD3CB70098A7FF /* Activity.storyboard in Resources */,
 				4562D7331E7F6E2700C6EE56 /* Group.storyboard in Resources */,
 				45CE5F601EC19BB200225534 /* AMap.bundle in Resources */,
 				455C6B251EA1FDB900E0B3F3 /* CircleImageCell.xib in Resources */,
 				455FA3481E7694020039B155 /* Mine.storyboard in Resources */,
 				458959F51EBDBF1A00CBADDD /* MJPhotoBrowser.bundle in Resources */,
+				45D6C0441EDEA315003F229A /* Interest.storyboard in Resources */,
 				45CE5F701EC29FF900225534 /* AreaCell.xib in Resources */,
 				455FA31B1E7631A90039B155 /* Assets.xcassets in Resources */,
 				45AE19A51ECD41920098A7FF /* ActCommonListCell.xib in Resources */,
@@ -2247,9 +2346,11 @@
 				452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */,
 				455C6B1C1EA1ED6700E0B3F3 /* CircleCell.m in Sources */,
 				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
+				45D6C0541EDEA467003F229A /* HobbyCell.m in Sources */,
 				458959CC1EBB150400CBADDD /* FSCalendarCell.m in Sources */,
 				45CE5F4F1EC0571300225534 /* MyPeopleListModel.m in Sources */,
 				45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */,
+				45D6C0771EE16989003F229A /* SearchController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				458959F41EBDBF1A00CBADDD /* MJPhoto.m in Sources */,
 				45AE19A41ECD41920098A7FF /* ActCommonListCell.m in Sources */,
@@ -2261,7 +2362,6 @@
 				45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */,
 				455C6B281EA209E700E0B3F3 /* CircleListModel.m in Sources */,
 				458959F31EBDBF1A00CBADDD /* MBProgressHUD+Add.m in Sources */,
-				45A080D11E891C9300514FFC /* SearchFriendModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				45CE5F581EC1972900225534 /* AreaHistrorySingleton.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
@@ -2274,8 +2374,8 @@
 				450A50ED1E853C3200433A61 /* DefaultPortraitView.m in Sources */,
 				458DD51D1E8A488D00650F2E /* MessageViewController.m in Sources */,
 				457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */,
-				455C6B0B1EA076C000E0B3F3 /* InterestModel.m in Sources */,
 				458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */,
+				45D6C0561EDEA467003F229A /* InterestCell.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				458959FB1EBDBF1A00CBADDD /* SDWebImageManager+MJ.m in Sources */,
 				458959CE1EBB150400CBADDD /* FSCalendarCollectionViewLayout.m in Sources */,
@@ -2290,19 +2390,19 @@
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
 				457781CF1E9F74CF0004BBE7 /* DiscoverViewController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
-				45A080CE1E891AF800514FFC /* AddFriendCell.m in Sources */,
 				45B9771E1EB0872300A42D55 /* AlreadyRecommendCell.m in Sources */,
 				45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */,
-				455C6B131EA0B34500E0B3F3 /* HobbyController.m in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
 				45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */,
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
+				45D6C0661EDFC5DB003F229A /* VipRegisterController.m in Sources */,
 				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
 				452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */,
 				458959D41EBB150400CBADDD /* FSCalendarScopeHandle.m in Sources */,
 				45B9771B1EAF57CF00A42D55 /* TypeAddFriendCell.m in Sources */,
+				45D6C0881EE28D22003F229A /* ScanCodeViewController.m in Sources */,
 				4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */,
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
@@ -2314,6 +2414,7 @@
 				45D110331E85390D009F2C4E /* RealTimeLocationStatusView.m in Sources */,
 				45AE19B21ECEA14A0098A7FF /* AllMessageCell.m in Sources */,
 				450A50FD1E8648D300433A61 /* SetPersonController.m in Sources */,
+				45D6C0491EDEA403003F229A /* HobbyController.m in Sources */,
 				45AA3DDB1EB421DC007F02E5 /* ViewController.m in Sources */,
 				457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */,
 				4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */,
@@ -2324,6 +2425,7 @@
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
 				458959D31EBB150400CBADDD /* FSCalendarHeaderView.m in Sources */,
 				45783BEF1EC6F9D80013DC6D /* WaitClaimCell.m in Sources */,
+				45D6C05D1EDEC0AC003F229A /* MyCodeCardController.m in Sources */,
 				452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */,
 				45CE5F551EC1972000225534 /* HistoryModel.m in Sources */,
 				45AE19AB1ECE90210098A7FF /* MyJoinActivityController.m in Sources */,
@@ -2342,8 +2444,11 @@
 				45B977271EB08A9300A42D55 /* PersonBaseInfoController.m in Sources */,
 				458959D21EBB150400CBADDD /* FSCalendarExtensions.m in Sources */,
 				459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */,
+				45D6C0731EE1688F003F229A /* AddFriendsCell.m in Sources */,
+				45D6C0601EDFB637003F229A /* ApplicationVipController.m in Sources */,
 				458959FC1EBDBF1A00CBADDD /* UIImageView+MJWebCache.m in Sources */,
 				455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */,
+				45D6C0531EDEA467003F229A /* ChooseInterestCell.m in Sources */,
 				45E4F71E1ED42C9000476B64 /* PublicListCell.m in Sources */,
 				4557CB7E1E7BBD2600F22E70 /* DataSource.m in Sources */,
 				455C6B201EA1EDD200E0B3F3 /* CircleOfListController.m in Sources */,
@@ -2357,10 +2462,12 @@
 				450C051A1ED440080093B174 /* MyJoinPublicController.m in Sources */,
 				4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */,
 				45783BE31EC6ABD20013DC6D /* MyClaimController.m in Sources */,
+				45D6C0851EE2887D003F229A /* MaybeKnowController.m in Sources */,
 				458959C81EBB150400CBADDD /* FSCalendar+Deprecated.m in Sources */,
 				4562D7361E7F75EA00C6EE56 /* ActivityListCell.m in Sources */,
 				45AE19AE1ECEA09F0098A7FF /* PlatformMessageController.m in Sources */,
 				4562D7601E7FDFD900C6EE56 /* UIView+ChatMoreView.m in Sources */,
+				45D6C0811EE26243003F229A /* SearchFriendModel.m in Sources */,
 				45CE5F521EC1966600225534 /* SearchAreaViewController.m in Sources */,
 				457182B31EC4582500860F38 /* ClaimCenterCell.m in Sources */,
 				4562D7391E7F792D00C6EE56 /* ActivityListModel.m in Sources */,
@@ -2374,8 +2481,8 @@
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
 				458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */,
 				45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */,
+				45D6C07B1EE2425E003F229A /* MaybeKnowCell.m in Sources */,
 				458D81751ED28FE8006775F1 /* CommentsListModel.m in Sources */,
-				455C6B0F1EA0B24200E0B3F3 /* HobbyCell.m in Sources */,
 				452DB66F1EC2B36200A4FE0C /* POIAnnotation.m in Sources */,
 				458D81721ED27C0F006775F1 /* AllCommentsCell.m in Sources */,
 				4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */,
@@ -2384,11 +2491,9 @@
 				450C05171ED431960093B174 /* PublicListModel.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
 				455C6B2C1EA5B75F00E0B3F3 /* CircleCommentCell.m in Sources */,
-				4568FB101E89F261007BA5BB /* SearchGroupModel.m in Sources */,
 				4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */,
 				45AE19A01ECD406A0098A7FF /* PlatFormActController.m in Sources */,
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
-				457781D71E9F7C6D0004BBE7 /* InterestCell.m in Sources */,
 				45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */,
 				45AA3DD81EB32B78007F02E5 /* RecommendController.m in Sources */,
 				450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */,
@@ -2401,9 +2506,9 @@
 				4562D74B1E7FB9BA00C6EE56 /* ReduceImage.m in Sources */,
 				457182B01EC457F100860F38 /* ClaimCenterListController.m in Sources */,
 				4562D75D1E7FDC1B00C6EE56 /* UIButton+button.m in Sources */,
-				457781DD1E9F85260004BBE7 /* InterestTeamController.m in Sources */,
 				4562D7481E7FB9A000C6EE56 /* UploadImageNet.m in Sources */,
 				45C997A91E9B7E3800F6E984 /* ActivityRecommendController.m in Sources */,
+				45D6C04A1EDEA403003F229A /* InterestTeamController.m in Sources */,
 				458959C91EBB150400CBADDD /* FSCalendar.m in Sources */,
 				456E34DC1EC543C0004CD257 /* ClaimInfoController.m in Sources */,
 				4573CC0A1E8E56060047D1F4 /* ChooseCell.m in Sources */,
@@ -2412,18 +2517,20 @@
 				458959CF1EBB150400CBADDD /* FSCalendarConstants.m in Sources */,
 				458D816C1ECFE1EF006775F1 /* PlatformCommentController.m in Sources */,
 				45AE19A81ECDA7120098A7FF /* PlatformActListModel.m in Sources */,
+				45D6C0821EE26243003F229A /* SearchGroupModel.m in Sources */,
 				458959D51EBB150400CBADDD /* FSCalendarStickyHeader.m in Sources */,
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,
 				455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */,
 				4562D7421E7F88C200C6EE56 /* NowDate.m in Sources */,
 				4573CC151E9482920047D1F4 /* BMChineseSort.m in Sources */,
 				4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */,
-				4568FB131E89FBBA007BA5BB /* SearchController.m in Sources */,
 				458959D11EBB150400CBADDD /* FSCalendarDelegationProxy.m in Sources */,
 				458D81691ECFE1BF006775F1 /* PlatformDetailController.m in Sources */,
 				4573CC2C1E98912D0047D1F4 /* VoteTypeController.m in Sources */,
 				45B9770F1EAEE86E00A42D55 /* SettingViewController.m in Sources */,
+				45D6C0631EDFC5CA003F229A /* OrdinaryRegisterController.m in Sources */,
 				458959A21EBAD5C700CBADDD /* TravelModel.m in Sources */,
+				45D6C05A1EDEA477003F229A /* InterestModel.m in Sources */,
 				4573CC1D1E98794B0047D1F4 /* VoteListCell.m in Sources */,
 				45AA3DDE1EB4701A007F02E5 /* ProductCodeController.m in Sources */,
 				45A080D41E891DFA00514FFC /* SearchGroupCell.m in Sources */,
@@ -2436,7 +2543,6 @@
 				45CE5F731EC2A13800225534 /* MyLocationViewController.m in Sources */,
 				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
 				458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */,
-				457781DA1E9F84EB0004BBE7 /* ChooseInterestCell.m in Sources */,
 				450A50D81E853B5A00433A61 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2603,6 +2709,7 @@
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/CommunityProject/Third/SMS_SDK",
 				);
 				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
 				INFOPLIST_FILE = CommunityProject/Info.plist;
@@ -2645,6 +2752,7 @@
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/CommunityProject/Third/SMS_SDK",
 				);
 				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
 				INFOPLIST_FILE = CommunityProject/Info.plist;

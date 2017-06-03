@@ -266,7 +266,7 @@
         default:
             //进入爱好界面
         {
-            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
+            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Interest" bundle:nil];
             HobbyController  * hobby = [sb instantiateViewControllerWithIdentifier:@"HobbyController"];
             hobby.resultStr = self.result;
             UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];

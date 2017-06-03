@@ -8,26 +8,17 @@
 
 #import "LoginController.h"
 #import "ConfirmInfoController.h"
+#import "OrdinaryRegisterController.h"
+#import "VipRegisterController.h"
 
 #define LoginURL @"appapi/app/login"
-#define RegisterURL @"appapi/app/register"
 @interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>{
     MBProgressHUD *hud;
 }
-@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
-@property (weak, nonatomic) IBOutlet UIImageView *oneLine;
-@property (weak, nonatomic) IBOutlet UIImageView *twoLine;
-@property (weak, nonatomic) IBOutlet UIView *loginView;
+
 @property (weak, nonatomic) IBOutlet UITextField *usernameTF;
 @property (weak, nonatomic) IBOutlet UITextField *secretTF;
-//注册
-@property (weak, nonatomic) IBOutlet UITextField *phoneTF;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTF;
-@property (weak, nonatomic) IBOutlet UITextField *nicknameTF;
-@property (weak, nonatomic) IBOutlet UITextField *codeTF;
 @property (weak, nonatomic) IBOutlet UILabel *msgLabel;
-@property (nonatomic,assign)BOOL isHidden;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topCons;
 
 @end
@@ -41,49 +32,38 @@
 
 -(void)setUI{
     self.msgLabel.hidden = YES;
-    self.twoLine.hidden = YES;
-    [self.loginBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-    [self.loginBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateSelected];
-    [self.registerBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-    [self.registerBtn setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateSelected];
-    [self leftView:self.usernameTF];
-    [self leftView:self.secretTF];
-    [self leftView:self.phoneTF];
-    [self leftView:self.passwordTF];
-    [self leftView:self.nicknameTF];
-    [self leftView:self.codeTF];
+    [self leftView:self.usernameTF andFrame:CGRectMake(18, 9.5, 14.5, 25.5) imageName:@"leftUser"];
+    [self leftView:self.secretTF andFrame:CGRectMake(21.5, 12.7, 17, 20.5) imageName:@"leftSecret"];
     [self.usernameTF becomeFirstResponder];
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     NSString * token = [userDefaults objectForKey:@"token"];
     NSString * phone = [userDefaults objectForKey:@"userId"];
     NSString * password = [userDefaults objectForKey:@"password"];
-    if (token.length && phone.length && password.length) {
+    if (token.length != 0 && phone.length != 0 && password.length != 0) {
         self.usernameTF.text = phone;
         self.secretTF.text = password;
-        [self netWork:YES];
+        [self netWork];
     }
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     [self.view addGestureRecognizer:tap];
 }
 -(void)tapClick{
-        [self.phoneTF resignFirstResponder];
-        [self.passwordTF resignFirstResponder];
-        [self.nicknameTF resignFirstResponder];
-        [self.codeTF resignFirstResponder];
-        [self.usernameTF resignFirstResponder];
-        [self.secretTF resignFirstResponder];
-        self.topCons.constant = 0;
-
-    
+    [self.usernameTF resignFirstResponder];
+    [self.secretTF resignFirstResponder];
 }
--(void)leftView:(UITextField *)textField{
-    UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, 45)];
-    
-    backView.backgroundColor = UIColorFromRGB(0xefefef);
-    
-    textField.leftView = backView;
-    
+-(void)leftView:(UITextField *)textField andFrame:(CGRect)frame imageName:(NSString *)imgName{
+    UIView * leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, 45)];
+    leftView.backgroundColor = UIColorFromRGB(0xffffff);
+    UIImageView * imageView = [[UIImageView alloc]initWithFrame:frame];
+    imageView.image = [UIImage imageNamed:imgName];
+    [leftView addSubview:imageView];
+    textField.leftView = leftView;
     textField.leftViewMode = UITextFieldViewModeAlways;
+    textField.layer.borderColor = UIColorFromRGB(0xb5b5b5).CGColor;
+    textField.layer.borderWidth = 1.0;
+    [textField setValue:UIColorFromRGB(0xd6d6d6) forKeyPath:@"_placeholderLabel.textColor"];
+    
+    [textField setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
 }
 //登录操作下面的登录注册
 - (IBAction)loginClick:(id)sender {
@@ -93,64 +73,16 @@
     }else if(self.secretTF.text.length == 0){
         [self showMessage:@"密码不能为空！"];
         
-    }else{
-        [self netWork:YES];
-    }
-    
-    
-}
-- (IBAction)registerClick:(id)sender {
-    //
-    if (self.nicknameTF.text.length != 0 && self.phoneTF.text.length != 0 && self.codeTF.text.length != 0 && self.passwordTF.text.length != 0) {
-        [self netWork:NO];
-    }else{
-        [self showMessage:@"亲，信息没有填写完整"];
+    }else if(self.usernameTF.text.length != 11){
+        [self showMessage:@"账号格式有误"];
         
+    }else{
+        [self netWork];
     }
-}
-//上面的登录和注册
-- (IBAction)loginButtonClick:(id)sender {
-    self.topCons.constant = 0;
-    self.isHidden = NO;
-    self.loginBtn.selected = YES;
-    self.registerBtn.selected = NO;
-    self.loginView.hidden = NO;
-    self.oneLine.hidden = NO;
-    self.twoLine.hidden = YES;
-    [self.usernameTF becomeFirstResponder];
+    
     
 }
-- (IBAction)registerButtonClick:(id)sender {
-    self.isHidden = YES;
-    self.loginBtn.selected = NO;
-    self.registerBtn.selected = YES;
-    self.loginView.hidden = YES;
-    self.oneLine.hidden = YES;
-    self.twoLine.hidden = NO;
-    [self.phoneTF becomeFirstResponder];
 
-}
--(void)registerMessage{
-    WeakSelf;
-    NSDictionary * params = @{@"nickname":self.nicknameTF.text,@"mobile":self.phoneTF.text,@"password":self.passwordTF.text,@"recommendId":self.codeTF.text};
-    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RegisterURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        if (error) {
-            NSSLog(@"注册失败：%@",error);
-        }else{
-            NSNumber *code = data[@"code"];
-            NSSLog(@"%@",code);
-            if ([code intValue] == 200||[code intValue] == 100) {
-                NSSLog(@"注册成功/注册过没确认");
-               //进入信息确认界面
-                [weakSelf presentSureInfoUI:weakSelf.phoneTF.text andPassword:weakSelf.passwordTF.text andCode:self.codeTF.text];
-            }else if ([code intValue] == 1000){
-                [weakSelf showMessage:@"邀请码填写失误了么！"];
-            }else if ([code intValue] == 0){
-                [weakSelf showMessage:@"注册失败，点击重新试试吧！"];
-            }
-        }
-    }];
-}
 -(void)presentSureInfoUI:(NSString *)phone andPassword:(NSString *)password andCode:(NSString *)code{
     //进入信息确认界面
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
@@ -162,7 +94,7 @@
 
 }
 //判断网络状态
--(void)netWork:(BOOL)isLogin{
+-(void)netWork{
     [self tapClick];
 
     AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
@@ -178,11 +110,7 @@
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                if (isLogin) {
                     [weakSelf loginNet];
-                }else{
-                    [weakSelf registerMessage];
-                }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
                 });
@@ -210,6 +138,12 @@
                 NSDictionary * msg = data[@"data"];
                 //保存用户数据
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                //用户ID
+                [userDefaults setValue:msg[@"userId"] forKey:@"userId"];
+                //昵称
+                [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
+                //token
+                [userDefaults setValue:msg[@"token"] forKey:@"token"];
                 //头像
                 NSString * url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
                 [userDefaults setValue:url forKey:@"userPortraitUrl"];
@@ -235,12 +169,6 @@
                 if (![msg[@"numberId"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"numberId"] forKey:@"numberId"];
                 }
-                if (![msg[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"recommendUserId"] forKey:@"recommendUserId"];
-                }
-                if (![msg[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
-                }
                 if (![msg[@"experience"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"experience"]] forKey:@"experience"];
                 }
@@ -254,26 +182,37 @@
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
-                NSInteger status = [msg[@"status"] integerValue];
-                if (status == 0) {
-                    //信息未确认进入确认界面
-                    [weakSelf presentSureInfoUI:weakSelf.usernameTF.text andPassword:weakSelf.secretTF.text andCode:msg[@"numberId"]];
-                    
-                }else{              //已确认登录
-                    //用户ID
-                    [userDefaults setValue:msg[@"userId"] forKey:@"userId"];
-                    //昵称
-                    [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
-                    //token
-                    [userDefaults setValue:msg[@"token"] forKey:@"token"];
-
+                //VIP字段
+                if ([[msg allKeys] containsObject:@"recommendUserId"]) {
+                    if (![msg[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                        [userDefaults setValue:msg[@"recommendUserId"] forKey:@"recommendUserId"];
+                    }
+                }
+                if ([[msg allKeys] containsObject:@"claimUserId"]) {
+                    if (![msg[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                        [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
+                    }
+                }
+                
+                if ([[msg allKeys] containsObject:@"status"]) {
+                    NSInteger status = [msg[@"status"] integerValue];
+                    if (status == 0) {
+                        //信息未确认进入确认界面
+                        [weakSelf presentSureInfoUI:weakSelf.usernameTF.text andPassword:weakSelf.secretTF.text andCode:msg[@"numberId"]];
+                        
+                    }else{              //已确认登录
+                        
+                        [weakSelf loginMain];
+                        [weakSelf loginRongServicer:msg[@"token"]];
+                        
+                    }
+                }else{
+                    //普通用户登录
                     [weakSelf loginMain];
                     [weakSelf loginRongServicer:msg[@"token"]];
-                
                 }
+              
                 [userDefaults synchronize];
-
-
                 
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"账号不存在！"];
@@ -341,49 +280,27 @@
     
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if (!self.isHidden) {
-        if (textField == self.usernameTF) {
-            [self.usernameTF resignFirstResponder];
-            [self.secretTF becomeFirstResponder];
-        }else {
-            [self.usernameTF resignFirstResponder];
-            [self.secretTF resignFirstResponder];
-        }
-    }else{
-        if (textField == self.phoneTF) {
-            [self.phoneTF resignFirstResponder];
-            [self.nicknameTF becomeFirstResponder];
-        }else if(textField == self.nicknameTF){
-            [self.nicknameTF resignFirstResponder];
-            [self.passwordTF becomeFirstResponder];
-        }else if(textField == self.passwordTF){
-            [self.passwordTF resignFirstResponder];
-            [self.codeTF becomeFirstResponder];
-        }else{
-            [self.phoneTF resignFirstResponder];
-            [self.passwordTF resignFirstResponder];
-            [self.nicknameTF resignFirstResponder];
-            [self.codeTF resignFirstResponder];
-            self.topCons.constant = 0;
-        }
+    if (textField == self.usernameTF) {
+        [self.usernameTF resignFirstResponder];
+        [self.secretTF becomeFirstResponder];
+    }else {
+        [self tapClick];
     }
    
     return YES;
 }
--(void)textFieldDidBeginEditing:(UITextField *)textField{
-    
-    CGFloat offset = textField.frame.origin.y+120-(KMainScreenHeight-216);
-    if (offset>0){
-        WeakSelf;
-        [UIView animateWithDuration:0.2 animations:^{
-            weakSelf.topCons.constant = -offset;
-        }];
-    }else{
-        WeakSelf;
-        [UIView animateWithDuration:0.2 animations:^{
-            weakSelf.topCons.constant = 0;
-        }];
-    }
-
+//普通注册
+- (IBAction)ordinaryRegisterClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+    OrdinaryRegisterController * ori = [sb instantiateViewControllerWithIdentifier:@"OrdinaryRegisterController"];
+    [self presentViewController:ori animated:YES completion:nil];
 }
+//VIP注册
+- (IBAction)vipRegisterClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+    VipRegisterController * vip = [sb instantiateViewControllerWithIdentifier:@"VipRegisterController"];
+    [self presentViewController:vip animated:YES completion:nil];
+}
+
+
 @end

@@ -22,7 +22,7 @@
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+//    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
     manager.requestSerializer.timeoutInterval = 10.f;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",nil];
     

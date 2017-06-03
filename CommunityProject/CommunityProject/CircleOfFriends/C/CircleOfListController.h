@@ -15,6 +15,6 @@
 @property (nonatomic,strong)CircleListModel * model;
 //消息数据
 @property (nonatomic,strong)NSArray * msgArr;
-@property (nonatomic,copy)NSString * firstHead;
+//@property (nonatomic,copy)NSString * firstHead;
 
 @end

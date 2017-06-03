@@ -14,6 +14,7 @@
 
 #define CircleListURL @"appapi/app/selectFriendsCircle"
 #define ZanURL @"appapi/app/userPraise"
+#define UnreadURL @"appapi/app/commentNewsList"
 
 @interface CircleOfListController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *conViewHeightCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnHeightCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeightCons;
+@property (nonatomic,copy)NSString * userId;
 
 @end
 
@@ -50,34 +52,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.page = 1;
+    self.userId  = [DEFAULTS objectForKey:@"userId"];
     [self.tableView registerNib:[UINib nibWithNibName:@"CircleCell" bundle:nil] forCellReuseIdentifier:@"CircleCell"];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 200;
-    //初始化传参过来的消息数据
-    [self.tableView beginUpdates];
-    CGRect frame = self.headerView.frame;
-    if (self.msgArr.count == 0) {
-        self.viewHeightCons.constant = 0;
-        frame.size.height = 0;
-        self.btnHeightCons.constant = 0;
-        self.imageHeightCons.constant = 0;
-        self.conViewHeightCons.constant = 0;
-    }else{
-        [self.msgBtn setTitle:[NSString stringWithFormat:@"%ld条新消息",(unsigned long)self.msgArr.count] forState:UIControlStateNormal];
-        //第一条数据的头像
-        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.firstHead] placeholderImage:[UIImage imageNamed:@"default"]];
-        self.btnHeightCons.constant = 40;
-        self.imageHeightCons.constant = 31;
-        self.viewHeightCons.constant = 64;
-        self.conViewHeightCons.constant = 40;
-        frame.size.height = 64;
-    }
-    self.headerView.frame = frame;
-    self.tableView.tableHeaderView = self.headerView;
-    [self.headerView layoutIfNeeded];
-    [self.tableView endUpdates];
+    [self postUnreadMessage];
     WeakSelf;
-
     MJRefreshAutoGifFooter * footer = [MJRefreshAutoGifFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;
         [weakSelf getList];
@@ -96,8 +76,7 @@
 }
 -(void)getList{
     WeakSelf;
-    NSString * userId = [DEFAULTS objectForKey:@"userId"];
-    NSDictionary * params = @{@"userId":userId,@"status":@"1",@"page":[NSString stringWithFormat:@"%d",self.page]};
+    NSDictionary * params = @{@"userId":self.userId,@"status":@"1",@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈：%@",error);
@@ -105,7 +84,7 @@
             if (weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
             }
-            NSSLog(@"%@",data);
+//            NSSLog(@"%@",data);
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
@@ -127,6 +106,53 @@
         }
     }];
 }
+-(void)postUnreadMessage{
+    WeakSelf;
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,UnreadURL] andParams:@{@"userId":self.userId,@"type":@"2"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"获取未读消息失败%@",error);
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                NSArray * arr = data[@"data"];
+                //初始化传参过来的消息数据
+                [weakSelf.tableView beginUpdates];
+                CGRect frame = self.headerView.frame;
+                if (arr.count == 0) {
+                    weakSelf.viewHeightCons.constant = 0;
+                    frame.size.height = 0;
+                    weakSelf.btnHeightCons.constant = 0;
+                    weakSelf.imageHeightCons.constant = 0;
+                    weakSelf.conViewHeightCons.constant = 0;
+                }else{
+                    weakSelf.btnHeightCons.constant = 40;
+                    weakSelf.imageHeightCons.constant = 31;
+                    weakSelf.viewHeightCons.constant = 64;
+                    weakSelf.conViewHeightCons.constant = 40;
+                    weakSelf.msgArr = arr;
+                    frame.size.height = 64;
+                    [self.msgBtn setTitle:[NSString stringWithFormat:@"%ld条新消息",(unsigned long)arr.count] forState:UIControlStateNormal];
+                    int i = 0;
+                    for (NSDictionary * dic in arr) {
+                        if (i == 0) {
+                            //第一条数据的头像
+                            [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dic[@"userPortraitUrl"]]]] placeholderImage:[UIImage imageNamed:@"default"]];
+                            break;
+                        }
+                        i++;
+                    }
+                }
+                weakSelf.headerView.frame = frame;
+                weakSelf.tableView.tableHeaderView = weakSelf.headerView;
+                [weakSelf.headerView layoutIfNeeded];
+                [weakSelf.tableView endUpdates];
+            }
+            
+        }
+        
+    }];
+}
+
 #pragma mark - tableView-delegate and DataSources
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         return self.height;

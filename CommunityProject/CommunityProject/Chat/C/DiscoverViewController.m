@@ -150,7 +150,7 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
     CircleOfListController * list = [sb instantiateViewControllerWithIdentifier:@"CircleOfListController"];
     list.msgArr = self.unreadArr;
-    list.firstHead = self.firstHead;
+//    list.firstHead = self.firstHead;
     [self.navigationController pushViewController:list animated:YES];
 }
 - (IBAction)interestClick:(id)sender {

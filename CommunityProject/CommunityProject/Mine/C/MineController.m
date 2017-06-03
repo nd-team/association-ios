@@ -15,6 +15,8 @@
 #import "PersonBaseInfoController.h"
 #import "RecommendController.h"
 #import "SignInViewController.h"
+#import "MyCodeCardController.h"
+#import "ApplicationVipController.h"
 
 @interface MineController ()
 
@@ -238,6 +240,25 @@
     AreadyRecommendController * recommend = [sb instantiateViewControllerWithIdentifier:@"AreadyRecommendController"];
     [self.navigationController pushViewController:recommend animated:YES];
 
+}
+//二维码名片
+- (IBAction)myCodeCardClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    MyCodeCardController * set = [sb instantiateViewControllerWithIdentifier:@"MyCodeCardController"];
+    //传参
+    set.userId = self.userLabel.text;
+    set.nickname = self.nameLabel.text;
+    set.userPortraitUrl = self.url;
+    set.sex = self.sex;
+    set.ageStr = self.ageLabel.text;
+    [self.navigationController pushViewController:set animated:YES];
+ 
+}
+//申请VIP
+- (IBAction)vipClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    ApplicationVipController * application = [sb instantiateViewControllerWithIdentifier:@"ApplicationVipController"];
+    [self.navigationController pushViewController:application animated:YES];
 }
 
 //解决scrollView的屏幕适配

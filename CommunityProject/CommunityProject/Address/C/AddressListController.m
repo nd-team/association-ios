@@ -646,10 +646,6 @@
     }
     return _searchArr;
 }
-- (IBAction)backClick:(id)sender {
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
 //手势代理方法
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     if ([touch.view isKindOfClass:[UITableView class]]) {

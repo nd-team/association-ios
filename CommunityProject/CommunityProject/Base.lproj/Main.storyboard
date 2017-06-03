@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GIa-91-BtL">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GIa-91-BtL">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,6 +28,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MQT-Ls-Dtj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="94" y="-29"/>
+        </scene>
+        <!--Interest-->
+        <scene sceneID="j1H-pN-Vhj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Interest" id="lc7-Zm-8Sh" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="兴趣联盟" image="interestBar" selectedImage="interestSel" id="6BW-uY-Yql"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KjY-qa-hKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="79" y="33"/>
+        </scene>
+        <!--Address-->
+        <scene sceneID="zfd-ks-UEI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Address" id="qZy-W8-7mO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="通讯录" image="address" selectedImage="addressSel" id="9Ds-8N-7pY"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0tT-CL-TAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="114" y="84"/>
         </scene>
         <!--Mine-->
         <scene sceneID="EE4-kU-acS">
@@ -54,6 +74,8 @@
                     <connections>
                         <segue destination="NOw-gU-h2J" kind="relationship" relationship="viewControllers" id="v8A-JM-SOW"/>
                         <segue destination="6Wx-eN-Ago" kind="relationship" relationship="viewControllers" id="gIC-5h-RYk"/>
+                        <segue destination="lc7-Zm-8Sh" kind="relationship" relationship="viewControllers" id="fPX-pV-UOq"/>
+                        <segue destination="qZy-W8-7mO" kind="relationship" relationship="viewControllers" id="7Cm-rR-CxP"/>
                         <segue destination="HHt-DF-tRd" kind="relationship" relationship="viewControllers" id="USx-6H-RYF"/>
                     </connections>
                 </tabBarController>
@@ -63,11 +85,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="chat" width="27" height="25"/>
-        <image name="chatSel" width="34" height="30"/>
-        <image name="firstNor" width="26" height="24"/>
-        <image name="firstSel" width="33" height="32"/>
-        <image name="mineNor" width="22" height="24"/>
-        <image name="mineSel" width="32" height="32"/>
+        <image name="address" width="24" height="24"/>
+        <image name="addressSel" width="25" height="24"/>
+        <image name="chat" width="29" height="29"/>
+        <image name="chatSel" width="29" height="29"/>
+        <image name="firstNor" width="29" height="29"/>
+        <image name="firstSel" width="29" height="29"/>
+        <image name="interestBar" width="20" height="25"/>
+        <image name="interestSel" width="20" height="25"/>
+        <image name="mineNor" width="29" height="29"/>
+        <image name="mineSel" width="29" height="29"/>
     </resources>
 </document>

@@ -11,14 +11,13 @@
 @implementation UIView (ChatMoreView)
 UIView * dotView;
 +(UIView *)createViewFrame:(CGRect)frame andTarget:(id)target andSel:(SEL)action{
-    NSArray *titleArr = @[@"聊天大厅",@"通讯录",@"发现",@"添加朋友/群",@"新建群聊",@"群列表",@"消息"];
+    NSArray *titleArr = @[@"聊天大厅",@"朋友圈",@"新建群聊",@"群列表",@"消息"];
     UIView * view = [[UIView alloc]initWithFrame:frame];
     view.layer.masksToBounds = YES;
     view.layer.cornerRadius = 10;
     for (int i = 0; i<titleArr.count; i++) {
-        UIButton * button = [UIButton CreateTitleButtonWithFrame:CGRectMake(3, i*37.5, 123, 37.5) andBackgroundColor:UIColorFromRGB(0x1AE2A7)  titleColor:UIColorFromRGB(0x444343) font:14 andTitle:titleArr[i]];
+        UIButton * button = [UIButton CreateTitleButtonWithFrame:CGRectMake(3, i*37.5, 123, 37.5) andBackgroundColor:UIColorFromRGB(0xffffff)  titleColor:UIColorFromRGB(0x444343) font:14 andTitle:titleArr[i]];
         [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-//        button.backgroundColor = UIColorFromRGB(0x1AE2A7);
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
         button.tag = 20+i;
@@ -26,11 +25,10 @@ UIView * dotView;
     }
     for (int i = 0; i<titleArr.count-1; i++) {
         UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(3, (i+1)*37.5, 123, 1)];
-        lineView.backgroundColor = UIColorFromRGB(0x0f8d68);
+        lineView.backgroundColor = UIColorFromRGB(0xe5e5e5);
         [view addSubview:lineView];
     }
-    //93.5发现
-    dotView = [[UIView alloc]initWithFrame:CGRectMake(65, 240.5, 5, 5)];
+    dotView = [[UIView alloc]initWithFrame:CGRectMake(65, 172.5, 5, 5)];
     dotView.layer.masksToBounds = YES;
     dotView.layer.cornerRadius = 2.5;
     dotView.backgroundColor = UIColorFromRGB(0xE71717);
@@ -101,42 +99,6 @@ UIView * dotView;
     }];
     return view;
 }
-+(UIView *)timeViewTag:(CGFloat)tag andTarget:(id)target andAction:(SEL)action{
-    UIView * view = [[UIView alloc]init];
-    view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
-    UIView * bottomView = [UIView new];
-    bottomView.backgroundColor = UIColorFromRGB(0xebebeb);
-    [view addSubview:bottomView];
-    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(KMainScreenWidth);
-        make.height.mas_equalTo(230.5);
-        make.bottom.equalTo(view);
-        make.left.equalTo(view);
-    }];
-    UIButton * finishBtn = [UIButton CreateTitleButtonWithFrame:CGRectZero andBackgroundColor:UIColorFromRGB(0xebebeb) titleColor:UIColorFromRGB(0x27a9ec) font:17 andTitle:@"完成"];
-    [finishBtn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    finishBtn.tag = tag;
-    [bottomView addSubview:finishBtn];
-    [finishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(50);
-        make.right.equalTo(bottomView);
-        make.height.mas_equalTo(40);
-        make.top.equalTo(bottomView);
-    }];
-    UIDatePicker * datePicker = [[UIDatePicker alloc]init];
-    datePicker.datePickerMode = UIDatePickerModeDateAndTime;
-    [datePicker addTarget:target action:action forControlEvents:UIControlEventValueChanged];
-    datePicker.tag = tag+1;
-    [bottomView addSubview:datePicker];
-    [datePicker mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(KMainScreenWidth);
-        make.height.mas_equalTo(190.5);
-        make.bottom.equalTo(bottomView);
-        make.left.equalTo(bottomView);
-    }];
-    
-    return view;
-}
 +(UIView *)claimMessageViewFrame:(CGRect)frame andArray:(NSArray *)titleArr andTarget:(id)target andSel:(SEL)action andTag:(NSInteger)tag{
     UIView * view = [[UIView alloc]initWithFrame:frame];
     for (int i = 0; i<titleArr.count; i++) {
@@ -150,6 +112,41 @@ UIView * dotView;
         lineView.backgroundColor = UIColorFromRGB(0xeceef0);
         [view addSubview:lineView];
     }
+    return view;
+}
++(UIView *)showMessageTitle:(NSString *)title andTarget:(id)target andSel:(SEL)action{
+    UIView * view = [UIView new];
+    view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    UIView * smallView = [UIView new];
+    smallView.backgroundColor = [UIColor whiteColor];
+    smallView.layer.cornerRadius = 5;
+    [view addSubview:smallView];
+    [smallView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.equalTo(view);
+        make.width.mas_equalTo(180);
+        make.height.mas_equalTo(98);
+    }];
+    UILabel * label = [UILabel new];
+    label.textColor = UIColorFromRGB(0x333333);
+    label.font = [UIFont boldSystemFontOfSize:15];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 0;
+    label.text = title;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.preferredMaxLayoutWidth = (180);
+    [label setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [smallView addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(smallView);
+        make.top.equalTo(smallView).offset(39.5);
+    }];
+    UIButton * closeBtn = [UIButton CreateImageButtonWithFrame:CGRectZero Image:@"close" SelectedImage:@"close" and:target Action:action];
+    [view addSubview:closeBtn];
+    [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(smallView).offset(-15);
+        make.right.equalTo(view).offset(-(KMainScreenWidth-180)/2+15);
+        make.width.height.mas_equalTo(30);
+    }];
     return view;
 }
 @end

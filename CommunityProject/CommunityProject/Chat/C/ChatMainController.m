@@ -10,13 +10,12 @@
 #import "ChatDetailController.h"
 #import "UIView+ChatWhiteView.h"
 #import "UIView+ChatMoreView.h"
-#import "AddressListController.h"
 #import "GroupListController.h"
 #import "AddFriendController.h"
 #import "SearchController.h"
 #import "MessageViewController.h"
 #import "ChooseFriendsController.h"
-#import "DiscoverViewController.h"
+#import "CircleOfListController.h"
 
 @interface ChatMainController ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong)UIView * topView;
@@ -65,6 +64,7 @@
     });
     //显示消息提示点
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showMessage) name:@"FriendsMessage"  object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recieve) name:@"CircleMessage" object:nil];
 
     //强制刷新SDK
     self.conversationListTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -95,7 +95,7 @@
     self.topView.hidden = YES;
     [self.view addSubview:self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(262.5);
+        make.height.mas_equalTo(169);
         make.width.mas_equalTo(123);
         make.top.equalTo(self.view).offset(64);
         make.right.equalTo(self.view).offset(-13);
@@ -115,28 +115,21 @@
                 break;
             case 21:
             {
-                    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
-                    AddressListController * address = [sb instantiateViewControllerWithIdentifier:@"AddressListController"];
-                    [self.navigationController pushViewController:address animated:YES];
-            }
-                break;
-            case 22:
-            {
-                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
-                DiscoverViewController * search = [sb instantiateViewControllerWithIdentifier:@"DiscoverViewController"];
+                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
+                CircleOfListController * list = [sb instantiateViewControllerWithIdentifier:@"CircleOfListController"];
+                [self.navigationController pushViewController:list animated:YES];
                 UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
                 self.navigationItem.backBarButtonItem = backItem;
-                [self.navigationController pushViewController:search animated:YES];
             }
                 break;
-            case 23:
-            {
-                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
-                SearchController * search = [sb instantiateViewControllerWithIdentifier:@"SearchController"];
-                [self.navigationController pushViewController:search animated:YES];
-            }
-                break;
-            case 24:
+//            case 23:
+//            {
+//                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
+//                SearchController * search = [sb instantiateViewControllerWithIdentifier:@"SearchController"];
+//                [self.navigationController pushViewController:search animated:YES];
+//            }
+//                break;
+            case 22:
             {
                 UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
                 ChooseFriendsController * choose = [sb instantiateViewControllerWithIdentifier:@"ChooseFriendsController"];
@@ -146,7 +139,7 @@
                 [self.navigationController pushViewController:choose animated:YES];
             }
                 break;
-            case 25:
+            case 23:
             {
                 UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
                 GroupListController * list = [sb instantiateViewControllerWithIdentifier:@"GroupListController"];
