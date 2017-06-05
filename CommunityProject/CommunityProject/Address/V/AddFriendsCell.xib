@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="79" id="KGk-i7-Jjw" customClass="AddFriendsCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="79" id="KGk-i7-Jjw" customClass="AddFriendsCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -64,7 +64,7 @@
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2S-Ri-ZFq">
-                        <rect key="frame" x="257" y="27.5" width="65" height="25"/>
+                        <rect key="frame" x="245" y="27.5" width="65" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="65" id="Noh-oI-4SR"/>
                             <constraint firstAttribute="height" constant="25" id="xlk-x8-bCf"/>
@@ -93,6 +93,7 @@
                     <constraint firstItem="qgw-84-8L2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="FaQ-Hv-Xj4"/>
                     <constraint firstItem="sOt-2f-ePd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="G38-kX-0Rl"/>
                     <constraint firstItem="y2S-Ri-ZFq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="H7K-UY-bvK"/>
+                    <constraint firstAttribute="trailing" secondItem="y2S-Ri-ZFq" secondAttribute="trailing" constant="10" id="NmC-3s-i55"/>
                     <constraint firstItem="kav-nh-VvA" firstAttribute="leading" secondItem="qgw-84-8L2" secondAttribute="trailing" constant="10" id="OzH-S3-c6x"/>
                     <constraint firstItem="BbZ-1s-lo4" firstAttribute="top" secondItem="4ZF-wd-P0v" secondAttribute="bottom" constant="6" id="aKw-z1-dKg"/>
                     <constraint firstItem="1FC-1A-70P" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="dAq-wV-W90"/>
@@ -101,7 +102,6 @@
                     <constraint firstItem="qgw-84-8L2" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lUO-vo-rFV"/>
                     <constraint firstItem="sOt-2f-ePd" firstAttribute="leading" secondItem="1FC-1A-70P" secondAttribute="trailing" constant="10" id="nHO-ku-KbQ"/>
                     <constraint firstItem="kav-nh-VvA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="rJv-2d-keu"/>
-                    <constraint firstItem="y2S-Ri-ZFq" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="10" id="wTV-C2-5em"/>
                     <constraint firstItem="4ZF-wd-P0v" firstAttribute="leading" secondItem="qgw-84-8L2" secondAttribute="trailing" constant="10" id="yzv-qu-SQ8"/>
                 </constraints>
             </tableViewCellContentView>

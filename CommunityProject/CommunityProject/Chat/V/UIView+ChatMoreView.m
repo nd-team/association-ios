@@ -13,10 +13,11 @@ UIView * dotView;
 +(UIView *)createViewFrame:(CGRect)frame andTarget:(id)target andSel:(SEL)action{
     NSArray *titleArr = @[@"聊天大厅",@"朋友圈",@"新建群聊",@"群列表",@"消息"];
     UIView * view = [[UIView alloc]initWithFrame:frame];
+    view.backgroundColor = [UIColor whiteColor];
     view.layer.masksToBounds = YES;
-    view.layer.cornerRadius = 10;
+    view.layer.cornerRadius = 5;
     for (int i = 0; i<titleArr.count; i++) {
-        UIButton * button = [UIButton CreateTitleButtonWithFrame:CGRectMake(3, i*37.5, 123, 37.5) andBackgroundColor:UIColorFromRGB(0xffffff)  titleColor:UIColorFromRGB(0x444343) font:14 andTitle:titleArr[i]];
+        UIButton * button = [UIButton CreateTitleButtonWithFrame:CGRectMake(3, i*37.5, 123, 37.5) andBackgroundColor:[UIColor clearColor]  titleColor:UIColorFromRGB(0x444343) font:14 andTitle:titleArr[i]];
         [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);

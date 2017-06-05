@@ -63,8 +63,14 @@
         case 3:
             [self.relationshipBtn setTitle:@"校友" forState:UIControlStateNormal];
             break;
-        default:
+        case 4:
             [self.relationshipBtn setTitle:@"同乡" forState:UIControlStateNormal];
+            break;
+        case 5:
+            [self.relationshipBtn setTitle:@"同行" forState:UIControlStateNormal];
+            break;
+        default:
+            self.relationshipBtn.hidden = YES;
             break;
     }
 }

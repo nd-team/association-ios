@@ -154,6 +154,9 @@
                 if (![msg[@"age"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setInteger:[msg[@"age"] integerValue]forKey:@"age"];
                 }
+                if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];
+                }
                 if (![msg[@"birthday"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"birthday"] forKey:@"birthday"];
                 }
@@ -196,6 +199,7 @@
                 
                 if ([[msg allKeys] containsObject:@"status"]) {
                     NSInteger status = [msg[@"status"] integerValue];
+                    [userDefaults setValue:msg[@"status"] forKey:@"status"];
                     if (status == 0) {
                         //信息未确认进入确认界面
                         [weakSelf presentSureInfoUI:weakSelf.usernameTF.text andPassword:weakSelf.secretTF.text andCode:msg[@"numberId"]];

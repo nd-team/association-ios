@@ -12,7 +12,6 @@
 #import "UIView+ChatMoreView.h"
 #import "GroupListController.h"
 #import "AddFriendController.h"
-#import "SearchController.h"
 #import "MessageViewController.h"
 #import "ChooseFriendsController.h"
 #import "CircleOfListController.h"
@@ -49,6 +48,7 @@
     self.topCellBackgroundColor = UIColorFromRGB(0xf6f6f6);
     self.conversationListTableView.separatorColor = UIColorFromRGB(0xeceef0);
     self.conversationListTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.conversationListTableView.backgroundColor = UIColorFromRGB(0xeceef0);
     UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40) andMove:-30 image:@"topMore.png"  and:self Action:@selector(moreClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
 //设置为空的时候的视图
@@ -95,7 +95,7 @@
     self.topView.hidden = YES;
     [self.view addSubview:self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(169);
+        make.height.mas_equalTo(190);
         make.width.mas_equalTo(123);
         make.top.equalTo(self.view).offset(64);
         make.right.equalTo(self.view).offset(-13);
@@ -122,13 +122,6 @@
                 self.navigationItem.backBarButtonItem = backItem;
             }
                 break;
-//            case 23:
-//            {
-//                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
-//                SearchController * search = [sb instantiateViewControllerWithIdentifier:@"SearchController"];
-//                [self.navigationController pushViewController:search animated:YES];
-//            }
-//                break;
             case 22:
             {
                 UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
@@ -180,9 +173,9 @@
     if ([touch.view isKindOfClass:[UIButton class]]) {
         return NO;
     }
-//    if ([touch.view isKindOfClass:[UITableView class]]) {
-//        return NO;
-//    }
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
     return YES;
 }
 @end

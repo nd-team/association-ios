@@ -28,6 +28,7 @@
 #import "WXApi.h"
 //新浪微博
 #import "WeiboSDK.h"
+#import "ConfirmInfoController.h"
 
 #define LoginURL @"appapi/app/login"
 #define MemberURL @"appapi/app/groupMember"
@@ -43,12 +44,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+   
     //新的window
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    //融云tdrvipkstdnk5
-    [[RCIM sharedRCIM]initWithAppKey:@"x4vkb1qpx0tmk"];
+    //融云tdrvipkstdnk5  x4vkb1qpx0tmk
+    [[RCIM sharedRCIM]initWithAppKey:@"tdrvipkstdnk5"];
     //应用的Scheme
     [[RCIM sharedRCIM]setScheme:@"CommunityRedPacket" forExtensionModule:@"JrmfPacketManager"];
     //设置会话列表头像和会话界面头像
@@ -145,14 +147,15 @@
     //高德地图
     [AMapServices sharedServices].apiKey = @"a6bca6b19ec2f4c52428fd977fd553d8";
     [[AMapServices sharedServices] setEnableHTTPS:YES];
-    // 短信验证码
-//    [SMSSDK registerApp:@"1e627fcacd326" withSecret:@"7e94ccd2d1cb86aabc324432786514a3"];
     //设置当前用户
     [self netWork];
     [[UINavigationBar appearance]setShadowImage:[UIImage new]];//nagivationBar.png
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].translucent = NO;
     [RCIM sharedRCIM].globalNavigationBarTintColor = UIColorFromRGB(0x121212);
+    // 短信验证码
+    [SMSSDK registerApp:@"1e627fcacd326" withSecret:@"7e94ccd2d1cb86aabc324432786514a3"];
+
     return YES;
 }
 - (void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left {
@@ -172,17 +175,27 @@
     NSString * password = [DEFAULTS objectForKey:@"password"];
     NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
     NSString * userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
+    NSString * status = [DEFAULTS objectForKey:@"status"];
     NSFileManager * fileManager = [NSFileManager defaultManager];
     NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
     BOOL  isTruing = [fileManager fileExistsAtPath:path];
     if (isTruing) {
+        //VIP未确认信息到确认信息界面
         if (token != nil && phone != nil && password != nil) {
-            [self loginMain];
-            //设置当前用户的用户信息
-            RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:phone name:nickname portrait:userPortraitUrl];
-            [RCIMClient sharedRCIMClient].currentUserInfo = userInfo;
-            [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:phone];
-            [self loginRongServicer:token andPhone:phone andPassword:password];
+            if (status.length == 0||[status isEqualToString:@"1"]) {
+                //非VIP或者VIP已经确认过信息
+                [self loginMain];
+                //设置当前用户的用户信息
+                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:phone name:nickname portrait:userPortraitUrl];
+                [RCIMClient sharedRCIMClient].currentUserInfo = userInfo;
+                [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:phone];
+                [self loginRongServicer:token andPhone:phone andPassword:password];
+            }else{
+                //进入登录界面
+                [self login];
+ 
+            }
+           
         }else{
             [self login];
         }
@@ -371,6 +384,9 @@
                 if (![msg[@"age"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setInteger:[msg[@"age"] integerValue]forKey:@"age"];
                 }
+                if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];
+                }
                 if (![msg[@"birthday"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"birthday"] forKey:@"birthday"];
                 }
@@ -386,12 +402,6 @@
                 if (![msg[@"numberId"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"numberId"] forKey:@"numberId"];
                 }
-                if (![msg[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"recommendUserId"] forKey:@"recommendUserId"];
-                }
-                if (![msg[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
-                }
                 if (![msg[@"experience"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"experience"]] forKey:@"experience"];
                 }
@@ -400,6 +410,20 @@
                 }
                 if (![msg[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"contributionScore"]] forKey:@"contributionScore"];
+                }
+                //VIP字段
+                if ([[msg allKeys] containsObject:@"recommendUserId"]) {
+                    if (![msg[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                        [userDefaults setValue:msg[@"recommendUserId"] forKey:@"recommendUserId"];
+                    }
+                }
+                if ([[msg allKeys] containsObject:@"claimUserId"]) {
+                    if (![msg[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                        [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
+                    }
+                }
+                if ([[msg allKeys] containsObject:@"status"]) {
+                    [userDefaults setValue:msg[@"status"] forKey:@"status"];
                 }
                 [userDefaults synchronize];
                 //设置当前用户

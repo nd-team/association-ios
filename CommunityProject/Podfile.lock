@@ -22,12 +22,15 @@ PODS:
   - JSONModel (1.7.0)
   - Masonry (1.0.2)
   - MJRefresh (3.1.12)
+  - MOBFoundation_IDFA (2.2.15)
   - PureLayout (3.0.2)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SMSSDK (2.1.5):
+    - MOBFoundation_IDFA
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
@@ -36,8 +39,10 @@ DEPENDENCIES:
   - JSONModel
   - Masonry (~> 1.0.2)
   - MJRefresh (~> 3.1.12)
+  - MOBFoundation_IDFA
   - SDCycleScrollView (~> 1.65)
   - SDWebImage (~> 3.8.2)
+  - SMSSDK
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -46,10 +51,12 @@ SPEC CHECKSUMS:
   JSONModel: 840bc0fcffb24b8454d2c026bf26fea454b8e98d
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MOBFoundation_IDFA: c5741d4cf9a08daa24203fe9e1f90ff1ab7403e5
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SMSSDK: 7d19654f9d36392988e96bf697afdac983808b1a
 
-PODFILE CHECKSUM: 794cd848b6fb20dfcd912dd8b5d761e64f4371bc
+PODFILE CHECKSUM: e3b2b815d1e2dd594d2cf3b5078cb388ae9228d8
 
 COCOAPODS: 1.2.1.beta.1

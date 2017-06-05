@@ -13,11 +13,12 @@
 #import <Contacts/Contacts.h>
 #import "FriendDetailController.h"
 #import "UnknownFriendDetailController.h"
+#import "SearchController.h"
 
 #define FriendListURL @"appapi/app/friends"
 #define TESTURL @"appapi/app/CheckMobile"
 #define FriendDetailURL @"appapi/app/selectUserInfo"
-
+#define InputAddressURL @"appapi/app/inputMobile"
 @interface AddressListController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
@@ -35,12 +36,13 @@
 @property (nonatomic,assign)int person;
 //当前用户ID
 @property (nonatomic,copy)NSString * userID;
+
 @end
 
 @implementation AddressListController
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
     if (self.isRef) {
         [self netWork];
     }
@@ -145,13 +147,16 @@
         CNContactStore * store = [CNContactStore new];
         [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (granted) {
-                NSMutableArray * mArr = [NSMutableArray new];
+               __block NSMutableArray * mArr = [NSMutableArray new];
+               __block NSMutableArray * addressList = [NSMutableArray new];
                 NSSLog(@"授权成功");
                 CNContactStore * st = [CNContactStore new];//CNContactImageDataKey
                 NSArray * keys = @[CNContactGivenNameKey,CNContactFamilyNameKey,CNContactPhoneNumbersKey,CNContactNicknameKey,CNContactEmailAddressesKey];
                 CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:keys];
                 [st enumerateContactsWithFetchRequest:request error:nil usingBlock:^(CNContact * _Nonnull contact, BOOL * _Nonnull stop) {
                     NSMutableDictionary *mDic = [NSMutableDictionary new];
+                    NSMutableDictionary *addressDic = [NSMutableDictionary new];
+
                     //路径头像
                     //获取名字
                     NSString * firstname = contact.givenName;
@@ -185,7 +190,13 @@
                     [mDic setValue:displayName forKey:@"displayName"];
                     [mDic setValue:phone forKey:@"mobile"];
                     [mDic setValue:email forKey:@"email"];
-                    [mArr addObject:mDic];
+                    [addressDic setValue:name forKey:@"nickname"];
+                    [addressDic setValue:phone forKey:@"mobile"];
+
+                    if (name.length != 0) {
+                        [mArr addObject:mDic];
+                        [addressList addObject:addressDic];
+                    }
                 }];
 //                NSSLog(@"===%@",mArr);
 
@@ -195,6 +206,11 @@
                         [[AddressDataBaseSingleton shareDatabase]insertDatabase:search];
                         [weakSelf.dataTwoArr addObject:search];
                     }
+                    //录入通讯录
+                    NSData * data = [NSJSONSerialization dataWithJSONObject:addressList options:NSJSONWritingPrettyPrinted error:nil];
+                    NSString * result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                    [weakSelf inputAddressList:result];
+
                 }
             }else{
                 return ;
@@ -217,6 +233,21 @@
         
     }
    
+}
+-(void)inputAddressList:(NSString *)mobile{
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,InputAddressURL] andParams:@{@"userId":self.userID,@"mobile":mobile} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"录入通讯录失败：%@",error);
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                NSSLog(@"录入成功");
+            }else{
+                NSSLog(@"录入失败");
+            }
+        }
+        
+    }];
 }
 -(void)getFriendList{
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
@@ -612,6 +643,15 @@
     [self sendSearch];
     [self.searchTF resignFirstResponder];
 }
+//添加好友
+- (IBAction)rightClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+    SearchController * search = [sb instantiateViewControllerWithIdentifier:@"SearchController"];
+    [self.navigationController pushViewController:search animated:YES];
+
+}
+
+
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSMutableArray new];

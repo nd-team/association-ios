@@ -22,7 +22,7 @@
 #define FriendDetailURL @"appapi/app/selectUserInfo"
 #define KnowURL @"appapi/app/knowFriends"
 
-@interface SearchController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface SearchController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UITextField *searchTF;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray * personArr;
@@ -53,6 +53,7 @@
 -(void)setUI{
     self.navigationItem.title = @"添加朋友/群组";
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 18, 40)];
     backView.backgroundColor = UIColorFromRGB(0xeceef0);
     self.searchTF.leftView = backView;
@@ -68,7 +69,10 @@
     [self.view addGestureRecognizer:tap];
     [self.searchTF becomeFirstResponder];
     self.tableView.hidden = YES;
+    [self.collectionView registerNib:[UINib nibWithNibName:@"MaybeKnowCell" bundle:nil] forCellWithReuseIdentifier:@"MaybeKnowCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"AddFriendsCell" bundle:nil] forCellReuseIdentifier:@"AddFriendsCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SearchGroupCell" bundle:nil] forCellReuseIdentifier:@"SearchGroupCell"];
+
     [self getMaybeKnowPeopleData];
     
 }
@@ -110,7 +114,7 @@
 
 -(void)searchData:(NSString *)phone{
     WeakSelf;
-    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SearchURL] andParams:@{@"number":phone} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SearchURL] andParams:@{@"number":phone,@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"搜索获取失败%@",error);
             //            [weakSelf showMessage:@"获取失败"];
@@ -123,21 +127,22 @@
             }
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                NSDictionary * msgDic = data[@"data"];
-                //用户
-                if ([msgDic[@"status"]intValue] == 0) {
-                    SearchFriendModel * search = [[SearchFriendModel alloc]initWithDictionary:msgDic error:nil];
-                    weakSelf.isPerson = 1;
-                    weakSelf.tableView.rowHeight = 84;
-                    [weakSelf.personArr addObject:search];
-                }else{
-                    //群
-                    weakSelf.isPerson = 2;
-                    weakSelf.tableView.rowHeight = 87;
-                    SearchGroupModel * group = [[SearchGroupModel alloc]initWithDictionary:msgDic error:nil];
-                    [weakSelf.groupArr addObject:group];
+                NSArray * allArr = data[@"data"];
+                for (NSDictionary * dict in allArr) {
+                    //用户
+                    if ([dict[@"status"]intValue] == 0) {
+                        SearchFriendModel * search = [[SearchFriendModel alloc]initWithDictionary:dict error:nil];
+                        weakSelf.isPerson = 1;
+                        weakSelf.tableView.rowHeight = 84;
+                        [weakSelf.personArr addObject:search];
+                    }else{
+                        //群
+                        weakSelf.isPerson = 2;
+                        weakSelf.tableView.rowHeight = 87;
+                        SearchGroupModel * group = [[SearchGroupModel alloc]initWithDictionary:dict error:nil];
+                        [weakSelf.groupArr addObject:group];
+                    }
                 }
-                
                 [weakSelf.tableView reloadData];
                 
             }else if ([code intValue] == 0){
@@ -259,6 +264,7 @@
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     MaybeKnowCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MaybeKnowCell" forIndexPath:indexPath];
+    cell.layer.cornerRadius = 5;
     cell.friendModel = self.collectionArr[indexPath.row];
     cell.collectionArr = self.collectionArr;
     cell.collectionView = self.collectionView;
@@ -313,7 +319,7 @@
     return _groupArr;
 }
 -(NSMutableArray *)collectionArr{
-    if (_collectionArr) {
+    if (!_collectionArr) {
         _collectionArr = [NSMutableArray new];
     }
     return _collectionArr;
@@ -324,6 +330,9 @@
 }
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
+    if ([touch.view isKindOfClass:[UICollectionView class]]) {
         return NO;
     }
     return YES;

@@ -51,7 +51,7 @@
 -(void)changeTitle{
     if (self.count > 0) {
         self.count --;
-        [self.codeBtn setTitle:[NSString stringWithFormat:@"%d s后请重新获取",self.count] forState:UIControlStateDisabled];
+        [self.codeBtn setTitle:[NSString stringWithFormat:@"%d s",self.count] forState:UIControlStateDisabled];
         
     }else{
         self.codeBtn.enabled = YES;
@@ -86,7 +86,7 @@
 }
 //发送验证码
 - (IBAction)sendCodeClick:(id)sender {
-    self.count = 60;
+    self.count = 120;
     if (self.phoneTF.text.length == 0) {
         [self showBackViewUI:@"亲，请输入手机号码"];
     }else if (self.phoneTF.text.length !=11) {
@@ -100,7 +100,7 @@
 }
 -(void)getCodeData{
     WeakSelf;
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.codeTF.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.phoneTF.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
         if (!error) {
             NSSLog(@"获取验证码成功");
             
@@ -178,19 +178,17 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RegisterURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"注册失败：%@",error);
-            [weakSelf showBackViewUI:@"注册失败，点击重新试试吧！"];
+            [weakSelf showBackViewUI:@"注册失败，请重新获取验证码！"];
         }else{
             NSNumber *code = data[@"code"];
             NSSLog(@"%@",code);
-            if ([code intValue] == 200) {
+            if ([code intValue] == 200||[code intValue] == 100) {
                 //登录
                 [weakSelf loginNet];
-            }else if ([code intValue] == 100){
-                [weakSelf showBackViewUI:@"已注册！"];
             }else if ([code intValue] == 1000){
                 [weakSelf showBackViewUI:@"验证码填写失误了么！"];
             }else if ([code intValue] == 0){
-                [weakSelf showBackViewUI:@"注册失败，点击重新试试吧！"];
+                [weakSelf showBackViewUI:@"注册失败，请重新获取验证码！"];
             }
         }
     }];
@@ -227,6 +225,9 @@
                 if (![msg[@"age"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setInteger:[msg[@"age"] integerValue]forKey:@"age"];
                 }
+                if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];
+                }
                 if (![msg[@"birthday"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"birthday"] forKey:@"birthday"];
                 }
@@ -242,12 +243,6 @@
                 if (![msg[@"numberId"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"numberId"] forKey:@"numberId"];
                 }
-//                if (![msg[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-//                    [userDefaults setValue:msg[@"recommendUserId"] forKey:@"recommendUserId"];
-//                }
-//                if (![msg[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-//                    [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
-//                }
                 if (![msg[@"experience"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"experience"]] forKey:@"experience"];
                 }

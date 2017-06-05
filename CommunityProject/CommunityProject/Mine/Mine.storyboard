@@ -5076,6 +5076,7 @@
                         <outlet property="headImageView" destination="gXp-ag-YRA" id="0dI-hL-fli"/>
                         <outlet property="nameLabel" destination="AZu-Wu-2EL" id="28x-rk-uwM"/>
                         <outlet property="sexImage" destination="wMA-VX-Kfo" id="lc4-qm-ZOK"/>
+                        <outlet property="whiteView" destination="Knh-ea-8oW" id="FKs-ET-jit"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V9n-ht-xKv" userLabel="First Responder" sceneMemberID="firstResponder"/>

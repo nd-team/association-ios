@@ -223,9 +223,9 @@
     self.childNameTF.hidden = isHidden;
     self.childSchoolTF.hidden = isHidden;
     if (isHidden) {
-        self.viewHeightCons.constant = 1050;
+        self.viewHeightCons.constant = 1334;
     }else{
-        self.viewHeightCons.constant = 1250;
+        self.viewHeightCons.constant = 1700;
         
     }
 }
@@ -613,6 +613,7 @@
             NSSLog(@"%@=%@",code,data);
             if ([code intValue] == 200) {
                 weakSelf.backView.hidden = YES;
+                [weakSelf loginMain];
                 //登录进入主界面
                 [weakSelf loginNet];
             }else{
@@ -688,13 +689,16 @@
                 if (![msg[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"contributionScore"]] forKey:@"contributionScore"];
                 }
+                if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];
+                }
+                [userDefaults setValue:msg[@"status"] forKey:@"status"];
+
                 [userDefaults synchronize];
                 //设置当前用户
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
-                [weakSelf loginMain];
-                
                 [weakSelf loginRongServicer:msg[@"token"]];
                 
                 
