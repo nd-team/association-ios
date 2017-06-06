@@ -45,7 +45,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *liveDisTF;
 @property (weak, nonatomic) IBOutlet UITextField *relationshipTF;
 
-@property (weak, nonatomic) IBOutlet UITextField *presiTF;
 
 @property (weak, nonatomic) IBOutlet UITextField *birthdayTF;
 
@@ -102,6 +101,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *childScLabel;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextField *degreeTF;
+@property (weak, nonatomic) IBOutlet UITextField *industryTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *postTF;
+@property (weak, nonatomic) IBOutlet UITextField *emailTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *qqTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *wechatTF;
 
 @property (nonatomic,copy)NSString * userId;
 //生日
@@ -121,23 +129,27 @@
 @property (nonatomic,assign)NSInteger cityIndex;
 @property (nonatomic,assign)NSInteger districtIndex;
 
-//@property (nonatomic,assign)NSInteger homeProIndex;
-//
-//@property (nonatomic,assign)NSInteger homeCityIndex;
-@property (nonatomic,assign)NSInteger marryIndex;
-@property (nonatomic,assign)NSInteger relationIndex;
-@property (nonatomic,assign)NSInteger presiIndex;
 //关系
 @property (nonatomic,strong)NSArray * relationshipArr;
-//信誉
-@property (nonatomic,strong)NSArray * presiCountArr;
+@property (nonatomic,assign)NSInteger relationIndex;
+
+//行业
+@property (nonatomic,strong)NSArray * industryArr;
+@property (nonatomic,assign)NSInteger industryIndex;
+
 //婚姻
 @property (nonatomic,strong)NSArray * marryArr;
-//标记pickerView的数据源 1,2,3地址，4关系，5信誉分，6婚姻，7，8，9是籍贯,10生日
+@property (nonatomic,assign)NSInteger marryIndex;
+
+//标记pickerView的数据源 1,2,3地址，4关系，5行业，6婚姻，7，8，9是籍贯,10学历11生日
 @property (nonatomic,assign)int flag;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *marryHeightCons;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
+//学历
+@property (nonatomic,strong)NSArray * degreeArr;
+@property (nonatomic,assign)NSInteger degreeIndex;
+
 @end
 
 @implementation RecommendController
@@ -169,9 +181,9 @@
     self.childNameTF.hidden = isHidden;
     self.childSchoolTF.hidden = isHidden;
     if (isHidden) {
-        self.viewHeightCons.constant = 1050;
+        self.viewHeightCons.constant = 1350;
     }else{
-        self.viewHeightCons.constant = 1250;
+        self.viewHeightCons.constant = 1550;
 
     }
 }
@@ -235,6 +247,11 @@
     [self.wifeNameTF resignFirstResponder];
     [self.childSchoolTF resignFirstResponder];
     [self.childNameTF resignFirstResponder];
+    [self.postTF resignFirstResponder];
+    [self.emailTF resignFirstResponder];
+    [self.qqTF resignFirstResponder];
+    [self.wechatTF resignFirstResponder];
+
     
 }
 -(void)setTitleButton:(UIButton *)btn{
@@ -258,7 +275,7 @@
     if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
         return;
     }
-    if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0 || self.relationshipTF.text.length == 0 || self.presiTF.text.length == 0) {
+    if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0 || self.relationshipTF.text.length == 0) {
         return;
     }
     
@@ -342,8 +359,90 @@
     [params setValue:relation forKey:@"relationship"];
     
     [params setValue:self.schoolTF.text forKey:@"finishSchool"];
-    [params setValue:self.presiTF.text forKey:@"creditScore"];
+    //行业
+    NSString * industry;
+    switch (self.industryIndex) {
+        case 0:
+            industry = @"2";
+            break;
+        case 1:
+            industry = @"3";
+            break;
+        case 2:
+            industry = @"4";
+            break;
+        case 3:
+            industry = @"5";
+            break;
+        case 4:
+            industry = @"6";
+            break;
+        case 5:
+            industry = @"7";
+            break;
+        case 6:
+            industry = @"8";
+            break;
+        case 7:
+            industry = @"9";
+            break;
+        case 8:
+            industry = @"10";
+            break;
+        default:
+            industry = @"1";
+            break;
+    }
+    [params setValue:industry forKey:@"industry"];
     
+    NSString * degree;
+    switch (self.degreeIndex) {
+        case 0:
+            degree = @"1";
+            
+            break;
+        case 1:
+            degree = @"2";
+            
+            break;
+        case 2:
+            degree = @"3";
+            
+            break;
+        case 3:
+            degree = @"4";
+            
+            break;
+        case 4:
+            degree = @"5";
+            
+            break;
+        case 5:
+            degree = @"6";
+            
+            break;
+        case 6:
+            degree = @"7";
+            
+            break;
+        case 7:
+            degree = @"8";
+            
+            break;
+        case 8:
+            degree = @"9";
+            
+            break;
+        case 9:
+            degree = @"10";
+            
+            break;
+        default:
+            degree = @"11";
+            
+            break;
+    }
+    [params setValue:degree forKey:@"degree"];
     [params setValue:self.birthday forKey:@"birthday"];
     [params setValue:[NSString stringWithFormat:@"%@,%@,%@",self.homeProTF.text,self.homeCityTF.text,self.homeDisTF.text] forKey:@"homeplace"];
     //性格
@@ -397,12 +496,16 @@
     [params setValue:status forKey:@"marriage"];
     
     [params setValue:self.companyTF.text forKey:@"company"];
-    
+    [params setValue:self.postTF.text forKey:@"position"];
+
     [params setValue:self.motherNameTF.text forKey:@"motherName"];
     
     [params setValue:self.wifeNameTF.text forKey:@"spouseName"];
     [params setValue:self.childNameTF.text forKey:@"childrenName"];
     [params setValue:self.childSchoolTF.text forKey:@"childrenSchool"];
+    [params setValue:self.emailTF.text forKey:@"email"];
+    [params setValue:self.wechatTF.text forKey:@"wechat"];
+    [params setValue:self.qqTF.text forKey:@"QQ"];
 
     [params setValue:self.userId forKey:@"userId"];
     WeakSelf;
@@ -575,22 +678,39 @@
         [self.companyTF becomeFirstResponder];
     }else if (textField == self.companyTF){
         [self.companyTF resignFirstResponder];
+        [self.postTF becomeFirstResponder];
+    }else if(textField == self.postTF){
+        [self.postTF resignFirstResponder];
         [self.fatherNameTF becomeFirstResponder];
     }else if (textField == self.fatherNameTF){
         [self.fatherNameTF resignFirstResponder];
         [self.motherNameTF becomeFirstResponder];
     }else if (textField == self.motherNameTF){
+        [self.motherNameTF resignFirstResponder];
+        [self.emailTF becomeFirstResponder];
+        
+    }else if (textField == self.emailTF){
+        [self.emailTF resignFirstResponder];
+        [self.qqTF becomeFirstResponder];
+        
+    }else if (textField == self.qqTF){
+        [self.qqTF resignFirstResponder];
+        [self.wechatTF becomeFirstResponder];
+        
+    }else if (textField == self.wechatTF){
         if (self.marryHeightCons.constant == 0) {
             [self resign];
         }else{
-            [self.motherNameTF resignFirstResponder];
+            [self.wechatTF resignFirstResponder];
             [self.wifeNameTF becomeFirstResponder];
+            
         }
         
-    }else if (textField == self.wifeNameTF){
+    }
+    else if (textField == self.wifeNameTF){
         [self.wifeNameTF resignFirstResponder];
         [self.childNameTF becomeFirstResponder];
-
+        
     }else if (textField == self.childNameTF){
         [self.childNameTF resignFirstResponder];
         [self.childSchoolTF becomeFirstResponder];
@@ -602,7 +722,7 @@
     return YES;
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if (textField == self.fatherNameTF||textField == self.motherNameTF){
+    if (textField == self.emailTF||textField == self.qqTF||textField == self.wechatTF){
         self.bottomView.hidden = YES;
         CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
         self.view.frame = CGRectMake(0, -offset-64, KMainScreenWidth, KMainScreenHeight+offset+64);
@@ -615,7 +735,7 @@
         return YES;
         
     }
-    else if (textField == self.liveProTF||textField == self.liveCityTF||textField == self.liveDisTF||textField == self.relationshipTF||textField == self.presiTF||textField == self.homeProTF||textField == self.homeCityTF||textField == self.homeDisTF||textField == self.marryTF){
+    else if (textField == self.liveProTF||textField == self.liveCityTF||textField == self.liveDisTF||textField == self.relationshipTF||textField == self.industryTF||textField == self.homeProTF||textField == self.homeCityTF||textField == self.homeDisTF||textField == self.marryTF||textField == self.degreeTF){
         [self resign];
         if (textField == self.liveProTF) {
             [self hidden];
@@ -678,16 +798,21 @@
             [self hidden];
             self.flag = 4;
             self.relationshipArr = @[@"亲人",@"同事",@"校友",@"同乡"];
-        }else if (textField == self.presiTF){
+        }else if (textField == self.industryTF){
             [self hidden];
             self.flag = 5;
-            //信誉分
-            self.presiCountArr = @[@"0",@"10",@"20",@"30",@"40",@"50",@"60",@"70",@"80",@"90",@"100"];
+            //行业
+            self.industryArr = @[@"互联网",@"服务业",@"金融",@"教师",@"银行",@"医疗",@"房地产",@"贸易",@"物流",@"其他"];
         }else if (textField == self.marryTF){
             [self hidden];
             self.flag = 6;
             //婚姻
             self.marryArr = @[@"未婚",@"已婚"];
+        }else if (textField == self.degreeTF){
+            //学历
+            [self hidden];
+            self.flag = 10;
+            self.degreeArr = @[@"初中",@"高中",@"中技",@"中专",@"大专",@"本科",@"硕士",@"博士",@"MBA",@"EMBA",@"其他"];
         }
         [self.pickerView reloadComponent:0];
         [self.pickerView selectRow:0 inComponent:0 animated:YES];
@@ -700,7 +825,7 @@
         self.bottomView.hidden = NO;
         self.pickerView.hidden = YES;
         self.datePicker.hidden = NO;
-        self.flag = 10;
+        self.flag = 11;
         return NO;
     }
     else{
@@ -748,8 +873,8 @@
             self.relationshipTF.text = self.relationshipArr[self.relationIndex];
             break;
         case 5:
-            //信誉分
-            self.presiTF.text = self.presiCountArr[self.presiIndex];
+            //行业
+            self.industryTF.text = self.industryArr[self.industryIndex];
             break;
         case 6:
            //婚姻
@@ -776,6 +901,11 @@
             break;
         case 9:
             self.homeDisTF.text = self.districtArr[self.districtIndex];
+            
+            break;
+        case 10:
+            //学历
+            self.degreeTF.text = self.degreeArr[self.degreeIndex];
             
             break;
         default:
@@ -838,7 +968,7 @@
             break;
         case 5:
         {
-            self.presiIndex = row;
+            self.industryIndex = row;
         }
             break;
         case 6:
@@ -859,9 +989,15 @@
             self.districtIndex = 0;
         }
             break;
-        default:
+        case 9:
+        {
             self.districtIndex = row;
 
+        }
+            break;
+        default:
+           //学历
+            self.degreeIndex = row;
             break;
     }
     
@@ -885,7 +1021,7 @@
             
             break;
         case 5:
-            return [self.presiCountArr objectAtIndex:row];
+            return [self.industryArr objectAtIndex:row];
             
             break;
         case 6:
@@ -900,8 +1036,12 @@
             return [self.cityArr objectAtIndex:row];
             
             break;
-        default:
+        case 9:
             return [self.districtArr objectAtIndex:row];
+            
+            break;
+        default:
+            return [self.degreeArr objectAtIndex:row];
 
             break;
     }
@@ -926,7 +1066,7 @@
             
             break;
         case 5:
-            return self.presiCountArr.count;
+            return self.industryArr.count;
             
             break;
         case 6:
@@ -941,8 +1081,12 @@
             return self.cityArr.count;
             
             break;
-        default:
+        case 9:
             return self.districtArr.count;
+            
+            break;
+        default://学历
+            return self.degreeArr.count;
             
             break;
     }

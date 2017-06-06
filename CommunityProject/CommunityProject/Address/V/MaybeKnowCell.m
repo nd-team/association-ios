@@ -40,6 +40,9 @@
     self.commonLabel.text = [NSString stringWithFormat:@"%ld位共同好友",_friendModel.count];
     
     switch (_friendModel.relationship) {
+        case 0:
+            self.relationshipBtn.hidden = YES;
+            break;
         case 1:
             [self.relationshipBtn setTitle:@"亲人" forState:UIControlStateNormal];
             break;
@@ -56,7 +59,6 @@
             [self.relationshipBtn setTitle:@"同行" forState:UIControlStateNormal];
             break;
         default:
-            self.relationshipBtn.hidden = YES;
             break;
     }
      

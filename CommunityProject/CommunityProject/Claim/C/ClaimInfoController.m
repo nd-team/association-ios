@@ -72,7 +72,44 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidthCons;
 @property (weak, nonatomic) IBOutlet UITextField *wechatTF;
+//性格
+@property (weak, nonatomic) IBOutlet UIButton *quiteBtn;
+@property (weak, nonatomic) IBOutlet UIButton *smailBtn;
 
+@property (weak, nonatomic) IBOutlet UIButton *beautyBtn;
+@property (weak, nonatomic) IBOutlet UIButton *moneyBtn;
+@property (weak, nonatomic) IBOutlet UIButton *quickBtn;
+//轻浮
+@property (weak, nonatomic) IBOutlet UIButton *frivoBtn;
+//花心
+@property (weak, nonatomic) IBOutlet UIButton *unfaithBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *douBtn;
+@property (weak, nonatomic) IBOutlet UIButton *livelyBtn;
+@property (weak, nonatomic) IBOutlet UIButton *coolBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *honestBtn;
+@property (weak, nonatomic) IBOutlet UIButton *cuteBtn;
+@property (weak, nonatomic) IBOutlet UITextField *fatherNameTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *motherNameTF;
+@property (weak, nonatomic) IBOutlet UITextField *marryTF;
+@property (weak, nonatomic) IBOutlet UITextField *wifeNameTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *childNameTF;
+@property (weak, nonatomic) IBOutlet UITextField *childSchoolTF;
+@property (weak, nonatomic) IBOutlet UIView *marryView;
+@property (weak, nonatomic) IBOutlet UILabel *wifeNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *wifeLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *lineOneView;
+
+@property (weak, nonatomic) IBOutlet UILabel *childNameLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *childLabel;
+@property (weak, nonatomic) IBOutlet UILabel *childSchoolLabel;
+@property (weak, nonatomic) IBOutlet UILabel *childScLabel;
+@property (weak, nonatomic) IBOutlet UITextField *industryTF;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -104,11 +141,18 @@
 @property (nonatomic,strong)NSArray * relationshipArr;
 //信誉
 @property (nonatomic,strong)NSArray * presiCountArr;
+//婚姻
+@property (nonatomic,strong)NSArray * marryArr;
+@property (nonatomic,assign)NSInteger marryIndex;
+//行业
+@property (nonatomic,strong)NSArray * industryArr;
+@property (nonatomic,assign)NSInteger industryIndex;
 
-//标记pickerView的数据源 1,2,3地址，4关系，5信誉分，6，7，8是籍贯,9,学历，10生日
+//标记pickerView的数据源 1,2,3地址，4关系，5信誉分，6，7，8是籍贯,9,学历，10 行业11婚姻12生日
 @property (nonatomic,assign)int flag;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *marryHeightCons;
 
 @property (nonatomic,strong) UIView * backView;
 @property (nonatomic,strong)UIWindow * window;
@@ -153,6 +197,19 @@
     [self setTitleButton:self.chatBtn];
     [self setTitleButton:self.readBtn];
     [self setTitleButton:self.motionBtn];
+    //性格
+    [self setTitleButton:self.quiteBtn];
+    [self setTitleButton:self.smailBtn];
+    [self setTitleButton:self.beautyBtn];
+    [self setTitleButton:self.moneyBtn];
+    [self setTitleButton:self.quickBtn];
+    [self setTitleButton:self.frivoBtn];
+    [self setTitleButton:self.unfaithBtn];
+    [self setTitleButton:self.douBtn];
+    [self setTitleButton:self.livelyBtn];
+    [self setTitleButton:self.coolBtn];
+    [self setTitleButton:self.honestBtn];
+    [self setTitleButton:self.cuteBtn];
     
     [self.manBtn setBackgroundImage:[UIImage imageNamed:@"noSelBtn"] forState:UIControlStateNormal];
     [self.famaleBtn setBackgroundImage:[UIImage imageNamed:@"noSelBtn"] forState:UIControlStateNormal];
@@ -174,7 +231,26 @@
     //手势回收键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(resign)];
     [self.view addGestureRecognizer:tap];
-    
+    self.marryHeightCons.constant = 0;
+    [self commonUI:YES];
+}
+-(void)commonUI:(BOOL)isHidden{
+    self.wifeNameLabel.hidden = isHidden;
+    self.wifeLabel.hidden = isHidden;
+    self.childNameLabel.hidden = isHidden;
+    self.childLabel.hidden = isHidden;
+    self.childSchoolLabel.hidden = isHidden;
+    self.childScLabel.hidden = isHidden;
+    self.lineOneView.hidden = isHidden;
+    self.wifeNameTF.hidden = isHidden;
+    self.childNameTF.hidden = isHidden;
+    self.childSchoolTF.hidden = isHidden;
+    if (isHidden) {
+        self.viewHeightCons.constant = 1050;
+    }else{
+        self.viewHeightCons.constant = 1250;
+        
+    }
 }
 -(void)resign{
     self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
@@ -186,6 +262,11 @@
     [self.emailTF resignFirstResponder];
     [self.qqTF resignFirstResponder];
     [self.wechatTF resignFirstResponder];
+    [self.fatherNameTF resignFirstResponder];
+    [self.motherNameTF resignFirstResponder];
+    [self.wifeNameTF resignFirstResponder];
+    [self.childNameTF resignFirstResponder];
+    [self.childSchoolTF resignFirstResponder];
 
 }
 -(void)setTitleButton:(UIButton *)btn{
@@ -348,11 +429,100 @@
             break;
     }
     [params setValue:degree forKey:@"degree"];
+    //行业
+    NSString * industry;
+    switch (self.industryIndex) {
+        case 0:
+            industry = @"2";
+            break;
+        case 1:
+            industry = @"3";
+            break;
+        case 2:
+            industry = @"4";
+            break;
+        case 3:
+            industry = @"5";
+            break;
+        case 4:
+            industry = @"6";
+            break;
+        case 5:
+            industry = @"7";
+            break;
+        case 6:
+            industry = @"8";
+            break;
+        case 7:
+            industry = @"9";
+            break;
+        case 8:
+            industry = @"10";
+            break;
+        default:
+            industry = @"1";
+            break;
+    }
+    [params setValue:industry forKey:@"industry"];
+    //性格
+    NSMutableString * character = [NSMutableString new];
+    if (self.quiteBtn.selected) {
+        [character appendString:@"死宅,"];
+    }
+    if (self.smailBtn.selected) {
+        [character appendString:@"幽默,"];
+    }
+    if (self.beautyBtn.selected) {
+        [character appendString:@"漂亮,"];
+    }
+    if (self.moneyBtn.selected) {
+        [character appendString:@"大方,"];
+    }
+    if (self.quickBtn.selected) {
+        [character appendString:@"急躁,"];
+    }
+    if (self.frivoBtn.selected) {
+        [character appendString:@"轻浮,"];
+    }
+    if (self.unfaithBtn.selected) {
+        [character appendString:@"花心,"];
+    }
+    if (self.douBtn.selected) {
+        [character appendString:@"逗比,"];
+    }
+    if (self.livelyBtn.selected) {
+        [character appendString:@"活泼,"];
+    }
+    if (self.coolBtn.selected) {
+        [character appendString:@"高冷,"];
+    }
+    if (self.honestBtn.selected) {
+        [character appendString:@"诚信,"];
+    }
+    if (self.cuteBtn.selected) {
+        [character appendString:@"可爱,"];
+    }
+    
+    [params setValue:character forKey:@"character"];
+
     [params setValue:self.companyTF.text forKey:@"company"];
     [params setValue:self.postTF.text forKey:@"position"];
     [params setValue:self.emailTF.text forKey:@"email"];
     [params setValue:self.qqTF.text forKey:@"QQ"];
     [params setValue:self.wechatTF.text forKey:@"wechat"];
+    [params setValue:self.fatherNameTF.text forKey:@"fatherName"];
+    [params setValue:self.motherNameTF.text forKey:@"motherName"];
+    NSString * status;
+    if ([self.marryTF.text isEqualToString:@"已婚"]) {
+        status = @"1";
+    }else{
+        status = @"0";
+    }
+    [params setValue:status forKey:@"marriage"];
+
+    [params setValue:self.wifeNameTF.text forKey:@"spouseName"];
+    [params setValue:self.childNameTF.text forKey:@"childrenName"];
+    [params setValue:self.childSchoolTF.text forKey:@"childrenSchool"];
 
 //    NSSLog(@"%@",params);
     WeakSelf;
@@ -504,6 +674,64 @@
     self.chessBtn.selected = !self.chessBtn.selected;
     
 }
+//性格
+- (IBAction)quiteClick:(id)sender {
+    self.quiteBtn.selected = !self.quiteBtn.selected;
+    
+}
+
+- (IBAction)smailClick:(id)sender {
+    self.smailBtn.selected = !self.smailBtn.selected;
+    
+}
+- (IBAction)beautyClick:(id)sender {
+    self.beautyBtn.selected = !self.beautyBtn.selected;
+    
+}
+
+- (IBAction)moneyClick:(id)sender {
+    self.moneyBtn.selected = !self.moneyBtn.selected;
+    
+}
+- (IBAction)quickClick:(id)sender {
+    self.quickBtn.selected = !self.quickBtn.selected;
+    
+}
+
+- (IBAction)frivoClick:(id)sender {
+    self.frivoBtn.selected = !self.frivoBtn.selected;
+    
+}
+
+- (IBAction)unfaithClick:(id)sender {
+    self.unfaithBtn.selected = !self.unfaithBtn.selected;
+    
+}
+
+
+- (IBAction)douClick:(id)sender {
+    self.douBtn.selected = !self.douBtn.selected;
+    
+}
+
+- (IBAction)livelyClick:(id)sender {
+    self.livelyBtn.selected = !self.livelyBtn.selected;
+    
+}
+
+- (IBAction)coolClick:(id)sender {
+    self.coolBtn.selected = !self.coolBtn.selected;
+    
+}
+
+- (IBAction)honeyClick:(id)sender {
+    self.honestBtn.selected = !self.honestBtn.selected;
+    
+}
+- (IBAction)cuteClick:(id)sender {
+    self.cuteBtn.selected = !self.cuteBtn.selected;
+    
+}
 
 #pragma mark-textField-Delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -521,28 +749,61 @@
         [self.postTF becomeFirstResponder];
     }else if (textField == self.postTF){
         [self.postTF resignFirstResponder];
+        [self.fatherNameTF becomeFirstResponder];
+        
+    }else if (textField == self.fatherNameTF){
+        [self.fatherNameTF resignFirstResponder];
+        [self.motherNameTF becomeFirstResponder];
+        
+    }else if (textField == self.motherNameTF){
+        [self.motherNameTF resignFirstResponder];
         [self.emailTF becomeFirstResponder];
+        
     }else if (textField == self.emailTF){
         [self.emailTF resignFirstResponder];
         [self.qqTF becomeFirstResponder];
+        
     }else if (textField == self.qqTF){
         [self.qqTF resignFirstResponder];
         [self.wechatTF becomeFirstResponder];
-    }else{
+        
+    }else if (textField == self.wechatTF){
+        if (self.marryHeightCons.constant == 0) {
+            [self resign];
+        }else{
+            [self.wechatTF resignFirstResponder];
+            [self.wifeNameTF becomeFirstResponder];
+        }
+    }
+    else if (textField == self.wifeNameTF){
+        [self.wifeNameTF resignFirstResponder];
+        [self.childNameTF becomeFirstResponder];
+        
+    }else if (textField == self.childNameTF){
+        [self.childNameTF resignFirstResponder];
+        [self.childSchoolTF becomeFirstResponder];
+        
+    }else if (textField == self.childSchoolTF){
         [self resign];
         
     }
     return YES;
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if (textField == self.postTF||textField == self.emailTF ||textField == self.qqTF||textField == self.wechatTF){
+    if (textField == self.emailTF||textField == self.qqTF||textField == self.wechatTF){
         self.bottomView.hidden = YES;
         CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
         self.view.frame = CGRectMake(0, -offset-64, KMainScreenWidth, KMainScreenHeight+offset+64);
         return YES;
         
+    }else if (textField == self.wifeNameTF||textField == self.childNameTF||textField == self.childSchoolTF){
+        self.bottomView.hidden = YES;
+        CGFloat offset1 = self.marryView.frame.origin.y+textField.frame.origin.y+50-(KMainScreenHeight-216);
+        self.view.frame = CGRectMake(0, -offset1-64, KMainScreenWidth, KMainScreenHeight+offset1+64);
+        return YES;
+        
     }
-    else if (textField == self.liveProTF||textField == self.liveCityTF||textField == self.liveDisTF||textField == self.relationshipTF||textField == self.presiTF||textField == self.homeProTF||textField == self.homeCityTF||textField == self.homeDisTF||textField == self.degreeTF){
+    else if (textField == self.liveProTF||textField == self.liveCityTF||textField == self.liveDisTF||textField == self.relationshipTF||textField == self.presiTF||textField == self.homeProTF||textField == self.homeCityTF||textField == self.homeDisTF||textField == self.degreeTF||textField == self.industryTF||textField == self.marryTF){
         [self resign];
         if (textField == self.liveProTF) {
             [self hidden];
@@ -609,12 +870,20 @@
             [self hidden];
             self.flag = 5;
             //信誉分
-            self.presiCountArr = @[@"0",@"10",@"20",@"30",@"40",@"50",@"60",@"70",@"80",@"90",@"100"];
+            self.presiCountArr = @[@"10",@"20",@"30",@"40",@"50",@"60",@"70",@"80",@"90",@"100"];
         }else if (textField == self.degreeTF){
             [self hidden];
             self.flag = 9;
             self.degreeArr = @[@"初中",@"高中",@"中技",@"中专",@"大专",@"本科",@"硕士",@"博士",@"MBA",@"EMBA",@"其他"];
 
+        }else if (textField == self.industryTF){
+            [self hidden];
+            self.flag = 10;
+            self.industryArr = @[@"互联网",@"服务业",@"金融",@"教师",@"银行",@"医疗",@"房地产",@"贸易",@"物流",@"其他"];
+        }else if (textField == self.marryTF){
+            [self hidden];
+            self.flag = 11;
+            self.marryArr = @[@"未婚",@"已婚"];
         }
         [self.pickerView reloadComponent:0];
         [self.pickerView selectRow:0 inComponent:0 animated:YES];
@@ -627,7 +896,7 @@
         self.bottomView.hidden = NO;
         self.pickerView.hidden = YES;
         self.datePicker.hidden = NO;
-        self.flag = 10;
+        self.flag = 12;
         return NO;
     }
     else{
@@ -692,6 +961,14 @@
             break;
         case 9:
             self.degreeTF.text = self.degreeArr[self.degreeIndex];
+            
+            break;
+        case 10:
+            self.industryTF.text = self.industryArr[self.industryIndex];
+            
+            break;
+        case 11:
+            self.marryTF.text = self.marryArr[self.marryIndex];
             
             break;
         default:
@@ -771,14 +1048,17 @@
         }
             break;
         case 8:
-        {
             self.districtIndex = row;
-
-        }
             break;
-        default:
+        case 9:
             //学历
             self.degreeIndex = row;
+            break;
+        case 10:
+            self.industryIndex = row;
+            break;
+        default:
+            self.marryIndex = row;
             break;
     }
     
@@ -788,40 +1068,35 @@
         case 1:
             return [self.provinceArr objectAtIndex:row];
             
-            break;
         case 2:
             return [self.cityArr objectAtIndex:row];
             
-            break;
         case 3:
             return [self.districtArr objectAtIndex:row];
             
-            break;
         case 4:
             return [self.relationshipArr objectAtIndex:row];
             
-            break;
         case 5:
             return [self.presiCountArr objectAtIndex:row];
             
-            break;
         case 6:
             return [self.provinceArr objectAtIndex:row];
             
-            break;
         case 7:
             return [self.cityArr objectAtIndex:row];
             
-            break;
         case 8:
             return [self.districtArr objectAtIndex:row];
             
-            break;
-   
-        default:
+        case 9:
             return [self.degreeArr objectAtIndex:row];
-
-            break;
+            
+        case 10:
+            return [self.industryArr objectAtIndex:row];
+            
+        default:
+            return [self.marryArr objectAtIndex:row];
     }
 }
 
@@ -830,39 +1105,33 @@
         case 1:
             return self.provinceArr.count;
             
-            break;
         case 2:
             return self.cityArr.count;
             
-            break;
         case 3:
             return self.districtArr.count;
             
-            break;
         case 4:
             return self.relationshipArr.count;
             
-            break;
         case 5:
             return self.presiCountArr.count;
             
-            break;
         case 6:
             return self.provinceArr.count;
             
-            break;
         case 7:
             return self.cityArr.count;
             
-            break;
         case 8:
             return self.districtArr.count;
             
-            break;
-        default:
+        case 9:
             return self.degreeArr.count;
-
-            break;
+        case 10:
+            return self.industryArr.count;
+        default:
+            return self.marryArr.count;
     }
 }
 

@@ -944,11 +944,16 @@
     return YES;
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
-    //textField == self.companyTF||textField == self.postTF||
     if (textField == self.emailTF||textField == self.qqTF||textField == self.wechatTF){
         self.bottomView.hidden = YES;
-        self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);
+        CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
+        self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight+offset+64);
+        return YES;
+        
+    }else if (textField == self.wifeNameTF||textField == self.childNameTF||textField == self.childSchoolTF){
+        self.bottomView.hidden = YES;
+        CGFloat offset1 = self.marryView.frame.origin.y+textField.frame.origin.y+50-(KMainScreenHeight-216);
+        self.view.frame = CGRectMake(0, -offset1, KMainScreenWidth, KMainScreenHeight+offset1+64);
         return YES;
         
     }
