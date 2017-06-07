@@ -16,6 +16,7 @@
 @property (nonatomic,copy)NSString * friendId;
 
 @property (nonatomic,copy)NSString * name;
-
+//生日
+@property (nonatomic,copy)NSString * birthday;
 
 @end

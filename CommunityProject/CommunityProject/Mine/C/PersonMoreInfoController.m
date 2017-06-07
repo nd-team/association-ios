@@ -26,54 +26,56 @@
 @property (weak, nonatomic) IBOutlet UITextField *bloodTF;
 @property (weak, nonatomic) IBOutlet UITextField *marryTF;
 @property (weak, nonatomic) IBOutlet UIButton *nameBtn;
-@property (weak, nonatomic) IBOutlet UIButton *QQBtn;
+@property (weak, nonatomic) IBOutlet UIButton *wifeBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *chatBtn;
+@property (weak, nonatomic) IBOutlet UIButton *childBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *hobbyBtn;
-@property (weak, nonatomic) IBOutlet UIButton *schoolBtn;
-@property (weak, nonatomic) IBOutlet UIButton *starBtn;
-@property (weak, nonatomic) IBOutlet UIButton *bloodBtn;
-@property (weak, nonatomic) IBOutlet UIButton *companyBtn;
+@property (weak, nonatomic) IBOutlet UIButton *childScBtn;
+@property (weak, nonatomic) IBOutlet UIButton *fatherBtn;
+@property (weak, nonatomic) IBOutlet UIButton *motherBtn;
 @property (weak, nonatomic) IBOutlet UIButton *postBtn;
 @property (weak, nonatomic) IBOutlet UIButton *marryBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *danceBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *singBtn;
-@property (weak, nonatomic) IBOutlet UIButton *printBtn;
-@property (weak, nonatomic) IBOutlet UIButton *pianoBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *sleepBtn;
-@property (weak, nonatomic) IBOutlet UIButton *movieBtn;
-@property (weak, nonatomic) IBOutlet UIButton *hanBtn;
-@property (weak, nonatomic) IBOutlet UIButton *artBtn;
-@property (weak, nonatomic) IBOutlet UIButton *eatBtn;
-
-@property (weak, nonatomic) IBOutlet UIButton *bookBtn;
-@property (weak, nonatomic) IBOutlet UIButton *mountainBtn;
 @property (weak, nonatomic) IBOutlet UILabel *seeNameLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *seeQQLabel;
-@property (weak, nonatomic) IBOutlet UILabel *seeChatLabel;
-@property (weak, nonatomic) IBOutlet UILabel *seeHobbyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *seeWifeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *seeChildLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *seeStarLabel;
+@property (weak, nonatomic) IBOutlet UILabel *seeChildSchLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *seeBloodLabel;
+@property (weak, nonatomic) IBOutlet UILabel *seeFatherLabel;
 
 
-@property (weak, nonatomic) IBOutlet UILabel *seeCompanyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *seeMotherLabel;
 @property (weak, nonatomic) IBOutlet UILabel *seePostLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *seeSchoolLabel;
 @property (weak, nonatomic) IBOutlet UILabel *seeMarryLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIButton *chessBtn;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTF;
+@property (weak, nonatomic) IBOutlet UITextField *birthdayTF;
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
+
+@property (weak, nonatomic) IBOutlet UITextField *wifeNameTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *childNameTF;
+@property (weak, nonatomic) IBOutlet UITextField *childSchoolTF;
+@property (weak, nonatomic) IBOutlet UIView *marryView;
+@property (weak, nonatomic) IBOutlet UILabel *wifeNameLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *lineOneView;
+
+@property (weak, nonatomic) IBOutlet UILabel *childNameLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *childSchoolLabel;
+@property (weak, nonatomic) IBOutlet UITextField *fatherNameTF;
+@property (weak, nonatomic) IBOutlet UITextField *motherNameTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *degreeTF;
+@property (weak, nonatomic) IBOutlet UITextField *industryTF;
 //索引
 @property (nonatomic,assign)NSInteger starIndex;
 
@@ -83,10 +85,42 @@
 @property (nonatomic,strong)NSArray * startArr;
 @property (nonatomic,strong)NSArray * bloodArr;
 @property (nonatomic,strong)NSArray * marryArr;
+//所有数据
+@property (nonatomic,strong)NSArray *allArr;
+//省份数据
+@property (nonatomic,strong)NSMutableArray * provinceArr;
+//城市数据
+@property (nonatomic,strong)NSMutableArray * cityArr;
+//区县数据
+@property (nonatomic,strong)NSMutableArray * districtArr;
+//索引
+@property (nonatomic,assign)NSInteger proIndex;
 
-//标记pickerView的数据源 1:星座2：血型3：婚姻
+@property (nonatomic,assign)NSInteger cityIndex;
+@property (nonatomic,assign)NSInteger districtIndex;
+
+//学历
+@property (nonatomic,strong)NSArray * degreeArr;
+@property (nonatomic,assign)NSInteger degreeIndex;
+
+//行业
+@property (nonatomic,strong)NSArray * industryArr;
+@property (nonatomic,assign)NSInteger industryIndex;
+//标记pickerView的数据源 1:星座2：血型3：婚姻 4学历5行业6省份7城市8区域9生日
 @property (nonatomic,assign)int flag;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidthCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *marryHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
+
+@property (weak, nonatomic) IBOutlet UIButton *phoneBtn;
+@property (weak, nonatomic) IBOutlet UILabel *seePhoneLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *birthBtn;
+@property (weak, nonatomic) IBOutlet UILabel *seeBirthLabel;
+
+@property (weak, nonatomic) IBOutlet UITextField *homeProTF;
+@property (weak, nonatomic) IBOutlet UITextField *homeCityTF;
+@property (weak, nonatomic) IBOutlet UITextField *homeDisTF;
 
 @end
 
@@ -104,42 +138,24 @@
     self.userId = [DEFAULTS objectForKey:@"userId"];
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 40, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:@"取消" andLeft:-15 andTarget:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
-    [self setTitleButton:self.danceBtn];
-    [self setTitleButton:self.singBtn];
-    [self setTitleButton:self.printBtn];
-    [self setTitleButton:self.pianoBtn];
-    [self setTitleButton:self.sleepBtn];
-    [self setTitleButton:self.movieBtn];
-    [self setTitleButton:self.eatBtn];
-    [self setTitleButton:self.hanBtn];
-    [self setTitleButton:self.artBtn];
-    [self setTitleButton:self.bookBtn];
-    [self setTitleButton:self.mountainBtn];
-    [self setTitleButton:self.chessBtn];
-    [self setButtonBackImage:self.danceBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.singBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.printBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.pianoBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.sleepBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.movieBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.hanBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.artBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.eatBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.bookBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.mountainBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-    [self setButtonBackImage:self.chessBtn andNormalImage:@"hobbyWhite" andSelectImage:@"hobbyGreen"];
-
+    self.homeProTF.layer.borderColor = UIColorFromRGB(0xECEEF0).CGColor;
+    self.homeCityTF.layer.borderColor = UIColorFromRGB(0xECEEF0).CGColor;
+    self.homeDisTF.layer.borderColor = UIColorFromRGB(0xECEEF0).CGColor;
+    self.homeProTF.layer.borderWidth = 1;
+    self.homeCityTF.layer.borderWidth = 1;
+    self.homeDisTF.layer.borderWidth = 1;
+    [self commonUI:YES];
     if (self.isCurrent) {
         UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 50, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:@"保存" andLeft:15 andTarget:self Action:@selector(saveInfo)];
         self.navigationItem.rightBarButtonItem = rightItem;
         [self setButtonBackImage:self.nameBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
-        [self setButtonBackImage:self.QQBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
-        [self setButtonBackImage:self.chatBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
-        [self setButtonBackImage:self.hobbyBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
-        [self setButtonBackImage:self.schoolBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
-        [self setButtonBackImage:self.starBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
-        [self setButtonBackImage:self.bloodBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
-        [self setButtonBackImage:self.companyBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
+        [self setButtonBackImage:self.phoneBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
+        [self setButtonBackImage:self.birthBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
+        [self setButtonBackImage:self.fatherBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
+        [self setButtonBackImage:self.motherBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
+        [self setButtonBackImage:self.wifeBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
+        [self setButtonBackImage:self.childBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
+        [self setButtonBackImage:self.childScBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
         [self setButtonBackImage:self.postBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
         [self setButtonBackImage:self.marryBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
        
@@ -147,27 +163,28 @@
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(resign)];
         [self.view addGestureRecognizer:tap];
         //初始化界面数据
-        [self getMoreInfo];
+//        [self getMoreInfo];
     }else{
         //别人的信息=所有都不可用，按钮隐藏
         self.nameBtn.hidden = YES;
-        self.QQBtn.hidden = YES;
-        self.chatBtn.hidden = YES;
-        self.hobbyBtn.hidden = YES;
-        self.schoolBtn.hidden = YES;
-        self.starBtn.hidden = YES;
-        self.bloodBtn.hidden = YES;
-        self.companyBtn.hidden = YES;
+        self.phoneBtn.hidden = YES;
+        self.birthBtn.hidden = YES;
+        self.wifeBtn.hidden = YES;
+        self.childScBtn.hidden = YES;
+        self.childBtn.hidden = YES;
+        self.fatherBtn.hidden = YES;
+        self.motherBtn.hidden = YES;
+
         self.postBtn.hidden = YES;
         self.marryBtn.hidden = YES;
         self.seeNameLabel.hidden = YES;
-        self.seeQQLabel.hidden = YES;
-        self.seeChatLabel.hidden = YES;
-        self.seeHobbyLabel.hidden = YES;
-        self.seeSchoolLabel.hidden = YES;
-        self.seeStarLabel.hidden = YES;
-        self.seeBloodLabel.hidden = YES;
-        self.seeCompanyLabel.hidden = YES;
+        self.seePhoneLabel.hidden = YES;
+        self.seeBirthLabel.hidden = YES;
+        self.seeWifeLabel.hidden = YES;
+        self.seeChildLabel.hidden = YES;
+        self.seeChildSchLabel.hidden = YES;
+        self.seeFatherLabel.hidden = YES;
+        self.seeMotherLabel.hidden = YES;
         self.seePostLabel.hidden = YES;
         self.seeMarryLabel.hidden = YES;
         self.nameTF.enabled = NO;
@@ -180,37 +197,47 @@
         self.postTF.enabled = NO;
         self.marryTF.enabled = NO;
         
-        self.danceBtn.enabled = NO;
-        self.singBtn.enabled = NO;
-        self.printBtn.enabled = NO;
-        self.pianoBtn.enabled = NO;
-        self.sleepBtn.enabled = NO;
-        self.movieBtn.enabled = NO;
-        self.hanBtn.enabled = NO;
-        self.artBtn.enabled = NO;
-        self.eatBtn.enabled = NO;
-        self.bookBtn.enabled = NO;
-        self.mountainBtn.enabled = NO;
-        self.chessBtn.enabled = NO;
-        [self getUserInformation];
+//        [self getUserInformation];
         
     }
 
+}
+-(void)commonUI:(BOOL)isHidden{
+    self.wifeNameLabel.hidden = isHidden;
+    self.seeWifeLabel.hidden = isHidden;
+    self.childNameLabel.hidden = isHidden;
+    self.seeChildLabel.hidden = isHidden;
+    self.childSchoolLabel.hidden = isHidden;
+    self.seeChildSchLabel.hidden = isHidden;
+    self.wifeBtn.hidden = isHidden;
+    self.childBtn.hidden = isHidden;
+    self.childScBtn.hidden = isHidden;
+    self.lineOneView.hidden = isHidden;
+    self.wifeNameTF.hidden = isHidden;
+    self.childNameTF.hidden = isHidden;
+    self.childSchoolTF.hidden = isHidden;
+    if (isHidden) {
+        self.viewHeightCons.constant = 1000;
+    }else{
+        self.viewHeightCons.constant = 1170;
+        
+    }
 }
 -(void)setButtonBackImage:(UIButton *)btn andNormalImage:(NSString *)norImg andSelectImage:(NSString *)selImg{
     [btn setBackgroundImage:[UIImage imageNamed:norImg] forState:UIControlStateNormal];
     [btn setBackgroundImage:[UIImage imageNamed:selImg] forState:UIControlStateSelected];
     
 }
--(void)setTitleButton:(UIButton *)btn{
-    [btn setTitleColor:UIColorFromRGB(0x18bc8b) forState:UIControlStateNormal];
-    [btn setTitleColor:UIColorFromRGB(0x11624a) forState:UIControlStateSelected];
-}
--(void)setDisableAndNormal:(UIButton *)btn{
-    [btn setBackgroundImage:[UIImage imageNamed:@"hobbyGreen"] forState:UIControlStateNormal];
-    [btn setTitleColor:UIColorFromRGB(0x11624a) forState:UIControlStateNormal];
-}
+//-(void)setTitleButton:(UIButton *)btn{
+//    [btn setTitleColor:UIColorFromRGB(0x18bc8b) forState:UIControlStateNormal];
+//    [btn setTitleColor:UIColorFromRGB(0x11624a) forState:UIControlStateSelected];
+//}
+//-(void)setDisableAndNormal:(UIButton *)btn{
+//    [btn setBackgroundImage:[UIImage imageNamed:@"hobbyGreen"] forState:UIControlStateNormal];
+//    [btn setTitleColor:UIColorFromRGB(0x11624a) forState:UIControlStateNormal];
+//}
 //对方更多信息
+/*
 -(void)getUserInformation{
     WeakSelf;
     //获取数据初始化数据
@@ -537,6 +564,7 @@
     }];
 
 }
+ */
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -558,61 +586,84 @@
     [params setValue:self.userId forKey:@"userId"];
     [params setValue:self.nameTF.text forKey:@"fullName"];
     [params setValue:self.nameBtn.selected?@"1":@"0" forKey:@"SfullName"];
+    [params setValue:self.phoneTF.text forKey:@"mobile"];
+    [params setValue:self.phoneBtn.selected?@"1":@"0" forKey:@"Smobile"];
+    
+    [params setValue:self.birthday forKey:@"birthday"];
+    [params setValue:self.birthBtn.selected?@"1":@"0" forKey:@"Sbirthday"];
     
     [params setValue:self.QQTF.text forKey:@"QQ"];
-    [params setValue:self.QQBtn.selected?@"1":@"0" forKey:@"SQQ"];
     [params setValue:self.chatTF.text forKey:@"wechat"];
-    [params setValue:self.chatBtn.selected?@"1":@"0" forKey:@"Swechat"];
 
-    NSMutableString * hobby = [NSMutableString new];
-    if (self.danceBtn.selected) {
-        [hobby appendString:@"舞蹈,"];
+    //学历
+    NSString * degree;
+    switch (self.degreeIndex) {
+        case 0:
+            degree = @"1";
+            
+            break;
+        case 1:
+            degree = @"2";
+            
+            break;
+        case 2:
+            degree = @"3";
+            
+            break;
+        case 3:
+            degree = @"4";
+            
+            break;
+        case 4:
+            degree = @"5";
+            
+            break;
+        case 5:
+            degree = @"6";
+            
+            break;
+        case 6:
+            degree = @"7";
+            
+            break;
+        case 7:
+            degree = @"8";
+            
+            break;
+        case 8:
+            degree = @"9";
+            
+            break;
+        case 9:
+            degree = @"10";
+            
+            break;
+        default:
+            degree = @"11";
+            
+            break;
     }
-    if (self.singBtn.selected) {
-        [hobby appendString:@"音乐,"];
-    }
-    if (self.printBtn.selected) {
-        [hobby appendString:@"画画,"];
-    }
-    if (self.pianoBtn.selected) {
-        [hobby appendString:@"乐器,"];
-    }
-    if (self.sleepBtn.selected) {
-        [hobby appendString:@"游戏,"];
-    }
-    if (self.movieBtn.selected) {
-        [hobby appendString:@"影视,"];
-    }
-    if (self.eatBtn.selected) {
-        [hobby appendString:@"旅游,"];
-    }
-    if (self.chessBtn.selected) {
-        [hobby appendString:@"棋类,"];
-    }
-    if (self.hanBtn.selected) {
-        [hobby appendString:@"美食,"];
-    }
-    if (self.artBtn.selected) {
-        [hobby appendString:@"社交,"];
-    }
-    if (self.bookBtn.selected) {
-        [hobby appendString:@"阅读,"];
-    }
-    if (self.mountainBtn.selected) {
-        [hobby appendString:@"运动,"];
-    }
-   
-    [params setValue:hobby forKey:@"favour"];
-    [params setValue:self.hobbyBtn.selected?@"1":@"0" forKey:@"Sfavour"];
+    [params setValue:degree forKey:@"degree"];
+    [params setValue:self.fatherNameTF.text forKey:@"fatherName"];
+    [params setValue:self.fatherBtn.selected?@"1":@"0" forKey:@"SfatherName"];
+    [params setValue:self.motherNameTF.text forKey:@"motherName"];
+    [params setValue:self.motherBtn.selected?@"1":@"0" forKey:@"SmotherName"];
+
+    [params setValue:self.wifeNameTF.text forKey:@"spouseName"];
+    [params setValue:self.wifeBtn.selected?@"1":@"0" forKey:@"SspouseName"];
+    [params setValue:self.childNameTF.text forKey:@"childrenName"];
+    [params setValue:self.childBtn.selected?@"1":@"0" forKey:@"SchildrenName"];
     
+
+    [params setValue:self.childSchoolTF.text forKey:@"childrenSchool"];
+    [params setValue:self.childScBtn.selected?@"1":@"0" forKey:@"SchildrenSchool"];
+    
+
     [params setValue:self.schoolTF.text forKey:@"finishSchool"];
-    [params setValue:self.schoolBtn.selected?@"1":@"0" forKey:@"SfinishSchool"];
 
     [params setValue:self.starTF.text forKey:@"constellation"];
-    [params setValue:self.starBtn.selected?@"1":@"0" forKey:@"Sconstellation"];
 
     [params setValue:self.bloodTF.text forKey:@"bloodType"];
-    [params setValue:self.bloodBtn.selected?@"1":@"0" forKey:@"SbloodType"];
     NSString * status;
     if ([self.marryTF.text isEqualToString:@"已婚"]) {
         status = @"1";
@@ -621,9 +672,45 @@
     }
     [params setValue:status forKey:@"marriage"];
     [params setValue:self.marryBtn.selected?@"1":@"0" forKey:@"Smarriage"];
+    //行业
+    NSString * industry;
+    switch (self.industryIndex) {
+        case 0:
+            industry = @"2";
+            break;
+        case 1:
+            industry = @"3";
+            break;
+        case 2:
+            industry = @"4";
+            break;
+        case 3:
+            industry = @"5";
+            break;
+        case 4:
+            industry = @"6";
+            break;
+        case 5:
+            industry = @"7";
+            break;
+        case 6:
+            industry = @"8";
+            break;
+        case 7:
+            industry = @"9";
+            break;
+        case 8:
+            industry = @"10";
+            break;
+        default:
+            industry = @"1";
+            break;
+    }
+    [params setValue:industry forKey:@"industry"];
+    //籍贯
+    [params setValue:[NSString stringWithFormat:@"%@,%@,%@",self.homeProTF.text,self.homeCityTF.text,self.homeDisTF.text] forKey:@"homeplace"];
 
     [params setValue:self.companyTF.text forKey:@"company"];
-    [params setValue:self.companyBtn.selected?@"1":@"0" forKey:@"Scompany"];
 
     [params setValue:self.postTF.text forKey:@"position"];
     [params setValue:self.postBtn.selected?@"1":@"0" forKey:@"Sposition"];
@@ -647,6 +734,9 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField == self.nameTF) {
         [self.nameTF resignFirstResponder];
+        [self.phoneTF becomeFirstResponder];
+    }else if (textField == self.phoneTF){
+        [self.phoneTF resignFirstResponder];
         [self.QQTF becomeFirstResponder];
     }else if (textField == self.QQTF){
         [self.QQTF resignFirstResponder];
@@ -662,33 +752,106 @@
         [self.postTF becomeFirstResponder];
 
     }else if (textField == self.postTF){
-         [self resign];
+        [self.postTF resignFirstResponder];
+        [self.fatherNameTF becomeFirstResponder];
+ 
+    }else if (textField == self.fatherNameTF){
+        [self.fatherNameTF resignFirstResponder];
+        [self.motherNameTF becomeFirstResponder];
+    }else if (textField == self.motherNameTF){
+        [self.motherNameTF resignFirstResponder];
+        if (self.marryHeightCons.constant == 0) {
+            [self resign];
+        }else{
+            [self.motherNameTF resignFirstResponder];
+            [self.wifeNameTF becomeFirstResponder];
+            
+        }
+        
+    }
+    else if (textField == self.wifeNameTF){
+        [self.wifeNameTF resignFirstResponder];
+        [self.childNameTF becomeFirstResponder];
+        
+    }else if (textField == self.childNameTF){
+        [self.childNameTF resignFirstResponder];
+        [self.childSchoolTF becomeFirstResponder];
+        
+    }else if (textField == self.childSchoolTF){
+        [self resign];
+        
     }
     return YES;
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
-    if (textField == self.companyTF||textField == self.postTF){
+    if (textField == self.companyTF||textField == self.postTF||textField == self.fatherNameTF||textField == self.motherNameTF){
         self.bottomView.hidden = YES;
         self.view.frame = CGRectMake(0, -offset-64, KMainScreenWidth, KMainScreenHeight+offset+64);
         return YES;
 
-    }else if (textField == self.marryTF||textField == self.starTF || textField == self.bloodTF){
+    }else if (textField == self.wifeNameTF||textField == self.childNameTF||textField == self.childSchoolTF){
+        self.bottomView.hidden = YES;
+        CGFloat offset1 = self.marryView.frame.origin.y+textField.frame.origin.y+50-(KMainScreenHeight-216);
+        self.view.frame = CGRectMake(0, -offset1-64, KMainScreenWidth, KMainScreenHeight+offset1+64);
+        return YES;
+        
+    }else if (textField == self.marryTF||textField == self.starTF || textField == self.bloodTF||textField == self.homeProTF||textField == self.homeCityTF || textField == self.homeDisTF|| textField == self.degreeTF|| textField == self.industryTF){
         [self resign];
         self.bottomView.hidden = NO;
         if (self.starTF == textField) {
-            
+            [self hidden];
             self.flag = 1;
             self.startArr = @[@"水瓶座",@"双鱼座",@"白羊座",@"金牛座",@"双子座",@"巨蟹座",@"狮子座",@"处女座",@"天秤座",@"天蝎座",@"射手座",@"摩羯座"];
         }else if (textField ==self.bloodTF){
+            [self hidden];
               //血型
             self.flag = 2;
             self.bloodArr = @[@"A型",@"B型",@"AB型",@"O型",@"其他"];
-        }else{
-         
+        }else if(textField == self.marryTF){
+            [self hidden];
+
             //婚姻
             self.flag = 3;
             self.marryArr = @[@"未婚",@"已婚"];
+        }else  if (textField == self.homeProTF) {
+            [self hidden];
+            self.flag = 6;
+            [self getAllData];
+        }else if (textField == self.homeCityTF){
+            if (self.homeProTF.text.length != 0) {
+                [self hidden];
+                self.flag = 7;
+                for (NSDictionary *dict in self.allArr) {
+                    
+                    if ([dict objectForKey:self.provinceArr[self.proIndex]]) {
+                        self.cityArr = [NSMutableArray arrayWithArray:[[dict objectForKey:self.provinceArr[self.proIndex]] allKeys]];
+                        break;
+                    }
+                }
+            }
+        }else if(textField == self.homeDisTF){
+            if (self.homeCityTF.text.length != 0) {
+                [self hidden];
+                self.flag = 8;
+                for (NSDictionary *dict in self.allArr) {
+                    
+                    if ([dict objectForKey:self.provinceArr[self.proIndex]]) {
+                        self.districtArr = [NSMutableArray arrayWithArray:[[dict objectForKey:self.provinceArr[self.proIndex]] objectForKey:self.cityArr[self.cityIndex]]];
+                        break;
+                    }
+                }
+            }
+        }else if (textField == self.industryTF){
+            [self hidden];
+            self.flag = 5;
+            //行业
+            self.industryArr = @[@"互联网",@"服务业",@"金融",@"教师",@"银行",@"医疗",@"房地产",@"贸易",@"物流",@"其他"];
+        }else if (textField == self.degreeTF){
+            //学历
+            [self hidden];
+            self.flag = 4;
+            self.degreeArr = @[@"初中",@"高中",@"中技",@"中专",@"大专",@"本科",@"硕士",@"博士",@"MBA",@"EMBA",@"其他"];
         }
         [self.pickerView reloadComponent:0];
         [self.pickerView selectRow:0 inComponent:0 animated:YES];
@@ -697,10 +860,28 @@
         }
         return NO;
 
+    }else if (textField == self.birthdayTF){
+        [self resign];
+        self.bottomView.hidden = NO;
+        self.pickerView.hidden = YES;
+        self.datePicker.hidden = NO;
+        self.flag = 9;
+        return NO;
     }else{
         self.bottomView.hidden = YES;
         return YES;
 
+    }
+}
+-(void)hidden{
+    self.bottomView.hidden = NO;
+    self.datePicker.hidden = YES;
+    self.pickerView.hidden = NO;
+}
+-(void)getAllData{
+    self.allArr = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Address" ofType:@"plist"]];
+    for (NSDictionary *dci in self.allArr) {
+        [self.provinceArr addObject:[[dci allKeys] firstObject]];
     }
 }
 -(void)resign{
@@ -710,6 +891,12 @@
     [self.schoolTF resignFirstResponder];
     [self.companyTF resignFirstResponder];
     [self.postTF resignFirstResponder];
+    [self.phoneTF resignFirstResponder];
+    [self.wifeNameTF resignFirstResponder];
+    [self.childNameTF resignFirstResponder];
+    [self.childSchoolTF resignFirstResponder];
+    [self.fatherNameTF resignFirstResponder];
+    [self.motherNameTF resignFirstResponder];
     self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
 }
 - (IBAction)nameBtnClick:(id)sender {
@@ -721,72 +908,71 @@
  
     }
 }
-- (IBAction)qqBtnClick:(id)sender {
-    self.QQBtn.selected = !self.QQBtn.selected;
-    if (self.QQBtn.selected) {
-        self.seeQQLabel.text = @"公开";
+- (IBAction)phoneBtnClick:(id)sender {
+    self.phoneBtn.selected = !self.phoneBtn.selected;
+    if (self.phoneBtn.selected) {
+        self.seePhoneLabel.text = @"公开";
     }else{
-        self.seeQQLabel.text = @"非公开";
+        self.seePhoneLabel.text = @"非公开";
         
     }
 }
 
-- (IBAction)chatBtnClick:(id)sender {
-    self.chatBtn.selected = !self.chatBtn.selected;
-    if (self.chatBtn.selected) {
-        self.seeChatLabel.text = @"公开";
+- (IBAction)birthBtnClick:(id)sender {
+    self.birthBtn.selected = !self.birthBtn.selected;
+    if (self.birthBtn.selected) {
+        self.seeBirthLabel.text = @"公开";
     }else{
-        self.seeChatLabel.text = @"非公开";
+        self.seeBirthLabel.text = @"非公开";
         
     }
 }
-- (IBAction)hobbyBtnClick:(id)sender {
-    self.hobbyBtn.selected = !self.hobbyBtn.selected;
-    if (self.hobbyBtn.selected) {
-        self.seeHobbyLabel.text = @"公开";
+- (IBAction)wifeBtnClick:(id)sender {
+    self.wifeBtn.selected = !self.wifeBtn.selected;
+    if (self.wifeBtn.selected) {
+        self.seeWifeLabel.text = @"公开";
     }else{
-        self.seeHobbyLabel.text = @"非公开";
-        
-    }
-}
-- (IBAction)schoolBtnClick:(id)sender {
-    self.schoolBtn.selected = !self.schoolBtn.selected;
-    if (self.schoolBtn.selected) {
-        self.seeSchoolLabel.text = @"公开";
-    }else{
-        self.seeSchoolLabel.text = @"非公开";
+        self.seeWifeLabel.text = @"非公开";
         
     }
 }
 
-- (IBAction)startBtnClick:(id)sender {
-    self.starBtn.selected = !self.starBtn.selected;
-    if (self.starBtn.selected) {
-        self.seeStarLabel.text = @"公开";
+- (IBAction)childBtnClick:(id)sender {
+    self.childBtn.selected = !self.childBtn.selected;
+    if (self.childBtn.selected) {
+        self.seeChildLabel.text = @"公开";
     }else{
-        self.seeStarLabel.text = @"非公开";
+        self.seeChildLabel.text = @"非公开";
         
     }
 }
-- (IBAction)bloodBtnClick:(id)sender {
-    self.bloodBtn.selected = !self.bloodBtn.selected;
-    if (self.bloodBtn.selected) {
-        self.seeBloodLabel.text = @"公开";
+- (IBAction)childSchBtnClick:(id)sender {
+    self.childScBtn.selected = !self.childScBtn.selected;
+    if (self.childScBtn.selected) {
+        self.seeChildSchLabel.text = @"公开";
     }else{
-        self.seeBloodLabel.text = @"非公开";
+        self.seeChildSchLabel.text = @"非公开";
         
     }
 }
-- (IBAction)companyBtnClick:(id)sender {
-    self.companyBtn.selected = !self.companyBtn.selected;
-    if (self.companyBtn.selected) {
-        self.seeCompanyLabel.text = @"公开";
+- (IBAction)fatherNameBtnClick:(id)sender {
+    self.fatherBtn.selected = !self.fatherBtn.selected;
+    if (self.fatherBtn.selected) {
+        self.seeFatherLabel.text = @"公开";
     }else{
-        self.seeCompanyLabel.text = @"非公开";
+        self.seeFatherLabel.text = @"非公开";
         
     }
 }
-
+- (IBAction)motherNameBtnClick:(id)sender {
+    self.motherBtn.selected = !self.motherBtn.selected;
+    if (self.motherBtn.selected) {
+        self.seeMotherLabel.text = @"公开";
+    }else{
+        self.seeMotherLabel.text = @"非公开";
+        
+    }
+}
 - (IBAction)postBtnClick:(id)sender {
     self.postBtn.selected = !self.postBtn.selected;
     if (self.postBtn.selected) {
@@ -805,72 +991,55 @@
         
     }
 }
-- (IBAction)danceBtnClick:(id)sender {
-    self.danceBtn.selected = !self.danceBtn.selected;
-
-}
-- (IBAction)singBtnClick:(id)sender {
-    self.singBtn.selected = !self.singBtn.selected;
-
-}
-- (IBAction)printClick:(id)sender {
-    self.printBtn.selected = !self.printBtn.selected;
-
-}
-
-- (IBAction)pianoClick:(id)sender {
-    self.pianoBtn.selected = !self.pianoBtn.selected;
-
-}
-
-- (IBAction)sleepClick:(id)sender {
-    self.sleepBtn.selected = !self.sleepBtn.selected;
-
-}
-
-- (IBAction)movieClick:(id)sender {
-    self.movieBtn.selected = !self.movieBtn.selected;
-
-}
-- (IBAction)hanClick:(id)sender {
-    self.hanBtn.selected = !self.hanBtn.selected;
-
-}
-- (IBAction)artClick:(id)sender {
-    self.artBtn.selected = !self.artBtn.selected;
-
-}
-- (IBAction)eatClick:(id)sender {
-    self.eatBtn.selected = !self.eatBtn.selected;
-
-}
-
-- (IBAction)chessBtnClick:(id)sender {
-    self.chessBtn.selected = !self.chessBtn.selected;
-    
-}
-
-- (IBAction)lookClick:(id)sender {
-    self.bookBtn.selected = !self.bookBtn.selected;
-
-}
-- (IBAction)mountainClick:(id)sender {
-    self.mountainBtn.selected = !self.mountainBtn.selected;
-
-}
 
 - (IBAction)finishClick:(id)sender {
     switch (self.flag) {
         case 1:
             self.starTF.text = self.startArr[self.starIndex];
+            
             break;
         case 2:
             self.bloodTF.text = self.bloodArr[self.bloodIndex];
-
+            
             break;
- 
-        default:
+        case 3:
+            //婚姻
+        {
             self.marryTF.text = self.marryArr[self.marryIndex];
+            if ([self.marryTF.text isEqualToString:@"已婚"]) {
+                self.marryHeightCons.constant = 163;
+                [self commonUI:NO];
+                
+            }else{
+                self.marryHeightCons.constant = 0;
+                [self commonUI:YES];
+                
+            }
+        }
+            break;
+        case 4:
+            //学历
+            self.degreeTF.text = self.degreeArr[self.degreeIndex];
+            break;
+        case 5:
+            //行业
+            self.industryTF.text = self.industryArr[self.industryIndex];
+            break;
+        case 6:
+            self.homeProTF.text = self.provinceArr[self.proIndex];
+            
+            break;
+        case 7:
+            self.homeCityTF.text = self.cityArr[self.cityIndex];
+            
+            break;
+        case 8:
+            self.homeDisTF.text = self.districtArr[self.districtIndex];
+            
+            break;
+        default:
+            //生日
+            [self common];
             break;
     }
     self.bottomView.hidden = YES;
@@ -899,41 +1068,102 @@
     //改变选择时的颜色
     UILabel * label = (UILabel *)[pickerView viewForRow:row forComponent:0];
     label.backgroundColor = [UIColor whiteColor];
-    if (self.flag == 1) {
-        self.starIndex = row;
-       
+    switch (self.flag) {
+        case 1:
+        {
+            self.starIndex = row;
+
+        }
+            break;
+        case 2:
+        {
+            self.bloodIndex = row;
+
+        }
+            break;
+        case 3:
+        {
+            self.marryIndex = row;
+        }
+            break;
+        case 4:
+        {
+            self.degreeIndex = row;
+        }
+            break;
+        case 5:
+        {
+            self.industryIndex = row;
+        }
+            break;
+    
+        case 6:
+        {
+            self.proIndex = row;
+            self.cityIndex = 0;
+            self.districtIndex = 0;
+        }
+            break;
+        case 7:
+        {
+            self.cityIndex = row;
+            self.districtIndex = 0;
+        }
+            break;
+        default :
+        {
+            self.districtIndex = row;
+            
+        }
+            break;
     }
-    
-    else if (self.flag == 2) {
-        self.bloodIndex = row;
-        
-    }
-    
-    else {
-        self.marryIndex = row;
-    }
-    
-    
 }
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    if (self.flag == 1) {
-        return [self.startArr objectAtIndex:row];
-    }else if (self.flag == 2){
-        return [self.bloodArr objectAtIndex:row];
-    }else if (self.flag == 3){
-        return [self.marryArr objectAtIndex:row];
+    switch (self.flag) {
+        case 1:
+            return [self.startArr objectAtIndex:row];
+        case 2:
+            return [self.bloodArr objectAtIndex:row];
+        case 3:
+            return [self.marryArr objectAtIndex:row];
+        case 4:
+            return [self.degreeArr objectAtIndex:row];
+        case 5:
+            return [self.industryArr objectAtIndex:row];
+        case 6:
+            return [self.provinceArr objectAtIndex:row];
+        case 7:
+            return [self.cityArr objectAtIndex:row];
+        default :
+            return [self.districtArr objectAtIndex:row];
     }
-    
-    return nil;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    if (self.flag == 1) {
-        return self.startArr.count;
-    }else if (self.flag == 2){
-        return self.bloodArr.count;
-    }else{
-        return self.marryArr.count;
+    switch (self.flag) {
+        case 1:
+            return self.startArr.count;
+            
+        case 2:
+            return self.bloodArr.count;
+            
+        case 3:
+            return self.marryArr.count;
+            
+        case 4:
+            return self.degreeArr.count;
+            
+        case 5:
+            return self.industryArr.count;
+            
+        case 6:
+            return self.provinceArr.count;
+            
+        case 7:
+            return self.cityArr.count;
+            
+        default :
+            return self.districtArr.count;
     }
 }
 
@@ -954,7 +1184,16 @@
 
     }
 }
-
+- (IBAction)datePickerClick:(id)sender {
+    
+        [self common];
+}
+-(void)common{
+    NSString * time = [NowDate getTime:self.datePicker.date];
+    NSArray * arr = [time componentsSeparatedByString:@"-"];
+    self.birthdayTF.text = [NSString stringWithFormat:@"%@年%@月%@日",arr[0],arr[1],arr[2]];
+    self.birthday = time;
+}
 
 
 

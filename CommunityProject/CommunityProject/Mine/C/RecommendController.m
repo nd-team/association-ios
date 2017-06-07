@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTF;
 @property (weak, nonatomic) IBOutlet UIButton *manBtn;
 @property (weak, nonatomic) IBOutlet UIButton *famaleBtn;
-
+//爱好
 @property (weak, nonatomic) IBOutlet UIButton *danceBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *musicBtn;
@@ -59,6 +59,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *homeProTF;
 @property (weak, nonatomic) IBOutlet UITextField *homeCityTF;
 @property (weak, nonatomic) IBOutlet UITextField *homeDisTF;
+//性格
 @property (weak, nonatomic) IBOutlet UIButton *quiteBtn;
 @property (weak, nonatomic) IBOutlet UIButton *smailBtn;
 
@@ -551,6 +552,7 @@
         self.manBtn.selected = NO;
     }
 }
+//爱好
 - (IBAction)danceClick:(id)sender {
     self.danceBtn.selected = !self.danceBtn.selected;
     

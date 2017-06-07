@@ -31,14 +31,11 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *cityTF;
 @property (weak, nonatomic) IBOutlet UITextField *countryTF;
-@property (weak, nonatomic) IBOutlet UITextField *birthTF;
-@property (weak, nonatomic) IBOutlet UITextField *ageTF;
 @property (weak, nonatomic) IBOutlet UITextField *emailTF;
 @property (weak, nonatomic) IBOutlet UILabel *recommendLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lingLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
-@property (weak, nonatomic) IBOutlet UITextField *phoneTF;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidthCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *preRightWidthCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *preLeftWidthCons;
@@ -63,9 +60,30 @@
 
 @property (nonatomic,assign)NSInteger cityIndex;
 @property (nonatomic,assign)NSInteger districtIndex;
-//标记pickerView的数据源
+//标记pickerView的数据源1,2,3地址
 @property (nonatomic,assign)int flag;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+
+@property (weak, nonatomic) IBOutlet UIButton *danceBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *musicBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *printBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *intrusmentBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *gameBtn;
+@property (weak, nonatomic) IBOutlet UIButton *movieBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *foodBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *chatBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *travelBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *readBtn;
+@property (weak, nonatomic) IBOutlet UIButton *motionBtn;
+@property (weak, nonatomic) IBOutlet UIButton *chessBtn;
 
 @end
 
@@ -103,13 +121,25 @@
     self.provinceTF.layer.borderWidth = 1;
     self.cityTF.layer.borderWidth = 1;
     self.countryTF.layer.borderWidth = 1;
+    [self setTitleButton:self.danceBtn];
+    [self setTitleButton:self.musicBtn];
+    [self setTitleButton:self.printBtn];
+    [self setTitleButton:self.intrusmentBtn];
+    [self setTitleButton:self.gameBtn];
+    [self setTitleButton:self.movieBtn];
+    [self setTitleButton:self.travelBtn];
+    [self setTitleButton:self.chessBtn];
+    [self setTitleButton:self.foodBtn];
+    [self setTitleButton:self.chatBtn];
+    [self setTitleButton:self.readBtn];
+    [self setTitleButton:self.motionBtn];
     //总值暂定300 宽138
     self.flag = 1;
     NSInteger preCount = [self.prestigeCount integerValue];
     NSInteger expCount = [self.expCount integerValue];
     float a = (float)(preCount+4)/300;
     float b = (float)(expCount+4)/300;
-    NSSLog(@"%.2f,%.2f",a,b);
+//    NSSLog(@"%.2f,%.2f",a,b);
     self.preRightWidthCons.constant = (1-a)*138;
     self.preLeftWidthCons.constant = a*138;
     self.conLeftWidthCons.constant = b*138;
@@ -125,7 +155,6 @@
     self.contributeCountLabel.text = self.contributeCount;
     self.nicknameLabel.text = self.nickname;
     self.userLabel.text = self.userId;
-    self.phoneTF.text = self.mobile;
     if (self.sex == 1) {
         self.sexYesBtn.selected = YES;
     }else{
@@ -134,8 +163,6 @@
     
     self.recommendLabel.text = self.recommendStr;
     self.lingLabel.text = self.lingStr;
-    self.birthTF.text = self.birthday;
-    self.ageTF.text = self.ageStr;
     self.emailTF.text = self.email;
 
 //    NSSLog(@"%@",self.address);
@@ -143,7 +170,13 @@
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(resign)];
     [self.view addGestureRecognizer:tap];
 }
-
+-(void)setTitleButton:(UIButton *)btn{
+    [btn setBackgroundImage:[UIImage imageNamed:@"hobbyWhite"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage imageNamed:@"hobbyGreen"] forState:UIControlStateSelected];
+    [btn setTitleColor:UIColorFromRGB(0x18bc8b) forState:UIControlStateNormal];
+    [btn setTitleColor:UIColorFromRGB(0x11624a) forState:UIControlStateSelected];
+    
+}
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -168,12 +201,48 @@
     NSString * status = [NSString stringWithFormat:@"%ld",(long)self.sexInt];
     [params setValue:status forKey:@"sex"];
     [params setValue:self.emailTF.text forKey:@"email"];
-    [params setValue:self.phoneTF.text forKey:@"mobile"];
     NSString *address = [NSString stringWithFormat:@"%@%@%@",self.provinceTF.text,self.cityTF.text,self.countryTF.text];
     [params setValue:address forKey:@"address"];
-    [params setValue:self.birthday forKey:@"birthDate"];
-    [params setValue:self.ageTF.text forKey:@"age"];
-    NSSLog(@"%@",self.birthday);
+    //爱好
+    NSMutableString * hobby = [NSMutableString new];
+    if (self.danceBtn.selected) {
+        [hobby appendString:@"舞蹈,"];
+    }
+    if (self.musicBtn.selected) {
+        [hobby appendString:@"音乐,"];
+    }
+    if (self.printBtn.selected) {
+        [hobby appendString:@"画画,"];
+    }
+    if (self.intrusmentBtn.selected) {
+        [hobby appendString:@"乐器,"];
+    }
+    if (self.gameBtn.selected) {
+        [hobby appendString:@"游戏,"];
+    }
+    if (self.movieBtn.selected) {
+        [hobby appendString:@"影视,"];
+    }
+    if (self.travelBtn.selected) {
+        [hobby appendString:@"旅游,"];
+    }
+    if (self.chessBtn.selected) {
+        [hobby appendString:@"棋类,"];
+    }
+    if (self.foodBtn.selected) {
+        [hobby appendString:@"美食,"];
+    }
+    if (self.chatBtn.selected) {
+        [hobby appendString:@"社交,"];
+    }
+    if (self.readBtn.selected) {
+        [hobby appendString:@"阅读,"];
+    }
+    if (self.motionBtn.selected) {
+        [hobby appendString:@"运动,"];
+    }
+    
+    [params setValue:hobby forKey:@"favour"];
     WeakSelf;
     [UploadImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,SaveInfoURL] andParams:params andImage:self.headImage getBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -193,8 +262,6 @@
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:[RCIM sharedRCIM].currentUserInfo.userId];
                     
                 }
-                [DEFAULTS setValue:weakSelf.phoneTF.text forKey:@"mobile"];
-                [DEFAULTS setInteger:[weakSelf.ageTF.text integerValue]  forKey:@"age"];
                 [DEFAULTS setValue:weakSelf.birthday forKey:@"birthday"];
                 [DEFAULTS setValue:weakSelf.emailTF.text forKey:@"email"];
                 [DEFAULTS setValue:[NSString stringWithFormat:@"%@%@%@",weakSelf.provinceTF.text,weakSelf.cityTF.text,weakSelf.countryTF.text] forKey:@"address"];
@@ -217,12 +284,6 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField == self.nicknameLabel) {
         [self.nicknameLabel resignFirstResponder];
-        [self.phoneTF becomeFirstResponder];
-    }else if (textField == self.phoneTF){
-        [self.phoneTF resignFirstResponder];
-        [self.ageTF becomeFirstResponder];
-    }else if (textField == self.ageTF){
-        [self.ageTF resignFirstResponder];
         [self.emailTF becomeFirstResponder];
     }else{
         [self resign];
@@ -231,8 +292,6 @@
 }
 -(void)resign{
     [self.nicknameLabel resignFirstResponder];
-    [self.phoneTF resignFirstResponder];
-    [self.ageTF resignFirstResponder];
     [self.emailTF resignFirstResponder];
 }
 - (IBAction)moreClick:(id)sender {
@@ -279,31 +338,21 @@
 }
 
 - (IBAction)finishClick:(id)sender {
-    //
-    if (self.flag == 1) {
-        self.provinceTF.text = self.provinceArr[self.proIndex];
-    }else if (self.flag == 2){
-        self.cityTF.text = self.cityArr[self.cityIndex];
-
-    }else if (self.flag == 3){
-        self.countryTF.text = self.districtArr[self.districtIndex];
-
-    }else{
-        [self common];
+    switch (self.flag) {
+        case 1:
+            self.provinceTF.text = self.provinceArr[self.proIndex];
+            
+            break;
+        case 2:
+            self.cityTF.text = self.cityArr[self.cityIndex];
+            
+            break;
+        default :
+            self.countryTF.text = self.districtArr[self.districtIndex];
+            
+            break;
     }
     self.bottomView.hidden = YES;
-
-}
-
-- (IBAction)datePickerClick:(id)sender {
-
-    [self common];
-}
--(void)common{
-    NSString * time = [NowDate getTime:self.datePicker.date];
-    NSArray * arr = [time componentsSeparatedByString:@"-"];
-    self.birthTF.text = [NSString stringWithFormat:@"%@年%@月%@日",arr[0],arr[1],arr[2]];
-    self.birthday = time;
 }
 -(void)getAllData{
     self.allArr = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Address" ofType:@"plist"]];
@@ -312,14 +361,7 @@
     }
 }
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if (textField == self.birthTF) {
-        self.bottomView.hidden = NO;
-        self.pickerView.hidden = YES;
-        self.datePicker.hidden = NO;
-        self.flag = 4;
-        [self resign];
-        return NO;
-    }else if (textField == self.provinceTF||textField == self.cityTF || textField == self.countryTF){
+    if (textField == self.provinceTF||textField == self.cityTF || textField == self.countryTF){
         [self resign];
         if (textField == self.provinceTF) {
             [self hidden];
@@ -337,7 +379,7 @@
                     }
                 }
             }
-        }else{
+        }else if(textField == self.countryTF){
             if (self.cityTF.text.length != 0) {
                 [self hidden];
                 self.flag = 3;
@@ -348,7 +390,6 @@
                         
                     }
                 }
-
             }
         }
         [self.pickerView reloadComponent:0];
@@ -391,46 +432,59 @@
     //改变选择时的颜色
     UILabel * label = (UILabel *)[pickerView viewForRow:row forComponent:0];
     label.backgroundColor = [UIColor whiteColor];
-    if (self.flag == 1) {
-        self.proIndex = row;
-        self.cityIndex = 0;
-        self.districtIndex = 0;
-    }
-    
-   else if (self.flag == 2) {
-        self.cityIndex = row;
-       self.districtIndex = 0;
-       
-    }
-    
-   else {
-        self.districtIndex = row;
+    switch (self.flag) {
+        case 1:
+        {
+            self.proIndex = row;
+            self.cityIndex = 0;
+            self.districtIndex = 0;
+            
+        }
+            break;
+        case 2:
+        {
+            self.cityIndex = row;
+            self.districtIndex = 0;
+            
+        }
+            break;
+        default:
+        {
+            self.districtIndex = row;
+        }
+            break;
     }
     
     
 }
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    if (self.flag == 1) {
-        return [self.provinceArr objectAtIndex:row];
-    }else if (self.flag == 2){
-        return [self.cityArr objectAtIndex:row];
-    }else if (self.flag == 3){
-        return [self.districtArr objectAtIndex:row];
-    }
-    
-    return nil;
+    switch (self.flag) {
+        case 1:
+            return [self.provinceArr objectAtIndex:row];
+            
+        case 2:
+            return [self.cityArr objectAtIndex:row];
+            
+        default:
+            return [self.districtArr objectAtIndex:row];
+            
+        }
+
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    if (self.flag == 1) {
-        return self.provinceArr.count;
-    }else if (self.flag == 2){
-        return self.cityArr.count;
-    }else if (self.flag == 3){
-        return self.districtArr.count;
+    switch (self.flag) {
+        case 1:
+            return self.provinceArr.count;
+            
+        case 2:
+            return self.cityArr.count;
+            
+        default:
+            return self.districtArr.count;
+            
     }
-    
-    return 0;
+
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -449,6 +503,63 @@
     }
     
 }
+- (IBAction)danceClick:(id)sender {
+    self.danceBtn.selected = !self.danceBtn.selected;
+    
+}
+
+- (IBAction)musicClick:(id)sender {
+    self.musicBtn.selected = !self.musicBtn.selected;
+    
+}
+
+- (IBAction)printClick:(id)sender {
+    self.printBtn.selected = !self.printBtn.selected;
+    
+}
+
+- (IBAction)instrumentClick:(id)sender {
+    self.intrusmentBtn.selected = !self.intrusmentBtn.selected;
+    
+}
+
+- (IBAction)gameClick:(id)sender {
+    self.gameBtn.selected = !self.gameBtn.selected;
+    
+}
+
+- (IBAction)movieClick:(id)sender {
+    self.movieBtn.selected = !self.movieBtn.selected;
+    
+}
+
+- (IBAction)foodClick:(id)sender {
+    self.foodBtn.selected = !self.foodBtn.selected;
+}
+
+- (IBAction)chatClick:(id)sender {
+    self.chatBtn.selected = !self.chatBtn.selected;
+    
+}
+- (IBAction)travelClick:(id)sender {
+    self.travelBtn.selected = !self.travelBtn.selected;
+    
+}
+
+- (IBAction)readClick:(id)sender {
+    self.readBtn.selected = !self.readBtn.selected;
+    
+}
+
+- (IBAction)motionClick:(id)sender {
+    self.motionBtn.selected = !self.motionBtn.selected;
+    
+}
+- (IBAction)chessClick:(id)sender {
+    self.chessBtn.selected = !self.chessBtn.selected;
+    
+}
+
 -(NSMutableArray *)provinceArr{
     if (!_provinceArr) {
         _provinceArr = [NSMutableArray new];
