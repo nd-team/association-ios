@@ -144,7 +144,7 @@
                 NSDictionary * dict = data[@"data"];
                 NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
                 NSInteger  exper = [[userDefaults objectForKey:@"experience"] integerValue]+[dict[@"experience"] integerValue];
-                [userDefaults setValue:[NSString stringWithFormat:@"%ld",exper] forKey:@"experience"];
+                [userDefaults setValue:[NSString stringWithFormat:@"%ld",(long)exper] forKey:@"experience"];
                 [userDefaults synchronize];
                 [weakSelf showBackViewUI:[NSString stringWithFormat:@"连续签到%@天，奖励%@贡献值",dict[@"days"],dict[@"experience"]]];
                //保存状态

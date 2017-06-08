@@ -39,7 +39,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *moreLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *moreImage;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *moreHeightCons;
-@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *intimacyLabel;
 @end
@@ -80,11 +79,6 @@
 
     }
     self.nameLabel.text = self.name;
-    if (self.age.length == 0) {
-        self.ageLabel.text = @"0岁";
-    }else{
-        self.ageLabel.text = [NSString stringWithFormat:@"%@岁",self.age];
-    }
     if (self.sex == 1) {
         self.sexImageView.image = [UIImage imageNamed:@"man.png"];
     }else{

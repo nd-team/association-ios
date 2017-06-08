@@ -542,9 +542,6 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
                     detail.name = dict[@"nickname"];
                     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
-                    if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                        detail.age = [NSString stringWithFormat:@"%@",dict[@"age"]];
-                    }
                     if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                         detail.sex = [dict[@"sex"]intValue];
                     }
@@ -606,9 +603,6 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
                     detail.name = dict[@"nickname"];
                     NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                     detail.url = encodeUrl;
-                    if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                        detail.age = [NSString stringWithFormat:@"%@",dict[@"age"]];
-                    }
                     if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                         detail.sex = [dict[@"sex"]intValue];
                     }

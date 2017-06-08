@@ -337,6 +337,7 @@
 		45F046461EE5515B00CDA7BD /* MaybeKnowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F046451EE5515B00CDA7BD /* MaybeKnowCell.m */; };
 		45F0464B1EE554A200CDA7BD /* SearchGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45F046491EE554A200CDA7BD /* SearchGroupCell.xib */; };
 		45F0464E1EE554B300CDA7BD /* SearchGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F0464D1EE554B300CDA7BD /* SearchGroupCell.m */; };
+		45F046511EE8EC6A00CDA7BD /* ApplicationPersonVipController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F046501EE8EC6A00CDA7BD /* ApplicationPersonVipController.m */; };
 		A7A6D25426573DF78E3813F3 /* libPods-CommunityProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E46915D732FF20A1CABB71B5 /* libPods-CommunityProject.a */; };
 /* End PBXBuildFile section */
 
@@ -897,6 +898,8 @@
 		45F046491EE554A200CDA7BD /* SearchGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchGroupCell.xib; sourceTree = "<group>"; };
 		45F0464C1EE554B300CDA7BD /* SearchGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchGroupCell.h; sourceTree = "<group>"; };
 		45F0464D1EE554B300CDA7BD /* SearchGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchGroupCell.m; sourceTree = "<group>"; };
+		45F0464F1EE8EC6A00CDA7BD /* ApplicationPersonVipController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationPersonVipController.h; sourceTree = "<group>"; };
+		45F046501EE8EC6A00CDA7BD /* ApplicationPersonVipController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationPersonVipController.m; sourceTree = "<group>"; };
 		754849117AB8F9CD0A93FA3B /* Pods-CommunityProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommunityProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommunityProject/Pods-CommunityProject.release.xcconfig"; sourceTree = "<group>"; };
 		DDF9FD536E6AA7BFF19AA014 /* Pods-CommunityProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommunityProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommunityProject/Pods-CommunityProject.debug.xcconfig"; sourceTree = "<group>"; };
 		E46915D732FF20A1CABB71B5 /* libPods-CommunityProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CommunityProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1216,6 +1219,8 @@
 				45D6C05C1EDEC0AC003F229A /* MyCodeCardController.m */,
 				45D6C05E1EDFB637003F229A /* ApplicationVipController.h */,
 				45D6C05F1EDFB637003F229A /* ApplicationVipController.m */,
+				45F0464F1EE8EC6A00CDA7BD /* ApplicationPersonVipController.h */,
+				45F046501EE8EC6A00CDA7BD /* ApplicationPersonVipController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2409,6 +2414,7 @@
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
 				458959D31EBB150400CBADDD /* FSCalendarHeaderView.m in Sources */,
+				45F046511EE8EC6A00CDA7BD /* ApplicationPersonVipController.m in Sources */,
 				45783BEF1EC6F9D80013DC6D /* WaitClaimCell.m in Sources */,
 				45D6C05D1EDEC0AC003F229A /* MyCodeCardController.m in Sources */,
 				452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */,

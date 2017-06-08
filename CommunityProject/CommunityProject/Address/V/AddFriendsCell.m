@@ -41,7 +41,7 @@
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
     self.nameLabel.text = _friendModel.nickname;
     self.numberLabel.text = _friendModel.numberId;
-    self.commonLabel.text = [NSString stringWithFormat:@"%ld位共同好友",_friendModel.count];
+    self.commonLabel.text = [NSString stringWithFormat:@"%ld位共同好友",(long)_friendModel.count];
     if (_friendModel.checkFriends == 0) {
         self.isFriendBtn.hidden = NO;
     }else{

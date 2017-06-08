@@ -48,7 +48,7 @@
     PublicListModel * model = self.dataArr[indexPath.row];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
     PlatformCommentController * comment = [sb instantiateViewControllerWithIdentifier:@"PlatformCommentController"];
-    comment.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    comment.idStr = [NSString stringWithFormat:@"%ld",(long)model.id];
     comment.type = 7;
     comment.headUrl = model.userPortraitUrl;
     comment.content = model.title;

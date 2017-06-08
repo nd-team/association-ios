@@ -136,7 +136,7 @@
     PlatformActListModel * model = self.dataArr[indexPath.row];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
     PlatformDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"PlatformDetailController"];
-    detail.idStr = [NSString stringWithFormat:@"%ld",model.id];
+    detail.idStr = [NSString stringWithFormat:@"%ld",(long)model.id];
     [self.navigationController pushViewController:detail animated:YES];
 
 }

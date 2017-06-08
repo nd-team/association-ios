@@ -1,19 +1,18 @@
 //
-//  ConfirmInfoController.m
+//  ApplicationPersonVipController.m
 //  CommunityProject
 //
-//  Created by bjike on 17/3/14.
+//  Created by bjike on 2017/6/8.
 //  Copyright © 2017年 来自任性傲娇的女王. All rights reserved.
 //
 
-#import "ConfirmInfoController.h"
-#import "LoginController.h"
-//#define RecommendURL @"appapi/app/selectRecommendInfo"
-#define SureInfoURL @"appapi/app/editRecommendInfo"
-#define LoginURL @"appapi/app/login"
+#import "ApplicationPersonVipController.h"
 #import "UIView+ChatMoreView.h"
 
-@interface ConfirmInfoController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,RCIMConnectionStatusDelegate>
+#define ApplicationVIPURL @"appapi/app/applyVip"
+
+@interface ApplicationPersonVipController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UITextField *nameLabel;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTF;
 @property (weak, nonatomic) IBOutlet UIButton *manBtn;
@@ -147,14 +146,30 @@
 //区分消息提示
 @property (nonatomic,assign)BOOL isMessage;
 
+@property (nonatomic,copy)NSString * userId;
+
 @end
 
-@implementation ConfirmInfoController
+@implementation ApplicationPersonVipController
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"申请VIP";
+    UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:35 image:@"back.png"  and:self Action:@selector(leftClick)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    self.userId = [DEFAULTS objectForKey:@"userId"];
     [self setUI];
-//    [self getData];
     
+}
+-(void)leftClick{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)setUI{
@@ -171,7 +186,7 @@
     [self setTitleButton:self.chatBtn];
     [self setTitleButton:self.readBtn];
     [self setTitleButton:self.motionBtn];
-   //性格
+    //性格
     [self setTitleButton:self.quiteBtn];
     [self setTitleButton:self.smailBtn];
     [self setTitleButton:self.beautyBtn];
@@ -205,7 +220,7 @@
     self.homeDisTF.layer.borderWidth = 1;
     
     [self commonUI:YES];
-
+    
     //手势回收键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(resign)];
     [self.view addGestureRecognizer:tap];
@@ -223,94 +238,12 @@
     self.childNameTF.hidden = isHidden;
     self.childSchoolTF.hidden = isHidden;
     if (isHidden) {
-        self.viewHeightCons.constant = 1334;
+        self.viewHeightCons.constant = 1234;
     }else{
-        self.viewHeightCons.constant = 1700;
+        self.viewHeightCons.constant = 1600;
         
     }
 }
-/*
--(void)getData{
-    WeakSelf;
-    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RecommendURL] andParams:@{@"userId":self.phone,@"recommendId":self.code} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        if (error) {
-            NSSLog(@"推荐好友的信息获取失败：%@",error);
-        }else{
-            NSNumber *code = data[@"code"];
-            NSSLog(@"%@",code);
-            if ([code intValue] == 200) {
-                NSDictionary * dict = data[@"data"];
-                weakSelf.nameLabel.text = [NSString stringWithFormat:@"%@",dict[@"fullName"]];
-                weakSelf.phoneTF.text = [NSString stringWithFormat:@"%@",dict[@"mobile"]];
-                weakSelf.birthdayTF.text = [NSString stringWithFormat:@"%@",dict[@"birthday"]];
-                NSString * home = [NSString stringWithFormat:@"%@",dict[@"homeplace"]];
-                NSArray * arr = [home componentsSeparatedByString:@","];
-                if (arr.count == 1) {
-                    weakSelf.homeProTF.text = arr[0];
-                }
-                if (arr.count == 2) {
-                    weakSelf.homeProTF.text = arr[0];
-                    weakSelf.homeCityTF.text = arr[1];
-                }
-                if (arr.count == 3) {
-                    weakSelf.homeProTF.text = arr[0];
-                    weakSelf.homeCityTF.text = arr[1];
-                    weakSelf.homeDisTF.text = arr[2];
-                }
-
-                weakSelf.schoolTF.text = [NSString stringWithFormat:@"%@",dict[@"finishSchool"]];
-                weakSelf.companyTF.text = [NSString stringWithFormat:@"%@",dict[@"company"]];
-                if ([dict[@"sex"] integerValue] == 1) {
-                    weakSelf.manBtn.selected = YES;
-                }else{
-                    weakSelf.famaleBtn.selected = YES;
-                }
-                NSString * hobby = dict[@"hobby"];
-                if ([hobby containsString:@"舞蹈"]) {
-                    weakSelf.danceBtn.selected = YES;
-                }
-                if ([hobby containsString:@"音乐"]) {
-                    weakSelf.musicBtn.selected = YES;
-                }
-                if ([hobby containsString:@"画画"]) {
-                    weakSelf.printBtn.selected = YES;
-                }
-                if ([hobby containsString:@"乐器"]) {
-                    weakSelf.intrusmentBtn.selected = YES;
-                }
-                if ([hobby containsString:@"游戏"]) {
-                    weakSelf.gameBtn.selected = YES;
-                }
-                if ([hobby containsString:@"影视"]) {
-                    weakSelf.movieBtn.selected = YES;
-                }
-                if ([hobby containsString:@"旅游"]) {
-                    weakSelf.travelBtn.selected = YES;
-                }
-                if ([hobby containsString:@"棋类"]) {
-                    weakSelf.chessBtn.selected = YES;
-                }
-                if ([hobby containsString:@"美食"]) {
-                    weakSelf.foodBtn.selected = YES;
-                }
-                if ([hobby containsString:@"社交"]) {
-                    weakSelf.chatBtn.selected = YES;
-                }
-                if ([hobby containsString:@"阅读"]) {
-                    weakSelf.readBtn.selected = YES;
-                }
-                if ([hobby containsString:@"运动"]) {
-                    weakSelf.motionBtn.selected = YES;
-                }
-                NSDictionary * addressDic = dict[@"address"];
-                weakSelf.liveProTF.text = addressDic[@"firstStage"];
-                weakSelf.liveCityTF.text = addressDic[@"secondStage"];
-                weakSelf.liveDisTF.text = addressDic[@"thirdStage"];
-            }
-        }
-    }];
-}
- */
 -(void)resign{
     self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
     [self.nameLabel resignFirstResponder];
@@ -327,7 +260,7 @@
     [self.wifeNameTF resignFirstResponder];
     [self.childNameTF resignFirstResponder];
     [self.childSchoolTF resignFirstResponder];
-
+    
 }
 -(void)setTitleButton:(UIButton *)btn{
     [btn setBackgroundImage:[UIImage imageNamed:@"hobbyWhite"] forState:UIControlStateNormal];
@@ -392,11 +325,8 @@
 }
 -(void)recommendSubmit{
     NSMutableDictionary * params = [NSMutableDictionary new];
-    [params setValue:self.phoneTF.text forKey:@"userId"];
-    [params setValue:self.code forKey:@"recommendId"];
-
+    [params setValue:self.userId forKey:@"userId"];
     [params setValue:self.nameLabel.text forKey:@"fullName"];
-
     [params setValue:self.phoneTF.text forKey:@"mobile"];
     if (self.manBtn.selected) {
         [params setValue:@"1" forKey:@"sex"];
@@ -449,7 +379,7 @@
     }
     
     [params setValue:hobby forKey:@"hobby"];
-
+    
     [params setValue:self.schoolTF.text forKey:@"finishSchool"];
     
     [params setValue:self.birthday forKey:@"birthday"];
@@ -518,7 +448,7 @@
     [params setValue:self.wifeNameTF.text forKey:@"spouseName"];
     [params setValue:self.childNameTF.text forKey:@"childrenName"];
     [params setValue:self.childSchoolTF.text forKey:@"childrenSchool"];
-//行业
+    //行业
     NSString * industry;
     switch (self.industryIndex) {
         case 0:
@@ -558,7 +488,7 @@
     switch (self.degreeIndex) {
         case 0:
             degree = @"1";
-
+            
             break;
         case 1:
             degree = @"2";
@@ -598,164 +528,32 @@
             break;
         default:
             degree = @"11";
-
+            
             break;
     }
     [params setValue:degree forKey:@"degree"];
     WeakSelf;
-    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SureInfoURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ApplicationVIPURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
-            NSSLog(@"确认请求失败：%@",error);
+            NSSLog(@"申请请求失败：%@",error);
             weakSelf.isMessage =  NO;
-            [weakSelf showBackViewUI:@"确认信息失败，请重新确认"];
+            [weakSelf showBackViewUI:@"申请VIP失败，请重新申请"];
         }else{
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@=%@",code,data);
+            NSSLog(@"%@=",code);
             if ([code intValue] == 200) {
                 weakSelf.backView.hidden = YES;
-                [weakSelf loginMain];
-                //登录进入主界面
-                [weakSelf loginNet];
+               
             }else{
                 NSSLog(@"确认失败");
                 weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"确认信息失败，请重新确认"];
+                [weakSelf showBackViewUI:@"申请VIP失败，请重新申请"];
             }
             
         }
     }];
 }
 
--(void)loginNet{
-    WeakSelf;
-    NSDictionary * dic = @{@"mobile":self.phone,@"password":self.password};
-    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        
-        if (error) {
-            NSSLog(@"登录失败：%@",error);
-            weakSelf.isMessage =  NO;
-            [weakSelf showBackViewUI:@"确认信息成功，登录失败，请回到登录界面进行登录"];
-
-        }else{
-            NSNumber * code = data[@"code"];
-            if ([code intValue] == 200) {
-                //成功
-                NSDictionary * msg = data[@"data"];
-                //保存用户数据
-                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-                //用户ID
-                [userDefaults setValue:msg[@"userId"] forKey:@"userId"];
-                //昵称
-                [userDefaults setValue:msg[@"nickname"] forKey:@"nickname"];
-                //头像
-                NSString * url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:msg[@"userPortraitUrl"]]];
-                [userDefaults setValue:url forKey:@"userPortraitUrl"];
-                //token
-                [userDefaults setValue:msg[@"token"] forKey:@"token"];
-                [userDefaults setValue:weakSelf.password forKey:@"password"];
-                //sex
-                NSNumber * sex = msg[@"sex"];
-                [userDefaults setInteger:[sex integerValue] forKey:@"sex"];
-                if (![msg[@"birthday"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"birthday"] forKey:@"birthday"];
-                }
-                if (![msg[@"address"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"address"] forKey:@"address"];
-                }
-                if (![msg[@"email"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"email"] forKey:@"email"];
-                }
-                if (![msg[@"mobile"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"mobile"] forKey:@"mobile"];
-                }
-                if (![msg[@"numberId"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"numberId"] forKey:@"numberId"];
-                }
-                if (![msg[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"recommendUserId"] forKey:@"recommendUserId"];
-                }
-                if (![msg[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"claimUserId"] forKey:@"claimUserId"];
-                }
-                if (![msg[@"experience"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"experience"]] forKey:@"experience"];
-                }
-                if (![msg[@"creditScore"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"creditScore"]] forKey:@"creditScore"];
-                }
-                if (![msg[@"contributionScore"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"contributionScore"]] forKey:@"contributionScore"];
-                }
-                if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];
-                }
-                if (![msg[@"favour"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setValue:msg[@"favour"] forKey:@"favour"];
-                }
-                [userDefaults setValue:msg[@"status"] forKey:@"status"];
-
-                [userDefaults synchronize];
-                //设置当前用户
-                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
-                [RCIM sharedRCIM].currentUserInfo = userInfo;
-                [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
-                [weakSelf loginRongServicer:msg[@"token"]];
-                
-                
-            }else if ([code intValue] == 0){
-                weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"账号不存在！"];
-            }else if ([code intValue] == 1000){
-                weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"账号禁止登录！"];
-            }else if ([code intValue] == 1001){
-                weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"密码错误！"];
-                
-            }else{
-                weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"确认信息成功，登录失败，请回到登录界面进行登录"];
-            }
-        }
-    }];
-}
-//登录融云服务器
--(void)loginRongServicer:(NSString *)token{
-    [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
-        NSSLog(@"登录成功%@",userId);
-        //登录主界面
-    } error:^(RCConnectErrorCode status) {
-        NSSLog(@"错误码：%ld",(long)status);
-        //SDK自动重新连接
-        [[RCIM sharedRCIM]setConnectionStatusDelegate:self];
-    } tokenIncorrect:^{
-        NSSLog(@"token错误");
-    }];
-}
--(void)loginMain{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [UIApplication sharedApplication].keyWindow.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
-        [UIApplication sharedApplication].keyWindow.backgroundColor = [UIColor whiteColor];
-    });
-}
-- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (status == ConnectionStatus_Connected) {
-            [RCIM sharedRCIM].connectionStatusDelegate = (id<RCIMConnectionStatusDelegate>)[UIApplication sharedApplication].delegate;
-        } else if (status == ConnectionStatus_NETWORK_UNAVAILABLE) {
-            //            [weakSelf showMessage:@"当前网络不可用，请检查！"];
-            
-        } else if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-//            [weakSelf showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
-        } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
-            NSSLog(@"Token无效");
-            //            [weakSelf showMessage:@"无法连接到服务器！"];
-        } else {
-            NSLog(@"RCConnectErrorCode is %zd", status);
-        }
-    });
-}
 - (IBAction)manClick:(id)sender {
     self.manBtn.selected = !self.manBtn.selected;
     if (self.manBtn.selected) {
@@ -922,7 +720,7 @@
         }else{
             [self.wechatTF resignFirstResponder];
             [self.wifeNameTF becomeFirstResponder];
- 
+            
         }
         
     }
@@ -1028,7 +826,7 @@
             [self hidden];
             self.flag = 9;
             self.industryArr = @[@"互联网",@"服务业",@"金融",@"教师",@"银行",@"医疗",@"房地产",@"贸易",@"物流",@"其他"];
-
+            
         }
         [self.pickerView reloadComponent:0];
         [self.pickerView selectRow:0 inComponent:0 animated:YES];
@@ -1118,7 +916,7 @@
         case 9:
             //行业
             self.industryTF.text = self.industryArr[self.industryIndex];
-
+            
             break;
             
         default:
@@ -1196,7 +994,7 @@
             break;
         case 8:
             self.degreeIndex = row;
-
+            
             break;
         default:
             self.industryIndex = row;
@@ -1232,7 +1030,7 @@
             
         default:
             return [self.industryArr objectAtIndex:row];
-
+            
     }
 }
 
@@ -1269,14 +1067,6 @@
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 1;
 }
-- (IBAction)cancelClick:(id)sender {
-    UIViewController * vc = self.presentingViewController;
-    while (![vc isKindOfClass:[LoginController class]]) {
-        vc = vc.presentingViewController;
-    }
-    [vc dismissViewControllerAnimated:YES completion:nil];
-    
-}
 //解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
     
@@ -1301,7 +1091,6 @@
     }
     return _districtArr;
 }
-
 
 
 @end

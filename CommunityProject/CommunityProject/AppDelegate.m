@@ -381,8 +381,9 @@
                 //sex
                 NSNumber * sex = msg[@"sex"];
                 [userDefaults setInteger:[sex integerValue] forKey:@"sex"];
-                if (![msg[@"age"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setInteger:[msg[@"age"] integerValue]forKey:@"age"];
+
+                if (![msg[@"favour"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"favour"] forKey:@"favour"];
                 }
                 if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];

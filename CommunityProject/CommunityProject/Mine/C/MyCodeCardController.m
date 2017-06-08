@@ -11,7 +11,6 @@
 @interface MyCodeCardController ()
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sexImage;
 @property (weak, nonatomic) IBOutlet UIImageView *codeImage;
 @property (weak, nonatomic) IBOutlet UIView *whiteView;
@@ -36,7 +35,6 @@
     self.headImageView.layer.masksToBounds = YES;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userPortraitUrl]];
     self.nameLabel.text = self.nickname;
-    self.ageLabel.text = self.ageStr;
     if (self.sex == 1) {
         self.sexImage.image = [UIImage imageNamed:@"man.png"];
     }else{

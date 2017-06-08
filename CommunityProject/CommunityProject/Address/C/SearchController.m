@@ -204,9 +204,7 @@
                      know.name = dict[@"nickname"];
                      NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
                      know.url = encodeUrl;
-                     if (![dict[@"age"] isKindOfClass:[NSNull class]]) {
-                         know.age = [NSString stringWithFormat:@"%@",dict[@"age"]];
-                     }
+            
                      if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
                          know.sex = [dict[@"sex"]intValue];
                      }

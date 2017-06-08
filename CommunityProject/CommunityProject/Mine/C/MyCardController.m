@@ -27,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *birthdayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *prestigeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *areaLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 
 @end
 
@@ -52,7 +51,6 @@
     self.headImageView.layer.masksToBounds = YES;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userPortraitUrl]];
     self.nameLabel.text = self.nickname;
-    self.ageLabel.text = self.ageStr;
     if (self.sex == 1) {
         self.sexImageView.image = [UIImage imageNamed:@"man.png"];
     }else{

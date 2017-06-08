@@ -569,7 +569,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="VD1-Kq-KJF"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="毕业院校" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="991-zF-8dJ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="毕业学校" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="991-zF-8dJ">
                                                 <rect key="frame" x="10" y="553" width="66" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="WiZ-L1-MOh"/>
@@ -1602,7 +1602,7 @@
                                     <constraint firstItem="YdR-bg-8ZK" firstAttribute="top" secondItem="6E1-xi-Hrd" secondAttribute="top" id="mKs-Vz-pEQ"/>
                                 </constraints>
                             </scrollView>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AuK-6d-uOM">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AuK-6d-uOM">
                                 <rect key="frame" x="0.0" y="436.5" width="375" height="230.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNq-G4-J7V">
@@ -1708,13 +1708,13 @@
                             <constraint firstItem="AuK-6d-uOM" firstAttribute="leading" secondItem="Pwb-Nc-H2d" secondAttribute="leading" id="1Qj-By-pbK"/>
                             <constraint firstItem="6E1-xi-Hrd" firstAttribute="top" secondItem="Pwb-Nc-H2d" secondAttribute="top" constant="74" id="9wZ-Je-GAV"/>
                             <constraint firstItem="YAc-FQ-w8f" firstAttribute="top" secondItem="Pwb-Nc-H2d" secondAttribute="topMargin" id="BXj-UC-UrN"/>
+                            <constraint firstAttribute="trailing" secondItem="6E1-xi-Hrd" secondAttribute="trailing" id="DC1-YW-WJi"/>
                             <constraint firstItem="YAc-FQ-w8f" firstAttribute="leading" secondItem="Pwb-Nc-H2d" secondAttribute="leadingMargin" constant="-18" id="QND-KG-4wA"/>
                             <constraint firstItem="F5E-S1-2eh" firstAttribute="top" secondItem="6E1-xi-Hrd" secondAttribute="bottom" id="SEX-Bl-gVt"/>
                             <constraint firstAttribute="trailing" secondItem="AuK-6d-uOM" secondAttribute="trailing" id="df1-nt-J5n"/>
+                            <constraint firstItem="6E1-xi-Hrd" firstAttribute="leading" secondItem="Pwb-Nc-H2d" secondAttribute="leading" id="hp4-KM-6Bk"/>
                             <constraint firstItem="F5E-S1-2eh" firstAttribute="top" secondItem="AuK-6d-uOM" secondAttribute="bottom" id="kB8-GX-gG0"/>
-                            <constraint firstAttribute="trailing" secondItem="6E1-xi-Hrd" secondAttribute="trailing" id="lPH-Lh-27N"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YAc-FQ-w8f" secondAttribute="trailing" constant="-18" id="llw-xh-2hv"/>
-                            <constraint firstItem="6E1-xi-Hrd" firstAttribute="leading" secondItem="Pwb-Nc-H2d" secondAttribute="leading" id="vOt-LK-T4x"/>
                         </constraints>
                     </view>
                     <connections>

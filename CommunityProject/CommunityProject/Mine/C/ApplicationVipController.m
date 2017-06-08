@@ -7,6 +7,7 @@
 //
 
 #import "ApplicationVipController.h"
+#import "ApplicationPersonVipController.h"
 
 @interface ApplicationVipController ()
 
@@ -35,6 +36,9 @@
 - (IBAction)otherEnterpriseClick:(id)sender {
 }
 - (IBAction)personClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+    ApplicationPersonVipController * vip = [sb instantiateViewControllerWithIdentifier:@"ApplicationPersonVipController"];
+    [self.navigationController pushViewController:vip animated:YES];
 }
 
 

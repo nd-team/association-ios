@@ -22,8 +22,6 @@
 @property (nonatomic,copy)NSString * mobile;
 //邮箱
 @property (nonatomic,copy)NSString * email;
-//年龄
-@property (nonatomic,copy)NSString * ageStr;
 //推荐人
 @property (nonatomic,copy)NSString * recommendStr;
 //认领人

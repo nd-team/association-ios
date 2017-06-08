@@ -40,10 +40,12 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *seeWifeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *seeChildLabel;
+@property (weak, nonatomic) IBOutlet UIButton *schoolBtn;
 
 @property (weak, nonatomic) IBOutlet UILabel *seeChildSchLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *seeFatherLabel;
+@property (weak, nonatomic) IBOutlet UILabel *seeSchoolLabel;
 
 
 @property (weak, nonatomic) IBOutlet UILabel *seeMotherLabel;
@@ -144,7 +146,6 @@
     self.homeProTF.layer.borderWidth = 1;
     self.homeCityTF.layer.borderWidth = 1;
     self.homeDisTF.layer.borderWidth = 1;
-    [self commonUI:YES];
     if (self.isCurrent) {
         UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 50, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:@"保存" andLeft:15 andTarget:self Action:@selector(saveInfo)];
         self.navigationItem.rightBarButtonItem = rightItem;
@@ -158,12 +159,13 @@
         [self setButtonBackImage:self.childScBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
         [self setButtonBackImage:self.postBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
         [self setButtonBackImage:self.marryBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
-       
+        [self setButtonBackImage:self.schoolBtn andNormalImage:@"switchOff" andSelectImage:@"switchOn"];
+
         //手势回收键盘
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(resign)];
         [self.view addGestureRecognizer:tap];
         //初始化界面数据
-//        [self getMoreInfo];
+        [self getMoreInfo];
     }else{
         //别人的信息=所有都不可用，按钮隐藏
         self.nameBtn.hidden = YES;
@@ -174,7 +176,7 @@
         self.childBtn.hidden = YES;
         self.fatherBtn.hidden = YES;
         self.motherBtn.hidden = YES;
-
+        self.schoolBtn.hidden = YES;
         self.postBtn.hidden = YES;
         self.marryBtn.hidden = YES;
         self.seeNameLabel.hidden = YES;
@@ -187,7 +189,17 @@
         self.seeMotherLabel.hidden = YES;
         self.seePostLabel.hidden = YES;
         self.seeMarryLabel.hidden = YES;
+        self.seeSchoolLabel.hidden = YES;
         self.nameTF.enabled = NO;
+        self.phoneTF.enabled = NO;
+        self.homeProTF.enabled = NO;
+        self.homeCityTF.enabled = NO;
+        self.homeDisTF.enabled = NO;
+        self.birthdayTF.enabled = NO;
+        self.fatherNameTF.enabled = NO;
+        self.motherNameTF.enabled = NO;
+        self.industryTF.enabled = NO;
+        self.degreeTF.enabled = NO;
         self.QQTF.enabled = NO;
         self.chatTF.enabled = NO;
         self.schoolTF.enabled = NO;
@@ -196,8 +208,10 @@
         self.companyTF.enabled = NO;
         self.postTF.enabled = NO;
         self.marryTF.enabled = NO;
-        
-//        [self getUserInformation];
+        self.wifeNameTF.enabled = NO;
+        self.childNameTF.enabled = NO;
+        self.childSchoolTF.enabled = NO;
+        [self getUserInformation];
         
     }
 
@@ -228,16 +242,8 @@
     [btn setBackgroundImage:[UIImage imageNamed:selImg] forState:UIControlStateSelected];
     
 }
-//-(void)setTitleButton:(UIButton *)btn{
-//    [btn setTitleColor:UIColorFromRGB(0x18bc8b) forState:UIControlStateNormal];
-//    [btn setTitleColor:UIColorFromRGB(0x11624a) forState:UIControlStateSelected];
-//}
-//-(void)setDisableAndNormal:(UIButton *)btn{
-//    [btn setBackgroundImage:[UIImage imageNamed:@"hobbyGreen"] forState:UIControlStateNormal];
-//    [btn setTitleColor:UIColorFromRGB(0x11624a) forState:UIControlStateNormal];
-//}
 //对方更多信息
-/*
+
 -(void)getUserInformation{
     WeakSelf;
     //获取数据初始化数据
@@ -250,112 +256,142 @@
                 NSDictionary * dict = data[@"data"];
                 NSSLog(@"%@",dict);
                 //请求网络数据获取用户详细资料
-                if ( [dict[@"fullName"] isKindOfClass:[NSString class]]) {
-                    weakSelf.nameTF.text = dict[@"fullName"];
-
+                if ( [dict[@"fullName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * nameDic = dict[@"fullName"];
+                    weakSelf.nameTF.text = nameDic[@"name"];
                 }
-                if ( [dict[@"QQ"] isKindOfClass:[NSString class]]) {
-                    weakSelf.QQTF.text = dict[@"QQ"];
-    
+                if ( [dict[@"mobile"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * mobileDic = dict[@"mobile"];
+                    weakSelf.phoneTF.text = mobileDic[@"name"];
                 }
-                if ( [dict[@"wechat"] isKindOfClass:[NSString class]]) {
-                    weakSelf.chatTF.text = dict[@"wechat"];
+                if ( [dict[@"birthday"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * birthDic = dict[@"birthday"];
+                    NSArray * arr = [birthDic[@"name"] componentsSeparatedByString:@"-"];
+                    self.birthdayTF.text = [NSString stringWithFormat:@"%@年%@月%@日",arr[0],arr[1],arr[2]];
                 }
+                weakSelf.QQTF.text = [NSString stringWithFormat:@"%@",dict[@"QQ"]];
                 
-                if ( [dict[@"favour"] isKindOfClass:[NSString class]]) {
-                    NSString * hobby = dict[@"favour"];
-                    if ([hobby containsString:@"舞蹈"]) {
-//                        weakSelf.danceBtn.selected = YES;
-                     
-                        [weakSelf setDisableAndNormal:weakSelf.danceBtn];
-
-                    }
-                    if ([hobby containsString:@"音乐"]){
-//                        weakSelf.singBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.singBtn];
-
-                    }
-                    if ([hobby containsString:@"画画"]){
-//                        weakSelf.printBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.pianoBtn];
-
-                    }
-                    if ([hobby containsString:@"乐器"]){
-//                        weakSelf.pianoBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.pianoBtn];
-
-                    }
-                    if ([hobby containsString:@"游戏"]){
-//                        weakSelf.sleepBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.sleepBtn];
-
-                    }
-                    if ([hobby containsString:@"影视"]){
-//                        weakSelf.movieBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.movieBtn];
-
-                    }
-                    if ([hobby containsString:@"旅行"]){
-//                        weakSelf.eatBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.eatBtn];
-
-                    }
-                    if ([hobby containsString:@"棋类"]){
-//                        weakSelf.chessBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.chessBtn];
-
-                    }
-                    if ([hobby containsString:@"美食"]){
-//                        weakSelf.hanBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.hanBtn];
-
-                    }
-                    if ([hobby containsString:@"社交"]){
-//                        weakSelf.artBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.artBtn];
-
-                    }
-                    if ([hobby containsString:@"阅读"]){
-//                        weakSelf.bookBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.bookBtn];
-
-                    }
-                    if ([hobby containsString:@"运动"]){
-//                        weakSelf.mountainBtn.selected = YES;
-                        [weakSelf setDisableAndNormal:weakSelf.mountainBtn];
-
-                    }
-                }
-                if ( [dict[@"finishSchool"] isKindOfClass:[NSString class]]) {
-                    weakSelf.schoolTF.text = dict[@"finishSchool"];
-                }
+                weakSelf.chatTF.text = [NSString stringWithFormat:@"%@",dict[@"wechat"]];
                 
-                if ( [dict[@"constellation"] isKindOfClass:[NSString class]]) {
-                    weakSelf.starTF.text = dict[@"constellation"];
+                if ( [dict[@"finishSchool"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * schoolDic = dict[@"finishSchool"];
+                    weakSelf.schoolTF.text = schoolDic[@"name"];
                 }
-                
-                if ( [dict[@"bloodType"] isKindOfClass:[NSString class]]) {
-                    weakSelf.bloodTF.text = dict[@"bloodType"];
+                if ( [dict[@"fatherName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * fatherDic = dict[@"fatherName"];
+                    weakSelf.fatherNameTF.text = fatherDic[@"name"];
                 }
+                if ( [dict[@"motherName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * motherDic = dict[@"motherName"];
+                    weakSelf.motherNameTF.text = motherDic[@"name"];
+                }
+                weakSelf.starTF.text = [NSString stringWithFormat:@"%@",dict[@"constellation"]];
+                weakSelf.bloodTF.text = [NSString stringWithFormat:@"%@",dict[@"bloodType"]];
                 
-                if ( [dict[@"marriage"] isKindOfClass:[NSString class]]) {
-                    NSNumber * name = dict[@"marriage"];
+                if ( [dict[@"marriage"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * marryDic = dict[@"marriage"];
+                    NSNumber * name = marryDic[@"name"];
                     if ([name intValue] == 0) {
                         weakSelf.marryTF.text = @"未婚";
+                        [weakSelf commonUI:YES];
+
                     }else{
                         weakSelf.marryTF.text = @"已婚";
+                        [weakSelf commonUI:NO];
                         
                     }
                 }
-                
-                if ( [dict[@"company"] isKindOfClass:[NSString class]]) {
-                    weakSelf.companyTF.text = dict[@"company"];
+                weakSelf.companyTF.text = [NSString stringWithFormat:@"%@",dict[@"company"]];
+                NSInteger indu = [dict[@"industry"] integerValue];
+                switch (indu) {
+                    case 1:
+                        weakSelf.industryTF.text = @"其他";
+                        break;
+                    case 2:
+                        weakSelf.industryTF.text = @"互联网";
+                        break;
+                    case 3:
+                        weakSelf.industryTF.text = @"服务业";
+                        break;
+                    case 4:
+                        weakSelf.industryTF.text = @"金融";
+                        break;
+                    case 5:
+                        weakSelf.industryTF.text = @"教师";
+                        break;
+                    case 6:
+                        weakSelf.industryTF.text = @"银行";
+                        break;
+                    case 7:
+                        weakSelf.industryTF.text = @"医疗";
+                        break;
+                    case 8:
+                        weakSelf.industryTF.text = @"房地产";
+                        break;
+                    case 9:
+                        weakSelf.industryTF.text = @"贸易";
+                        break;
+                    default:
+                        weakSelf.industryTF.text = @"物流";
+                        break;
+                }
+                NSInteger deg = [dict[@"degree"] integerValue];
+                switch (deg) {
+                    case 1:
+                        weakSelf.degreeTF.text = @"初中";
+                        break;
+                    case 2:
+                        weakSelf.degreeTF.text = @"高中";
+                        break;
+                    case 3:
+                        weakSelf.degreeTF.text = @"中技";
+                        break;
+                    case 4:
+                        weakSelf.degreeTF.text = @"中专";
+                        break;
+                    case 5:
+                        weakSelf.degreeTF.text = @"大专";
+                        break;
+                    case 6:
+                        weakSelf.degreeTF.text = @"本科";
+                        break;
+                    case 7:
+                        weakSelf.degreeTF.text = @"硕士";
+                        break;
+                    case 8:
+                        weakSelf.degreeTF.text = @"博士";
+                        break;
+                    case 9:
+                        weakSelf.degreeTF.text = @"MBA";
+                        break;
+                    case 10:
+                        weakSelf.degreeTF.text = @"EMBA";
+                        break;
+                    default:
+                        weakSelf.degreeTF.text = @"其他";
+                        break;
                 }
                 
-                if ( [dict[@"position"] isKindOfClass:[NSString class]]) {
-                    weakSelf.postTF.text = dict[@"position"];
+                NSArray * home = [dict[@"homeplace"] componentsSeparatedByString:@","];
+                weakSelf.homeProTF.text = home[0];
+                weakSelf.homeCityTF.text = home[1];
+                weakSelf.homeDisTF.text = home[2];
+                if ( [dict[@"position"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * postDic = dict[@"position"];
+                    weakSelf.postTF.text = postDic[@"name"];
                 }
-
+                if ( [dict[@"spouseName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * wifeDic = dict[@"spouseName"];
+                    weakSelf.wifeNameTF.text = wifeDic[@"name"];
+                }
+                if ( [dict[@"childrenName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * childDic = dict[@"childrenName"];
+                    weakSelf.childNameTF.text = childDic[@"name"];
+                }
+                if ( [dict[@"childrenSchool"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * schoolDic = dict[@"childrenSchool"];
+                    weakSelf.childSchoolTF.text = schoolDic[@"name"];
+                }
                 
             }
         }
@@ -373,7 +409,6 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
-//                NSSLog(@"%@",dict);
                 if ( [dict[@"fullName"] isKindOfClass:[NSDictionary class]]) {
                     NSDictionary * nameDic = dict[@"fullName"];
                     NSNumber * nameStatus = nameDic[@"status"];
@@ -387,91 +422,36 @@
                         weakSelf.nameBtn.selected = YES;
                     }
                 }
-                if ( [dict[@"QQ"] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary * qqDic = dict[@"QQ"];
-                    NSNumber * qqStatus = qqDic[@"status"];
-                    weakSelf.QQTF.text = qqDic[@"name"];
-                    if ([qqStatus intValue] == 0) {
-                        weakSelf.seeQQLabel.text = @"非公开";
-                        weakSelf.QQBtn.selected = NO;
+                if ( [dict[@"mobile"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * mobileDic = dict[@"mobile"];
+                    NSNumber * mobileStatus = mobileDic[@"status"];
+                    weakSelf.phoneTF.text = mobileDic[@"name"];
+                    
+                    if ([mobileStatus intValue] == 0) {
+                        weakSelf.seePhoneLabel.text = @"非公开";
+                        weakSelf.phoneBtn.selected = NO;
                     }else{
-                        weakSelf.seeQQLabel.text = @"公开";
-                        weakSelf.QQBtn.selected = YES;
-                    }
-
-                }
-                if ( [dict[@"wechat"] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary * chatDic = dict[@"wechat"];
-                    NSNumber * chatStatus = chatDic[@"status"];
-                    weakSelf.chatTF.text = chatDic[@"name"];
-                    if ([chatStatus intValue] == 0) {
-                        weakSelf.seeChatLabel.text = @"非公开";
-                        weakSelf.chatBtn.selected = NO;
-                    }else{
-                        weakSelf.seeChatLabel.text = @"公开";
-                        weakSelf.chatBtn.selected = YES;
+                        weakSelf.seePhoneLabel.text = @"公开";
+                        weakSelf.phoneBtn.selected = YES;
                     }
                 }
+                if ( [dict[@"birthday"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * birthDic = dict[@"birthday"];
+                    NSNumber * nameStatus = birthDic[@"status"];
+                    NSArray * arr = [birthDic[@"name"] componentsSeparatedByString:@"-"];
+                    self.birthdayTF.text = [NSString stringWithFormat:@"%@年%@月%@日",arr[0],arr[1],arr[2]];
+                    if ([nameStatus intValue] == 0) {
+                        weakSelf.seeBirthLabel.text = @"非公开";
+                        weakSelf.birthBtn.selected = NO;
+                    }else{
+                        weakSelf.seeBirthLabel.text = @"公开";
+                        weakSelf.birthBtn.selected = YES;
+                    }
+                }
+                    weakSelf.QQTF.text = [NSString stringWithFormat:@"%@",dict[@"QQ"]];
                 
-                if ( [dict[@"favour"] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary * favourDic = dict[@"favour"];
-                    NSNumber * favourStatus = favourDic[@"status"];
-                    if ([favourStatus intValue] == 0) {
-                        weakSelf.seeHobbyLabel.text = @"非公开";
-                        weakSelf.hobbyBtn.selected = NO;
-                    }else{
-                        weakSelf.seeHobbyLabel.text = @"公开";
-                        weakSelf.hobbyBtn.selected = YES;
-                    }
-                    NSString * hobby = favourDic[@"name"];
-                    if ([hobby containsString:@"舞蹈"]) {
-                        weakSelf.danceBtn.selected = YES;
-                    }
-                    if ([hobby containsString:@"音乐"]){
-                        weakSelf.singBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"画画"]){
-                        weakSelf.printBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"乐器"]){
-                        weakSelf.pianoBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"游戏"]){
-                        weakSelf.sleepBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"影视"]){
-                        weakSelf.movieBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"旅行"]){
-                        weakSelf.eatBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"棋类"]){
-                        weakSelf.chessBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"美食"]){
-                        weakSelf.hanBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"社交"]){
-                        weakSelf.artBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"阅读"]){
-                        weakSelf.bookBtn.selected = YES;
-                        
-                    }
-                    if ([hobby containsString:@"运动"]){
-                        weakSelf.mountainBtn.selected = YES;
-                        
-                    }
-                }
+                    weakSelf.chatTF.text = [NSString stringWithFormat:@"%@",dict[@"wechat"]];
+                
                 if ( [dict[@"finishSchool"] isKindOfClass:[NSDictionary class]]) {
                     NSDictionary * schoolDic = dict[@"finishSchool"];
                     NSNumber * schoolStatus = schoolDic[@"status"];
@@ -484,33 +464,33 @@
                         weakSelf.schoolBtn.selected = YES;
                     }
                 }
-                
-                if ( [dict[@"constellation"] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary * starDic = dict[@"constellation"];
-                    NSNumber * starStatus = starDic[@"status"];
-                    weakSelf.starTF.text = starDic[@"name"];
-                    if ([starStatus intValue] == 0) {
-                        weakSelf.seeStarLabel.text = @"非公开";
-                        weakSelf.starBtn.selected = NO;
+                if ( [dict[@"fatherName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * fatherDic = dict[@"fatherName"];
+                    NSNumber * fatherStatus = fatherDic[@"status"];
+                    weakSelf.fatherNameTF.text = fatherDic[@"name"];
+                    if ([fatherStatus intValue] == 0) {
+                        weakSelf.seeFatherLabel.text = @"非公开";
+                        weakSelf.fatherBtn.selected = NO;
                     }else{
-                        weakSelf.seeStarLabel.text = @"公开";
-                        weakSelf.starBtn.selected = YES;
+                        weakSelf.seeFatherLabel.text = @"公开";
+                        weakSelf.fatherBtn.selected = YES;
                     }
                 }
-                
-                if ( [dict[@"bloodType"] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary * bloodDic = dict[@"bloodType"];
-                    NSNumber * bloodStatus = bloodDic[@"status"];
-                    weakSelf.bloodTF.text = bloodDic[@"name"];
-                    if ([bloodStatus intValue] == 0) {
-                        weakSelf.seeBloodLabel.text = @"非公开";
-                        weakSelf.bloodTF.selected = NO;
+                if ( [dict[@"motherName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * motherDic = dict[@"motherName"];
+                    NSNumber * motherStatus = motherDic[@"status"];
+                    weakSelf.motherNameTF.text = motherDic[@"name"];
+                    if ([motherStatus intValue] == 0) {
+                        weakSelf.seeMotherLabel.text = @"非公开";
+                        weakSelf.motherBtn.selected = NO;
                     }else{
-                        weakSelf.seeBloodLabel.text = @"公开";
-                        weakSelf.bloodTF.selected = YES;
+                        weakSelf.seeMotherLabel.text = @"公开";
+                        weakSelf.motherBtn.selected = YES;
                     }
                 }
-               
+                    weakSelf.starTF.text = [NSString stringWithFormat:@"%@",dict[@"constellation"]];
+                    weakSelf.bloodTF.text = [NSString stringWithFormat:@"%@",dict[@"bloodType"]];
+                
                 if ( [dict[@"marriage"] isKindOfClass:[NSDictionary class]]) {
                     NSDictionary * marryDic = dict[@"marriage"];
                     NSNumber * marryStatus = marryDic[@"status"];
@@ -524,25 +504,88 @@
                     }
                     if ([name intValue] == 0) {
                         weakSelf.marryTF.text = @"未婚";
+                        [weakSelf commonUI:YES];
                     }else{
                         weakSelf.marryTF.text = @"已婚";
+                        [weakSelf commonUI:NO];
  
                     }
                 }
-                
-                if ( [dict[@"company"] isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary * companyDic = dict[@"company"];
-                    NSNumber * companyStatus = companyDic[@"status"];
-                    weakSelf.companyTF.text = companyDic[@"name"];
-                    if ([companyStatus intValue] == 0) {
-                        weakSelf.seeCompanyLabel.text = @"非公开";
-                        weakSelf.companyBtn.selected = NO;
-                    }else{
-                        weakSelf.seeCompanyLabel.text = @"公开";
-                        weakSelf.companyBtn.selected = YES;
-                    }
+                weakSelf.companyTF.text = [NSString stringWithFormat:@"%@",dict[@"company"]];
+                NSInteger indu = [dict[@"industry"] integerValue];
+                switch (indu) {
+                    case 1:
+                        weakSelf.industryTF.text = @"其他";
+                        break;
+                    case 2:
+                        weakSelf.industryTF.text = @"互联网";
+                        break;
+                    case 3:
+                        weakSelf.industryTF.text = @"服务业";
+                        break;
+                    case 4:
+                        weakSelf.industryTF.text = @"金融";
+                        break;
+                    case 5:
+                        weakSelf.industryTF.text = @"教师";
+                        break;
+                    case 6:
+                        weakSelf.industryTF.text = @"银行";
+                        break;
+                    case 7:
+                        weakSelf.industryTF.text = @"医疗";
+                        break;
+                    case 8:
+                        weakSelf.industryTF.text = @"房地产";
+                        break;
+                    case 9:
+                        weakSelf.industryTF.text = @"贸易";
+                        break;
+                    default:
+                        weakSelf.industryTF.text = @"物流";
+                        break;
                 }
-                
+                NSInteger deg = [dict[@"degree"] integerValue];
+                switch (deg) {
+                    case 1:
+                        weakSelf.degreeTF.text = @"初中";
+                        break;
+                    case 2:
+                        weakSelf.degreeTF.text = @"高中";
+                        break;
+                    case 3:
+                        weakSelf.degreeTF.text = @"中技";
+                        break;
+                    case 4:
+                        weakSelf.degreeTF.text = @"中专";
+                        break;
+                    case 5:
+                        weakSelf.degreeTF.text = @"大专";
+                        break;
+                    case 6:
+                        weakSelf.degreeTF.text = @"本科";
+                        break;
+                    case 7:
+                        weakSelf.degreeTF.text = @"硕士";
+                        break;
+                    case 8:
+                        weakSelf.degreeTF.text = @"博士";
+                        break;
+                    case 9:
+                        weakSelf.degreeTF.text = @"MBA";
+                        break;
+                    case 10:
+                        weakSelf.degreeTF.text = @"EMBA";
+                        break;
+                    default:
+                        weakSelf.degreeTF.text = @"其他";
+                        break;
+                }
+
+                NSArray * home = [dict[@"homeplace"] componentsSeparatedByString:@","];
+                weakSelf.homeProTF.text = home[0];
+                weakSelf.homeCityTF.text = home[1];
+                weakSelf.homeDisTF.text = home[2];
                 if ( [dict[@"position"] isKindOfClass:[NSDictionary class]]) {
                     NSDictionary * postDic = dict[@"position"];
                     NSNumber * postStatus = postDic[@"status"];
@@ -555,7 +598,42 @@
                         weakSelf.postBtn.selected = YES;
                     }
                 }
-                
+                if ( [dict[@"spouseName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * wifeDic = dict[@"spouseName"];
+                    NSNumber * wifeStatus = wifeDic[@"status"];
+                    weakSelf.wifeNameTF.text = wifeDic[@"name"];
+                    if ([wifeStatus intValue] == 0) {
+                        weakSelf.seeWifeLabel.text = @"非公开";
+                        weakSelf.wifeBtn.selected = NO;
+                    }else{
+                        weakSelf.seeWifeLabel.text = @"公开";
+                        weakSelf.wifeBtn.selected = YES;
+                    }
+                }
+                if ( [dict[@"childrenName"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * childDic = dict[@"childrenName"];
+                    NSNumber * childStatus = childDic[@"status"];
+                    weakSelf.childNameTF.text = childDic[@"name"];
+                    if ([childStatus intValue] == 0) {
+                        weakSelf.seeChildLabel.text = @"非公开";
+                        weakSelf.childBtn.selected = NO;
+                    }else{
+                        weakSelf.seeChildLabel.text = @"公开";
+                        weakSelf.childBtn.selected = YES;
+                    }
+                }
+                if ( [dict[@"childrenSchool"] isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary * schoolDic = dict[@"childrenSchool"];
+                    NSNumber * schoolStatus = schoolDic[@"status"];
+                    weakSelf.childSchoolTF.text = schoolDic[@"name"];
+                    if ([schoolStatus intValue] == 0) {
+                        weakSelf.seeChildSchLabel.text = @"非公开";
+                        weakSelf.childScBtn.selected = NO;
+                    }else{
+                        weakSelf.seeChildSchLabel.text = @"公开";
+                        weakSelf.childScBtn.selected = YES;
+                    }
+                }
  
             }
  
@@ -564,7 +642,7 @@
     }];
 
 }
- */
+ 
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -660,6 +738,7 @@
     
 
     [params setValue:self.schoolTF.text forKey:@"finishSchool"];
+    [params setValue:self.schoolBtn.selected?@"1":@"0" forKey:@"SfinishSchool"];
 
     [params setValue:self.starTF.text forKey:@"constellation"];
 
@@ -897,7 +976,7 @@
     [self.childSchoolTF resignFirstResponder];
     [self.fatherNameTF resignFirstResponder];
     [self.motherNameTF resignFirstResponder];
-    self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
+    self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
 }
 - (IBAction)nameBtnClick:(id)sender {
     self.nameBtn.selected = !self.nameBtn.selected;
@@ -988,6 +1067,15 @@
         self.seeMarryLabel.text = @"公开";
     }else{
         self.seeMarryLabel.text = @"非公开";
+        
+    }
+}
+- (IBAction)schoolClick:(id)sender {
+    self.schoolBtn.selected = !self.schoolBtn.selected;
+    if (self.schoolBtn.selected) {
+        self.seeSchoolLabel.text = @"公开";
+    }else{
+        self.seeSchoolLabel.text = @"非公开";
         
     }
 }

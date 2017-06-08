@@ -34,7 +34,7 @@
     CommentsListModel * model = self.dataArr[indexPath.row];
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
 
-    NSDictionary * dict = @{@"userId":userId,@"commentId":[NSString stringWithFormat:@"%ld",model.id],@"status":self.zanBtn.selected?@"1":@"0"};
+    NSDictionary * dict = @{@"userId":userId,@"commentId":[NSString stringWithFormat:@"%ld",(long)model.id],@"status":self.zanBtn.selected?@"1":@"0"};
     self.block(dict,indexPath,self.zanBtn.selected);
 }
 -(void)setCommentModel:(CommentsListModel *)commentModel{

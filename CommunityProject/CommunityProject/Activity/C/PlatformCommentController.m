@@ -198,7 +198,7 @@
     UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth, 41)];
     view.backgroundColor = UIColorFromRGB(0xffffff);
     UILabel * titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 0, 150, 40)];
-    titleLabel.text = [NSString stringWithFormat:@"评论(%ld)",self.dataArr.count];
+    titleLabel.text = [NSString stringWithFormat:@"评论(%ld)",(unsigned long)self.dataArr.count];
     titleLabel.font = [UIFont boldSystemFontOfSize:15];
     titleLabel.textColor = UIColorFromRGB(0x333333);
     [view addSubview:titleLabel];

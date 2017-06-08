@@ -222,9 +222,6 @@
                 //sex
                 NSNumber * sex = msg[@"sex"];
                 [userDefaults setInteger:[sex integerValue] forKey:@"sex"];
-                if (![msg[@"age"] isKindOfClass:[NSNull class]]) {
-                    [userDefaults setInteger:[msg[@"age"] integerValue]forKey:@"age"];
-                }
                 if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];
                 }
@@ -251,6 +248,9 @@
                 }
                 if (![msg[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"contributionScore"]] forKey:@"contributionScore"];
+                }
+                if (![msg[@"favour"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setValue:msg[@"favour"] forKey:@"favour"];
                 }
                 [userDefaults synchronize];
                 //设置当前用户

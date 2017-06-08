@@ -18,7 +18,6 @@
 @property (nonatomic,copy)NSString * name;
 //头像
 @property (nonatomic,copy)NSString * url;
-@property (nonatomic,copy)NSString * age;
 @property (nonatomic,assign)int sex;
 @property (nonatomic,copy)NSString * phone;
 @property (nonatomic,copy)NSString * recomendPerson;

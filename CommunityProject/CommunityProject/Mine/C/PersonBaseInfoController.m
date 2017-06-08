@@ -63,7 +63,7 @@
 //标记pickerView的数据源1,2,3地址
 @property (nonatomic,assign)int flag;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
-
+//爱好
 @property (weak, nonatomic) IBOutlet UIButton *danceBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *musicBtn;
@@ -84,6 +84,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *readBtn;
 @property (weak, nonatomic) IBOutlet UIButton *motionBtn;
 @property (weak, nonatomic) IBOutlet UIButton *chessBtn;
+//计数 爱好选中3项 第四次的时候提示用户 并且不能选中
+@property (nonatomic,assign)NSInteger count;
 
 @end
 
@@ -108,6 +110,7 @@
 }
 //初始化传参过来的数据
 -(void)setUI{
+    self.count = 0;
     self.bottomView.hidden = YES;
     self.headImageView.layer.cornerRadius = 40;
     self.headImageView.layer.masksToBounds = YES;
@@ -164,7 +167,67 @@
     self.recommendLabel.text = self.recommendStr;
     self.lingLabel.text = self.lingStr;
     self.emailTF.text = self.email;
-
+    //爱好
+    
+   
+     NSString * hobby = [DEFAULTS objectForKey:@"favour"];
+    if ([hobby containsString:@"舞蹈"]) {
+        self.danceBtn.selected = YES;
+        self.count++;
+    }
+    if ([hobby containsString:@"音乐"]){
+        self.musicBtn.selected = YES;
+        self.count++;
+    }
+    if ([hobby containsString:@"画画"]){
+        self.printBtn.selected = YES;
+        self.count++;
+    }
+    if ([hobby containsString:@"乐器"]){
+        self.intrusmentBtn.selected = YES;
+        self.count++;
+        
+    }
+    if ([hobby containsString:@"游戏"]){
+        self.gameBtn.selected = YES;
+        self.count++;
+        
+    }
+    if ([hobby containsString:@"影视"]){
+        self.movieBtn.selected = YES;
+        self.count++;
+        
+    }
+    if ([hobby containsString:@"旅行"]){
+        self.travelBtn.selected = YES;
+        self.count++;
+        
+    }
+    if ([hobby containsString:@"棋类"]){
+        self.chessBtn.selected = YES;
+        self.count++;
+        
+    }
+    if ([hobby containsString:@"美食"]){
+        self.foodBtn.selected = YES;
+        self.count++;
+        
+    }
+    if ([hobby containsString:@"社交"]){
+        self.chatBtn.selected = YES;
+        self.count++;
+        
+    }
+    if ([hobby containsString:@"阅读"]){
+        self.readBtn.selected = YES;
+        self.count++;
+        
+    }
+    if ([hobby containsString:@"运动"]){
+        self.motionBtn.selected = YES;
+        self.count++;
+        
+    }
 //    NSSLog(@"%@",self.address);
     //手势回收键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(resign)];

@@ -15,8 +15,6 @@
 @property (nonatomic,copy)NSString * userPortraitUrl;
 //性别
 @property (nonatomic,assign)NSInteger  sex;
-//年龄
-@property (nonatomic,copy)NSString * ageStr;
 //账号
 @property (nonatomic,copy)NSString * userId;
 

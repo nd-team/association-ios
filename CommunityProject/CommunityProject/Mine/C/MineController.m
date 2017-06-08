@@ -48,13 +48,11 @@
 @property (nonatomic,copy)NSString * url;
 //性别
 @property (nonatomic,assign)NSInteger sex;
-@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 @property (nonatomic,copy)NSString * nickname;
 @property (nonatomic,copy)NSString * mobile;
 @property (nonatomic,copy)NSString * address;
 
 @property (nonatomic,copy)NSString * birth;
-@property (nonatomic,copy)NSString * age;
 @property (nonatomic,copy)NSString * email;
 @property (nonatomic,copy)NSString * recomend;
 @property (nonatomic,copy)NSString * lingStr;
@@ -87,16 +85,9 @@
     self.headImageView.layer.cornerRadius = 5;
     //设置头像和名字
     self.nickname = [DEFAULTS objectForKey:@"nickname"];
-    NSInteger age = [DEFAULTS integerForKey:@"age"];
     self.url = [DEFAULTS objectForKey:@"userPortraitUrl"];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
     self.nameLabel.text = self.nickname;
-    if (age == 0) {
-        self.ageLabel.text = @"0岁";
-    }else{
-        self.ageLabel.text = [NSString stringWithFormat:@"%ld岁",(long)age];
-        self.age = [NSString stringWithFormat:@"%ld",(long)age];
-    }
     self.sex = [DEFAULTS integerForKey:@"sex"];
     if (self.sex == 1) {
         self.sexImageView.image = [UIImage imageNamed:@"man.png"];
@@ -170,7 +161,6 @@
     set.contributeCount = self.contributeLabel.text;
     set.prestigeCount = self.prestigeLabel.text;
     set.address = self.areaLabel.text;
-    set.ageStr = self.ageLabel.text;
     [self.navigationController pushViewController:set animated:YES];
 }
 //推荐
@@ -225,7 +215,6 @@
     person.contributeCount = self.conCount;
     person.prestigeCount = self.presCount;
     person.address = self.address;
-    person.ageStr = self.age;
     person.expCount = [NSString stringWithFormat:@"%@",[DEFAULTS objectForKey:@"experience"]];
     [self.navigationController pushViewController:person animated:YES];
 
@@ -250,7 +239,6 @@
     set.nickname = self.nameLabel.text;
     set.userPortraitUrl = self.url;
     set.sex = self.sex;
-    set.ageStr = self.ageLabel.text;
     [self.navigationController pushViewController:set animated:YES];
  
 }
