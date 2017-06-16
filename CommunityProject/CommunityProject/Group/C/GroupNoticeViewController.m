@@ -62,6 +62,7 @@
 -(void)rightItemClick{
     [self tapClick];
     if (self.noticeTV.text.length == 0) {
+        [self showMessage:@"请输入内容"];
         return;
     }
     WeakSelf;
@@ -111,6 +112,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,NoticeURL] andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"创建公告失败：%@",error);
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -118,10 +120,25 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 });
+            }else{
+                [weakSelf showMessage:@"创建公告失败"];
             }
             }
 
     }];
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(void)tapClick{
     [self.noticeTV resignFirstResponder];

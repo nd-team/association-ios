@@ -46,6 +46,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,KnowURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取可能认识的人失败%@",error);
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             if (weakSelf.dataArr.count != 0 || weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
@@ -58,6 +59,8 @@
                     [weakSelf.dataArr addObject:model];
                 }
                 [weakSelf.tableView reloadData];
+            }else{
+                [weakSelf showMessage:@"加载数据失败，下拉刷新重试"];
             }
             
         }
@@ -76,6 +79,19 @@
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
     return cell;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
         return self.dataArr.count;

@@ -47,15 +47,17 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AddFriendURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"同意添加好友失败%@",error);
-//            [weakSelf showMessage:@"同意添加好友失败"];
+            [weakSelf showMessage:@"同意添加好友失败"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //申请人发送消息
                 [weakSelf commonDataSendMsg:@"我们已经是好友了，可以聊天啦！" andIdStr:dic[@"friendUserId"] andType:ConversationType_PRIVATE];
 
+            }else if ([code intValue] == 100){
+                [weakSelf showMessage:@"已经是好友咯"];
             }else if ([code intValue] == 0){
-//                [weakSelf showMessage:@"同意添加好友失败"];
+                [weakSelf showMessage:@"同意添加好友失败"];
             }
         }
     }];
@@ -67,7 +69,7 @@
     [[RCIM sharedRCIM]sendMessage:type targetId:idStr content:textMsg pushContent:textStr pushData:nil success:^(long messageId) {
         [weakSelf getApplicationFriendList];
     } error:^(RCErrorCode nErrorCode, long messageId) {
-//        [weakSelf showMessage:@"发送消息失败"];
+        [weakSelf showMessage:@"发送消息失败"];
         
     }];
 }
@@ -99,7 +101,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ApplicationURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"添加好友列表获取失败%@",error);
-//            [weakSelf showMessage:@"添加好友列表获取失败"];
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             if (weakSelf.dataArr.count != 0 || weakSelf.tableView.mj_header.isRefreshing) {
                 for (ApplicationFriendsModel * model in weakSelf.dataArr) {
@@ -116,12 +118,25 @@
                     [weakSelf.dataArr addObject:search];
                 }
             }else if ([code intValue] == 0){
-//                [weakSelf showMessage:@"没有好友申请"];
+                [weakSelf showMessage:@"加载好友申请失败，下拉加载重试"];
             }
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             
         }
+    }];
+    
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
     }];
     
 }

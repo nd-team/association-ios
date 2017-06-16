@@ -69,6 +69,20 @@
     
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
+    //更多消息里面更改
+    self.mobile  = [DEFAULTS objectForKey:@"mobile"];
+    if (self.mobile.length != 0) {
+        self.phoneLabel.text = [NSString stringWithFormat:@"电话：%@",self.mobile];
+    }else{
+        self.phoneLabel.text = @"电话：";
+        
+    }
+    self.birth = [DEFAULTS objectForKey:@"birthday"];
+    if (self.birth.length != 0) {
+        self.birthdayLabel.text = [NSString stringWithFormat:@"生日：%@",self.birth];
+    }else{
+        self.birthdayLabel.text = @"生日：";
+    }
     if (self.isRef) {
         [self setUI];
     }
@@ -112,24 +126,13 @@
     }else{
         self.knowLabel.text = @"认领：";
     }
-    self.mobile  = [DEFAULTS objectForKey:@"mobile"];
-    if (self.mobile.length != 0) {
-        self.phoneLabel.text = [NSString stringWithFormat:@"电话：%@",self.mobile];
-    }else{
-        self.phoneLabel.text = @"电话：";
-   
-    }
+    
     self.conCount = [DEFAULTS objectForKey:@"contributionScore"];
     self.contributeLabel.text = [NSString stringWithFormat:@"贡献值：%@",self.conCount];
     self.presCount = [DEFAULTS objectForKey:@"creditScore"];
     self.prestigeLabel.text = [NSString stringWithFormat:@"信誉值：%@",self.presCount];
     
-    self.birth = [DEFAULTS objectForKey:@"birthday"];
-    if (self.birth.length != 0) {
-        self.birthdayLabel.text = [NSString stringWithFormat:@"生日：%@",self.birth];
-    }else{
-       self.birthdayLabel.text = @"生日：";
-    }
+    
     self.address = [DEFAULTS objectForKey:@"address"];
     if (self.address.length != 0) {
         self.areaLabel.text = [NSString stringWithFormat:@"地址：%@",self.address];
@@ -211,7 +214,6 @@
     person.email = self.email;
     person.recommendStr = self.recomend;
     person.lingStr = self.lingStr;
-    person.birthday = self.birth;
     person.contributeCount = self.conCount;
     person.prestigeCount = self.presCount;
     person.address = self.address;

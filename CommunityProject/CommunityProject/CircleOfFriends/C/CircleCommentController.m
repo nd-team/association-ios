@@ -186,12 +186,12 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleDetailURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈详情失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             if (self.dataArr.count != 0) {
                 [self.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 //初始化数据
@@ -212,6 +212,8 @@
                     [weakSelf.dataArr addObject:comment];
                 }
                 [weakSelf.tableView reloadData];
+            }else{
+                [weakSelf showMessage:@"加载朋友圈详情失败咯！"];
             }
             
         }
@@ -233,6 +235,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈评论失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             if (self.dataArr.count != 0) {
                 [self.dataArr removeAllObjects];
@@ -241,12 +244,13 @@
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 NSArray * comArr = dict[@"comments"];
-//                NSSLog(@"%@",comArr);
                 for (NSDictionary * dic in comArr) {
                     CircleCommentModel * comment = [[CircleCommentModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:comment];
                 }
                 [weakSelf.tableView reloadData];
+            }else{
+                [weakSelf showMessage:@"加载评论失败！"];
             }
             
         }
@@ -257,7 +261,6 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CircleCommentModel * model = self.dataArr[indexPath.row];
     if (model.height != 0) {
-        NSSLog(@"%f",model.height);
         return model.height;
     }
     return 84;
@@ -393,9 +396,9 @@
     [AFNetData postDataWithUrl:url andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"评论失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯，操作失败！"];
         }else{
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 [weakSelf.params removeAllObjects];
                 weakSelf.contentTV.text = @"";
@@ -403,6 +406,8 @@
                 weakSelf.bottomHeightCons.constant = 10+self.tvHeightCons.constant;
                 //评论成功、回复评论成功或者插入一条数据
                 [weakSelf getCommentListData];
+            }else{
+                [weakSelf showMessage:@"评论失败！"];
             }
             
         }
@@ -425,6 +430,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ZanURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈点赞失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯，操作失败！"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -439,17 +445,29 @@
                     self.zanLabel.text = [NSString stringWithFormat:@"%ld",(long)zan-1];
 
                 }
-            }else if ([code intValue] == 100){
-                NSSLog(@"重复发送失败");
-            }else if ([code intValue] == 101){
-                NSSLog(@"非朋友发送失败");
+            }else if ([code intValue] == 1029){
+                [weakSelf showMessage:@"不要重复点赞"];
+            }else if ([code intValue] == 1030){
+                [weakSelf showMessage:@"非朋友点赞失败"];
             }else{
-                NSSLog(@"点赞失败");
-
+                [weakSelf showMessage:@"点赞失败"];
             }
         }
         
     }];
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 
 //手势代理方法

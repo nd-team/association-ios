@@ -51,15 +51,21 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AgreeGroupFriendURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"审核群员失败%@",error);
-            //  [weakSelf showMessage:@"审核群员失败"];
+              [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             NSNumber * code = data[@"code"];
             //1拒绝加入2同意3忽略
-            if ([code intValue] == 2||[code intValue] == 3) {
+            if ([code intValue] == 200) {
                 [weakSelf commonDataSendMsg:[NSString stringWithFormat:@"%@已经加入群聊了，可以聊天啦！",dic[@"userId"]] andIdStr:dic[@"groupId"] andType:ConversationType_GROUP];
             }
+            else if ([code intValue] == 1007){
+                [weakSelf showMessage:@"拒绝加入"];
+            }
+            else if ([code intValue] == 1008){
+                [weakSelf showMessage:@"已忽略"];
+            }
            else if ([code intValue] == 0){
-                // [weakSelf showMessage:@"审核群员失败"];
+                 [weakSelf showMessage:@"审核群员失败"];
             }
         }
     }];
@@ -72,7 +78,7 @@
         [weakSelf getAllData];
 
     } error:^(RCErrorCode nErrorCode, long messageId) {
-//        [weakSelf showMessage:@"发送消息失败"];
+        [weakSelf showMessage:@"发送消息失败"];
         
     }];
 }
@@ -114,7 +120,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupApplicationURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"群申请获取失败%@",error);
-            //            [weakSelf showMessage:@"添加好友列表获取失败"];
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             if (weakSelf.dataArr.count != 0 || weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
@@ -131,7 +137,7 @@
                 [weakSelf.tableView.mj_header endRefreshing];
 
             }else if ([code intValue] == 0){
-                //    [weakSelf showMessage:@"没有好友申请"];
+                    [weakSelf showMessage:@"加载好友申请失败"];
             }
             
         }
@@ -144,13 +150,12 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ApplicationURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"群申请获取失败%@",error);
-            //            [weakSelf showMessage:@"添加好友列表获取失败"];
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             if (weakSelf.dataTwoArr.count != 0 || weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataTwoArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 NSArray * msgArr = data[@"data"];
                 for (NSDictionary * dic in msgArr) {
@@ -161,7 +166,7 @@
                 [weakSelf.tableView.mj_header endRefreshing];
 
             }else if ([code intValue] == 0){
-                //    [weakSelf showMessage:@"没有好友申请"];
+                [weakSelf showMessage:@"加载好友申请失败"];
             }
         }
     }];
@@ -188,10 +193,8 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-//        NSSLog(@"%ld",self.dataArr.count);
         return self.dataArr.count;
     }else{
-//        NSSLog(@"==%ld",self.dataTwoArr.count);
         return self.dataTwoArr.count;
     }
     
@@ -201,6 +204,19 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {

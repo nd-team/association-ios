@@ -185,6 +185,7 @@
     add.groupId = model.groupId;
     [self.navigationController pushViewController:add animated:YES];
 }
+
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {
         _dataArr = [NSMutableArray new];

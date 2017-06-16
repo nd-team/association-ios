@@ -37,4 +37,25 @@
     }];
     return view;
 }
++(UIView *)showViewTitle:(NSString *)title{
+    UIView * view = [UIView new];
+    view.frame = CGRectMake(20, KMainScreenHeight, KMainScreenWidth-40, 50);
+    view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
+    view.layer.cornerRadius = 5;
+    UILabel * label = [UILabel new];
+    label.textColor = UIColorFromRGB(0xffffff);
+    label.font = [UIFont boldSystemFontOfSize:15];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 0;
+    label.text = title;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
+    label.preferredMaxLayoutWidth = (KMainScreenWidth-60);
+    [label setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [view addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.equalTo(view);
+    }];
+    
+    return view;
+}
 @end

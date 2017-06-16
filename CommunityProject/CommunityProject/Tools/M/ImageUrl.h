@@ -17,12 +17,12 @@
 //左右圆角
 +(CAShapeLayer *)maskLayer:(CGRect)rect andleftCorner:(UIRectCorner)left andRightCorner:(UIRectCorner)right;
 
++ (CGSize)boundingRectWithString:(NSString *)textStr width:(CGFloat)width height:(CGFloat)height font:(NSInteger)font;
++(int)convertToInt:(NSString*)strtemp;
 //剪切年月日和时分秒
 +(NSArray *)cutString:(NSString *)time;
 //剪切年月日
 +(NSArray *)cutBigTime:(NSString *)time;
 //剪切时分秒
 +(NSArray *)cutSmallTime:(NSString *)time;
-+ (CGSize)boundingRectWithString:(NSString *)textStr width:(CGFloat)width height:(CGFloat)height font:(NSInteger)font;
-
 @end

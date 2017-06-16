@@ -174,7 +174,6 @@
 		45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE51EC6F9590013DC6D /* ClaimMessageController.m */; };
 		45783BE91EC6F9AB0013DC6D /* OthersClaimSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE81EC6F9AB0013DC6D /* OthersClaimSuccessCell.m */; };
 		45783BEC1EC6F9C60013DC6D /* MeClaimSuccessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BEB1EC6F9C60013DC6D /* MeClaimSuccessCell.m */; };
-		45783BEF1EC6F9D80013DC6D /* WaitClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BEE1EC6F9D80013DC6D /* WaitClaimCell.m */; };
 		457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAB1E77857700FD0309 /* AFNetData.m */; };
 		457D3CAF1E77858000FD0309 /* FixMemoryLeak.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CAE1E77858000FD0309 /* FixMemoryLeak.m */; };
 		457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CB11E7785BF00FD0309 /* AFSecuteCertificate.m */; };
@@ -612,8 +611,6 @@
 		45783BE81EC6F9AB0013DC6D /* OthersClaimSuccessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OthersClaimSuccessCell.m; sourceTree = "<group>"; };
 		45783BEA1EC6F9C60013DC6D /* MeClaimSuccessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeClaimSuccessCell.h; sourceTree = "<group>"; };
 		45783BEB1EC6F9C60013DC6D /* MeClaimSuccessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeClaimSuccessCell.m; sourceTree = "<group>"; };
-		45783BED1EC6F9D80013DC6D /* WaitClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitClaimCell.h; sourceTree = "<group>"; };
-		45783BEE1EC6F9D80013DC6D /* WaitClaimCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitClaimCell.m; sourceTree = "<group>"; };
 		457D3CAA1E77857700FD0309 /* AFNetData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetData.h; sourceTree = "<group>"; };
 		457D3CAB1E77857700FD0309 /* AFNetData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetData.m; sourceTree = "<group>"; };
 		457D3CAD1E77858000FD0309 /* FixMemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixMemoryLeak.h; sourceTree = "<group>"; };
@@ -1538,8 +1535,6 @@
 				45783BE81EC6F9AB0013DC6D /* OthersClaimSuccessCell.m */,
 				45783BEA1EC6F9C60013DC6D /* MeClaimSuccessCell.h */,
 				45783BEB1EC6F9C60013DC6D /* MeClaimSuccessCell.m */,
-				45783BED1EC6F9D80013DC6D /* WaitClaimCell.h */,
-				45783BEE1EC6F9D80013DC6D /* WaitClaimCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2415,7 +2410,6 @@
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
 				458959D31EBB150400CBADDD /* FSCalendarHeaderView.m in Sources */,
 				45F046511EE8EC6A00CDA7BD /* ApplicationPersonVipController.m in Sources */,
-				45783BEF1EC6F9D80013DC6D /* WaitClaimCell.m in Sources */,
 				45D6C05D1EDEC0AC003F229A /* MyCodeCardController.m in Sources */,
 				452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */,
 				45CE5F551EC1972000225534 /* HistoryModel.m in Sources */,

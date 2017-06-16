@@ -9,7 +9,6 @@
 #import "VipRegisterController.h"
 #import "LoginController.h"
 #import "ConfirmInfoController.h"
-#import "UIView+ChatMoreView.h"
 
 #define RegisterURL @"appapi/app/register"
 
@@ -18,9 +17,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTF;
 @property (weak, nonatomic) IBOutlet UITextField *nicknameTF;
 @property (weak, nonatomic) IBOutlet UITextField *codeTF;
-
-@property (nonatomic,strong) UIView * backView;
-@property (nonatomic,strong)UIWindow * window;
 @end
 
 @implementation VipRegisterController
@@ -60,11 +56,18 @@
     
 }
 - (IBAction)registerClick:(id)sender {
+    int length = [ImageUrl convertToInt:self.nicknameTF.text];
+    if (length > 12) {
+        //请输入少于7个中文的昵称
+        [self showMessage:@"亲，昵称不可输入超过6个中文哦！"];
+        return;
+    }
+
     [self tapClick];
     if (self.nicknameTF.text.length != 0 && self.phoneTF.text.length != 0 && self.codeTF.text.length != 0 && self.passwordTF.text.length != 0) {
         [self netWork];
     }else{
-        [self showBackViewUI:@"亲，信息没有填写完整"];
+        [self showMessage:@"亲，信息没有填写完整"];
         
     }
     
@@ -80,7 +83,7 @@
         
         if (status == AFNetworkReachabilityStatusNotReachable) {
             
-            [weakSelf showBackViewUI:@"你已进入网络异次元，快去打开网络吧！"];
+            [weakSelf showMessage:@"你已进入网络异次元，快去打开网络吧！"];
             
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -104,7 +107,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RegisterURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"注册失败：%@",error);
-            [weakSelf showBackViewUI:@"注册失败，点击重新试试吧！"];
+            [weakSelf showMessage:@"注册失败，点击重新试试吧！"];
         }else{
             NSNumber *code = data[@"code"];
             NSSLog(@"%@",code);
@@ -113,9 +116,9 @@
                 //进入信息确认界面
                 [weakSelf presentSureInfoUI:weakSelf.phoneTF.text andPassword:weakSelf.passwordTF.text andCode:self.codeTF.text];
             }else if ([code intValue] == 1000){
-                [weakSelf showBackViewUI:@"邀请码填写失误了么！"];
+                [weakSelf showMessage:@"邀请码填写失误了么！"];
             }else if ([code intValue] == 0){
-                [weakSelf showBackViewUI:@"注册失败，点击重新试试吧！"];
+                [weakSelf showMessage:@"注册失败，点击重新试试吧！"];
             }
         }
     }];
@@ -145,26 +148,6 @@
     }
     
 }
--(void)showBackViewUI:(NSString *)title{
-    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-    self.backView = [UIView sureViewTitle:title andTag:133 andTarget:self andAction:@selector(buttonAction:)];
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
-    [self.backView addGestureRecognizer:tap];
-    [self.window addSubview:self.backView];
-    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(0);
-        make.left.equalTo(self.view);
-        make.width.mas_equalTo(KMainScreenWidth);
-        make.height.mas_equalTo(KMainScreenHeight);
-    }];
-}
--(void)buttonAction:(UIButton *)btn{
-    self.backView.hidden = YES;
-    
-}
--(void)hideViewAction{
-    self.backView.hidden = YES;
-}
 - (IBAction)backClick:(id)sender {
     
     UIViewController * vc = self.presentingViewController;
@@ -190,5 +173,18 @@
         [self tapClick];
     }
     return YES;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 @end

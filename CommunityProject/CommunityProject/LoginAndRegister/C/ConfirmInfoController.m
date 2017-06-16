@@ -147,17 +147,21 @@
 //区分消息提示
 @property (nonatomic,assign)BOOL isMessage;
 
+//爱好
+@property (nonatomic,assign)NSInteger count1;
+//性格
+@property (nonatomic,assign)NSInteger count2;
 @end
 
 @implementation ConfirmInfoController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUI];
-//    [self getData];
-    
+    [self setUI];    
 }
 
 -(void)setUI{
+    self.count1 = 0;
+    self.count2 = 0;
     self.bottomView.hidden = YES;
     [self setTitleButton:self.danceBtn];
     [self setTitleButton:self.musicBtn];
@@ -203,7 +207,7 @@
     self.homeCityTF.layer.borderWidth = 1;
     self.homeProTF.layer.borderWidth = 1;
     self.homeDisTF.layer.borderWidth = 1;
-    
+    self.marryHeightCons.constant = 0;
     [self commonUI:YES];
 
     //手势回收键盘
@@ -223,7 +227,7 @@
     self.childNameTF.hidden = isHidden;
     self.childSchoolTF.hidden = isHidden;
     if (isHidden) {
-        self.viewHeightCons.constant = 1334;
+        self.viewHeightCons.constant = 1400;
     }else{
         self.viewHeightCons.constant = 1700;
         
@@ -341,12 +345,15 @@
     [self resign];
     //提示必填项
     if (!self.manBtn.selected && !self.famaleBtn.selected) {
+        [self showMessage:@"请选择性别"];
         return;
     }
     if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
+        [self showMessage:@"请选择爱好"];
         return;
     }
     if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0) {
+        [self showMessage:@"请填写完整必填项"];
         return;
     }
     self.isMessage = YES;
@@ -607,19 +614,17 @@
         if (error) {
             NSSLog(@"确认请求失败：%@",error);
             weakSelf.isMessage =  NO;
-            [weakSelf showBackViewUI:@"确认信息失败，请重新确认"];
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             NSSLog(@"%@=%@",code,data);
             if ([code intValue] == 200) {
                 weakSelf.backView.hidden = YES;
-                [weakSelf loginMain];
                 //登录进入主界面
                 [weakSelf loginNet];
             }else{
-                NSSLog(@"确认失败");
                 weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"确认信息失败，请重新确认"];
+                [weakSelf showMessage:@"确认信息失败，请重新确认"];
             }
             
         }
@@ -634,7 +639,7 @@
         if (error) {
             NSSLog(@"登录失败：%@",error);
             weakSelf.isMessage =  NO;
-            [weakSelf showBackViewUI:@"确认信息成功，登录失败，请回到登录界面进行登录"];
+            [weakSelf showMessage:@"服务器出错咯！"];
 
         }else{
             NSNumber * code = data[@"code"];
@@ -692,7 +697,7 @@
                 if (![msg[@"favour"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"favour"] forKey:@"favour"];
                 }
-                [userDefaults setValue:msg[@"status"] forKey:@"status"];
+                [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"status"]] forKey:@"status"];
 
                 [userDefaults synchronize];
                 //设置当前用户
@@ -704,25 +709,27 @@
                 
             }else if ([code intValue] == 0){
                 weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"账号不存在！"];
-            }else if ([code intValue] == 1000){
+                [weakSelf showMessage:@"账号不存在！"];
+            }else if ([code intValue] == 1002){
                 weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"账号禁止登录！"];
-            }else if ([code intValue] == 1001){
+                [weakSelf showMessage:@"账号禁止登录！"];
+            }else if ([code intValue] == 1003){
                 weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"密码错误！"];
+                [weakSelf showMessage:@"密码错误！"];
                 
             }else{
                 weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"确认信息成功，登录失败，请回到登录界面进行登录"];
+                [weakSelf showMessage:@"确认信息成功，登录失败，请回到登录界面进行登录"];
             }
         }
     }];
 }
 //登录融云服务器
 -(void)loginRongServicer:(NSString *)token{
+    WeakSelf;
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
         NSSLog(@"登录成功%@",userId);
+        [weakSelf loginMain];
         //登录主界面
     } error:^(RCConnectErrorCode status) {
         NSSLog(@"错误码：%ld",(long)status);
@@ -768,118 +775,156 @@
         self.manBtn.selected = NO;
     }
 }
+//爱好
 - (IBAction)danceClick:(id)sender {
-    self.danceBtn.selected = !self.danceBtn.selected;
+    [self hobbyAction:self.danceBtn];
     
 }
-
+-(void)hobbyAction:(UIButton *)btn{
+    if (self.count1>2) {
+        if(btn.selected){
+            self.count1--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            [self showMessage:@"爱好最多选择三项，请取消其他项，重新选择"];
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count1++;
+        }else{
+            self.count1--;
+        }
+        
+    }
+}
 - (IBAction)musicClick:(id)sender {
-    self.musicBtn.selected = !self.musicBtn.selected;
+    [self hobbyAction:self.musicBtn];
     
 }
 
 - (IBAction)printClick:(id)sender {
-    self.printBtn.selected = !self.printBtn.selected;
+    [self hobbyAction:self.printBtn];
     
 }
 
 - (IBAction)instrumentClick:(id)sender {
-    self.intrusmentBtn.selected = !self.intrusmentBtn.selected;
+    [self hobbyAction:self.intrusmentBtn];
     
 }
 
 - (IBAction)gameClick:(id)sender {
-    self.gameBtn.selected = !self.gameBtn.selected;
+    [self hobbyAction:self.gameBtn];
     
 }
 
 - (IBAction)movieClick:(id)sender {
-    self.movieBtn.selected = !self.movieBtn.selected;
+    [self hobbyAction:self.movieBtn];
     
 }
 
 - (IBAction)foodClick:(id)sender {
-    self.foodBtn.selected = !self.foodBtn.selected;
+    [self hobbyAction:self.foodBtn];
 }
 
 - (IBAction)chatClick:(id)sender {
-    self.chatBtn.selected = !self.chatBtn.selected;
+    [self hobbyAction:self.chatBtn];
     
 }
 - (IBAction)travelClick:(id)sender {
-    self.travelBtn.selected = !self.travelBtn.selected;
+    [self hobbyAction:self.travelBtn];
     
 }
 
 - (IBAction)readClick:(id)sender {
-    self.readBtn.selected = !self.readBtn.selected;
+    [self hobbyAction:self.readBtn];
     
 }
 
 - (IBAction)motionClick:(id)sender {
-    self.motionBtn.selected = !self.motionBtn.selected;
+    [self hobbyAction:self.motionBtn];
     
 }
 - (IBAction)chessClick:(id)sender {
-    self.chessBtn.selected = !self.chessBtn.selected;
+    [self hobbyAction:self.chessBtn];
     
 }
 //性格
 - (IBAction)quiteClick:(id)sender {
-    self.quiteBtn.selected = !self.quiteBtn.selected;
+    [self characterAction:self.quiteBtn];
     
+}
+-(void)characterAction:(UIButton *)btn{
+    if (self.count2>1) {
+        if(btn.selected){
+            self.count2--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            [self showMessage:@"性格最多选择两项，请取消其他项，重新选择"];
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count2++;
+        }else{
+            self.count2--;
+        }
+        
+    }
 }
 
 - (IBAction)smailClick:(id)sender {
-    self.smailBtn.selected = !self.smailBtn.selected;
+    [self characterAction:self.smailBtn];
     
 }
 - (IBAction)beautyClick:(id)sender {
-    self.beautyBtn.selected = !self.beautyBtn.selected;
+    [self characterAction:self.beautyBtn];
     
 }
 
 - (IBAction)moneyClick:(id)sender {
-    self.moneyBtn.selected = !self.moneyBtn.selected;
+    [self characterAction:self.moneyBtn];
     
 }
 - (IBAction)quickClick:(id)sender {
-    self.quickBtn.selected = !self.quickBtn.selected;
+    [self characterAction:self.quickBtn];
     
 }
 
 - (IBAction)frivoClick:(id)sender {
-    self.frivoBtn.selected = !self.frivoBtn.selected;
+    [self characterAction:self.frivoBtn];
     
 }
 
 - (IBAction)unfaithClick:(id)sender {
-    self.unfaithBtn.selected = !self.unfaithBtn.selected;
+    [self characterAction:self.unfaithBtn];
     
 }
 
 
 - (IBAction)douClick:(id)sender {
-    self.douBtn.selected = !self.douBtn.selected;
+    [self characterAction:self.douBtn];
     
 }
 
 - (IBAction)livelyClick:(id)sender {
-    self.livelyBtn.selected = !self.livelyBtn.selected;
+    [self characterAction:self.livelyBtn];
     
 }
 
 - (IBAction)coolClick:(id)sender {
-    self.coolBtn.selected = !self.coolBtn.selected;
+    [self characterAction:self.coolBtn];
     
 }
 
 - (IBAction)honeyClick:(id)sender {
-    self.honestBtn.selected = !self.honestBtn.selected;
+    [self characterAction:self.honestBtn];
     
 }
 - (IBAction)cuteClick:(id)sender {
-    self.cuteBtn.selected = !self.cuteBtn.selected;
+    [self characterAction:self.cuteBtn];
     
 }
 #pragma mark-textField-Delegate
@@ -1275,6 +1320,19 @@
         vc = vc.presentingViewController;
     }
     [vc dismissViewControllerAnimated:YES completion:nil];
+    
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
     
 }
 //解决scrollView的屏幕适配

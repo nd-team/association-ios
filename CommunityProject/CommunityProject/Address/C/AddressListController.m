@@ -260,6 +260,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendListURL] andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取好友列表失败：%@",error);
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing || weakSelf.dataArr.count != 0) {
                 for (FriendsListModel * model in weakSelf.dataArr) {
@@ -296,7 +297,7 @@
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
-                NSSLog(@"获取失败");
+                [weakSelf showMessage:@"加载好友列表失败，下拉刷新重试！"];
             }
         }
         
@@ -440,6 +441,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TESTURL] andParams:@{@"userId":self.userID,@"mobile":mobile} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"通讯录失败：%@",error);
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -464,6 +466,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friend,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -529,6 +532,8 @@
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friend name:name portrait:encodeUrl];
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friend];
                 [weakSelf.navigationController pushViewController:detail animated:YES];
+            }else{
+                [weakSelf showMessage:@"加载好友详情失败"];
             }
         }
     }];
@@ -553,6 +558,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -598,6 +604,8 @@
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friendId name:dict[@"nickname"] portrait:encodeUrl];
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friendId];
                 [weakSelf.navigationController pushViewController:detail animated:YES];
+            }else{
+                [weakSelf showMessage:@"加载好友详情失败"];
             }
         }
     }];
@@ -679,6 +687,19 @@
         _searchArr = [NSMutableArray new];
     }
     return _searchArr;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 //手势代理方法
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{

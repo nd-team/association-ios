@@ -11,4 +11,5 @@
 @interface UIView (ChatWhiteView)
 +(UIView *)createWhiteView:(NSString *)title andImageName:(NSString *)imgName andFont:(CGFloat)font andColor
                           :(UIColor *)color;
++(UIView *)showViewTitle:(NSString *)title;
 @end

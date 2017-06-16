@@ -49,8 +49,6 @@
     [self getInterestListData:@"1"];
 }
 -(void)setBar{
-//    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
-//    self.navigationItem.title = @"兴趣联盟";
     UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 40, 30) andMove:-30 image:@"createInterest" and:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
@@ -77,12 +75,10 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,InterestURL] andParams:@{@"userId":userId,@"hobbyId":hobby} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取兴趣联盟列表失败%@",error);
+            [weakSelf showMessage:@"加载兴趣联盟失败"];
         }else{
             //保存到数据库里
             if (weakSelf.rightArr.count != 0) {
-//                for (InterestModel * model in weakSelf.rightArr) {
-//
-//                }
                 [weakSelf.rightArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
@@ -96,6 +92,8 @@
                     }
                 }
                 [weakSelf.rightTbView reloadData];
+            }else{
+                [weakSelf showMessage:@"加载兴趣联盟失败"];
             }
             
         }
@@ -286,6 +284,20 @@
     }
 
 }
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
+}
+
 -(NSArray *)leftArr{
     if (!_leftArr) {
         _leftArr = @[@"动漫",@"音乐",@"舞蹈",@"书法",@"美术",@"魔术",@"汽车",@"运动",@"美食",@"养生",@"旅游",@"钓鱼",@"天文",@"亲子",@"宠物",@"娱乐",@"小说"];

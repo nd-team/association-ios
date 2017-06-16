@@ -53,13 +53,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUI];
-//    WeakSelf;
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,0.001*NSEC_PER_SEC),dispatch_get_main_queue(), ^{
-//        [HUDTool showLoadView:[UIApplication sharedApplication].keyWindow withText:@"正在加载..." andHudBlock:^{
-            [self getVoteDetailData];
-//        }];
-//    });
-    
+    WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getVoteDetailData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+    });    
 }
 -(void)setUI{
     self.navigationItem.title = @"群投票";
@@ -93,6 +94,8 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,VoteDetailURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取投票详情失败%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
+
         }else{
 
             NSNumber * code = data[@"code"];
@@ -124,6 +127,8 @@
                     [weakSelf.titleArr addObject:model];
                 }
                 [weakSelf.tableView reloadData];
+            }else{
+                [weakSelf showMessage:@"加载投票详情失败"];
             }
         }
     }];
@@ -192,12 +197,12 @@
 - (IBAction)voteClick:(id)sender {
     //多选
     if (self.voteIdArr.count == 0 && !self.isSingle) {
-        NSSLog(@"没有选中");
+        [self showMessage:@"请选择"];
         return;
     }
     //单选
     if (self.idStr == nil && self.isSingle) {
-        NSSLog(@"没有选中");
+        [self showMessage:@"请选择"];
         return;
     }
     NSSLog(@"%@==%@",self.voteIdArr,self.idStr);
@@ -218,6 +223,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,VoteURL] andParams:dics returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"投票失败%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -226,20 +232,33 @@
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 });
             }else if ([code intValue] == 0) {
-                NSSLog(@"未知失败");
-            }else if ([code intValue] == 101) {
-                NSSLog(@"投票时间已结束");
-            }else if ([code intValue] == 102) {
-                NSSLog(@"已投票，请勿重复提交");
-            }else if ([code intValue] == 103) {
-                NSSLog(@"投票已失效/已关闭");
-
+                [weakSelf showMessage:@"投票失败"];
+            }else if ([code intValue] == 1016) {
+                [weakSelf showMessage:@"投票时间已结束"];
+            }else if ([code intValue] == 1017) {
+                [weakSelf showMessage:@"已投票，请勿重复提交"];
+            }else if ([code intValue] == 1018) {
+                [weakSelf showMessage:@"投票已失效/已关闭"];
+            }else if ([code intValue] == 1019) {
+                [weakSelf showMessage:@"没有此选项"];
             }
         }
     }];
 
 }
-
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
+}
 -(NSMutableArray *)titleArr{
     if (!_titleArr) {
         _titleArr = [NSMutableArray new];

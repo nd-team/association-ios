@@ -80,11 +80,11 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
             }
-//            NSSLog(@"%@",data);
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
@@ -98,10 +98,12 @@
                     [weakSelf.tableView reloadData];
                     [weakSelf.tableView.mj_header endRefreshing];
                     [weakSelf.tableView.mj_footer endRefreshing];
-  
+                    
                 }
-//                NSSLog(@"%@",arr);
-                }
+            }else{
+                [weakSelf showMessage:@"加载朋友圈失败，下拉刷新重试！"];
+
+            }
             
         }
     }];
@@ -111,6 +113,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,UnreadURL] andParams:@{@"userId":self.userId,@"type":@"2"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取未读消息失败%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -146,6 +149,8 @@
                 weakSelf.tableView.tableHeaderView = weakSelf.headerView;
                 [weakSelf.headerView layoutIfNeeded];
                 [weakSelf.tableView endUpdates];
+            }else{
+                [weakSelf showMessage:@"加载消息失败！"];
             }
             
         }
@@ -208,6 +213,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ZanURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈点赞失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -225,13 +231,12 @@
                 [UIView performWithoutAnimation:^{
                     [weakSelf.tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
                 }];
-            }else if ([code intValue] == 100){
-                NSSLog(@"多次点赞失败");
-                
-            }else if ([code intValue] == 101){
-                NSSLog(@"非朋友点赞失败");
+            }else if ([code intValue] == 1029){
+                [weakSelf showMessage:@"多次点赞失败"];
+            }else if ([code intValue] == 1030){
+                [weakSelf showMessage:@"非朋友点赞失败"];
             }else{
-                NSSLog(@"点赞失败");
+                [weakSelf showMessage:@"点赞失败"];
             }
         }
         
@@ -297,6 +302,19 @@
     [self.tableView endUpdates];
 //发送通知到发现隐藏消息提示并清空
     [[NSNotificationCenter defaultCenter]postNotificationName:@"CircleMessage" object:nil];
+    
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
     
 }
 -(NSMutableArray *)dataArr{

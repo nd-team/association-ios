@@ -40,6 +40,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             if (weakSelf.dataArr.count !=0||weakSelf.tableView.mj_header.isRefreshing) {
                 
@@ -55,6 +56,8 @@
                 }
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];
+            }else{
+                [weakSelf showMessage:@"加载我的认领失败，下拉刷新重试"];
             }
         }
     }];
@@ -74,6 +77,19 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //
     return self.dataArr.count;
+    
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
     
 }
 -(NSMutableArray *)dataArr{

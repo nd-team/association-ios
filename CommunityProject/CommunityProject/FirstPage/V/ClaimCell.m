@@ -47,21 +47,28 @@
 }
 
 - (IBAction)calimClick:(id)sender {
-    UIButton * button = (UIButton *)sender;
-    ClaimCell * cell = (ClaimCell *)[[button superview]superview];
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    ClaimModel * model = self.dataArr[indexPath.row];
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
-    ClaimInfoController * info = [sb instantiateViewControllerWithIdentifier:@"ClaimInfoController"];
-    info.claimUserId = model.userId;
-    info.url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.userPortraitUrl]];
-    if (model.fullName.length !=0) {
-        info.name = model.fullName;
-    }else{
-        info.name = model.nickname;
-    }
+    //如果不是VIP提示用户
+    NSInteger  vip = [DEFAULTS integerForKey:@"checkVip"];
+    if (vip == 1) {
+        UIButton * button = (UIButton *)sender;
+        ClaimCell * cell = (ClaimCell *)[[button superview]superview];
+        NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+        ClaimModel * model = self.dataArr[indexPath.row];
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
+        ClaimInfoController * info = [sb instantiateViewControllerWithIdentifier:@"ClaimInfoController"];
+        info.claimUserId = model.userId;
+        info.url = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.userPortraitUrl]];
+        if (model.fullName.length !=0) {
+            info.name = model.fullName;
+        }else{
+            info.name = model.nickname;
+        }
+        
+        self.block(info);
 
-    self.block(info);
+    }else{
+        
+    }
 }
 
 @end

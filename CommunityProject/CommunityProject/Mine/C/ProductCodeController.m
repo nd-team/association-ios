@@ -101,7 +101,7 @@
     [shareParams SSDKEnableUseClientShare];
     [shareParams SSDKSetShareFlags:@[@"来自社群联盟平台"]];
     //2、分享（可以弹出我们的分享菜单和编辑界面）
-//    WeakSelf;
+    WeakSelf;
     [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
                              items:nil
                        shareParams:shareParams
@@ -116,8 +116,7 @@
                        }
                        case SSDKResponseStateFail:
                        {
-                           NSSLog(@"分享失败");
-//                           [weakSelf showMessage:@"分享失败"];
+                           [weakSelf showMessage:@"分享失败"];
                                                       break;
                        }
                        default:
@@ -126,10 +125,17 @@
                }
      ];
 }
--(void)showMessage:(NSString *)title{
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [alertVC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
     
-    [self presentViewController:alertVC animated:YES completion:nil];
 }
 @end

@@ -68,20 +68,14 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AddFriendURL] andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"添加好友失败：%@",error);
-            if ([self.buttonName isEqualToString:@"申请加群"]) {
-                [weakSelf showMessage:@"申请入群失败"];
-                
-            }else{
-                [weakSelf showMessage:@"添加好友失败"];
-                
-            }
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 });
-            }else if ([code intValue] == 11){
+            }else if ([code intValue] == 100){
                 if ([self.buttonName isEqualToString:@"申请加群"]) {
                     [weakSelf showMessage:@"已经入群"];
 
@@ -103,8 +97,16 @@
     }];
 }
 -(void)showMessage:(NSString *)msg{
-    [MessageAlertView alertViewWithTitle:msg message:nil buttonTitle:@[@"确定"] Action:^(NSInteger indexpath) {
-        NSSLog(@"%@",msg);
-    } viewController:self];
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 @end

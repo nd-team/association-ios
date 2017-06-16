@@ -109,6 +109,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,PlatformDetailURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"平台活动数据请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -155,7 +156,7 @@
                     [weakSelf.collectionView reloadData];
                 }
             }else{
-                NSSLog(@"请求平台活动数据失败");
+                [weakSelf showMessage:@"加载平台活动详情失败"];
             }
         }
     }];
@@ -220,6 +221,7 @@
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);
             weakSelf.loveBtn.selected = NO;
+            [self showMessage:@"平台点赞失败"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -231,11 +233,13 @@
                 }
                 [weakSelf.loveBtn setTitle:self.likes forState:UIControlStateNormal];
 
-            }else if ([code intValue] == 100){
+            }else if ([code intValue] == 1029){
                 weakSelf.loveBtn.selected = NO;
+                [self showMessage:@"平台多次点赞失败"];
 
-            }else if ([code intValue] == 101){
+            }else{
                 weakSelf.loveBtn.selected = NO;
+                [self showMessage:@"平台点赞失败"];
             }
         }
         
@@ -271,15 +275,19 @@
 - (IBAction)sureSignClick:(id)sender {
     //提示用户要填写完整
     if (self.nameTF.text.length == 0) {
+        [self showMessage:@"请填写姓名"];
         return;
     }
     if (self.phoneTF.text.length == 0) {
+        [self showMessage:@"请填写电话"];
         return;
     }
     if (self.wechatTF.text.length == 0) {
+        [self showMessage:@"请填写微信"];
         return;
     }
     if (self.companyTF.text.length == 0) {
+        [self showMessage:@"请填写公司"];
         return;
     }
     NSMutableDictionary * mDic = [NSMutableDictionary new];
@@ -294,20 +302,20 @@
         if (error) {
             NSSLog(@"平台报名失败：%@",error);
             weakSelf.signBtn.enabled = YES;
-            NSSLog(@"报名失败");
+            [weakSelf showMessage:@"报名失败"];
         }else{
             
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 weakSelf.backView.hidden = YES;
                 weakSelf.signBtn.enabled = NO;
-            }else if ([code intValue] == 100){
-                NSSLog(@"已报名");
-            }else if ([code intValue] == 101){
-                NSSLog(@"报名失败");
+            }else if ([code intValue] == 1032){
+                [weakSelf showMessage:@"已报名"];
+            }else if ([code intValue] == 1033){
+                [weakSelf showMessage:@"报名失败"];
                 weakSelf.signBtn.enabled = YES;
             }else{
-                NSSLog(@"报名失败");
+                [weakSelf showMessage:@"报名失败"];
                 weakSelf.signBtn.enabled = YES;
             }
         }
@@ -322,6 +330,19 @@
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
+}
 -(NSMutableArray *)collectArr{
     if (!_collectArr) {
         _collectArr = [NSMutableArray new];
@@ -332,12 +353,6 @@
 -(void)viewWillLayoutSubviews{
     
     [super viewWillLayoutSubviews];
-//    if (KMainScreenWidth == 375) {
-//        self.viewWidthCons.constant = KMainScreenWidth+5;
-//    }else{
-        self.viewWidthCons.constant = KMainScreenWidth;
-        
-//    }
-    
+    self.viewWidthCons.constant = KMainScreenWidth;
 }
 @end

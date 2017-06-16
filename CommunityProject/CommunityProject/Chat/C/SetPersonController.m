@@ -114,6 +114,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"otherUserId":self.friendId,@"status":@"1",@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
+            [weakSelf showMessage:@"加载好友详情失败"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -158,6 +159,8 @@
                 }
 
         
+            }else{
+                [weakSelf showMessage:@"加载好友详情失败"];
             }
         }
     }];
@@ -184,6 +187,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,DeleteURL] andParams:@{@"userId":self.userId,@"friendUserid":self.friendId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"删除好友失败%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -198,10 +202,26 @@
                         }
                     }
                 });
+            }else{
+                [weakSelf showMessage:@"删除好友失败"];
             }
         }
     }];
 }
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
+}
+
 //消息免打扰
 - (IBAction)messageClick:(id)sender {
     self.messageBtn.selected = !self.messageBtn.selected;
@@ -233,14 +253,13 @@
 #pragma mark- 解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.widthContraints.constant = KMainScreenWidth+5;
+    self.widthContraints.constant = KMainScreenWidth;
     if ((self.deleteView.frame.origin.y+75)<KMainScreenHeight) {
         self.scrollView.scrollEnabled = NO;
     }else{
         self.scrollView.scrollEnabled = YES;
   
     }
-//    NSSLog(@"%f==%f===%f",KMainScreenWidth,self.scrollView.frame.size.width,self.deleteView.frame.size.width);
 }
 
 @end

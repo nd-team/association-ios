@@ -8,7 +8,6 @@
 
 #import "OrdinaryRegisterController.h"
 #import "LoginController.h"
-#import "UIView+ChatMoreView.h"
 #import <SMS_SDK/SMSSDK.h>
 
 #define RegisterURL @"appapi/app/ordinaryRegister"
@@ -20,8 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *nicknameTF;
 @property (weak, nonatomic) IBOutlet UITextField *codeTF;
 @property (weak, nonatomic) IBOutlet UIButton *codeBtn;
-@property (nonatomic,strong) UIView * backView;
-@property (nonatomic,strong)UIWindow * window;
 @property (nonatomic,strong)NSTimer * timer;
 @property (nonatomic,assign)int count;
 
@@ -88,9 +85,9 @@
 - (IBAction)sendCodeClick:(id)sender {
     self.count = 120;
     if (self.phoneTF.text.length == 0) {
-        [self showBackViewUI:@"亲，请输入手机号码"];
+        [self showMessage:@"亲，请输入手机号码"];
     }else if (self.phoneTF.text.length !=11) {
-        [self showBackViewUI:@"亲，手机号码输入有误"];
+        [self showMessage:@"亲，手机号码输入有误"];
     }else{
         self.codeBtn.enabled = NO;
         [self.timer setFireDate:[NSDate distantPast]];
@@ -103,23 +100,32 @@
     [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.phoneTF.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
         if (!error) {
             NSSLog(@"获取验证码成功");
-            
+
         }else{
+
             NSSLog(@"获取验证码失败error:%@",error);
-            [self.timer setFireDate:[NSDate distantFuture]];
-            [self tapClick];
-            [weakSelf showBackViewUI:@"获取验证码失败，点击重新获取"];
-            self.codeBtn.enabled = YES;
+            [weakSelf.timer setFireDate:[NSDate distantFuture]];
+            [weakSelf tapClick];
+            weakSelf.codeBtn.enabled = YES;
+            [weakSelf showMessage:@"获取验证码失败，点击重新获取"];
+
         }
     }];
     
 }
 - (IBAction)registerClick:(id)sender {
+    int length = [ImageUrl convertToInt:self.nicknameTF.text];
+    if (length > 12) {
+        //请输入少于7个中文的昵称
+        [self showMessage:@"亲，昵称不可输入超过6个中文哦！"];
+        return;
+    }
+
     [self tapClick];
     if (self.nicknameTF.text.length != 0 && self.phoneTF.text.length != 0 && self.codeTF.text.length != 0 && self.passwordTF.text.length != 0) {
         [self netWork];
     }else{
-        [self showBackViewUI:@"亲，信息没有填写完整"];
+        [self showMessage:@"亲，信息没有填写完整"];
         
     }
 }
@@ -142,7 +148,7 @@
         
         if (status == AFNetworkReachabilityStatusNotReachable) {
             
-            [weakSelf showBackViewUI:@"你已进入网络异次元，快去打开网络吧！"];
+            [weakSelf showMessage:@"你已进入网络异次元，快去打开网络吧！"];
             
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -167,7 +173,7 @@
             NSSLog(@"验证成功");
             [weakSelf registerMessage];
         }else{
-            [weakSelf showBackViewUI:@"短信验证失败"];
+            [weakSelf showMessage:@"短信验证失败"];
             
         }
     }];
@@ -178,7 +184,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RegisterURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"注册失败：%@",error);
-            [weakSelf showBackViewUI:@"注册失败，请重新获取验证码！"];
+            [weakSelf showMessage:@"注册失败，请重新获取验证码！"];
         }else{
             NSNumber *code = data[@"code"];
             NSSLog(@"%@",code);
@@ -186,9 +192,9 @@
                 //登录
                 [weakSelf loginNet];
             }else if ([code intValue] == 1000){
-                [weakSelf showBackViewUI:@"验证码填写失误了么！"];
+                [weakSelf showMessage:@"验证码填写失误了么！"];
             }else if ([code intValue] == 0){
-                [weakSelf showBackViewUI:@"注册失败，请重新获取验证码！"];
+                [weakSelf showMessage:@"注册失败，请重新获取验证码！"];
             }
         }
     }];
@@ -200,7 +206,7 @@
         
         if (error) {
             NSSLog(@"登录失败：%@",error);
-            [weakSelf showBackViewUI:@"登录失败！"];
+            [weakSelf showMessage:@"登录失败！"];
 
         }else{
             NSNumber * code = data[@"code"];
@@ -252,32 +258,35 @@
                 if (![msg[@"favour"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"favour"] forKey:@"favour"];
                 }
+                //普通用户
+                [userDefaults setValue:@"1" forKey:@"status"];
                 [userDefaults synchronize];
                 //设置当前用户
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:msg[@"userId"]];
                 [weakSelf loginRongServicer:msg[@"token"]];
-                [weakSelf loginMain];
                 
             }else if ([code intValue] == 0){
-                [weakSelf showBackViewUI:@"账号不存在！"];
-            }else if ([code intValue] == 1000){
-                [weakSelf showBackViewUI:@"账号禁止登录！"];
-            }else if ([code intValue] == 1001){
-                [weakSelf showBackViewUI:@"密码错误！"];
+                [weakSelf showMessage:@"账号不存在！"];
+            }else if ([code intValue] == 1002){
+                [weakSelf showMessage:@"账号禁止登录！"];
+            }else if ([code intValue] == 1003){
+                [weakSelf showMessage:@"密码错误！"];
                 //清空登录信息
                 
             }else{
-                [weakSelf showBackViewUI:@"登录失败！"];
+                [weakSelf showMessage:@"登录失败！"];
             }
         }
     }];
 }
 //登录融云服务器
 -(void)loginRongServicer:(NSString *)token{
+    WeakSelf;
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
         NSSLog(@"登录成功%@",userId);
+        [weakSelf loginMain];
         //登录主界面
     } error:^(RCConnectErrorCode status) {
         NSSLog(@"错误码：%ld",(long)status);
@@ -327,26 +336,6 @@
     }
     
 }
--(void)showBackViewUI:(NSString *)title{
-    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-    self.backView = [UIView sureViewTitle:title andTag:130 andTarget:self andAction:@selector(buttonAction:)];
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
-    [self.backView addGestureRecognizer:tap];
-    [self.window addSubview:self.backView];
-    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(0);
-        make.left.equalTo(self.view);
-        make.width.mas_equalTo(KMainScreenWidth);
-        make.height.mas_equalTo(KMainScreenHeight);
-    }];
-}
--(void)buttonAction:(UIButton *)btn{
-    self.backView.hidden = YES;
-
-}
--(void)hideViewAction{
-    self.backView.hidden = YES;
-}
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     if (textField == self.phoneTF) {
         [self.phoneTF resignFirstResponder];
@@ -363,5 +352,18 @@
         [self tapClick];
     }
     return YES;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 @end

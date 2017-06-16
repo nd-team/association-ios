@@ -101,6 +101,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,HistorySignURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"签到日期请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             NSMutableDictionary * param = [NSMutableDictionary new];
@@ -121,7 +122,9 @@
                     [weakSelf.calendarView reloadData];
                 });
 
-                }
+            }else{
+                [weakSelf showMessage:@"加载签到日期失败"];
+            }
             
         }
     }];
@@ -138,6 +141,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SignInURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"签到请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -149,6 +153,10 @@
                 [weakSelf showBackViewUI:[NSString stringWithFormat:@"连续签到%@天，奖励%@贡献值",dict[@"days"],dict[@"experience"]]];
                //保存状态
                 weakSelf.signInBtn.enabled = NO;
+            }else if ([code intValue] == 1034){
+                [weakSelf showMessage:@"今天已签到"];
+            }else{
+                [weakSelf showMessage:@"签到失败"];
             }
             
         }
@@ -174,6 +182,19 @@
 }
 -(void)hideViewAction{
     self.backView.hidden = YES;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 //事件显示圆的线条颜色
 - (UIColor *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance borderDefaultColorForDate:(NSDate *)date

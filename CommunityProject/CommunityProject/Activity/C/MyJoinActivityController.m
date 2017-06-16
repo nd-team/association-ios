@@ -45,6 +45,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,JoinURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"我参与的平台活动数据请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing||self.dataArr.count != 0) {
                 [weakSelf.dataArr removeAllObjects];
@@ -59,7 +60,7 @@
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];
             }else{
-                NSSLog(@"我参与的请求平台活动数据失败");
+                [weakSelf showMessage:@"加载我参与的平台活动失败，下拉刷新重新"];
             }
         }
     }];
@@ -85,6 +86,19 @@
     detail.idStr = [NSString stringWithFormat:@"%ld",(long)model.id];
     [self.navigationController pushViewController:detail animated:YES];
 
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {

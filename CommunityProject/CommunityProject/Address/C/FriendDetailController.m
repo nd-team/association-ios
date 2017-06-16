@@ -149,6 +149,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,DeleteURL] andParams:@{@"userId":self.userId,@"friendUserid":self.friendId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"删除好友失败%@",error);
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -173,6 +174,8 @@
                         }
                     });
                 }
+            }else{
+                [weakSelf showMessage:@"删除好友失败"];
             }
         }
     }];
@@ -200,6 +203,19 @@
     nameVC.rightStr = @"保存";
     [self.navigationController pushViewController:nameVC animated:YES];
 
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 //发送消息
 - (IBAction)sendMessage:(id)sender {

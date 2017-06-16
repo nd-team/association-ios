@@ -40,6 +40,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MyJoinURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"公益活动数据请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出差错咯！"];
         }else{
             if (!weakSelf.tableView.mj_footer.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
@@ -54,7 +55,7 @@
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];
             }else{
-                NSSLog(@"请求公益活动数据失败");
+                [weakSelf showMessage:@"加载公益活动数据失败"];
             }
         }
     }];
@@ -90,5 +91,18 @@
         _dataArr = [NSMutableArray new];
     }
     return _dataArr;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 @end

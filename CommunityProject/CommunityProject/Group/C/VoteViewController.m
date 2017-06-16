@@ -88,11 +88,11 @@
 -(void)rightClick{
     NSSLog(@"%@",self.chooseArr);
     if (self.titleTV.text.length == 0) {
-//        [self showMessage:@"请输入投票标题"];
+        [self showMessage:@"请输入投票标题"];
         return;
     }
     if (self.chooseArr.count == 0) {
-//        [self showMessage:@"请输入投票选项"];
+        [self showMessage:@"请输入投票选项"];
         return;
     }
     NSString * type ;
@@ -110,7 +110,7 @@
     [UploadImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,CreateVoteURL] andParams:param andImage:self.headImageView.image getBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"发起投票%@",error);
-            //  [weakSelf showMessage:@"创建投票失败"];
+              [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -124,18 +124,19 @@
                     
                     
                 } success:^(long messageId) {
-                    NSSLog(@"发送成功")
+                    NSSLog(@"发送成功");
                   
                 } error:^(RCErrorCode errorCode, long messageId) {
-                    NSSLog(@"发送失败")
+                    [weakSelf showMessage:@"发送失败"];
                 } cancel:^(long messageId) {
-                   
-                    NSSLog(@"取消了发送");
+                    [weakSelf showMessage:@"取消了发送"];
                 }];
                 weakSelf.delegate.isRef = YES;
                 [weakSelf leftClick];
+            }else if ([code intValue] == 1015){
+                [weakSelf showMessage:@"请上传文件"];
             }else{
-                // [weakSelf showMessage:@"创建投票失败"];
+                 [weakSelf showMessage:@"创建投票失败"];
             }
         }
 
@@ -278,5 +279,17 @@
     }
     return YES;
 }
-
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
+}
 @end

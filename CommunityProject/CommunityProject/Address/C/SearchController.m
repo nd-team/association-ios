@@ -38,10 +38,6 @@
 
 @property (nonatomic,copy) NSString * userId;
 
-//@property (nonatomic,strong)UIView * msgView;
-//
-//@property (nonatomic,strong)UIWindow * window;
-
 @end
 
 @implementation SearchController
@@ -87,6 +83,8 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,KnowURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取可能认识的人失败%@",error);
+            
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -96,6 +94,8 @@
                     [weakSelf.collectionArr addObject:model];
                 }
                 [weakSelf.collectionView reloadData];
+            }else{
+                [weakSelf showMessage:@"加载失败"];
             }
             
         }
@@ -117,7 +117,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SearchURL] andParams:@{@"number":phone,@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"搜索获取失败%@",error);
-            //            [weakSelf showMessage:@"获取失败"];
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             if (weakSelf.personArr.count != 0) {
                 [weakSelf.personArr removeAllObjects];
@@ -146,7 +146,7 @@
                 [weakSelf.tableView reloadData];
                 
             }else if ([code intValue] == 0){
-                //                [weakSelf showMessage:@"获取失败"];
+                [weakSelf showMessage:@"搜索失败"];
             }
         }
     }];
@@ -187,15 +187,15 @@
 
  -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
      if (self.isPerson == 1) {
-        
+         WeakSelf;
          SearchFriendModel * model = self.personArr[indexPath.row];
          //请求网络获取朋友的基本信息
          [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":self.userId,@"status":@"1",@"otherUserId":model.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
              if (error) {
                  NSSLog(@"好友详情请求失败：%@",error);
+                 [weakSelf showMessage:@"服务器出问题咯"];
              }else{
                  NSNumber * code = data[@"code"];
-                 NSSLog(@"%@",data);
                  if ([code intValue] == 200) {
                      NSDictionary * dict = data[@"data"];
                       UnknownFriendDetailController * know = [[UIStoryboard storyboardWithName:@"Address" bundle:nil]instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
@@ -237,6 +237,8 @@
                      }
                      know.isRegister = YES;
                      [self.navigationController pushViewController:know animated:YES];
+                 }else{
+                     [weakSelf showMessage:@"加载好友详情失败"];
                  }
              }
          }];
@@ -284,26 +286,19 @@
     ScanCodeViewController * code = [ScanCodeViewController new];
     [self.navigationController pushViewController:code animated:YES];
 }
-/*
--(void)showBackViewUI:(NSString *)title{
-    
-    self.msgView = [UIView showMessageTitle:title andTarget:self andSel:@selector(hideViewAction)];
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
-    
-    [self.msgView addGestureRecognizer:tap];
-    
-    [self.window addSubview:self.msgView];
-    [self.msgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(-64);
-        make.left.equalTo(self.view);
-        make.width.mas_equalTo(KMainScreenWidth);
-        make.height.mas_equalTo(KMainScreenHeight);
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
     }];
+    
 }
--(void)hideViewAction{
-    self.msgView.hidden = YES;
-}
-*/
 -(NSMutableArray *)personArr{
     if (!_personArr) {
         _personArr = [NSMutableArray new];

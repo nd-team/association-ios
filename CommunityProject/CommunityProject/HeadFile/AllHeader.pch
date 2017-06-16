@@ -37,6 +37,8 @@
 
 #import "AFSecuteCertificate.h"
 
+#import "UIView+ChatWhiteView.h"
+
 //解决ios10真机不打印的问题 哪个文件，哪行，自己打印的数据
 
 #ifdef DEBUG

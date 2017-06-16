@@ -86,6 +86,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *chessBtn;
 //计数 爱好选中3项 第四次的时候提示用户 并且不能选中
 @property (nonatomic,assign)NSInteger count;
+//提示框
+@property (nonatomic,strong)UIView * msgView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
 
@@ -105,7 +109,6 @@
     
     UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 50, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:@"保存" andLeft:15 andTarget:self Action:@selector(saveInfo)];
     self.navigationItem.rightBarButtonItem = rightItem;
-
     [self setUI];
 }
 //初始化传参过来的数据
@@ -142,7 +145,6 @@
     NSInteger expCount = [self.expCount integerValue];
     float a = (float)(preCount+4)/300;
     float b = (float)(expCount+4)/300;
-//    NSSLog(@"%.2f,%.2f",a,b);
     self.preRightWidthCons.constant = (1-a)*138;
     self.preLeftWidthCons.constant = a*138;
     self.conLeftWidthCons.constant = b*138;
@@ -169,8 +171,8 @@
     self.emailTF.text = self.email;
     //爱好
     
-   
      NSString * hobby = [DEFAULTS objectForKey:@"favour"];
+    NSSLog(@"%@",hobby);
     if ([hobby containsString:@"舞蹈"]) {
         self.danceBtn.selected = YES;
         self.count++;
@@ -245,6 +247,13 @@
     
 }
 -(void)saveInfo{
+    //昵称长度超过12提示用户
+    int length = [ImageUrl convertToInt:self.nicknameLabel.text];
+    if (length > 12) {
+        //请输入少于7个中文的昵称
+        [self showMessage:@"亲，昵称不可输入超过6个中文哦！"];
+        return;
+    }
     [self resign];
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -310,6 +319,7 @@
     [UploadImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,SaveInfoURL] andParams:params andImage:self.headImage getBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"修改个人信息失败:%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -325,7 +335,6 @@
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:[RCIM sharedRCIM].currentUserInfo.userId];
                     
                 }
-                [DEFAULTS setValue:weakSelf.birthday forKey:@"birthday"];
                 [DEFAULTS setValue:weakSelf.emailTF.text forKey:@"email"];
                 [DEFAULTS setValue:[NSString stringWithFormat:@"%@%@%@",weakSelf.provinceTF.text,weakSelf.cityTF.text,weakSelf.countryTF.text] forKey:@"address"];
                 [DEFAULTS setInteger:weakSelf.sexInt forKey:@"sex"];
@@ -338,7 +347,8 @@
                 weakSelf.delegete.isRef = YES;
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else{
-                NSSLog(@"修改个人信息失败");
+                [weakSelf showMessage:@"修改个人信息失败"];
+
             }
         }
     }];
@@ -558,71 +568,97 @@
 -(void)viewWillLayoutSubviews{
     
     [super viewWillLayoutSubviews];
-    if (KMainScreenWidth == 375) {
-        self.viewWidthCons.constant = KMainScreenWidth+5;
-    }else{
-        self.viewWidthCons.constant = KMainScreenWidth;
+    self.viewWidthCons.constant = KMainScreenWidth;
   
-    }
-    
 }
 - (IBAction)danceClick:(id)sender {
-    self.danceBtn.selected = !self.danceBtn.selected;
+    [self hobbyAction:self.danceBtn];
     
 }
-
+-(void)hobbyAction:(UIButton *)btn{
+    if (self.count>2) {
+        if(btn.selected){
+            self.count--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            [self showMessage:@"爱好最多选择3项哦！"];
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count++;
+        }else{
+            self.count--;
+        }
+        
+    }
+}
 - (IBAction)musicClick:(id)sender {
-    self.musicBtn.selected = !self.musicBtn.selected;
+    [self hobbyAction:self.musicBtn];
+
     
 }
 
 - (IBAction)printClick:(id)sender {
-    self.printBtn.selected = !self.printBtn.selected;
-    
+    [self hobbyAction:self.printBtn];
+
 }
 
 - (IBAction)instrumentClick:(id)sender {
-    self.intrusmentBtn.selected = !self.intrusmentBtn.selected;
-    
+    [self hobbyAction:self.intrusmentBtn];
+
 }
 
 - (IBAction)gameClick:(id)sender {
-    self.gameBtn.selected = !self.gameBtn.selected;
-    
+    [self hobbyAction:self.gameBtn];
+
 }
 
 - (IBAction)movieClick:(id)sender {
-    self.movieBtn.selected = !self.movieBtn.selected;
-    
+    [self hobbyAction:self.movieBtn];
+
 }
 
 - (IBAction)foodClick:(id)sender {
-    self.foodBtn.selected = !self.foodBtn.selected;
+    [self hobbyAction:self.foodBtn];
+
 }
 
 - (IBAction)chatClick:(id)sender {
-    self.chatBtn.selected = !self.chatBtn.selected;
-    
+    [self hobbyAction:self.chatBtn];
+
 }
 - (IBAction)travelClick:(id)sender {
-    self.travelBtn.selected = !self.travelBtn.selected;
-    
+    [self hobbyAction:self.travelBtn];
 }
 
 - (IBAction)readClick:(id)sender {
-    self.readBtn.selected = !self.readBtn.selected;
+    [self hobbyAction:self.readBtn];
     
 }
 
 - (IBAction)motionClick:(id)sender {
-    self.motionBtn.selected = !self.motionBtn.selected;
+    [self hobbyAction:self.motionBtn];
     
 }
 - (IBAction)chessClick:(id)sender {
-    self.chessBtn.selected = !self.chessBtn.selected;
+    [self hobbyAction:self.chessBtn];
     
 }
-
+-(void)showMessage:(NSString *)msg{
+    self.msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:self.msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        self.msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            self.msgView.hidden = YES;
+        }];
+    }];
+    
+}
 -(NSMutableArray *)provinceArr{
     if (!_provinceArr) {
         _provinceArr = [NSMutableArray new];

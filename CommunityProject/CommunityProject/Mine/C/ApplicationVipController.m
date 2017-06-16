@@ -32,9 +32,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)enterpriceClick:(id)sender {
+    
 }
 - (IBAction)otherEnterpriseClick:(id)sender {
+    
 }
+//个人VIP申请
 - (IBAction)personClick:(id)sender {
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
     ApplicationPersonVipController * vip = [sb instantiateViewControllerWithIdentifier:@"ApplicationPersonVipController"];

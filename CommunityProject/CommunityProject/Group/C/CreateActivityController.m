@@ -187,8 +187,8 @@
     if (self.area.length != 0 && self.limitPeople.length != 0 && self.name.length != 0 && self.recommendStr.length != 0&&self.startTimeLabel.text.length != 0 && self.endTF.text.length != 0 && self.actImage.image != nil&& self.endTimeLabel.text.length != 0) {
         [self postCreateActivity];
     }else{
+        [self showMessage:@"请填写完整信息"];
         return;
-//        [self showMessage:@"请填写完整信息"];
     }
  
 }
@@ -200,7 +200,7 @@
     [UploadActImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,CreateActivityURL] andParams:params andArray:self.dataArr getBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"建活动失败%@",error);
-//            [weakSelf showMessage:@"创建活动失败"];
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -217,22 +217,35 @@
                     
                 } error:^(RCErrorCode errorCode, long messageId) {
                     //发送失败
-//                    [weakSelf showMessage:@"发送消息失败"];
+                    [weakSelf showMessage:@"发送消息失败"];
 
                 } cancel:^(long messageId) {
                     //取消发送消息
-//                    [weakSelf showMessage:@"你取消了发送消息"];
+                    [weakSelf showMessage:@"你取消了发送消息"];
                     
                 }];
                 [weakSelf back];
 
             }else{
-//                [weakSelf showMessage:@"创建活动失败"];
+                [weakSelf showMessage:@"创建活动失败"];
             }
         }
 
     }];
 
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(void)back{
     WeakSelf;

@@ -329,6 +329,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupInfoURL] andParams:@{@"groupId":self.targetId,@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取群组信息失败：%@",error);
+            [weakSelf showMessage:@"服务器请求群组信息失败"];
             weakSelf.rightItemTwo.enabled = YES;
 
         }else{
@@ -384,6 +385,8 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
                     [self.navigationController pushViewController:host animated:YES];
                 }
                 weakSelf.rightItemTwo.enabled = YES;
+            }else{
+                [weakSelf showMessage:@"加载群组信息失败"];
             }
         }
     }];
@@ -503,6 +506,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TESTURL] andParams:@{@"userId":self.userId,@"mobile":selectUserId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"判断是否为好友失败：%@",error);
+            [weakSelf showMessage:@"服务器请求失败"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -518,6 +522,8 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
                         [weakSelf pushFriendId:NO andUserId:selectUserId];
                     }
                 }
+            }else{
+//                [weakSelf showMessage:@""];
             }
         }
     }];
@@ -528,6 +534,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":userId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
+            [weakSelf showMessage:@"服务器请求失败"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -640,10 +647,25 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
                     [weakSelf.navigationController pushViewController:detail animated:YES];
 
                 }
+            }else{
+                [weakSelf showMessage:@"加载好友数据失败"];
             }
         }
     }];
   
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 //点击电话号码回调 打电话
 -(void)didTapPhoneNumberInMessageCell:(NSString *)phoneNumber model:(RCMessageModel *)model{

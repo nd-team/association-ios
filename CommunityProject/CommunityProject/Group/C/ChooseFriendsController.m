@@ -126,6 +126,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MemberURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取群成员失败%@",error);
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             if (weakSelf.dataArr.count != 0 || weakSelf.sectionArr.count != 0 || weakSelf.rowArr.count != 0) {
                 [weakSelf.dataArr removeAllObjects];
@@ -147,6 +148,8 @@
                 weakSelf.rowArr = [BMChineseSort sortObjectArray:weakSelf.dataArr Key:@"userName"];
                 [weakSelf.tableView reloadData];
 
+            }else{
+                [weakSelf showMessage:@"获取群成员失败"];
             }
             
         }
@@ -158,6 +161,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendListURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取好友列表失败：%@",error);
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             if (weakSelf.dataArr.count != 0 || weakSelf.sectionArr.count != 0 || weakSelf.rowArr.count != 0) {
                 [weakSelf.dataArr removeAllObjects];
@@ -192,7 +196,7 @@
                 }
                 [weakSelf.tableView reloadData];
             }else if ([code intValue] == 0){
-                NSSLog(@"获取失败");
+                [weakSelf showMessage:@"加载好友列表失败"];
             }
         }
         
@@ -323,7 +327,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,url] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"踢人/拉人/新建群聊失败%@",error);
-//            [weakSelf showMessage:@"踢人失败"];
+            [weakSelf showMessage:@"服务器出问题咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -335,7 +339,7 @@
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 });
             }else{
-//                [weakSelf showMessage:@"踢人失败"];
+                [weakSelf showMessage:@"踢/拉/新建群聊人失败"];
             }
         }
     }];
@@ -345,19 +349,22 @@
 -(void)addManager{
     WeakSelf;
     NSDictionary * dict = @{@"groupId":self.groupId,@"userId":self.hostId,@"groupUserId":self.managerId};
-    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MemberURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ManagerURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"添加管理员失败%@",error);
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 });
-            }else if ([code intValue] == 101){
-                NSSLog(@"已经是管理员");
-            }else if ([code intValue] == 102){
-                NSSLog(@"副群主已存在");
+            }else if ([code intValue] == 1005){
+                [weakSelf showMessage:@"已经是管理员"];
+            }else if ([code intValue] == 100){
+                [weakSelf showMessage:@"副群主已存在"];
+            }else{
+                [weakSelf showMessage:@"选择副群主失败"];
             }
             
         }
@@ -535,6 +542,19 @@
         }
     }
         [self.tableView reloadData];
+    
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
     
 }
 -(NSMutableArray *)dataArr{

@@ -70,6 +70,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ActURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取活动列表失败%@",error);
+            [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing||weakSelf.dataArr.count != 0) {
                 for (ActivityListModel * model in weakSelf.dataArr) {
@@ -81,7 +82,6 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * array = data[@"data"];
-                NSSLog(@"%@",array);
                 for (NSDictionary * dic in array) {
                     ActivityListModel * model = [[ActivityListModel alloc]initWithDictionary:dic error:nil];
                     [[ActivityListDatabaseSingleton shareDatabase]insertDatabase:model];
@@ -90,7 +90,7 @@
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
             }else{
-                NSSLog(@"%@",data[@"msgs"]);
+                [weakSelf showMessage:[NSString stringWithFormat:@"%@,下拉加载重试",data[@"msgs"]]];
             }
         }
     }];
@@ -160,6 +160,19 @@
         create.userID = self.userID;
         create.delegate = self;
     }
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {

@@ -103,6 +103,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,PublicDetailURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"公益数据请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -128,17 +129,6 @@
                 }else{
                     weakSelf.loveBtn.selected = YES;
                 }
-//                if (dict[@"likes"] == nil) {
-//                    [weakSelf.loveBtn setTitle:@"" forState:UIControlStateNormal];
-//                }else{
-//                    [weakSelf.loveBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"likes"]] forState:UIControlStateNormal];
-//                    weakSelf.likes = [NSString stringWithFormat:@"%@",dict[@"likes"]];
-//                }
-//                if (dict[@"commentNumber"] == nil) {
-//                    [weakSelf.commentBtn setTitle:@"" forState:UIControlStateNormal];
-//                }else{
-//                    [weakSelf.commentBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"commentNumber"]] forState:UIControlStateNormal];
-//                }
                 NSArray * users = dict[@"joinUsers"];
                 if (users.count != 0) {
                     for (NSDictionary * subDic in users) {
@@ -148,7 +138,7 @@
                     [weakSelf.collectionView reloadData];
                 }
             }else{
-                NSSLog(@"请求公益活动数据失败");
+                [weakSelf showMessage:@"加载公益活动详情失败"];
             }
         }
     }];
@@ -230,6 +220,7 @@
         if (error) {
             NSSLog(@"公益点赞失败：%@",error);
             weakSelf.loveBtn.selected = NO;
+            [weakSelf showMessage:@"服务器出错咯"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -241,11 +232,14 @@
                 }
                 [weakSelf.loveBtn setTitle:self.likes forState:UIControlStateNormal];
                 
-            }else if ([code intValue] == 100){
+            }else if ([code intValue] == 1029){
                 weakSelf.loveBtn.selected = NO;
-                
-            }else if ([code intValue] == 101){
+                [weakSelf showMessage:@"公益多次点赞失败"];
+            }else if ([code intValue] == 1030){
                 weakSelf.loveBtn.selected = NO;
+                [weakSelf showMessage:@"非朋友点赞失败"];
+            }else{
+                [weakSelf showMessage:@"点赞失败"];
             }
         }
         
@@ -293,20 +287,20 @@
         if (error) {
             NSSLog(@"平台报名失败：%@",error);
             weakSelf.signBtn.enabled = YES;
-            NSSLog(@"报名失败");
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 weakSelf.backView.hidden = YES;
                 weakSelf.signBtn.enabled = NO;
-            }else if ([code intValue] == 100){
-                NSSLog(@"已报名");
-            }else if ([code intValue] == 101){
-                NSSLog(@"报名失败");
+            }else if ([code intValue] == 1036){
+                [weakSelf showMessage:@"已报名"];
+            }else if ([code intValue] == 1037){
+                [weakSelf showMessage:@"报名失败"];
                 weakSelf.signBtn.enabled = YES;
             }else{
-                NSSLog(@"报名失败");
+                [weakSelf showMessage:@"报名失败"];
                 weakSelf.signBtn.enabled = YES;
             }
         }
@@ -328,12 +322,21 @@
 -(void)viewWillLayoutSubviews{
     
     [super viewWillLayoutSubviews];
-    //    if (KMainScreenWidth == 375) {
-    //        self.viewWidthCons.constant = KMainScreenWidth+5;
-    //    }else{
+   
     self.viewWidthCons.constant = KMainScreenWidth;
     
-    //    }
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
     
 }
 @end

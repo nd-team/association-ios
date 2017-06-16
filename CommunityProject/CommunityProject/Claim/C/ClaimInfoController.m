@@ -7,7 +7,6 @@
 //
 
 #import "ClaimInfoController.h"
-#import "UIView+ChatMoreView.h"
 
 #define ClaimURL @"appapi/app/claimUser"
 @interface ClaimInfoController ()<UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
@@ -18,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTF;
 @property (weak, nonatomic) IBOutlet UIButton *manBtn;
 @property (weak, nonatomic) IBOutlet UIButton *famaleBtn;
-
+//爱好
 @property (weak, nonatomic) IBOutlet UIButton *danceBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *musicBtn;
@@ -154,10 +153,14 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *marryHeightCons;
 
-@property (nonatomic,strong) UIView * backView;
-@property (nonatomic,strong)UIWindow * window;
+//@property (nonatomic,strong) UIView * backView;
+//@property (nonatomic,strong)UIWindow * window;
 //标记认领之后的状态
-@property (nonatomic,assign)int claim;
+//@property (nonatomic,assign)int claim;
+//爱好
+@property (nonatomic,assign)NSInteger count1;
+//性格
+@property (nonatomic,assign)NSInteger count2;
 
 @end
 
@@ -167,7 +170,7 @@
     [super viewWillAppear:animated];
     
     self.tabBarController.tabBar.hidden = YES;
-    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+//    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
 
 }
 - (void)viewDidLoad {
@@ -182,6 +185,8 @@
 -(void)setUI{
     self.headImageView.layer.cornerRadius = 5;
     self.headImageView.layer.masksToBounds = YES;
+    self.count1 = 0;
+    self.count2 = 0;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url] placeholderImage:[UIImage imageNamed:@"default.png"]];
     self.nicknameLabel.text = self.name;
     self.bottomView.hidden = YES;
@@ -246,9 +251,9 @@
     self.childNameTF.hidden = isHidden;
     self.childSchoolTF.hidden = isHidden;
     if (isHidden) {
-        self.viewHeightCons.constant = 1050;
+        self.viewHeightCons.constant = 1450;
     }else{
-        self.viewHeightCons.constant = 1250;
+        self.viewHeightCons.constant = 1650;
         
     }
 }
@@ -285,12 +290,15 @@
     [self resign];
     //提示必填项
     if (!self.manBtn.selected && !self.famaleBtn.selected) {
+        [self showMessage:@"请选择性别"];
         return;
     }
     if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
+        [self showMessage:@"请选择爱好"];
         return;
     }
     if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0 || self.relationshipTF.text.length == 0 || self.presiTF.text.length == 0) {
+        [self showMessage:@"请完整填写必填项"];
         return;
     }
     
@@ -523,89 +531,75 @@
     [params setValue:self.wifeNameTF.text forKey:@"spouseName"];
     [params setValue:self.childNameTF.text forKey:@"childrenName"];
     [params setValue:self.childSchoolTF.text forKey:@"childrenSchool"];
-
-//    NSSLog(@"%@",params);
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"认领人请求失败：%@",error);
-            weakSelf.claim = 5;
-            [weakSelf showBackViewUI:@"服务器出问题咯！"];
+            [weakSelf showMessage:@"服务器出问题咯！"];
 
         }else{
-//            NSSLog(@"%@",data);
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                weakSelf.claim = 2;
-                [weakSelf showBackViewUI:@"认领成功"];
-            }else if ([code intValue] == 100){
+                [weakSelf leftClick];
+            }else if ([code intValue] == 1020){
                 //已认领
-                weakSelf.claim = 1;
-                [weakSelf showBackViewUI:@"已认领，不要重复提交"];
+                [weakSelf showMessage:@"已认领，不要重复提交"];
             }else if ([code intValue] == 101){
-                //认领已回答，等待对方审核
-                weakSelf.claim = 4;
-                [weakSelf showBackViewUI:@"认领已回答，等待对方审核"];
-
-            }else if ([code intValue] == 300){
-                //等待对方审核
-                weakSelf.claim = 3;
-                [weakSelf showBackViewUI:@"等待对方审核"];
+                [weakSelf showMessage:@"非VIP"];
 
             }else{
                 NSSLog(@"失败");
-                weakSelf.claim = 0;
-                [weakSelf showBackViewUI:@"回答问题正确个数不超过5个，认领失败"];
+                [weakSelf showMessage:@"回答问题正确个数不超过5个，认领失败"];
             }
             
         }
     }];
     
 }
--(void)showBackViewUI:(NSString *)msg{
-    
-    self.backView = [UIView sureViewTitle:msg andTag:120 andTarget:self andAction:@selector(buttonAction:)];
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
-    
-    [self.backView addGestureRecognizer:tap];
-    
-    [self.window addSubview:self.backView];
-    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(-64);
-        make.left.equalTo(self.view);
-        make.width.mas_equalTo(KMainScreenWidth);
-        make.height.mas_equalTo(KMainScreenHeight);
-    }];
-}
--(void)buttonAction:(UIButton *)btn{
-    [self hideViewAction];
-    if (btn.tag == 120) {
-        switch (self.claim) {
-            case 0://失败
-
-                break;
-            case 1://已认领
-                [self leftClick];
-                break;
-            case 2://成功返回上页
-                [self leftClick];
-                break;
-            case 3://等待对方审核
-                [self leftClick];
-
-                break;
-            case 4://等待审核
-                [self leftClick];
-                break;
-            default://服务器或者网络
-
-                break;
-        }
-    }
-}
--(void)hideViewAction{
-    self.backView.hidden = YES;
-}
+//-(void)showBackViewUI:(NSString *)msg{
+//    
+//    self.backView = [UIView sureViewTitle:msg andTag:120 andTarget:self andAction:@selector(buttonAction:)];
+//    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
+//    
+//    [self.backView addGestureRecognizer:tap];
+//    
+//    [self.window addSubview:self.backView];
+//    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.view).offset(-64);
+//        make.left.equalTo(self.view);
+//        make.width.mas_equalTo(KMainScreenWidth);
+//        make.height.mas_equalTo(KMainScreenHeight);
+//    }];
+//}
+//-(void)buttonAction:(UIButton *)btn{
+//    [self hideViewAction];
+//    if (btn.tag == 120) {
+//        switch (self.claim) {
+//            case 0://失败
+//
+//                break;
+//            case 1://已认领
+//                [self leftClick];
+//                break;
+//            case 2://成功返回上页
+//                [self leftClick];
+//                break;
+//            case 3://等待对方审核
+//                [self leftClick];
+//
+//                break;
+//            case 4://等待审核
+//                [self leftClick];
+//                break;
+//            default://服务器或者网络
+//
+//                break;
+//        }
+//    }
+//}
+//-(void)hideViewAction{
+//    self.backView.hidden = YES;
+//}
 - (IBAction)manClick:(id)sender {
     self.manBtn.selected = !self.manBtn.selected;
     if (self.manBtn.selected) {
@@ -619,117 +613,153 @@
     }
 }
 - (IBAction)danceClick:(id)sender {
-    self.danceBtn.selected = !self.danceBtn.selected;
+    [self hobbyAction:self.danceBtn];
     
 }
-
+-(void)hobbyAction:(UIButton *)btn{
+    if (self.count1>2) {
+        if(btn.selected){
+            self.count1--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            [self showMessage:@"性爱好只能选择三项，取消其他项，点击重试"];
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count1++;
+        }else{
+            self.count1--;
+        }
+        
+    }
+}
 - (IBAction)musicClick:(id)sender {
-    self.musicBtn.selected = !self.musicBtn.selected;
+    [self hobbyAction:self.musicBtn];
     
 }
 
 - (IBAction)printClick:(id)sender {
-    self.printBtn.selected = !self.printBtn.selected;
+    [self hobbyAction:self.printBtn];
     
 }
 
 - (IBAction)instrumentClick:(id)sender {
-    self.intrusmentBtn.selected = !self.intrusmentBtn.selected;
+    [self hobbyAction:self.intrusmentBtn];
     
 }
 
 - (IBAction)gameClick:(id)sender {
-    self.gameBtn.selected = !self.gameBtn.selected;
+    [self hobbyAction:self.gameBtn];
     
 }
 
 - (IBAction)movieClick:(id)sender {
-    self.movieBtn.selected = !self.movieBtn.selected;
+    [self hobbyAction:self.movieBtn];
     
 }
 
 - (IBAction)foodClick:(id)sender {
-    self.foodBtn.selected = !self.foodBtn.selected;
+    [self hobbyAction:self.foodBtn];
 }
 
 - (IBAction)chatClick:(id)sender {
-    self.chatBtn.selected = !self.chatBtn.selected;
+    [self hobbyAction:self.chatBtn];
     
 }
 - (IBAction)travelClick:(id)sender {
-    self.travelBtn.selected = !self.travelBtn.selected;
+    [self hobbyAction:self.travelBtn];
     
 }
 
 - (IBAction)readClick:(id)sender {
-    self.readBtn.selected = !self.readBtn.selected;
+    [self hobbyAction:self.readBtn];
     
 }
 
 - (IBAction)motionClick:(id)sender {
-    self.motionBtn.selected = !self.motionBtn.selected;
+    [self hobbyAction:self.motionBtn];
     
 }
 - (IBAction)chessClick:(id)sender {
-    self.chessBtn.selected = !self.chessBtn.selected;
+    [self hobbyAction:self.chessBtn];
     
 }
 //性格
 - (IBAction)quiteClick:(id)sender {
-    self.quiteBtn.selected = !self.quiteBtn.selected;
+    [self characterAction:self.quiteBtn];
     
 }
-
+-(void)characterAction:(UIButton *)btn{
+    if (self.count2>1) {
+        if(btn.selected){
+            self.count2--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            [self showMessage:@"性格只能选择两项，取消其他项，点击重试"];
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count2++;
+        }else{
+            self.count2--;
+        }
+        
+    }
+}
 - (IBAction)smailClick:(id)sender {
-    self.smailBtn.selected = !self.smailBtn.selected;
+    [self characterAction:self.smailBtn];
     
 }
 - (IBAction)beautyClick:(id)sender {
-    self.beautyBtn.selected = !self.beautyBtn.selected;
+    [self characterAction:self.beautyBtn];
     
 }
 
 - (IBAction)moneyClick:(id)sender {
-    self.moneyBtn.selected = !self.moneyBtn.selected;
+    [self characterAction:self.moneyBtn];
     
 }
 - (IBAction)quickClick:(id)sender {
-    self.quickBtn.selected = !self.quickBtn.selected;
+    [self characterAction:self.quickBtn];
     
 }
 
 - (IBAction)frivoClick:(id)sender {
-    self.frivoBtn.selected = !self.frivoBtn.selected;
+    [self characterAction:self.frivoBtn];
     
 }
 
 - (IBAction)unfaithClick:(id)sender {
-    self.unfaithBtn.selected = !self.unfaithBtn.selected;
+    [self characterAction:self.unfaithBtn];
     
 }
 
 
 - (IBAction)douClick:(id)sender {
-    self.douBtn.selected = !self.douBtn.selected;
+    [self characterAction:self.douBtn];
     
 }
 
 - (IBAction)livelyClick:(id)sender {
-    self.livelyBtn.selected = !self.livelyBtn.selected;
+    [self characterAction:self.livelyBtn];
     
 }
 
 - (IBAction)coolClick:(id)sender {
-    self.coolBtn.selected = !self.coolBtn.selected;
+    [self characterAction:self.coolBtn];
     
 }
 
 - (IBAction)honeyClick:(id)sender {
-    self.honestBtn.selected = !self.honestBtn.selected;
+    [self characterAction:self.honestBtn];
     
 }
 - (IBAction)cuteClick:(id)sender {
-    self.cuteBtn.selected = !self.cuteBtn.selected;
+    [self characterAction:self.cuteBtn];
     
 }
 
@@ -968,8 +998,18 @@
             
             break;
         case 11:
+        {
             self.marryTF.text = self.marryArr[self.marryIndex];
-            
+            if ([self.marryTF.text isEqualToString:@"已婚"]) {
+                self.marryHeightCons.constant = 163;
+                [self commonUI:NO];
+                
+            }else{
+                self.marryHeightCons.constant = 0;
+                [self commonUI:YES];
+                
+            }
+        }
             break;
         default:
             //生日
@@ -1144,6 +1184,19 @@
     
     [super viewWillLayoutSubviews];
     self.viewWidthCons.constant = KMainScreenWidth;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(NSMutableArray *)provinceArr{
     if (!_provinceArr) {

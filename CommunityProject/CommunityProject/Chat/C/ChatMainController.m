@@ -8,7 +8,6 @@
 
 #import "ChatMainController.h"
 #import "ChatDetailController.h"
-#import "UIView+ChatWhiteView.h"
 #import "UIView+ChatMoreView.h"
 #import "GroupListController.h"
 #import "AddFriendController.h"

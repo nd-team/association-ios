@@ -228,8 +228,7 @@
                 [self comeInUnknown:ike];
                 
             }else{
-                
-                NSLog(@"无法识别图中二维码！");
+                [self showMessage:@"无法识别图中二维码！"];
             }
         }
     }else{
@@ -243,6 +242,8 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"userId":[DEFAULTS objectForKey:@"userId"],@"otherUserId":friendId,@"status":@"1"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出问题咯"];
+
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -291,8 +292,23 @@
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friendId name:dict[@"nickname"] portrait:encodeUrl];
                 [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friendId];
                 [weakSelf.navigationController pushViewController:detail animated:YES];
+            }else{
+                [weakSelf showMessage:@"加载好友详情失败"];
             }
         }
+    }];
+    
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
     }];
     
 }

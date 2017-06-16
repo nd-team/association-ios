@@ -114,6 +114,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentListURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"评论列表获取失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             if (self.dataArr.count != 0||self.tableView.mj_header.isRefreshing) {
                 [self.dataArr removeAllObjects];
@@ -128,6 +129,8 @@
                 }
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
+            }else{
+                [weakSelf showMessage:@"加载评论失败"];
             }
             
         }
@@ -161,6 +164,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ZanURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"评论点赞失败：%@",error);
+            [weakSelf showMessage:@"评论点赞失败"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -177,10 +181,10 @@
                 [UIView performWithoutAnimation:^{
                     [weakSelf.tableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
                 }];
-            }else if ([code intValue] == 100){
-                NSSLog(@"多次点赞失败");
+            }else if ([code intValue] == 1029){
+                [weakSelf showMessage:@"评论多次点赞失败"];
             }else{
-                NSSLog(@"点赞失败");
+                [weakSelf showMessage:@"评论点赞失败"];
             }
         }
         
@@ -278,15 +282,17 @@
     [AFNetData postDataWithUrl:url andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"评论失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 weakSelf.commentTF.text = @"";
                 weakSelf.tvHeightCons.constant = 35;
                 weakSelf.bottomHeightCons.constant = 20+self.tvHeightCons.constant;
                 //评论成功、回复评论成功或者插入一条数据
                 [weakSelf getCommentListData];
+            }else{
+                [weakSelf showMessage:@"回复评论失败"];
             }
             
         }
@@ -299,6 +305,19 @@
         return NO;
     }
     return YES;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {

@@ -51,11 +51,14 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClearMessageURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"清空消息失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 [weakSelf postUnreadMessage];
+            }else{
+                [weakSelf showMessage:@"清空消息失败！"];
             }
         }
         
@@ -67,12 +70,15 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,UnreadURL] andParams:@{@"userId":self.userId,@"type":@"2"} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取未读消息失败%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 [weakSelf.messageArr removeAllObjects];
                 [weakSelf.tableView reloadData];
                 [weakSelf.navigationController popViewControllerAnimated:YES];
+            }else{
+                [weakSelf showMessage:@"加载未读消息失败！"];
             }
             
         }
@@ -104,6 +110,19 @@
     comment.isMsg = YES;
     [self.navigationController pushViewController: comment animated:YES];
 
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 -(NSMutableArray *)messageArr{
     if (!_messageArr) {

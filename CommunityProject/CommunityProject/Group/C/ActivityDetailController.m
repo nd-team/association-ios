@@ -115,7 +115,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ActivityDetailURL] andParams:@{@"activesId":self.actives_id} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"群活动详情获取失败%@",error);
-//            [self showMessage:@"群活动详情获取失败"];
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
 //            NSSLog(@"%@",data);
@@ -138,6 +138,8 @@
 
                 }
                 [weakSelf.collectionView reloadData];
+            }else{
+                [weakSelf showMessage:@"加载群活动详情失败"];
             }
         }
     }];
@@ -222,7 +224,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,JoinActURL] andParams:param returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"加入群活动失败%@",error);
-//            [weakSelf showMessage:@"加入失败"];
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -230,20 +232,18 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 });
-
-//                [weakSelf showMessage:@"报名成功"];
-            }else if([code intValue] == 100){
-//                [weakSelf showMessage:@"非群内人员加入活动"];
-            }else if([code intValue] == 101){
-//                [weakSelf showMessage:@"活动未开始"];
-            }else if([code intValue] == 102){
-//                [weakSelf showMessage:@"活动结束"];
-            }else if([code intValue] == 103){
-//                [weakSelf showMessage:@"报名人数满了"];
-            }else if([code intValue] == 104){
-//                [weakSelf showMessage:@"活动已加入"];
+            }else if([code intValue] == 1010){
+                [weakSelf showMessage:@"非群内人员加入活动"];
+            }else if([code intValue] == 1011){
+                [weakSelf showMessage:@"活动未开始"];
+            }else if([code intValue] == 1012){
+                [weakSelf showMessage:@"活动结束"];
+            }else if([code intValue] == 1013){
+                [weakSelf showMessage:@"报名人数满了"];
+            }else if([code intValue] == 1014){
+                [weakSelf showMessage:@"活动已加入"];
             }else{
-//                [weakSelf showMessage:@"加入失败"];
+                [weakSelf showMessage:@"加入失败"];
             }
         }
     }];
@@ -294,6 +294,19 @@
         self.collHeightCons.constant = 80;
     }
     [self.collectionView reloadData];
+    
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
     
 }
 -(void)viewWillLayoutSubviews{

@@ -162,7 +162,7 @@
                                 <rect key="frame" x="0.0" y="10" width="375" height="657"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lse-Gu-DQL">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1550"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1650"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rIT-87-6Zy">
                                                 <rect key="frame" x="11" y="4" width="50" height="50"/>
@@ -621,6 +621,191 @@
                                                     <outlet property="delegate" destination="fiu-jT-toA" id="w2V-nn-4bM"/>
                                                 </connections>
                                             </textField>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5F-14-XXA">
+                                                <rect key="frame" x="0.0" y="545" width="375" height="1"/>
+                                                <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="BnU-K0-dZf"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="性格" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-aL-UT9">
+                                                <rect key="frame" x="10" y="546" width="34" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="34" id="BeZ-Z8-n81"/>
+                                                    <constraint firstAttribute="height" constant="50" id="QgK-8i-pE2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <color key="textColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7b1-Ga-7ke">
+                                                <rect key="frame" x="68" y="556" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="LE4-Gb-HE4"/>
+                                                    <constraint firstAttribute="width" constant="60" id="bLl-91-mVd"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="死宅" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="quiteClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="CCw-eT-r9M"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23F-f8-Vqp">
+                                                <rect key="frame" x="133" y="556" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="609-y8-gvB"/>
+                                                    <constraint firstAttribute="width" constant="60" id="FVx-RZ-UhG"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="幽默" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="smailClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="hB1-Oe-MAo"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75O-da-aHc">
+                                                <rect key="frame" x="198" y="556" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="3rC-gu-ygZ"/>
+                                                    <constraint firstAttribute="height" constant="30" id="eXB-0O-BW6"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="漂亮" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="beautyClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="cga-ET-ven"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4w-VA-gk4">
+                                                <rect key="frame" x="263" y="556" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="0II-4C-n85"/>
+                                                    <constraint firstAttribute="width" constant="60" id="TgA-0h-HaG"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="大方" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="moneyClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="QRw-u7-jq2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9C-0o-cmJ">
+                                                <rect key="frame" x="68" y="591" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="1B8-IF-Shd"/>
+                                                    <constraint firstAttribute="width" constant="60" id="aQi-Sj-bLV"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="急躁" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="quickClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="eu5-Qq-xlR"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Eq-f4-EBv">
+                                                <rect key="frame" x="133" y="591" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="P3o-Vq-Fpa"/>
+                                                    <constraint firstAttribute="width" constant="60" id="e9X-fC-6Um"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="轻浮" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="frivoClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="MG8-DS-Hdm"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXe-Pk-UzX">
+                                                <rect key="frame" x="198" y="591" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="Qcf-rt-Y7w"/>
+                                                    <constraint firstAttribute="height" constant="30" id="YLJ-PY-mib"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="花心" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="unfaithClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="CLc-8V-n66"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7Q-mi-zeE">
+                                                <rect key="frame" x="263" y="591" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="nDs-8b-OpE"/>
+                                                    <constraint firstAttribute="width" constant="60" id="voh-Xp-D0T"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="逗比" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="douClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="YTi-ou-PQy"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deY-jL-kFY">
+                                                <rect key="frame" x="68" y="626" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="Gh3-Kg-69Z"/>
+                                                    <constraint firstAttribute="width" constant="60" id="fTT-hF-bmU"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="活泼" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="livelyClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="sF5-N0-FTu"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yc8-pC-SRM">
+                                                <rect key="frame" x="133" y="626" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="bLB-As-sGx"/>
+                                                    <constraint firstAttribute="height" constant="30" id="viM-Zc-RKc"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="高冷" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="coolClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="XoI-Ue-hCb"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lao-bR-ki3">
+                                                <rect key="frame" x="198" y="626" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="GtU-Gh-j1j"/>
+                                                    <constraint firstAttribute="width" constant="60" id="ff7-lF-eRo"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="诚信" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="honeyClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="iIm-5J-mcV"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Y0-f4-Xrz">
+                                                <rect key="frame" x="263" y="626" width="60" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="Ae8-Uh-MXX"/>
+                                                    <constraint firstAttribute="height" constant="30" id="cp1-Tx-qBd"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="可爱" backgroundImage="hobbyWhite">
+                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cuteClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="l1O-Me-O31"/>
+                                                </connections>
+                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzi-61-GLJ">
                                                 <rect key="frame" x="0.0" y="666" width="375" height="1"/>
                                                 <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -946,7 +1131,7 @@
                                                 </constraints>
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="fiu-jT-toA" id="vZX-IX-3tb"/>
                                                 </connections>
@@ -1012,31 +1197,6 @@
                                                 <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="iax-16-BGp"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXA-gJ-4Vj">
-                                                <rect key="frame" x="0.0" y="1446" width="375" height="104"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJY-fg-Gq5">
-                                                        <rect key="frame" x="37" y="20" width="300" height="43"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="300" id="DjD-uh-lOd"/>
-                                                            <constraint firstAttribute="height" constant="42.5" id="LVT-HE-cX4"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                        <state key="normal" title="确认认领" backgroundImage="signIn">
-                                                            <color key="titleColor" red="0.2666666667" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="recommendClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="Hcx-Vr-RUO"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstItem="rJY-fg-Gq5" firstAttribute="centerX" secondItem="DXA-gJ-4Vj" secondAttribute="centerX" id="NxE-kr-yW2"/>
-                                                    <constraint firstItem="rJY-fg-Gq5" firstAttribute="top" secondItem="DXA-gJ-4Vj" secondAttribute="top" constant="20" id="ZT4-3I-6a6"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(选填)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQS-Zw-P0c">
@@ -1175,6 +1335,28 @@
                                                 <color key="textColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(选填)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tc-Bj-zgn">
+                                                <rect key="frame" x="330" y="1233" width="45" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="2vE-Q0-1vc"/>
+                                                    <constraint firstAttribute="height" constant="50" id="jqT-Rr-kzM"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xVd-xi-v0U">
+                                                <rect key="frame" x="100" y="1233" width="220" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="ZWw-DJ-7jI"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="fiu-jT-toA" id="Fmc-Mq-aKH"/>
+                                                </connections>
+                                            </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa4-jQ-ZVZ">
                                                 <rect key="frame" x="0.0" y="1283" width="375" height="163"/>
                                                 <subviews>
@@ -1341,213 +1523,31 @@
                                                     <constraint firstItem="cUp-e7-OAy" firstAttribute="leading" secondItem="K6j-YZ-Qbu" secondAttribute="trailing" constant="10" id="zru-3d-ted"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(选填)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Tc-Bj-zgn">
-                                                <rect key="frame" x="330" y="1233" width="45" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="2vE-Q0-1vc"/>
-                                                    <constraint firstAttribute="height" constant="50" id="jqT-Rr-kzM"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xVd-xi-v0U">
-                                                <rect key="frame" x="100" y="1233" width="220" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="ZWw-DJ-7jI"/>
-                                                </constraints>
-                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="fiu-jT-toA" id="Fmc-Mq-aKH"/>
-                                                </connections>
-                                            </textField>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5F-14-XXA">
-                                                <rect key="frame" x="0.0" y="545" width="375" height="1"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXA-gJ-4Vj">
+                                                <rect key="frame" x="0.0" y="1446" width="375" height="204"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJY-fg-Gq5">
+                                                        <rect key="frame" x="37" y="20" width="300" height="43"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="300" id="DjD-uh-lOd"/>
+                                                            <constraint firstAttribute="height" constant="42.5" id="LVT-HE-cX4"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <state key="normal" title="确认认领" backgroundImage="signIn">
+                                                            <color key="titleColor" red="0.2666666667" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="recommendClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="Hcx-Vr-RUO"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                                 <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="BnU-K0-dZf"/>
+                                                    <constraint firstItem="rJY-fg-Gq5" firstAttribute="centerX" secondItem="DXA-gJ-4Vj" secondAttribute="centerX" id="NxE-kr-yW2"/>
+                                                    <constraint firstItem="rJY-fg-Gq5" firstAttribute="top" secondItem="DXA-gJ-4Vj" secondAttribute="top" constant="20" id="ZT4-3I-6a6"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="性格" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQ5-aL-UT9">
-                                                <rect key="frame" x="10" y="546" width="34" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="34" id="BeZ-Z8-n81"/>
-                                                    <constraint firstAttribute="height" constant="50" id="QgK-8i-pE2"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <color key="textColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7b1-Ga-7ke">
-                                                <rect key="frame" x="68" y="556" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="LE4-Gb-HE4"/>
-                                                    <constraint firstAttribute="width" constant="60" id="bLl-91-mVd"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="死宅" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="quiteClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="CCw-eT-r9M"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23F-f8-Vqp">
-                                                <rect key="frame" x="133" y="556" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="609-y8-gvB"/>
-                                                    <constraint firstAttribute="width" constant="60" id="FVx-RZ-UhG"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="幽默" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="smailClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="hB1-Oe-MAo"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75O-da-aHc">
-                                                <rect key="frame" x="198" y="556" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="3rC-gu-ygZ"/>
-                                                    <constraint firstAttribute="height" constant="30" id="eXB-0O-BW6"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="漂亮" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="beautyClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="cga-ET-ven"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4w-VA-gk4">
-                                                <rect key="frame" x="263" y="556" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="0II-4C-n85"/>
-                                                    <constraint firstAttribute="width" constant="60" id="TgA-0h-HaG"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="大方" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="moneyClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="QRw-u7-jq2"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9C-0o-cmJ">
-                                                <rect key="frame" x="68" y="591" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="1B8-IF-Shd"/>
-                                                    <constraint firstAttribute="width" constant="60" id="aQi-Sj-bLV"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="急躁" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="quickClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="eu5-Qq-xlR"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Eq-f4-EBv">
-                                                <rect key="frame" x="133" y="591" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="P3o-Vq-Fpa"/>
-                                                    <constraint firstAttribute="width" constant="60" id="e9X-fC-6Um"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="轻浮" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="frivoClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="MG8-DS-Hdm"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXe-Pk-UzX">
-                                                <rect key="frame" x="198" y="591" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="Qcf-rt-Y7w"/>
-                                                    <constraint firstAttribute="height" constant="30" id="YLJ-PY-mib"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="花心" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="unfaithClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="CLc-8V-n66"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7Q-mi-zeE">
-                                                <rect key="frame" x="263" y="591" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="nDs-8b-OpE"/>
-                                                    <constraint firstAttribute="width" constant="60" id="voh-Xp-D0T"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="逗比" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="douClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="YTi-ou-PQy"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deY-jL-kFY">
-                                                <rect key="frame" x="68" y="626" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="Gh3-Kg-69Z"/>
-                                                    <constraint firstAttribute="width" constant="60" id="fTT-hF-bmU"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="活泼" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="livelyClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="sF5-N0-FTu"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yc8-pC-SRM">
-                                                <rect key="frame" x="133" y="626" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="bLB-As-sGx"/>
-                                                    <constraint firstAttribute="height" constant="30" id="viM-Zc-RKc"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="高冷" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="coolClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="XoI-Ue-hCb"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lao-bR-ki3">
-                                                <rect key="frame" x="198" y="626" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="GtU-Gh-j1j"/>
-                                                    <constraint firstAttribute="width" constant="60" id="ff7-lF-eRo"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="诚信" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="honeyClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="iIm-5J-mcV"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Y0-f4-Xrz">
-                                                <rect key="frame" x="263" y="626" width="60" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="Ae8-Uh-MXX"/>
-                                                    <constraint firstAttribute="height" constant="30" id="cp1-Tx-qBd"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="可爱" backgroundImage="hobbyWhite">
-                                                    <color key="titleColor" red="0.062745098040000002" green="0.85882352939999995" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="cuteClick:" destination="fiu-jT-toA" eventType="touchUpInside" id="l1O-Me-O31"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1694,7 +1694,7 @@
                                             <constraint firstItem="23F-f8-Vqp" firstAttribute="top" secondItem="K5F-14-XXA" secondAttribute="bottom" constant="10" id="U7v-aW-dJP"/>
                                             <constraint firstItem="BNG-WX-xRl" firstAttribute="top" secondItem="ekX-5f-jwv" secondAttribute="bottom" id="UGB-XC-Tyt"/>
                                             <constraint firstItem="QH8-JB-Smr" firstAttribute="leading" secondItem="Lse-Gu-DQL" secondAttribute="leading" constant="10" id="UIp-qw-UMb"/>
-                                            <constraint firstAttribute="height" constant="1550" id="UmJ-yo-DuT"/>
+                                            <constraint firstAttribute="height" constant="1650" id="UmJ-yo-DuT"/>
                                             <constraint firstItem="Y0R-ge-vbh" firstAttribute="top" secondItem="DLU-uE-KGf" secondAttribute="bottom" id="Ux6-dn-bGF"/>
                                             <constraint firstItem="n0E-1u-06p" firstAttribute="width" secondItem="c9Z-8A-gkC" secondAttribute="width" id="W5z-jD-3Ty"/>
                                             <constraint firstItem="aiP-HU-3UV" firstAttribute="top" secondItem="iYd-AI-FKP" secondAttribute="bottom" id="WCA-Vl-7SZ"/>
@@ -2028,7 +2028,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGI-3w-iLc">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="5"/>
                                                     <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="5" id="lC6-7g-sbI"/>
@@ -2045,7 +2045,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017.04.13 15:30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPR-zz-LeZ">
-                                                    <rect key="frame" x="194" y="26" width="812" height="15"/>
+                                                    <rect key="frame" x="194" y="26" width="171" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="D4G-4A-3QA"/>
                                                     </constraints>
@@ -2108,7 +2108,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1gT-YN-cZc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="62" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1gT-YN-cZc">
                                 <rect key="frame" x="-4" y="20" width="383" height="647"/>
                                 <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -2127,7 +2127,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LXd-Cw-X58">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="5"/>
                                                     <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="5" id="xBE-8r-ThO"/>
@@ -2144,7 +2144,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017.10.10 10:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rss-DG-lLX">
-                                                    <rect key="frame" x="262" y="26" width="744" height="15"/>
+                                                    <rect key="frame" x="262" y="26" width="103" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="8M4-p3-7Zp"/>
                                                     </constraints>
@@ -2180,7 +2180,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlD-pf-InC">
-                                                    <rect key="frame" x="18" y="24" width="868" height="20"/>
+                                                    <rect key="frame" x="18" y="24" width="227" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="fdM-71-hka"/>
                                                     </constraints>
@@ -2189,7 +2189,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017.10.10 10:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZ0-tP-DQs">
-                                                    <rect key="frame" x="896" y="23" width="110" height="21"/>
+                                                    <rect key="frame" x="255" y="23" width="110" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="FIo-Yd-bxS"/>
                                                         <constraint firstAttribute="width" constant="110" id="yi5-Q1-7rl"/>
@@ -2199,7 +2199,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFR-hx-dlQ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="383" height="5"/>
                                                     <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="5" id="zeV-Ml-3CX"/>
@@ -2220,126 +2220,6 @@
                                         <connections>
                                             <outlet property="contentLabel" destination="hlD-pf-InC" id="B7U-2P-SZ3"/>
                                             <outlet property="timeLabel" destination="qZ0-tP-DQs" id="Nsb-oW-Wl1"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WaitClaimCell" rowHeight="105" id="bMe-rE-A5H" customClass="WaitClaimCell">
-                                        <rect key="frame" x="0.0" y="125" width="383" height="105"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMe-rE-A5H" id="plk-g6-8EJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="105"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bmy-n8-IXe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="5"/>
-                                                    <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="5" id="UCV-O3-kS7"/>
-                                                    </constraints>
-                                                </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="iC9-fY-Q7a">
-                                                    <rect key="frame" x="10" y="10" width="44" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="44" id="H8a-gC-L1W"/>
-                                                        <constraint firstAttribute="height" constant="44" id="Jrg-wU-cNE"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="孟小宝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="suJ-cU-suB">
-                                                    <rect key="frame" x="64" y="15" width="100" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="15" id="9GX-kr-2P8"/>
-                                                        <constraint firstAttribute="width" constant="100" id="OQf-Dx-B4s"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <color key="textColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尝试认领你是否让%@认领成功" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckV-Xd-9N6">
-                                                    <rect key="frame" x="64" y="37" width="902" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="15" id="AVD-L5-ky1"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ozd-hY-6jF">
-                                                    <rect key="frame" x="996" y="40" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="ZsI-ks-cTk"/>
-                                                        <constraint firstAttribute="height" constant="30" id="kWu-ds-GGb"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Button" image="darkDown"/>
-                                                    <connections>
-                                                        <action selector="upDownClick:" destination="bMe-rE-A5H" eventType="touchUpInside" id="VKK-xc-ppu"/>
-                                                    </connections>
-                                                </button>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GCY-QI-y1O">
-                                                    <rect key="frame" x="64" y="60" width="950" height="45"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qB-tr-agr">
-                                                            <rect key="frame" x="0.0" y="9" width="118" height="27"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="118" id="DT4-fh-hZr"/>
-                                                                <constraint firstAttribute="height" constant="27" id="pet-ZF-Q24"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title="同意认领" backgroundImage="agreeClaim">
-                                                                <color key="titleColor" red="0.26666666666666666" green="0.2627450980392157" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="agreeClick:" destination="bMe-rE-A5H" eventType="touchUpInside" id="z1y-3m-sUh"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N0y-Nb-m72">
-                                                            <rect key="frame" x="158" y="9" width="118" height="27"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="27" id="Y6w-ui-ppn"/>
-                                                                <constraint firstAttribute="width" constant="118" id="x4N-rL-E00"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title="拒绝认领" backgroundImage="disagreeClaim">
-                                                                <color key="titleColor" red="0.2666666667" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="disagreeClick:" destination="bMe-rE-A5H" eventType="touchUpInside" id="RlS-hi-gcy"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="5qB-tr-agr" firstAttribute="leading" secondItem="GCY-QI-y1O" secondAttribute="leading" id="7J7-H1-JBw"/>
-                                                        <constraint firstAttribute="height" constant="45" id="KHz-gZ-9H8"/>
-                                                        <constraint firstItem="N0y-Nb-m72" firstAttribute="leading" secondItem="5qB-tr-agr" secondAttribute="trailing" constant="40" id="MNQ-mH-F4U"/>
-                                                        <constraint firstItem="5qB-tr-agr" firstAttribute="centerY" secondItem="GCY-QI-y1O" secondAttribute="centerY" id="b1u-Q7-EbF"/>
-                                                        <constraint firstItem="N0y-Nb-m72" firstAttribute="centerY" secondItem="GCY-QI-y1O" secondAttribute="centerY" id="kne-mc-kdg"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="GCY-QI-y1O" firstAttribute="top" secondItem="ckV-Xd-9N6" secondAttribute="bottom" constant="8" id="0RU-9E-5Hn"/>
-                                                <constraint firstItem="suJ-cU-suB" firstAttribute="top" secondItem="Bmy-n8-IXe" secondAttribute="bottom" constant="10" id="1DF-Mb-g3f"/>
-                                                <constraint firstAttribute="trailing" secondItem="Bmy-n8-IXe" secondAttribute="trailing" id="3ki-as-a9X"/>
-                                                <constraint firstItem="ozd-hY-6jF" firstAttribute="trailing" secondItem="plk-g6-8EJ" secondAttribute="trailingMargin" constant="10" id="4D6-wd-oiB"/>
-                                                <constraint firstItem="iC9-fY-Q7a" firstAttribute="leading" secondItem="plk-g6-8EJ" secondAttribute="leading" constant="10" id="7Qa-N5-nwE"/>
-                                                <constraint firstItem="ckV-Xd-9N6" firstAttribute="leading" secondItem="iC9-fY-Q7a" secondAttribute="trailing" constant="10" id="AKt-yz-ZID"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ckV-Xd-9N6" secondAttribute="trailing" constant="50" id="Lco-lN-fdi"/>
-                                                <constraint firstItem="Bmy-n8-IXe" firstAttribute="leading" secondItem="plk-g6-8EJ" secondAttribute="leading" id="OoG-Uz-0a8"/>
-                                                <constraint firstItem="iC9-fY-Q7a" firstAttribute="top" secondItem="plk-g6-8EJ" secondAttribute="top" constant="10" id="VXN-Ti-Oem"/>
-                                                <constraint firstAttribute="trailing" secondItem="GCY-QI-y1O" secondAttribute="trailing" constant="10" id="YxR-pb-aXh"/>
-                                                <constraint firstItem="GCY-QI-y1O" firstAttribute="leading" secondItem="plk-g6-8EJ" secondAttribute="leading" constant="64" id="iGa-yy-PMe"/>
-                                                <constraint firstItem="ckV-Xd-9N6" firstAttribute="top" secondItem="suJ-cU-suB" secondAttribute="bottom" constant="7" id="khk-V3-Ieh"/>
-                                                <constraint firstItem="ozd-hY-6jF" firstAttribute="centerY" secondItem="plk-g6-8EJ" secondAttribute="centerY" constant="2.5" id="kho-Eo-x1U"/>
-                                                <constraint firstItem="Bmy-n8-IXe" firstAttribute="top" secondItem="plk-g6-8EJ" secondAttribute="top" id="lrl-Dt-hPh"/>
-                                                <constraint firstItem="suJ-cU-suB" firstAttribute="leading" secondItem="iC9-fY-Q7a" secondAttribute="trailing" constant="10" id="uxD-kT-5Wg"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="contentLabel" destination="ckV-Xd-9N6" id="Vzt-Pz-GQx"/>
-                                            <outlet property="downHeightCons" destination="KHz-gZ-9H8" id="5Cp-lM-clV"/>
-                                            <outlet property="downView" destination="GCY-QI-y1O" id="MjE-pB-vd0"/>
-                                            <outlet property="headImageView" destination="iC9-fY-Q7a" id="n4v-kq-n1T"/>
-                                            <outlet property="nameLabel" destination="suJ-cU-suB" id="5Ie-gV-nuX"/>
-                                            <outlet property="upDownBtn" destination="ozd-hY-6jF" id="OfH-Dc-v8V"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2367,12 +2247,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="agreeClaim" width="117" height="27"/>
         <image name="back" width="9" height="14"/>
         <image name="chooseSel" width="25" height="25"/>
-        <image name="darkDown" width="14" height="7"/>
         <image name="default" width="50" height="50"/>
-        <image name="disagreeClaim" width="117" height="27"/>
         <image name="hobbyWhite" width="70" height="30"/>
         <image name="redSure" width="7" height="7"/>
         <image name="signIn" width="325" height="40"/>

@@ -135,7 +135,7 @@
 #pragma mark- 解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.widthContraints.constant = KMainScreenWidth+5;
+    self.widthContraints.constant = KMainScreenWidth;
     if ((self.addFriendView.frame.origin.y+75)<KMainScreenHeight) {
         self.scrollView.scrollEnabled = NO;
     }else{

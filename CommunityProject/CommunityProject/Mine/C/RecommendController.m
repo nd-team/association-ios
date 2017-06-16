@@ -150,6 +150,10 @@
 //学历
 @property (nonatomic,strong)NSArray * degreeArr;
 @property (nonatomic,assign)NSInteger degreeIndex;
+//爱好
+@property (nonatomic,assign)NSInteger count1;
+//性格
+@property (nonatomic,assign)NSInteger count2;
 
 @end
 
@@ -167,6 +171,8 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     self.userId = [DEFAULTS objectForKey:@"userId"];
     self.marryHeightCons.constant = 0;
+    self.count1 = 0;
+    self.count2 = 0;
     [self commonUI:YES];
     [self setUI];
 }
@@ -271,12 +277,15 @@
     [self resign];
     //提示必填项
     if (!self.manBtn.selected && !self.famaleBtn.selected) {
+        [self showMessage:@"请选择性别"];
         return;
     }
     if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
+        [self showMessage:@"请选择爱好"];
         return;
     }
     if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0 || self.relationshipTF.text.length == 0) {
+        [self showMessage:@"请填写完整必填项"];
         return;
     }
     
@@ -513,8 +522,8 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RecommendURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"已推荐人请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
-            NSSLog(@"%@",data);
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //推荐码进入推荐码界面
@@ -525,20 +534,14 @@
                 [weakSelf.navigationController pushViewController:code animated:YES];
 
                 NSSLog(@"%@",recomCode);
+            }else if([code intValue] == 100){
+                [weakSelf showMessage:@"用户已存在"];
             }else{
-                
-                NSSLog(@"推荐失败");
                 [weakSelf showMessage:@"推荐失败"];
             }
             
         }
     }];
-}
--(void)showMessage:(NSString *)msg{
-    [MessageAlertView alertViewWithTitle:@"温馨提示" message:msg buttonTitle:@[@"确定"] Action:^(NSInteger indexpath) {
-        NSSLog(@"%@",msg);
-    } viewController:self];
-
 }
 - (IBAction)manClick:(id)sender {
     self.manBtn.selected = !self.manBtn.selected;
@@ -554,117 +557,151 @@
 }
 //爱好
 - (IBAction)danceClick:(id)sender {
-    self.danceBtn.selected = !self.danceBtn.selected;
+    [self hobbyAction:self.danceBtn];
     
 }
-
+-(void)hobbyAction:(UIButton *)btn{
+    if (self.count1>2) {
+        if(btn.selected){
+            self.count1--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count1++;
+        }else{
+            self.count1--;
+        }
+        
+    }
+}
 - (IBAction)musicClick:(id)sender {
-    self.musicBtn.selected = !self.musicBtn.selected;
-    
+    [self hobbyAction:self.musicBtn];
+
 }
 
 - (IBAction)printClick:(id)sender {
-    self.printBtn.selected = !self.printBtn.selected;
-    
+    [self hobbyAction:self.printBtn];
 }
 
 - (IBAction)instrumentClick:(id)sender {
-    self.intrusmentBtn.selected = !self.intrusmentBtn.selected;
-    
+    [self hobbyAction:self.intrusmentBtn];
+
 }
 
 - (IBAction)gameClick:(id)sender {
-    self.gameBtn.selected = !self.gameBtn.selected;
-    
+    [self hobbyAction:self.gameBtn];
+
 }
 
 - (IBAction)movieClick:(id)sender {
-    self.movieBtn.selected = !self.movieBtn.selected;
-    
+    [self hobbyAction:self.movieBtn];
+
 }
 
 - (IBAction)foodClick:(id)sender {
-    self.foodBtn.selected = !self.foodBtn.selected;
+    [self hobbyAction:self.foodBtn];
+
 }
 
 - (IBAction)chatClick:(id)sender {
-    self.chatBtn.selected = !self.chatBtn.selected;
+    [self hobbyAction:self.chatBtn];
 
 }
 - (IBAction)travelClick:(id)sender {
-    self.travelBtn.selected = !self.travelBtn.selected;
+    [self hobbyAction:self.travelBtn];
 
 }
 
 - (IBAction)readClick:(id)sender {
-    self.readBtn.selected = !self.readBtn.selected;
+    [self hobbyAction:self.readBtn];
 
 }
 
 - (IBAction)motionClick:(id)sender {
-    self.motionBtn.selected = !self.motionBtn.selected;
+    [self hobbyAction:self.motionBtn];
 
 }
 - (IBAction)chessClick:(id)sender {
-    self.chessBtn.selected = !self.chessBtn.selected;
+    [self hobbyAction:self.chessBtn];
 
 }
-
+//性格
 - (IBAction)quiteClick:(id)sender {
-    self.quiteBtn.selected = !self.quiteBtn.selected;
+    [self characterAction:self.quiteBtn];
 
 }
-
+-(void)characterAction:(UIButton *)btn{
+    if (self.count2>1) {
+        if(btn.selected){
+            self.count2--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count2++;
+        }else{
+            self.count2--;
+        }
+        
+    }
+}
 - (IBAction)smailClick:(id)sender {
-    self.smailBtn.selected = !self.smailBtn.selected;
+    [self characterAction:self.smailBtn];
 
 }
 - (IBAction)beautyClick:(id)sender {
-    self.beautyBtn.selected = !self.beautyBtn.selected;
+    [self characterAction:self.beautyBtn];
 
 }
 
 - (IBAction)moneyClick:(id)sender {
-    self.moneyBtn.selected = !self.moneyBtn.selected;
+    [self characterAction:self.moneyBtn];
 
 }
 - (IBAction)quickClick:(id)sender {
-    self.quickBtn.selected = !self.quickBtn.selected;
+    [self characterAction:self.quickBtn];
 
 }
 
 - (IBAction)frivoClick:(id)sender {
-    self.frivoBtn.selected = !self.frivoBtn.selected;
+    [self characterAction:self.frivoBtn];
 
 }
 
 - (IBAction)unfaithClick:(id)sender {
-    self.unfaithBtn.selected = !self.unfaithBtn.selected;
+    [self characterAction:self.unfaithBtn];
 
 }
 
 
 - (IBAction)douClick:(id)sender {
-    self.douBtn.selected = !self.douBtn.selected;
-
+    [self characterAction:self.douBtn];
 }
 
 - (IBAction)livelyClick:(id)sender {
-    self.livelyBtn.selected = !self.livelyBtn.selected;
-
+    [self characterAction:self.livelyBtn];
 }
 
 - (IBAction)coolClick:(id)sender {
-    self.coolBtn.selected = !self.coolBtn.selected;
+    [self characterAction:self.coolBtn];
 
 }
 
 - (IBAction)honeyClick:(id)sender {
-    self.honestBtn.selected = !self.honestBtn.selected;
+    [self characterAction:self.honestBtn];
 
 }
 - (IBAction)cuteClick:(id)sender {
-    self.cuteBtn.selected = !self.cuteBtn.selected;
+    [self characterAction:self.cuteBtn];
 
 }
 #pragma mark-textField-Delegate
@@ -1097,7 +1134,19 @@
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 1;
 }
-
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
+}
 //解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
     

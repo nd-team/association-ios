@@ -24,7 +24,6 @@
 #import "PlatformDetailController.h"
 #import "PublicListController.h"
 
-#define ClaimURL @"appapi/app/allFriendsClaim"
 #define FirstURL @"appapi/app/indexData"
 
 @interface FirstController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate>
@@ -154,7 +153,6 @@
     self.tableView.tableHeaderView = self.headView;
     [self.headView layoutIfNeeded];
     [self.tableView endUpdates];
-    NSSLog(@"%f===%f",self.headerHeightCons.constant,KMainScreenHeight);
 }
 //数据库获取数据
 -(void)localData{
@@ -187,6 +185,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FirstURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             if (weakSelf.dataArr.count !=0||weakSelf.tableView.mj_header.isRefreshing||weakSelf.scrollArr.count != 0 || weakSelf.claimArr.count != 0) {
                 [weakSelf.scrollArr removeAllObjects];
@@ -203,7 +202,6 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSDictionary * allDic = data[@"data"];
-//                NSSLog(@"%@",allDic);
                 NSArray * advArr = allDic[@"advs"];
                 for (NSDictionary * dic1 in advArr) {
                     [weakSelf.scrollArr addObject:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dic1[@"articleImage"]]]];
@@ -225,7 +223,7 @@
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
-               // NSSLog(@"失败错误信息：%@",data[@"msgs"]);
+                [weakSelf showMessage:@"加载首页失败"];
             }
         }
     }];
@@ -337,5 +335,18 @@
         _scrollArr = [NSMutableArray new];
     }
     return _scrollArr;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 @end

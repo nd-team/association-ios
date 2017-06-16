@@ -179,10 +179,13 @@
     NSFileManager * fileManager = [NSFileManager defaultManager];
     NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
     BOOL  isTruing = [fileManager fileExistsAtPath:path];
+    NSSLog(@"%@",status);
+    NSSLog(@"%@",isTruing?@"1":@"0");
     if (isTruing) {
         //VIP未确认信息到确认信息界面
         if (token != nil && phone != nil && password != nil) {
-            if (status.length == 0||[status isEqualToString:@"1"]) {
+            //
+            if ([status integerValue] == 1) {
                 //非VIP或者VIP已经确认过信息
                 [self loginMain];
                 //设置当前用户的用户信息
@@ -434,10 +437,10 @@
                 NSSLog(@"账号不存在！");
                 [weakSelf showMessage:@"账号不存在,请退出！"];
                 //清空本地数据库
-            }else if ([code intValue] == 1000){
+            }else if ([code intValue] == 1002){
                 NSSLog(@"账号禁止登录！");
                 [weakSelf showMessage:@"账号禁止登录！"];
-            }else if ([code intValue] == 1001){
+            }else if ([code intValue] == 1003){
                 NSSLog(@"密码错误！");
                 [weakSelf showMessage:@"密码错误,请退出！"];
                 //传账号

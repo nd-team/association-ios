@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTF;
 @property (weak, nonatomic) IBOutlet UIButton *manBtn;
 @property (weak, nonatomic) IBOutlet UIButton *famaleBtn;
-
+//爱好
 @property (weak, nonatomic) IBOutlet UIButton *danceBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *musicBtn;
@@ -147,7 +147,9 @@
 @property (nonatomic,assign)BOOL isMessage;
 
 @property (nonatomic,copy)NSString * userId;
-
+//计数 爱好选中3项 第四次的时候提示用户 并且不能选中，性格2项
+@property (nonatomic,assign)NSInteger count1;
+@property (nonatomic,assign)NSInteger count2;
 @end
 
 @implementation ApplicationPersonVipController
@@ -165,6 +167,8 @@
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:35 image:@"back.png"  and:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.userId = [DEFAULTS objectForKey:@"userId"];
+    self.count1 = 0;
+    self.count2 = 0;
     [self setUI];
     
 }
@@ -220,7 +224,7 @@
     self.homeDisTF.layer.borderWidth = 1;
     
     [self commonUI:YES];
-    
+    self.marryHeightCons.constant = 0;
     //手势回收键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(resign)];
     [self.view addGestureRecognizer:tap];
@@ -238,14 +242,14 @@
     self.childNameTF.hidden = isHidden;
     self.childSchoolTF.hidden = isHidden;
     if (isHidden) {
-        self.viewHeightCons.constant = 1234;
+        self.viewHeightCons.constant = 1300;
     }else{
         self.viewHeightCons.constant = 1600;
         
     }
 }
 -(void)resign{
-    self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
+    self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
     [self.nameLabel resignFirstResponder];
     [self.phoneTF resignFirstResponder];
     [self.schoolTF resignFirstResponder];
@@ -274,12 +278,15 @@
     [self resign];
     //提示必填项
     if (!self.manBtn.selected && !self.famaleBtn.selected) {
+        [self showMessage:@"请选择性别"];
         return;
     }
     if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
+        [self showMessage:@"请选择爱好"];
         return;
     }
     if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0) {
+        [self showMessage:@"请填写完整必填项"];
         return;
     }
     self.isMessage = YES;
@@ -295,7 +302,7 @@
     
     [self.window addSubview:self.backView];
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(0);
+        make.top.equalTo(self.view).offset(-64);
         make.left.equalTo(self.view);
         make.width.mas_equalTo(KMainScreenWidth);
         make.height.mas_equalTo(KMainScreenHeight);
@@ -537,17 +544,18 @@
         if (error) {
             NSSLog(@"申请请求失败：%@",error);
             weakSelf.isMessage =  NO;
-            [weakSelf showBackViewUI:@"申请VIP失败，请重新申请"];
+            weakSelf.backView.hidden = YES;
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             NSSLog(@"%@=",code);
             if ([code intValue] == 200) {
                 weakSelf.backView.hidden = YES;
-               
+                [weakSelf.navigationController popViewControllerAnimated:YES];
             }else{
-                NSSLog(@"确认失败");
                 weakSelf.isMessage =  NO;
-                [weakSelf showBackViewUI:@"申请VIP失败，请重新申请"];
+                weakSelf.backView.hidden = YES;
+                [weakSelf showMessage:@"申请VIP失败，请重新申请"];
             }
             
         }
@@ -566,118 +574,148 @@
         self.manBtn.selected = NO;
     }
 }
+//爱好
 - (IBAction)danceClick:(id)sender {
-    self.danceBtn.selected = !self.danceBtn.selected;
-    
+    [self hobbyAction:self.danceBtn];
 }
-
+-(void)hobbyAction:(UIButton *)btn{
+    if (self.count1>2) {
+        if(btn.selected){
+            self.count1--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            [self showMessage:@"爱好最多选择三项，请取消其他再进行选择"];
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count1++;
+        }else{
+            self.count1--;
+        }
+        
+    }
+}
 - (IBAction)musicClick:(id)sender {
-    self.musicBtn.selected = !self.musicBtn.selected;
-    
+    [self hobbyAction:self.musicBtn];
 }
 
 - (IBAction)printClick:(id)sender {
-    self.printBtn.selected = !self.printBtn.selected;
-    
+    [self hobbyAction:self.printBtn];
 }
 
 - (IBAction)instrumentClick:(id)sender {
-    self.intrusmentBtn.selected = !self.intrusmentBtn.selected;
-    
+    [self hobbyAction:self.intrusmentBtn];
 }
 
 - (IBAction)gameClick:(id)sender {
-    self.gameBtn.selected = !self.gameBtn.selected;
-    
+    [self hobbyAction:self.gameBtn];
 }
 
 - (IBAction)movieClick:(id)sender {
-    self.movieBtn.selected = !self.movieBtn.selected;
-    
+    [self hobbyAction:self.movieBtn];
 }
 
 - (IBAction)foodClick:(id)sender {
-    self.foodBtn.selected = !self.foodBtn.selected;
+    [self hobbyAction:self.foodBtn];
 }
 
 - (IBAction)chatClick:(id)sender {
-    self.chatBtn.selected = !self.chatBtn.selected;
-    
+    [self hobbyAction:self.chatBtn];
+
 }
 - (IBAction)travelClick:(id)sender {
-    self.travelBtn.selected = !self.travelBtn.selected;
-    
+    [self hobbyAction:self.travelBtn];
+
 }
 
 - (IBAction)readClick:(id)sender {
-    self.readBtn.selected = !self.readBtn.selected;
-    
+    [self hobbyAction:self.readBtn];
+
 }
 
 - (IBAction)motionClick:(id)sender {
-    self.motionBtn.selected = !self.motionBtn.selected;
-    
+    [self hobbyAction:self.motionBtn];
+
 }
 - (IBAction)chessClick:(id)sender {
-    self.chessBtn.selected = !self.chessBtn.selected;
-    
+    [self hobbyAction:self.chessBtn];
+
 }
 //性格
 - (IBAction)quiteClick:(id)sender {
-    self.quiteBtn.selected = !self.quiteBtn.selected;
-    
+    [self characterAction:self.quiteBtn];
 }
-
+-(void)characterAction:(UIButton *)btn{
+    if (self.count2>1) {
+        if(btn.selected){
+            self.count2--;
+            btn.selected = !btn.selected;
+        }else{
+            //提示用户不可点击
+            [self showMessage:@"性格最多选择两项，请取消其他再进行选择"];
+        }
+    }else{
+        btn.selected = !btn.selected;
+        if(btn.selected){
+            self.count2++;
+        }else{
+            self.count2--;
+        }
+        
+    }
+}
 - (IBAction)smailClick:(id)sender {
-    self.smailBtn.selected = !self.smailBtn.selected;
+    [self characterAction:self.smailBtn];
     
 }
 - (IBAction)beautyClick:(id)sender {
-    self.beautyBtn.selected = !self.beautyBtn.selected;
+    [self characterAction:self.beautyBtn];
     
 }
 
 - (IBAction)moneyClick:(id)sender {
-    self.moneyBtn.selected = !self.moneyBtn.selected;
+    [self characterAction:self.moneyBtn];
     
 }
 - (IBAction)quickClick:(id)sender {
-    self.quickBtn.selected = !self.quickBtn.selected;
+    [self characterAction:self.quickBtn];
     
 }
 
 - (IBAction)frivoClick:(id)sender {
-    self.frivoBtn.selected = !self.frivoBtn.selected;
+    [self characterAction:self.frivoBtn];
     
 }
 
 - (IBAction)unfaithClick:(id)sender {
-    self.unfaithBtn.selected = !self.unfaithBtn.selected;
+    [self characterAction:self.unfaithBtn];
     
 }
 
 
 - (IBAction)douClick:(id)sender {
-    self.douBtn.selected = !self.douBtn.selected;
+    [self characterAction:self.douBtn];
     
 }
 
 - (IBAction)livelyClick:(id)sender {
-    self.livelyBtn.selected = !self.livelyBtn.selected;
+    [self characterAction:self.livelyBtn];
     
 }
 
 - (IBAction)coolClick:(id)sender {
-    self.coolBtn.selected = !self.coolBtn.selected;
+    [self characterAction:self.coolBtn];
     
 }
 
 - (IBAction)honeyClick:(id)sender {
-    self.honestBtn.selected = !self.honestBtn.selected;
+    [self characterAction:self.honestBtn];
     
 }
 - (IBAction)cuteClick:(id)sender {
-    self.cuteBtn.selected = !self.cuteBtn.selected;
+    [self characterAction:self.cuteBtn];
     
 }
 #pragma mark-textField-Delegate
@@ -742,13 +780,13 @@
     if (textField == self.emailTF||textField == self.qqTF||textField == self.wechatTF){
         self.bottomView.hidden = YES;
         CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
-        self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight+offset+64);
+        self.view.frame = CGRectMake(0, -offset-64, KMainScreenWidth, KMainScreenHeight+offset+64);
         return YES;
         
     }else if (textField == self.wifeNameTF||textField == self.childNameTF||textField == self.childSchoolTF){
         self.bottomView.hidden = YES;
         CGFloat offset1 = self.marryView.frame.origin.y+textField.frame.origin.y+50-(KMainScreenHeight-216);
-        self.view.frame = CGRectMake(0, -offset1, KMainScreenWidth, KMainScreenHeight+offset1+64);
+        self.view.frame = CGRectMake(0, -offset1-64, KMainScreenWidth, KMainScreenHeight+offset1+64);
         return YES;
         
     }
@@ -1066,6 +1104,19 @@
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return 1;
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
 }
 //解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{

@@ -250,6 +250,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FriendDetailURL] andParams:@{@"otherUserId":self.friendId,@"status":@"0",@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"好友详情请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
@@ -393,6 +394,8 @@
                     weakSelf.childSchoolTF.text = schoolDic[@"name"];
                 }
                 
+            }else{
+                [weakSelf showMessage:@"加载好友更多信息失败！"];
             }
         }
     }];
@@ -404,6 +407,7 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MoreInfoURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"获取用户信息失败%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
         
             NSNumber * code = data[@"code"];
@@ -635,6 +639,8 @@
                     }
                 }
  
+            }else{
+                [weakSelf showMessage:@"加载数据失败！"];
             }
  
         }
@@ -797,12 +803,18 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SaveInfoURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"个人消息更多请求失败：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
+                NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+                //生日和电话重新保存
+                [userDefaults setValue:weakSelf.birthday forKey:@"birthday"];
+                [userDefaults setValue:weakSelf.phoneTF.text forKey:@"mobile"];
+                [userDefaults synchronize];
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else{
-                NSSLog(@"修改失败");
+                [weakSelf showMessage:@"修改失败，重试！"];
             }
             
         }
@@ -976,7 +988,7 @@
     [self.childSchoolTF resignFirstResponder];
     [self.fatherNameTF resignFirstResponder];
     [self.motherNameTF resignFirstResponder];
-    self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
+    self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
 }
 - (IBAction)nameBtnClick:(id)sender {
     self.nameBtn.selected = !self.nameBtn.selected;
@@ -1263,14 +1275,6 @@
     
     [super viewWillLayoutSubviews];
     self.viewWidthCons.constant = KMainScreenWidth;
-//    NSSLog(@"%f",KMainScreenWidth);
-    if (KMainScreenWidth == 375) {
-        self.viewWidthCons.constant = KMainScreenWidth+5;
-
-    }else{
-        self.viewWidthCons.constant = KMainScreenWidth;
-
-    }
 }
 - (IBAction)datePickerClick:(id)sender {
     
@@ -1282,7 +1286,19 @@
     self.birthdayTF.text = [NSString stringWithFormat:@"%@年%@月%@日",arr[0],arr[1],arr[2]];
     self.birthday = time;
 }
-
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
+}
 
 
 @end

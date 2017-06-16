@@ -181,6 +181,7 @@
                 if (![msg[@"contributionScore"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"contributionScore"]] forKey:@"contributionScore"];
                 }
+
                 //设置当前用户
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
@@ -199,7 +200,7 @@
                 
                 if ([[msg allKeys] containsObject:@"status"]) {
                     NSInteger status = [msg[@"status"] integerValue];
-                    [userDefaults setValue:msg[@"status"] forKey:@"status"];
+                    [userDefaults setValue:[NSString stringWithFormat:@"%@",msg[@"status"]] forKey:@"status"];
                     if (status == 0) {
                         //信息未确认进入确认界面
                         [weakSelf presentSureInfoUI:weakSelf.usernameTF.text andPassword:weakSelf.secretTF.text andCode:msg[@"numberId"]];
@@ -212,6 +213,7 @@
                     }
                 }else{
                     //普通用户登录
+                    [userDefaults setValue:@"1" forKey:@"status"];
                     [weakSelf loginMain];
                     [weakSelf loginRongServicer:msg[@"token"]];
                 }
@@ -220,9 +222,9 @@
                 
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"账号不存在！"];
-            }else if ([code intValue] == 1000){
+            }else if ([code intValue] == 1002){
                 [weakSelf showMessage:@"账号禁止登录！"];
-            }else if ([code intValue] == 1001){
+            }else if ([code intValue] == 1003){
                 [weakSelf showMessage:@"密码错误！"];
                 //清空登录信息
                 
