@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PlatformMessageController : UIViewController
-//1平台活动2：公益活动
+//6平台活动7：公益活动
 @property (nonatomic,assign)int type;
 
 @end

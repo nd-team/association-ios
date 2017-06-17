@@ -79,7 +79,7 @@
         //消息
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
         PlatformMessageController * msg = [sb instantiateViewControllerWithIdentifier:@"PlatformMessageController"];
-        msg.type = 1;
+        msg.type = 6;
         [self.navigationController pushViewController:msg animated:YES];
         
     }else{

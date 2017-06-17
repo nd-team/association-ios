@@ -17,7 +17,7 @@
 @property (nonatomic,copy)NSString * userPortraitUrl;
 //共同好友
 @property (nonatomic,assign)NSInteger  count;
-//关系(1亲人2同事3校友4同乡)
+//关系(1亲人2同事3校友4同乡5同行)
 @property (nonatomic,assign)NSInteger  relationship;
 //编号
 @property (nonatomic,copy)NSString * numberId;

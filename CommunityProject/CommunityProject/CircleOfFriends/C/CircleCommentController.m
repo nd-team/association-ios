@@ -55,6 +55,8 @@
 //回复评论的参数
 @property (nonatomic,strong)NSMutableDictionary * params;
 @property (weak, nonatomic) IBOutlet UIButton *zanBtn;
+//分页
+@property (nonatomic,assign)int page;
 
 @end
 
@@ -80,11 +82,12 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
     self.userId = [DEFAULTS objectForKey:@"userId"];
+    self.page = 1;
     if (self.isMsg) {
         //请求数据
         [self getCircleDetailData];
     }else{
-        //获取评论数据
+        //获取评论数据 朋友圈
         [self setUI];
         [self getCommentListData];
  
@@ -178,6 +181,16 @@
         _zanImage.image = [UIImage imageNamed:@"heart"];
         _zanBtn.selected = YES;
     }
+    //上下拉刷新
+    WeakSelf;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakSelf.page = 1;
+        [weakSelf getCommentListData];
+    }];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.page ++;
+        [weakSelf getCommentListData];
+    }];
 }
 -(void)getCircleDetailData{
     WeakSelf;
@@ -230,14 +243,14 @@
 }
 -(void)getCommentListData{
     WeakSelf;
-    NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":@"2"};
+    NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":@"2",@"page":[NSString stringWithFormat:@"%d",self.page]};
 //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"朋友圈评论失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
         }else{
-            if (self.dataArr.count != 0) {
+            if (self.tableView.mj_header.isRefreshing) {
                 [self.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
@@ -249,6 +262,8 @@
                     [weakSelf.dataArr addObject:comment];
                 }
                 [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                [weakSelf.tableView.mj_footer endRefreshing];
             }else{
                 [weakSelf showMessage:@"加载评论失败！"];
             }

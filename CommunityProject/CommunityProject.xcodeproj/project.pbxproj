@@ -306,6 +306,8 @@
 		45D6C0821EE26243003F229A /* SearchGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0801EE26243003F229A /* SearchGroupModel.m */; };
 		45D6C0851EE2887D003F229A /* MaybeKnowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0841EE2887D003F229A /* MaybeKnowController.m */; };
 		45D6C0881EE28D22003F229A /* ScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0871EE28D22003F229A /* ScanCodeViewController.m */; };
+		45D724211EF50F5300E64985 /* AuthorityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D7241F1EF50F5300E64985 /* AuthorityController.m */; };
+		45D724251EF5202300E64985 /* AllMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D724241EF5202300E64985 /* AllMessageModel.m */; };
 		45E4F71A1ED4143400476B64 /* Public.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45E4F7191ED4143400476B64 /* Public.storyboard */; };
 		45E4F71E1ED42C9000476B64 /* PublicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E4F71C1ED42C9000476B64 /* PublicListCell.m */; };
 		45E4F71F1ED42C9000476B64 /* PublicListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E4F71D1ED42C9000476B64 /* PublicListCell.xib */; };
@@ -847,6 +849,10 @@
 		45D6C0841EE2887D003F229A /* MaybeKnowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaybeKnowController.m; sourceTree = "<group>"; };
 		45D6C0861EE28D22003F229A /* ScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanCodeViewController.h; sourceTree = "<group>"; };
 		45D6C0871EE28D22003F229A /* ScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanCodeViewController.m; sourceTree = "<group>"; };
+		45D7241E1EF50F5300E64985 /* AuthorityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorityController.h; sourceTree = "<group>"; };
+		45D7241F1EF50F5300E64985 /* AuthorityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorityController.m; sourceTree = "<group>"; };
+		45D724231EF5202300E64985 /* AllMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMessageModel.h; sourceTree = "<group>"; };
+		45D724241EF5202300E64985 /* AllMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMessageModel.m; sourceTree = "<group>"; };
 		45E4F7191ED4143400476B64 /* Public.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Public.storyboard; sourceTree = "<group>"; };
 		45E4F71B1ED42C9000476B64 /* PublicListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicListCell.h; sourceTree = "<group>"; };
 		45E4F71C1ED42C9000476B64 /* PublicListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicListCell.m; sourceTree = "<group>"; };
@@ -1264,6 +1270,8 @@
 				45CE5F511EC1966600225534 /* SearchAreaViewController.m */,
 				450A50FE1E8670B400433A61 /* NameViewController.h */,
 				450A50FF1E8670B400433A61 /* NameViewController.m */,
+				45D7241E1EF50F5300E64985 /* AuthorityController.h */,
+				45D7241F1EF50F5300E64985 /* AuthorityController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1880,6 +1888,8 @@
 				45AE19A71ECDA7120098A7FF /* PlatformActListModel.m */,
 				458D81731ED28FE8006775F1 /* CommentsListModel.h */,
 				458D81741ED28FE8006775F1 /* CommentsListModel.m */,
+				45D724231EF5202300E64985 /* AllMessageModel.h */,
+				45D724241EF5202300E64985 /* AllMessageModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2415,6 +2425,7 @@
 				45CE5F551EC1972000225534 /* HistoryModel.m in Sources */,
 				45AE19AB1ECE90210098A7FF /* MyJoinActivityController.m in Sources */,
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
+				45D724251EF5202300E64985 /* AllMessageModel.m in Sources */,
 				450A50E11E853BA800433A61 /* RCAnnotationView.m in Sources */,
 				4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */,
 				457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */,
@@ -2427,6 +2438,7 @@
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
 				45B977271EB08A9300A42D55 /* PersonBaseInfoController.m in Sources */,
+				45D724211EF50F5300E64985 /* AuthorityController.m in Sources */,
 				458959D21EBB150400CBADDD /* FSCalendarExtensions.m in Sources */,
 				459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */,
 				45D6C0731EE1688F003F229A /* AddFriendsCell.m in Sources */,

@@ -11,6 +11,8 @@
 #import "HeadDetailCell.h"
 #import "MemberListController.h"
 #import "PlatformCommentController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDKUI.h>
 
 #define PlatformDetailURL @"appapi/app/platformActivesInfo"
 #define ZanURL @"appapi/app/userPraise"
@@ -51,6 +53,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidthCons;
+//活动图片
+@property (nonatomic,copy)NSString * imageUrl;
 
 @end
 
@@ -118,7 +122,8 @@
                 weakSelf.contentLabel.text = [NSString stringWithFormat:@"%@",dict[@"description"]];
                 weakSelf.areaLabel.text = [NSString stringWithFormat:@"%@",dict[@"address"]];
                 weakSelf.addressLabel.text = [NSString stringWithFormat:@"活动地点：%@",dict[@"address"]];
-                [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"activesImage"]]]] placeholderImage:[UIImage imageNamed:@"banner2"]];
+                weakSelf.imageUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"activesImage"]]];
+                [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:weakSelf.imageUrl] placeholderImage:[UIImage imageNamed:@"banner2"]];
                 weakSelf.timeLabel.text = [NSString stringWithFormat:@"活动时间：%@至%@",dict[@"startingTime"],dict[@"endTime"]];
                 weakSelf.endTimeLabel.text = [NSString stringWithFormat:@"报名截止：%@",dict[@"deadline"]];
                 weakSelf.moneyLabel.text = [NSString stringWithFormat:@"人均费用：¥%@/人",dict[@"costMoney"]];
@@ -210,7 +215,44 @@
 }
 //转发 分享需要web
 - (IBAction)shareClick:(id)sender {
-    
+    [self share];
+}
+-(void)share{
+    //平台活动图片
+    NSArray * imageArr = @[self.imageUrl];
+    //平台活动的路径
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    [shareParams SSDKSetupShareParamsByText:self.titleLabel.text
+                                     images:imageArr
+                                        url:[NSURL URLWithString:@""]
+                                      title:@"平台活动"
+                                       type:SSDKContentTypeAuto];
+    //有的平台要客户端分享需要加此方法，例如微博
+    [shareParams SSDKEnableUseClientShare];
+    [shareParams SSDKSetShareFlags:@[@"来自社群联盟平台"]];
+    //2、分享（可以弹出我们的分享菜单和编辑界面）
+    WeakSelf;
+    [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                             items:nil
+                       shareParams:shareParams
+               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                   
+                   switch (state) {
+                       case SSDKResponseStateSuccess:
+                       {
+                           NSSLog(@"分享成功");
+                           break;
+                       }
+                       case SSDKResponseStateFail:
+                       {
+                           [weakSelf showMessage:@"分享失败"];
+                           break;
+                       }
+                       default:
+                           break;
+                   }
+               }
+     ];
 }
 //文章点赞
 - (IBAction)zanClick:(id)sender {

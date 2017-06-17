@@ -381,7 +381,10 @@
     }else if ([self.relationshipTF.text isEqualToString:@"同事"]){
         relation = @"2";
         
+    }else if ([self.relationshipTF.text isEqualToString:@"同行"]){
+        relation = @"5";
     }
+
 
     [params setValue:relation forKey:@"relationship"];
     [params setValue:self.birthday forKey:@"birthday"];
@@ -895,7 +898,7 @@
         }else if (textField == self.relationshipTF){
             [self hidden];
             self.flag = 4;
-            self.relationshipArr = @[@"亲人",@"同事",@"校友",@"同乡"];
+            self.relationshipArr = @[@"亲人",@"同事",@"校友",@"同乡",@"同行"];
         }else if (textField == self.presiTF){
             [self hidden];
             self.flag = 5;

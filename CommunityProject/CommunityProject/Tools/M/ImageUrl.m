@@ -36,6 +36,21 @@
 
     return str;
 }
++(NSMutableAttributedString*)messageTextColor:(NSString *)baseStr andFirstString:(NSString *)first andFirstColor:(UIColor*)color andFirstFont:(UIFont *)font andSecondStr:(NSString *)secondStr andSecondColor:(UIColor *)secondColor andSecondFont:(UIFont *)secondFont andThirdStr:(NSString *)thirdStr andThirdColor:(UIColor *)thirdColor andThirdFont:(UIFont *)thirdFont{
+    NSMutableAttributedString * str = [[NSMutableAttributedString alloc]initWithString:baseStr];
+    NSRange range1 = [[str string]rangeOfString:first];
+    NSRange range2 = [[str string]rangeOfString:secondStr];
+    NSRange range3 = [[str string]rangeOfString:thirdStr];
+    [str addAttribute:NSForegroundColorAttributeName value:color range:range1];
+    [str addAttribute:NSForegroundColorAttributeName value:secondColor range:range2];
+    [str addAttribute:NSFontAttributeName value:font range:range1];
+    [str addAttribute:NSFontAttributeName value:secondFont range:range2];
+    [str addAttribute:NSForegroundColorAttributeName value:thirdColor range:range3];
+    [str addAttribute:NSFontAttributeName value:thirdFont range:range3];
+    return str;
+    
+
+}
 +(NSMutableAttributedString *)commentTextColor:(NSString *)baseStr andFirstString:(NSString *)first andFirstColor:(UIColor *)color andFirstFont:(UIFont *)font andSecondStr:(NSString *)secondStr andSecondColor:(UIColor *)secondColor andSecondFont:(UIFont *)secondFont andThirdStr:(NSString *)thirdStr andThirdColor:(UIColor *)thirdColor andThirdFont:(UIFont *)thirdFont andFourthStr:(NSString *)fourStr andFourthColor:(UIColor *)fourColor andFourthFont:(UIFont *)fourFont{
     NSMutableAttributedString * str = [[NSMutableAttributedString alloc]initWithString:baseStr];
     NSRange range1 = [[str string]rangeOfString:first];
@@ -51,8 +66,6 @@
     [str addAttribute:NSFontAttributeName value:thirdFont range:range3];
     [str addAttribute:NSForegroundColorAttributeName value:fourColor range:range4];
     [str addAttribute:NSFontAttributeName value:fourFont range:range4];
-    
-
     return str;
 
 }

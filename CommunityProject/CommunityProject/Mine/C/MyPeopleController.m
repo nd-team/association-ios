@@ -29,7 +29,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataArr = @[@"同事",@"校友",@"同乡",@"亲人"];
+    self.dataArr = @[@"亲人",@"同事",@"校友",@"同乡",@"同行"];
     [self.tableView reloadData];
 }
 

@@ -12,6 +12,7 @@
 #import "UploadMulDocuments.h"
 #import "CircleListModel.h"
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
+#import "AuthorityController.h"
 
 #define SendURL @"appapi/app/releaseFriendsCircle"
 
@@ -31,11 +32,23 @@
 @property (nonatomic,strong)UIBarButtonItem * rightItem;
 
 @property (nonatomic, strong) PHImageRequestOptions *requestOption;
+@property (weak, nonatomic) IBOutlet UIView *seeView;
+@property (weak, nonatomic) IBOutlet UILabel *seeLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *seeViewHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionHeightCons;
 
 @end
 
 @implementation ActivityRecommendController
-
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    if (self.authStr.length != 0) {
+        self.seeLabel.text = self.authStr;
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = self.name;
@@ -49,11 +62,20 @@
     [self.collectArr addObject:[self getImageData]];
     self.allCount = 0;
 //    self.cameraCount = 0;
+    //活动介绍
     if (self.type == 1) {
         self.placeLabel.hidden = YES;
+        self.seeViewHeightCons.constant = 0;
+        self.collectionHeightCons.constant = 85;
+        self.seeView.hidden = YES;
     }else{
+        //朋友圈
         self.placeLabel.hidden = NO;
         self.rightItem.enabled = NO;
+        self.seeViewHeightCons.constant = 45;
+        self.collectionHeightCons.constant = 73;
+        self.seeView.hidden = NO;
+
     }
     //长按删除
     [self showTapUI];
@@ -82,6 +104,8 @@
             [self.collectionView insertItemsAtIndexPaths:insertArr];
     }
     self.allCount -- ;
+    //改变高度
+    [self changeHeight];
     [self.collectionView reloadData];
     
 }
@@ -123,6 +147,11 @@
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     NSMutableDictionary * mDic = [NSMutableDictionary new];
     [mDic setValue:userId forKey:@"userId"];
+    if ([self.seeLabel.text isEqualToString:@"公开"]) {
+        [mDic setValue:@"0" forKey:@"status"];
+    }else{
+        [mDic setValue:@"1" forKey:@"status"];
+    }
     [mDic setValue:self.recomTV.text forKey:@"content"];
      [UploadMulDocuments postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:mDic andArray:arr getBlock:^(NSURLResponse *response, NSError *error, id data) {
          if (error) {
@@ -157,6 +186,19 @@
      }];
 }
 #pragma mark - collectionView的代理方法
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.type == 1) {
+        return CGSizeMake(70, 85);
+    }else{
+        if (KMainScreenWidth >= 375) {
+            //4.7 5.5
+            return CGSizeMake(KMainScreenWidth/4, 73);
+        }else{
+            //4.0 3.5
+            return CGSizeMake(KMainScreenWidth/3, 73);
+        }
+    }
+}
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     return self.collectArr.count;
@@ -269,12 +311,39 @@
         
                 }
             if (weakSelf.collectArr.count -1 == assets.count || weakSelf.count == 3|| weakSelf.count == 9) {
+                //改变高度
+                [self changeHeight];
                 [weakSelf.collectionView reloadData];
             }
         }];
         i++;
     }
 
+}
+-(void)changeHeight{
+    if (self.type == 1) {
+        self.collectionHeightCons.constant = 85;
+    }else{
+        if (KMainScreenWidth>=375) {
+            //一行四个
+            if (self.allCount < 5) {
+                self.collectionHeightCons.constant = 73;
+            }else if(self.allCount < 9 && self.allCount > 4){
+                self.collectionHeightCons.constant = 146;
+            }else{
+                self.collectionHeightCons.constant = 219;
+            }
+        }else{
+            //一行3个
+            if (self.allCount < 4) {
+                self.collectionHeightCons.constant = 73;
+            }else if(self.allCount < 7 && self.allCount > 3){
+                self.collectionHeightCons.constant = 146;
+            }else{
+                self.collectionHeightCons.constant = 219;
+            }
+        }
+    }
 }
 -(BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset{
     NSInteger max = 0;
@@ -400,6 +469,7 @@
         }else{
             [self.collectArr addObject:item];
         }
+        self.collectionHeightCons.constant = 85;
     }else{
         //发布朋友圈
         self.rightItem.enabled = YES;
@@ -408,8 +478,10 @@
         }else{
             [self.collectArr addObject:item];
         }
+        //改变高度
+        [self changeHeight];
+
     }
-    
 
     [self.collectionView reloadData];
     
@@ -427,6 +499,12 @@
     }];
     
 }
+//改变权限
+- (IBAction)seeClick:(id)sender {
+    
+}
+
+
 -(NSMutableArray *)collectArr{
     if (!_collectArr) {
         _collectArr = [NSMutableArray new];

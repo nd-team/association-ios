@@ -31,6 +31,9 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tvHeightCons;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomHeightCons;
+//分页
+@property (nonatomic,assign)int page;
+
 @end
 
 @implementation PlatformCommentController
@@ -73,13 +76,18 @@
     tap.cancelsTouchesInView = NO;
     tap.delegate = self;
     [self.view addGestureRecognizer:tap];
+    self.page = 1;
     [self getCommentListData];
+    //上下拉刷新
     WeakSelf;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakSelf.page = 1;
         [weakSelf getCommentListData];
     }];
-    self.tableView.mj_footer.hidden = YES;
-    
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.page ++;
+        [weakSelf getCommentListData];
+    }];
 }
 -(void)tapClick{
     [self.commentTF resignFirstResponder];
@@ -109,14 +117,14 @@
 
 -(void)getCommentListData{
     WeakSelf;
-    NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":[NSString stringWithFormat:@"%d",self.type]};
+    NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":[NSString stringWithFormat:@"%d",self.type],@"page":[NSString stringWithFormat:@"%d",self.page]};
     //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentListURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"评论列表获取失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
         }else{
-            if (self.dataArr.count != 0||self.tableView.mj_header.isRefreshing) {
+            if (self.tableView.mj_header.isRefreshing) {
                 [self.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
@@ -129,6 +137,7 @@
                 }
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_header endRefreshing];
+                [weakSelf.tableView.mj_footer endRefreshing];
             }else{
                 [weakSelf showMessage:@"加载评论失败"];
             }
