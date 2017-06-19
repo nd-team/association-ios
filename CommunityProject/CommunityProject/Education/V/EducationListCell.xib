@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="EducationListCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="204"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="203.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner3" translatesAutoresizingMaskIntoConstraints="NO" id="m9K-0X-6SU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="0JZ-Oq-gKn"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hi9-Na-69n">
+                        <rect key="frame" x="0.0" y="200" width="320" height="3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="3" id="fYd-iS-JKW"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="三分钟教学" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lta-LK-bDL">
+                        <rect key="frame" x="60" y="78" width="200" height="21.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="40" constant="18" id="dbm-DU-Top"/>
+                            <constraint firstAttribute="width" constant="200" id="uIf-eC-5Dc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="社群联盟/05‘20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYo-yh-suR">
+                        <rect key="frame" x="113.5" y="107.5" width="93.5" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="kwR-h0-0Yb"/>
+                            <constraint firstAttribute="width" priority="200" constant="80" id="wqw-vi-BTf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Lta-LK-bDL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="2yI-wZ-y7a"/>
+                    <constraint firstItem="m9K-0X-6SU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="NOC-y3-ing"/>
+                    <constraint firstAttribute="bottom" secondItem="Hi9-Na-69n" secondAttribute="bottom" id="W0o-tT-OI0"/>
+                    <constraint firstItem="DYo-yh-suR" firstAttribute="top" secondItem="Lta-LK-bDL" secondAttribute="bottom" constant="8" id="XPt-d4-rvt"/>
+                    <constraint firstItem="DYo-yh-suR" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Yc5-i4-yy0"/>
+                    <constraint firstAttribute="trailing" secondItem="m9K-0X-6SU" secondAttribute="trailing" id="ZZh-gd-4nF"/>
+                    <constraint firstItem="Hi9-Na-69n" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bAS-ce-jAk"/>
+                    <constraint firstItem="Lta-LK-bDL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="70" id="fQr-0G-lCh"/>
+                    <constraint firstAttribute="trailing" secondItem="Hi9-Na-69n" secondAttribute="trailing" id="gzi-Zp-hlR"/>
+                    <constraint firstItem="m9K-0X-6SU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="j9u-8w-vUX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="nameLabel" destination="DYo-yh-suR" id="UsJ-py-hjs"/>
+                <outlet property="titleLabel" destination="Lta-LK-bDL" id="iSq-Ac-Bu3"/>
+                <outlet property="topicImageView" destination="m9K-0X-6SU" id="oYr-4p-FjO"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="134"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="banner3" width="375" height="200"/>
+    </resources>
+</document>

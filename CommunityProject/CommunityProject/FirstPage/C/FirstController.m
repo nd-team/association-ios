@@ -23,6 +23,7 @@
 #import "PlatFormActController.h"
 #import "PlatformDetailController.h"
 #import "PublicListController.h"
+#import "EducationListController.h"
 
 #define FirstURL @"appapi/app/indexData"
 
@@ -302,6 +303,10 @@
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
         PublicListController * list = [sb instantiateViewControllerWithIdentifier:@"PublicListController"];
         [self.navigationController pushViewController:list animated:YES];
+    }else if ([model.name isEqualToString:@"三分钟教学"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
+        EducationListController * education = [sb instantiateViewControllerWithIdentifier:@"EducationListController"];
+        [self.navigationController pushViewController:education animated:YES];
     }
     
 }

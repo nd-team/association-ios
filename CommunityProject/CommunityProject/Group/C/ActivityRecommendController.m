@@ -36,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *seeLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *seeViewHeightCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionHeightCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidthCons;
 
 @end
 
@@ -501,10 +502,20 @@
 }
 //改变权限
 - (IBAction)seeClick:(id)sender {
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
+    AuthorityController * auth = [sb instantiateViewControllerWithIdentifier:@"AuthorityController"];
+    auth.delegate = self;
+    auth.type = 1;
+    [self.navigationController pushViewController:auth animated:YES];
+
 }
 
-
+//解决scrollView的屏幕适配
+-(void)viewWillLayoutSubviews{
+    
+    [super viewWillLayoutSubviews];
+    self.viewWidthCons.constant = KMainScreenWidth;
+}
 -(NSMutableArray *)collectArr{
     if (!_collectArr) {
         _collectArr = [NSMutableArray new];

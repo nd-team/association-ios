@@ -39,9 +39,18 @@
 }
 -(void)finishAction{
     if (self.oneBtn.selected) {
-        self.delegate.authStr = @"公开";
+        if (self.type == 1) {
+            self.delegate.authStr = @"公开";
+        }else if(self.type == 2){
+            self.sendDelegate.authStr = @"公开";
+        }
+        
     }else{
-        self.delegate.authStr = @"非公开";
+        if (self.type == 1) {
+            self.delegate.authStr = @"非公开";
+        }else if(self.type == 2){
+            self.sendDelegate.authStr = @"非公开";
+        }
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

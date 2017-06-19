@@ -51,6 +51,7 @@
     self.userId = [DEFAULTS objectForKey:@"userId"];
     [self.tableView beginUpdates];
     CGRect rect = self.headView.frame;
+    //平台活动
     if (self.type == 6) {
         self.headView.hidden = YES;
         self.headHeightCons.constant = 0;

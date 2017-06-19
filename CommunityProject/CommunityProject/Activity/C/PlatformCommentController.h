@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PlatformCommentController : UIViewController
-//6:平台活动7公益活动
+//6:平台活动7公益活动1产品众筹2朋友圈3干货分享4求助中心5灵感贩卖6平台活动7公益活动  9三分钟教学
 @property (nonatomic,assign)int type;
 //Id
 @property (nonatomic,copy)NSString * idStr;
