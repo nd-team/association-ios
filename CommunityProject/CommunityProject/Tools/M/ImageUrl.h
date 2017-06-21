@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVAssetImageGenerator.h>
+#import <AVFoundation/AVTime.h>
+#import <Photos/Photos.h>
+//#import <AssetsLibrary/AssetsLibrary.h>
 
+typedef void(^Result)(NSData * data,NSString * filename);
 @interface ImageUrl : NSObject
 //过滤反斜杠
 +(NSString *)changeUrl:(NSString *)url;
@@ -29,4 +35,13 @@
 +(NSArray *)cutBigTime:(NSString *)time;
 //剪切时分秒
 +(NSArray *)cutSmallTime:(NSString *)time;
+//获取视频任一帧
++ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time;
+//视频名字
+@property (nonatomic,strong) NSString *videoName;
+//获取视频
++ (void)getVideoFromPHAsset:(PHAsset *)asset Complete:(Result)result;
+//压缩视频
+-(void)compressVideo:(NSURL *)path andVideoName:(NSString *)name
+     successCompress:(void(^)(NSData *compressData))successCompress;
 @end

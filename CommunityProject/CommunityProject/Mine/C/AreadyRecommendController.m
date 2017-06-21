@@ -48,7 +48,10 @@
         if (error) {
             NSSLog(@"已推荐人请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
-        }else{
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
+          }else{
             if (weakSelf.dataArr.count != 0 || weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
             }
@@ -59,11 +62,11 @@
                     AlreadyRecommendModel * recommend = [[AlreadyRecommendModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:recommend];
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
             }else{
                 [weakSelf showMessage:@"加载已推荐人失败"];
             }
+              [weakSelf.tableView reloadData];
+              [weakSelf.tableView.mj_header endRefreshing];
             
         }
     }];

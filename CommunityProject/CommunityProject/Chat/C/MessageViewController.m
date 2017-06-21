@@ -102,6 +102,9 @@
         if (error) {
             NSSLog(@"添加好友列表获取失败%@",error);
             [weakSelf showMessage:@"服务器出问题咯"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (weakSelf.dataArr.count != 0 || weakSelf.tableView.mj_header.isRefreshing) {
                 for (ApplicationFriendsModel * model in weakSelf.dataArr) {

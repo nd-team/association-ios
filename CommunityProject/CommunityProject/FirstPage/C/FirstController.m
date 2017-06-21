@@ -95,9 +95,6 @@
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getClaimUserData];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-            });
         });
   
     }
@@ -184,9 +181,15 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":userId};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FirstURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        });
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (weakSelf.dataArr.count !=0||weakSelf.tableView.mj_header.isRefreshing||weakSelf.scrollArr.count != 0 || weakSelf.claimArr.count != 0) {
                 [weakSelf.scrollArr removeAllObjects];
@@ -221,11 +224,12 @@
                     [[TravelDatabaseSingleton shareDatabase]insertDatabase:tvModel];
                     [weakSelf.dataArr addObject:tvModel];
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
+               
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"加载首页失败"];
             }
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
         }
     }];
 }
@@ -345,7 +349,7 @@
     UIView * msgView = [UIView showViewTitle:msg];
     [self.view addSubview:msgView];
     [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+        msgView.frame = CGRectMake(20, KMainScreenHeight-200, KMainScreenWidth-40, 50);
     } completion:^(BOOL finished) {
         //完成之后3秒消失
         [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {

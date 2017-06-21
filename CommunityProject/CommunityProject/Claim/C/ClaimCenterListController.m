@@ -74,6 +74,9 @@
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.collectionView.mj_header.isRefreshing) {
+                [weakSelf.collectionView.mj_header endRefreshing];
+            }
         }else{
             if (weakSelf.collectionArr.count !=0||weakSelf.collectionView.mj_header.isRefreshing) {
                 
@@ -87,11 +90,11 @@
                     ClaimCenterModel * model = [[ClaimCenterModel alloc]initWithDictionary:dic error:nil];
                     [self.collectionArr addObject:model];
                 }
-                [self.collectionView reloadData];
-                [self.collectionView.mj_header endRefreshing];
             }else{
                 [weakSelf showMessage:@"加载认领用户失败，下拉刷新重试"];
             }
+            [self.collectionView reloadData];
+            [self.collectionView.mj_header endRefreshing];
         }
     }];
 }

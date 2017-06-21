@@ -89,13 +89,6 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>http://192.168.0.104:90/</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSExceptionRequiresForwardSecrecy</key>
-				<false/>
-			</dict>
 			<key>alipay.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -121,6 +114,13 @@
 			<key>api.jrmf360.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>http://192.168.0.104:90/</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
 			<key>nav.cn.ronghub.com</key>

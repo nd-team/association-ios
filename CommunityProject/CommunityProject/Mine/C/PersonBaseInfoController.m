@@ -259,9 +259,6 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf submitData];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
     });
     }
 -(void)submitData{
@@ -317,6 +314,9 @@
     [params setValue:hobby forKey:@"favour"];
     WeakSelf;
     [UploadImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,SaveInfoURL] andParams:params andImage:self.headImage getBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"修改个人信息失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

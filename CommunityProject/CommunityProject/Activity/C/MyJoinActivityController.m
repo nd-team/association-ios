@@ -46,6 +46,9 @@
         if (error) {
             NSSLog(@"我参与的平台活动数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing||self.dataArr.count != 0) {
                 [weakSelf.dataArr removeAllObjects];
@@ -57,11 +60,12 @@
                     PlatformActListModel * model = [[PlatformActListModel alloc]initWithDictionary:dict error:nil];
                     [self.dataArr addObject:model];
                 }
-                [self.tableView reloadData];
-                [self.tableView.mj_header endRefreshing];
-            }else{
+                }else{
                 [weakSelf showMessage:@"加载我参与的平台活动失败，下拉刷新重新"];
             }
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+
         }
     }];
 }

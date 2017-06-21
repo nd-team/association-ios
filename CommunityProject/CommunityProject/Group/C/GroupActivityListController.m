@@ -71,6 +71,9 @@
         if (error) {
             NSSLog(@"获取活动列表失败%@",error);
             [weakSelf showMessage:@"服务器出问题咯"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing||weakSelf.dataArr.count != 0) {
                 for (ActivityListModel * model in weakSelf.dataArr) {
@@ -87,11 +90,12 @@
                     [[ActivityListDatabaseSingleton shareDatabase]insertDatabase:model];
                     [weakSelf.dataArr addObject:model];
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
             }else{
                 [weakSelf showMessage:[NSString stringWithFormat:@"%@,下拉加载重试",data[@"msgs"]]];
             }
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+
         }
     }];
     

@@ -293,9 +293,6 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf recommendSubmit];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
     });
 }
 -(void)recommendSubmit{
@@ -523,6 +520,9 @@
     [params setValue:self.userId forKey:@"userId"];
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RecommendURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"已推荐人请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

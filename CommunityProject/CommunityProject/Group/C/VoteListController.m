@@ -51,6 +51,9 @@
         if (error) {
             NSSLog(@"获取投票列表失败%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing || weakSelf.dataArr.count != 0) {
                 
@@ -63,12 +66,12 @@
                     VoteListModel * model = [[VoteListModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:model];
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
+               
             }else{
                 [weakSelf showMessage:@"加载投票列表失败"];
             }
-            
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
         }
     }];
 

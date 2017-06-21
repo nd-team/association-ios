@@ -12,4 +12,6 @@
 
 @property (nonatomic,copy)NSString * authStr;
 
+@property (nonatomic,copy)NSString * userId;
+
 @end

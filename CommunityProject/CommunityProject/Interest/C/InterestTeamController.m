@@ -288,7 +288,7 @@
     UIView * msgView = [UIView showViewTitle:msg];
     [self.view addSubview:msgView];
     [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+        msgView.frame = CGRectMake(20, KMainScreenHeight-200, KMainScreenWidth-40, 50);
     } completion:^(BOOL finished) {
         //完成之后3秒消失
         [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {

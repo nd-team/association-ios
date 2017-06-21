@@ -54,9 +54,6 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getEducationListData];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
     });
 
 }
@@ -64,9 +61,18 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,EducationListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"三分钟教学：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
+            if (weakSelf.tableView.mj_footer.isRefreshing) {
+                [weakSelf.tableView.mj_footer endRefreshing];
+            }
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
@@ -81,15 +87,13 @@
                         EducationListModel * list = [[EducationListModel alloc]initWithDictionary:dic error:nil];
                         [weakSelf.dataArr addObject:list];
                     }
-                    [weakSelf.tableView reloadData];
-                    [weakSelf.tableView.mj_header endRefreshing];
-                    [weakSelf.tableView.mj_footer endRefreshing];
-                    
                 }
             }else{
                 [weakSelf showMessage:@"加载三分钟教学失败，下拉刷新重试！"];
-                
             }
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
             
         }
     }];
@@ -191,12 +195,10 @@
     }
 }
 //发表教学
-- (IBAction)sendEducationClick:(id)sender {
-    
-}
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"EducationLine"]) {
-//        SendEducationController * send = segue.destinationViewController;
+        SendEducationController * send = segue.destinationViewController;
+        send.userId = self.userId;
         UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
         self.navigationItem.backBarButtonItem = backItem;
 

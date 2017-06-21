@@ -249,6 +249,12 @@
         if (error) {
             NSSLog(@"朋友圈评论失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
+            if (weakSelf.tableView.mj_footer.isRefreshing) {
+                [weakSelf.tableView.mj_footer endRefreshing];
+            }
         }else{
             if (self.tableView.mj_header.isRefreshing) {
                 [self.dataArr removeAllObjects];
@@ -261,13 +267,12 @@
                     CircleCommentModel * comment = [[CircleCommentModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:comment];
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
-                [weakSelf.tableView.mj_footer endRefreshing];
             }else{
                 [weakSelf showMessage:@"加载评论失败！"];
             }
-            
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
         }
     }];
 }

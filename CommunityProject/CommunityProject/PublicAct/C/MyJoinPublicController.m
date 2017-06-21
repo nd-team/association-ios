@@ -41,6 +41,9 @@
         if (error) {
             NSSLog(@"公益活动数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出差错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (!weakSelf.tableView.mj_footer.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
@@ -52,11 +55,11 @@
                     PublicListModel * model = [[PublicListModel alloc]initWithDictionary:dict error:nil];
                     [self.dataArr addObject:model];
                 }
-                [self.tableView reloadData];
-                [self.tableView.mj_header endRefreshing];
             }else{
                 [weakSelf showMessage:@"加载公益活动数据失败"];
             }
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
         }
     }];
 }

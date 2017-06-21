@@ -111,9 +111,6 @@
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                     [weakSelf loginNet];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                });
             });
            
         }
@@ -126,7 +123,9 @@
     WeakSelf;
     NSDictionary * dic = @{@"mobile":self.usernameTF.text,@"password":self.secretTF.text};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"登录失败：%@",error);
             [weakSelf showMessage:@"登录失败！"];

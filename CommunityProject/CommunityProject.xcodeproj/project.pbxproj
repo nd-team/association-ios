@@ -229,6 +229,12 @@
 		458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD5281E8A624A00650F2E /* GroupMessageController.m */; };
 		458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD52B1E8A639300650F2E /* GroupApplicationModel.m */; };
 		458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD52E1E8A6A3D00650F2E /* ApplicationTwoModel.m */; };
+		459130E51EF920DA0054A28C /* FastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130DE1EF920DA0054A28C /* FastForwardView.m */; };
+		459130E61EF920DA0054A28C /* FastForwardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459130DF1EF920DA0054A28C /* FastForwardView.xib */; };
+		459130E71EF920DA0054A28C /* WMLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130E11EF920DA0054A28C /* WMLightView.m */; };
+		459130E81EF920DA0054A28C /* WMPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 459130E21EF920DA0054A28C /* WMPlayer.bundle */; };
+		459130E91EF920DA0054A28C /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130E41EF920DA0054A28C /* WMPlayer.m */; };
+		459130EC1EF927CC0054A28C /* EducationVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130EB1EF927CC0054A28C /* EducationVideoPost.m */; };
 		459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */; };
 		459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CE1EA6F90300E5A331 /* CircleMessageCell.m */; };
 		459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84D11EA8444500E5A331 /* CircleUnreadMessageModel.m */; };
@@ -725,6 +731,16 @@
 		458DD52B1E8A639300650F2E /* GroupApplicationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupApplicationModel.m; sourceTree = "<group>"; };
 		458DD52D1E8A6A3D00650F2E /* ApplicationTwoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationTwoModel.h; sourceTree = "<group>"; };
 		458DD52E1E8A6A3D00650F2E /* ApplicationTwoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationTwoModel.m; sourceTree = "<group>"; };
+		459130DD1EF920DA0054A28C /* FastForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastForwardView.h; sourceTree = "<group>"; };
+		459130DE1EF920DA0054A28C /* FastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastForwardView.m; sourceTree = "<group>"; };
+		459130DF1EF920DA0054A28C /* FastForwardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FastForwardView.xib; sourceTree = "<group>"; };
+		459130E01EF920DA0054A28C /* WMLightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMLightView.h; sourceTree = "<group>"; };
+		459130E11EF920DA0054A28C /* WMLightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMLightView.m; sourceTree = "<group>"; };
+		459130E21EF920DA0054A28C /* WMPlayer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WMPlayer.bundle; sourceTree = "<group>"; };
+		459130E31EF920DA0054A28C /* WMPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPlayer.h; sourceTree = "<group>"; };
+		459130E41EF920DA0054A28C /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
+		459130EA1EF927CC0054A28C /* EducationVideoPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EducationVideoPost.h; sourceTree = "<group>"; };
+		459130EB1EF927CC0054A28C /* EducationVideoPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EducationVideoPost.m; sourceTree = "<group>"; };
 		459E84CA1EA6F8DF00E5A331 /* CircleMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessageController.h; sourceTree = "<group>"; };
 		459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMessageController.m; sourceTree = "<group>"; };
 		459E84CD1EA6F90300E5A331 /* CircleMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessageCell.h; sourceTree = "<group>"; };
@@ -1392,6 +1408,7 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				459130DB1EF920DA0054A28C /* WMPlayer */,
 				45F045FA1EE52DB700CDA7BD /* ShareSDK */,
 				452DB66B1EC2A4DC00A4FE0C /* AMapLocationKit.framework */,
 				45CE5F691EC19D8400225534 /* AMapSearchKit.framework */,
@@ -1876,6 +1893,29 @@
 			path = MJPhotoBrowser;
 			sourceTree = "<group>";
 		};
+		459130DB1EF920DA0054A28C /* WMPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				459130DC1EF920DA0054A28C /* View */,
+				459130E21EF920DA0054A28C /* WMPlayer.bundle */,
+				459130E31EF920DA0054A28C /* WMPlayer.h */,
+				459130E41EF920DA0054A28C /* WMPlayer.m */,
+			);
+			path = WMPlayer;
+			sourceTree = "<group>";
+		};
+		459130DC1EF920DA0054A28C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				459130DD1EF920DA0054A28C /* FastForwardView.h */,
+				459130DE1EF920DA0054A28C /* FastForwardView.m */,
+				459130DF1EF920DA0054A28C /* FastForwardView.xib */,
+				459130E01EF920DA0054A28C /* WMLightView.h */,
+				459130E11EF920DA0054A28C /* WMLightView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		45A96C5C1EF75FAE0022F382 /* Education */ = {
 			isa = PBXGroup;
 			children = (
@@ -1907,6 +1947,8 @@
 			children = (
 				45A96C6A1EF7698A0022F382 /* EducationListModel.h */,
 				45A96C6B1EF7698A0022F382 /* EducationListModel.m */,
+				459130EA1EF927CC0054A28C /* EducationVideoPost.h */,
+				459130EB1EF927CC0054A28C /* EducationVideoPost.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2297,6 +2339,7 @@
 				45E4F71A1ED4143400476B64 /* Public.storyboard in Resources */,
 				456CCE6A1E827CD8005EC051 /* AlipaySDK.bundle in Resources */,
 				45F046431EE5514700CDA7BD /* MaybeKnowCell.xib in Resources */,
+				459130E81EF920DA0054A28C /* WMPlayer.bundle in Resources */,
 				45F0462C1EE52DB700CDA7BD /* ShareSDKUI.bundle in Resources */,
 				456CCE6C1E827CD8005EC051 /* JrmfInfo.strings in Resources */,
 				45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */,
@@ -2309,6 +2352,7 @@
 				45D6C0571EDEA467003F229A /* InterestCell.xib in Resources */,
 				4589599F1EB9DA2E00CBADDD /* space.cer in Resources */,
 				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
+				459130E61EF920DA0054A28C /* FastForwardView.xib in Resources */,
 				457182AD1EC44F2A00860F38 /* ClaimCenter.storyboard in Resources */,
 				45F0464B1EE554A200CDA7BD /* SearchGroupCell.xib in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
@@ -2431,6 +2475,7 @@
 				45CE5F581EC1972900225534 /* AreaHistrorySingleton.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
 				45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */,
+				459130E71EF920DA0054A28C /* WMLightView.m in Sources */,
 				45A96C721EF7A7640022F382 /* EducationDetailController.m in Sources */,
 				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
 				458959CB1EBB150400CBADDD /* FSCalendarCalculator.m in Sources */,
@@ -2452,6 +2497,7 @@
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
 				459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */,
+				459130E91EF920DA0054A28C /* WMPlayer.m in Sources */,
 				4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */,
 				45E4F7221ED42CFE00476B64 /* PublicListController.m in Sources */,
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
@@ -2464,6 +2510,7 @@
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
+				459130E51EF920DA0054A28C /* FastForwardView.m in Sources */,
 				45D6C0661EDFC5DB003F229A /* VipRegisterController.m in Sources */,
 				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
 				452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */,
@@ -2613,6 +2660,7 @@
 				458959D61EBB150400CBADDD /* FSCalendarTransitionCoordinator.m in Sources */,
 				455C6B311EA5BC6A00E0B3F3 /* AnswerCommentCell.m in Sources */,
 				45CE5F731EC2A13800225534 /* MyLocationViewController.m in Sources */,
+				459130EC1EF927CC0054A28C /* EducationVideoPost.m in Sources */,
 				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
 				458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */,
 				450A50D81E853B5A00433A61 /* MBProgressHUD.m in Sources */,

@@ -261,6 +261,9 @@
         if (error) {
             NSSLog(@"获取好友列表失败：%@",error);
             [weakSelf showMessage:@"服务器出问题咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (weakSelf.tableView.mj_header.isRefreshing || weakSelf.dataArr.count != 0) {
                 for (FriendsListModel * model in weakSelf.dataArr) {
@@ -294,11 +297,11 @@
                     userInfo2.portraitUri = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:search.userPortraitUrl]];
                     [[RCIM sharedRCIM]refreshUserInfoCache:userInfo2 withUserId:search.userId];
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"加载好友列表失败，下拉刷新重试！"];
             }
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
         }
         
     }];
@@ -692,7 +695,7 @@
     UIView * msgView = [UIView showViewTitle:msg];
     [self.view addSubview:msgView];
     [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+        msgView.frame = CGRectMake(20, KMainScreenHeight-200, KMainScreenWidth-40, 50);
     } completion:^(BOOL finished) {
         //完成之后3秒消失
         [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {

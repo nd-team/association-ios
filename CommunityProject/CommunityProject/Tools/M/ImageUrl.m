@@ -8,6 +8,7 @@
 
 #import "ImageUrl.h"
 
+
 @implementation ImageUrl
 +(NSString *)changeUrl:(NSString *)url{
     NSString * str = url;
@@ -114,4 +115,126 @@
     return strlength;
     
 }
++ (UIImage*) thumbnailImageForVideo:(NSURL *)videoURL atTime:(NSTimeInterval)time{
+    AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:videoURL options:nil];
+    
+    NSParameterAssert(asset);
+    
+    AVAssetImageGenerator *assetImageGenerator =[[AVAssetImageGenerator alloc] initWithAsset:asset];
+    
+    assetImageGenerator.appliesPreferredTrackTransform = YES;
+    
+    assetImageGenerator.apertureMode = AVAssetImageGeneratorApertureModeEncodedPixels;
+    
+    CGImageRef thumbnailImageRef = NULL;
+    
+    CFTimeInterval thumbnailImageTime = time;
+    
+    NSError *thumbnailImageGenerationError = nil;
+    
+    thumbnailImageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMake(thumbnailImageTime, 60)actualTime:NULL error:&thumbnailImageGenerationError];
+    
+    if(!thumbnailImageRef)
+        
+       NSSLog(@"thumbnailImageGenerationError %@",thumbnailImageGenerationError);
+    
+    UIImage * thumbnailImage = thumbnailImageRef ? [[UIImage alloc]initWithCGImage: thumbnailImageRef] : nil;
+    
+    return thumbnailImage;
+    
+}
++ (void)getVideoFromPHAsset:(PHAsset *)asset Complete:(Result)result{
+    NSArray *assetResources = [PHAssetResource assetResourcesForAsset:asset];
+    PHAssetResource *resource;
+    
+    for (PHAssetResource *assetRes in assetResources) {
+        if (assetRes.type == PHAssetResourceTypePairedVideo ||
+            assetRes.type == PHAssetResourceTypeVideo) {
+            resource = assetRes;
+        }
+    }
+    NSString *fileName = @"tempAssetVideo.mov";
+    if (resource.originalFilename) {
+        fileName = resource.originalFilename;
+    }
+    
+    if (asset.mediaType == PHAssetMediaTypeVideo || asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
+        PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
+        options.version = PHImageRequestOptionsVersionCurrent;
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        
+        NSString *PATH_MOVIE_FILE = [NSTemporaryDirectory() stringByAppendingPathComponent:fileName];
+        [[NSFileManager defaultManager] removeItemAtPath:PATH_MOVIE_FILE error:nil];
+        [[PHAssetResourceManager defaultManager] writeDataForAssetResource:resource
+                                                                    toFile:[NSURL fileURLWithPath:PATH_MOVIE_FILE]
+                                                                   options:nil
+                                                         completionHandler:^(NSError * _Nullable error) {
+                                                             if (error) {
+                                                                 result(nil, nil);
+                                                             } else {
+                                                                 
+                                                                 NSData *data = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:PATH_MOVIE_FILE]];
+                                                                 result(data, fileName);
+                                                             }
+                                                             [[NSFileManager defaultManager] removeItemAtPath:PATH_MOVIE_FILE  error:nil];
+                                                         }];
+    } else {
+        result(nil, nil);
+    }
+}
+-(void)compressVideo:(NSURL *)path andVideoName:(NSString *)name
+     successCompress:(void(^)(NSData *compressData))successCompress  //saveState 是否保存视频到相册
+{
+    self.videoName = name;
+    AVURLAsset *avAsset = [[AVURLAsset alloc] initWithURL:path options:nil];
+    NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
+    if ([compatiblePresets containsObject:AVAssetExportPresetLowQuality]) {
+        
+        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPreset640x480];
+        exportSession.outputURL = [self compressedURL];//设置压缩后视频流导出的路径
+        exportSession.shouldOptimizeForNetworkUse = true;
+        //转换后的格式
+        exportSession.outputFileType = AVFileTypeMPEG4;
+        //异步导出
+        [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            // 如果导出的状态为完成
+            if ([exportSession status] == AVAssetExportSessionStatusCompleted) {
+//                NSSLog(@"视频压缩成功,压缩后大小 %f MB",[self fileSize:[self compressedURL]]);
+//                if (saveState) {
+//                    [self saveVideo:[self compressedURL]];//保存视频到相册
+//                }
+                //压缩成功视频流回调回去
+                successCompress([NSData dataWithContentsOfURL:[self compressedURL]].length > 0?[NSData dataWithContentsOfURL:[self compressedURL]]:nil);
+            }else{
+                //压缩失败的回调
+                successCompress(nil);
+            }
+        }];
+    }
+}
+#pragma mark 保存压缩
+- (NSURL *)compressedURL
+{
+    return [NSURL fileURLWithPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true) lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp4",self.videoName]]];
+}
+
+#pragma mark 计算视频大小
+//- (CGFloat)fileSize:(NSURL *)path
+//{
+//    return [[NSData dataWithContentsOfURL:path] length]/1024.00 /1024.00;
+//}
+/*
+#pragma mark 保存视频到相册
+- (void)saveVideo:(NSURL *)outputFileURL
+{
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (error) {
+            //(@"保存视频失败:%@",error);
+        } else {
+            //NSLog(@"保存视频到相册成功");
+        }
+    }];
+}
+ */
 @end

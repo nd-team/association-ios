@@ -45,9 +45,7 @@
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [weakSelf getGroupList];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                });
+               
             });
         }
     }];
@@ -93,9 +91,15 @@
     NSString * userID = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupURL] andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"获取群组列表失败%@",error);
             [weakSelf showMessage:@"服务器出问题咯"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
            //保存到数据库里
             if (weakSelf.tableView.mj_header.isRefreshing || weakSelf.dataArr.count != 0) {
@@ -113,11 +117,12 @@
                     [[GroupDatabaseSingleton shareDatabase]insertDatabase:model];
                     [weakSelf.dataArr addObject:model];
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
+               
             }else{
                 [weakSelf showMessage:@"加载群组列表失败，下拉刷新重试"];
             }
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
             
         }
     }];

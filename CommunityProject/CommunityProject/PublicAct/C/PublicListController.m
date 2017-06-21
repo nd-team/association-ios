@@ -53,9 +53,6 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getPublicListData];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
     });
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.page = 1;
@@ -72,9 +69,18 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,PublicURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"公益活动数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
+            if (weakSelf.tableView.mj_footer.isRefreshing) {
+                [weakSelf.tableView.mj_footer endRefreshing];
+            }
         }else{
             if (!weakSelf.tableView.mj_footer.isRefreshing) {
 //                [weakSelf.scrollArr removeAllObjects];
@@ -90,14 +96,15 @@
                         PublicListModel * model = [[PublicListModel alloc]initWithDictionary:dict error:nil];
                         [self.dataArr addObject:model];
                     }
-                    [self.tableView reloadData];
-                    [self.tableView.mj_header endRefreshing];
-                    [self.tableView.mj_footer endRefreshing];
- 
-                }
+            }
             }else{
                 [weakSelf showMessage:@"加载公益活动失败"];
             }
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            
+
         }
     }];
 }

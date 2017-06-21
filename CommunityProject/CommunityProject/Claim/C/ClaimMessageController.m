@@ -77,6 +77,9 @@
         if (error) {
             NSSLog(@"消息数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (self.tableView.mj_header.isRefreshing||self.dataOneArr.count != 0 ||self.dataTwoArr.count != 0) {
                 
@@ -101,11 +104,12 @@
                     [self.dataOneArr addObject:other];
                     
                 }
-                [self.tableView reloadData];
-                [self.tableView.mj_header endRefreshing];
             }else{
                 [weakSelf showMessage:@"加载认领消息失败，下拉刷新重试"];
             }
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+
         }
     }];
 

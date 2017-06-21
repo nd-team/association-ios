@@ -156,9 +156,6 @@
                 //先验证短信码在进行注册
                 [weakSelf sureCode];
             
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                });
             });
             
         }
@@ -185,6 +182,7 @@
         if (error) {
             NSSLog(@"注册失败：%@",error);
             [weakSelf showMessage:@"注册失败，请重新获取验证码！"];
+            [weakSelf dismissCommon];
         }else{
             NSNumber *code = data[@"code"];
             NSSLog(@"%@",code);
@@ -193,17 +191,26 @@
                 [weakSelf loginNet];
             }else if ([code intValue] == 1000){
                 [weakSelf showMessage:@"验证码填写失误了么！"];
+                [weakSelf dismissCommon];
+
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"注册失败，请重新获取验证码！"];
+                [weakSelf dismissCommon];
+
             }
         }
     }];
+}
+-(void)dismissCommon{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
 }
 -(void)loginNet{
     WeakSelf;
     NSDictionary * dic = @{@"mobile":self.phoneTF.text,@"password":self.passwordTF.text};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        
+        [weakSelf dismissCommon];
         if (error) {
             NSSLog(@"登录失败：%@",error);
             [weakSelf showMessage:@"登录失败！"];

@@ -33,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomHeightCons;
 //分页
 @property (nonatomic,assign)int page;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerHeightCons;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @end
 
@@ -59,8 +61,10 @@
     }else{
         self.headView.hidden = NO;
         self.headHeightCons.constant = 84;
+        self.headImageView.layer.cornerRadius = 5;
+        self.headImageView.layer.masksToBounds = YES;
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default.png"]];
-        self.contentLabel.text = self.content;
+        self.contentLabel.text = [NSString stringWithFormat:@"“%@”",self.content];
         rect.size.height = 84;
     }
     self.headView.frame = rect;
@@ -78,9 +82,12 @@
     tap.delegate = self;
     [self.view addGestureRecognizer:tap];
     self.page = 1;
-    [self getCommentListData];
-    //上下拉刷新
     WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getCommentListData];
+    });
+    //上下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakSelf.page = 1;
         [weakSelf getCommentListData];
@@ -89,6 +96,7 @@
         weakSelf.page ++;
         [weakSelf getCommentListData];
     }];
+   
 }
 -(void)tapClick{
     [self.commentTF resignFirstResponder];
@@ -121,9 +129,18 @@
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":[NSString stringWithFormat:@"%d",self.type],@"page":[NSString stringWithFormat:@"%d",self.page]};
     //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentListURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"评论列表获取失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
+            if (weakSelf.tableView.mj_footer.isRefreshing) {
+                [weakSelf.tableView.mj_footer endRefreshing];
+            }
         }else{
             if (self.tableView.mj_header.isRefreshing) {
                 [self.dataArr removeAllObjects];
@@ -132,19 +149,29 @@
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 NSArray * comArr = dict[@"comments"];
-                for (NSDictionary * dic in comArr) {
-                    CommentsListModel * comment = [[CommentsListModel alloc]initWithDictionary:dic error:nil];
-                    [weakSelf.dataArr addObject:comment];
+                if (comArr.count == 0) {
+                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    for (NSDictionary * dic in comArr) {
+                        CommentsListModel * comment = [[CommentsListModel alloc]initWithDictionary:dic error:nil];
+                        [weakSelf.dataArr addObject:comment];
+                    }
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
-                [weakSelf.tableView.mj_footer endRefreshing];
             }else{
                 [weakSelf showMessage:@"加载评论失败"];
             }
-            
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            if (weakSelf.dataArr.count == 0) {
+                    weakSelf.footerHeightCons.constant = KMainScreenHeight-125-74;
+                    weakSelf.tableView.mj_footer.hidden = YES;
+            }else{
+                weakSelf.footerView.hidden = YES;
+            }
         }
     }];
+   
 }
 
 #pragma mark - tableView-delegate and DataSources

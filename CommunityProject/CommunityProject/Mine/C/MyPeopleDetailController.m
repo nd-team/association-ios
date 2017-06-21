@@ -58,6 +58,9 @@
         if (error) {
             NSSLog(@"人脉关系请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
+            if (weakSelf.tableView.mj_header.isRefreshing) {
+                [weakSelf.tableView.mj_header endRefreshing];
+            }
         }else{
             if (weakSelf.dataArr.count != 0||weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
@@ -69,13 +72,12 @@
                     MyPeopleListModel * model = [[MyPeopleListModel alloc]initWithDictionary:subDic error:nil];
                     [weakSelf.dataArr addObject:model];
                 }
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
-                
             }else{
                 [weakSelf showMessage:@"加载人脉列表失败，下拉刷新重试！"];
             }
-            
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+
         }
     }];
 

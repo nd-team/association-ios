@@ -104,9 +104,6 @@
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                     [weakSelf changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,CreateGroup] andSymbol:3];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    });
                 });
  
             }
@@ -127,9 +124,6 @@
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [weakSelf changeDisplayName:dic andUrl:[NSString stringWithFormat:NetURL,CreateGroup] andSymbol:3];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                });
             });
         }
     }else{
@@ -141,6 +135,10 @@
     
     WeakSelf;
     [AFNetData postDataWithUrl:url andParams:mDic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
+
         if (error) {
             NSSLog(@"修改备注失败%@",error);
             //[weakSelf showMessage:@"修改备注失败"];

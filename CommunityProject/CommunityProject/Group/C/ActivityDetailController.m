@@ -68,9 +68,6 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getJoinActivityPerson];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
     });
 }
 -(void)setUI{
@@ -113,6 +110,9 @@
 -(void)getJoinActivityPerson{
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ActivityDetailURL] andParams:@{@"activesId":self.actives_id} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"群活动详情获取失败%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
