@@ -34,7 +34,7 @@
         //压缩图片
         NSData * imageData = [ReduceImage base64ImageThumbnaiWith:image];
         //图片大小
-        NSSLog(@"图片大小：%lu MB 视频大小：%lu MB",(unsigned long)imageData.length/1024/1024,videoData.length/1024/1024);
+        NSSLog(@"图片大小：%f MB 视频大小：%f MB",imageData.length/1024.00/1024.00,videoData.length/1024.00/1024.00);
         NSDateFormatter * formatter = [NSDateFormatter new];
         
         formatter.dateFormat = @"yyyyMMddHHmmss";
@@ -43,13 +43,13 @@
         
         NSString * imageName = [NSString stringWithFormat:@"%@.jpg",str];
         
-        if (imageData) {
+        if (imageData.length != 0) {
             //图片
             [formData appendPartWithFileData:imageData name:@"fileImage" fileName:imageName mimeType:@"image/jpg"];
             
         }//视频
         if (videoData.length != 0) {
-            [formData appendPartWithFileData:imageData name:@"fileVideo" fileName:@"educationOfThree" mimeType:@"video/quicktime"];
+            [formData appendPartWithFileData:videoData name:@"fileVideo" fileName:@"educationOfThree.mp4" mimeType:@"video/quicktime"];
         }
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -57,6 +57,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSSLog(@"%@",jsonDic);
         block(task.response,nil,jsonDic);
         
         

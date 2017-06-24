@@ -42,5 +42,7 @@
 @property (nonatomic,copy) NSString * shareNumber;
 //视频时间
 @property (nonatomic,copy) NSString * time;
+//视频时长
+@property (nonatomic,copy) NSString * playTime;
 
 @end

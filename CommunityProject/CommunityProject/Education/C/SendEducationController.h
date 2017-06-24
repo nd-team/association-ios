@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EducationListController.h"
 
 @interface SendEducationController : UIViewController
 
 @property (nonatomic,copy)NSString * authStr;
 
 @property (nonatomic,copy)NSString * userId;
+
+@property (nonatomic,assign)EducationListController * delegate;
 
 @end

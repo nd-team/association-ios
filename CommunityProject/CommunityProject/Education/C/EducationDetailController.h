@@ -21,7 +21,7 @@
 @property (nonatomic,strong)NSData *videoData;
 //本地视频地址
 @property (nonatomic,strong)NSURL * localUrl;
-
+//网络加载
 @property (nonatomic,copy)NSString * videoUrl;
 @property (nonatomic,copy)NSString * firstUrl;
 @property (nonatomic,copy)NSString * commentNum;
@@ -36,5 +36,11 @@
 @property (nonatomic,assign)BOOL isLook;
 //权限
 @property (nonatomic,copy)NSString * authStatus;
+//视频时长
+@property (nonatomic,copy)NSString * videoTime;
+//是否是从我的下载界面PUSH过来
+@property (nonatomic,assign)BOOL isDown;
+//头像二进制
+@property (nonatomic,strong)NSData *headData;
 
 @end

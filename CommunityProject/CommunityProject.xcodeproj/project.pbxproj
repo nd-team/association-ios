@@ -235,6 +235,12 @@
 		459130E81EF920DA0054A28C /* WMPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 459130E21EF920DA0054A28C /* WMPlayer.bundle */; };
 		459130E91EF920DA0054A28C /* WMPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130E41EF920DA0054A28C /* WMPlayer.m */; };
 		459130EC1EF927CC0054A28C /* EducationVideoPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130EB1EF927CC0054A28C /* EducationVideoPost.m */; };
+		459130F21EFCFC230054A28C /* ManagerDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130F11EFCFC230054A28C /* ManagerDownloadController.m */; };
+		459130F51EFD19820054A28C /* DownloadNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130F41EFD19820054A28C /* DownloadNet.m */; };
+		459130F81EFE0FD80054A28C /* VideoDatabaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130F71EFE0FD80054A28C /* VideoDatabaseSingleton.m */; };
+		459130FB1EFE10640054A28C /* VideoDownloadListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130FA1EFE10640054A28C /* VideoDownloadListModel.m */; };
+		459130FE1EFE35890054A28C /* MyDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130FD1EFE35890054A28C /* MyDownloadCell.m */; };
+		459131011EFE35A50054A28C /* MyLoadListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459131001EFE35A50054A28C /* MyLoadListController.m */; };
 		459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */; };
 		459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CE1EA6F90300E5A331 /* CircleMessageCell.m */; };
 		459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84D11EA8444500E5A331 /* CircleUnreadMessageModel.m */; };
@@ -741,6 +747,18 @@
 		459130E41EF920DA0054A28C /* WMPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPlayer.m; sourceTree = "<group>"; };
 		459130EA1EF927CC0054A28C /* EducationVideoPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EducationVideoPost.h; sourceTree = "<group>"; };
 		459130EB1EF927CC0054A28C /* EducationVideoPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EducationVideoPost.m; sourceTree = "<group>"; };
+		459130F01EFCFC230054A28C /* ManagerDownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerDownloadController.h; sourceTree = "<group>"; };
+		459130F11EFCFC230054A28C /* ManagerDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerDownloadController.m; sourceTree = "<group>"; };
+		459130F31EFD19820054A28C /* DownloadNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadNet.h; sourceTree = "<group>"; };
+		459130F41EFD19820054A28C /* DownloadNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadNet.m; sourceTree = "<group>"; };
+		459130F61EFE0FD80054A28C /* VideoDatabaseSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDatabaseSingleton.h; sourceTree = "<group>"; };
+		459130F71EFE0FD80054A28C /* VideoDatabaseSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDatabaseSingleton.m; sourceTree = "<group>"; };
+		459130F91EFE10640054A28C /* VideoDownloadListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDownloadListModel.h; sourceTree = "<group>"; };
+		459130FA1EFE10640054A28C /* VideoDownloadListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDownloadListModel.m; sourceTree = "<group>"; };
+		459130FC1EFE35890054A28C /* MyDownloadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDownloadCell.h; sourceTree = "<group>"; };
+		459130FD1EFE35890054A28C /* MyDownloadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDownloadCell.m; sourceTree = "<group>"; };
+		459130FF1EFE35A50054A28C /* MyLoadListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLoadListController.h; sourceTree = "<group>"; };
+		459131001EFE35A50054A28C /* MyLoadListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLoadListController.m; sourceTree = "<group>"; };
 		459E84CA1EA6F8DF00E5A331 /* CircleMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessageController.h; sourceTree = "<group>"; };
 		459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMessageController.m; sourceTree = "<group>"; };
 		459E84CD1EA6F90300E5A331 /* CircleMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessageCell.h; sourceTree = "<group>"; };
@@ -1938,6 +1956,10 @@
 				45A96C711EF7A7640022F382 /* EducationDetailController.m */,
 				45C814661EF7C7120024C0AC /* SendEducationController.h */,
 				45C814671EF7C7120024C0AC /* SendEducationController.m */,
+				459130F01EFCFC230054A28C /* ManagerDownloadController.h */,
+				459130F11EFCFC230054A28C /* ManagerDownloadController.m */,
+				459130FF1EFE35A50054A28C /* MyLoadListController.h */,
+				459131001EFE35A50054A28C /* MyLoadListController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1949,6 +1971,12 @@
 				45A96C6B1EF7698A0022F382 /* EducationListModel.m */,
 				459130EA1EF927CC0054A28C /* EducationVideoPost.h */,
 				459130EB1EF927CC0054A28C /* EducationVideoPost.m */,
+				459130F31EFD19820054A28C /* DownloadNet.h */,
+				459130F41EFD19820054A28C /* DownloadNet.m */,
+				459130F61EFE0FD80054A28C /* VideoDatabaseSingleton.h */,
+				459130F71EFE0FD80054A28C /* VideoDatabaseSingleton.m */,
+				459130F91EFE10640054A28C /* VideoDownloadListModel.h */,
+				459130FA1EFE10640054A28C /* VideoDownloadListModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1959,6 +1987,8 @@
 				45A96C651EF764D20022F382 /* EducationListCell.h */,
 				45A96C661EF764D20022F382 /* EducationListCell.m */,
 				45A96C671EF764D20022F382 /* EducationListCell.xib */,
+				459130FC1EFE35890054A28C /* MyDownloadCell.h */,
+				459130FD1EFE35890054A28C /* MyDownloadCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2460,6 +2490,7 @@
 				45CE5F4F1EC0571300225534 /* MyPeopleListModel.m in Sources */,
 				45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */,
 				45D6C0771EE16989003F229A /* SearchController.m in Sources */,
+				459130F21EFCFC230054A28C /* ManagerDownloadController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
 				458959F41EBDBF1A00CBADDD /* MJPhoto.m in Sources */,
 				45AE19A41ECD41920098A7FF /* ActCommonListCell.m in Sources */,
@@ -2476,7 +2507,9 @@
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
 				45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */,
 				459130E71EF920DA0054A28C /* WMLightView.m in Sources */,
+				459131011EFE35A50054A28C /* MyLoadListController.m in Sources */,
 				45A96C721EF7A7640022F382 /* EducationDetailController.m in Sources */,
+				459130F81EFE0FD80054A28C /* VideoDatabaseSingleton.m in Sources */,
 				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
 				458959CB1EBB150400CBADDD /* FSCalendarCalculator.m in Sources */,
 				450C051D1ED53E4E0093B174 /* PubicDetailController.m in Sources */,
@@ -2485,6 +2518,7 @@
 				450A50ED1E853C3200433A61 /* DefaultPortraitView.m in Sources */,
 				458DD51D1E8A488D00650F2E /* MessageViewController.m in Sources */,
 				457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */,
+				459130FE1EFE35890054A28C /* MyDownloadCell.m in Sources */,
 				458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */,
 				45D6C0561EDEA467003F229A /* InterestCell.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
@@ -2521,6 +2555,7 @@
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
 				455C6B351EA5BF1D00E0B3F3 /* CircleCommentController.m in Sources */,
+				459130FB1EFE10640054A28C /* VideoDownloadListModel.m in Sources */,
 				4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */,
 				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
 				458959F71EBDBF1A00CBADDD /* MJPhotoLoadingView.m in Sources */,
@@ -2618,6 +2653,7 @@
 				4589599D1EB9779500CBADDD /* SignInViewController.m in Sources */,
 				457D3CC41E77CD6900FD0309 /* AddressDataBaseSingleton.m in Sources */,
 				450A50FA1E86227900433A61 /* UnknownFriendDetailController.m in Sources */,
+				459130F51EFD19820054A28C /* DownloadNet.m in Sources */,
 				458DD51A1E8A46DA00650F2E /* MessageCell.m in Sources */,
 				457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */,
 				455FA16D1E7A8C6D00C85AE7 /* ClaimModel.m in Sources */,

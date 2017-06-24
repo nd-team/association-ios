@@ -23,7 +23,6 @@
 #import <JrmfPacketKit/JrmfPacketKit.h>
 //钱包
 #import <JrmfWalletKit/JrmfWalletKit.h>
-#import "AFNetData.h"
 #import "MBProgressHUD.h"
 
 #import "MessageAlertView.h"
@@ -36,6 +35,7 @@
 #import "ImageUrl.h"
 
 #import "AFSecuteCertificate.h"
+#import "AFNetData.h"
 
 #import "UIView+ChatWhiteView.h"
 

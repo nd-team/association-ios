@@ -14,6 +14,7 @@
 #import "MyEducationController.h"
 #import "EducationDetailController.h"
 #import "SendEducationController.h"
+#import "MyLoadListController.h"
 
 #define EducationListURL @"appapi/app/selectVideoList"
 @interface EducationListController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
@@ -33,7 +34,9 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
-
+    if (self.isRef) {
+        [self refreshUI];
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,11 +54,27 @@
         weakSelf.page = 1;
         [weakSelf getEducationListData];
     }];
+    [self refreshUI];
+
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receive:) name:@"SendEducationOfThree" object:nil];
+
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+-(void)receive:(NSNotification *)nofi{
+    NSString * refresh = [nofi object];
+    self.isRef = [refresh boolValue];
+//    if (self.isRef) {
+//        [self refreshUI];
+//    }
+}
+-(void)refreshUI{
+    WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getEducationListData];
     });
-
 }
 -(void)getEducationListData{
     WeakSelf;
@@ -74,7 +93,7 @@
                 [weakSelf.tableView.mj_footer endRefreshing];
             }
         }else{
-            if (weakSelf.tableView.mj_header.isRefreshing) {
+            if (!weakSelf.tableView.mj_footer.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
@@ -187,11 +206,12 @@
     }
     else{
         //我的下载
-        /*
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
-        MyJoinPublicController * join = [sb instantiateViewControllerWithIdentifier:@"MyJoinPublicController"];
-        [self.navigationController pushViewController:join animated:YES];
-        */
+        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+        self.navigationItem.backBarButtonItem = backItem;
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
+        MyLoadListController * load = [sb instantiateViewControllerWithIdentifier:@"MyLoadListController"];
+        [self.navigationController pushViewController:load animated:YES];
+        
     }
 }
 //发表教学
@@ -199,6 +219,7 @@
     if ([segue.identifier isEqualToString:@"EducationLine"]) {
         SendEducationController * send = segue.destinationViewController;
         send.userId = self.userId;
+        send.delegate = self;
         UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
         self.navigationItem.backBarButtonItem = backItem;
 

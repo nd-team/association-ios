@@ -17,6 +17,7 @@
 #define PlatformDetailURL @"appapi/app/platformActivesInfo"
 #define ZanURL @"appapi/app/userPraise"
 #define SignURL @"appapi/app/platformActivesJoin"
+#define SHAREURL @"appapi/app/updateInfo"
 
 @interface PlatformDetailController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITextFieldDelegate>
 
@@ -241,6 +242,7 @@
                        case SSDKResponseStateSuccess:
                        {
                            NSSLog(@"分享成功");
+                           [weakSelf download];
                            break;
                        }
                        case SSDKResponseStateFail:
@@ -253,6 +255,27 @@
                    }
                }
      ];
+}
+-(void)download{
+    NSDictionary * params = @{@"articleId":self.idStr,@"type":@"2"};
+    WeakSelf;
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SHAREURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        
+        if (error) {
+            NSSLog(@"下载三分钟教学：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
+            
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                [weakSelf showMessage:@"分享成功"];
+                
+            }else{
+                [weakSelf showMessage:@"分享失败"];
+            }
+            
+        }
+    }];
 }
 //文章点赞
 - (IBAction)zanClick:(id)sender {

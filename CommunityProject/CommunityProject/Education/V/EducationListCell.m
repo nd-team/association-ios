@@ -24,7 +24,7 @@
     _listModel = listModel;
     self.titleLabel.text = _listModel.title;
     [self.topicImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_listModel.imageUrl]]] placeholderImage:[UIImage imageNamed:@"banner3"]];
-    self.nameLabel.text = [NSString stringWithFormat:@"%@/%@",_listModel.nickname,_listModel.time];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@/%@",_listModel.nickname,_listModel.playTime];
 }
 
 @end

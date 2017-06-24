@@ -12,11 +12,17 @@
 #import "PlatformCommentController.h"
 #import "WMPlayer.h"
 #import "EducationVideoPost.h"
-//#import "DetailViewController.h"
+#import "UIView+ChatMoreView.h"
+#import "EducationListController.h"
+#import "ManagerDownloadController.h"
+#import "VideoDownloadListModel.h"
+#import "VideoDatabaseSingleton.h"
 
 #define ZanURL @"appapi/app/userPraise"
 #define CollectURL @"appapi/app/articleCollection"
 #define SendURL @"appapi/app/releaseVideo"
+#define SHAREURL @"appapi/app/updateInfo"
+#define THREEdetailurl @"appapi/app/selectVideoInfo"
 
 @interface EducationDetailController ()<WMPlayerDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewWidthCons;
@@ -41,6 +47,23 @@
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeightCons;
 @property (nonatomic,strong)WMPlayer * player;
+@property (nonatomic,strong) UIView * backView;
+@property (nonatomic,strong)UIWindow * window;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (weak, nonatomic) IBOutlet UIView *downView;
+
+@property (weak, nonatomic) IBOutlet UIView *loadWhiteView;
+@property (weak, nonatomic) IBOutlet UILabel *storeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameTitleLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *loadBtn;
+@property (weak, nonatomic) IBOutlet UIView *titileView;
+@property (weak, nonatomic) IBOutlet UILabel *loadingLabel;
+@property (weak, nonatomic) IBOutlet UIButton *showBtn;
+@property (weak, nonatomic) IBOutlet UIProgressView *projessView;
+@property (nonatomic,strong)NSURLSessionDownloadTask * downloadTask;
 
 @end
 
@@ -68,6 +91,7 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil
      ];
+    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
 
     if (self.isLook) {
         self.navigationController.navigationBar.hidden = NO;
@@ -190,7 +214,7 @@
         self.player.fullScreenBtn.selected = NO;
         self.player.FF_View.hidden = YES;
     }];
-    NSSLog(@"%f=%f=%f=%f",self.firstImage.frame.size.width,self.player.frame.size.width,KMainScreenWidth,self.player.contentView.frame.size.width);
+//    NSSLog(@"%f=%f=%f=%f",self.firstImage.frame.size.width,self.player.frame.size.width,KMainScreenWidth,self.player.contentView.frame.size.width);
  
 }
 
@@ -225,22 +249,22 @@
         make.width.mas_equalTo(120);
     }];
     [self.player.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(49);
         make.width.mas_equalTo(KMainScreenHeight);
         make.bottom.equalTo(self.player.contentView).with.offset(0);
     }];
     
     [self.player.topView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(70);
+        make.height.mas_equalTo(49);
         make.left.equalTo(self.player).with.offset(0);
         make.width.mas_equalTo(KMainScreenHeight);
     }];
     
     [self.player.closeBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.player.topView).with.offset(5);
-        make.height.mas_equalTo(30);
-        make.width.mas_equalTo(30);
-        make.top.equalTo(self.player).with.offset(20);
+        make.height.mas_equalTo(40);
+        make.width.mas_equalTo(50);
+        make.top.equalTo(self.player).with.offset(5);
         
     }];
     
@@ -273,16 +297,12 @@
 }
 //发布三分钟
 -(void)finishAction{
-    WeakSelf;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [weakSelf send];
-    });
+    [self showBackViewUI:@"确定发布内容？"];
    
 }
 -(void)send{
     WeakSelf;
-    NSDictionary *dict = @{@"userId":self.userId,@"title":self.topic,@"content":self.content,@"status":self.authStatus};
+    NSDictionary *dict = @{@"userId":self.userId,@"title":self.topic,@"content":self.content,@"playTime":self.videoTime,@"status":self.authStatus};
     [EducationVideoPost postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andImage:self.firstImg andVideo:self.videoData getBlock:^(NSURLResponse *response, NSError *error, id data) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -293,7 +313,15 @@
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                //刷新列表 通知传参
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"SendEducationOfThree" object:@"1"];
+                for (UIViewController* vc in self.navigationController.viewControllers) {
+                    
+                    if ([vc isKindOfClass:[EducationListController class]]) {
+                        
+                        [weakSelf.navigationController popToViewController:vc animated:YES];
+                    }
+                }
             }else if ([code intValue] == 1015){
                 [weakSelf showMessage:@"上传图片有误！"];
             }else if ([code intValue] == 1038){
@@ -310,12 +338,40 @@
     [self setUI];
 }
 -(void)setUI{
+    NSInteger  checkVIP = [DEFAULTS integerForKey:@"checkVip"];
+    if (checkVIP == 1) {
+        self.downloadBtn.hidden = NO;
+    }else{
+        self.downloadBtn.hidden = YES;
+    }
+//    self.projessView.hidden = YES;
+    self.projessView.progress = 0.0;
     self.headImageView.layer.cornerRadius = 15;
     self.headImageView.layer.masksToBounds = YES;
+    self.downView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    self.downView.hidden = YES;
+    self.loadWhiteView.layer.cornerRadius = 5;
+    self.titileView.layer.cornerRadius = 5;
+    self.titileView.layer.borderWidth = 1;
+    self.titileView.layer.borderColor = UIColorFromRGB(0xa6a6a6).CGColor;
+    self.nameTitleLabel.text = self.topic;
+    self.loadBtn.hidden = YES;
+    [self.loadBtn setImage:[UIImage imageNamed:@"pinkLoad"] forState:UIControlStateNormal];
+    //下载完成不可用
+    [self.loadBtn setImage:[UIImage imageNamed:@"loadFinish"] forState:UIControlStateDisabled];
+    
+    self.loadingLabel.layer.cornerRadius = 12;
+    self.loadingLabel.layer.masksToBounds = YES;
+    self.loadingLabel.hidden = YES;
+    
     if ([self.headUrl containsString:NetURL]) {
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.headUrl] placeholderImage:[UIImage imageNamed:@"default"]];
     }else{
-        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default"]];
+        if (self.isDown) {
+            self.headImageView.image = [UIImage imageWithData:self.headData];
+        }else{
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default"]];
+        }
     }
     [self.playBtn setBackgroundImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
     [self.playBtn setBackgroundImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
@@ -329,20 +385,31 @@
     }else{
         self.bottomView.hidden = NO;
         self.imageHeightCons.constant = 230;
-        [self.firstImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.firstUrl]]] placeholderImage:[UIImage imageNamed:@"banner3"]];
-        [self.shareBtn setTitle:self.shareNum forState:UIControlStateNormal];
-        [self.loveBtn setTitle:self.loveNum forState:UIControlStateNormal];
-        [self.commentBtn setTitle:self.commentNum forState:UIControlStateNormal];
-        [self.collectionBtn setTitle:self.collNum forState:UIControlStateNormal];
-        [self.downloadBtn setTitle:self.downloadNum forState:UIControlStateNormal];
+        if (self.isDown) {
+            self.firstImage.image = self.firstImg;
+            //二进制流
+            [self setPlayer:self.localUrl anImage:self.firstImg];
+            //请求网络数据初始化数字
+            [self getDetailData];
+            self.downloadBtn.hidden = YES;
+        }else{
+            [self.firstImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.firstUrl]]] placeholderImage:[UIImage imageNamed:@"banner3"]];
+            //播放网络视频
+            [self setPlayer:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.videoUrl]]] anImage:self.firstImage.image];
+        }
+       
         [self.loveBtn setImage:[UIImage imageNamed:@"darkHeart.png"] forState:UIControlStateNormal];
         [self.loveBtn setImage:[UIImage imageNamed:@"heart.png"] forState:UIControlStateSelected];
         [self.collectionBtn setImage:[UIImage imageNamed:@"collection.png"] forState:UIControlStateNormal];
         [self.collectionBtn setImage:[UIImage imageNamed:@"selCollection.png"] forState:UIControlStateSelected];
         self.loveBtn.selected = self.isLove;
         self.collectionBtn.selected = self.isCollect;
-        //播放网络视频
-        [self setPlayer:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.videoUrl]]] anImage:self.firstImage.image];
+        [self.shareBtn setTitle:self.shareNum forState:UIControlStateNormal];
+        [self.loveBtn setTitle:self.loveNum forState:UIControlStateNormal];
+        [self.commentBtn setTitle:self.commentNum forState:UIControlStateNormal];
+        [self.collectionBtn setTitle:self.collNum forState:UIControlStateNormal];
+        [self.downloadBtn setTitle:self.downloadNum forState:UIControlStateNormal];
+
         
     }
    
@@ -350,11 +417,46 @@
     self.nameLabel.text = self.nickname;
     self.timeLabel.text = [self.time stringByReplacingOccurrencesOfString:@"-" withString:@"."];
     self.contentLabel.text = self.content;
+    CGRect rect = [self.content boundingRectWithSize:CGSizeMake(KMainScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
+    CGFloat height = rect.size.height+self.contentLabel.frame.origin.y;
+    if (height>KMainScreenHeight) {
+        self.scrollView.scrollEnabled = YES;
+        self.viewHeightCons.constant = height+50;
+    }else{
+        self.scrollView.scrollEnabled = NO;
+        self.viewHeightCons.constant = KMainScreenHeight;
+    }
+
+}
+-(void)getDetailData{
+    WeakSelf;
+    NSDictionary * params = @{@"userId":self.userId,@"activesId":self.idStr};
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,THREEdetailurl] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"三分钟教学详情：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
+            
+        }else{
+            NSNumber * code = data[@"code"];
+            NSDictionary * dict = data[@"data"];
+            if ([code intValue] == 200) {
+                weakSelf.shareNum = [NSString stringWithFormat:@"%@",dict[@"shareNumber"]];
+                weakSelf.loveNum = [NSString stringWithFormat:@"%@",dict[@"likes"]];
+                weakSelf.commentNum = [NSString stringWithFormat:@"%@",dict[@"commentNumber"]];
+                weakSelf.collNum = [NSString stringWithFormat:@"%@",dict[@"collectionNumber"]];
+                weakSelf.downloadNum = [NSString stringWithFormat:@"%@",dict[@"downloadNumber"]];
+            }else{
+                [weakSelf showMessage:@"三分钟教学详情失败！"];
+            }
+        }
+    }];
+
 }
 -(void)setPlayer:(NSURL *)url anImage:(UIImage *)image{
     self.player = [WMPlayer new];
     self.player.placeholderImage = image;
     self.player.titleLabel.text = self.topic;
+    self.player.delegate = self;
     [self.player setURLString:[url absoluteString]];
     [self toCell];
     [self.playBtn.superview bringSubviewToFront:self.playBtn];
@@ -406,6 +508,7 @@
                        {
                            NSSLog(@"分享成功");
                            //发送请求
+                           [weakSelf download:@"2" andMsg:@"分享计数失败！"];
                            break;
                        }
                        case SSDKResponseStateFail:
@@ -472,7 +575,8 @@
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CollectURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);
-            weakSelf.loveBtn.selected = NO;
+            weakSelf.collectionBtn.selected = NO;
+            weakSelf.isCollect = NO;
             [self showMessage:@"服务器出错咯！"];
         }else{
             
@@ -484,12 +588,14 @@
                     self.collNum = [NSString stringWithFormat:@"%ld",[self.collNum integerValue]-1];
                 }
                 [weakSelf.collectionBtn setTitle:self.collNum forState:UIControlStateNormal];
-                
+                weakSelf.isCollect = YES;
             }else if ([code intValue] == 1031){
                 [self showMessage:@"已收藏"];
-                
+                weakSelf.isCollect = YES;
             }else{
-                weakSelf.loveBtn.selected = NO;
+                weakSelf.collectionBtn.selected = NO;
+                weakSelf.isCollect = NO;
+
                 [self showMessage:@"收藏失败"];
             }
         }
@@ -498,7 +604,7 @@
 }
 //下载
 - (IBAction)downloadClick:(id)sender {
-    
+    self.downView.hidden = NO;
 }
 -(void)showMessage:(NSString *)msg{
     UIView * msgView = [UIView showViewTitle:msg];
@@ -533,26 +639,178 @@
     }
 }
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
-    NSLog(@"didSingleTaped");
+    NSSLog(@"didSingleTaped");
+    self.player.bottomView.hidden = NO;
+
 }
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
-    NSLog(@"didDoubleTaped");
+    NSSLog(@"didDoubleTaped");
+    self.player.bottomView.hidden = NO;
 }
 
 ///播放状态
 -(void)wmplayerFailedPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
-    NSLog(@"wmplayerDidFailedPlay");
+    NSSLog(@"wmplayerDidFailedPlay");
 }
 -(void)wmplayerReadyToPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
-    NSLog(@"wmplayerDidReadyToPlay");
+    NSSLog(@"wmplayerDidReadyToPlay");
 }
 -(void)wmplayerFinishedPlay:(WMPlayer *)wmplayer{
-    NSLog(@"wmplayerDidFinishedPlay");
+    NSSLog(@"wmplayerDidFinishedPlay");
     //播放按钮显示
+    self.player.bottomView.hidden = NO;
     [self.playBtn.superview bringSubviewToFront:self.playBtn];
+    self.playBtn.selected = NO;
     [self releaseWMPlayer];
     [self setNeedsStatusBarAppearanceUpdate];
 }
+-(void)showBackViewUI:(NSString *)title{
+    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    self.backView = [UIView sureViewTitle:title andTag:144 andTarget:self andAction:@selector(buttonAction:)];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
+    
+    [self.backView addGestureRecognizer:tap];
+    
+    [self.window addSubview:self.backView];
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(-64);
+        make.left.equalTo(self.view);
+        make.width.mas_equalTo(KMainScreenWidth);
+        make.height.mas_equalTo(KMainScreenHeight);
+    }];
+}
+-(void)buttonAction:(UIButton *)btn{
+    if (btn.tag == 144) {
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf send];
+        });
+    }
+        [self hideViewAction];
+    
+}
+-(void)hideViewAction{
+    self.backView.hidden = YES;
+}
+//计数
+-(void)download:(NSString *)type andMsg:(NSString *)msg{
+    NSDictionary * params = @{@"articleId":self.idStr,@"type":type};
+    WeakSelf;
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SHAREURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        
+        if (error) {
+            NSSLog(@"下载三分钟教学计数：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
+        
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                /*
+                weakSelf.loadingLabel.hidden = YES;
+                weakSelf.loadBtn.enabled = NO;
+                weakSelf.projessView.progress = 1.0;
+                 */
+                if ([type isEqualToString:@"1"]) {
+                    //手动计数
+                    self.downloadNum = [NSString stringWithFormat:@"%ld",[self.downloadNum integerValue]+1];
+                    [weakSelf.downloadBtn setTitle:self.downloadNum forState:UIControlStateNormal];
+                    //下载视频
+                    [weakSelf download];
+                }else{
+                  //分享计数
+                    self.shareNum = [NSString stringWithFormat:@"%ld",[self.shareNum integerValue]+1];
+                    [weakSelf.shareBtn setTitle:self.shareNum forState:UIControlStateNormal];
+                }
+            }else{
+                [weakSelf showMessage:msg];
+            }
+            
+        }
+    }];
+}
+-(void)download{
+    WeakSelf;
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    AFURLSessionManager * manager = [[AFURLSessionManager alloc]initWithSessionConfiguration:configuration];
+    
+    //manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.videoUrl]]];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    self.downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        //completedUnitCount 已经下载大小 totalUnitCount下载文件的大小
+        // 回到主队列刷新UI
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 设置进度条的百分比
+            self.projessView.progress = 1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount;
+        });
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        //下载文件路径
+        NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
+        return [NSURL fileURLWithPath:path];
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        //把视频保存到本地FMDB
+        if (error) {
+            NSSLog(@"%@",error.userInfo);
+            [weakSelf showMessage:@"下载失败"];
+        }else{
+            NSData * video = [[NSData alloc]initWithContentsOfURL:filePath];
+            float realMB = video.length/1024.00/1024.00;
+            NSData * headData = UIImagePNGRepresentation(weakSelf.headImageView.image);
+            NSData * firstData = UIImagePNGRepresentation(weakSelf.firstImage.image);
+            NSDictionary * dict = @{@"activesId":weakSelf.idStr,@"nickname":weakSelf.nickname,@"title":weakSelf.topic,@"content":weakSelf.content,@"time":weakSelf.time,@"likesStatus":weakSelf.isLove?@"1":@"0",@"checkCollect":weakSelf.isCollect?@"1":@"0",@"mbStr":[NSString stringWithFormat:@"%.2fMB",realMB],@"firstImage":firstData,@"videoData":video,@"headImage":headData};
+            NSDictionary * dict1 = @{@"activesId":weakSelf.idStr,@"nickname":weakSelf.nickname,@"title":weakSelf.topic,@"content":weakSelf.content,@"time":weakSelf.time,@"likesStatus":weakSelf.isLove?@"1":@"0",@"checkCollect":weakSelf.isCollect?@"1":@"0",@"mbStr":[NSString stringWithFormat:@"%.2fMB",realMB]};
+            NSSLog(@"视频：%@",video);
+            NSSLog(@"头像：%@",headData);
+            NSSLog(@"封面：%@",firstData);
+            NSSLog(@"参数：%@",dict1);
+
+//            VideoDownloadListModel * model = [[VideoDownloadListModel alloc]initWithDictionary:dict error:nil];
+            VideoDownloadListModel * model = [VideoDownloadListModel new];
+            [model setValuesForKeysWithDictionary:dict];
+            [[VideoDatabaseSingleton shareDatabase]insertDatabase:model];
+            weakSelf.loadingLabel.hidden = YES;
+            weakSelf.loadBtn.enabled = NO;
+  
+        }
+    }];
+    
+    [self.downloadTask resume];
+}
+- (IBAction)closeClick:(id)sender {
+    self.downView.hidden = YES;
+}
+//管理下载
+- (IBAction)managerClick:(id)sender {
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
+    ManagerDownloadController * down = [sb instantiateViewControllerWithIdentifier:@"ManagerDownloadController"];
+    down.topic = self.topic;
+    [self.navigationController pushViewController:down animated:YES];
+    
+  
+}
+//显示下载图片
+- (IBAction)showClick:(id)sender {
+//    self.showBtn.selected = YES;
+    //相同视频 提示用户已经下载 用ID查数据库
+    NSArray * arr = [[VideoDatabaseSingleton shareDatabase]searchDatabaseModel:self.idStr];
+    if (arr.count == 1) {
+        [self showMessage:@"您已经下载过改视频，请到我的下载查看"];
+    }else{
+        self.loadBtn.hidden = NO;
+        self.loadingLabel.hidden = NO;
+        [self download:@"1" andMsg:@"下载失败！"];
+    }
+   
+}
+
 //解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
     
@@ -587,6 +845,6 @@
     NSLog(@"%@ dealloc",[self class]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [self releaseWMPlayer];
+//    [self releaseWMPlayer];
 }
 @end

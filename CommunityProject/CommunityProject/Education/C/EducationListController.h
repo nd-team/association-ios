@@ -10,4 +10,6 @@
 
 @interface EducationListController : UIViewController
 
+@property (nonatomic,assign)BOOL isRef;
+
 @end

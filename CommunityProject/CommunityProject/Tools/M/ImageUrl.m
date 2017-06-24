@@ -187,30 +187,28 @@
 {
     self.videoName = name;
     AVURLAsset *avAsset = [[AVURLAsset alloc] initWithURL:path options:nil];
-    NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
-    if ([compatiblePresets containsObject:AVAssetExportPresetLowQuality]) {
-        
-        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPreset640x480];
+        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetMediumQuality];
         exportSession.outputURL = [self compressedURL];//设置压缩后视频流导出的路径
         exportSession.shouldOptimizeForNetworkUse = true;
         //转换后的格式
         exportSession.outputFileType = AVFileTypeMPEG4;
         //异步导出
         [exportSession exportAsynchronouslyWithCompletionHandler:^{
+            NSSLog(@"%ld",(long)[exportSession status]);
             // 如果导出的状态为完成
             if ([exportSession status] == AVAssetExportSessionStatusCompleted) {
-//                NSSLog(@"视频压缩成功,压缩后大小 %f MB",[self fileSize:[self compressedURL]]);
+                NSSLog(@"视频压缩成功,压缩后大小 %f MB",[self fileSize:[self compressedURL]]);
 //                if (saveState) {
 //                    [self saveVideo:[self compressedURL]];//保存视频到相册
 //                }
                 //压缩成功视频流回调回去
-                successCompress([NSData dataWithContentsOfURL:[self compressedURL]].length > 0?[NSData dataWithContentsOfURL:[self compressedURL]]:nil);
+//                successCompress([NSData dataWithContentsOfURL:[self compressedURL]].length > 0?[NSData dataWithContentsOfURL:[self compressedURL]]:nil);
+                successCompress([NSData dataWithContentsOfURL:[self compressedURL]]);
             }else{
                 //压缩失败的回调
                 successCompress(nil);
             }
         }];
-    }
 }
 #pragma mark 保存压缩
 - (NSURL *)compressedURL
@@ -219,10 +217,10 @@
 }
 
 #pragma mark 计算视频大小
-//- (CGFloat)fileSize:(NSURL *)path
-//{
-//    return [[NSData dataWithContentsOfURL:path] length]/1024.00 /1024.00;
-//}
+- (CGFloat)fileSize:(NSURL *)path
+{
+    return [[NSData dataWithContentsOfURL:path] length]/1024.00 /1024.00;
+}
 /*
 #pragma mark 保存视频到相册
 - (void)saveVideo:(NSURL *)outputFileURL

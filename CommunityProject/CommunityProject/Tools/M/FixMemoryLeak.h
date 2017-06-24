@@ -15,5 +15,4 @@ static AFHTTPSessionManager * manager;
 
 +(AFHTTPSessionManager *) sharedHTTPSession;
 
-
 @end

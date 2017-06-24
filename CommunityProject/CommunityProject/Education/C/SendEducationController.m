@@ -13,10 +13,11 @@
 #import <CTAssetsPickerController/CTAssetsPickerController.h>
 #import "WMPlayer.h"
 #import "EducationVideoPost.h"
+#import "UIView+ChatMoreView.h"
 
 #define SendURL @"appapi/app/releaseVideo"
 
-@interface SendEducationController ()<UITextFieldDelegate,CTAssetsPickerControllerDelegate>
+@interface SendEducationController ()<UITextFieldDelegate,CTAssetsPickerControllerDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UILabel *placeLabel;
@@ -32,6 +33,13 @@
 @property (nonatomic,strong)NSURL * localUrl;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
 @property (weak, nonatomic) IBOutlet UIView *authView;
+@property (nonatomic,strong) UIView * backView;
+@property (nonatomic,strong)UIWindow * window;
+@property (weak, nonatomic) IBOutlet UILabel *placeHolderLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+//视频时长
+@property (nonatomic,copy)NSString * videoTime;
+@property (nonatomic,strong)WMPlayer * player;
 
 @end
 
@@ -39,6 +47,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
     if (self.authStr.length != 0) {
         self.isPublicLabel.text = self.authStr;
     }
@@ -60,11 +69,38 @@
 //发布
 - (IBAction)sendClick:(id)sender {
     [self common];
-    WeakSelf;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [weakSelf send];
-    });
+    if (self.videoData.length != 0 && self.contentTF.text.length != 0 && self.titleTF.text.length != 0 && self.firstImg != nil) {
+        [self showBackViewUI:@"确定发布内容？"];
+    }
+
+}
+-(void)showBackViewUI:(NSString *)title{
+    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    self.backView = [UIView sureViewTitle:title andTag:146 andTarget:self andAction:@selector(buttonAction:)];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
+    
+    [self.backView addGestureRecognizer:tap];
+    
+    [self.window addSubview:self.backView];
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(-64);
+        make.left.equalTo(self.view);
+        make.width.mas_equalTo(KMainScreenWidth);
+        make.height.mas_equalTo(KMainScreenHeight);
+    }];
+}
+-(void)buttonAction:(UIButton *)btn{
+    if (btn.tag == 146) {
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf send];
+        });
+    }
+        [self hideViewAction];
+}
+-(void)hideViewAction{
+    self.backView.hidden = YES;
 }
 -(void)send{
     NSString * status;
@@ -73,7 +109,7 @@
     }else{
         status = @"1";
     }
-    NSDictionary *dict = @{@"userId":self.userId,@"title":self.titleTF.text,@"content":self.contentTF.text,@"status":status};
+    NSDictionary *dict = @{@"userId":self.userId,@"title":self.titleTF.text,@"content":self.contentTF.text,@"playTime":self.videoTime,@"status":status};
     WeakSelf;
     [EducationVideoPost postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andImage:self.firstImg andVideo:self.videoData getBlock:^(NSURLResponse *response, NSError *error, id data) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -85,6 +121,7 @@
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
+                weakSelf.delegate.isRef = YES;
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else if ([code intValue] == 1015){
                 [weakSelf showMessage:@"上传图片有误！"];
@@ -111,6 +148,7 @@
         [self showMessage:@"未填写视频的介绍"];
         return;
     }
+
 }
 //预览
 - (IBAction)lookClick:(id)sender {
@@ -128,6 +166,7 @@
     education.content = self.contentTF.text;
     education.localUrl = self.localUrl;
     education.isLook = YES;
+    education.videoTime = self.videoTime;
     NSString * status;
     if ([self.isPublicLabel.text isEqualToString:@"公开"]) {
         status = @"0";
@@ -135,6 +174,8 @@
         status = @"1";
     }
     education.authStatus = status;
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController:education animated:YES];
  
 }
@@ -161,7 +202,7 @@
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         CTAssetsPickerController * picker = [[CTAssetsPickerController alloc]init];
         picker.delegate = self;
-        picker.showsSelectionIndex = NO;
+        picker.showsSelectionIndex = YES;
         picker.doneButtonTitle = @"确定";
         picker.showsEmptyAlbums = NO;
         
@@ -192,33 +233,62 @@
                 
                 NSURL *url = urlAsset.URL;
                 weakSelf.localUrl = url;
-                
+                //视频时长
+                NSInteger seconds = urlAsset.duration.value / urlAsset.duration.timescale;
+                //计算超过3分钟提示重新上传
+                if (seconds>180) {
+                    [weakSelf showMessage:@"由于您的视频超过3分钟，请截取您的视频！"];
+                    return ;
+                }
+                NSInteger minute = seconds/60;
+                int second = seconds%60;
+                weakSelf.videoTime = [NSString stringWithFormat:@"%ld’%d”",(long)minute,second];
+//                NSSLog(@"视频时长：%@,%ld",weakSelf.videoTime,(long)seconds);
                 NSData *data = [NSData dataWithContentsOfURL:url];
-                NSSLog(@"真实视频大小%lu MB",data.length/1024/1024);
+                float realMB = data.length/1024.00/1024.00;
+                NSSLog(@"真实视频大小%f MB",realMB);
                 //获取第一帧
-                UIImage * image = [ImageUrl thumbnailImageForVideo:url atTime:0];
+                UIImage * image = [ImageUrl thumbnailImageForVideo:url atTime:1];
                 weakSelf.firstImg = image;
-                //压缩视频
-                ImageUrl * file = [ImageUrl new];
-                [file compressVideo:url andVideoName:@"educationOfThree" successCompress:^(NSData *compressData) {
-                    NSSLog(@"压缩视频大小%lu MB",compressData.length/1024/1024);
-                    weakSelf.videoData = compressData;
-                }];
+                if (realMB<40) {
+                    //不压缩
+                    weakSelf.videoData = data;
+
+                }else{
+                    //压缩视频
+                    ImageUrl * file = [ImageUrl new];
+                    [file compressVideo:url andVideoName:@"educationOfThreeing" successCompress:^(NSData *compressData) {
+                        NSSLog(@"压缩视频大小%f MB",compressData.length/1024.00/1024.00);
+                        float dataMB = compressData.length/1024/1024;
+                        //超过40M提示
+                        if (dataMB>40) {
+                            [weakSelf showMessage:@"由于您的视频超出40M，请截取您的视频,否则无法上传！"];
+                            return ;
+                        }
+                        if (dataMB == 0) {
+                            NSSLog(@"压缩失败");
+                            return;
+                        }
+                        weakSelf.videoData = compressData;
+                    }];
+                }
+                
             }];
         }
     }
     //播放本地视频
-    WMPlayer * player = [[WMPlayer alloc]initWithFrame:weakSelf.videoView.frame];
-    player.placeholderImage = self.firstImg;
-    player.titleLabel.text = self.titleTF.text;
-    [player setURLString:[self.localUrl absoluteString]];
-    [weakSelf.view addSubview:player];
-    [player play];
+
+    self.player = [[WMPlayer alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth-20, 200)];
+    self.player.placeholderImage = self.firstImg;
+    self.player.topView.hidden = YES;
+    [self.player setURLString:[self.localUrl absoluteString]];
+    [weakSelf.videoView addSubview:self.player];
+    [self.player play];
 
 }
 //限制只能选择一个视频
 -(BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset{
-    NSInteger max = 2;
+    NSInteger max = 1;
     if (picker.selectedAssets.count >= max) {
         [self showMessage:@"最多选择一个视频哦！"];
     }
@@ -238,6 +308,13 @@
     }];
     
 }
+-(void)textViewDidChange:(UITextView *)textView{
+    if (textView.text.length == 0) {
+        self.placeHolderLabel.hidden = NO;
+    }else{
+        self.placeHolderLabel.hidden = YES;
+    }
+}
 //解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
     
@@ -245,8 +322,43 @@
     self.viewWidthCons.constant = KMainScreenWidth;
     if (self.authView.frame.origin.y+60<KMainScreenHeight) {
         self.viewHeightCons.constant = KMainScreenHeight-5;
+        self.scrollView.scrollEnabled = NO;
     }else{
         self.viewHeightCons.constant = self.authView.frame.origin.y+160;
+        self.scrollView.scrollEnabled = YES;
+
     }
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self releaseWMPlayer];
+}
+/**
+ *  释放WMPlayer
+ */
+-(void)releaseWMPlayer{
+    //堵塞主线程
+    //    [wmPlayer.player.currentItem cancelPendingSeeks];
+    //    [wmPlayer.player.currentItem.asset cancelLoading];
+    [self.player pause];
+    [self.player removeFromSuperview];
+    [self.player.playerLayer removeFromSuperlayer];
+    [self.player.player replaceCurrentItemWithPlayerItem:nil];
+    self.player.player = nil;
+    self.player.currentItem = nil;
+    //释放定时器，否侧不会调用WMPlayer中的dealloc方法
+    [self.player.autoDismissTimer invalidate];
+    self.player.autoDismissTimer = nil;
+    
+    
+    self.player.playOrPauseBtn = nil;
+    self.player.playerLayer = nil;
+    self.player = nil;
+}
+-(void)dealloc{
+    NSLog(@"%@ dealloc",[self class]);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self releaseWMPlayer];
 }
 @end

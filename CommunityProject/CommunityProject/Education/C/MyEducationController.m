@@ -70,7 +70,7 @@
                 [weakSelf.tableView.mj_header endRefreshing];
             }
         }else{
-            if (weakSelf.tableView.mj_header.isRefreshing) {
+            if (!weakSelf.tableView.mj_footer.isRefreshing) {
                 [weakSelf.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
@@ -142,6 +142,7 @@
 }
 - (IBAction)segClick:(id)sender {
     [self.dataArr removeAllObjects];
+    [self.tableView reloadData];
     if (self.segControl.selectedSegmentIndex == 0) {
        //我的教学
         [self getEducationListData:@{@"userId":self.userId}];

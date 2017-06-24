@@ -201,7 +201,7 @@
             NSSLog(@"朋友圈详情失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
         }else{
-            if (self.dataArr.count != 0) {
+            if (!weakSelf.tableView.mj_footer.isRefreshing) {
                 [self.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];

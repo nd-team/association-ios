@@ -52,10 +52,20 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hih-SK-BSd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="kFJ-FH-1iO"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Lta-LK-bDL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="2yI-wZ-y7a"/>
+                    <constraint firstItem="hih-SK-BSd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="INw-Yh-fik"/>
+                    <constraint firstAttribute="trailing" secondItem="hih-SK-BSd" secondAttribute="trailing" id="NFH-89-ixY"/>
                     <constraint firstItem="m9K-0X-6SU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="NOC-y3-ing"/>
+                    <constraint firstItem="hih-SK-BSd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="U82-mH-woV"/>
                     <constraint firstAttribute="bottom" secondItem="Hi9-Na-69n" secondAttribute="bottom" id="W0o-tT-OI0"/>
                     <constraint firstItem="DYo-yh-suR" firstAttribute="top" secondItem="Lta-LK-bDL" secondAttribute="bottom" constant="8" id="XPt-d4-rvt"/>
                     <constraint firstItem="DYo-yh-suR" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Yc5-i4-yy0"/>

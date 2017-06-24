@@ -142,7 +142,7 @@
                 [weakSelf.tableView.mj_footer endRefreshing];
             }
         }else{
-            if (self.tableView.mj_header.isRefreshing) {
+            if (!self.tableView.mj_footer.isRefreshing) {
                 [self.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];

@@ -17,6 +17,8 @@
 #define PublicDetailURL @"appapi/app/commonwealActivesInfo"
 #define ZanURL @"appapi/app/userPraise"
 #define SignURL @"appapi/app/commonwealActivesJoin"
+#define SHAREURL @"appapi/app/updateInfo"
+
 @interface PubicDetailController ()
 @property (weak, nonatomic) IBOutlet UIImageView *actImageView;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
@@ -239,6 +241,8 @@
                        case SSDKResponseStateSuccess:
                        {
                            NSSLog(@"分享成功");
+                           [weakSelf download:@"2"];
+
                            break;
                        }
                        case SSDKResponseStateFail:
@@ -251,6 +255,27 @@
                    }
                }
      ];
+}
+-(void)download:(NSString *)type{
+    NSDictionary * params = @{@"articleId":self.idStr,@"type":type};
+    WeakSelf;
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SHAREURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        
+        if (error) {
+            NSSLog(@"下载三分钟教学：%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
+            
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                [weakSelf showMessage:@"分享成功"];
+
+            }else{
+                [weakSelf showMessage:@"分享失败"];
+            }
+            
+        }
+    }];
 }
 //点赞
 - (IBAction)loveClick:(id)sender {
