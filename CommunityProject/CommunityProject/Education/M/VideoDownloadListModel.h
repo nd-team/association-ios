@@ -8,7 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VideoDownloadListModel : NSObject
+/*!
+ @enum 下载状态
+ */
+typedef NS_ENUM(NSUInteger, DownloadState) {
+    /* 等待下载 */
+    DownloadStateWait,
+    /* 正在下载 */
+    DownloadStateLoading,
+    /* 下载暂停 */
+    DownloadStatePaused,
+    /* 下载完成 */
+    DownloadStateComplete,
+    /* 下载失败 */
+    DownloadStateError,
+};
+
+@interface VideoDownloadListModel :NSObject
 //文章ID
 @property (nonatomic,copy) NSString * activesId;
 //视频
@@ -23,5 +39,9 @@
 //时间排序
 @property (nonatomic,copy) NSString * time;
 @property (nonatomic,copy) NSString * mbStr;
+//视频地址
+@property (nonatomic,copy) NSString * videoUrl;
+//视频下载状态
+@property (assign, nonatomic) DownloadState downloadState;
 
 @end

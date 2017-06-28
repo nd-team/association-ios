@@ -40,7 +40,7 @@
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists VideoDownloadListModel (id integer primary key autoincrement, activesId text,nickname text,headImage blob,title text,firstImage blob,content text,likesStatus text,checkCollect text,time text,videoData blob,mbStr text)"]) {
+        if (![_database executeUpdate:@"create table if not exists VideoDownloadListModel (id integer primary key autoincrement, activesId text,nickname text,headImage blob,title text,firstImage blob,content text,likesStatus text,checkCollect text,time text,videoData blob,mbStr text,videoUrl text,downloadState integer)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -51,7 +51,7 @@
 -(void)insertDatabase:(VideoDownloadListModel *)model{
     
     
-    if (![_database executeUpdate:@"insert into VideoDownloadListModel (activesId,nickname,headImage,title,firstImage,content,likesStatus,checkCollect,time,videoData,mbStr) values (?,?,?,?,?,?,?,?,?,?,?)",model.activesId,model.nickname,model.headImage,model.title,model.firstImage,model.content,model.likesStatus,model.checkCollect,model.time,model.videoData,model.mbStr]) {
+    if (![_database executeUpdate:@"insert into VideoDownloadListModel (activesId,nickname,headImage,title,firstImage,content,likesStatus,checkCollect,time,videoData,mbStr,videoUrl,downloadState) values (?,?,?,?,?,?,?,?,?,?,?,?,?)",model.activesId,model.nickname,model.headImage,model.title,model.firstImage,model.content,model.likesStatus,model.checkCollect,model.time,model.videoData,model.mbStr,model.videoUrl,model.downloadState]) {
         
         NSSLog(@"插入失败");
     }
@@ -79,17 +79,17 @@
         model.time = [set stringForColumn:@"time"];
         model.videoData = [set dataForColumn:@"videoData"];
         model.mbStr = [set stringForColumn:@"mbStr"];
-
+        model.videoUrl = [set stringForColumn:@"videoUrl"];
+        model.downloadState = [set longForColumn:@"downloadState"];
         [newArr addObject:model];
     }
     
     return newArr;
     
 }
--(NSArray *)searchDatabaseModel:(NSString *)idStr{
+-(NSArray *)searchDatabaseModel:(NSString * )idStr{
     FMResultSet * set = [self.database executeQuery:[NSString stringWithFormat:@"select * from VideoDownloadListModel where activesId = %@",idStr]];
     NSMutableArray * newArr = [NSMutableArray new];
-
     while ([set next]) {
         
         VideoDownloadListModel * model = [VideoDownloadListModel new];
@@ -105,6 +105,8 @@
         model.time = [set stringForColumn:@"time"];
         model.videoData = [set dataForColumn:@"videoData"];
         model.mbStr = [set stringForColumn:@"mbStr"];
+        model.videoUrl = [set stringForColumn:@"videoUrl"];
+        model.downloadState = [set longForColumn:@"downloadState"];
         [newArr addObject:model];
     }
     return newArr;

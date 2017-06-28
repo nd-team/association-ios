@@ -12,8 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 5;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
 
 
 }

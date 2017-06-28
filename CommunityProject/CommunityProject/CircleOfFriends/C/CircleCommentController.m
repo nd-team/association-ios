@@ -72,8 +72,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"正文";
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10DB9F);
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 5;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
     [self.tableView registerNib:[UINib nibWithNibName:@"CircleCommentCell" bundle:nil] forCellReuseIdentifier:@"CircleCommentCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"CircleImageCell" bundle:nil] forCellWithReuseIdentifier:@"CircleImageCell"];
     self.tableView.rowHeight = UITableViewAutomaticDimension;

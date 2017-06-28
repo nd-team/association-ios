@@ -109,8 +109,7 @@
             cell.listModel = self.collectArr[indexPath.row];
         }
     }else{
-        cell.headImageView.layer.masksToBounds = YES;
-        cell.headImageView.layer.cornerRadius = 30;
+        [cell.headImageView zy_cornerRadiusRoundingRect];
         cell.userModel = self.collectArr[indexPath.row];
     }
     

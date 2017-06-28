@@ -61,8 +61,8 @@
     }else{
         self.headView.hidden = NO;
         self.headHeightCons.constant = 84;
-        self.headImageView.layer.cornerRadius = 5;
-        self.headImageView.layer.masksToBounds = YES;
+        [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
+
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default.png"]];
         self.contentLabel.text = [NSString stringWithFormat:@"“%@”",self.content];
         rect.size.height = 84;

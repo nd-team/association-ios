@@ -12,8 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 15;
+    [self.headImageView zy_cornerRadiusRoundingRect];
     [self.zanBtn setImage:[UIImage imageNamed:@"unlike.png"] forState:UIControlStateNormal];
     [self.zanBtn setImage:[UIImage imageNamed:@"yellowZan.png"] forState:UIControlStateSelected];
 

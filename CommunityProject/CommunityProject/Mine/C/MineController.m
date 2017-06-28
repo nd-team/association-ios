@@ -95,8 +95,8 @@
 }
 -(void)setUI{
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x121212);
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 5;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
+
     //设置头像和名字
     self.nickname = [DEFAULTS objectForKey:@"nickname"];
     self.url = [DEFAULTS objectForKey:@"userPortraitUrl"];

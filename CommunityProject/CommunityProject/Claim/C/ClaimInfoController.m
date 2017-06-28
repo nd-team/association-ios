@@ -183,10 +183,10 @@
 }
 
 -(void)setUI{
-    self.headImageView.layer.cornerRadius = 5;
-    self.headImageView.layer.masksToBounds = YES;
     self.count1 = 0;
     self.count2 = 0;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
+
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url] placeholderImage:[UIImage imageNamed:@"default.png"]];
     self.nicknameLabel.text = self.name;
     self.bottomView.hidden = YES;

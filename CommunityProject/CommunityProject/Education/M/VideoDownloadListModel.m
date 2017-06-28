@@ -7,9 +7,8 @@
 //
 
 #import "VideoDownloadListModel.h"
+#import "VideoDatabaseSingleton.h"
 
 @implementation VideoDownloadListModel
-//+(BOOL)propertyIsOptional:(NSString *)propertyName{
-//    return YES;
-//}
+
 @end

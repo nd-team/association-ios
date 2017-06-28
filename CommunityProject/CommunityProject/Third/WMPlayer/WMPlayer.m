@@ -197,7 +197,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.playOrPauseBtn.showsTouchWhenHighlighted = YES;
     [self.playOrPauseBtn addTarget:self action:@selector(PlayOrPause:) forControlEvents:UIControlEventTouchUpInside];
     
-      [self.playOrPauseBtn setImage:WMPlayerImage(@"pause") forState:UIControlStateNormal];
+    [self.playOrPauseBtn setImage:WMPlayerImage(@"pause") forState:UIControlStateNormal];
     [self.playOrPauseBtn setImage:WMPlayerImage(@"play") forState:UIControlStateSelected];
 
     [self.bottomView addSubview:self.playOrPauseBtn];
@@ -653,6 +653,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     //WMPlayer视频的默认填充模式，AVLayerVideoGravityResizeAspect
     self.playerLayer.videoGravity = AVLayerVideoGravityResize;
     [self.contentView.layer insertSublayer:_playerLayer atIndex:0];
+    self.player.automaticallyWaitsToMinimizeStalling = NO;
     self.state = WMPlayerStateBuffering;
 }
 /**

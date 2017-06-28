@@ -28,10 +28,19 @@
     [super viewDidLoad];
     self.navigationItem.title = @"我的下载";
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
-    [self getDatabaseData];
+    
+//    [self getDatabaseData];
 }
+
 -(void)getDatabaseData{
-  [self.dataArr addObjectsFromArray:[[VideoDatabaseSingleton shareDatabase]searchDatabase]];
+    //下载完成的数据
+//    NSMutableArray * mArr = [NSMutableArray new];
+    [self.dataArr addObjectsFromArray:[[VideoDatabaseSingleton shareDatabase]searchDatabase]];
+//    for (VideoDownloadListModel * model in mArr) {
+//        if (model.so_downloadState == SODownloadStateComplete) {
+//            [self.dataArr addObject:model];
+//        }
+//    }
     if (self.dataArr.count != 0) {
         [self.tableView reloadData];
     }
@@ -40,6 +49,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MyDownloadCell * cell = [tableView dequeueReusableCellWithIdentifier:@"MyDownloadCell"];
     cell.videoModel = self.dataArr[indexPath.row];
+
     return cell;
     
     
@@ -52,13 +62,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     VideoDownloadListModel * model = self.dataArr[indexPath.row];
-    [self saveToSandbox:model.videoData];
+//    [self saveToSandbox:model.videoData];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
     EducationDetailController * education = [sb instantiateViewControllerWithIdentifier:@"EducationDetailController"];
     education.userId = userId;
     education.firstImg = [UIImage imageWithData:model.firstImage];
-    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"third.mp4"];
-    education.localUrl = [NSURL URLWithString:fullPath];
+//    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"third.mp4"];
+//    education.localUrl = [NSURL URLWithString:model.savePath];
     education.nickname = model.nickname;
     education.headData = model.headImage;
     education.idStr = model.activesId;
@@ -79,16 +89,16 @@
     [self.navigationController pushViewController:education animated:YES];
 
 }
--(void)saveToSandbox:(NSData *)data{
-    //本地视频url 否则保存到沙盒
-    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"third.mp4"];
-    BOOL isHave = [[NSFileManager defaultManager]fileExistsAtPath:fullPath];
-    if (isHave) {
-        return;
-    }
-    [data writeToFile:fullPath atomically:YES];
-
-}
+//-(void)saveToSandbox:(NSData *)data{
+//    //本地视频url 否则保存到沙盒
+//    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"third.mp4"];
+//    BOOL isHave = [[NSFileManager defaultManager]fileExistsAtPath:fullPath];
+//    if (isHave) {
+//        return;
+//    }
+//    [data writeToFile:fullPath atomically:YES];
+//
+//}
 //左滑删除功能
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
@@ -105,7 +115,6 @@
         //删除数据
         [self.dataArr removeObjectAtIndex:indexPath.row];
         [[VideoDatabaseSingleton shareDatabase]deleteDatabase:model.activesId];
-        [[VideoDatabaseSingleton shareDatabase]deleteDatabase:@""];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView reloadData];
     }

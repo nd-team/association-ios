@@ -64,8 +64,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
     [self.collectionView registerNib:[UINib nibWithNibName:@"HeadDetailCell" bundle:nil] forCellWithReuseIdentifier:@"HeadDetailCell"];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 20;
+    [self.headImageView zy_cornerRadiusRoundingRect];
     self.userID = [DEFAULTS objectForKey:@"userId"];
     self.startTimeLabel.text = self.createTime;
     self.statusLabel.text = self.statusStr;

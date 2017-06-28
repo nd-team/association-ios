@@ -13,8 +13,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 5;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
     [self.loveBtn setImage:[UIImage imageNamed:@"darkHeart.png"] forState:UIControlStateNormal];
     [self.loveBtn setImage:[UIImage imageNamed:@"heart.png"] forState:UIControlStateSelected];
 

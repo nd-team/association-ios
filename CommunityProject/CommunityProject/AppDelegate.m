@@ -179,8 +179,8 @@
     NSFileManager * fileManager = [NSFileManager defaultManager];
     NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
     BOOL  isTruing = [fileManager fileExistsAtPath:path];
-    NSSLog(@"%@",status);
-    NSSLog(@"%@",isTruing?@"1":@"0");
+//    NSSLog(@"%@",status);
+//    NSSLog(@"%@",isTruing?@"1":@"0");
     if (isTruing) {
         //VIP未确认信息到确认信息界面
         if (token != nil && phone != nil && password != nil) {

@@ -13,8 +13,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 15;
+    [self.headImageView zy_cornerRadiusRoundingRect];
     [self.tableView registerNib:[UINib nibWithNibName:@"AnswerCommentCell" bundle:nil] forCellReuseIdentifier:@"AnswerCommentCell"];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

@@ -7,13 +7,14 @@
 //
 
 #import "ManagerDownloadController.h"
+#import "ManagerDownloadCell.h"
+#import "VideoDownloadListModel.h"
+#import "VideoDatabaseSingleton.h"
 
-@interface ManagerDownloadController ()
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *projessLabel;
-@property (weak, nonatomic) IBOutlet UIButton *downBtn;
-@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 
+@interface ManagerDownloadController ()<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic,strong)NSMutableArray * dataArr;
 
 @end
 
@@ -25,30 +26,61 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text = self.topic;
     self.navigationItem.title = @"管理下载";
-    //暂停下载的状态
-    [self.downBtn setImage:[UIImage imageNamed:@"startLoad"] forState:UIControlStateNormal];
-     //下载状态
-    [self.downBtn setImage:[UIImage imageNamed:@"stopLoad"] forState:UIControlStateSelected];
-    self.downBtn.selected = YES;
+    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
+
+   
+    //数据源从数据库里获取
+    [self.dataArr addObjectsFromArray:@[]];
+    if (self.dataArr.count != 0) {
+        [self.tableView reloadData];
+    }
+
+}
+
+
+#pragma mark - tableView-delegate and DataSources
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    ManagerDownloadCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ManagerDownloadCell"];
+    cell.tableView = self.tableView;
+    cell.dataArr = self.dataArr;
+    [cell configureVideo:self.dataArr[indexPath.row]];
+    return cell;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.dataArr.count;
     
 }
 
-- (IBAction)downloadClick:(id)sender {
-    self.downBtn.selected = !self.downBtn.selected;
-    if (self.downBtn.selected) {
-        //下载中 保存到沙盒
-        [self.downloadTask resume];
-        self.progressView.progressTintColor = UIColorFromRGB(0x10db9f);
-        self.projessLabel.textColor = UIColorFromRGB(0x0fbb88);
-
-    }else{
-        //暂停下载
-        [self.downloadTask suspend];
-        self.progressView.progressTintColor = UIColorFromRGB(0xafafaf);
-        self.projessLabel.textColor = UIColorFromRGB(0xc1c1c1);
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+//左滑删除功能
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"删除";
+}
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete;
+}
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    VideoDownloadListModel * model = self.dataArr[indexPath.row];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //删除数据
+        [self.dataArr removeObjectAtIndex:indexPath.row];
+        [[VideoDatabaseSingleton shareDatabase]deleteDatabase:model.activesId];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadData];
     }
+}
+-(NSMutableArray *)dataArr{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray new];
+    }
+    return _dataArr;
 }
 
 

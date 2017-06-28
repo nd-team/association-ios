@@ -17,8 +17,7 @@
     [super awakeFromNib];
     [self.loveBtn setImage:[UIImage imageNamed:@"darkHeart"] forState:UIControlStateNormal];
     [self.loveBtn setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateSelected];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 5;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
     [self.collectionView registerNib:[UINib nibWithNibName:@"CircleImageCell" bundle:nil] forCellWithReuseIdentifier:@"CircleImageCell"];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;

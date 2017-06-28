@@ -17,6 +17,7 @@
 #import "ManagerDownloadController.h"
 #import "VideoDownloadListModel.h"
 #import "VideoDatabaseSingleton.h"
+#import "UIView+Shadow.h"
 
 #define ZanURL @"appapi/app/userPraise"
 #define CollectURL @"appapi/app/articleCollection"
@@ -84,7 +85,7 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
     //旋转屏幕通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onDeviceOrientationChange)
@@ -214,7 +215,6 @@
         self.player.fullScreenBtn.selected = NO;
         self.player.FF_View.hidden = YES;
     }];
-//    NSSLog(@"%f=%f=%f=%f",self.firstImage.frame.size.width,self.player.frame.size.width,KMainScreenWidth,self.player.contentView.frame.size.width);
  
 }
 
@@ -338,15 +338,15 @@
     [self setUI];
 }
 -(void)setUI{
+    
     NSInteger  checkVIP = [DEFAULTS integerForKey:@"checkVip"];
     if (checkVIP == 1) {
         self.downloadBtn.hidden = NO;
     }else{
         self.downloadBtn.hidden = YES;
     }
-//    self.projessView.hidden = YES;
     self.projessView.progress = 0.0;
-    self.headImageView.layer.cornerRadius = 15;
+    [self.headImageView zy_cornerRadiusRoundingRect];
     self.headImageView.layer.masksToBounds = YES;
     self.downView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
     self.downView.hidden = YES;
@@ -412,7 +412,7 @@
 
         
     }
-   
+    [self.bottomView makeInsetShadowWithRadius:5.0 Color:UIColorFromRGB(0xf6f6f6) Directions:[NSArray arrayWithObjects:@"top", nil]];
     self.titleLabel.text = self.topic;
     self.nameLabel.text = self.nickname;
     self.timeLabel.text = [self.time stringByReplacingOccurrencesOfString:@"-" withString:@"."];
@@ -459,21 +459,36 @@
     self.player.delegate = self;
     [self.player setURLString:[url absoluteString]];
     [self toCell];
-    [self.playBtn.superview bringSubviewToFront:self.playBtn];
+    [self.player pause];
+
 
 }
+#pragma mark-play
 //播放视频
 - (IBAction)playClick:(id)sender {
-    self.playBtn.selected = !self.playBtn.selected;
-    if (self.playBtn.selected) {
-        [self.player player];
-        //手势让playBtn显示和隐藏
-        [self.playBtn.superview sendSubviewToBack:self.playBtn];
-        self.player.bottomView.hidden = NO;
-    }else{
-        [self.player pause];
+    self.playBtn.selected = YES;
+    if (self.player == nil) {
+        if (self.isLook || self.isDown) {
+            
+            [self setPlayer:self.localUrl anImage:self.firstImg];
+
+        }else{
+            [self setPlayer:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.videoUrl]]] anImage:self.firstImage.image];
+        }
+        
+        [self toCell];
     }
-    
+    [self.player play];
+    //手势让playBtn显示和隐藏
+    [self.playBtn.superview sendSubviewToBack:self.playBtn];
+    self.player.bottomView.hidden = NO;
+//    }else{
+//        [self releaseWMPlayer];
+//        [self.playBtn.superview bringSubviewToFront:self.playBtn];
+//        self.player.bottomView.hidden = YES;
+//        self.playBtn.selected = YES;
+//    }
+
 }
 //返回
 - (IBAction)backClick:(id)sender {
@@ -622,13 +637,10 @@
 ///播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
     NSLog(@"didClickedCloseButton");
-    //播放按钮显示
-    [self.playBtn.superview bringSubviewToFront:self.playBtn];
-
-    [self releaseWMPlayer];
-    [self setNeedsStatusBarAppearanceUpdate];
-    
+   //小屏显示
+    [self toCell];
 }
+//全屏
 -(void)wmplayer:(WMPlayer *)wmplayer clickedFullScreenButton:(UIButton *)fullScreenBtn{
     if (fullScreenBtn.isSelected) {//全屏显示
         self.player.isFullscreen = YES;
@@ -640,15 +652,29 @@
 }
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
     NSSLog(@"didSingleTaped");
-    self.player.bottomView.hidden = NO;
+    if (self.player.isFullscreen) {
+        self.player.bottomView.hidden = NO;
+        self.player.topView.hidden = NO;
+    }else{
+        self.player.bottomView.hidden = NO;
+
+    }
 
 }
+//双击播放
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
     NSSLog(@"didDoubleTaped");
-    self.player.bottomView.hidden = NO;
+    if (self.player.isFullscreen) {
+        self.player.bottomView.hidden = NO;
+        self.player.topView.hidden = NO;
+    }else{
+        self.player.bottomView.hidden = NO;
+        
+    }
+    [self.player play];
 }
 
-///播放状态
+///播放失败状态
 -(void)wmplayerFailedPlay:(WMPlayer *)wmplayer WMPlayerStatus:(WMPlayerState)state{
     NSSLog(@"wmplayerDidFailedPlay");
 }
@@ -657,8 +683,8 @@
 }
 -(void)wmplayerFinishedPlay:(WMPlayer *)wmplayer{
     NSSLog(@"wmplayerDidFinishedPlay");
-    //播放按钮显示
-    self.player.bottomView.hidden = NO;
+    //播放完成显示小屏 显示播放按钮隐藏bottom
+    self.player.bottomView.hidden = YES;
     [self.playBtn.superview bringSubviewToFront:self.playBtn];
     self.playBtn.selected = NO;
     [self releaseWMPlayer];
@@ -702,10 +728,13 @@
         if (error) {
             NSSLog(@"下载三分钟教学计数：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
-        
+            weakSelf.loadBtn.hidden = YES;
+            weakSelf.loadingLabel.hidden = YES;
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
+                weakSelf.loadBtn.hidden = NO;
+                weakSelf.loadingLabel.hidden = NO;
                 /*
                 weakSelf.loadingLabel.hidden = YES;
                 weakSelf.loadBtn.enabled = NO;
@@ -715,20 +744,43 @@
                     //手动计数
                     self.downloadNum = [NSString stringWithFormat:@"%ld",[self.downloadNum integerValue]+1];
                     [weakSelf.downloadBtn setTitle:self.downloadNum forState:UIControlStateNormal];
-                    //下载视频
-                    [weakSelf download];
+                    //下载视频并保存到数据库
+//                    NSData * video = [[NSData alloc]initWithContentsOfURL:filePath];
+//                    float realMB = video.length/1024.00/1024.00;
+                    NSData * headData = UIImagePNGRepresentation(weakSelf.headImageView.image);
+                    NSData * firstData = UIImagePNGRepresentation(weakSelf.firstImage.image);
+                    NSDictionary * dict = @{@"activesId":weakSelf.idStr,@"nickname":weakSelf.nickname,@"title":weakSelf.topic,@"content":weakSelf.content,@"time":weakSelf.time,@"likesStatus":weakSelf.isLove?@"1":@"0",@"checkCollect":weakSelf.isCollect?@"1":@"0",@"firstImage":firstData,@"headImage":headData};
+//                    NSDictionary * dict1 = @{@"activesId":weakSelf.idStr,@"nickname":weakSelf.nickname,@"title":weakSelf.topic,@"content":weakSelf.content,@"time":weakSelf.time,@"likesStatus":weakSelf.isLove?@"1":@"0",@"checkCollect":weakSelf.isCollect?@"1":@"0",@"mbStr":[NSString stringWithFormat:@"%.2f",realMB],@"videoUrl":self.videoUrl};
+//                    NSSLog(@"视频：%@",video);
+//                    NSSLog(@"头像：%@",headData);
+//                    NSSLog(@"封面：%@",firstData);
+//                    NSSLog(@"参数：%@",dict1);
+                    VideoDownloadListModel * model = [VideoDownloadListModel new];
+                    [model setValuesForKeysWithDictionary:dict];
+                    //保存到本地
+                    [[VideoDatabaseSingleton shareDatabase]insertDatabase:model];
+                  
+                    //下载成功
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        weakSelf.loadingLabel.hidden = YES;
+//                        weakSelf.loadBtn.enabled = NO;
+//                    });
+                   
                 }else{
                   //分享计数
                     self.shareNum = [NSString stringWithFormat:@"%ld",[self.shareNum integerValue]+1];
                     [weakSelf.shareBtn setTitle:self.shareNum forState:UIControlStateNormal];
                 }
             }else{
+                weakSelf.loadBtn.hidden = YES;
+                weakSelf.loadingLabel.hidden = YES;
                 [weakSelf showMessage:msg];
             }
             
         }
     }];
 }
+
 -(void)download{
     WeakSelf;
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -739,7 +791,6 @@
     NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.videoUrl]]];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    
     self.downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
         //completedUnitCount 已经下载大小 totalUnitCount下载文件的大小
         // 回到主队列刷新UI
@@ -764,13 +815,11 @@
             NSData * headData = UIImagePNGRepresentation(weakSelf.headImageView.image);
             NSData * firstData = UIImagePNGRepresentation(weakSelf.firstImage.image);
             NSDictionary * dict = @{@"activesId":weakSelf.idStr,@"nickname":weakSelf.nickname,@"title":weakSelf.topic,@"content":weakSelf.content,@"time":weakSelf.time,@"likesStatus":weakSelf.isLove?@"1":@"0",@"checkCollect":weakSelf.isCollect?@"1":@"0",@"mbStr":[NSString stringWithFormat:@"%.2fMB",realMB],@"firstImage":firstData,@"videoData":video,@"headImage":headData};
-            NSDictionary * dict1 = @{@"activesId":weakSelf.idStr,@"nickname":weakSelf.nickname,@"title":weakSelf.topic,@"content":weakSelf.content,@"time":weakSelf.time,@"likesStatus":weakSelf.isLove?@"1":@"0",@"checkCollect":weakSelf.isCollect?@"1":@"0",@"mbStr":[NSString stringWithFormat:@"%.2fMB",realMB]};
+            NSDictionary * dict1 = @{@"activesId":weakSelf.idStr,@"nickname":weakSelf.nickname,@"title":weakSelf.topic,@"content":weakSelf.content,@"time":weakSelf.time,@"likesStatus":weakSelf.isLove?@"1":@"0",@"checkCollect":weakSelf.isCollect?@"1":@"0",@"mbStr":[NSString stringWithFormat:@"%.2f",realMB]};
             NSSLog(@"视频：%@",video);
             NSSLog(@"头像：%@",headData);
             NSSLog(@"封面：%@",firstData);
             NSSLog(@"参数：%@",dict1);
-
-//            VideoDownloadListModel * model = [[VideoDownloadListModel alloc]initWithDictionary:dict error:nil];
             VideoDownloadListModel * model = [VideoDownloadListModel new];
             [model setValuesForKeysWithDictionary:dict];
             [[VideoDatabaseSingleton shareDatabase]insertDatabase:model];
@@ -782,11 +831,13 @@
     
     [self.downloadTask resume];
 }
+
 - (IBAction)closeClick:(id)sender {
     self.downView.hidden = YES;
 }
 //管理下载
 - (IBAction)managerClick:(id)sender {
+    [self releaseWMPlayer];
     UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
     self.navigationItem.backBarButtonItem = backItem;
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
@@ -799,13 +850,30 @@
 //显示下载图片
 - (IBAction)showClick:(id)sender {
 //    self.showBtn.selected = YES;
-    //相同视频 提示用户已经下载 用ID查数据库
-    NSArray * arr = [[VideoDatabaseSingleton shareDatabase]searchDatabaseModel:self.idStr];
-    if (arr.count == 1) {
-        [self showMessage:@"您已经下载过改视频，请到我的下载查看"];
+    /*1.先查数据库是否已添加到下载列表
+     1>已下载提示用户到我的下载里面查看
+     2>等待中或者暂停 、下载失败提示用户已添加到下载列表 然后开始自动下载
+     3>
+    */
+    //相同视频 提示用户已经下载 用枚举状态查数据库
+    NSArray * arr1 = [[VideoDatabaseSingleton shareDatabase]searchDatabaseModel:self.idStr];
+    
+    
+    if (arr1.count == 1) {
+        for (VideoDownloadListModel * model in arr1) {
+            if (model.downloadState == DownloadStateComplete) {
+                [self showMessage:@"您已经下载过该视频，请到我的下载查看"];
+            }else if (model.downloadState == DownloadStateWait){
+                [self showMessage:@"已加入下载列表"];
+            }else if (model.downloadState == DownloadStateError||model.downloadState == DownloadStatePaused){
+                //下载视频或者提示用户到管理下载里面重新下载
+                [self showMessage:@"正在重新下载"];
+            }else if (model.downloadState == DownloadStateLoading){
+                [self showMessage:@"正在下载中"];
+            }
+        }
     }else{
-        self.loadBtn.hidden = NO;
-        self.loadingLabel.hidden = NO;
+       
         [self download:@"1" andMsg:@"下载失败！"];
     }
    
@@ -844,7 +912,6 @@
 -(void)dealloc{
     NSLog(@"%@ dealloc",[self class]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-//    [self releaseWMPlayer];
+    [self releaseWMPlayer];
 }
 @end

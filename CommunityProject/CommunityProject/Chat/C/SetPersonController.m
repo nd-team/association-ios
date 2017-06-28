@@ -91,8 +91,7 @@
 
 }
 -(void)setUI{
-    self.headImageView.layer.cornerRadius = 5;
-    self.headImageView.layer.masksToBounds = YES;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
     self.userLabel.text = [NSString stringWithFormat:@"账号：%@",self.friendId];
     self.nameLabel.text = self.nickname;
     self.recomendLabel.text = @"推荐：";

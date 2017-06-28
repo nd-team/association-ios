@@ -23,6 +23,6 @@
 -(void)setVideoModel:(VideoDownloadListModel *)videoModel{
     _videoModel = videoModel;
     self.titleLabel.text = _videoModel.title;
-    self.mbLabel.text = _videoModel.mbStr;
+    self.mbLabel.text = [NSString stringWithFormat:@"%@MB",_videoModel.mbStr];
 }
 @end

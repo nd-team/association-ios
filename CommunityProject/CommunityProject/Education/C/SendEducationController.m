@@ -17,7 +17,7 @@
 
 #define SendURL @"appapi/app/releaseVideo"
 
-@interface SendEducationController ()<UITextFieldDelegate,CTAssetsPickerControllerDelegate,UITextViewDelegate>
+@interface SendEducationController ()<UITextFieldDelegate,CTAssetsPickerControllerDelegate,UITextViewDelegate,WMPlayerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UILabel *placeLabel;
@@ -40,6 +40,11 @@
 //视频时长
 @property (nonatomic,copy)NSString * videoTime;
 @property (nonatomic,strong)WMPlayer * player;
+@property (weak, nonatomic) IBOutlet UIView *topView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *topLabel;
+
 
 @end
 
@@ -57,7 +62,10 @@
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10DB9F);
     self.videoView.layer.borderWidth = 1;
     self.videoView.layer.borderColor = UIColorFromRGB(0xeceef0).CGColor;
-    //手势回收键盘
+    self.topView.layer.borderWidth = 1;
+    self.topView.layer.borderColor = UIColorFromRGB(0xeceef0).CGColor;
+
+       //手势回收键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     [self.view addGestureRecognizer:tap];
     
@@ -180,9 +188,7 @@
  
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-//    if (self.titleTF == textField) {
-        [self.titleTF resignFirstResponder];
-//    }
+    [self.titleTF resignFirstResponder];
     return YES;
 }
 
@@ -219,10 +225,8 @@
 //选择完成
 -(void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets{
     [picker dismissViewControllerAnimated:YES completion:nil];
-    NSSLog(@"%ld %@",assets.count,assets);
     WeakSelf;
     for (PHAsset * asset in assets) {
-       
         if (asset.mediaType == PHAssetMediaTypeVideo) {
             PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
             options.version = PHImageRequestOptionsVersionCurrent;
@@ -230,11 +234,11 @@
             PHImageManager *manager = [PHImageManager defaultManager];
             [manager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
                 AVURLAsset *urlAsset = (AVURLAsset *)asset;
-                
                 NSURL *url = urlAsset.URL;
                 weakSelf.localUrl = url;
+            
                 //视频时长
-                NSInteger seconds = urlAsset.duration.value / urlAsset.duration.timescale;
+                long seconds = urlAsset.duration.value / urlAsset.duration.timescale;
                 //计算超过3分钟提示重新上传
                 if (seconds>180) {
                     [weakSelf showMessage:@"由于您的视频超过3分钟，请截取您的视频！"];
@@ -248,8 +252,18 @@
                 float realMB = data.length/1024.00/1024.00;
                 NSSLog(@"真实视频大小%f MB",realMB);
                 //获取第一帧
-                UIImage * image = [ImageUrl thumbnailImageForVideo:url atTime:1];
-                weakSelf.firstImg = image;
+//                UIImage * image = [ImageUrl thumbnailImageForVideo:url atTime:1];
+                //播放本地视频
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.player = [[WMPlayer alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth-20, 200)];
+                    weakSelf.player.placeholderImage = weakSelf.firstImg;
+                    weakSelf.player.topView.hidden = YES;
+                    weakSelf.player.delegate = weakSelf;
+                    [weakSelf.player setURLString:[url absoluteString]];
+                    [weakSelf.videoView addSubview:weakSelf.player];
+                    [weakSelf.player play];
+                });
+
                 if (realMB<40) {
                     //不压缩
                     weakSelf.videoData = data;
@@ -276,15 +290,8 @@
             }];
         }
     }
-    //播放本地视频
 
-    self.player = [[WMPlayer alloc]initWithFrame:CGRectMake(0, 0, KMainScreenWidth-20, 200)];
-    self.player.placeholderImage = self.firstImg;
-    self.player.topView.hidden = YES;
-    [self.player setURLString:[self.localUrl absoluteString]];
-    [weakSelf.videoView addSubview:self.player];
-    [self.player play];
-
+   
 }
 //限制只能选择一个视频
 -(BOOL)assetsPickerController:(CTAssetsPickerController *)picker shouldSelectAsset:(PHAsset *)asset{
@@ -329,6 +336,12 @@
 
     }
 }
+//播放完成继续播放
+-(void)wmplayerFinishedPlay:(WMPlayer *)wmplayer{
+    NSSLog(@"wmplayerDidFinishedPlay");
+    //播放完成显示小屏 显示播放按钮隐藏bottom
+    [self.player play];
+}
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self releaseWMPlayer];
@@ -360,5 +373,21 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self releaseWMPlayer];
+}
+//进入系统相册
+- (IBAction)pushAlbumsClick:(id)sender {
+    [self tapClick];
+    UIImagePickerController * picker = [UIImagePickerController new];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    //dismiss系统的设置自定义
+    [self dismissViewControllerAnimated:YES completion:nil];
+    self.topLabel.hidden = YES;
+    UIImage * originalImage = info[UIImagePickerControllerOriginalImage];
+    self.firstImg = originalImage;
+    self.imageView.image = originalImage;
 }
 @end

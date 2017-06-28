@@ -63,8 +63,8 @@
 }
 //初始化传参过来的数据
 -(void)setUI{
-    self.headImageView.layer.cornerRadius = 5;
-    self.headImageView.layer.masksToBounds = YES;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
+
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
     self.nameLabel.text = self.name;
     if (self.sex == 1) {

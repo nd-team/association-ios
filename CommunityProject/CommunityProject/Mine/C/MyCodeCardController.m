@@ -31,8 +31,8 @@
     UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:35 image:@"back.png"  and:self Action:@selector(leftClick)];
     self.navigationItem.leftBarButtonItem = leftItem;
     self.whiteView.layer.cornerRadius = 5;
-    self.headImageView.layer.cornerRadius = 5;
-    self.headImageView.layer.masksToBounds = YES;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
+
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userPortraitUrl]];
     self.nameLabel.text = self.nickname;
     if (self.sex == 1) {

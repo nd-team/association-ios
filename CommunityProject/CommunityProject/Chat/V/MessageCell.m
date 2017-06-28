@@ -17,8 +17,7 @@
     [self.agreeBtn setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateDisabled];
     [self.agreeBtn setBackgroundImage:[UIImage imageNamed:@"disagreeBtn"] forState:UIControlStateDisabled];
     [self.agreeBtn setBackgroundImage:[UIImage imageNamed:@"applicationBtn"] forState:UIControlStateNormal];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 5;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
 
 }
 

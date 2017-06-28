@@ -26,8 +26,7 @@ float fromValue = 0.0f;
         sd_setImageWithURL:[NSURL URLWithString:self.imageUrl]
           placeholderImage:[RCDUtilities imageNamed:@"default_portrait_msg"
                                            ofBundle:@"RongCloud.bundle"]];
-    _imageView.layer.cornerRadius = 20.0;
-    _imageView.layer.masksToBounds = YES;
+      [_imageView zy_cornerRadiusRoundingRect];
     _imageView.layer.borderColor = [[UIColor whiteColor] CGColor];
     _imageView.layer.borderWidth = 2;
     UIImageView *arrow =

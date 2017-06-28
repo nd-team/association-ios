@@ -309,14 +309,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="statusDark" translatesAutoresizingMaskIntoConstraints="NO" id="COf-V6-4do">
-                                                    <rect key="frame" x="3" y="15" width="70" height="28"/>
+                                                    <rect key="frame" x="0.0" y="15" width="70" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="1xh-nZ-kJi"/>
                                                         <constraint firstAttribute="width" constant="70" id="VfF-e3-dco"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行中" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzl-3t-gHx">
-                                                    <rect key="frame" x="3" y="15" width="70" height="28"/>
+                                                    <rect key="frame" x="0.0" y="15" width="70" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="f36-i6-XDN"/>
                                                         <constraint firstAttribute="height" constant="28" id="i72-Or-ZkG"/>
@@ -385,12 +385,12 @@
                                                 <constraint firstItem="uO0-mD-eGw" firstAttribute="top" secondItem="TUk-DK-mkG" secondAttribute="bottom" constant="21.5" id="O4U-LP-hFT"/>
                                                 <constraint firstItem="SaC-Ky-eil" firstAttribute="leading" secondItem="o8V-sd-ufp" secondAttribute="trailing" constant="10" id="RLK-rD-AsG"/>
                                                 <constraint firstItem="uO0-mD-eGw" firstAttribute="leading" secondItem="RfN-aF-bLE" secondAttribute="trailing" constant="10" id="Z7C-N0-sI7"/>
+                                                <constraint firstItem="Rzl-3t-gHx" firstAttribute="leading" secondItem="y6L-Fp-Fat" secondAttribute="leading" id="anF-fQ-afy"/>
                                                 <constraint firstItem="SaC-Ky-eil" firstAttribute="top" secondItem="TUk-DK-mkG" secondAttribute="bottom" constant="22.5" id="bgP-6d-XOf"/>
                                                 <constraint firstItem="UX7-tR-sKJ" firstAttribute="leading" secondItem="y6L-Fp-Fat" secondAttribute="leading" id="cnK-te-T0w"/>
                                                 <constraint firstAttribute="trailing" secondItem="v9P-aP-mBF" secondAttribute="trailing" id="dEl-tk-Bri"/>
                                                 <constraint firstItem="UX7-tR-sKJ" firstAttribute="top" secondItem="y6L-Fp-Fat" secondAttribute="top" id="dib-el-Vm2"/>
-                                                <constraint firstItem="Rzl-3t-gHx" firstAttribute="leading" secondItem="y6L-Fp-Fat" secondAttribute="leadingMargin" constant="-5" id="gyT-aD-qlJ"/>
-                                                <constraint firstItem="COf-V6-4do" firstAttribute="leading" secondItem="y6L-Fp-Fat" secondAttribute="leadingMargin" constant="-5" id="hSR-67-WBK"/>
+                                                <constraint firstItem="COf-V6-4do" firstAttribute="leading" secondItem="y6L-Fp-Fat" secondAttribute="leading" id="gvm-Z4-ZFn"/>
                                                 <constraint firstItem="Rzl-3t-gHx" firstAttribute="top" secondItem="y6L-Fp-Fat" secondAttribute="topMargin" constant="7" id="iPg-Lu-7xy"/>
                                                 <constraint firstItem="XHP-OH-maC" firstAttribute="top" secondItem="TUk-DK-mkG" secondAttribute="bottom" constant="15" id="nDx-ej-dWn"/>
                                                 <constraint firstItem="v9P-aP-mBF" firstAttribute="top" secondItem="y6L-Fp-Fat" secondAttribute="top" id="nGl-Gb-5nV"/>

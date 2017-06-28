@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 25;
+    [self.headImageView zy_cornerRadiusRoundingRect];
 }
 //加好友
 - (IBAction)addFriendClick:(id)sender {

@@ -14,8 +14,7 @@
     [super awakeFromNib];
     [self setButtonStatus:self.agreeBtn];
     [self setButtonStatus:self.unseeBtn];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 5;
+    [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
     self.titleLabel.attributedText = [ImageUrl changeTextColor:[NSString stringWithFormat:@"申请加入 %@",self.groupName] andFirstRangeStr:@"申请加入 " andFirstChangeColor:UIColorFromRGB(0x999999) andSecondRangeStr:self.groupName andSecondColor:UIColorFromRGB(0x333333)];
 
 }
