@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VideoDownloadListModel.h"
+#import "SRDownloadModel.h"
 
 @interface ManagerDownloadCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -15,10 +15,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *downBtn;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 
-@property (nonatomic,strong)VideoDownloadListModel * videoModel;
+@property (nonatomic,strong)SRDownloadModel * videoModel;
 
 @property (nonatomic,strong)UITableView * tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
--(void)configureVideo:(VideoDownloadListModel *)videlModel;
 
 @end

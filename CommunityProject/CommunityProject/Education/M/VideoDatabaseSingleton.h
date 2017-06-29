@@ -20,6 +20,7 @@
 -(NSArray *)searchDatabaseModel:(NSString *)idStr;
 
 -(void)deleteDatabase:(NSString *)idStr;
+-(void)deleteDatabaseFromUrl:(NSString *)url;
 
 
 @end

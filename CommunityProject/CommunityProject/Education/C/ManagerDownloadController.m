@@ -8,9 +8,10 @@
 
 #import "ManagerDownloadController.h"
 #import "ManagerDownloadCell.h"
-#import "VideoDownloadListModel.h"
+#import "SRDownloadModel.h"
+#import "SRDownloadManager.h"
 #import "VideoDatabaseSingleton.h"
-
+#import "VideoDownloadListModel.h"
 
 @interface ManagerDownloadController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -28,10 +29,9 @@
     [super viewDidLoad];
     self.navigationItem.title = @"管理下载";
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
-
-   
-    //数据源从数据库里获取
-    [self.dataArr addObjectsFromArray:@[]];
+    //单利取数据
+    [self.dataArr addObjectsFromArray:[SRDownloadManager sharedManager].allArray];
+    NSSLog(@"%@",self.dataArr);
     if (self.dataArr.count != 0) {
         [self.tableView reloadData];
     }
@@ -44,16 +44,12 @@
     ManagerDownloadCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ManagerDownloadCell"];
     cell.tableView = self.tableView;
     cell.dataArr = self.dataArr;
-    [cell configureVideo:self.dataArr[indexPath.row]];
+    cell.videoModel = self.dataArr[indexPath.row];
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return self.dataArr.count;
-    
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }
 //左滑删除功能
@@ -67,11 +63,14 @@
     return UITableViewCellEditingStyleDelete;
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    VideoDownloadListModel * model = self.dataArr[indexPath.row];
+    SRDownloadModel * model = self.dataArr[indexPath.row];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //删除数据
+        //删除数据 如果下载状态为完成需要数据库数据也要删除
         [self.dataArr removeObjectAtIndex:indexPath.row];
-        [[VideoDatabaseSingleton shareDatabase]deleteDatabase:model.activesId];
+        [[SRDownloadManager sharedManager]deleteFileOfURL:model.URL];
+        if (model.status == SRDownloadStateCompleted) {
+            [[VideoDatabaseSingleton shareDatabase]deleteDatabaseFromUrl:[NSString stringWithContentsOfURL:model.URL encoding:NSUTF8StringEncoding error:nil]];
+        }
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView reloadData];
     }

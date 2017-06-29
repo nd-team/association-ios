@@ -7,6 +7,7 @@
 //
 
 #import "ManagerDownloadCell.h"
+#import "SRDownloadManager.h"
 
 
 @implementation ManagerDownloadCell
@@ -29,73 +30,72 @@
 
     // Configure the view for the selected state
 }
--(void)configureVideo:(VideoDownloadListModel *)videlModel{
-    
-    self.titleLabel.text = videlModel.title;
-//    self.progressView.progress = videlModel.so_downloadProgress;
-////    float mb = videlModel.so_downloadSpeed/1024.00/1024.00;
-//    NSSLog(@"%lu",(unsigned long)videlModel.so_downloadState);;
-//    self.videoModel = videlModel;
-//    [self updateState:videlModel.so_downloadState];
+-(void)setVideoModel:(SRDownloadModel *)videoModel{
+    _videoModel = videoModel;
+    self.titleLabel.text = _videoModel.title;
+    self.progressView.progress = _videoModel.progressOne;
+    CGFloat total = _videoModel.totalLength/1024.00/1024.00;
+    CGFloat expect = _videoModel.expectLength/1024.00/1024.00;
+    [self updateState:_videoModel.status andTotal:total andExpect:expect];
 }
-//- (void)updateState:(SODownloadState)state {
-////    float allMb = [videlModel.mbStr floatValue];
-//    switch (state) {
-//        case SODownloadStateWait:
-//        {
-//            self.projessLabel.text = [NSString stringWithFormat:@"等待中:MB"];
-//            self.downBtn.selected = NO;
-//            [self common];
-//        }
-//            
-//            break;
-//        case SODownloadStatePaused:
-//        {
-//            self.projessLabel.text = [NSString stringWithFormat:@"已暂停:/MB"];
-//            self.downBtn.selected = NO;
-//            [self common];
-//        }
-//            break;
-//        case SODownloadStateError:
-//        {
-//            self.projessLabel.text = [NSString stringWithFormat:@"失败:MB"];
-//            self.downBtn.selected = NO;
-//            [self common];
-//        }
-//            break;
-//        case SODownloadStateLoading:
-//            
-//        {
-//            self.projessLabel.text = [NSString stringWithFormat:@"缓存中:MB"];
-//            self.downBtn.selected = YES;
-//            self.progressView.hidden = NO;
-//            self.projessLabel.textAlignment = NSTextAlignmentRight;
-//            self.progressView.progressTintColor = UIColorFromRGB(0x10db9f);
-//            self.projessLabel.textColor = UIColorFromRGB(0x0fbb88);
-//            
-//        }
-//            break;
-//        case SODownloadStateComplete:
-//        {
-//            self.projessLabel.text = [NSString stringWithFormat:@"大小:MB"];
-//            self.downBtn.enabled = NO;
-//            self.progressView.hidden = YES;
-//            self.projessLabel.textAlignment = NSTextAlignmentLeft;
-//            self.progressView.progressTintColor = UIColorFromRGB(0xafafaf);
-//            self.projessLabel.textColor = UIColorFromRGB(0xc1c1c1);
-//        }
-//            break;
-//        default:
-//        {
-//            self.projessLabel.text = [NSString stringWithFormat:@"未下载:MB"];
-//            self.downBtn.selected = NO;
-//            [self common];
-//            
-//        }
-//            break;
-//    }
-//
-//}
+
+- (void)updateState:(SRDownloadState)state andTotal:(CGFloat)totalSize andExpect:(CGFloat)expectSize{
+    switch (state) {
+        case SRDownloadStateWaiting:
+        {
+            self.projessLabel.text = [NSString stringWithFormat:@"等待中:%.2fMB",totalSize];
+            self.downBtn.selected = NO;
+            [self common];
+        }
+            
+            break;
+        case SRDownloadStateSuspended:
+        {
+            self.projessLabel.text = [NSString stringWithFormat:@"已暂停:%.2f/%.2fMB",expectSize,totalSize];
+            self.downBtn.selected = NO;
+            [self common];
+        }
+            break;
+        case SRDownloadStateFailed:
+        {
+            self.projessLabel.text = [NSString stringWithFormat:@"失败:%.2fMB",totalSize];
+            self.downBtn.selected = NO;
+            [self common];
+        }
+            break;
+        case SRDownloadStateRunning:
+            
+        {
+            self.projessLabel.text = [NSString stringWithFormat:@"缓存中:%.2f/%.2fMB",expectSize,totalSize];
+            self.downBtn.selected = YES;
+            self.progressView.hidden = NO;
+            self.projessLabel.textAlignment = NSTextAlignmentRight;
+            self.progressView.progressTintColor = UIColorFromRGB(0x10db9f);
+            self.projessLabel.textColor = UIColorFromRGB(0x0fbb88);
+            
+        }
+            break;
+        case SRDownloadStateCompleted:
+        {
+            self.projessLabel.text = [NSString stringWithFormat:@"大小:%.2fMB",totalSize];
+            self.downBtn.enabled = NO;
+            self.progressView.hidden = YES;
+            self.projessLabel.textAlignment = NSTextAlignmentLeft;
+            self.progressView.progressTintColor = UIColorFromRGB(0xafafaf);
+            self.projessLabel.textColor = UIColorFromRGB(0xc1c1c1);
+        }
+            break;
+        default:
+        {
+            self.projessLabel.text = [NSString stringWithFormat:@"未下载:%.2fMB",totalSize];
+            self.downBtn.selected = NO;
+            [self common];
+            
+        }
+            break;
+    }
+
+}
 
 -(void)common{
     self.progressView.hidden = NO;
@@ -105,49 +105,49 @@
   
 }
 - (IBAction)downloadClick:(id)sender {
-    self.downBtn.selected = !self.downBtn.selected;
     UIButton * button = (UIButton *)sender;
     ManagerDownloadCell * cell = (ManagerDownloadCell *)[[button superview]superview];
     //操作下载
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    VideoDownloadListModel * model = self.dataArr[indexPath.row];
-//    switch (model.so_downloadState) {
-//        case SODownloadStateError:
-//        {
-//            [[SODownloader videoDownloader]resumeItem:model];
-//            self.downBtn.selected = YES;
-//        }
-//            break;
-//        case SODownloadStatePaused:
-//        {
-//            [[SODownloader videoDownloader]resumeItem:model];
-//            self.downBtn.selected = YES;
-//        }
-//            break;
-//        case SODownloadStateNormal:
-//        {
-//            [[SODownloader videoDownloader]downloadItem:model];
-//            self.downBtn.selected = YES;
-//
-//        }
-//            break;
-//        case SODownloadStateLoading:
-//        {
-//            [[SODownloader videoDownloader]pauseItem:model];
-//            self.downBtn.selected = NO;
-//
-//        }
-//            break;
-//        case SODownloadStateWait:
-//        {
-//            [[SODownloader videoDownloader]pauseItem:model];
-//            self.downBtn.selected = NO;
-//
-//        }
-//            break;
-//        default:
-//            break;
-//    }
+    SRDownloadModel * model = self.dataArr[indexPath.row];
+    switch (model.status) {
+        case SRDownloadStateFailed://失败
+        {
+            [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
+            self.downBtn.selected = YES;
+        }
+            break;
+        case SRDownloadStateSuspended://暂停
+        {
+            [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
+            self.downBtn.selected = YES;
+        }
+            break;
+        case SRDownloadStateCanceled://取消
+        {
+            [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
+            self.downBtn.selected = YES;
+
+        }
+            break;
+        case SRDownloadStateRunning:
+        {
+            [[SRDownloadManager sharedManager]suspendDownloadOfURL:model.URL];
+            self.downBtn.selected = NO;
+
+        }
+            break;
+        case SRDownloadStateWaiting:
+        {
+            [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
+            self.downBtn.selected = YES;
+
+        }
+            break;
+        default:
+            self.downBtn.selected = NO;
+            break;
+    }
 
 }
 @end

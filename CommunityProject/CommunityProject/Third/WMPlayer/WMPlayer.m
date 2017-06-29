@@ -434,6 +434,7 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.playerLayer.frame = self.contentView.bounds;
         self.playerLayer.videoGravity = AVLayerVideoGravityResize;
         [self.contentView.layer insertSublayer:_playerLayer atIndex:0];
+        self.player.automaticallyWaitsToMinimizeStalling = YES;
         [self.player play];
         self.state = WMPlayerStatePlaying;
         NSLog(@"3333333%s WMPlayerStatePlaying",__FUNCTION__);

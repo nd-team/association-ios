@@ -11,6 +11,7 @@
 #import "VideoDatabaseSingleton.h"
 #import "VideoDownloadListModel.h"
 #import "EducationDetailController.h"
+#import "SRDownloadManager.h"
 
 @interface MyLoadListController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -29,18 +30,12 @@
     self.navigationItem.title = @"我的下载";
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
     
-//    [self getDatabaseData];
+    [self getDatabaseData];
 }
 
 -(void)getDatabaseData{
     //下载完成的数据
-//    NSMutableArray * mArr = [NSMutableArray new];
     [self.dataArr addObjectsFromArray:[[VideoDatabaseSingleton shareDatabase]searchDatabase]];
-//    for (VideoDownloadListModel * model in mArr) {
-//        if (model.so_downloadState == SODownloadStateComplete) {
-//            [self.dataArr addObject:model];
-//        }
-//    }
     if (self.dataArr.count != 0) {
         [self.tableView reloadData];
     }
@@ -62,13 +57,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     VideoDownloadListModel * model = self.dataArr[indexPath.row];
-//    [self saveToSandbox:model.videoData];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
     EducationDetailController * education = [sb instantiateViewControllerWithIdentifier:@"EducationDetailController"];
     education.userId = userId;
     education.firstImg = [UIImage imageWithData:model.firstImage];
-//    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"third.mp4"];
-//    education.localUrl = [NSURL URLWithString:model.savePath];
+    NSString *fullPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CustomDownloadDirectory"];
+    [SRDownloadManager sharedManager].saveFilesDirectory = fullPath;
+   NSString *filePath = [[SRDownloadManager sharedManager]fileFullPathOfURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.videoUrl]]]];
+    education.localUrl = [NSURL fileURLWithPath:filePath];
     education.nickname = model.nickname;
     education.headData = model.headImage;
     education.idStr = model.activesId;
@@ -89,16 +85,6 @@
     [self.navigationController pushViewController:education animated:YES];
 
 }
-//-(void)saveToSandbox:(NSData *)data{
-//    //本地视频url 否则保存到沙盒
-//    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"third.mp4"];
-//    BOOL isHave = [[NSFileManager defaultManager]fileExistsAtPath:fullPath];
-//    if (isHave) {
-//        return;
-//    }
-//    [data writeToFile:fullPath atomically:YES];
-//
-//}
 //左滑删除功能
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
@@ -112,9 +98,10 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     VideoDownloadListModel * model = self.dataArr[indexPath.row];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //删除数据
+        //删除数据 并删除文件
         [self.dataArr removeObjectAtIndex:indexPath.row];
         [[VideoDatabaseSingleton shareDatabase]deleteDatabase:model.activesId];
+        [[SRDownloadManager sharedManager]deleteFileOfURL: [NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.videoUrl]]]];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView reloadData];
     }

@@ -40,7 +40,7 @@
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists VideoDownloadListModel (id integer primary key autoincrement, activesId text,nickname text,headImage blob,title text,firstImage blob,content text,likesStatus text,checkCollect text,time text,videoData blob,mbStr text,videoUrl text,downloadState integer)"]) {
+        if (![_database executeUpdate:@"create table if not exists VideoDownloadListModel (id integer primary key autoincrement, activesId text,nickname text,headImage blob,title text,firstImage blob,content text,likesStatus text,checkCollect text,time text,videoData blob,mbStr text,videoUrl text)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -51,7 +51,7 @@
 -(void)insertDatabase:(VideoDownloadListModel *)model{
     
     
-    if (![_database executeUpdate:@"insert into VideoDownloadListModel (activesId,nickname,headImage,title,firstImage,content,likesStatus,checkCollect,time,videoData,mbStr,videoUrl,downloadState) values (?,?,?,?,?,?,?,?,?,?,?,?,?)",model.activesId,model.nickname,model.headImage,model.title,model.firstImage,model.content,model.likesStatus,model.checkCollect,model.time,model.videoData,model.mbStr,model.videoUrl,model.downloadState]) {
+    if (![_database executeUpdate:@"insert into VideoDownloadListModel (activesId,nickname,headImage,title,firstImage,content,likesStatus,checkCollect,time,mbStr,videoUrl) values (?,?,?,?,?,?,?,?,?,?,?)",model.activesId,model.nickname,model.headImage,model.title,model.firstImage,model.content,model.likesStatus,model.checkCollect,model.time,model.mbStr,model.videoUrl]) {
         
         NSSLog(@"插入失败");
     }
@@ -77,10 +77,9 @@
         model.likesStatus = [set stringForColumn:@"likesStatus"];
         model.checkCollect = [set stringForColumn:@"checkCollect"];
         model.time = [set stringForColumn:@"time"];
-        model.videoData = [set dataForColumn:@"videoData"];
+//        model.videoData = [set dataForColumn:@"videoData"];
         model.mbStr = [set stringForColumn:@"mbStr"];
         model.videoUrl = [set stringForColumn:@"videoUrl"];
-        model.downloadState = [set longForColumn:@"downloadState"];
         [newArr addObject:model];
     }
     
@@ -103,10 +102,9 @@
         model.likesStatus = [set stringForColumn:@"likesStatus"];
         model.checkCollect = [set stringForColumn:@"checkCollect"];
         model.time = [set stringForColumn:@"time"];
-        model.videoData = [set dataForColumn:@"videoData"];
+//        model.videoData = [set dataForColumn:@"videoData"];
         model.mbStr = [set stringForColumn:@"mbStr"];
         model.videoUrl = [set stringForColumn:@"videoUrl"];
-        model.downloadState = [set longForColumn:@"downloadState"];
         [newArr addObject:model];
     }
     return newArr;
@@ -120,6 +118,13 @@
         
     }
     
+}
+-(void)deleteDatabaseFromUrl:(NSString *)url{
+    if (![self.database executeUpdate:@"delete from VideoDownloadListModel where videoUrl = ?",url]) {
+        
+        NSSLog(@"删除失败");
+        
+    }
 }
 
 @end

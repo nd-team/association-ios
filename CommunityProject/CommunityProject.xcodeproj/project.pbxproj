@@ -31,6 +31,8 @@
 		451B28581E7D27FC0024B336 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28571E7D27FC0024B336 /* CoreMotion.framework */; };
 		451B285A1E7D28210024B336 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B28591E7D28210024B336 /* libz.tbd */; };
 		451B285C1E7D282D0024B336 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B285B1E7D282D0024B336 /* libc++.tbd */; };
+		452AD5F91F048C0000FA96F1 /* SRDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 452AD5F61F048C0000FA96F1 /* SRDownloadManager.m */; };
+		452AD5FA1F048C0000FA96F1 /* SRDownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 452AD5F81F048C0000FA96F1 /* SRDownloadModel.m */; };
 		452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D866D1E9CA51600AAFFB1 /* ActivityDetailController.m */; };
 		452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86701E9CC17C00AAFFB1 /* ActiveUsers.m */; };
 		452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */; };
@@ -406,6 +408,10 @@
 		451B28571E7D27FC0024B336 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		451B28591E7D28210024B336 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		451B285B1E7D282D0024B336 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		452AD5F51F048C0000FA96F1 /* SRDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDownloadManager.h; sourceTree = "<group>"; };
+		452AD5F61F048C0000FA96F1 /* SRDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDownloadManager.m; sourceTree = "<group>"; };
+		452AD5F71F048C0000FA96F1 /* SRDownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDownloadModel.h; sourceTree = "<group>"; };
+		452AD5F81F048C0000FA96F1 /* SRDownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDownloadModel.m; sourceTree = "<group>"; };
 		452D866C1E9CA51600AAFFB1 /* ActivityDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailController.h; sourceTree = "<group>"; };
 		452D866D1E9CA51600AAFFB1 /* ActivityDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailController.m; sourceTree = "<group>"; };
 		452D866F1E9CC17C00AAFFB1 /* ActiveUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveUsers.h; sourceTree = "<group>"; };
@@ -1053,6 +1059,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		452AD5F41F048C0000FA96F1 /* SRDownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				452AD5F51F048C0000FA96F1 /* SRDownloadManager.h */,
+				452AD5F61F048C0000FA96F1 /* SRDownloadManager.m */,
+				452AD5F71F048C0000FA96F1 /* SRDownloadModel.h */,
+				452AD5F81F048C0000FA96F1 /* SRDownloadModel.m */,
+			);
+			path = SRDownloadManager;
+			sourceTree = "<group>";
+		};
 		455FA2FF1E7631A80039B155 = {
 			isa = PBXGroup;
 			children = (
@@ -1436,6 +1453,7 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				452AD5F41F048C0000FA96F1 /* SRDownloadManager */,
 				459130DB1EF920DA0054A28C /* WMPlayer */,
 				45F045FA1EE52DB700CDA7BD /* ShareSDK */,
 				452DB66B1EC2A4DC00A4FE0C /* AMapLocationKit.framework */,
@@ -2488,6 +2506,7 @@
 				4562D7511E7FBD3A00C6EE56 /* UploadImageModel.m in Sources */,
 				458959D01EBB150400CBADDD /* FSCalendarDelegationFactory.m in Sources */,
 				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
+				452AD5F91F048C0000FA96F1 /* SRDownloadManager.m in Sources */,
 				455B371C1F00AED300CA47CF /* ManagerDownloadCell.m in Sources */,
 				455FA1701E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m in Sources */,
 				45B977241EB088BB00A42D55 /* AlreadyRecommendModel.m in Sources */,
@@ -2515,6 +2534,7 @@
 				458959F31EBDBF1A00CBADDD /* MBProgressHUD+Add.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				45CE5F581EC1972900225534 /* AreaHistrorySingleton.m in Sources */,
+				452AD5FA1F048C0000FA96F1 /* SRDownloadModel.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
 				45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */,
 				459130E71EF920DA0054A28C /* WMLightView.m in Sources */,

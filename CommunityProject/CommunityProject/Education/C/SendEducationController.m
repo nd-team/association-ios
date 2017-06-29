@@ -236,7 +236,6 @@
                 AVURLAsset *urlAsset = (AVURLAsset *)asset;
                 NSURL *url = urlAsset.URL;
                 weakSelf.localUrl = url;
-            
                 //视频时长
                 long seconds = urlAsset.duration.value / urlAsset.duration.timescale;
                 //计算超过3分钟提示重新上传
