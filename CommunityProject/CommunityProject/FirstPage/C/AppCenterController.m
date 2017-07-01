@@ -42,6 +42,13 @@
     NSArray * array = [data getApplictionData];
     for (NSDictionary * dic in array) {
         AppModel * model = [[AppModel alloc]initWithDictionary:dic error:nil];
+            if ([self.nameArr containsObject:model]) {
+                model.isHidden = YES;
+            }else{
+                model.isHidden = NO;
+            }
+        
+        
         [self.dataArr addObject:model];
     }
     [self.collectionView reloadData];
@@ -53,14 +60,6 @@
 }
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     AppTwoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AppTwoCell" forIndexPath:indexPath];
-    AppModel * model = self.dataArr[indexPath.row];
-    for (AppModel * app in self.nameArr) {
-        if ([app.name isEqualToString:model.name]) {
-            cell.downloadImage.hidden = YES;
-        }else{
-            cell.downloadImage.hidden = NO;
-        }
-    }
     cell.appModel = self.dataArr[indexPath.row];
     return cell;
 }
@@ -82,7 +81,7 @@
 //}
 
     if (i == 0) {
-            self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName};
+            self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName,@"isHidden":@"0"};
             [self.navigationController popViewControllerAnimated:YES];
         
     }
@@ -96,7 +95,7 @@
         msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
     } completion:^(BOOL finished) {
         //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
             msgView.hidden = YES;
         }];
     }];

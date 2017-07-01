@@ -88,17 +88,13 @@
    
 }
 -(void)netWork{
-    AFNetworkReachabilityManager * net = [AFNetworkReachabilityManager sharedManager];
-    [net startMonitoring];
-    WeakSelf;
-    [net setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        
-        if (status == AFNetworkReachabilityStatusNotReachable) {
-            [weakSelf localData];
-        }else{
-            [weakSelf refresh];
-        }
-    }];
+    NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
+    if (status == 0) {
+        //无网从本地加载数据
+        [self localData];
+    }else{
+        [self refresh];
+    }
 }
 -(void)refresh{
     [self readPhoneAddress];

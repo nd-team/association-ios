@@ -46,7 +46,24 @@
     [super viewDidLoad];
     [self setBar];
     [self setUI];
-    [self getInterestListData:@"1"];
+    [self netWork];
+}
+-(void)netWork{
+    NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
+    if (status == 0) {
+        //无网从本地加载数据
+        [self showMessage:@"亲，没有连接网络哦！"];
+    }else{
+       
+        [self common:@"1"];
+    }
+}
+-(void)common:(NSString *)type{
+    WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getInterestListData:type];
+    });
 }
 -(void)setBar{
     UIBarButtonItem * rightItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 40, 30) andMove:-30 image:@"createInterest" and:self Action:@selector(rightClick)];
@@ -73,6 +90,9 @@
     WeakSelf;
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,InterestURL] andParams:@{@"userId":userId,@"hobbyId":hobby} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        });
         if (error) {
             NSSLog(@"获取兴趣联盟列表失败%@",error);
             [weakSelf showMessage:@"加载兴趣联盟失败"];
@@ -175,7 +195,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.leftTbView) {
-        [self getInterestListData:[NSString stringWithFormat:@"%ld",(long)indexPath.row+5]];
+        [self common:[NSString stringWithFormat:@"%ld",(long)indexPath.row+5]];
     }else{
         InterestModel * model = self.rightArr[indexPath.row];
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
@@ -201,7 +221,7 @@
     [UIView animateWithDuration:2 animations:^{
         weakSelf.leftWidthCons.constant = 0;
     }];
-    [self getInterestListData:@"1"];
+    [self common:@"1"];
 
 }
 - (IBAction)gameClick:(id)sender {
@@ -219,7 +239,7 @@
     [UIView animateWithDuration:2 animations:^{
         weakSelf.leftWidthCons.constant = 0;
     }];
-    [self getInterestListData:@"2"];
+    [self common:@"2"];
 
     
 }
@@ -238,7 +258,7 @@
     [UIView animateWithDuration:2 animations:^{
         weakSelf.leftWidthCons.constant = 0;
     }];
-    [self getInterestListData:@"3"];
+    [self common:@"3"];
 
     
 }
@@ -257,7 +277,7 @@
     [UIView animateWithDuration:2 animations:^{
         weakSelf.leftWidthCons.constant = 0;
     }];
-    [self getInterestListData:@"4"];
+    [self common:@"4"];
 
     
 }

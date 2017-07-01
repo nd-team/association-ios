@@ -26,13 +26,9 @@ typedef NS_ENUM(NSInteger, SRDownloadState) {
 
 @property (nonatomic, strong) NSURL *URL;
 
-@property (nonatomic, assign) NSInteger totalLength;
-
-@property (nonatomic, assign) NSInteger expectLength;
-
-@property (nonatomic, assign) CGFloat progressOne;
-
 @property (nonatomic, assign) SRDownloadState status;
+
+@property (nonatomic, assign) NSInteger totalLength;
 
 @property (nonatomic, copy) NSString *destPath;
 

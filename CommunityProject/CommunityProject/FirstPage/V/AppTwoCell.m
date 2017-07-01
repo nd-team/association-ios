@@ -13,5 +13,8 @@
     _appModel = appModel;
     self.headImageView.image = [UIImage imageNamed:_appModel.imageName];
     self.nameLabel.text = _appModel.name;
+    NSSLog(@"%@",_appModel.isHidden?@"1":@"0");
+    self.downloadImage.hidden = _appModel.isHidden;
+   
 }
 @end

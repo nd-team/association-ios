@@ -22,7 +22,7 @@
     [self.downBtn setImage:[UIImage imageNamed:@"finishLoad"] forState:UIControlStateDisabled];
 
     self.progressView.progress = 0;
-    
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -33,10 +33,23 @@
 -(void)setVideoModel:(SRDownloadModel *)videoModel{
     _videoModel = videoModel;
     self.titleLabel.text = _videoModel.title;
-    self.progressView.progress = _videoModel.progressOne;
-    CGFloat total = _videoModel.totalLength/1024.00/1024.00;
-    CGFloat expect = _videoModel.expectLength/1024.00/1024.00;
-    [self updateState:_videoModel.status andTotal:total andExpect:expect];
+    WeakSelf;
+    if (_videoModel.status != 1) {
+        
+        [weakSelf updateState:_videoModel.status andTotal:_videoModel.totalLength/1024.00/1024.00 andExpect:0];
+
+    }else{
+        //下载中才走block
+        _videoModel.progress = ^(NSInteger receivedSize, NSInteger expectedSize, CGFloat progress) {
+            weakSelf.progressView.progress = progress;
+            [weakSelf updateState:weakSelf.videoModel.status andTotal:expectedSize/1024.00/1024.00 andExpect:receivedSize/1024.00/1024.00];
+            if (progress == 1.0) {
+                weakSelf.projessLabel.text = [NSString stringWithFormat:@"大小:%.2fMB",expectedSize/1024.00/1024.00];
+                [weakSelf finish];
+
+            }
+        };
+    }
 }
 
 - (void)updateState:(SRDownloadState)state andTotal:(CGFloat)totalSize andExpect:(CGFloat)expectSize{
@@ -78,11 +91,7 @@
         case SRDownloadStateCompleted:
         {
             self.projessLabel.text = [NSString stringWithFormat:@"大小:%.2fMB",totalSize];
-            self.downBtn.enabled = NO;
-            self.progressView.hidden = YES;
-            self.projessLabel.textAlignment = NSTextAlignmentLeft;
-            self.progressView.progressTintColor = UIColorFromRGB(0xafafaf);
-            self.projessLabel.textColor = UIColorFromRGB(0xc1c1c1);
+            [self finish];
         }
             break;
         default:
@@ -96,7 +105,14 @@
     }
 
 }
+-(void)finish{
+    self.downBtn.enabled = NO;
+    self.progressView.hidden = YES;
+    self.projessLabel.textAlignment = NSTextAlignmentLeft;
+    self.progressView.progressTintColor = UIColorFromRGB(0xafafaf);
+    self.projessLabel.textColor = UIColorFromRGB(0xc1c1c1);
 
+}
 -(void)common{
     self.progressView.hidden = NO;
     self.projessLabel.textAlignment = NSTextAlignmentRight;
@@ -114,40 +130,52 @@
         case SRDownloadStateFailed://失败
         {
             [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
-            self.downBtn.selected = YES;
         }
             break;
         case SRDownloadStateSuspended://暂停
         {
             [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
-            self.downBtn.selected = YES;
         }
             break;
         case SRDownloadStateCanceled://取消
-        {
-            [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
-            self.downBtn.selected = YES;
+        {   //先判断是否下载过 没有就下载否则就继续下载
+            if ([[SRDownloadManager sharedManager]isDownloadCompletedOfURL:model.URL]) {
+                [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
+            }else{
+                //发送通知下载
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"DownloadVideo" object:@{@"URL":model.URL,@"title":model.title}];
+            }
 
         }
             break;
         case SRDownloadStateRunning:
         {
             [[SRDownloadManager sharedManager]suspendDownloadOfURL:model.URL];
-            self.downBtn.selected = NO;
 
         }
             break;
         case SRDownloadStateWaiting:
         {
-            [[SRDownloadManager sharedManager]resumeDownloadOfURL:model.URL];
-            self.downBtn.selected = YES;
+            //下载 如果是已经有3个正在下载就不做操作否则下载 统计正在下载的个数
+            int count = 0;
+            for (SRDownloadModel * model in self.dataArr) {
+                if (model.status == SRDownloadStateRunning) {
+                    count++;
+                }
+            }
+            if (count < 3) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"DownloadVideo" object:@{@"URL":model.URL,@"title":model.title}];
+                self.downBtn.selected = YES;
+            }else{
+                self.downBtn.selected = NO;
+            }
 
         }
             break;
         default:
-            self.downBtn.selected = NO;
             break;
     }
-
+//刷新列表
+    self.block();
 }
 @end

@@ -132,8 +132,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     self.contentView.backgroundColor = [UIColor blackColor];
     [self addSubview:self.contentView];
     //autoLayout contentView
+    WeakSelf;
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
+        make.edges.equalTo(weakSelf);
     }];
     
     //创建fastForwardView
@@ -434,7 +435,6 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
         self.playerLayer.frame = self.contentView.bounds;
         self.playerLayer.videoGravity = AVLayerVideoGravityResize;
         [self.contentView.layer insertSublayer:_playerLayer atIndex:0];
-        self.player.automaticallyWaitsToMinimizeStalling = YES;
         [self.player play];
         self.state = WMPlayerStatePlaying;
         NSLog(@"3333333%s WMPlayerStatePlaying",__FUNCTION__);
@@ -569,16 +569,16 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     }
     
     
-   
+    WeakSelf;
     [self.autoDismissTimer invalidate];
     self.autoDismissTimer = nil;
     self.autoDismissTimer = [NSTimer timerWithTimeInterval:5.0 target:self selector:@selector(autoDismissBottomView:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.autoDismissTimer forMode:NSDefaultRunLoopMode];
     [UIView animateWithDuration:0.5 animations:^{
         if (self.bottomView.alpha == 0.0) {
-            [self showControlView];
+            [weakSelf showControlView];
         }else{
-            [self hiddenControlView];
+            [weakSelf hiddenControlView];
         }
     } completion:^(BOOL finish){
         
@@ -743,9 +743,10 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
     if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayerFinishedPlay:)]) {
         [self.delegate wmplayerFinishedPlay:self];
     }
+    WeakSelf;
     [self.player seekToTime:kCMTimeZero toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:^(BOOL finished) {
         if (finished) {
-            [self showControlView];
+            [weakSelf showControlView];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 self.state = WMPlayerStateFinished;
                 self.playOrPauseBtn.selected = YES;
@@ -755,11 +756,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 ///显示操作栏view
 -(void)showControlView{
+    WeakSelf;
     [UIView animateWithDuration:0.5 animations:^{
         self.bottomView.alpha = 1.0;
         self.topView.alpha = 1.0;
         if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:isHiddenTopAndBottomView:)]) {
-            [self.delegate wmplayer:self isHiddenTopAndBottomView:NO];
+            [self.delegate wmplayer:weakSelf isHiddenTopAndBottomView:NO];
         }
     } completion:^(BOOL finish){
         
@@ -767,11 +769,12 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 }
 ///隐藏操作栏view
 -(void)hiddenControlView{
+    WeakSelf;
     [UIView animateWithDuration:0.5 animations:^{
         self.bottomView.alpha = 0.0;
         self.topView.alpha = 0.0;
         if (self.delegate&&[self.delegate respondsToSelector:@selector(wmplayer:isHiddenTopAndBottomView:)]) {
-            [self.delegate wmplayer:self isHiddenTopAndBottomView:YES];
+            [self.delegate wmplayer:weakSelf isHiddenTopAndBottomView:YES];
         }
     } completion:^(BOOL finish){
         
@@ -912,8 +915,9 @@ static void *PlayViewStatusObservationContext = &PlayViewStatusObservationContex
 - (void)loadedTimeRanges
 {
     self.state = WMPlayerStateBuffering;
+    WeakSelf;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self play];
+        [weakSelf play];
         //here
         [self.loadingView stopAnimating];
     });

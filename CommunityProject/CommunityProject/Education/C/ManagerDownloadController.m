@@ -37,13 +37,14 @@
     }
 
 }
-
-
 #pragma mark - tableView-delegate and DataSources
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ManagerDownloadCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ManagerDownloadCell"];
     cell.tableView = self.tableView;
     cell.dataArr = self.dataArr;
+    cell.block = ^{
+        [self.tableView reloadData];
+    };
     cell.videoModel = self.dataArr[indexPath.row];
     return cell;
 }
@@ -67,10 +68,15 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //删除数据 如果下载状态为完成需要数据库数据也要删除
         [self.dataArr removeObjectAtIndex:indexPath.row];
-        [[SRDownloadManager sharedManager]deleteFileOfURL:model.URL];
+        NSString * url = [model.URL absoluteString];
+        //删除数据库下载完的数据
         if (model.status == SRDownloadStateCompleted) {
-            [[VideoDatabaseSingleton shareDatabase]deleteDatabaseFromUrl:[NSString stringWithContentsOfURL:model.URL encoding:NSUTF8StringEncoding error:nil]];
+            [[VideoDatabaseSingleton shareDatabase]deleteDatabaseFromUrl:url];
         }
+        //删除视频文件
+        [[SRDownloadManager sharedManager]deleteFileOfURL:model.URL andModel:model];
+        //删除单列模型
+//        [SRDownloadManager sharedManager]
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView reloadData];
     }

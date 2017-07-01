@@ -97,6 +97,8 @@
         [weakSelf getCommentListData];
     }];
    
+    self.tableView.mj_footer.automaticallyHidden = YES;
+
 }
 -(void)tapClick{
     [self.commentTF resignFirstResponder];

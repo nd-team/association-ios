@@ -343,35 +343,12 @@
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self releaseWMPlayer];
-}
-/**
- *  释放WMPlayer
- */
--(void)releaseWMPlayer{
-    //堵塞主线程
-    //    [wmPlayer.player.currentItem cancelPendingSeeks];
-    //    [wmPlayer.player.currentItem.asset cancelLoading];
     [self.player pause];
-    [self.player removeFromSuperview];
-    [self.player.playerLayer removeFromSuperlayer];
-    [self.player.player replaceCurrentItemWithPlayerItem:nil];
-    self.player.player = nil;
-    self.player.currentItem = nil;
-    //释放定时器，否侧不会调用WMPlayer中的dealloc方法
-    [self.player.autoDismissTimer invalidate];
-    self.player.autoDismissTimer = nil;
-    
-    
-    self.player.playOrPauseBtn = nil;
-    self.player.playerLayer = nil;
-    self.player = nil;
 }
 -(void)dealloc{
     NSLog(@"%@ dealloc",[self class]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [self releaseWMPlayer];
+    [self.player resetWMPlayer];
 }
 //进入系统相册
 - (IBAction)pushAlbumsClick:(id)sender {

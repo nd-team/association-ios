@@ -39,7 +39,7 @@
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists AppModel (id integer primary key autoincrement, imageName text,name text)"]) {
+        if (![_database executeUpdate:@"create table if not exists AppModel (id integer primary key autoincrement, imageName text,name text,isHidden bool)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -50,7 +50,7 @@
 -(void)insertDatabase:(AppModel *)model{
     
     
-    if (![_database executeUpdate:@"insert into AppModel (imageName,name) values (?,?)",model.imageName,model.name]) {
+    if (![_database executeUpdate:@"insert into AppModel (imageName,name,isHidden) values (?,?,?)",model.imageName,model.name,model.isHidden]) {
         
         NSSLog(@"插入失败");
     }
@@ -69,6 +69,7 @@
         
         model.name = [set stringForColumn:@"name"];
         model.imageName = [set stringForColumn:@"imageName"];
+        model.isHidden = [set boolForColumn:@"isHidden"];
         [newArr addObject:model];
     }
     

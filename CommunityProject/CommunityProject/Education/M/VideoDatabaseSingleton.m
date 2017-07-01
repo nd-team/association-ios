@@ -33,14 +33,14 @@
         
         _database = [[FMDatabase alloc]initWithPath:dataPath];
         
-        //        NSSLog(@"%@",dataPath);
+//        NSSLog(@"%@",dataPath);
         
         if (![_database open]) {
             
             NSSLog(@"打开数据库失败");
             
         }
-        if (![_database executeUpdate:@"create table if not exists VideoDownloadListModel (id integer primary key autoincrement, activesId text,nickname text,headImage blob,title text,firstImage blob,content text,likesStatus text,checkCollect text,time text,videoData blob,mbStr text,videoUrl text)"]) {
+        if (![_database executeUpdate:@"create table if not exists VideoDownloadListModel (id integer primary key autoincrement, activesId text,nickname text,headImage blob,title text,firstImage blob,content text,likesStatus text,checkCollect text,time text,mbStr text,videoUrl text)"]) {
             
             NSSLog(@"创建表失败");
         }
@@ -77,7 +77,6 @@
         model.likesStatus = [set stringForColumn:@"likesStatus"];
         model.checkCollect = [set stringForColumn:@"checkCollect"];
         model.time = [set stringForColumn:@"time"];
-//        model.videoData = [set dataForColumn:@"videoData"];
         model.mbStr = [set stringForColumn:@"mbStr"];
         model.videoUrl = [set stringForColumn:@"videoUrl"];
         [newArr addObject:model];
@@ -102,7 +101,6 @@
         model.likesStatus = [set stringForColumn:@"likesStatus"];
         model.checkCollect = [set stringForColumn:@"checkCollect"];
         model.time = [set stringForColumn:@"time"];
-//        model.videoData = [set dataForColumn:@"videoData"];
         model.mbStr = [set stringForColumn:@"mbStr"];
         model.videoUrl = [set stringForColumn:@"videoUrl"];
         [newArr addObject:model];
@@ -124,6 +122,8 @@
         
         NSSLog(@"删除失败");
         
+    }else{
+        NSSLog(@"删除成功");
     }
 }
 

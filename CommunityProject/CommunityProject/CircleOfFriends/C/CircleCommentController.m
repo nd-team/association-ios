@@ -82,21 +82,35 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
     self.userId = [DEFAULTS objectForKey:@"userId"];
     self.page = 1;
-    if (self.isMsg) {
-        //请求数据
-        [self getCircleDetailData];
-    }else{
-        //获取评论数据 朋友圈
-        [self setUI];
-        [self getCommentListData];
- 
-    }
+    [self netWork];
     //点击手势隐藏键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     tap.cancelsTouchesInView = NO;
     tap.delegate = self;
     [self.view addGestureRecognizer:tap];
 
+}
+-(void)netWork{
+    NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
+    if (status == 0) {
+        //无网从本地加载数据
+        [self showMessage:@"亲，没有连接网络"];
+    }else{
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            if (weakSelf.isMsg) {
+                //请求数据
+                [weakSelf getCircleDetailData];
+            }else{
+                //获取评论数据 朋友圈
+                [weakSelf setUI];
+                [weakSelf getCommentListData];
+                
+            }
+        });
+        
+    }
 }
 -(void)keyboardWillShow:(NSNotification *)nofi{
     NSDictionary * userInfo = [nofi userInfo];
@@ -196,6 +210,9 @@
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr};
     NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleDetailURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        });
         if (error) {
             NSSLog(@"朋友圈详情失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -245,6 +262,9 @@
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":@"2",@"page":[NSString stringWithFormat:@"%d",self.page]};
 //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        });
         if (error) {
             NSSLog(@"朋友圈评论失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

@@ -95,11 +95,10 @@
                             </button>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" id="M0s-Qj-kuG">
-                            <inset key="imageInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="x9d-Eh-iCv">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <inset key="imageEdgeInsets" minX="33" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" image="topMore"/>
                                 <connections>
                                     <action selector="moreClick:" destination="tun-Ij-b29" eventType="touchUpInside" id="8kX-hd-PiP"/>

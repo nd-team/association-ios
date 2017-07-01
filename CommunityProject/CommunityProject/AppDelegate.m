@@ -29,6 +29,7 @@
 //新浪微博
 #import "WeiboSDK.h"
 #import "ConfirmInfoController.h"
+#import "SRDownloadManager.h"
 
 #define LoginURL @"appapi/app/login"
 #define MemberURL @"appapi/app/groupMember"
@@ -155,6 +156,10 @@
     [RCIM sharedRCIM].globalNavigationBarTintColor = UIColorFromRGB(0x121212);
     // 短信验证码
     [SMSSDK registerApp:@"1e627fcacd326" withSecret:@"7e94ccd2d1cb86aabc324432786514a3"];
+    [SRDownloadManager sharedManager].maxConcurrentCount = 3;
+    //下载文件路径
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CustomDownloadDirectory"];
+    [SRDownloadManager sharedManager].saveFilesDirectory = path;
 
     return YES;
 }

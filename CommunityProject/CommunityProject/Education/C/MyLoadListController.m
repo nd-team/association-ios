@@ -63,7 +63,7 @@
     education.firstImg = [UIImage imageWithData:model.firstImage];
     NSString *fullPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"CustomDownloadDirectory"];
     [SRDownloadManager sharedManager].saveFilesDirectory = fullPath;
-   NSString *filePath = [[SRDownloadManager sharedManager]fileFullPathOfURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.videoUrl]]]];
+    NSString *filePath = [[SRDownloadManager sharedManager]fileFullPathOfURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.videoUrl]]]];
     education.localUrl = [NSURL fileURLWithPath:filePath];
     education.nickname = model.nickname;
     education.headData = model.headImage;
@@ -101,7 +101,8 @@
         //删除数据 并删除文件
         [self.dataArr removeObjectAtIndex:indexPath.row];
         [[VideoDatabaseSingleton shareDatabase]deleteDatabase:model.activesId];
-        [[SRDownloadManager sharedManager]deleteFileOfURL: [NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:model.videoUrl]]]];
+        //删除单例数据 
+        [[SRDownloadManager sharedManager]deleteVideo:[NSURL URLWithString:model.videoUrl]];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableView reloadData];
     }

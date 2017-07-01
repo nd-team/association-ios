@@ -92,7 +92,7 @@
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupURL] andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
         });
         if (error) {
             NSSLog(@"获取群组列表失败%@",error);

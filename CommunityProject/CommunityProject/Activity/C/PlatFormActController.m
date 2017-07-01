@@ -16,6 +16,8 @@
 #import "PlatformDetailController.h"
 
 #define ActListURL @"appapi/app/platformActivesList"
+#define AdvertiseURL @"appapi/app/selectAdv"
+
 @interface PlatFormActController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *scrollView;
@@ -25,6 +27,7 @@
 @property (nonatomic,strong)UIView * moreView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *moreItem;
 @property (nonatomic,assign)BOOL isSelect;
+@property (nonatomic,strong)NSString * userId;
 
 @end
 
@@ -44,10 +47,12 @@
     self.scrollView.currentPageDotColor = UIColorFromRGB(0xFED604);
     self.scrollView.pageDotColor = UIColorFromRGB(0x243234);
     self.page = 1;
+    self.userId  = [DEFAULTS objectForKey:@"userId"];
+
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [weakSelf getActListData];
+        [weakSelf getAllData];
     });
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.page = 1;
@@ -57,7 +62,57 @@
       self.page ++;
       [weakSelf getActListData];
   }];
+    self.tableView.mj_footer.automaticallyHidden = YES;
 
+}
+//网络获取数据
+-(void)getAllData{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_group_t group = dispatch_group_create();
+    WeakSelf;
+    dispatch_group_async(group,queue , ^{
+        [weakSelf getActListData];
+    });
+    dispatch_group_async(group,queue , ^{
+        //请求广告
+        [weakSelf getAdvertiseData];
+    });
+    
+    dispatch_group_notify(group, queue, ^{
+        //
+        NSSLog(@"请求数据完毕");
+        
+    });
+    
+}
+-(void)getAdvertiseData{
+    WeakSelf;
+    NSDictionary * params = @{@"userId":self.userId,@"type":@"6"};
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AdvertiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"公益活动数据请求失败：%@",error);
+            weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
+            
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                NSArray * arr = data[@"data"];
+                if (arr.count == 0) {
+                    weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
+                }else{
+                    for (NSDictionary * dict in arr) {
+                        [weakSelf.scrollArr addObject:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"images"]]]];
+                        
+                    }
+                    weakSelf.scrollView.imageURLStringsGroup = weakSelf.scrollArr;
+                }
+            }else{
+                weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
+            }
+            
+            
+        }
+    }];
 }
 -(void)moreViewUI{
     self.moreView = [UIView claimMessageViewFrame:CGRectMake(KMainScreenWidth-105.5, 0, 95.5, 66.5) andArray:@[@"消息",@"我参与的活动"] andTarget:self andSel:@selector(moreAction:) andTag:134];
@@ -89,9 +144,8 @@
 }
 
 -(void)getActListData{
-    NSString * userId = [DEFAULTS objectForKey:@"userId"];
     WeakSelf;
-    NSDictionary * params = @{@"userId":userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
+    NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ActListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];

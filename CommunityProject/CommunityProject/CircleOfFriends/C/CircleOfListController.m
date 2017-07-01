@@ -56,6 +56,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"CircleCell" bundle:nil] forCellReuseIdentifier:@"CircleCell"];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 200;
+    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
     [self postUnreadMessage];
     WeakSelf;
     MJRefreshAutoGifFooter * footer = [MJRefreshAutoGifFooter footerWithRefreshingBlock:^{
@@ -67,17 +68,34 @@
     [footer setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
     [footer setTitle:@"数据全部加载完毕" forState:MJRefreshStateNoMoreData];
     self.tableView.mj_footer = footer;
-//    self.tableView.mj_footer.automaticallyHidden = YES;
+    self.tableView.mj_footer.automaticallyHidden = YES;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakSelf.page = 1;
         [weakSelf getList];
     }];
-    [self getList];
+    [self netWork];
+}
+-(void)netWork{
+    NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
+    if (status == 0) {
+        //无网从本地加载数据
+        [self showMessage:@"亲，没有连接网络"];
+    }else{
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf getList];
+        });
+        
+    }
 }
 -(void)getList{
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"status":@"1",@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        });
         if (error) {
             NSSLog(@"朋友圈：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

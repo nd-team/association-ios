@@ -11,8 +11,7 @@
 @interface VideoDownloadListModel :NSObject
 //文章ID
 @property (nonatomic,copy) NSString * activesId;
-//视频
-//@property (nonatomic,strong) NSData * videoData;
+
 @property (nonatomic,copy) NSString * nickname;
 @property (nonatomic,strong) NSData * headImage;
 @property (nonatomic,copy) NSString * title;

@@ -16,7 +16,8 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
 #define SRFilePath(URL) [SRDownloadDirectory stringByAppendingPathComponent:SRFileName(URL)]
 
 #define SRFilesTotalLengthPlistPath [SRDownloadDirectory stringByAppendingPathComponent:@"SRFilesTotalLength.plist"]
-
+static SRDownloadManager *downloadManager;
+static dispatch_once_t onceToken;
 @interface SRDownloadManager() <NSURLSessionDelegate, NSURLSessionDataDelegate>
 
 @property (nonatomic, strong) NSURLSession *urlSession;
@@ -28,6 +29,10 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
 @property (nonatomic, strong) NSMutableArray *waitingModels; // a array contains models which are waiting for download
 
 @property (nonatomic, strong) NSMutableArray *finishModels; // a array contains models which  finish for download
+
+@property (nonatomic,strong)NSMutableArray * suspendModels;//a array contains models which  suspend for download
+
+@property (nonatomic,strong)NSMutableArray * errorModels;//a array contains models which  error for download
 
 @end
 
@@ -74,19 +79,31 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     }
     return _finishModels;
 }
+-(NSMutableArray *)suspendModels{
+    if (!_suspendModels) {
+        _suspendModels = [NSMutableArray array];
+    }
+    return _suspendModels;
+}
+-(NSMutableArray *)errorModels{
+    if (!_errorModels) {
+        _errorModels = [NSMutableArray array];
+    }
+    return _errorModels;
+}
 -(NSMutableArray *)allArray{
     NSMutableArray * arr = [NSMutableArray new];
     [arr addObjectsFromArray:self.downloadingModels];
     [arr addObjectsFromArray:self.waitingModels];
     [arr addObjectsFromArray:self.finishModels];
+    [arr addObjectsFromArray:self.suspendModels];
+    [arr addObjectsFromArray:self.errorModels];
     return arr;
 }
 #pragma mark - Main Methods
 
 + (instancetype)sharedManager {
     
-    static SRDownloadManager *downloadManager;
-    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         downloadManager = [[self alloc] init];
         downloadManager.maxConcurrentCount = -1;
@@ -152,11 +169,6 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     downloadModel.progress = progress;
     downloadModel.completion = completion;
     downloadModel.title = title;
-    NSUInteger receivedSize = [self hasDownloadedLength:URL];
-    NSUInteger allLength = [self totalLength:URL];
-    downloadModel.totalLength = allLength;
-    downloadModel.expectLength = receivedSize;
-    downloadModel.progressOne = 1.0 * receivedSize / allLength;
     self.downloadModelsDic[dataTask.taskDescription] = downloadModel;
     SRDownloadState downloadState;
     if ([self canResumeDownload]) {
@@ -168,7 +180,6 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
         downloadState = SRDownloadStateWaiting;
     }
     downloadModel.status = downloadState;
-
     dispatch_async(dispatch_get_main_queue(), ^{
         if (downloadModel.state) {
             downloadModel.state(downloadState);
@@ -200,7 +211,7 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     
-    SRDownloadModel *downloadModel = self.downloadModelsDic[dataTask.taskDescription];
+   __block SRDownloadModel *downloadModel = self.downloadModelsDic[dataTask.taskDescription];
     if (!downloadModel) {
         return;
     }
@@ -226,13 +237,12 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
         return;
     }
     
-    SRDownloadModel *downloadModel = self.downloadModelsDic[task.taskDescription];
+  __block  SRDownloadModel *downloadModel = self.downloadModelsDic[task.taskDescription];
     if (!downloadModel) {
         return;
     }
     
     [downloadModel closeOutputStream];
-    
     [self.downloadModelsDic removeObjectForKey:task.taskDescription];
     [self.downloadingModels removeObject:downloadModel];
     
@@ -248,17 +258,22 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
             }
             if (downloadModel.state) {
                 downloadModel.state(SRDownloadStateCompleted);
+                downloadModel.status = SRDownloadStateCompleted;
             }
             if (downloadModel.completion) {
                 downloadModel.completion(YES, destPath ?: fullPath, error);
             }
+            [self.finishModels addObject:downloadModel];
         } else {
             if (downloadModel.state) {
                 downloadModel.state(SRDownloadStateFailed);
+                downloadModel.status = SRDownloadStateFailed;
+
             }
             if (downloadModel.completion) {
                 downloadModel.completion(NO, nil, error);
             }
+            [self.errorModels addObject:downloadModel];
         }
     });
     
@@ -319,16 +334,20 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
             break;
     }
     [self.waitingModels removeObject:downloadModel];
-    
+    if ([self.suspendModels containsObject:downloadModel]) {
+        [self.suspendModels removeObject:downloadModel];
+    }
     SRDownloadState downloadState;
     if ([self canResumeDownload]) {
-        [self.downloadingModels addObject:downloadModel];
         [downloadModel.dataTask resume];
         downloadState = SRDownloadStateRunning;
+        [self.downloadingModels addObject:downloadModel];
+        
     } else {
-        [self.waitingModels addObject:downloadModel];
         downloadState = SRDownloadStateWaiting;
+        [self.waitingModels addObject:downloadModel];
     }
+    downloadModel.status = downloadState;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (downloadModel.state) {
             downloadModel.state(downloadState);
@@ -365,9 +384,9 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
 }
 
 #pragma mark - Downloads
-
+//暂停的数据放这里
 - (void)suspendDownloadOfURL:(NSURL *)URL {
-    
+    //根据URL获取模型并把状态设置为暂停
     SRDownloadModel *downloadModel = self.downloadModelsDic[SRFileName(URL)];
     if (!downloadModel) {
         return;
@@ -378,13 +397,16 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
             downloadModel.state(SRDownloadStateSuspended);
         }
     });
+    downloadModel.status = SRDownloadStateSuspended;
     if ([self.waitingModels containsObject:downloadModel]) {
+        [self.suspendModels addObject:downloadModel];
         [self.waitingModels removeObject:downloadModel];
     } else {
+        //正在下载的停止下载
         [downloadModel.dataTask suspend];
+        [self.suspendModels addObject:downloadModel];
         [self.downloadingModels removeObject:downloadModel];
     }
-    
     [self resumeNextDowloadModel];
 }
 
@@ -396,10 +418,12 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     
     if (self.waitingModels.count > 0) {
         for (NSInteger i = 0; i < self.waitingModels.count; i++) {
-            SRDownloadModel *downloadModel = self.waitingModels[i];
+           __block SRDownloadModel *downloadModel = self.waitingModels[i];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (downloadModel.state) {
                     downloadModel.state(SRDownloadStateSuspended);
+                    downloadModel.status = SRDownloadStateSuspended;
+                    [self.suspendModels addObject:downloadModel];
                 }
             });
         }
@@ -408,16 +432,19 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     
     if (self.downloadingModels.count > 0) {
         for (NSInteger i = 0; i < self.downloadingModels.count; i++) {
-            SRDownloadModel *downloadModel = self.downloadingModels[i];
+           __block SRDownloadModel *downloadModel = self.downloadingModels[i];
             [downloadModel.dataTask suspend];
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (downloadModel.state) {
                     downloadModel.state(SRDownloadStateSuspended);
+                    downloadModel.status = SRDownloadStateSuspended;
+                    [self.suspendModels addObject:downloadModel];
                 }
             });
         }
         [self.downloadingModels removeAllObjects];
     }
+    
 }
 
 - (void)resumeDownloadOfURL:(NSURL *)URL {
@@ -426,16 +453,20 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     if (!downloadModel) {
         return;
     }
-    
+    if ([self.suspendModels containsObject:downloadModel]) {
+        [self.suspendModels removeObject:downloadModel];
+    }
+    //重新下载 单列模型状态是替换而不是添加
     SRDownloadState downloadState;
     if ([self canResumeDownload]) {
-        [self.downloadingModels addObject:downloadModel];
         [downloadModel.dataTask resume];
         downloadState = SRDownloadStateRunning;
+        [self.downloadingModels addObject:downloadModel];
     } else {
-        [self.waitingModels addObject:downloadModel];
         downloadState = SRDownloadStateWaiting;
+        [self.waitingModels addObject:downloadModel];
     }
+    downloadModel.status = downloadState;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (downloadModel.state) {
             downloadModel.state(downloadState);
@@ -453,21 +484,23 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     for (SRDownloadModel *downloadModel in downloadModels) {
         SRDownloadState downloadState;
         if ([self canResumeDownload]) {
-            [self.downloadingModels addObject:downloadModel];
             [downloadModel.dataTask resume];
             downloadState = SRDownloadStateRunning;
+            [self.downloadingModels addObject:downloadModel];
         } else {
-            [self.waitingModels addObject:downloadModel];
             downloadState = SRDownloadStateWaiting;
+            [self.waitingModels addObject:downloadModel];
         }
+        downloadModel.status = downloadState;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (downloadModel.state) {
                 downloadModel.state(downloadState);
+
             }
         });
     }
 }
-
+//
 - (void)cancelDownloadOfURL:(NSURL *)URL {
     
     SRDownloadModel *downloadModel = self.downloadModelsDic[SRFileName(URL)];
@@ -477,7 +510,7 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     
     [downloadModel closeOutputStream];
     [downloadModel.dataTask cancel];
-    
+    downloadModel.status = SRDownloadStateCanceled;
     dispatch_async(dispatch_get_main_queue(), ^{
         if (downloadModel.state) {
             downloadModel.state(SRDownloadStateCanceled);
@@ -504,6 +537,7 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     for (SRDownloadModel *downloadModel in downloadModels) {
         [downloadModel closeOutputStream];
         [downloadModel.dataTask cancel];
+        downloadModel.status = SRDownloadStateCanceled;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (downloadModel.state) {
                 downloadModel.state(SRDownloadStateCanceled);
@@ -542,19 +576,56 @@ stringByAppendingPathComponent:NSStringFromClass([self class])]
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *filePath = [SRDownloadDirectory stringByAppendingPathComponent:fileName];
+//    NSSLog(@"%@",filePath);
     if (![fileManager fileExistsAtPath:filePath]) {
         return;
     }
     [fileManager removeItemAtPath:filePath error:nil];
 }
 
-- (void)deleteFileOfURL:(NSURL *)URL {
+- (void)deleteFileOfURL:(NSURL *)URL andModel:(SRDownloadModel *)model{
     
     [self cancelDownloadOfURL:URL];
-    
+    //只删除了视频文件
     [self deleteFile:SRFileName(URL)];
-}
+    //删除这个数据
+    if ([self.finishModels containsObject:model]) {
+        [self.finishModels removeObject:model];
+    }
+    if ([self.waitingModels containsObject:model]) {
+        [self.waitingModels removeObject:model];
+    }
 
+    if ([self.downloadingModels containsObject:model]) {
+        [self.downloadingModels removeObject:model];
+    }
+
+    if ([self.errorModels containsObject:model]) {
+        [self.errorModels removeObject:model];
+    }
+
+    if ([self.suspendModels containsObject:model]) {
+        [self.suspendModels removeObject:model];
+    }
+    [self.downloadModelsDic removeObjectForKey:SRFileName(URL)];
+
+}
+-(void)deleteVideo:(NSURL *)url{
+    [self cancelDownloadOfURL:url];
+    //只删除了视频文件
+    [self deleteFile:SRFileName(url)];
+    //根据URL找到数据源 删除
+    NSString * urlStr = [url absoluteString];
+    for (SRDownloadModel * model in self.finishModels) {
+        NSString * modelStr = [model.URL absoluteString];
+        if ([modelStr isEqualToString:urlStr]) {
+            [self.finishModels removeObject:model];
+            break;
+        }
+    }
+    [self.downloadModelsDic removeObjectForKey:SRFileName(url)];
+
+}
 - (void)deleteAllFiles {
     
     [self cancelAllDownloads];

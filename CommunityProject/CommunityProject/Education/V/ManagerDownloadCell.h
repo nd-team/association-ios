@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SRDownloadModel.h"
 
+typedef void(^RefreshDownloadBlock)(void);
 @interface ManagerDownloadCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *projessLabel;
@@ -19,5 +20,6 @@
 
 @property (nonatomic,strong)UITableView * tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
+@property (nonatomic,copy)RefreshDownloadBlock block;
 
 @end

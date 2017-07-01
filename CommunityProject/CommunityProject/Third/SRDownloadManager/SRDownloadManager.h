@@ -73,7 +73,9 @@ typedef NS_ENUM(NSInteger, SRWaitingQueueMode) {
 - (NSInteger)totalLength:(NSURL *)URL ;
 
 - (void)deleteFile:(NSString *)fileName;
-- (void)deleteFileOfURL:(NSURL *)URL;
+- (void)deleteFileOfURL:(NSURL *)URL andModel:(SRDownloadModel *)model;
+- (void)deleteVideo:(NSURL *)url;
+
 - (void)deleteAllFiles;
 
 @end

@@ -35,8 +35,16 @@
     self.navigationItem.title = @"消息";
     UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0,50, 30) titleColor:UIColorFromRGB(0x121212) font:16 andTitle:@"清空" andLeft:15 andTarget:self Action:@selector(rightClick)];
     self.navigationItem.rightBarButtonItem = rightItem;
-    [self getMessageData];
+    [self netWork];
     
+}
+-(void)netWork{
+    NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
+    if (status == 0) {
+        [self showMessage:@"亲，没有连接网络"];
+    }else{
+        [self getMessageData];
+    }
 }
 -(void)getMessageData{
     for (NSDictionary * dic in self.dataArr) {
@@ -118,7 +126,7 @@
         msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
     } completion:^(BOOL finished) {
         //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
             msgView.hidden = YES;
         }];
     }];

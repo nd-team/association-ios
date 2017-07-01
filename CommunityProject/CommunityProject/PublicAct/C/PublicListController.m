@@ -18,6 +18,7 @@
 
 #define PublicURL @"appapi/app/commonwealActivesList"
 #define ZanURL @"appapi/app/userPraise"
+#define AdvertiseURL @"appapi/app/selectAdv"
 
 @interface PublicListController ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -27,7 +28,7 @@
 @property (nonatomic,strong)NSMutableArray *scrollArr;
 @property (nonatomic,strong)UIView * moreView;
 @property (weak, nonatomic) IBOutlet UIButton *moreBtn;
-
+@property (nonatomic,strong)NSString * userId;
 @end
 
 @implementation PublicListController
@@ -42,17 +43,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"PublicListCell" bundle:nil] forCellReuseIdentifier:@"PublicListCell"];
-    self.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
     self.scrollView.autoScrollTimeInterval = 1;
     self.scrollView.currentPageDotColor = UIColorFromRGB(0xFED604);
     self.scrollView.pageDotColor = UIColorFromRGB(0x243234);
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 366;
     self.page = 1;
+    self.userId  = [DEFAULTS objectForKey:@"userId"];
+
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [weakSelf getPublicListData];
+        [weakSelf getAllData];
     });
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         self.page = 1;
@@ -62,12 +64,61 @@
         self.page ++;
         [weakSelf getPublicListData];
     }];
+    self.tableView.mj_footer.automaticallyHidden = YES;
 
 }
--(void)getPublicListData{
-    NSString * userId = [DEFAULTS objectForKey:@"userId"];
+//网络获取数据
+-(void)getAllData{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_group_t group = dispatch_group_create();
     WeakSelf;
-    NSDictionary * params = @{@"userId":userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
+    dispatch_group_async(group,queue , ^{
+        [weakSelf getPublicListData];
+    });
+    dispatch_group_async(group,queue , ^{
+        //请求广告
+        [weakSelf getAdvertiseData];
+    });
+    
+    dispatch_group_notify(group, queue, ^{
+        //
+        NSSLog(@"请求数据完毕");
+        
+    });
+    
+}
+-(void)getAdvertiseData{
+    WeakSelf;
+    NSDictionary * params = @{@"userId":self.userId,@"type":@"7"};
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AdvertiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"公益活动数据请求失败：%@",error);
+            weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
+
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                NSArray * arr = data[@"data"];
+                if (arr.count == 0) {
+                    weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
+                }else{
+                    for (NSDictionary * dict in arr) {
+                        [weakSelf.scrollArr addObject:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"images"]]]];
+                        
+                    }
+                    weakSelf.scrollView.imageURLStringsGroup = weakSelf.scrollArr;
+                }
+            }else{
+                weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
+            }
+            
+            
+        }
+    }];
+}
+-(void)getPublicListData{
+    WeakSelf;
+    NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,PublicURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -90,7 +141,8 @@
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
                 if (arr.count == 0) {
-                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+//                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                    weakSelf.tableView.mj_footer.state = MJRefreshStateNoMoreData;
                 }else{
                     for (NSDictionary * dict in arr) {
                         PublicListModel * model = [[PublicListModel alloc]initWithDictionary:dict error:nil];

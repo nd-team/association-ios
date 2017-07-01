@@ -34,6 +34,7 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
+    self.page = 1;
     if (self.isRef) {
         [self refreshUI];
     }
@@ -41,7 +42,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"EducationListCell" bundle:nil] forCellReuseIdentifier:@"EducationListCell"];
-    self.page = 1;
     self.userId = [DEFAULTS objectForKey:@"userId"];
     self.sendBtn.layer.cornerRadius = 30;
     self.sendBtn.layer.masksToBounds = YES;
@@ -54,6 +54,7 @@
         weakSelf.page = 1;
         [weakSelf getEducationListData];
     }];
+    self.tableView.mj_footer.automaticallyHidden = YES;
     [self refreshUI];
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receive:) name:@"SendEducationOfThree" object:nil];
