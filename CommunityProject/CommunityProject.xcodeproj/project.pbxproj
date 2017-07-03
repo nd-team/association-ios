@@ -250,6 +250,16 @@
 		459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84D11EA8444500E5A331 /* CircleUnreadMessageModel.m */; };
 		459E85311EAA038B00E5A331 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 459E85301EAA038B00E5A331 /* CoreFoundation.framework */; };
 		459E85331EAA03AE00E5A331 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 459E85321EAA03AE00E5A331 /* MobileCoreServices.framework */; };
+		459EBF751F09D3EF008A0D37 /* Help.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459EBF741F09D3EF008A0D37 /* Help.storyboard */; };
+		459EBF781F09E17A008A0D37 /* HelpCenterListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF771F09E17A008A0D37 /* HelpCenterListCell.m */; };
+		459EBF7B1F09E1A2008A0D37 /* HelpListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF7A1F09E1A2008A0D37 /* HelpListController.m */; };
+		459EBF7E1F09F0D8008A0D37 /* HelpListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF7D1F09F0D8008A0D37 /* HelpListModel.m */; };
+		459EBF811F0A1A44008A0D37 /* MyHelpAndAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF801F0A1A44008A0D37 /* MyHelpAndAnswerCell.m */; };
+		459EBF841F0A1A5E008A0D37 /* MyHelpListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF831F0A1A5E008A0D37 /* MyHelpListController.m */; };
+		459EBF871F0A1DAE008A0D37 /* MyHelpListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF861F0A1DAE008A0D37 /* MyHelpListModel.m */; };
+		459EBF8A1F0A2BA8008A0D37 /* HelpAnswerListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF891F0A2BA8008A0D37 /* HelpAnswerListModel.m */; };
+		459EBF8D1F0A39CA008A0D37 /* HelpDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF8C1F0A39CA008A0D37 /* HelpDetailController.m */; };
+		459EBF901F0A3AE5008A0D37 /* HelpAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF8F1F0A3AE5008A0D37 /* HelpAnswerCell.m */; };
 		45A080C81E88C41100514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080C71E88C41100514FFC /* AddFriendController.m */; };
 		45A96C611EF75FCF0022F382 /* Education.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A96C601EF75FCF0022F382 /* Education.storyboard */; };
 		45A96C641EF7631E0022F382 /* EducationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A96C631EF7631E0022F382 /* EducationListController.m */; };
@@ -779,6 +789,25 @@
 		459E84D11EA8444500E5A331 /* CircleUnreadMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleUnreadMessageModel.m; sourceTree = "<group>"; };
 		459E85301EAA038B00E5A331 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		459E85321EAA03AE00E5A331 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		459EBF741F09D3EF008A0D37 /* Help.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Help.storyboard; sourceTree = "<group>"; };
+		459EBF761F09E17A008A0D37 /* HelpCenterListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpCenterListCell.h; sourceTree = "<group>"; };
+		459EBF771F09E17A008A0D37 /* HelpCenterListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpCenterListCell.m; sourceTree = "<group>"; };
+		459EBF791F09E1A2008A0D37 /* HelpListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpListController.h; sourceTree = "<group>"; };
+		459EBF7A1F09E1A2008A0D37 /* HelpListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpListController.m; sourceTree = "<group>"; };
+		459EBF7C1F09F0D8008A0D37 /* HelpListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpListModel.h; sourceTree = "<group>"; };
+		459EBF7D1F09F0D8008A0D37 /* HelpListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpListModel.m; sourceTree = "<group>"; };
+		459EBF7F1F0A1A44008A0D37 /* MyHelpAndAnswerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelpAndAnswerCell.h; sourceTree = "<group>"; };
+		459EBF801F0A1A44008A0D37 /* MyHelpAndAnswerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelpAndAnswerCell.m; sourceTree = "<group>"; };
+		459EBF821F0A1A5E008A0D37 /* MyHelpListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelpListController.h; sourceTree = "<group>"; };
+		459EBF831F0A1A5E008A0D37 /* MyHelpListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelpListController.m; sourceTree = "<group>"; };
+		459EBF851F0A1DAE008A0D37 /* MyHelpListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHelpListModel.h; sourceTree = "<group>"; };
+		459EBF861F0A1DAE008A0D37 /* MyHelpListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHelpListModel.m; sourceTree = "<group>"; };
+		459EBF881F0A2BA8008A0D37 /* HelpAnswerListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpAnswerListModel.h; sourceTree = "<group>"; };
+		459EBF891F0A2BA8008A0D37 /* HelpAnswerListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpAnswerListModel.m; sourceTree = "<group>"; };
+		459EBF8B1F0A39CA008A0D37 /* HelpDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpDetailController.h; sourceTree = "<group>"; };
+		459EBF8C1F0A39CA008A0D37 /* HelpDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpDetailController.m; sourceTree = "<group>"; };
+		459EBF8E1F0A3AE5008A0D37 /* HelpAnswerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpAnswerCell.h; sourceTree = "<group>"; };
+		459EBF8F1F0A3AE5008A0D37 /* HelpAnswerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpAnswerCell.m; sourceTree = "<group>"; };
 		45A080C61E88C41100514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
 		45A080C71E88C41100514FFC /* AddFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendController.m; sourceTree = "<group>"; };
 		45A96C601EF75FCF0022F382 /* Education.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Education.storyboard; sourceTree = "<group>"; };
@@ -1100,6 +1129,7 @@
 				45E4F7151ED4142300476B64 /* PublicAct */,
 				45AE19981ECD3C470098A7FF /* Activity */,
 				457182A81EC44EEE00860F38 /* Claim */,
+				459EBF701F09D372008A0D37 /* HelpCenter */,
 				455FA3261E763C250039B155 /* Chat */,
 				457D3CB61E77CD4A00FD0309 /* Address */,
 				457D3CC81E77CDAB00FD0309 /* Group */,
@@ -1962,6 +1992,56 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		459EBF701F09D372008A0D37 /* HelpCenter */ = {
+			isa = PBXGroup;
+			children = (
+				459EBF741F09D3EF008A0D37 /* Help.storyboard */,
+				459EBF711F09D372008A0D37 /* C */,
+				459EBF721F09D372008A0D37 /* M */,
+				459EBF731F09D372008A0D37 /* V */,
+			);
+			path = HelpCenter;
+			sourceTree = "<group>";
+		};
+		459EBF711F09D372008A0D37 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				459EBF791F09E1A2008A0D37 /* HelpListController.h */,
+				459EBF7A1F09E1A2008A0D37 /* HelpListController.m */,
+				459EBF821F0A1A5E008A0D37 /* MyHelpListController.h */,
+				459EBF831F0A1A5E008A0D37 /* MyHelpListController.m */,
+				459EBF8B1F0A39CA008A0D37 /* HelpDetailController.h */,
+				459EBF8C1F0A39CA008A0D37 /* HelpDetailController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		459EBF721F09D372008A0D37 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				459EBF7C1F09F0D8008A0D37 /* HelpListModel.h */,
+				459EBF7D1F09F0D8008A0D37 /* HelpListModel.m */,
+				459EBF851F0A1DAE008A0D37 /* MyHelpListModel.h */,
+				459EBF861F0A1DAE008A0D37 /* MyHelpListModel.m */,
+				459EBF881F0A2BA8008A0D37 /* HelpAnswerListModel.h */,
+				459EBF891F0A2BA8008A0D37 /* HelpAnswerListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		459EBF731F09D372008A0D37 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				459EBF761F09E17A008A0D37 /* HelpCenterListCell.h */,
+				459EBF771F09E17A008A0D37 /* HelpCenterListCell.m */,
+				459EBF7F1F0A1A44008A0D37 /* MyHelpAndAnswerCell.h */,
+				459EBF801F0A1A44008A0D37 /* MyHelpAndAnswerCell.m */,
+				459EBF8E1F0A3AE5008A0D37 /* HelpAnswerCell.h */,
+				459EBF8F1F0A3AE5008A0D37 /* HelpAnswerCell.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
 		45A96C5C1EF75FAE0022F382 /* Education */ = {
 			isa = PBXGroup;
 			children = (
@@ -2428,6 +2508,7 @@
 				45AE19B31ECEA14A0098A7FF /* AllMessageCell.xib in Resources */,
 				45F0463D1EE52DB700CDA7BD /* ShareSDK.bundle in Resources */,
 				4573CC1A1E976FA30047D1F4 /* HeadImageCell.xib in Resources */,
+				459EBF751F09D3EF008A0D37 /* Help.storyboard in Resources */,
 				456CCE631E827CD7005EC051 /* Emoji.plist in Resources */,
 				456CCE6E1E827CD8005EC051 /* jrmf.cer in Resources */,
 				456CCE6D1E827CD8005EC051 /* JResource.bundle in Resources */,
@@ -2519,6 +2600,7 @@
 				458959CC1EBB150400CBADDD /* FSCalendarCell.m in Sources */,
 				45CE5F4F1EC0571300225534 /* MyPeopleListModel.m in Sources */,
 				45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */,
+				459EBF781F09E17A008A0D37 /* HelpCenterListCell.m in Sources */,
 				45D6C0771EE16989003F229A /* SearchController.m in Sources */,
 				459130F21EFCFC230054A28C /* ManagerDownloadController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
@@ -2551,6 +2633,7 @@
 				457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */,
 				459130FE1EFE35890054A28C /* MyDownloadCell.m in Sources */,
 				458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */,
+				459EBF811F0A1A44008A0D37 /* MyHelpAndAnswerCell.m in Sources */,
 				45D6C0561EDEA467003F229A /* InterestCell.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				45A96C6C1EF7698A0022F382 /* EducationListModel.m in Sources */,
@@ -2575,6 +2658,7 @@
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
 				45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
+				459EBF7E1F09F0D8008A0D37 /* HelpListModel.m in Sources */,
 				459130E51EF920DA0054A28C /* FastForwardView.m in Sources */,
 				45D6C0661EDFC5DB003F229A /* VipRegisterController.m in Sources */,
 				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
@@ -2605,6 +2689,7 @@
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
+				459EBF7B1F09E1A2008A0D37 /* HelpListController.m in Sources */,
 				458959D31EBB150400CBADDD /* FSCalendarHeaderView.m in Sources */,
 				45F046511EE8EC6A00CDA7BD /* ApplicationPersonVipController.m in Sources */,
 				45D6C05D1EDEC0AC003F229A /* MyCodeCardController.m in Sources */,
@@ -2662,6 +2747,7 @@
 				455FA30D1E7631A90039B155 /* main.m in Sources */,
 				450A50DE1E853B9500433A61 /* RCDUtilities.m in Sources */,
 				458959CD1EBB150400CBADDD /* FSCalendarCollectionView.m in Sources */,
+				459EBF871F0A1DAE008A0D37 /* MyHelpListModel.m in Sources */,
 				458959CA1EBB150400CBADDD /* FSCalendarAppearance.m in Sources */,
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
 				458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */,
@@ -2674,11 +2760,14 @@
 				45B977151EAF51FF00A42D55 /* MyPeopleController.m in Sources */,
 				450C05171ED431960093B174 /* PublicListModel.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
+				459EBF8D1F0A39CA008A0D37 /* HelpDetailController.m in Sources */,
+				459EBF901F0A3AE5008A0D37 /* HelpAnswerCell.m in Sources */,
 				455C6B2C1EA5B75F00E0B3F3 /* CircleCommentCell.m in Sources */,
 				4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */,
 				45A96C681EF764D20022F382 /* EducationListCell.m in Sources */,
 				45AE19A01ECD406A0098A7FF /* PlatFormActController.m in Sources */,
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
+				459EBF8A1F0A2BA8008A0D37 /* HelpAnswerListModel.m in Sources */,
 				45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */,
 				45AA3DD81EB32B78007F02E5 /* RecommendController.m in Sources */,
 				450A50EA1E853C1300433A61 /* UIColor+RCColor.m in Sources */,
@@ -2729,6 +2818,7 @@
 				455C6B311EA5BC6A00E0B3F3 /* AnswerCommentCell.m in Sources */,
 				45CE5F731EC2A13800225534 /* MyLocationViewController.m in Sources */,
 				459130EC1EF927CC0054A28C /* EducationVideoPost.m in Sources */,
+				459EBF841F0A1A5E008A0D37 /* MyHelpListController.m in Sources */,
 				455FA16A1E7A833000C85AE7 /* ApplicationCenterCell.m in Sources */,
 				458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */,
 				450A50D81E853B5A00433A61 /* MBProgressHUD.m in Sources */,

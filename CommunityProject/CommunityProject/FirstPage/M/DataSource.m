@@ -29,7 +29,7 @@
     
     NSDictionary * dic9 = @{@"name":@"游戏",@"imageName":@"train.png",@"isHidden":@"0"};
     
-    NSDictionary * dic10 = @{@"name":@"一元夺宝",@"imageName":@"train.png",@"isHidden":@"0"};
+    NSDictionary * dic10 = @{@"name":@"求助中心",@"imageName":@"train.png",@"isHidden":@"0"};
     
     NSDictionary * dic11 = @{@"name":@"众筹",@"imageName":@"train.png",@"isHidden":@"0"};
     NSDictionary * dic12 = @{@"name":@"平台活动",@"imageName":@"train.png",@"isHidden":@"0"};

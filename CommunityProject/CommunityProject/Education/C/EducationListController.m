@@ -71,11 +71,18 @@
 //    }
 }
 -(void)refreshUI{
-    WeakSelf;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [weakSelf getEducationListData];
-    });
+    NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
+    if (status == 0) {
+        //无网从本地加载数据
+        [self showMessage:@"亲，没有连接网络哦！"];
+    }else{
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf getEducationListData];
+        });
+        
+    }
 }
 -(void)getEducationListData{
     WeakSelf;
@@ -233,11 +240,19 @@
         msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
     } completion:^(BOOL finished) {
         //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
             msgView.hidden = YES;
         }];
     }];
     
+}
+//手势代理方法
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }
+    return YES;
 }
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {

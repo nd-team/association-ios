@@ -21,5 +21,7 @@
 @property (nonatomic,strong)NSString * commentTime;
 //活动ID
 @property (nonatomic,strong)NSString * articleId;
+//0评论消息1回答消息
+@property (nonatomic,strong)NSString * status;
 
 @end

@@ -24,6 +24,7 @@
 #import "PlatformDetailController.h"
 #import "PublicListController.h"
 #import "EducationListController.h"
+#import "HelpListController.h"
 
 #define FirstURL @"appapi/app/indexData"
 
@@ -311,6 +312,10 @@
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
         EducationListController * education = [sb instantiateViewControllerWithIdentifier:@"EducationListController"];
         [self.navigationController pushViewController:education animated:YES];
+    }else if ([model.name isEqualToString:@"求助中心"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
+        HelpListController * help = [sb instantiateViewControllerWithIdentifier:@"HelpListController"];
+        [self.navigationController pushViewController:help animated:YES];
     }
     
 }
