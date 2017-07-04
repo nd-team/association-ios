@@ -525,7 +525,7 @@
                        {
                            NSSLog(@"分享成功");
                            //发送请求
-                           [weakSelf download:@"2" andMsg:@"分享计数失败！"];
+                           [weakSelf download:@"9" andMsg:@"分享计数失败！" andIsDown:@"2"];
                            break;
                        }
                        case SSDKResponseStateFail:
@@ -723,22 +723,24 @@
     self.backView.hidden = YES;
 }
 //计数
--(void)download:(NSString *)type andMsg:(NSString *)msg{
-    NSDictionary * params = @{@"articleId":self.idStr,@"type":type};
+-(void)download:(NSString *)type andMsg:(NSString *)msg andIsDown:(NSString *)status{
+    NSDictionary * params = @{@"articleId":self.idStr,@"type":type,@"status":status};
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SHAREURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         
         if (error) {
             NSSLog(@"下载三分钟教学计数：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
-            weakSelf.loadBtn.hidden = YES;
-            weakSelf.loadingLabel.hidden = YES;
+            if ([status isEqualToString:@"1"]) {
+                weakSelf.loadBtn.hidden = YES;
+                weakSelf.loadingLabel.hidden = YES;
+            }
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                weakSelf.loadBtn.hidden = NO;
-                weakSelf.loadingLabel.hidden = NO;
-                if ([type isEqualToString:@"1"]) {
+                if ([status isEqualToString:@"1"]) {
+                    weakSelf.loadBtn.hidden = NO;
+                    weakSelf.loadingLabel.hidden = NO;
                     //手动计数
                     self.downloadNum = [NSString stringWithFormat:@"%ld",[self.downloadNum integerValue]+1];
                     [weakSelf.downloadBtn setTitle:self.downloadNum forState:UIControlStateNormal];
@@ -752,8 +754,10 @@
                     [weakSelf.shareBtn setTitle:self.shareNum forState:UIControlStateNormal];
                 }
             }else{
-                weakSelf.loadBtn.hidden = YES;
-                weakSelf.loadingLabel.hidden = YES;
+                if ([status isEqualToString:@"1"]) {
+                    weakSelf.loadBtn.hidden = YES;
+                    weakSelf.loadingLabel.hidden = YES;
+                }
                 [weakSelf showMessage:msg];
             }
             
@@ -872,7 +876,7 @@
                 }else if (model.status == SRDownloadStateRunning){
                     [self showMessage:@"正在下载中"];
                 }else if (model.status == SRDownloadStateCanceled){
-                    [self download:@"1" andMsg:@"下载失败！"];
+                    [self download:@"9" andMsg:@"下载失败！" andIsDown:@"1"];
                 }
                 break;
             }
@@ -881,7 +885,7 @@
     }
     if (i == 0) {
        
-        [self download:@"1" andMsg:@"下载失败！"];
+        [self download:@"9" andMsg:@"下载失败！"andIsDown:@"1"];
     }
    
 }

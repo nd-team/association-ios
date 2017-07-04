@@ -257,7 +257,7 @@
      ];
 }
 -(void)download{
-    NSDictionary * params = @{@"articleId":self.idStr,@"type":@"2"};
+    NSDictionary * params = @{@"articleId":self.idStr,@"type":@"6",@"status":@"2"};
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SHAREURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         

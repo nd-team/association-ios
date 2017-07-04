@@ -241,7 +241,7 @@
                        case SSDKResponseStateSuccess:
                        {
                            NSSLog(@"分享成功");
-                           [weakSelf download:@"2"];
+                           [weakSelf download:@"7"];
 
                            break;
                        }
@@ -257,12 +257,12 @@
      ];
 }
 -(void)download:(NSString *)type{
-    NSDictionary * params = @{@"articleId":self.idStr,@"type":type};
+    NSDictionary * params = @{@"articleId":self.idStr,@"type":type,@"status":@"2"};
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SHAREURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         
         if (error) {
-            NSSLog(@"下载三分钟教学：%@",error);
+            NSSLog(@"公益分享失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
             
         }else{
@@ -305,6 +305,7 @@
                 weakSelf.loveBtn.selected = NO;
                 [weakSelf showMessage:@"非朋友点赞失败"];
             }else{
+                weakSelf.loveBtn.selected = NO;
                 [weakSelf showMessage:@"点赞失败"];
             }
         }

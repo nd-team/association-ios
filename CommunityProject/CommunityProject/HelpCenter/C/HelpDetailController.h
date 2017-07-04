@@ -10,4 +10,12 @@
 
 @interface HelpDetailController : UIViewController
 
+@property (nonatomic,copy)NSString * titleStr;
+@property (nonatomic,copy)NSString * content;
+@property (nonatomic,copy)NSString * answerCount;
+@property (nonatomic,copy)NSString * contributeCount;
+@property (nonatomic,copy)NSString * time;
+//文章ID
+@property (nonatomic,copy)NSString * iDStr;
+
 @end

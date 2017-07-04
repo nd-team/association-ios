@@ -260,6 +260,8 @@
 		459EBF8A1F0A2BA8008A0D37 /* HelpAnswerListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF891F0A2BA8008A0D37 /* HelpAnswerListModel.m */; };
 		459EBF8D1F0A39CA008A0D37 /* HelpDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF8C1F0A39CA008A0D37 /* HelpDetailController.m */; };
 		459EBF901F0A3AE5008A0D37 /* HelpAnswerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF8F1F0A3AE5008A0D37 /* HelpAnswerCell.m */; };
+		459EBF931F0B3EEA008A0D37 /* UILabel+label.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF921F0B3EEA008A0D37 /* UILabel+label.m */; };
+		459EBF961F0B8E53008A0D37 /* SendHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF951F0B8E53008A0D37 /* SendHelpController.m */; };
 		45A080C81E88C41100514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080C71E88C41100514FFC /* AddFriendController.m */; };
 		45A96C611EF75FCF0022F382 /* Education.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A96C601EF75FCF0022F382 /* Education.storyboard */; };
 		45A96C641EF7631E0022F382 /* EducationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A96C631EF7631E0022F382 /* EducationListController.m */; };
@@ -808,6 +810,10 @@
 		459EBF8C1F0A39CA008A0D37 /* HelpDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpDetailController.m; sourceTree = "<group>"; };
 		459EBF8E1F0A3AE5008A0D37 /* HelpAnswerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpAnswerCell.h; sourceTree = "<group>"; };
 		459EBF8F1F0A3AE5008A0D37 /* HelpAnswerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpAnswerCell.m; sourceTree = "<group>"; };
+		459EBF911F0B3EEA008A0D37 /* UILabel+label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+label.h"; sourceTree = "<group>"; };
+		459EBF921F0B3EEA008A0D37 /* UILabel+label.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+label.m"; sourceTree = "<group>"; };
+		459EBF941F0B8E53008A0D37 /* SendHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendHelpController.h; sourceTree = "<group>"; };
+		459EBF951F0B8E53008A0D37 /* SendHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendHelpController.m; sourceTree = "<group>"; };
 		45A080C61E88C41100514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
 		45A080C71E88C41100514FFC /* AddFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendController.m; sourceTree = "<group>"; };
 		45A96C601EF75FCF0022F382 /* Education.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Education.storyboard; sourceTree = "<group>"; };
@@ -1436,6 +1442,8 @@
 				45AE19B11ECEA14A0098A7FF /* AllMessageCell.xib */,
 				458D81701ED27C0F006775F1 /* AllCommentsCell.h */,
 				458D81711ED27C0F006775F1 /* AllCommentsCell.m */,
+				459EBF911F0B3EEA008A0D37 /* UILabel+label.h */,
+				459EBF921F0B3EEA008A0D37 /* UILabel+label.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2012,6 +2020,8 @@
 				459EBF831F0A1A5E008A0D37 /* MyHelpListController.m */,
 				459EBF8B1F0A39CA008A0D37 /* HelpDetailController.h */,
 				459EBF8C1F0A39CA008A0D37 /* HelpDetailController.m */,
+				459EBF941F0B8E53008A0D37 /* SendHelpController.h */,
+				459EBF951F0B8E53008A0D37 /* SendHelpController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2660,6 +2670,7 @@
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
 				459EBF7E1F09F0D8008A0D37 /* HelpListModel.m in Sources */,
 				459130E51EF920DA0054A28C /* FastForwardView.m in Sources */,
+				459EBF961F0B8E53008A0D37 /* SendHelpController.m in Sources */,
 				45D6C0661EDFC5DB003F229A /* VipRegisterController.m in Sources */,
 				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
 				452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */,
@@ -2730,6 +2741,7 @@
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				450A50DB1E853B7000433A61 /* RCAnnotation.m in Sources */,
 				450C051A1ED440080093B174 /* MyJoinPublicController.m in Sources */,
+				459EBF931F0B3EEA008A0D37 /* UILabel+label.m in Sources */,
 				4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */,
 				45783BE31EC6ABD20013DC6D /* MyClaimController.m in Sources */,
 				45D6C0851EE2887D003F229A /* MaybeKnowController.m in Sources */,

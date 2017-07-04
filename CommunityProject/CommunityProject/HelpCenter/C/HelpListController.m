@@ -175,7 +175,17 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    HelpListModel * model = self.dataArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
+    HelpDetailController * help = [sb instantiateViewControllerWithIdentifier:@"HelpDetailController"];
+    help.iDStr = model.idStr;
+    help.titleStr = model.title;
+    help.time = model.time;
+    help.content = model.content;
+    help.contributeCount = [NSString stringWithFormat:@"%@",model.contributionCoin];
+    help.answerCount = [NSString stringWithFormat:@"%@",model.helpNumber];
+    [self.navigationController pushViewController:help animated:YES];
+
 }
 
 -(NSMutableArray *)dataArr{
