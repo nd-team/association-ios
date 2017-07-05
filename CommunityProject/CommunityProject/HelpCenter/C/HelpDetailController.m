@@ -9,9 +9,10 @@
 #import "HelpDetailController.h"
 #import "HelpAnswerListModel.h"
 #import "HelpAnswerCell.h"
-#import "UILabel+label.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDKUI.h>
+#import "HelpCommentController.h"
+#import "AnswerCommentController.h"
 
 #define HelpDetailURL @"appapi/app/selectSeekHelpInfo"
 #define ZanURL @"appapi/app/userPraise"
@@ -43,7 +44,14 @@
 @end
 
 @implementation HelpDetailController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+    if (self.isRef) {
+        [self getDetailData];
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -56,7 +64,7 @@
     [self setUI];
 }
 
-//举报
+//举报--后台没做
 -(void)rightClick{
     
 }
@@ -78,7 +86,7 @@
 }
 -(void)getDetailData{
     //根据内容计算高度
-    CGRect rect = [self.contentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
+  __block  CGRect rect = [self.contentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
     WeakSelf;
     NSDictionary * params = @{@"seekId":self.iDStr,@"userId":self.userId};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,HelpDetailURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
@@ -90,6 +98,7 @@
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 self.nameLabel.text = dict[@"nickname"];
+                self.hostId = dict[@"userId"];
                 [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]]] placeholderImage:[UIImage imageNamed:@"default"]];
                 NSInteger isLove = [dict[@"likesStatus"] integerValue];
                 if (isLove == 1) {
@@ -101,16 +110,17 @@
                 [self.loveBtn setTitle:self.likes forState:UIControlStateNormal];
                 [self.shareBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"shareNumber"]] forState:UIControlStateNormal];
                 [self.tableView beginUpdates];
-                if (![dict[@"file"] isKindOfClass:[NSNull class]]) {
+                NSString * file = [NSString stringWithFormat:@"%@",dict[@"file"]];
+                if (![ImageUrl isEmptyStr:file]) {
                     self.imageUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"file"]]];
-                    [self.topicImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:[UIImage imageNamed:@"default"]];
+                    [self.topicImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:[UIImage imageNamed:@"banner"]];
                     //改变表头高度
-                    self.imageHeightCons.constant = 198;
-                    self.headerHeightCons.constant = 316+rect.size.height;
+                    weakSelf.imageHeightCons.constant = 198;
+                    weakSelf.headerHeightCons.constant = 316+rect.size.height;
             
                 }else{
-                    self.imageHeightCons.constant = 0;
-                    self.headerHeightCons.constant = 108+rect.size.height;
+                    weakSelf.imageHeightCons.constant = 0;
+                    weakSelf.headerHeightCons.constant = 108+rect.size.height;
                 }
                 CGRect frame = self.headView.frame;
                 frame.size.height = self.headerHeightCons.constant;
@@ -119,9 +129,11 @@
                 [self.headView layoutIfNeeded];
                 [self.tableView endUpdates];
                 //采纳答案
-                NSDictionary * bestDic = dict[@"adopt"];
-                HelpAnswerListModel * help = [[HelpAnswerListModel alloc]initWithDictionary:bestDic error:nil];
-                [self.bestArr addObject:help];
+                if ([[dict allKeys] containsObject:@"adopt"]) {
+                    NSDictionary * bestDic = dict[@"adopt"];
+                    HelpAnswerListModel * help = [[HelpAnswerListModel alloc]initWithDictionary:bestDic error:nil];
+                    [self.bestArr addObject:help];
+                }
                 NSArray * array = dict[@"answers"];
                 for (NSDictionary * subDic in array) {
                     HelpAnswerListModel * help = [[HelpAnswerListModel alloc]initWithDictionary:subDic error:nil];
@@ -145,6 +157,14 @@
         cell.helpModel = self.dataArr[indexPath.row];
         cell.dataArr = self.dataArr;
     }
+    cell.block = ^(UIViewController *vc) {
+        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+        self.navigationItem.backBarButtonItem = backItem;
+        [self.navigationController pushViewController:vc animated:YES];
+    };
+    cell.iDStr = self.iDStr;
+    cell.hostId = self.hostId;
+    cell.titleStr = self.titleStr;
     return cell;
     
     
@@ -172,7 +192,16 @@
 }
 //分组
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 40;
+    if (section == 0) {
+        if (self.bestArr.count == 0) {
+            return 0;
+        }else{
+            return 40;
+        }
+    }else{
+        return 40;
+    }
+    
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (self.bestArr.count != 0) {
@@ -205,7 +234,37 @@
    
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
+    HelpCommentController * help = [sb instantiateViewControllerWithIdentifier:@"HelpCommentController"];
+    if (indexPath.section == 0) {
+        HelpAnswerListModel * model = self.bestArr[indexPath.row];
+        help.actiId = self.iDStr;
+        help.titleStr = self.titleStr;
+        help.time = model.time;
+        help.comment = model.content;
+        help.loveCount = [NSString stringWithFormat:@"%@",model.likes];
+        help.nameStr = model.nickname;
+        help.headUrl = model.userPortraitUrl;
+        help.hostId = self.hostId;
+        help.answerId = model.idStr;
     
+    }else{
+        HelpAnswerListModel * model = self.dataArr[indexPath.row];
+        help.actiId = self.iDStr;
+        help.titleStr = self.titleStr;
+        help.time = model.time;
+        help.comment = model.content;
+        help.loveCount = [NSString stringWithFormat:@"%@",model.likes];
+        help.nameStr = model.nickname;
+        help.headUrl = model.userPortraitUrl;
+        help.hostId = self.hostId;
+        help.answerId = model.idStr;
+    }
+   
+    [self.navigationController pushViewController:help animated:YES];
+
 }
 //分享
 - (IBAction)shareClick:(id)sender {
@@ -213,7 +272,12 @@
 }
 -(void)share{
     //求助中心图片
-    NSArray * imageArr = @[self.imageUrl];
+    NSArray * imageArr;
+    if (self.imageUrl.length == 0) {
+        imageArr = nil;
+    }else{
+       imageArr = @[self.imageUrl];
+    }
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKSetupShareParamsByText:self.titleLabel.text
                                      images:imageArr
@@ -307,7 +371,12 @@
 }
 //回答问题
 - (IBAction)answerClick:(id)sender {
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
+    AnswerCommentController * answer = [sb instantiateViewControllerWithIdentifier:@"AnswerCommentController"];
+    answer.delegate = self;
+    answer.actID = self.iDStr;
+    [self.navigationController pushViewController:answer animated:YES];
+
 }
 
 -(NSMutableArray *)dataArr{

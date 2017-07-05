@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HelpListController.h"
 
 @interface SendHelpController : UIViewController
+
+@property (nonatomic,assign)HelpListController * delegate;
 
 @end

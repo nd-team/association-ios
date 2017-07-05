@@ -15,7 +15,12 @@
 @property (nonatomic,copy)NSString * answerCount;
 @property (nonatomic,copy)NSString * contributeCount;
 @property (nonatomic,copy)NSString * time;
+//求助用户ID
+@property (nonatomic,copy)NSString * hostId;
+
 //文章ID
 @property (nonatomic,copy)NSString * iDStr;
+
+@property (nonatomic,assign)BOOL isRef;
 
 @end

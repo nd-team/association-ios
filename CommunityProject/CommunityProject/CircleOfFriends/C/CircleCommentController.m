@@ -275,16 +275,20 @@
                 [weakSelf.tableView.mj_footer endRefreshing];
             }
         }else{
-            if (self.tableView.mj_header.isRefreshing) {
+            if (!self.tableView.mj_footer.isRefreshing) {
                 [self.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 NSArray * comArr = dict[@"comments"];
-                for (NSDictionary * dic in comArr) {
-                    CircleCommentModel * comment = [[CircleCommentModel alloc]initWithDictionary:dic error:nil];
-                    [weakSelf.dataArr addObject:comment];
+                if (comArr.count == 0) {
+                    [self.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    for (NSDictionary * dic in comArr) {
+                        CircleCommentModel * comment = [[CircleCommentModel alloc]initWithDictionary:dic error:nil];
+                        [weakSelf.dataArr addObject:comment];
+                    }
                 }
             }else{
                 [weakSelf showMessage:@"加载评论失败！"];

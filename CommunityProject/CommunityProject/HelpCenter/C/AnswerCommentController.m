@@ -1,0 +1,92 @@
+//
+//  AnswerCommentController.m
+//  CommunityProject
+//
+//  Created by bjike on 2017/7/5.
+//  Copyright © 2017年 来自任性傲娇的女王. All rights reserved.
+//
+
+#import "AnswerCommentController.h"
+
+#define AnswerURL @"appapi/app/answerSeekHelp"
+
+@interface AnswerCommentController ()<UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *placeHolderLabel;
+
+@property (weak, nonatomic) IBOutlet UITextView *contentTV;
+
+@property (nonatomic,copy) NSString * userId;
+
+@end
+
+@implementation AnswerCommentController
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.title = @"添加回答";
+    UIBarButtonItem * leftItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 40, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:@"取消" andLeft:-15 andTarget:self Action:@selector(leftClick)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
+    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 50, 30) titleColor:UIColorFromRGB(0x121212) font:15 andTitle:@"发布" andLeft:15 andTarget:self Action:@selector(sendClick)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    self.userId = [DEFAULTS objectForKey:@"userId"];
+
+}
+-(void)leftClick{
+    [self.contentTV resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+-(void)sendClick{
+    [self.contentTV resignFirstResponder];
+    if (self.contentTV.text.length == 0) {
+        [self showMessage:@"请填写回答内容"];
+        return;
+    }
+    WeakSelf;
+    NSDictionary * dict = @{@"userId":self.userId,@"seekId":self.actID,@"content":self.contentTV.text};
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AnswerURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        if (error) {
+            NSSLog(@"采纳答案失败:%@",error);
+            [weakSelf showMessage:@"服务器出错咯！"];
+        }else{
+            NSNumber * code = data[@"code"];
+            if ([code intValue] == 200) {
+                //刷新评论列表
+                weakSelf.delegate.isRef = YES;
+                [weakSelf leftClick];
+            }else if ([code intValue] == 1025){
+                [weakSelf showMessage:@"用户已回答"];
+            }else{
+                [weakSelf showMessage:@"评论失败"];
+            }
+        }
+    }];
+}
+-(void)showMessage:(NSString *)msg{
+    UIView * msgView = [UIView showViewTitle:msg];
+    [self.view addSubview:msgView];
+    [UIView animateWithDuration:1.0 animations:^{
+        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
+    } completion:^(BOOL finished) {
+        //完成之后3秒消失
+        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
+            msgView.hidden = YES;
+        }];
+    }];
+    
+}
+-(void)textViewDidChange:(UITextView *)textView{
+    if (textView.text.length == 0) {
+        self.placeHolderLabel.hidden = NO;
+    }else{
+        self.placeHolderLabel.hidden = YES;
+    }
+}
+
+@end

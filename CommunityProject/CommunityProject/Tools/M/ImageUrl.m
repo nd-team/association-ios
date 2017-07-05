@@ -235,4 +235,32 @@
     }];
 }
  */
++(BOOL) isEmptyStr:(NSString *) aString
+{
+    if (aString == nil || aString == NULL)
+    {
+        return YES;
+    }
+    if ([aString  isKindOfClass:[NSNull class]])
+    {
+        return YES;
+    }
+    if ([[aString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    if ([aString length]==0) {
+        return YES;
+    }
+    if ([[aString lowercaseString] isEqualToString:@"null"] )
+    {
+        return YES;
+    }
+    
+    if ([[aString lowercaseString] isEqualToString:@"<null>"] )
+    {
+        return YES;
+    }
+    
+    return NO;
+}
 @end

@@ -1,36 +1,35 @@
 //
-//  HelpAnswerCell.m
+//  HelpCommentCell.m
 //  CommunityProject
 //
-//  Created by bjike on 2017/7/3.
+//  Created by bjike on 2017/7/5.
 //  Copyright © 2017年 来自任性傲娇的女王. All rights reserved.
 //
 
-#import "HelpAnswerCell.h"
+#import "HelpCommentCell.h"
 #define CommentZanURL @"appapi/app/commentLikes"
-#import "HelpCommentController.h"
 
-@implementation HelpAnswerCell
+@implementation HelpCommentCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.headImageView zy_cornerRadiusRoundingRect];
     [self.loveBtn setImage:[UIImage imageNamed:@"darkHeart"] forState:UIControlStateNormal];
     [self.loveBtn setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateSelected];
-
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
+    // Configure the view for the selected state
 }
-//评论点赞--后台没做
+//评论的评论点赞
 - (IBAction)loveClick:(id)sender {
     self.loveBtn.selected = !self.loveBtn.selected;
     UIButton * button = (UIButton *)sender;
-    HelpAnswerCell * cell = (HelpAnswerCell *)[[button superview]superview];
+    HelpCommentCell * cell = (HelpCommentCell *)[[button superview]superview];
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    HelpAnswerListModel * help = self.dataArr[indexPath.row];
+    CommentDetailListModel * help = self.dataArr[indexPath.row];
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     NSDictionary * dict = @{@"userId":userId,@"commentId":help.idStr,@"status":self.loveBtn.selected?@"1":@"0"};
     NSSLog(@"%@",dict);
@@ -64,40 +63,19 @@
         
     }];
 }
-//评论
-- (IBAction)commentClick:(id)sender {
-    UIButton * button = (UIButton *)sender;
-    HelpAnswerCell * cell = (HelpAnswerCell *)[[button superview]superview];
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
-    HelpCommentController * help = [sb instantiateViewControllerWithIdentifier:@"HelpCommentController"];
-    HelpAnswerListModel * model = self.dataArr[indexPath.row];
-    help.actiId = self.iDStr;
-    help.titleStr = self.titleStr;
-    help.time = model.time;
-    help.comment = model.content;
-    help.loveCount = [NSString stringWithFormat:@"%@",model.likes];
-    help.nameStr = model.nickname;
-    help.headUrl = model.userPortraitUrl;
-    help.hostId = self.hostId;
-    help.answerId = model.idStr;
-    self.block(help);
- 
-}
--(void)setHelpModel:(HelpAnswerListModel *)helpModel{
-    _helpModel = helpModel;
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_helpModel.userPortraitUrl]]] placeholderImage:[UIImage imageNamed:@"default"]];
-    self.timeLabel.text = _helpModel.time;
-    self.contentLabel.text = _helpModel.content;
-    self.nameLabel.text = _helpModel.nickname;
-    self.likes = [NSString stringWithFormat:@"%@",_helpModel.likes];
+
+-(void)setCommentModel:(CommentDetailListModel *)commentModel{
+    _commentModel = commentModel;
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_commentModel.userPortraitUrl]]] placeholderImage:[UIImage imageNamed:@"default"]];
+    self.timeLabel.text = _commentModel.commentTime;
+    self.contentLabel.text = _commentModel.content;
+    self.nameLabel.text = _commentModel.nickname;
+    self.likes = [NSString stringWithFormat:@"%@",_commentModel.likes];
     [self.loveBtn setTitle:self.likes forState:UIControlStateNormal];
-    [self.commentBtn setTitle:[NSString stringWithFormat:@"%@",_helpModel.commentNumber] forState:UIControlStateNormal];
-    if ([_helpModel.likesStatus isEqualToString:@"0"]) {
+    if ([_commentModel.likesStatus isEqualToString:@"0"]) {
         self.loveBtn.selected = NO;
     }else{
         self.loveBtn.selected = YES;
     }
-
 }
 @end

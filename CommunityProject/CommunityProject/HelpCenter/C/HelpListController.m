@@ -14,6 +14,7 @@
 #import "HelpListModel.h"
 #import "MyHelpListController.h"
 #import "HelpDetailController.h"
+#import "SendHelpController.h"
 
 #define HelpListURL @"appapi/app/selectSeekHelpList"
 
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *questionBtn;
 @property (nonatomic,assign)int page;
 @property (nonatomic,copy)NSString * userId;
+@property (weak, nonatomic) IBOutlet UILabel *questionLabel;
 
 @end
 
@@ -47,7 +49,14 @@
     self.questionBtn.layer.cornerRadius = 30;
     self.questionBtn.layer.masksToBounds = YES;
     self.userId = [DEFAULTS objectForKey:@"userId"];
-
+    NSInteger  checkVip = [DEFAULTS integerForKey:@"checkVip"];
+    if (checkVip == 1) {
+        self.questionBtn.hidden = NO;
+        self.questionLabel.hidden = NO;
+    }else{
+        self.questionBtn.hidden = YES;
+        self.questionLabel.hidden = YES;
+    }
     WeakSelf;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;
@@ -175,6 +184,8 @@
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
     HelpListModel * model = self.dataArr[indexPath.row];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
     HelpDetailController * help = [sb instantiateViewControllerWithIdentifier:@"HelpDetailController"];
@@ -184,6 +195,7 @@
     help.content = model.content;
     help.contributeCount = [NSString stringWithFormat:@"%@",model.contributionCoin];
     help.answerCount = [NSString stringWithFormat:@"%@",model.helpNumber];
+    help.hostId = model.userId;
     [self.navigationController pushViewController:help animated:YES];
 
 }
@@ -193,6 +205,13 @@
         _dataArr = [NSMutableArray new];
     }
     return _dataArr;
+}
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"SendHelp"]) {
+        SendHelpController * send = segue.destinationViewController;
+        send.delegate = self;
+        
+    }
 }
 //手势代理方法
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{

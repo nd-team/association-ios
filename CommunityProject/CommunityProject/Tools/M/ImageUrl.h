@@ -44,4 +44,7 @@ typedef void(^Result)(NSData * data,NSString * filename);
 //压缩视频
 -(void)compressVideo:(NSURL *)path andVideoName:(NSString *)name
      successCompress:(void(^)(NSData *compressData))successCompress;
+//过滤字符串是否为空
++(BOOL) isEmptyStr:(NSString *) aString;
+
 @end
