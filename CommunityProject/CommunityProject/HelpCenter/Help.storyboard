@@ -1471,7 +1471,7 @@
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="M6D-0l-1lu">
-                                <rect key="frame" x="14" y="40" width="351" height="250"/>
+                                <rect key="frame" x="9" y="32" width="356" height="250"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="ADy-vo-ErH"/>
@@ -1484,7 +1484,7 @@
                                 </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="输入您的回答" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7P-aF-JSq">
-                                <rect key="frame" x="30" y="40" width="120" height="14"/>
+                                <rect key="frame" x="14" y="40" width="120" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="0KN-P8-vPf"/>
                                     <constraint firstAttribute="height" constant="14" id="arH-ax-7r0"/>
@@ -1496,11 +1496,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="M6D-0l-1lu" firstAttribute="leading" secondItem="Wss-Ge-SR2" secondAttribute="leading" constant="14" id="0W0-Te-rfF"/>
+                            <constraint firstItem="M6D-0l-1lu" firstAttribute="leading" secondItem="Wss-Ge-SR2" secondAttribute="leading" constant="9" id="0W0-Te-rfF"/>
+                            <constraint firstItem="l7P-aF-JSq" firstAttribute="leading" secondItem="Wss-Ge-SR2" secondAttribute="leading" constant="14" id="Bw5-XH-c6I"/>
                             <constraint firstAttribute="trailing" secondItem="71u-Gs-ZI9" secondAttribute="trailing" id="CgP-sj-XJT"/>
-                            <constraint firstItem="M6D-0l-1lu" firstAttribute="top" secondItem="71u-Gs-ZI9" secondAttribute="bottom" constant="15" id="DIj-WX-93S"/>
+                            <constraint firstItem="M6D-0l-1lu" firstAttribute="top" secondItem="71u-Gs-ZI9" secondAttribute="bottom" constant="7" id="DIj-WX-93S"/>
                             <constraint firstAttribute="trailing" secondItem="M6D-0l-1lu" secondAttribute="trailing" constant="10" id="I1N-hD-Mey"/>
-                            <constraint firstItem="l7P-aF-JSq" firstAttribute="leading" secondItem="Wss-Ge-SR2" secondAttribute="leadingMargin" constant="14" id="Mm0-lo-Ukj"/>
                             <constraint firstItem="l7P-aF-JSq" firstAttribute="top" secondItem="71u-Gs-ZI9" secondAttribute="bottom" constant="15" id="dlJ-Pu-Hl2"/>
                             <constraint firstItem="71u-Gs-ZI9" firstAttribute="top" secondItem="6np-xt-CGo" secondAttribute="bottom" id="pmE-Sb-2xW"/>
                             <constraint firstItem="71u-Gs-ZI9" firstAttribute="leading" secondItem="Wss-Ge-SR2" secondAttribute="leading" id="saN-V8-pFZ"/>

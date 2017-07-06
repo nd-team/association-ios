@@ -272,6 +272,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
     CircleListModel * model = self.dataArr[indexPath.row];
     //进入详情
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"CircleOfFriend" bundle:nil];
@@ -281,16 +283,16 @@
     comment.time = model.releaseTime;
     comment.content = model.content;
     comment.collectionArr = model.images;
-    comment.likeCount = model.likedNumber;
-    comment.commentCount = model.commentNumber;
-    comment.isLike = model.likeStatus;
+    comment.likeCount = [NSString stringWithFormat:@"%@",model.likedNumber];
+    comment.commentCount = [NSString stringWithFormat:@"%@",model.commentNumber];
+    comment.isLike = [NSString stringWithFormat:@"%@",model.likeStatus];
     comment.idStr = [NSString stringWithFormat:@"%ld",(long)model.id];
     comment.placeStr = [NSString stringWithFormat:@"评论%@",model.nickname];
-    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
     [self.navigationController pushViewController: comment animated:YES];
 }
 - (IBAction)rightClick:(id)sender {
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
     ActivityRecommendController * recom = [sb instantiateViewControllerWithIdentifier:@"ActivityRecommendController"];
     recom.rightStr = @"发布";

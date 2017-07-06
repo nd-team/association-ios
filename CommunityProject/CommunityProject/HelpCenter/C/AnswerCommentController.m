@@ -49,8 +49,18 @@
         return;
     }
     WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf send];
+    });
+}
+-(void)send{
+    WeakSelf;
     NSDictionary * dict = @{@"userId":self.userId,@"seekId":self.actID,@"content":self.contentTV.text};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AnswerURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        });
         if (error) {
             NSSLog(@"采纳答案失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

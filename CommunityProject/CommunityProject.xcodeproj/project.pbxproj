@@ -266,6 +266,14 @@
 		459EBF9C1F0CB920008A0D37 /* HelpCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF9B1F0CB920008A0D37 /* HelpCommentCell.m */; };
 		459EBF9F1F0CDDB9008A0D37 /* CommentDetailListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBF9E1F0CDDB9008A0D37 /* CommentDetailListModel.m */; };
 		459EBFA21F0CEFD6008A0D37 /* AnswerCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBFA11F0CEFD6008A0D37 /* AnswerCommentController.m */; };
+		459EBFA81F0DCD7E008A0D37 /* TrafficeOfInsporation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 459EBFA71F0DCD7E008A0D37 /* TrafficeOfInsporation.storyboard */; };
+		459EBFAB1F0E0A42008A0D37 /* TrafficListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBFAA1F0E0A42008A0D37 /* TrafficListController.m */; };
+		459EBFB21F0E0AFE008A0D37 /* TafficListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBFB01F0E0AFE008A0D37 /* TafficListCell.m */; };
+		459EBFB31F0E0AFE008A0D37 /* TafficListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459EBFB11F0E0AFE008A0D37 /* TafficListCell.xib */; };
+		459EBFB71F0E0E29008A0D37 /* TrafficeRecomendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBFB51F0E0E29008A0D37 /* TrafficeRecomendCell.m */; };
+		459EBFB81F0E0E29008A0D37 /* TrafficeRecomendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459EBFB61F0E0E29008A0D37 /* TrafficeRecomendCell.xib */; };
+		459EBFBB1F0E17CD008A0D37 /* TafficeListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBFBA1F0E17CD008A0D37 /* TafficeListModel.m */; };
+		459EBFBE1F0E2986008A0D37 /* MyTrafficListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EBFBD1F0E2986008A0D37 /* MyTrafficListController.m */; };
 		45A080C81E88C41100514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080C71E88C41100514FFC /* AddFriendController.m */; };
 		45A96C611EF75FCF0022F382 /* Education.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A96C601EF75FCF0022F382 /* Education.storyboard */; };
 		45A96C641EF7631E0022F382 /* EducationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A96C631EF7631E0022F382 /* EducationListController.m */; };
@@ -826,6 +834,19 @@
 		459EBF9E1F0CDDB9008A0D37 /* CommentDetailListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentDetailListModel.m; sourceTree = "<group>"; };
 		459EBFA01F0CEFD6008A0D37 /* AnswerCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerCommentController.h; sourceTree = "<group>"; };
 		459EBFA11F0CEFD6008A0D37 /* AnswerCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerCommentController.m; sourceTree = "<group>"; };
+		459EBFA71F0DCD7E008A0D37 /* TrafficeOfInsporation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TrafficeOfInsporation.storyboard; sourceTree = "<group>"; };
+		459EBFA91F0E0A42008A0D37 /* TrafficListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrafficListController.h; sourceTree = "<group>"; };
+		459EBFAA1F0E0A42008A0D37 /* TrafficListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrafficListController.m; sourceTree = "<group>"; };
+		459EBFAF1F0E0AFE008A0D37 /* TafficListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TafficListCell.h; sourceTree = "<group>"; };
+		459EBFB01F0E0AFE008A0D37 /* TafficListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TafficListCell.m; sourceTree = "<group>"; };
+		459EBFB11F0E0AFE008A0D37 /* TafficListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TafficListCell.xib; sourceTree = "<group>"; };
+		459EBFB41F0E0E29008A0D37 /* TrafficeRecomendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrafficeRecomendCell.h; sourceTree = "<group>"; };
+		459EBFB51F0E0E29008A0D37 /* TrafficeRecomendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrafficeRecomendCell.m; sourceTree = "<group>"; };
+		459EBFB61F0E0E29008A0D37 /* TrafficeRecomendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrafficeRecomendCell.xib; sourceTree = "<group>"; };
+		459EBFB91F0E17CD008A0D37 /* TafficeListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TafficeListModel.h; sourceTree = "<group>"; };
+		459EBFBA1F0E17CD008A0D37 /* TafficeListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TafficeListModel.m; sourceTree = "<group>"; };
+		459EBFBC1F0E2986008A0D37 /* MyTrafficListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTrafficListController.h; sourceTree = "<group>"; };
+		459EBFBD1F0E2986008A0D37 /* MyTrafficListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTrafficListController.m; sourceTree = "<group>"; };
 		45A080C61E88C41100514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
 		45A080C71E88C41100514FFC /* AddFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendController.m; sourceTree = "<group>"; };
 		45A96C601EF75FCF0022F382 /* Education.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Education.storyboard; sourceTree = "<group>"; };
@@ -1147,6 +1168,7 @@
 				45E4F7151ED4142300476B64 /* PublicAct */,
 				45AE19981ECD3C470098A7FF /* Activity */,
 				457182A81EC44EEE00860F38 /* Claim */,
+				459EBFA31F0DCD2C008A0D37 /* Traffic */,
 				459EBF701F09D372008A0D37 /* HelpCenter */,
 				455FA3261E763C250039B155 /* Chat */,
 				457D3CB61E77CD4A00FD0309 /* Address */,
@@ -2072,6 +2094,51 @@
 			path = V;
 			sourceTree = "<group>";
 		};
+		459EBFA31F0DCD2C008A0D37 /* Traffic */ = {
+			isa = PBXGroup;
+			children = (
+				459EBFA71F0DCD7E008A0D37 /* TrafficeOfInsporation.storyboard */,
+				459EBFA41F0DCD2C008A0D37 /* C */,
+				459EBFA51F0DCD2C008A0D37 /* M */,
+				459EBFA61F0DCD2C008A0D37 /* V */,
+			);
+			path = Traffic;
+			sourceTree = "<group>";
+		};
+		459EBFA41F0DCD2C008A0D37 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				459EBFA91F0E0A42008A0D37 /* TrafficListController.h */,
+				459EBFAA1F0E0A42008A0D37 /* TrafficListController.m */,
+				459EBFBC1F0E2986008A0D37 /* MyTrafficListController.h */,
+				459EBFBD1F0E2986008A0D37 /* MyTrafficListController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		459EBFA51F0DCD2C008A0D37 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				459EBFB91F0E17CD008A0D37 /* TafficeListModel.h */,
+				459EBFBA1F0E17CD008A0D37 /* TafficeListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		459EBFA61F0DCD2C008A0D37 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				459EBFAF1F0E0AFE008A0D37 /* TafficListCell.h */,
+				459EBFB01F0E0AFE008A0D37 /* TafficListCell.m */,
+				459EBFB11F0E0AFE008A0D37 /* TafficListCell.xib */,
+				459EBFB41F0E0E29008A0D37 /* TrafficeRecomendCell.h */,
+				459EBFB51F0E0E29008A0D37 /* TrafficeRecomendCell.m */,
+				459EBFB61F0E0E29008A0D37 /* TrafficeRecomendCell.xib */,
+			);
+			name = V;
+			path = v;
+			sourceTree = "<group>";
+		};
 		45A96C5C1EF75FAE0022F382 /* Education */ = {
 			isa = PBXGroup;
 			children = (
@@ -2522,6 +2589,7 @@
 				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
 				459130E61EF920DA0054A28C /* FastForwardView.xib in Resources */,
 				457182AD1EC44F2A00860F38 /* ClaimCenter.storyboard in Resources */,
+				459EBFA81F0DCD7E008A0D37 /* TrafficeOfInsporation.storyboard in Resources */,
 				45F0464B1EE554A200CDA7BD /* SearchGroupCell.xib in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
@@ -2534,6 +2602,7 @@
 				455FA31E1E7631A90039B155 /* LaunchScreen.storyboard in Resources */,
 				456CCE651E827CD8005EC051 /* RongCloud.bundle in Resources */,
 				45A96C691EF764D20022F382 /* EducationListCell.xib in Resources */,
+				459EBFB31F0E0AFE008A0D37 /* TafficListCell.xib in Resources */,
 				455C6B321EA5BC6A00E0B3F3 /* AnswerCommentCell.xib in Resources */,
 				45AE19B31ECEA14A0098A7FF /* AllMessageCell.xib in Resources */,
 				45F0463D1EE52DB700CDA7BD /* ShareSDK.bundle in Resources */,
@@ -2542,6 +2611,7 @@
 				456CCE631E827CD7005EC051 /* Emoji.plist in Resources */,
 				456CCE6E1E827CD8005EC051 /* jrmf.cer in Resources */,
 				456CCE6D1E827CD8005EC051 /* JResource.bundle in Resources */,
+				459EBFB81F0E0E29008A0D37 /* TrafficeRecomendCell.xib in Resources */,
 				45AE199D1ECD3CB70098A7FF /* Activity.storyboard in Resources */,
 				4562D7331E7F6E2700C6EE56 /* Group.storyboard in Resources */,
 				45CE5F601EC19BB200225534 /* AMap.bundle in Resources */,
@@ -2618,6 +2688,7 @@
 				458959D01EBB150400CBADDD /* FSCalendarDelegationFactory.m in Sources */,
 				455FA34E1E76A2940039B155 /* FirstController.m in Sources */,
 				452AD5F91F048C0000FA96F1 /* SRDownloadManager.m in Sources */,
+				459EBFBE1F0E2986008A0D37 /* MyTrafficListController.m in Sources */,
 				455B371C1F00AED300CA47CF /* ManagerDownloadCell.m in Sources */,
 				455FA1701E7A8E3600C85AE7 /* ClaimDataBaseSingleton.m in Sources */,
 				45B977241EB088BB00A42D55 /* AlreadyRecommendModel.m in Sources */,
@@ -2644,6 +2715,7 @@
 				45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */,
 				455C6B281EA209E700E0B3F3 /* CircleListModel.m in Sources */,
 				458959F31EBDBF1A00CBADDD /* MBProgressHUD+Add.m in Sources */,
+				459EBFBB1F0E17CD008A0D37 /* TafficeListModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				45CE5F581EC1972900225534 /* AreaHistrorySingleton.m in Sources */,
 				452AD5FA1F048C0000FA96F1 /* SRDownloadModel.m in Sources */,
@@ -2655,6 +2727,7 @@
 				459130F81EFE0FD80054A28C /* VideoDatabaseSingleton.m in Sources */,
 				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
 				458959CB1EBB150400CBADDD /* FSCalendarCalculator.m in Sources */,
+				459EBFB71F0E0E29008A0D37 /* TrafficeRecomendCell.m in Sources */,
 				450C051D1ED53E4E0093B174 /* PubicDetailController.m in Sources */,
 				4562D73C1E7F7B6A00C6EE56 /* UIView+ChatWhiteView.m in Sources */,
 				4562D73F1E7F828D00C6EE56 /* ActivityListDatabaseSingleton.m in Sources */,
@@ -2670,6 +2743,7 @@
 				45A96C6C1EF7698A0022F382 /* EducationListModel.m in Sources */,
 				458959FB1EBDBF1A00CBADDD /* SDWebImageManager+MJ.m in Sources */,
 				458959CE1EBB150400CBADDD /* FSCalendarCollectionViewLayout.m in Sources */,
+				459EBFAB1F0E0A42008A0D37 /* TrafficListController.m in Sources */,
 				45A080C81E88C41100514FFC /* AddFriendController.m in Sources */,
 				45783BE01EC6AB130013DC6D /* MyClaimCell.m in Sources */,
 				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
@@ -2738,6 +2812,7 @@
 				455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */,
 				457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */,
 				457182B61EC45A3900860F38 /* ClaimCenterModel.m in Sources */,
+				459EBFB21F0E0AFE008A0D37 /* TafficListCell.m in Sources */,
 				459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */,
 				458959FA1EBDBF1A00CBADDD /* MJPhotoView.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,

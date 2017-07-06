@@ -25,6 +25,7 @@
 #import "PublicListController.h"
 #import "EducationListController.h"
 #import "HelpListController.h"
+#import "TrafficListController.h"
 
 #define FirstURL @"appapi/app/indexData"
 
@@ -316,6 +317,10 @@
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
         HelpListController * help = [sb instantiateViewControllerWithIdentifier:@"HelpListController"];
         [self.navigationController pushViewController:help animated:YES];
+    }else if ([model.name isEqualToString:@"灵感贩卖"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"TrafficeOfInsporation" bundle:nil];
+        TrafficListController * traffic = [sb instantiateViewControllerWithIdentifier:@"TrafficListController"];
+        [self.navigationController pushViewController:traffic animated:YES];
     }
     
 }

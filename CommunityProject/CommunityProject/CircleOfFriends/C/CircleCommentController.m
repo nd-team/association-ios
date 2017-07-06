@@ -82,6 +82,9 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
     self.userId = [DEFAULTS objectForKey:@"userId"];
     self.page = 1;
+    if (!self.isMsg) {
+        [self setUI];
+    }
     [self netWork];
     //点击手势隐藏键盘
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
@@ -104,7 +107,6 @@
                 [weakSelf getCircleDetailData];
             }else{
                 //获取评论数据 朋友圈
-                [weakSelf setUI];
                 [weakSelf getCommentListData];
                 
             }
@@ -195,6 +197,7 @@
         _zanBtn.selected = YES;
     }
     //上下拉刷新
+    self.tableView.mj_footer.automaticallyHidden = YES;
     WeakSelf;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         weakSelf.page = 1;
@@ -377,60 +380,65 @@
 }
 #pragma mark-textView-delegate
 -(void)textViewDidChange:(UITextView *)textView{
-    if (textView.text.length == 0) {
-        self.placeLabel.hidden = NO;
-    }else{
-        self.placeLabel.hidden = YES;
-    }
-    //是否有候选字符
-    if (textView.markedTextRange == nil) {
-        //行间距
-        NSMutableParagraphStyle * paraStyle = [NSMutableParagraphStyle new];
-        paraStyle.lineSpacing = 4;
-        NSDictionary * att = @{NSFontAttributeName:[UIFont systemFontOfSize:15],NSParagraphStyleAttributeName:paraStyle};
-        self.contentTV.attributedText = [[NSAttributedString alloc]initWithString:textView.text attributes:att];
-        //获取输入总高度
-        CGSize allSize = [self sizeWithString:textView.text andWidth:KMainScreenWidth-55.5 andFont:15];
-        //获取一行的高度
-        CGSize size = [self sizeWithString:@"hello" andWidth:KMainScreenWidth-55.5 andFont:15];
-        NSInteger line = allSize.height/size.height;
-        if (line == 1) {
-            self.tvHeightCons.constant = 40;
-        }else if(line <= 4 && line>1){
-            self.tvHeightCons.constant = allSize.height+line*4;
+    if (textView == self.contentTV) {
+        
+        if (textView.text.length == 0) {
+            self.placeLabel.hidden = NO;
         }else{
-            self.tvHeightCons.constant = (size.height+4)*4;
+            self.placeLabel.hidden = YES;
         }
-        self.bottomHeightCons.constant = 10+self.tvHeightCons.constant;
-
+        //是否有候选字符
+        if (textView.markedTextRange == nil) {
+            //行间距
+            NSMutableParagraphStyle * paraStyle = [NSMutableParagraphStyle new];
+            paraStyle.lineSpacing = 4;
+            NSDictionary * att = @{NSFontAttributeName:[UIFont systemFontOfSize:15],NSParagraphStyleAttributeName:paraStyle};
+            self.contentTV.attributedText = [[NSAttributedString alloc]initWithString:textView.text attributes:att];
+            //获取输入总高度
+            CGSize allSize = [self sizeWithString:textView.text andWidth:KMainScreenWidth-55.5 andFont:15];
+            //获取一行的高度
+            CGSize size = [self sizeWithString:@"hello" andWidth:KMainScreenWidth-55.5 andFont:15];
+            NSInteger line = allSize.height/size.height;
+            if (line == 1) {
+                self.tvHeightCons.constant = 40;
+            }else if(line <= 4 && line>1){
+                self.tvHeightCons.constant = allSize.height+line*4;
+            }else{
+                self.tvHeightCons.constant = (size.height+4)*4;
+            }
+            self.bottomHeightCons.constant = 10+self.tvHeightCons.constant;
+            
+        }
     }
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    if (textView.text == nil) {
-        //return不可用
+    if (textView == self.contentTV) {
         
-    }
-    if ([text isEqualToString:@"\n"]) {
-        
-        //汉字
-        [self.contentTV resignFirstResponder];
-        //回复评论
-        if (self.params.count != 0) {
-            [self.params setValue:self.contentTV.text forKey:@"content"];
-            [self postSendComment:[NSString stringWithFormat:NetURL,ReplyCommentURL] andParams:self.params];
-        }else{
-            //评论
-            NSMutableDictionary * mDic = [NSMutableDictionary new];
-            [mDic setValue:self.idStr forKey:@"articleId"];
-            [mDic setValue:self.userId forKey:@"userId"];
-            [mDic setValue:self.contentTV.text forKey:@"content"];
-            [mDic setValue:@"2" forKey:@"type"];
-            [self postSendComment:[NSString stringWithFormat:NetURL,JudgeURL] andParams:mDic];
+        if (textView.text == nil) {
+            //return不可用
+            
         }
-        return NO;
+        if ([text isEqualToString:@"\n"]) {
+            
+            //汉字
+            [self.contentTV resignFirstResponder];
+            //回复评论
+            if (self.params.count != 0) {
+                [self.params setValue:self.contentTV.text forKey:@"content"];
+                [self postSendComment:[NSString stringWithFormat:NetURL,ReplyCommentURL] andParams:self.params];
+            }else{
+                //评论
+                NSMutableDictionary * mDic = [NSMutableDictionary new];
+                [mDic setValue:self.idStr forKey:@"articleId"];
+                [mDic setValue:self.userId forKey:@"userId"];
+                [mDic setValue:self.contentTV.text forKey:@"content"];
+                [mDic setValue:@"2" forKey:@"type"];
+                [self postSendComment:[NSString stringWithFormat:NetURL,JudgeURL] andParams:mDic];
+            }
+            return NO;
+        }
+        
     }
-    
-
     return YES;
 }
 //评论和回复评论

@@ -116,6 +116,11 @@
 }
 -(void)textViewDidChange:(UITextView *)textView{
     self.rightItem.enabled = YES;
+    if (textView.text.length == 0) {
+        self.placeLabel.hidden = NO;
+    }else{
+        self.placeLabel.hidden = YES;
+    }
 }
 -(void)rightClick{
     [self.recomTV resignFirstResponder];
@@ -137,7 +142,12 @@
             return;
         }else{
             //发布朋友圈
-            [self send:array];
+            WeakSelf;
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [weakSelf send:array];
+            });
+
         }
        
     }
@@ -155,6 +165,9 @@
     }
     [mDic setValue:self.recomTV.text forKey:@"content"];
      [UploadMulDocuments postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:mDic andArray:arr getBlock:^(NSURLResponse *response, NSError *error, id data) {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+         });
          if (error) {
              NSSLog(@"发布朋友圈失败：%@",error);
              [weakSelf showMessage:@"服务器出错咯！"];
@@ -326,7 +339,7 @@
         self.collectionHeightCons.constant = 85;
     }else{
         if (KMainScreenWidth>=375) {
-            //一行四个
+            //一行四个4.7寸 5.5寸
             if (self.allCount < 5) {
                 self.collectionHeightCons.constant = 73;
             }else if(self.allCount < 9 && self.allCount > 4){
@@ -375,9 +388,6 @@
     
     [picker presentViewController:alert animated:YES completion:nil];
 
-}
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-   return  UIEdgeInsetsMake(0, 0, 0, 10);
 }
 #pragma mark-删除图片
 -(void)showTapUI{
