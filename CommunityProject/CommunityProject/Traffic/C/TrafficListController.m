@@ -17,6 +17,7 @@
 #import "MyTrafficListController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDKUI.h>
+#import "SendTrafficController.h"
 
 #define TafficeListURL @"appapi/app/dealBuyList"
 #define AdvertiseURL @"appapi/app/selectAdv"
@@ -42,7 +43,6 @@
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBar.hidden = NO;
     self.page = 1;
-    self.userId = [DEFAULTS objectForKey:@"userId"];
     if (self.isRef) {
         [self getTafficeListData];
     }
@@ -56,6 +56,7 @@
     self.scrollView.pageDotColor = UIColorFromRGB(0x243234);
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 376;
+    self.userId = [DEFAULTS objectForKey:@"userId"];
     [self.tableView registerNib:[UINib nibWithNibName:@"TafficListCell" bundle:nil] forCellReuseIdentifier:@"TafficListCell"];
     [self.recommendTableView registerNib:[UINib nibWithNibName:@"TrafficeRecomendCell" bundle:nil] forCellReuseIdentifier:@"TrafficeRecomendCell"];
     WeakSelf;
@@ -107,6 +108,7 @@
 }
 -(void)getAdvertiseData{
     WeakSelf;
+    NSSLog(@"%@",self.userId);
     NSDictionary * params = @{@"userId":self.userId,@"type":@"5"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AdvertiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -137,7 +139,9 @@
 
 -(void)getTafficeListData{
     WeakSelf;
+    NSSLog(@"%@",self.userId);
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
+    NSSLog(@"%@",params);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TafficeListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -343,11 +347,13 @@
     return _recommendArr;
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//    if ([segue.identifier isEqualToString:@"SendHelp"]) {
-//        SendHelpController * send = segue.destinationViewController;
-//        send.delegate = self;
-//        
-//    }
+    if ([segue.identifier isEqualToString:@"Traffice"]) {
+        SendTrafficController * send = segue.destinationViewController;
+        send.delegate = self;
+        send.userId = self.userId;
+        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+        self.navigationItem.backBarButtonItem = backItem;
+    }
 }
 //手势代理方法
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{

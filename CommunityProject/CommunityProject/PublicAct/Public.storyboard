@@ -258,7 +258,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="ac7-z2-3gA"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nla-ad-hXD">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="nla-ad-hXD">
                                                 <rect key="frame" x="10" y="429" width="56" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="56" id="PTs-CJ-BbG"/>
@@ -768,6 +768,7 @@
         <image name="back" width="9" height="14"/>
         <image name="banner2" width="375" height="200"/>
         <image name="darkHeart" width="21" height="17"/>
+        <image name="default" width="50" height="50"/>
         <image name="judge" width="23" height="17"/>
         <image name="leftStatus" width="70" height="28"/>
         <image name="loginBtn" width="300" height="40"/>

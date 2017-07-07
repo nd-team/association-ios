@@ -39,17 +39,34 @@
 }
 -(void)finishAction{
     if (self.oneBtn.selected) {
-        if (self.type == 1) {
-            self.delegate.authStr = @"公开";
-        }else if(self.type == 2){
-            self.sendDelegate.authStr = @"公开";
+        switch (self.type) {
+            case 1:
+                self.delegate.authStr = @"公开";
+                break;
+            case 2:
+                self.sendDelegate.authStr = @"公开";
+                break;
+            case 3:
+                self.trafficDelegate.authStr = @"公开";
+                break;
+            default:
+                break;
         }
         
+        
     }else{
-        if (self.type == 1) {
-            self.delegate.authStr = @"非公开";
-        }else if(self.type == 2){
-            self.sendDelegate.authStr = @"非公开";
+        switch (self.type) {
+            case 1:
+                self.delegate.authStr = @"非公开";
+                break;
+            case 2:
+                self.sendDelegate.authStr = @"非公开";
+                break;
+            case 3:
+                self.trafficDelegate.authStr = @"非公开";
+                break;
+            default:
+                break;
         }
     }
     [self.navigationController popViewControllerAnimated:YES];
