@@ -328,14 +328,6 @@
     self.viewHeightCons.constant = 0;
     self.pictureView.hidden = YES;
     self.contributeView.hidden = YES;
-    if (self.questionTV.text.length == 0) {
-        [self showMessage:@"问题标题没有填写哦！"];
-        return;
-    }
-    if (self.contentTV.text.length == 0) {
-        [self showMessage:@"问题介绍没有填写哦！"];
-        return;
-    }
     NSString * contributeStr;
     if (self.zeroBtn.selected) {
         contributeStr = @"0";
@@ -361,18 +353,33 @@
     if (self.hundredBtn.selected) {
         contributeStr = @"100";
     }
+    if ([self checkLegal]) {
+        //提交提问
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf send:contributeStr];
+        });
 
-    if (contributeStr.length == 0) {
-        [self showMessage:@"请设置贡献币"];
-        return;
     }
-//提交提问
-    WeakSelf;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [weakSelf send:contributeStr];
-    });
 
+}
+-(BOOL)checkLegal{
+    BOOL a = YES;
+    if ([ImageUrl isEmptyStr:self.questionTV.text]) {
+        a = NO;
+        [self showMessage:@"问题标题没有填写哦！"];
+    }
+    else if ([ImageUrl isEmptyStr:self.contentTV.text]) {
+        a = NO;
+        [self showMessage:@"问题介绍没有填写哦！"];
+    }
+    else if (!self.zeroBtn.selected && !self.fiveBtn.selected &&!self.tenBtn.selected&&!self.twentyBtn.selected&&!self.thirtyBtn.selected&&!self.fivetyBtn.selected&&!self.seventyBtn.selected&&!self.hundredBtn.selected) {
+        a = NO;
+        [self showMessage:@"亲，请选择你的贡献币"];
+    }
+    
+    return a;
 }
 -(void)send:(NSString *)contributeStr{
     NSString * userId = [DEFAULTS objectForKey:@"userId"];

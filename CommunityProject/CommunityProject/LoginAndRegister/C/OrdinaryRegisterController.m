@@ -84,7 +84,7 @@
 //发送验证码
 - (IBAction)sendCodeClick:(id)sender {
     self.count = 120;
-    if (self.phoneTF.text.length == 0) {
+    if ([ImageUrl changeUrl:self.phoneTF.text]) {
         [self showMessage:@"亲，请输入手机号码"];
     }else if (self.phoneTF.text.length !=11) {
         [self showMessage:@"亲，手机号码输入有误"];

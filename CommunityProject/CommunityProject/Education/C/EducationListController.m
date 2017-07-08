@@ -66,9 +66,6 @@
 -(void)receive:(NSNotification *)nofi{
     NSString * refresh = [nofi object];
     self.isRef = [refresh boolValue];
-//    if (self.isRef) {
-//        [self refreshUI];
-//    }
 }
 -(void)refreshUI{
     NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];

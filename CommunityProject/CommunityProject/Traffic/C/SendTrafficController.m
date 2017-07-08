@@ -9,6 +9,7 @@
 #import "SendTrafficController.h"
 #import "AuthorityController.h"
 #import "TrafficeUploadNet.h"
+#import "TrafficDetailController.h"
 
 #define SendURL @"appapi/app/dealBuy"
 
@@ -298,25 +299,45 @@
 //发布
 - (IBAction)sendClick:(id)sender {
     [self hiddenBoard];
+    if ([self checkLegal]) {
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf send];
+        });
+
+    }
+    
+}
+-(BOOL)checkLegal{
+    BOOL a = YES;
     if (self.backImageView.image == nil) {
+        a = NO;
         [self showMessage:@"亲，请添加背景图"];
-        return;
-    }
-    if (self.titleTF.text.length == 0) {
+    }else if ([ImageUrl isEmptyStr:self.titleTF.text]) {
+        a = NO;
         [self showMessage:@"亲，请输入标题"];
-        return;
-    }
-    if (self.firstTV.text.length == 0) {
+    }else if([ImageUrl isEmptyStr:self.firstTV.text]) {
+        a= NO;
         [self showMessage:@"亲，请填写正文"];
-        return;
-    }
-    if (self.secondTV.text.length == 0) {
+    }else if([ImageUrl isEmptyStr:self.secondTV.text]) {
+        a= NO;
         [self showMessage:@"亲，请填写要贩卖的灵感"];
-        return;
+    }else if (!self.zeroBtn.selected && !self.fiveBtn.selected &&!self.tenBtn.selected&&!self.twentyBtn.selected&&!self.thirtyBtn.selected&&!self.fivetyBtn.selected&&!self.seventyBtn.selected&&!self.hundredBtn.selected) {
+        [self showMessage:@"亲，请选择你的贡献币"];
     }
+    
+    return a;
+}
+-(void)hiddenBoard{
+    [self.firstTV resignFirstResponder];
+    [self.secondTV resignFirstResponder];
+    [self.titleTF resignFirstResponder];
+}
+-(NSString *)contribute{
     NSString * contributeStr;
     if (self.zeroBtn.selected) {
-        contributeStr = @"0";
+        contributeStr = @"1";
     }
     if (self.fiveBtn.selected) {
         contributeStr = @"5";
@@ -339,26 +360,10 @@
     if (self.hundredBtn.selected) {
         contributeStr = @"100";
     }
-    WeakSelf;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [weakSelf send:contributeStr];
-    });
-
+    return contributeStr;
 }
--(void)hiddenBoard{
-    [self.firstTV resignFirstResponder];
-    [self.secondTV resignFirstResponder];
-    [self.titleTF resignFirstResponder];
-}
--(void)send:(NSString *)contribute{
-    NSString * status;
-    if ([self.isPublicLabel.text isEqualToString:@"公开"]) {
-        status = @"0";
-    }else{
-        status = @"1";
-    }
-    NSDictionary *dict = @{@"userId":self.userId,@"title":self.titleTF.text,@"content":self.firstTV.text,@"dealContent":self.secondTV.text,@"status":status,@"dealContribution":contribute};
+-(void)send{
+    NSDictionary *dict = @{@"userId":self.userId,@"title":self.titleTF.text,@"content":self.firstTV.text,@"dealContent":self.secondTV.text,@"status":[self status],@"dealContribution":[self contribute]};
     UIImage * image;
     if (self.isUpload) {
         image = self.pictureImageView.image;
@@ -379,16 +384,50 @@
                 weakSelf.delegate.isRef = YES;
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else{
-                [weakSelf showMessage:@"发布灵感失败失败！"];
+                [weakSelf showMessage:@"发布灵感失败！"];
             }
         }
     }];
 
 }
+-(NSString *)status{
+    NSString * status;
+    if ([self.isPublicLabel.text isEqualToString:@"公开"]) {
+        status = @"0";
+    }else{
+        status = @"1";
+    }
+    return status;
+}
 //预览
 - (IBAction)lookClick:(id)sender {
     [self hiddenBoard];
-
+    if ([self checkLegal]) {
+        
+        NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+        NSString * nick = [userDefault objectForKey:@"nickname"];
+        NSString *userUrl = [userDefault objectForKey:@"userPortraitUrl"];
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"TrafficeOfInsporation" bundle:nil];
+        TrafficDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"TrafficDetailController"];
+        detail.isLook = YES;
+        detail.titleStr = self.titleTF.text;
+        detail.content = self.firstTV.text;
+        detail.nickname = nick;
+        detail.headUrl = userUrl;
+        detail.backImage = self.backImageView.image;
+        if (self.isUpload) {
+            if (self.pictureImageView.image) {
+                detail.buyImage = self.pictureImageView.image;
+            }
+        }
+        detail.time = [NowDate currentDetailTime];
+        detail.buyContent = self.secondTV.text;
+        detail.contributeCount = [self contribute];
+        detail.status = [self status];
+        [self.navigationController pushViewController:detail animated:YES];
+        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+        self.navigationItem.backBarButtonItem = backItem;
+    }
 }
 //解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{
@@ -398,11 +437,12 @@
 }
 -(void)showMessage:(NSString *)msg{
     UIView * msgView = [UIView showViewTitle:msg];
+
     [self.view addSubview:msgView];
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:3.0 animations:^{
         msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
     } completion:^(BOOL finished) {
-        //完成之后3秒消失
+//        完成之后3秒消失
         [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
             msgView.hidden = YES;
         }];

@@ -76,10 +76,11 @@
 }
 //发布
 - (IBAction)sendClick:(id)sender {
-    [self common];
-    if (self.videoData.length != 0 && self.contentTF.text.length != 0 && self.titleTF.text.length != 0 && self.firstImg != nil) {
+    [self tapClick];
+    if ([self checkLegal]) {
         [self showBackViewUI:@"确定发布内容？"];
     }
+   
 
 }
 -(void)showBackViewUI:(NSString *)title{
@@ -142,50 +143,57 @@
     }];
  
 }
--(void)common{
-    [self tapClick];
-    if (self.videoData.length == 0) {
-        [self showMessage:@"未选中视频"];
-        return;
-    }
-    if (self.titleTF.text.length == 0) {
-        [self showMessage:@"未填写视频标题"];
-        return;
-    }
-    if (self.contentTF.text.length == 0) {
-        [self showMessage:@"未填写视频的介绍"];
-        return;
-    }
 
+-(BOOL)checkLegal{
+    BOOL a = YES;
+    if (self.videoData.length == 0) {
+        a = NO;
+        [self showMessage:@"未选中视频"];
+    }
+    else if (self.firstImg == nil) {
+        a = NO;
+        [self showMessage:@"未添加背景图片"];
+    }
+    else if ([ImageUrl isEmptyStr:self.titleTF.text]) {
+        a = NO;
+        [self showMessage:@"未填写视频标题"];
+    }
+    else if ([ImageUrl isEmptyStr:self.contentTF.text]) {
+        a = NO;
+        [self showMessage:@"未填写视频的介绍"];
+    }
+    return  a;
 }
 //预览
 - (IBAction)lookClick:(id)sender {
-    [self common];
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
-    EducationDetailController * education = [sb instantiateViewControllerWithIdentifier:@"EducationDetailController"];
-    education.userId = self.userId;
-    education.firstImg = self.firstImg;
-    education.videoData = self.videoData;
-    education.nickname = [userDefaults objectForKey:@"nickname"];
-    education.headUrl = [userDefaults objectForKey:@"userPortraitUrl"];
-    education.topic = self.titleTF.text;
-    education.time = [NowDate currentDetailTime];
-    education.content = self.contentTF.text;
-    education.localUrl = self.localUrl;
-    education.isLook = YES;
-    education.videoTime = self.videoTime;
-    NSString * status;
-    if ([self.isPublicLabel.text isEqualToString:@"公开"]) {
-        status = @"0";
-    }else{
-        status = @"1";
+    [self tapClick];
+    if ([self checkLegal]) {
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
+        EducationDetailController * education = [sb instantiateViewControllerWithIdentifier:@"EducationDetailController"];
+        education.userId = self.userId;
+        education.firstImg = self.firstImg;
+        education.videoData = self.videoData;
+        education.nickname = [userDefaults objectForKey:@"nickname"];
+        education.headUrl = [userDefaults objectForKey:@"userPortraitUrl"];
+        education.topic = self.titleTF.text;
+        education.time = [NowDate currentDetailTime];
+        education.content = self.contentTF.text;
+        education.localUrl = self.localUrl;
+        education.isLook = YES;
+        education.videoTime = self.videoTime;
+        NSString * status;
+        if ([self.isPublicLabel.text isEqualToString:@"公开"]) {
+            status = @"0";
+        }else{
+            status = @"1";
+        }
+        education.authStatus = status;
+        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+        self.navigationItem.backBarButtonItem = backItem;
+        [self.navigationController pushViewController:education animated:YES];
+        
     }
-    education.authStatus = status;
-    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
-    [self.navigationController pushViewController:education animated:YES];
- 
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self.titleTF resignFirstResponder];

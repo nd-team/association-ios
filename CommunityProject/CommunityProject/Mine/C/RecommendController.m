@@ -275,26 +275,32 @@
 //推荐
 - (IBAction)recommendClick:(id)sender {
     [self resign];
-    //提示必填项
+    if ([self checkLegal]) {
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf recommendSubmit];
+        });
+    }
+}
+-(BOOL)checkLegal{
+    BOOL a = YES;
     if (!self.manBtn.selected && !self.famaleBtn.selected) {
+        a = NO;
         [self showMessage:@"请选择性别"];
-        return;
     }
-    if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
+    else if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
+        a = NO;
         [self showMessage:@"请选择爱好"];
-        return;
     }
-    if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0 || self.relationshipTF.text.length == 0) {
+    else if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0 || self.relationshipTF.text.length == 0) {
+        a = NO;
         [self showMessage:@"请填写完整必填项"];
-        return;
     }
     
-    WeakSelf;
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        [weakSelf recommendSubmit];
-    });
+    return a;
 }
+
 -(void)recommendSubmit{
     NSMutableDictionary * params = [NSMutableDictionary new];
     [params setValue:self.nameLabel.text forKey:@"fullName"];

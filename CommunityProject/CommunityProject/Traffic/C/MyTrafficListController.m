@@ -11,6 +11,7 @@
 #import "TafficeListModel.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDKUI.h>
+#import "TrafficDetailController.h"
 
 #define MyListURL @"appapi/app/myDealBuyList"
 #define SHAREURL @"appapi/app/updateInfo"
@@ -23,7 +24,11 @@
 @end
 
 @implementation MyTrafficListController
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的灵感";
@@ -189,9 +194,23 @@
     return self.dataArr.count;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
-    
-    
+    TafficeListModel * model = self.dataArr[indexPath.row];
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"TrafficeOfInsporation" bundle:nil];
+    TrafficDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"TrafficDetailController"];
+    detail.isLook = NO;
+    detail.isLove = [model.statusLikes boolValue];
+    detail.titleStr = model.title;
+    detail.content = model.content;
+    detail.nickname = model.nickname;
+    detail.headUrl = model.userPortraitUrl;
+    detail.backUrl = model.image;
+    detail.idStr = model.idStr;
+    detail.likes = model.likes;
+    detail.commentNum = model.commentNumber;
+    detail.shareNum = model.shareNumber;
+    detail.time = model.time;
+    [self.navigationController pushViewController:detail animated:YES];
+
 }
 -(NSMutableArray *)dataArr{
     if (!_dataArr) {

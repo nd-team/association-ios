@@ -276,22 +276,29 @@
 //信息确认
 - (IBAction)recommendClick:(id)sender {
     [self resign];
-    //提示必填项
+    if ([self checkLegal]) {
+        self.isMessage = YES;
+        //提示用户是否确认信息
+        [self showBackViewUI:@"部分信息确认后不能再修改,确认保存？"];
+    }
+    
+}
+-(BOOL)checkLegal{
+    BOOL a = YES;
     if (!self.manBtn.selected && !self.famaleBtn.selected) {
+        a = NO;
         [self showMessage:@"请选择性别"];
-        return;
     }
-    if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
+    else if (!self.danceBtn.selected && !self.musicBtn.selected&&!self.printBtn.selected && !self.intrusmentBtn.selected&&!self.gameBtn.selected && !self.movieBtn.selected&&!self.chessBtn.selected && !self.travelBtn.selected&&!self.foodBtn.selected && !self.chatBtn.selected&&!self.readBtn.selected && !self.motionBtn.selected) {
+        a = NO;
         [self showMessage:@"请选择爱好"];
-        return;
     }
-    if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0) {
+    else if (self.nameLabel.text.length == 0||self.phoneTF.text.length == 0 || self.liveProTF.text.length == 0||self.liveCityTF.text.length == 0||self.liveDisTF.text.length == 0) {
+        a = NO;
         [self showMessage:@"请填写完整必填项"];
-        return;
     }
-    self.isMessage = YES;
-    //提示用户是否确认信息
-    [self showBackViewUI:@"部分信息确认后不能再修改,确认保存？"];
+    
+    return a;
 }
 -(void)showBackViewUI:(NSString *)title{
     self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];

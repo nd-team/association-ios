@@ -277,6 +277,7 @@
 		459EC0231F0F1CCC008A0D37 /* SendTrafficController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EC0221F0F1CCC008A0D37 /* SendTrafficController.m */; };
 		459EC0261F0F651C008A0D37 /* TrafficeUploadNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EC0251F0F651C008A0D37 /* TrafficeUploadNet.m */; };
 		459EC0291F0F901E008A0D37 /* TrafficDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EC0281F0F901E008A0D37 /* TrafficDetailController.m */; };
+		459EC02C1F10CCFA008A0D37 /* TrafficPayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EC02B1F10CCFA008A0D37 /* TrafficPayController.m */; };
 		45A080C81E88C41100514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080C71E88C41100514FFC /* AddFriendController.m */; };
 		45A96C611EF75FCF0022F382 /* Education.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A96C601EF75FCF0022F382 /* Education.storyboard */; };
 		45A96C641EF7631E0022F382 /* EducationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A96C631EF7631E0022F382 /* EducationListController.m */; };
@@ -856,6 +857,8 @@
 		459EC0251F0F651C008A0D37 /* TrafficeUploadNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrafficeUploadNet.m; sourceTree = "<group>"; };
 		459EC0271F0F901E008A0D37 /* TrafficDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrafficDetailController.h; sourceTree = "<group>"; };
 		459EC0281F0F901E008A0D37 /* TrafficDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrafficDetailController.m; sourceTree = "<group>"; };
+		459EC02A1F10CCFA008A0D37 /* TrafficPayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrafficPayController.h; sourceTree = "<group>"; };
+		459EC02B1F10CCFA008A0D37 /* TrafficPayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrafficPayController.m; sourceTree = "<group>"; };
 		45A080C61E88C41100514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
 		45A080C71E88C41100514FFC /* AddFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendController.m; sourceTree = "<group>"; };
 		45A96C601EF75FCF0022F382 /* Education.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Education.storyboard; sourceTree = "<group>"; };
@@ -2125,6 +2128,8 @@
 				459EC0221F0F1CCC008A0D37 /* SendTrafficController.m */,
 				459EC0271F0F901E008A0D37 /* TrafficDetailController.h */,
 				459EC0281F0F901E008A0D37 /* TrafficDetailController.m */,
+				459EC02A1F10CCFA008A0D37 /* TrafficPayController.h */,
+				459EC02B1F10CCFA008A0D37 /* TrafficPayController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2860,6 +2865,7 @@
 				4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */,
 				45783BE31EC6ABD20013DC6D /* MyClaimController.m in Sources */,
 				45D6C0851EE2887D003F229A /* MaybeKnowController.m in Sources */,
+				459EC02C1F10CCFA008A0D37 /* TrafficPayController.m in Sources */,
 				458959C81EBB150400CBADDD /* FSCalendar+Deprecated.m in Sources */,
 				4562D7361E7F75EA00C6EE56 /* ActivityListCell.m in Sources */,
 				45AE19AE1ECEA09F0098A7FF /* PlatformMessageController.m in Sources */,

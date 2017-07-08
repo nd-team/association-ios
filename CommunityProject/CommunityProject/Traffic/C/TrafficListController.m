@@ -18,6 +18,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDKUI.h>
 #import "SendTrafficController.h"
+#import "TrafficDetailController.h"
 
 #define TafficeListURL @"appapi/app/dealBuyList"
 #define AdvertiseURL @"appapi/app/selectAdv"
@@ -70,6 +71,15 @@
     }];
     self.tableView.mj_footer.automaticallyHidden = YES;
     [self netWork];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receive:) name:@"RefreshTrafficList" object:nil];
+    
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+-(void)receive:(NSNotification *)nofi{
+    NSString * refresh = [nofi object];
+    self.isRef = [refresh boolValue];
 }
 -(void)netWork{
     NSInteger status = [[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
@@ -108,7 +118,6 @@
 }
 -(void)getAdvertiseData{
     WeakSelf;
-    NSSLog(@"%@",self.userId);
     NSDictionary * params = @{@"userId":self.userId,@"type":@"5"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AdvertiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -139,9 +148,7 @@
 
 -(void)getTafficeListData{
     WeakSelf;
-    NSSLog(@"%@",self.userId);
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
-    NSSLog(@"%@",params);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TafficeListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -284,8 +291,25 @@
 
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self back];
     if (tableView == self.tableView) {
-        
+        TafficeListModel * model = self.dataArr[indexPath.row];
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"TrafficeOfInsporation" bundle:nil];
+        TrafficDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"TrafficDetailController"];
+        detail.isLook = NO;
+        detail.isLove = [model.statusLikes boolValue];
+        detail.titleStr = model.title;
+        detail.content = model.content;
+        detail.nickname = model.nickname;
+        detail.headUrl = model.userPortraitUrl;
+        detail.backUrl = model.image;
+        detail.idStr = model.idStr;
+        detail.likes = model.likes;
+        detail.commentNum = model.commentNumber;
+        detail.shareNum = model.shareNumber;
+        detail.time = model.time;
+        [self.navigationController pushViewController:detail animated:YES];
+
     }
 }
 
@@ -320,8 +344,7 @@
         
     }else{
         //我的
-        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
-        self.navigationItem.backBarButtonItem = backItem;
+        [self back];
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"TrafficeOfInsporation" bundle:nil];
         MyTrafficListController * my = [sb instantiateViewControllerWithIdentifier:@"MyTrafficListController"];
         my.userId = self.userId;
@@ -351,9 +374,12 @@
         SendTrafficController * send = segue.destinationViewController;
         send.delegate = self;
         send.userId = self.userId;
-        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
-        self.navigationItem.backBarButtonItem = backItem;
+        [self back];
     }
+}
+-(void)back{
+    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backItem;
 }
 //手势代理方法
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
