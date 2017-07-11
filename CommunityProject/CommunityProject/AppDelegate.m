@@ -19,7 +19,6 @@
 //短信
 #import <SMS_SDK/SMSSDK.h>
 //ShareSDK
-#import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 //QQ
 #import <TencentOpenAPI/TencentOAuth.h>
@@ -154,6 +153,7 @@
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [UINavigationBar appearance].translucent = NO;
     [RCIM sharedRCIM].globalNavigationBarTintColor = UIColorFromRGB(0x121212);
+    [UITabBar appearance].tintColor = UIColorFromRGB(0x10db9f);
     // 短信验证码
     [SMSSDK registerApp:@"1e627fcacd326" withSecret:@"7e94ccd2d1cb86aabc324432786514a3"];
     [SRDownloadManager sharedManager].maxConcurrentCount = 3;

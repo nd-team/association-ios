@@ -32,8 +32,14 @@
     UIButton * button = (UIButton *)sender;
     TafficListCell * cell = (TafficListCell *)[[button superview]superview];
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    TafficeListModel * model = self.dataArr[indexPath.row];
-    self.share(model.image, model.title, model.idStr);
+    if (self.isTraffic) {
+        TafficeListModel * model = self.dataArr[indexPath.row];
+        self.share(model.image, model.title, model.idStr);
+   
+    }else{
+        GoodsListModel * model = self.dataArr[indexPath.row];
+        self.share(model.image, model.title, model.idStr);
+    }
     
 }
 //文章点赞
@@ -42,11 +48,21 @@
     UIButton * button = (UIButton *)sender;
     TafficListCell * cell = (TafficListCell *)[[button superview]superview];
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    TafficeListModel * model = self.dataArr[indexPath.row];
-
     NSString * userId  = [DEFAULTS objectForKey:@"userId"];
 
-    NSDictionary * params = @{@"userId":userId,@"articleId":model.idStr,@"type":@"5",@"status":self.loveBtn.selected?@"1":@"0"};
+    if (self.isTraffic) {
+        TafficeListModel * model = self.dataArr[indexPath.row];
+        NSDictionary * params = @{@"userId":userId,@"articleId":model.idStr,@"type":@"5",@"status":self.loveBtn.selected?@"1":@"0"};
+        [self love:params];
+    }else{
+        GoodsListModel * model = self.dataArr[indexPath.row];
+        NSDictionary * params = @{@"userId":userId,@"articleId":model.idStr,@"type":@"3",@"status":self.loveBtn.selected?@"1":@"0"};
+        [self love:params];
+    }
+    
+   
+}
+-(void)love:(NSDictionary *)params{
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ZanURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -78,13 +94,21 @@
     UIButton * button = (UIButton *)sender;
     TafficListCell * cell = (TafficListCell *)[[button superview]superview];
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    TafficeListModel * model = self.dataArr[indexPath.row];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
     PlatformCommentController * comment = [sb instantiateViewControllerWithIdentifier:@"PlatformCommentController"];
-    comment.idStr = model.idStr;
-    comment.type = 5;
-    comment.headUrl = model.userPortraitUrl;
-    comment.content = model.title;
+    if (self.isTraffic) {
+        TafficeListModel * model = self.dataArr[indexPath.row];
+        comment.idStr = model.idStr;
+        comment.type = 5;
+        comment.headUrl = model.userPortraitUrl;
+        comment.content = model.title;
+    }else{
+        GoodsListModel * model = self.dataArr[indexPath.row];
+        comment.idStr = model.idStr;
+        comment.type = 3;
+        comment.headUrl = model.userPortraitUrl;
+        comment.content = model.title;
+    }
     self.block(comment);
     
 }
@@ -102,5 +126,19 @@
     self.likes = [NSString stringWithFormat:@"%@",_listModel.likes];
 
     
+}
+-(void)setGoodsModel:(GoodsListModel *)goodsModel{
+    _goodsModel = goodsModel;
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_goodsModel.userPortraitUrl]]] placeholderImage:[UIImage imageNamed:@"default"]];
+    self.nameLabel.text = _goodsModel.nickname;
+    [self.uploadImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_goodsModel.image]]] placeholderImage:[UIImage imageNamed:@"banner3"]];
+    
+    self.titleLabel.text = _goodsModel.title;
+    self.contentLabel.text = _goodsModel.synopsis;
+    [self.loveBtn setTitle:[NSString stringWithFormat:@"%@",_goodsModel.likes] forState:UIControlStateNormal];
+    [self.commentBtn setTitle:[NSString stringWithFormat:@"%@",_goodsModel.commentNumber] forState:UIControlStateNormal];
+    [self.shareBtn setTitle:[NSString stringWithFormat:@"%@",_goodsModel.shareNumber] forState:UIControlStateNormal];
+    self.likes = [NSString stringWithFormat:@"%@",_goodsModel.likes];
+
 }
 @end

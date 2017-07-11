@@ -188,6 +188,13 @@
 		457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CCD1E77CE3500FD0309 /* GroupDatabaseSingleton.m */; };
 		457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CCF1E77CE3500FD0309 /* GroupModel.m */; };
 		457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */; };
+		4587D56B1F130C540033FAD0 /* Goods.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4587D56A1F130C540033FAD0 /* Goods.storyboard */; };
+		4587D56E1F1311680033FAD0 /* GoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D56D1F1311680033FAD0 /* GoodsListController.m */; };
+		4587D5711F1314980033FAD0 /* GoodsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D5701F1314980033FAD0 /* GoodsListModel.m */; };
+		4587D5741F132C210033FAD0 /* SendGoodsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D5731F132C210033FAD0 /* SendGoodsController.m */; };
+		4587D5771F135EB90033FAD0 /* MyGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D5761F135EB90033FAD0 /* MyGoodsListController.m */; };
+		4587D57A1F137BEA0033FAD0 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D5791F137BEA0033FAD0 /* UIView+Toast.m */; };
+		4587D57D1F1468C90033FAD0 /* GoodsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D57C1F1468C90033FAD0 /* GoodsDetailController.m */; };
 		458959631EB8263E00CBADDD /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959621EB8263E00CBADDD /* libicucore.tbd */; };
 		458959651EB8264600CBADDD /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959641EB8264600CBADDD /* JavaScriptCore.framework */; };
 		458959671EB8267500CBADDD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959661EB8267500CBADDD /* MessageUI.framework */; };
@@ -693,6 +700,19 @@
 		457D3CCF1E77CE3500FD0309 /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
 		457D3CD21E77E98200FD0309 /* ConfirmInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmInfoController.h; sourceTree = "<group>"; };
 		457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmInfoController.m; sourceTree = "<group>"; };
+		4587D56A1F130C540033FAD0 /* Goods.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Goods.storyboard; sourceTree = "<group>"; };
+		4587D56C1F1311680033FAD0 /* GoodsListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListController.h; sourceTree = "<group>"; };
+		4587D56D1F1311680033FAD0 /* GoodsListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListController.m; sourceTree = "<group>"; };
+		4587D56F1F1314980033FAD0 /* GoodsListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListModel.h; sourceTree = "<group>"; };
+		4587D5701F1314980033FAD0 /* GoodsListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListModel.m; sourceTree = "<group>"; };
+		4587D5721F132C210033FAD0 /* SendGoodsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendGoodsController.h; sourceTree = "<group>"; };
+		4587D5731F132C210033FAD0 /* SendGoodsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendGoodsController.m; sourceTree = "<group>"; };
+		4587D5751F135EB90033FAD0 /* MyGoodsListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGoodsListController.h; sourceTree = "<group>"; };
+		4587D5761F135EB90033FAD0 /* MyGoodsListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoodsListController.m; sourceTree = "<group>"; };
+		4587D5781F137BEA0033FAD0 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		4587D5791F137BEA0033FAD0 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		4587D57B1F1468C90033FAD0 /* GoodsDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailController.h; sourceTree = "<group>"; };
+		4587D57C1F1468C90033FAD0 /* GoodsDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailController.m; sourceTree = "<group>"; };
 		458959621EB8263E00CBADDD /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		458959641EB8264600CBADDD /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		458959661EB8267500CBADDD /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1181,6 +1201,7 @@
 				45AE19981ECD3C470098A7FF /* Activity */,
 				457182A81EC44EEE00860F38 /* Claim */,
 				459EBFA31F0DCD2C008A0D37 /* Traffic */,
+				4587D5661F130C280033FAD0 /* ShareGoods */,
 				459EBF701F09D372008A0D37 /* HelpCenter */,
 				455FA3261E763C250039B155 /* Chat */,
 				457D3CB61E77CD4A00FD0309 /* Address */,
@@ -1537,6 +1558,8 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				4587D5781F137BEA0033FAD0 /* UIView+Toast.h */,
+				4587D5791F137BEA0033FAD0 /* UIView+Toast.m */,
 				452AD5F41F048C0000FA96F1 /* SRDownloadManager */,
 				459130DB1EF920DA0054A28C /* WMPlayer */,
 				45F045FA1EE52DB700CDA7BD /* ShareSDK */,
@@ -1953,6 +1976,48 @@
 				45C997A51E9B7DB800F6E984 /* RecommendImageCell.m */,
 				452D86751E9CC8AA00AAFFB1 /* ReDetailImageCell.h */,
 				452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		4587D5661F130C280033FAD0 /* ShareGoods */ = {
+			isa = PBXGroup;
+			children = (
+				4587D56A1F130C540033FAD0 /* Goods.storyboard */,
+				4587D5671F130C280033FAD0 /* C */,
+				4587D5681F130C280033FAD0 /* M */,
+				4587D5691F130C280033FAD0 /* V */,
+			);
+			path = ShareGoods;
+			sourceTree = "<group>";
+		};
+		4587D5671F130C280033FAD0 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				4587D56C1F1311680033FAD0 /* GoodsListController.h */,
+				4587D56D1F1311680033FAD0 /* GoodsListController.m */,
+				4587D5721F132C210033FAD0 /* SendGoodsController.h */,
+				4587D5731F132C210033FAD0 /* SendGoodsController.m */,
+				4587D5751F135EB90033FAD0 /* MyGoodsListController.h */,
+				4587D5761F135EB90033FAD0 /* MyGoodsListController.m */,
+				4587D57B1F1468C90033FAD0 /* GoodsDetailController.h */,
+				4587D57C1F1468C90033FAD0 /* GoodsDetailController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		4587D5681F130C280033FAD0 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				4587D56F1F1314980033FAD0 /* GoodsListModel.h */,
+				4587D5701F1314980033FAD0 /* GoodsListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		4587D5691F130C280033FAD0 /* V */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2593,6 +2658,7 @@
 				45F046291EE52DB700CDA7BD /* ShareSDKConfigFile.bundle in Resources */,
 				45E4F71A1ED4143400476B64 /* Public.storyboard in Resources */,
 				456CCE6A1E827CD8005EC051 /* AlipaySDK.bundle in Resources */,
+				4587D56B1F130C540033FAD0 /* Goods.storyboard in Resources */,
 				45F046431EE5514700CDA7BD /* MaybeKnowCell.xib in Resources */,
 				459130E81EF920DA0054A28C /* WMPlayer.bundle in Resources */,
 				45F0462C1EE52DB700CDA7BD /* ShareSDKUI.bundle in Resources */,
@@ -2755,9 +2821,11 @@
 				458DD51D1E8A488D00650F2E /* MessageViewController.m in Sources */,
 				457D3CC71E77CD7400FD0309 /* FriendsListModel.m in Sources */,
 				459130FE1EFE35890054A28C /* MyDownloadCell.m in Sources */,
+				4587D5711F1314980033FAD0 /* GoodsListModel.m in Sources */,
 				459EBFA21F0CEFD6008A0D37 /* AnswerCommentController.m in Sources */,
 				458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */,
 				459EC0261F0F651C008A0D37 /* TrafficeUploadNet.m in Sources */,
+				4587D5771F135EB90033FAD0 /* MyGoodsListController.m in Sources */,
 				459EBF811F0A1A44008A0D37 /* MyHelpAndAnswerCell.m in Sources */,
 				45D6C0561EDEA467003F229A /* InterestCell.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
@@ -2818,7 +2886,9 @@
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
+				4587D5741F132C210033FAD0 /* SendGoodsController.m in Sources */,
 				459EBF7B1F09E1A2008A0D37 /* HelpListController.m in Sources */,
+				4587D56E1F1311680033FAD0 /* GoodsListController.m in Sources */,
 				458959D31EBB150400CBADDD /* FSCalendarHeaderView.m in Sources */,
 				45F046511EE8EC6A00CDA7BD /* ApplicationPersonVipController.m in Sources */,
 				45D6C05D1EDEC0AC003F229A /* MyCodeCardController.m in Sources */,
@@ -2885,6 +2955,7 @@
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
 				458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */,
 				45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */,
+				4587D57A1F137BEA0033FAD0 /* UIView+Toast.m in Sources */,
 				458D81751ED28FE8006775F1 /* CommentsListModel.m in Sources */,
 				452DB66F1EC2B36200A4FE0C /* POIAnnotation.m in Sources */,
 				458D81721ED27C0F006775F1 /* AllCommentsCell.m in Sources */,
@@ -2911,6 +2982,7 @@
 				458DD51A1E8A46DA00650F2E /* MessageCell.m in Sources */,
 				457D3CD01E77CE3500FD0309 /* GroupDatabaseSingleton.m in Sources */,
 				455FA16D1E7A8C6D00C85AE7 /* ClaimModel.m in Sources */,
+				4587D57D1F1468C90033FAD0 /* GoodsDetailController.m in Sources */,
 				4562D74B1E7FB9BA00C6EE56 /* ReduceImage.m in Sources */,
 				457182B01EC457F100860F38 /* ClaimCenterListController.m in Sources */,
 				4562D75D1E7FDC1B00C6EE56 /* UIButton+button.m in Sources */,

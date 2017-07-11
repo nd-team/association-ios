@@ -7,7 +7,6 @@
 //
 
 #import "TrafficPayController.h"
-#import "UIView+ChatMoreView.h"
 
 #define PayURL @"appapi/app/payDealBuy"
 
@@ -46,7 +45,7 @@
     NSString * contribute = [DEFAULTS objectForKey:@"contributionScore"];
     self.myCountLabel.text = [NSString stringWithFormat:@"贡献币 %@",contribute];
     NSInteger cha = [contribute integerValue]- [self.dealContribution integerValue];
-    self.finishCount = [NSString stringWithFormat:@"%ld",cha];
+    self.finishCount = [NSString stringWithFormat:@"%ld",(long)cha];
 }
 //支付
 - (IBAction)payClick:(id)sender {
@@ -111,16 +110,7 @@
     }];
 }
 -(void)showMessage:(NSString *)msg{
-    UIView * msgView = [UIView showViewTitle:msg];
-    [self.view addSubview:msgView];
-    [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
-    } completion:^(BOOL finished) {
-        //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-            msgView.hidden = YES;
-        }];
-    }];
+    [self.navigationController.view makeToast:msg];
     
 }
 @end

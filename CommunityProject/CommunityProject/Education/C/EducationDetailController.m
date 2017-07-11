@@ -7,12 +7,9 @@
 //
 
 #import "EducationDetailController.h"
-#import <ShareSDK/ShareSDK.h>
-#import <ShareSDKUI/ShareSDKUI.h>
 #import "PlatformCommentController.h"
 #import "WMPlayer.h"
 #import "EducationVideoPost.h"
-#import "UIView+ChatMoreView.h"
 #import "EducationListController.h"
 #import "ManagerDownloadController.h"
 #import "VideoDownloadListModel.h"
@@ -594,7 +591,7 @@
             NSSLog(@"平台点赞失败：%@",error);
             weakSelf.collectionBtn.selected = NO;
             weakSelf.isCollect = NO;
-            [self showMessage:@"服务器出错咯！"];
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -607,13 +604,13 @@
                 [weakSelf.collectionBtn setTitle:self.collNum forState:UIControlStateNormal];
                 weakSelf.isCollect = YES;
             }else if ([code intValue] == 1031){
-                [self showMessage:@"已收藏"];
+                [weakSelf showMessage:@"已收藏"];
                 weakSelf.isCollect = YES;
             }else{
                 weakSelf.collectionBtn.selected = NO;
                 weakSelf.isCollect = NO;
 
-                [self showMessage:@"收藏失败"];
+                [weakSelf showMessage:@"收藏失败"];
             }
         }
         
@@ -624,17 +621,7 @@
     self.downView.hidden = NO;
 }
 -(void)showMessage:(NSString *)msg{
-    UIView * msgView = [UIView showViewTitle:msg];
-    [self.view addSubview:msgView];
-    [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
-    } completion:^(BOOL finished) {
-        //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-            msgView.hidden = YES;
-        }];
-    }];
-    
+    [self.navigationController.view makeToast:msg];
 }
 #pragma mark-播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{

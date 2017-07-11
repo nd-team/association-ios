@@ -10,7 +10,6 @@
 #import "GroupActivityListController.h"
 #import <UIImage+GIF.h>
 #import "MyLocationViewController.h"
-#import "UIView+ChatMoreView.h"
 #import "RealTimeLocationEndCell.h"
 #import "RealTimeLocationStartCell.h"
 #import "RealTimeLocationStatusView.h"
@@ -655,16 +654,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
   
 }
 -(void)showMessage:(NSString *)msg{
-    UIView * msgView = [UIView showViewTitle:msg];
-    [self.view addSubview:msgView];
-    [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
-    } completion:^(BOOL finished) {
-        //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-            msgView.hidden = YES;
-        }];
-    }];
+    [self.navigationController.view makeToast:msg];
     
 }
 //点击电话号码回调 打电话

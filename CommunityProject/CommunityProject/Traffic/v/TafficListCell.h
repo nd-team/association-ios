@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TafficeListModel.h"
+#import "GoodsListModel.h"
 
 typedef void(^PushBlock)(UIViewController * vc);
 typedef void(^ShareBlock)(NSString *imageUrl, NSString * title, NSString *idStr);
@@ -36,5 +37,8 @@ typedef void(^ShareBlock)(NSString *imageUrl, NSString * title, NSString *idStr)
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,strong)NSString * likes;
 @property (nonatomic,copy)ShareBlock  share;
+
+@property (nonatomic,strong)GoodsListModel * goodsModel;
+@property (nonatomic,assign)BOOL isTraffic;
 
 @end

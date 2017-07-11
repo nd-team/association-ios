@@ -10,7 +10,6 @@
 #import "TravelCell.h"
 #import "ClaimCell.h"
 #import "ApplicationCenterCell.h"
-#import <SDCycleScrollView.h>
 #import "AppModel.h"
 #import "FirstAppDataBaseSingleton.h"
 #import "ClaimDataBaseSingleton.h"
@@ -26,6 +25,7 @@
 #import "EducationListController.h"
 #import "HelpListController.h"
 #import "TrafficListController.h"
+#import "GoodsListController.h"
 
 #define FirstURL @"appapi/app/indexData"
 
@@ -321,6 +321,10 @@
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"TrafficeOfInsporation" bundle:nil];
         TrafficListController * traffic = [sb instantiateViewControllerWithIdentifier:@"TrafficListController"];
         [self.navigationController pushViewController:traffic animated:YES];
+    }else if ([model.name isEqualToString:@"干货分享"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Goods" bundle:nil];
+        GoodsListController * goods = [sb instantiateViewControllerWithIdentifier:@"GoodsListController"];
+        [self.navigationController pushViewController:goods animated:YES];
     }
     
 }
@@ -356,16 +360,6 @@
     return _scrollArr;
 }
 -(void)showMessage:(NSString *)msg{
-    UIView * msgView = [UIView showViewTitle:msg];
-    [self.view addSubview:msgView];
-    [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-200, KMainScreenWidth-40, 50);
-    } completion:^(BOOL finished) {
-        //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:3.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-            msgView.hidden = YES;
-        }];
-    }];
-    
+    [self.navigationController.view makeToast:msg];
 }
 @end

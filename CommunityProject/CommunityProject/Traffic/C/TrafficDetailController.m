@@ -8,11 +8,8 @@
 
 #import "TrafficDetailController.h"
 #import "PlatformCommentController.h"
-#import <ShareSDK/ShareSDK.h>
-#import <ShareSDKUI/ShareSDKUI.h>
 #import "TrafficeUploadNet.h"
 #import "TrafficListController.h"
-#import "UIView+ChatMoreView.h"
 #import "TrafficPayController.h"
 
 #define ZanURL @"appapi/app/userPraise"
@@ -243,6 +240,22 @@
             NSNumber * code = data[@"code"];
             NSDictionary * dict = data[@"data"];
             if ([code intValue] == 200) {
+                self.shareNum = [NSString stringWithFormat:@"%@",dict[@"shareNumber"]];
+                self.commentNum = [NSString stringWithFormat:@"%@",dict[@"commentNumber"]];
+                [self.commentBtn setTitle:self.commentNum forState:UIControlStateNormal];
+                [self.shareBtn setTitle:self.shareNum forState:UIControlStateNormal];
+                self.likes =  [NSString stringWithFormat:@"%@",dict[@"likes"]];
+                [self.loveBtn setTitle:self.likes forState:UIControlStateNormal];
+                self.soldLabel.text = [NSString stringWithFormat:@"%@",dict[@"content"]];
+                CGFloat height3 = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
+                self.allHeight = self.allHeight+height3;
+                self.isLove = [dict[@"statusLikes"] boolValue];
+                if(self.isLove){
+                    self.loveBtn.selected = YES;
+                }else{
+                    self.loveBtn.selected = NO;
+                }
+
                 self.payCount = [NSString stringWithFormat:@"%@",dict[@"dealContribution"]];
                 if ([[dict allKeys] containsObject:@"dealContent"]||[[dict allKeys] containsObject:@"dealImage"]) {
                     self.hiddenView.hidden = NO;
@@ -402,17 +415,7 @@
 
 }
 -(void)showMessage:(NSString *)msg{
-    UIView * msgView = [UIView showViewTitle:msg];
-    [self.view addSubview:msgView];
-    [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
-    } completion:^(BOOL finished) {
-        //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-            msgView.hidden = YES;
-        }];
-    }];
-    
+    [self.navigationController.view makeToast:msg];
 }
 //解决scrollView的屏幕适配
 -(void)viewWillLayoutSubviews{

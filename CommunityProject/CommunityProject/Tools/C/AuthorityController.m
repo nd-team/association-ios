@@ -49,6 +49,12 @@
             case 3:
                 self.trafficDelegate.authStr = @"公开";
                 break;
+            case 4:
+                self.goodsDelegate.authStr = @"公开";
+                break;
+            case 5:
+                self.goodsDelegate.downStr = @"公开";
+                break;
             default:
                 break;
         }
@@ -64,6 +70,12 @@
                 break;
             case 3:
                 self.trafficDelegate.authStr = @"非公开";
+                break;
+            case 4:
+                self.goodsDelegate.authStr = @"非公开";
+                break;
+            case 5:
+                self.goodsDelegate.downStr = @"非公开";
                 break;
             default:
                 break;

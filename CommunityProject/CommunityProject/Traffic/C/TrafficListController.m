@@ -8,15 +8,11 @@
 //
 
 #import "TrafficListController.h"
-#import <SDCycleScrollView.h>
-#import "UIView+ChatMoreView.h"
 #import "PlatformMessageController.h"
 #import "TrafficeRecomendCell.h"
 #import "TafficListCell.h"
 #import "TafficeListModel.h"
 #import "MyTrafficListController.h"
-#import <ShareSDK/ShareSDK.h>
-#import <ShareSDKUI/ShareSDKUI.h>
 #import "SendTrafficController.h"
 #import "TrafficDetailController.h"
 
@@ -45,7 +41,11 @@
     self.navigationController.navigationBar.hidden = NO;
     self.page = 1;
     if (self.isRef) {
-        [self getTafficeListData];
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf getTafficeListData];
+        });
     }
 }
 - (void)viewDidLoad {
@@ -203,6 +203,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == self.tableView) {
         TafficListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"TafficListCell"];
+        cell.isTraffic = YES;
+        cell.typeLabel.text = @"灵感贩卖";
         cell.listModel = self.dataArr[indexPath.row];
         cell.tableView = self.tableView;
         cell.dataArr = self.dataArr;
@@ -229,7 +231,7 @@
     [shareParams SSDKSetupShareParamsByText:title
                                      images:imageArr
                                         url:[NSURL URLWithString:[NSString stringWithFormat:@"%@",idStr]]
-                                      title:@"平台活动"
+                                      title:@"灵感贩卖"
                                        type:SSDKContentTypeAuto];
     //有的平台要客户端分享需要加此方法，例如微博
     [shareParams SSDKEnableUseClientShare];
@@ -390,16 +392,7 @@
     return YES;
 }
 -(void)showMessage:(NSString *)msg{
-    UIView * msgView = [UIView showViewTitle:msg];
-    [self.view addSubview:msgView];
-    [UIView animateWithDuration:1.0 animations:^{
-        msgView.frame = CGRectMake(20, KMainScreenHeight-150, KMainScreenWidth-40, 50);
-    } completion:^(BOOL finished) {
-        //完成之后3秒消失
-        [NSTimer scheduledTimerWithTimeInterval:2.0 repeats:NO block:^(NSTimer * _Nonnull timer) {
-            msgView.hidden = YES;
-        }];
-    }];
+    [self.navigationController.view makeToast:msg];
     
 }
 @end
