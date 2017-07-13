@@ -816,7 +816,7 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="aeL-ks-4S7">
-                                    <rect key="frame" x="0.0" y="173" width="375" height="450"/>
+                                    <rect key="frame" x="0.0" y="173" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="commentWhite" translatesAutoresizingMaskIntoConstraints="NO" id="zGR-DH-VXz">
@@ -842,7 +842,7 @@
                                         <constraint firstItem="pLo-Xf-Z0b" firstAttribute="top" secondItem="zGR-DH-VXz" secondAttribute="bottom" constant="15" id="4Wr-Be-MPC"/>
                                         <constraint firstItem="pLo-Xf-Z0b" firstAttribute="centerX" secondItem="aeL-ks-4S7" secondAttribute="centerX" id="5bj-OZ-pvj"/>
                                         <constraint firstAttribute="width" constant="375" id="cFB-uh-7Cb"/>
-                                        <constraint firstAttribute="height" constant="450" id="frs-Vp-ftr"/>
+                                        <constraint firstAttribute="height" constant="50" id="frs-Vp-ftr"/>
                                         <constraint firstItem="zGR-DH-VXz" firstAttribute="centerX" secondItem="aeL-ks-4S7" secondAttribute="centerX" id="jmd-mn-m5M"/>
                                         <constraint firstItem="zGR-DH-VXz" firstAttribute="top" secondItem="aeL-ks-4S7" secondAttribute="top" constant="97" id="wrT-BZ-pHg"/>
                                     </constraints>

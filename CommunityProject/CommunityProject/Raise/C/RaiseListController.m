@@ -1,44 +1,38 @@
 //
-//  GoodsListController.m
+//  RaiseListController.m
 //  CommunityProject
 //
-//  Created by bjike on 2017/7/10.
+//  Created by bjike on 2017/7/12.
 //  Copyright © 2017年 来自任性傲娇的女王. All rights reserved.
 //
 
-#import "GoodsListController.h"
+#import "RaiseListController.h"
+#import "RaiseListCell.h"
+#import "RaiseListModel.h"
 #import "PlatformMessageController.h"
-#import "TrafficeRecomendCell.h"
-#import "TafficListCell.h"
-#import "GoodsListModel.h"
-#import "SendGoodsController.h"
-#import "MyGoodsListController.h"
-#import "GoodsDetailController.h"
-#import "MyGoodsDownloadController.h"
+#import "MyRaiseListController.h"
 
-#define GoodsListURL @"appapi/app/listShare"
+#define RaiseListURL @"appapi/app/selectProductList"
 #define AdvertiseURL @"appapi/app/selectAdv"
 #define SHAREURL @"appapi/app/updateInfo"
 
-@interface GoodsListController ()<UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface RaiseListController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (weak, nonatomic) IBOutlet SDCycleScrollView *scrollView;
-
-@property (weak, nonatomic) IBOutlet UITableView *recommmendTableView;
-
 @property (weak, nonatomic) IBOutlet UIButton *moreBtn;
-@property (nonatomic,strong)NSMutableArray * dataArr;
+
 @property (nonatomic,strong)UIView * moreView;
-@property (nonatomic,strong)NSMutableArray * recommendArr;
+
+@property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,assign)int page;
 @property (nonatomic,copy)NSString * userId;
+@property (weak, nonatomic) IBOutlet SDCycleScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
-@property (nonatomic,strong)NSMutableArray * hotArr;
+@property (nonatomic,strong)NSMutableArray * recommendArr;
+@property (nonatomic,assign)BOOL isAdd;
 
 @end
 
-@implementation GoodsListController
+@implementation RaiseListController
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -49,7 +43,7 @@
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [weakSelf getGoodsListData];
+            [weakSelf getRefreshData];
         });
     }
 }
@@ -60,23 +54,22 @@
     self.scrollView.autoScrollTimeInterval = 1;
     self.scrollView.currentPageDotColor = UIColorFromRGB(0xFED604);
     self.scrollView.pageDotColor = UIColorFromRGB(0x243234);
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 376;
     self.userId = [DEFAULTS objectForKey:@"userId"];
-    [self.recommmendTableView registerNib:[UINib nibWithNibName:@"TrafficeRecomendCell" bundle:nil] forCellReuseIdentifier:@"GoodsRecomendCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"TafficListCell" bundle:nil] forCellReuseIdentifier:@"GoodsListCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"RaiseListCell" bundle:nil] forCellReuseIdentifier:@"RaiseListCell"];
     WeakSelf;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.isAdd = YES;
         weakSelf.page ++;
-        [weakSelf getGoodsListData];
+        [weakSelf getRefreshData];
     }];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakSelf.isAdd = NO;
         weakSelf.page = 1;
-        [weakSelf getGoodsListData];
+        [weakSelf getRefreshData];
     }];
     self.tableView.mj_footer.automaticallyHidden = YES;
     [self netWork];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receive:) name:@"RefreshGoodsList" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receive:) name:@"RefreshRaiseList" object:nil];
     
 }
 -(void)dealloc{
@@ -110,23 +103,50 @@
         [weakSelf getAdvertiseData];
     });
     dispatch_group_async(group,queue , ^{
-        //请求广告
-        [weakSelf getGoodsListData];
+        //请求产品众筹
+        [weakSelf getRaiseListData:@"1"];
     });
-    
+    dispatch_group_async(group,queue , ^{
+        //请求求助众筹
+        [weakSelf getRaiseListData:@"2"];
+    });
     dispatch_group_notify(group, queue, ^{
         //
         NSSLog(@"请求数据完毕");
-        
+        [weakSelf.tableView reloadData];
+        [weakSelf.tableView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_footer endRefreshing];
+
     });
     
 }
+-(void)getRefreshData{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_group_t group = dispatch_group_create();
+    WeakSelf;
+    dispatch_group_async(group,queue , ^{
+        //请求产品众筹
+        [weakSelf getRaiseListData:@"1"];
+    });
+    dispatch_group_async(group,queue , ^{
+        //请求求助众筹
+        [weakSelf getRaiseListData:@"2"];
+    });
+    dispatch_group_notify(group, queue, ^{
+        //
+        NSSLog(@"请求数据完毕");
+        [weakSelf.tableView reloadData];
+        [weakSelf.tableView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_footer endRefreshing];
+
+    });
+}
 -(void)getAdvertiseData{
     WeakSelf;
-    NSDictionary * params = @{@"userId":self.userId,@"type":@"3"};
+    NSDictionary * params = @{@"userId":self.userId,@"type":@"1"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AdvertiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
-            NSSLog(@"灵感贩卖数据请求失败：%@",error);
+            NSSLog(@"众筹数据请求失败：%@",error);
             weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
             
         }else{
@@ -151,15 +171,15 @@
     }];
 }
 
--(void)getGoodsListData{
+-(void)getRaiseListData:(NSString *)type{
     WeakSelf;
-    NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
-    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GoodsListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+    NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page],@"limit":@"5",@"type":type};
+    [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RaiseListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
         });
         if (error) {
-            NSSLog(@"灵感贩卖：%@",error);
+            NSSLog(@"众筹：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
             if (weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.tableView.mj_header endRefreshing];
@@ -168,7 +188,7 @@
                 [weakSelf.tableView.mj_footer endRefreshing];
             }
         }else{
-            if (!weakSelf.tableView.mj_footer.isRefreshing) {
+            if (!weakSelf.isAdd) {
                 [weakSelf.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
@@ -178,12 +198,17 @@
                     [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
                 }else{
                     for (NSDictionary * dic in arr) {
-                        GoodsListModel * list = [[GoodsListModel alloc]initWithDictionary:dic error:nil];
+                        RaiseListModel * list = [[RaiseListModel alloc]initWithDictionary:dic error:nil];
+                        if ([type isEqualToString:@"1"]) {
+                            list.type = @"1";
+                        }else{
+                            list.type = @"2";
+                        }
                         [weakSelf.dataArr addObject:list];
                     }
                 }
             }else{
-                [weakSelf showMessage:@"加载灵感贩卖失败，下拉刷新重试！"];
+                [weakSelf showMessage:@"加载众筹失败，下拉刷新重试！"];
             }
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
@@ -193,37 +218,22 @@
     }];
     
 }
-- (IBAction)backClick:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    
-}
+
 #pragma mark - tableView-delegate and DataSources
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.tableView) {
-        GoodsListModel * model = self.dataArr[indexPath.row];
-        return model.height;
-    }
-    return 135;
-}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.tableView) {
-        TafficListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsListCell"];
-        cell.isTraffic = NO;
-        cell.typeLabel.text = @"干货分享";
-        cell.goodsModel = self.dataArr[indexPath.row];
-        cell.tableView = self.tableView;
-        cell.dataArr = self.dataArr;
-        cell.block = ^(UIViewController *vc) {
-            [self.navigationController pushViewController:vc animated:YES];
-        };
-        WeakSelf;
-        cell.share = ^(NSString *imageUrl, NSString *title, NSString *idStr) {
-            [weakSelf share:imageUrl andTitle:title andId:idStr];
-        };
-        return cell;
-    }
-    TrafficeRecomendCell * cell = [tableView dequeueReusableCellWithIdentifier:@"GoodsRecomendCell"];
-    
+    RaiseListCell * cell = [tableView dequeueReusableCellWithIdentifier:@"RaiseListCell"];
+    cell.raiseModel = self.dataArr[indexPath.row];
+    cell.tableView = self.tableView;
+    cell.dataArr = self.dataArr;
+    cell.push = ^(UIViewController *vc) {
+        UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
+        self.navigationItem.backBarButtonItem = backItem;
+        [self.navigationController pushViewController:vc animated:YES];
+    };
+    WeakSelf;
+    cell.block = ^(NSString *imageUrl, NSString *title, NSString *idStr) {
+        [weakSelf share:imageUrl andTitle:title andId:idStr];
+    };
     return cell;
     
     
@@ -236,7 +246,7 @@
     [shareParams SSDKSetupShareParamsByText:title
                                      images:imageArr
                                         url:[NSURL URLWithString:[NSString stringWithFormat:@"%@",idStr]]
-                                      title:@"干货分享"
+                                      title:@"众筹"
                                        type:SSDKContentTypeAuto];
     //有的平台要客户端分享需要加此方法，例如微博
     [shareParams SSDKEnableUseClientShare];
@@ -267,12 +277,12 @@
      ];
 }
 -(void)download:(NSString *)idStr{
-    NSDictionary * params = @{@"articleId":idStr,@"type":@"3",@"status":@"2"};
+    NSDictionary * params = @{@"articleId":idStr,@"type":@"1",@"status":@"2"};
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SHAREURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         
         if (error) {
-            NSSLog(@"分享失败：%@",error);
+            NSSLog(@"下载三分钟教学：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
             
         }else{
@@ -287,37 +297,13 @@
         }
     }];
 }
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == self.tableView) {
-        return self.dataArr.count;
-        
-    }
-    //    return self.hotArr.count;
-    return 3;
+    
+    return self.dataArr.count;
     
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self back];
-    if (tableView == self.tableView) {
-        GoodsListModel * model = self.dataArr[indexPath.row];
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Goods" bundle:nil];
-        GoodsDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"GoodsDetailController"];
-        detail.isLook = NO;
-        detail.isLove = [model.likesStatus boolValue];
-        detail.titleStr = model.title;
-        detail.content = model.synopsis;
-        detail.nickname = model.nickname;
-        detail.headUrl = model.userPortraitUrl;
-        detail.backUrl = model.image;
-        detail.idStr = model.idStr;
-        detail.likes = model.likes;
-        detail.commentNum = model.commentNumber;
-        detail.shareNum = model.shareNumber;
-        detail.time = model.time;
-        [self.navigationController pushViewController:detail animated:YES];
-        
-    }
+    
 }
 
 - (IBAction)moreClick:(id)sender {
@@ -333,7 +319,7 @@
 }
 
 -(void)moreViewUI{
-    self.moreView = [UIView claimMessageViewFrame:CGRectMake(KMainScreenWidth-105.5, 0, 95.5, 101) andArray:@[@"消息",@"我的干货",@"下载"] andTarget:self andSel:@selector(moreAction:) andTag:170];
+    self.moreView = [UIView claimMessageViewFrame:CGRectMake(KMainScreenWidth-105.5, 0, 95.5, 67) andArray:@[@"消息",@"我的众筹"] andTarget:self andSel:@selector(moreAction:) andTag:180];
     [self.view addSubview:self.moreView];
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick)];
     tap.delegate = self;
@@ -342,24 +328,18 @@
 }
 -(void)moreAction:(UIButton *)btn{
     [self tapClick];
-    if (btn.tag == 170) {
-        //消息
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
-        PlatformMessageController * msg = [sb instantiateViewControllerWithIdentifier:@"PlatformMessageController"];
-        msg.type = 3;
-        [self.navigationController pushViewController:msg animated:YES];
+    if (btn.tag == 180) {
+        //消息 后台没做
+//        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
+//        PlatformMessageController * msg = [sb instantiateViewControllerWithIdentifier:@"PlatformMessageController"];
+//        msg.type = 10;
+//        [self.navigationController pushViewController:msg animated:YES];
         
-    }else if (btn.tag == 171){
-        //我的
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Goods" bundle:nil];
-        MyGoodsListController * goods = [sb instantiateViewControllerWithIdentifier:@"MyGoodsListController"];
-        goods.userId = self.userId;
-        [self.navigationController pushViewController:goods animated:YES];
-    
     }else{
-        //下载
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Goods" bundle:nil];
-        MyGoodsDownloadController * my = [sb instantiateViewControllerWithIdentifier:@"MyGoodsDownloadController"];
+        //我的
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Raise" bundle:nil];
+        MyRaiseListController * my = [sb instantiateViewControllerWithIdentifier:@"MyRaiseListController"];
+        my.userId = self.userId;
         [self.navigationController pushViewController:my animated:YES];
         
     }
@@ -368,12 +348,7 @@
     self.moreView.hidden = YES;
 }
 
-
--(NSMutableArray *)dataArr{
-    if (!_dataArr) {
-        _dataArr = [NSMutableArray new];
-    }
-    return _dataArr;
+- (IBAction)backClick:(id)sender {
 }
 -(NSMutableArray *)recommendArr{
     if (!_recommendArr) {
@@ -381,23 +356,15 @@
     }
     return _recommendArr;
 }
--(NSMutableArray *)hotArr{
-    if (!_hotArr) {
-        _hotArr = [NSMutableArray new];
+-(NSMutableArray *)dataArr{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray new];
     }
-    return _hotArr;
+    return _dataArr;
 }
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"GoodsList"]) {
-        SendGoodsController * send = segue.destinationViewController;
-        send.delegate = self;
-        send.userId = self.userId;
-        [self back];
-    }
-}
--(void)back{
-    UIBarButtonItem * backItem =[[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:nil action:nil];
-    self.navigationItem.backBarButtonItem = backItem;
+-(void)showMessage:(NSString *)msg{
+    [self.navigationController.view makeToast:msg];
+    
 }
 //手势代理方法
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
@@ -406,9 +373,5 @@
         return NO;
     }
     return YES;
-}
--(void)showMessage:(NSString *)msg{
-    [self.navigationController.view makeToast:msg];
-    
 }
 @end

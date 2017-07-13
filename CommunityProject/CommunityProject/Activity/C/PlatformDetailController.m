@@ -290,9 +290,9 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 if (self.loveBtn.selected) {
-                    self.likes = [NSString stringWithFormat:@"%ld",[self.likes integerValue]+1];
+                    self.likes = [NSString stringWithFormat:@"%zi",[self.likes integerValue]+1];
                 }else{
-                    self.likes = [NSString stringWithFormat:@"%ld",[self.likes integerValue]-1];
+                    self.likes = [NSString stringWithFormat:@"%zi",[self.likes integerValue]-1];
                 }
                 [weakSelf.loveBtn setTitle:self.likes forState:UIControlStateNormal];
 

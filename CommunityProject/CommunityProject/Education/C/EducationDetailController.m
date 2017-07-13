@@ -551,9 +551,9 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 if (self.loveBtn.selected) {
-                    self.loveNum = [NSString stringWithFormat:@"%ld",[self.loveNum integerValue]+1];
+                    self.loveNum = [NSString stringWithFormat:@"%zi",[self.loveNum integerValue]+1];
                 }else{
-                    self.loveNum = [NSString stringWithFormat:@"%ld",[self.loveNum integerValue]-1];
+                    self.loveNum = [NSString stringWithFormat:@"%zi",[self.loveNum integerValue]-1];
                 }
                 [weakSelf.loveBtn setTitle:self.loveNum forState:UIControlStateNormal];
                 
@@ -597,9 +597,9 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 if (self.collectionBtn.selected) {
-                    self.collNum = [NSString stringWithFormat:@"%ld",[self.collNum integerValue]+1];
+                    self.collNum = [NSString stringWithFormat:@"%zi",[self.collNum integerValue]+1];
                 }else{
-                    self.collNum = [NSString stringWithFormat:@"%ld",[self.collNum integerValue]-1];
+                    self.collNum = [NSString stringWithFormat:@"%zi",[self.collNum integerValue]-1];
                 }
                 [weakSelf.collectionBtn setTitle:self.collNum forState:UIControlStateNormal];
                 weakSelf.isCollect = YES;
@@ -729,7 +729,7 @@
                     weakSelf.loadBtn.hidden = NO;
                     weakSelf.loadingLabel.hidden = NO;
                     //手动计数
-                    self.downloadNum = [NSString stringWithFormat:@"%ld",[self.downloadNum integerValue]+1];
+                    self.downloadNum = [NSString stringWithFormat:@"%zi",[self.downloadNum integerValue]+1];
                     [weakSelf.downloadBtn setTitle:self.downloadNum forState:UIControlStateNormal];
                     NSString * str = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.videoUrl]];
                     NSURL *URL = [NSURL URLWithString:str];
@@ -737,7 +737,7 @@
                    
                 }else{
                   //分享计数
-                    self.shareNum = [NSString stringWithFormat:@"%ld",[self.shareNum integerValue]+1];
+                    self.shareNum = [NSString stringWithFormat:@"%zi",[self.shareNum integerValue]+1];
                     [weakSelf.shareBtn setTitle:self.shareNum forState:UIControlStateNormal];
                 }
             }else{

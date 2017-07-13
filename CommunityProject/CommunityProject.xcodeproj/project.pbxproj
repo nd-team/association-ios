@@ -195,6 +195,16 @@
 		4587D5771F135EB90033FAD0 /* MyGoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D5761F135EB90033FAD0 /* MyGoodsListController.m */; };
 		4587D57A1F137BEA0033FAD0 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D5791F137BEA0033FAD0 /* UIView+Toast.m */; };
 		4587D57D1F1468C90033FAD0 /* GoodsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D57C1F1468C90033FAD0 /* GoodsDetailController.m */; };
+		4587DCFA1F15C4DD0033FAD0 /* MyGoodsDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DCF91F15C4DD0033FAD0 /* MyGoodsDownloadController.m */; };
+		4587DCFD1F15C5090033FAD0 /* MyGoodsDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DCFC1F15C5090033FAD0 /* MyGoodsDownloadCell.m */; };
+		4587DD001F15C6E60033FAD0 /* MyGoodsDownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DCFF1F15C6E60033FAD0 /* MyGoodsDownloadModel.m */; };
+		4587DD031F15C7290033FAD0 /* GoodsListDatabaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD021F15C7290033FAD0 /* GoodsListDatabaseSingleton.m */; };
+		4587DD091F16136B0033FAD0 /* Raise.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4587DD081F16136B0033FAD0 /* Raise.storyboard */; };
+		4587DD0C1F1613C50033FAD0 /* RaiseListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD0B1F1613C50033FAD0 /* RaiseListController.m */; };
+		4587DD101F161A280033FAD0 /* RaiseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD0E1F161A280033FAD0 /* RaiseListCell.m */; };
+		4587DD111F161A280033FAD0 /* RaiseListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4587DD0F1F161A280033FAD0 /* RaiseListCell.xib */; };
+		4587DD141F17159B0033FAD0 /* RaiseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD131F17159B0033FAD0 /* RaiseListModel.m */; };
+		4587DD171F1759080033FAD0 /* MyRaiseListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD161F1759080033FAD0 /* MyRaiseListController.m */; };
 		458959631EB8263E00CBADDD /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959621EB8263E00CBADDD /* libicucore.tbd */; };
 		458959651EB8264600CBADDD /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959641EB8264600CBADDD /* JavaScriptCore.framework */; };
 		458959671EB8267500CBADDD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959661EB8267500CBADDD /* MessageUI.framework */; };
@@ -713,6 +723,24 @@
 		4587D5791F137BEA0033FAD0 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		4587D57B1F1468C90033FAD0 /* GoodsDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetailController.h; sourceTree = "<group>"; };
 		4587D57C1F1468C90033FAD0 /* GoodsDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetailController.m; sourceTree = "<group>"; };
+		4587DCF81F15C4DD0033FAD0 /* MyGoodsDownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGoodsDownloadController.h; sourceTree = "<group>"; };
+		4587DCF91F15C4DD0033FAD0 /* MyGoodsDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoodsDownloadController.m; sourceTree = "<group>"; };
+		4587DCFB1F15C5090033FAD0 /* MyGoodsDownloadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGoodsDownloadCell.h; sourceTree = "<group>"; };
+		4587DCFC1F15C5090033FAD0 /* MyGoodsDownloadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoodsDownloadCell.m; sourceTree = "<group>"; };
+		4587DCFE1F15C6E60033FAD0 /* MyGoodsDownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGoodsDownloadModel.h; sourceTree = "<group>"; };
+		4587DCFF1F15C6E60033FAD0 /* MyGoodsDownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGoodsDownloadModel.m; sourceTree = "<group>"; };
+		4587DD011F15C7290033FAD0 /* GoodsListDatabaseSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListDatabaseSingleton.h; sourceTree = "<group>"; };
+		4587DD021F15C7290033FAD0 /* GoodsListDatabaseSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListDatabaseSingleton.m; sourceTree = "<group>"; };
+		4587DD081F16136B0033FAD0 /* Raise.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Raise.storyboard; sourceTree = "<group>"; };
+		4587DD0A1F1613C50033FAD0 /* RaiseListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseListController.h; sourceTree = "<group>"; };
+		4587DD0B1F1613C50033FAD0 /* RaiseListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseListController.m; sourceTree = "<group>"; };
+		4587DD0D1F161A280033FAD0 /* RaiseListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseListCell.h; sourceTree = "<group>"; };
+		4587DD0E1F161A280033FAD0 /* RaiseListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseListCell.m; sourceTree = "<group>"; };
+		4587DD0F1F161A280033FAD0 /* RaiseListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RaiseListCell.xib; sourceTree = "<group>"; };
+		4587DD121F17159B0033FAD0 /* RaiseListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseListModel.h; sourceTree = "<group>"; };
+		4587DD131F17159B0033FAD0 /* RaiseListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseListModel.m; sourceTree = "<group>"; };
+		4587DD151F1759080033FAD0 /* MyRaiseListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRaiseListController.h; sourceTree = "<group>"; };
+		4587DD161F1759080033FAD0 /* MyRaiseListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRaiseListController.m; sourceTree = "<group>"; };
 		458959621EB8263E00CBADDD /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		458959641EB8264600CBADDD /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		458959661EB8267500CBADDD /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1202,6 +1230,7 @@
 				457182A81EC44EEE00860F38 /* Claim */,
 				459EBFA31F0DCD2C008A0D37 /* Traffic */,
 				4587D5661F130C280033FAD0 /* ShareGoods */,
+				4587DD041F16134E0033FAD0 /* Raise */,
 				459EBF701F09D372008A0D37 /* HelpCenter */,
 				455FA3261E763C250039B155 /* Chat */,
 				457D3CB61E77CD4A00FD0309 /* Address */,
@@ -2002,6 +2031,8 @@
 				4587D5761F135EB90033FAD0 /* MyGoodsListController.m */,
 				4587D57B1F1468C90033FAD0 /* GoodsDetailController.h */,
 				4587D57C1F1468C90033FAD0 /* GoodsDetailController.m */,
+				4587DCF81F15C4DD0033FAD0 /* MyGoodsDownloadController.h */,
+				4587DCF91F15C4DD0033FAD0 /* MyGoodsDownloadController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2011,6 +2042,10 @@
 			children = (
 				4587D56F1F1314980033FAD0 /* GoodsListModel.h */,
 				4587D5701F1314980033FAD0 /* GoodsListModel.m */,
+				4587DCFE1F15C6E60033FAD0 /* MyGoodsDownloadModel.h */,
+				4587DCFF1F15C6E60033FAD0 /* MyGoodsDownloadModel.m */,
+				4587DD011F15C7290033FAD0 /* GoodsListDatabaseSingleton.h */,
+				4587DD021F15C7290033FAD0 /* GoodsListDatabaseSingleton.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2018,6 +2053,49 @@
 		4587D5691F130C280033FAD0 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				4587DCFB1F15C5090033FAD0 /* MyGoodsDownloadCell.h */,
+				4587DCFC1F15C5090033FAD0 /* MyGoodsDownloadCell.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		4587DD041F16134E0033FAD0 /* Raise */ = {
+			isa = PBXGroup;
+			children = (
+				4587DD081F16136B0033FAD0 /* Raise.storyboard */,
+				4587DD051F16134E0033FAD0 /* C */,
+				4587DD061F16134E0033FAD0 /* M */,
+				4587DD071F16134E0033FAD0 /* V */,
+			);
+			path = Raise;
+			sourceTree = "<group>";
+		};
+		4587DD051F16134E0033FAD0 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				4587DD0A1F1613C50033FAD0 /* RaiseListController.h */,
+				4587DD0B1F1613C50033FAD0 /* RaiseListController.m */,
+				4587DD151F1759080033FAD0 /* MyRaiseListController.h */,
+				4587DD161F1759080033FAD0 /* MyRaiseListController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		4587DD061F16134E0033FAD0 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				4587DD121F17159B0033FAD0 /* RaiseListModel.h */,
+				4587DD131F17159B0033FAD0 /* RaiseListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		4587DD071F16134E0033FAD0 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				4587DD0D1F161A280033FAD0 /* RaiseListCell.h */,
+				4587DD0E1F161A280033FAD0 /* RaiseListCell.m */,
+				4587DD0F1F161A280033FAD0 /* RaiseListCell.xib */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2669,6 +2747,7 @@
 				45B9772E1EB1D57400A42D55 /* Address.plist in Resources */,
 				45E4F71F1ED42C9000476B64 /* PublicListCell.xib in Resources */,
 				45F046371EE52DB700CDA7BD /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				4587DD111F161A280033FAD0 /* RaiseListCell.xib in Resources */,
 				45F046391EE52DB700CDA7BD /* WeiboSDK.bundle in Resources */,
 				45D6C0571EDEA467003F229A /* InterestCell.xib in Resources */,
 				4589599F1EB9DA2E00CBADDD /* space.cer in Resources */,
@@ -2693,6 +2772,7 @@
 				45AE19B31ECEA14A0098A7FF /* AllMessageCell.xib in Resources */,
 				45F0463D1EE52DB700CDA7BD /* ShareSDK.bundle in Resources */,
 				4573CC1A1E976FA30047D1F4 /* HeadImageCell.xib in Resources */,
+				4587DD091F16136B0033FAD0 /* Raise.storyboard in Resources */,
 				459EBF751F09D3EF008A0D37 /* Help.storyboard in Resources */,
 				456CCE631E827CD7005EC051 /* Emoji.plist in Resources */,
 				456CCE6E1E827CD8005EC051 /* jrmf.cer in Resources */,
@@ -2781,6 +2861,7 @@
 				4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */,
 				45F046461EE5515B00CDA7BD /* MaybeKnowCell.m in Sources */,
 				452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */,
+				4587DD0C1F1613C50033FAD0 /* RaiseListController.m in Sources */,
 				455C6B1C1EA1ED6700E0B3F3 /* CircleCell.m in Sources */,
 				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
 				45D6C0541EDEA467003F229A /* HobbyCell.m in Sources */,
@@ -2810,6 +2891,7 @@
 				459130E71EF920DA0054A28C /* WMLightView.m in Sources */,
 				459131011EFE35A50054A28C /* MyLoadListController.m in Sources */,
 				45A96C721EF7A7640022F382 /* EducationDetailController.m in Sources */,
+				4587DCFA1F15C4DD0033FAD0 /* MyGoodsDownloadController.m in Sources */,
 				459130F81EFE0FD80054A28C /* VideoDatabaseSingleton.m in Sources */,
 				458DD5201E8A4D9A00650F2E /* ApplicationFriendsModel.m in Sources */,
 				458959CB1EBB150400CBADDD /* FSCalendarCalculator.m in Sources */,
@@ -2827,6 +2909,7 @@
 				459EC0261F0F651C008A0D37 /* TrafficeUploadNet.m in Sources */,
 				4587D5771F135EB90033FAD0 /* MyGoodsListController.m in Sources */,
 				459EBF811F0A1A44008A0D37 /* MyHelpAndAnswerCell.m in Sources */,
+				4587DD101F161A280033FAD0 /* RaiseListCell.m in Sources */,
 				45D6C0561EDEA467003F229A /* InterestCell.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				45A96C6C1EF7698A0022F382 /* EducationListModel.m in Sources */,
@@ -2906,6 +2989,7 @@
 				457182B61EC45A3900860F38 /* ClaimCenterModel.m in Sources */,
 				459EBFB21F0E0AFE008A0D37 /* TafficListCell.m in Sources */,
 				459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */,
+				4587DD171F1759080033FAD0 /* MyRaiseListController.m in Sources */,
 				458959FA1EBDBF1A00CBADDD /* MJPhotoView.m in Sources */,
 				455FA3511E76A2B60039B155 /* ChatMainController.m in Sources */,
 				455FA3101E7631A90039B155 /* AppDelegate.m in Sources */,
@@ -2925,9 +3009,11 @@
 				4562D7F91E80FF2800C6EE56 /* AddressListController.m in Sources */,
 				459EBF9F1F0CDDB9008A0D37 /* CommentDetailListModel.m in Sources */,
 				45783BEC1EC6F9C60013DC6D /* MeClaimSuccessCell.m in Sources */,
+				4587DD141F17159B0033FAD0 /* RaiseListModel.m in Sources */,
 				455C6B241EA1FDB900E0B3F3 /* CircleImageCell.m in Sources */,
 				45C814681EF7C7120024C0AC /* SendEducationController.m in Sources */,
 				450A50E41E853BBD00433A61 /* RCLocationView.m in Sources */,
+				4587DCFD1F15C5090033FAD0 /* MyGoodsDownloadCell.m in Sources */,
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				450A50DB1E853B7000433A61 /* RCAnnotation.m in Sources */,
 				450C051A1ED440080093B174 /* MyJoinPublicController.m in Sources */,
@@ -2995,8 +3081,10 @@
 				45B9770C1EAEDE6700A42D55 /* MyCardController.m in Sources */,
 				455FA3541E76A2C60039B155 /* MineController.m in Sources */,
 				458959CF1EBB150400CBADDD /* FSCalendarConstants.m in Sources */,
+				4587DD001F15C6E60033FAD0 /* MyGoodsDownloadModel.m in Sources */,
 				458D816C1ECFE1EF006775F1 /* PlatformCommentController.m in Sources */,
 				45AE19A81ECDA7120098A7FF /* PlatformActListModel.m in Sources */,
+				4587DD031F15C7290033FAD0 /* GoodsListDatabaseSingleton.m in Sources */,
 				45D6C0821EE26243003F229A /* SearchGroupModel.m in Sources */,
 				458959D51EBB150400CBADDD /* FSCalendarStickyHeader.m in Sources */,
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,

@@ -51,6 +51,13 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="627.5"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RXo-Qi-1HW" customClass="SDCycleScrollView">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="200" id="17W-gT-Ern"/>
+                                            </constraints>
+                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xm7-wm-9wc">
                                             <rect key="frame" x="0.0" y="205" width="375" height="50"/>
                                             <subviews>
@@ -274,17 +281,20 @@
                                     </subviews>
                                     <color key="backgroundColor" red="0.90588235289999997" green="0.91764705879999997" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstItem="Xm7-wm-9wc" firstAttribute="top" secondItem="CEB-UB-uj9" secondAttribute="top" constant="205" id="94P-xV-RTs"/>
+                                        <constraint firstItem="RXo-Qi-1HW" firstAttribute="leading" secondItem="CEB-UB-uj9" secondAttribute="leading" id="3ZH-9x-hvK"/>
                                         <constraint firstItem="Xm7-wm-9wc" firstAttribute="leading" secondItem="CEB-UB-uj9" secondAttribute="leading" id="MvG-Bc-09u"/>
                                         <constraint firstAttribute="trailing" secondItem="8UM-6K-rzM" secondAttribute="trailing" id="NFF-dr-M2V"/>
                                         <constraint firstItem="BVe-Df-EbV" firstAttribute="top" secondItem="8UM-6K-rzM" secondAttribute="bottom" constant="7.5" id="Qlc-1Q-kP1"/>
+                                        <constraint firstItem="Xm7-wm-9wc" firstAttribute="top" secondItem="RXo-Qi-1HW" secondAttribute="bottom" constant="5" id="bJs-4E-EMj"/>
                                         <constraint firstAttribute="trailing" secondItem="BVe-Df-EbV" secondAttribute="trailing" id="cb5-id-Du7"/>
                                         <constraint firstItem="8UM-6K-rzM" firstAttribute="leading" secondItem="CEB-UB-uj9" secondAttribute="leading" id="cyf-4G-SYL"/>
                                         <constraint firstAttribute="trailing" secondItem="Xm7-wm-9wc" secondAttribute="trailing" id="j1M-Gd-VfG"/>
                                         <constraint firstItem="BVe-Df-EbV" firstAttribute="leading" secondItem="CEB-UB-uj9" secondAttribute="leading" id="jAY-Za-vBH"/>
+                                        <constraint firstAttribute="trailing" secondItem="RXo-Qi-1HW" secondAttribute="trailing" id="kv9-2s-237"/>
                                         <constraint firstAttribute="width" constant="375" id="nap-g7-Tpa"/>
                                         <constraint firstItem="8UM-6K-rzM" firstAttribute="top" secondItem="Xm7-wm-9wc" secondAttribute="bottom" id="rAo-Q0-em2"/>
                                         <constraint firstAttribute="height" constant="627.5" id="wHH-dj-lLE"/>
+                                        <constraint firstItem="RXo-Qi-1HW" firstAttribute="top" secondItem="CEB-UB-uj9" secondAttribute="top" id="xu3-UF-TDQ"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
@@ -438,6 +448,7 @@
                         <outlet property="collectionView" destination="8UM-6K-rzM" id="aE3-ZK-1w9"/>
                         <outlet property="headView" destination="CEB-UB-uj9" id="OhX-gh-QAN"/>
                         <outlet property="headerHeightCons" destination="wHH-dj-lLE" id="LVM-4k-YiE"/>
+                        <outlet property="scrollView" destination="RXo-Qi-1HW" id="TFC-QK-ltP"/>
                         <outlet property="tableView" destination="rdd-zN-2yz" id="zB0-aK-tCT"/>
                     </connections>
                 </viewController>

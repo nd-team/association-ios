@@ -55,6 +55,15 @@
 @property (nonatomic,copy)NSString * payCount;
 @property (weak, nonatomic) IBOutlet UIButton *collectBtn;
 @property (weak, nonatomic) IBOutlet UIButton *downloadBtn;
+@property (weak, nonatomic) IBOutlet UIView *darkView;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *showDownBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (weak, nonatomic) IBOutlet UIView *whiteView;
+@property (weak, nonatomic) IBOutlet UIView *downloadView;
+
 
 @end
 
@@ -154,6 +163,28 @@
     
 }
 -(void)setUI{
+    //下载界面数据初始化
+    NSInteger  checkVIP = [DEFAULTS integerForKey:@"checkVip"];
+    if (checkVIP == 1) {
+        self.downloadBtn.hidden = NO;
+    }else{
+        self.downloadBtn.hidden = YES;
+    }
+    self.darkView.hidden = YES;
+    self.darkView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    self.whiteView.layer.cornerRadius = 5;
+    self.downloadView.layer.cornerRadius = 5;
+    self.downloadView.layer.borderWidth = 1;
+    self.downloadView.layer.borderColor = UIColorFromRGB(0xa6a6a6).CGColor;
+    self.titleNameLabel.text = self.titleStr;
+    self.showDownBtn.hidden = YES;
+    [self.showDownBtn setImage:[UIImage imageNamed:@"pinkLoad"] forState:UIControlStateNormal];
+    //下载完成不可用
+    [self.showDownBtn setImage:[UIImage imageNamed:@"loadFinish"] forState:UIControlStateDisabled];
+    self.countLabel.layer.cornerRadius = 12;
+    self.countLabel.layer.masksToBounds = YES;
+    self.countLabel.hidden = YES;
+    //详情数据初始化
     self.titleLabel.text = self.titleStr;
     [self.headImageView zy_cornerRadiusRoundingRect];
     //    [self.bottomView makeInsetShadowWithRadius:5.0 Color:[UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:0.1] Directions:[NSArray arrayWithObjects:@"top", nil]];
@@ -172,7 +203,6 @@
     
     CGFloat height2 = [ImageUrl boundingRectWithString:self.contentLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
     
-
     if (self.isLook) {
         self.bottomView.hidden = YES;
         self.backImageHeightCons.constant = 200;
@@ -351,9 +381,9 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 if (self.loveBtn.selected) {
-                    self.likes = [NSString stringWithFormat:@"%ld",[self.likes integerValue]+1];
+                    self.likes = [NSString stringWithFormat:@"%zi",[self.likes integerValue]+1];
                 }else{
-                    self.likes = [NSString stringWithFormat:@"%ld",[self.likes integerValue]-1];
+                    self.likes = [NSString stringWithFormat:@"%zi",[self.likes integerValue]-1];
                 }
                 [weakSelf.loveBtn setTitle:self.likes forState:UIControlStateNormal];
                 
@@ -396,9 +426,9 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 if (self.collectBtn.selected) {
-                    self.collectNum = [NSString stringWithFormat:@"%ld",[self.collectNum integerValue]+1];
+                    self.collectNum = [NSString stringWithFormat:@"%zi",[self.collectNum integerValue]+1];
                 }else{
-                    self.collectNum = [NSString stringWithFormat:@"%ld",[self.collectNum integerValue]-1];
+                    self.collectNum = [NSString stringWithFormat:@"%zi",[self.collectNum integerValue]-1];
                 }
                 [weakSelf.collectBtn setTitle:self.collectNum forState:UIControlStateNormal];
             }else if ([code intValue] == 1031){
@@ -415,6 +445,18 @@
 }
 //下载
 - (IBAction)downloadClick:(id)sender {
+    self.darkView.hidden = NO;
+    
+}
+//下载文件
+- (IBAction)realDownloadClick:(id)sender {
+    
+}
+- (IBAction)closeClick:(id)sender {
+    self.darkView.hidden = YES;
+}
+//管理下载
+- (IBAction)managerClick:(id)sender {
     
 }
 

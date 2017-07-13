@@ -244,13 +244,13 @@
                 NSURL *url = urlAsset.URL;
                 weakSelf.localUrl = url;
                 //视频时长
-                long seconds = urlAsset.duration.value / urlAsset.duration.timescale;
+                long  seconds = (long)urlAsset.duration.value / urlAsset.duration.timescale;
                 //计算超过3分钟提示重新上传
                 if (seconds>180) {
                     [weakSelf showMessage:@"由于您的视频超过3分钟，请截取您的视频！"];
                     return ;
                 }
-                NSInteger minute = seconds/60;
+                NSInteger minute = (NSInteger)seconds/60;
                 int second = seconds%60;
                 weakSelf.videoTime = [NSString stringWithFormat:@"%ld’%d”",(long)minute,second];
 //                NSSLog(@"视频时长：%@,%ld",weakSelf.videoTime,(long)seconds);
