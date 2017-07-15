@@ -27,6 +27,7 @@
 #import "TrafficListController.h"
 #import "GoodsListController.h"
 #import "RaiseListController.h"
+#import "WeatherListController.h"
 
 #define FirstURL @"appapi/app/indexData"
 
@@ -325,6 +326,10 @@
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Raise" bundle:nil];
         RaiseListController * raise = [sb instantiateViewControllerWithIdentifier:@"RaiseListController"];
         [self.navigationController pushViewController:raise animated:YES];
+    }else if ([model.name isEqualToString:@"天气中心"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Weather" bundle:nil];
+        WeatherListController * weather = [sb instantiateViewControllerWithIdentifier:@"WeatherListController"];
+        [self.navigationController pushViewController:weather animated:YES];
     }
     
 }

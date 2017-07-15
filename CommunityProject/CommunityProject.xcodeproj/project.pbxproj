@@ -205,6 +205,14 @@
 		4587DD111F161A280033FAD0 /* RaiseListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4587DD0F1F161A280033FAD0 /* RaiseListCell.xib */; };
 		4587DD141F17159B0033FAD0 /* RaiseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD131F17159B0033FAD0 /* RaiseListModel.m */; };
 		4587DD171F1759080033FAD0 /* MyRaiseListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD161F1759080033FAD0 /* MyRaiseListController.m */; };
+		4587DD1A1F1860180033FAD0 /* RaiseDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD191F1860180033FAD0 /* RaiseDetailController.m */; };
+		4587DD241F18692B0033FAD0 /* WeatherListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD231F18692B0033FAD0 /* WeatherListController.m */; };
+		4587DD261F18693E0033FAD0 /* Weather.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4587DD251F18693E0033FAD0 /* Weather.storyboard */; };
+		4587DD291F1873AF0033FAD0 /* GetCommonNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD281F1873AF0033FAD0 /* GetCommonNet.m */; };
+		4587DD2C1F18B28A0033FAD0 /* WeekWeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD2B1F18B28A0033FAD0 /* WeekWeatherCell.m */; };
+		4587DD2F1F19B4A00033FAD0 /* WeatherListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD2E1F19B4A00033FAD0 /* WeatherListModel.m */; };
+		4587DD321F1A0F1B0033FAD0 /* WeatherAreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD311F1A0F1B0033FAD0 /* WeatherAreaCell.m */; };
+		4587DD351F1A123A0033FAD0 /* ChooseAreaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587DD341F1A123A0033FAD0 /* ChooseAreaController.m */; };
 		458959631EB8263E00CBADDD /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959621EB8263E00CBADDD /* libicucore.tbd */; };
 		458959651EB8264600CBADDD /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959641EB8264600CBADDD /* JavaScriptCore.framework */; };
 		458959671EB8267500CBADDD /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458959661EB8267500CBADDD /* MessageUI.framework */; };
@@ -741,6 +749,21 @@
 		4587DD131F17159B0033FAD0 /* RaiseListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseListModel.m; sourceTree = "<group>"; };
 		4587DD151F1759080033FAD0 /* MyRaiseListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRaiseListController.h; sourceTree = "<group>"; };
 		4587DD161F1759080033FAD0 /* MyRaiseListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRaiseListController.m; sourceTree = "<group>"; };
+		4587DD181F1860180033FAD0 /* RaiseDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseDetailController.h; sourceTree = "<group>"; };
+		4587DD191F1860180033FAD0 /* RaiseDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseDetailController.m; sourceTree = "<group>"; };
+		4587DD221F18692B0033FAD0 /* WeatherListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherListController.h; sourceTree = "<group>"; };
+		4587DD231F18692B0033FAD0 /* WeatherListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherListController.m; sourceTree = "<group>"; };
+		4587DD251F18693E0033FAD0 /* Weather.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Weather.storyboard; sourceTree = "<group>"; };
+		4587DD271F1873AF0033FAD0 /* GetCommonNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCommonNet.h; sourceTree = "<group>"; };
+		4587DD281F1873AF0033FAD0 /* GetCommonNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCommonNet.m; sourceTree = "<group>"; };
+		4587DD2A1F18B28A0033FAD0 /* WeekWeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekWeatherCell.h; sourceTree = "<group>"; };
+		4587DD2B1F18B28A0033FAD0 /* WeekWeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekWeatherCell.m; sourceTree = "<group>"; };
+		4587DD2D1F19B4A00033FAD0 /* WeatherListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherListModel.h; sourceTree = "<group>"; };
+		4587DD2E1F19B4A00033FAD0 /* WeatherListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherListModel.m; sourceTree = "<group>"; };
+		4587DD301F1A0F1B0033FAD0 /* WeatherAreaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherAreaCell.h; sourceTree = "<group>"; };
+		4587DD311F1A0F1B0033FAD0 /* WeatherAreaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherAreaCell.m; sourceTree = "<group>"; };
+		4587DD331F1A123A0033FAD0 /* ChooseAreaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseAreaController.h; sourceTree = "<group>"; };
+		4587DD341F1A123A0033FAD0 /* ChooseAreaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseAreaController.m; sourceTree = "<group>"; };
 		458959621EB8263E00CBADDD /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		458959641EB8264600CBADDD /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		458959661EB8267500CBADDD /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1231,6 +1254,7 @@
 				459EBFA31F0DCD2C008A0D37 /* Traffic */,
 				4587D5661F130C280033FAD0 /* ShareGoods */,
 				4587DD041F16134E0033FAD0 /* Raise */,
+				4587DD1B1F1868E80033FAD0 /* Weather */,
 				459EBF701F09D372008A0D37 /* HelpCenter */,
 				455FA3261E763C250039B155 /* Chat */,
 				457D3CB61E77CD4A00FD0309 /* Address */,
@@ -1491,6 +1515,8 @@
 		455FA3351E763C250039B155 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				4587DD271F1873AF0033FAD0 /* GetCommonNet.h */,
+				4587DD281F1873AF0033FAD0 /* GetCommonNet.m */,
 				45CE5F561EC1972900225534 /* AreaHistrorySingleton.h */,
 				45CE5F571EC1972900225534 /* AreaHistrorySingleton.m */,
 				45CE5F531EC1972000225534 /* HistoryModel.h */,
@@ -2077,6 +2103,8 @@
 				4587DD0B1F1613C50033FAD0 /* RaiseListController.m */,
 				4587DD151F1759080033FAD0 /* MyRaiseListController.h */,
 				4587DD161F1759080033FAD0 /* MyRaiseListController.m */,
+				4587DD181F1860180033FAD0 /* RaiseDetailController.h */,
+				4587DD191F1860180033FAD0 /* RaiseDetailController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2096,6 +2124,48 @@
 				4587DD0D1F161A280033FAD0 /* RaiseListCell.h */,
 				4587DD0E1F161A280033FAD0 /* RaiseListCell.m */,
 				4587DD0F1F161A280033FAD0 /* RaiseListCell.xib */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		4587DD1B1F1868E80033FAD0 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				4587DD251F18693E0033FAD0 /* Weather.storyboard */,
+				4587DD1C1F1868E80033FAD0 /* C */,
+				4587DD1D1F1868E80033FAD0 /* M */,
+				4587DD1E1F1868E80033FAD0 /* V */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		4587DD1C1F1868E80033FAD0 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				4587DD221F18692B0033FAD0 /* WeatherListController.h */,
+				4587DD231F18692B0033FAD0 /* WeatherListController.m */,
+				4587DD331F1A123A0033FAD0 /* ChooseAreaController.h */,
+				4587DD341F1A123A0033FAD0 /* ChooseAreaController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		4587DD1D1F1868E80033FAD0 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				4587DD2D1F19B4A00033FAD0 /* WeatherListModel.h */,
+				4587DD2E1F19B4A00033FAD0 /* WeatherListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		4587DD1E1F1868E80033FAD0 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				4587DD2A1F18B28A0033FAD0 /* WeekWeatherCell.h */,
+				4587DD2B1F18B28A0033FAD0 /* WeekWeatherCell.m */,
+				4587DD301F1A0F1B0033FAD0 /* WeatherAreaCell.h */,
+				4587DD311F1A0F1B0033FAD0 /* WeatherAreaCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2757,6 +2827,7 @@
 				459EBFA81F0DCD7E008A0D37 /* TrafficeOfInsporation.storyboard in Resources */,
 				45F0464B1EE554A200CDA7BD /* SearchGroupCell.xib in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
+				4587DD261F18693E0033FAD0 /* Weather.storyboard in Resources */,
 				456CCE721E827CD8005EC051 /* WalletResource.bundle in Resources */,
 				45F0463B1EE52DB700CDA7BD /* README.txt in Resources */,
 				45D6C0741EE1688F003F229A /* AddFriendsCell.xib in Resources */,
@@ -2861,7 +2932,9 @@
 				4573CBF31E8B58700047D1F4 /* GroupMemberInfoController.m in Sources */,
 				45F046461EE5515B00CDA7BD /* MaybeKnowCell.m in Sources */,
 				452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */,
+				4587DD351F1A123A0033FAD0 /* ChooseAreaController.m in Sources */,
 				4587DD0C1F1613C50033FAD0 /* RaiseListController.m in Sources */,
+				4587DD321F1A0F1B0033FAD0 /* WeatherAreaCell.m in Sources */,
 				455C6B1C1EA1ED6700E0B3F3 /* CircleCell.m in Sources */,
 				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
 				45D6C0541EDEA467003F229A /* HobbyCell.m in Sources */,
@@ -2877,6 +2950,7 @@
 				458959F81EBDBF1A00CBADDD /* MJPhotoProgressView.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
 				4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */,
+				4587DD241F18692B0033FAD0 /* WeatherListController.m in Sources */,
 				45B977121EAF519600A42D55 /* MyPeopleCell.m in Sources */,
 				45783BE91EC6F9AB0013DC6D /* OthersClaimSuccessCell.m in Sources */,
 				45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */,
@@ -3037,7 +3111,9 @@
 				450A50DE1E853B9500433A61 /* RCDUtilities.m in Sources */,
 				458959CD1EBB150400CBADDD /* FSCalendarCollectionView.m in Sources */,
 				459EBF871F0A1DAE008A0D37 /* MyHelpListModel.m in Sources */,
+				4587DD291F1873AF0033FAD0 /* GetCommonNet.m in Sources */,
 				458959CA1EBB150400CBADDD /* FSCalendarAppearance.m in Sources */,
+				4587DD1A1F1860180033FAD0 /* RaiseDetailController.m in Sources */,
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
 				458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */,
 				45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */,
@@ -3051,6 +3127,7 @@
 				450C05171ED431960093B174 /* PublicListModel.m in Sources */,
 				4562D74E1E7FB9E500C6EE56 /* UploadMulDocuments.m in Sources */,
 				459EBF9C1F0CB920008A0D37 /* HelpCommentCell.m in Sources */,
+				4587DD2F1F19B4A00033FAD0 /* WeatherListModel.m in Sources */,
 				459EBF8D1F0A39CA008A0D37 /* HelpDetailController.m in Sources */,
 				459EBF901F0A3AE5008A0D37 /* HelpAnswerCell.m in Sources */,
 				455C6B2C1EA5B75F00E0B3F3 /* CircleCommentCell.m in Sources */,
@@ -3110,6 +3187,7 @@
 				458959D71EBB150400CBADDD /* FSCalendarWeekdayView.m in Sources */,
 				45D1102A1E8538A6009F2C4E /* RealTimeLocationEndCell.m in Sources */,
 				458959D61EBB150400CBADDD /* FSCalendarTransitionCoordinator.m in Sources */,
+				4587DD2C1F18B28A0033FAD0 /* WeekWeatherCell.m in Sources */,
 				455C6B311EA5BC6A00E0B3F3 /* AnswerCommentCell.m in Sources */,
 				45CE5F731EC2A13800225534 /* MyLocationViewController.m in Sources */,
 				459130EC1EF927CC0054A28C /* EducationVideoPost.m in Sources */,

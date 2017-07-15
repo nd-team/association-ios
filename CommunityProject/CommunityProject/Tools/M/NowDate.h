@@ -20,4 +20,6 @@
 
 +(int)getYear;
 
++(NSString *)getCurrentDetailTime;
+
 @end

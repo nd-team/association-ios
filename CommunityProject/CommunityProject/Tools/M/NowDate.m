@@ -62,4 +62,13 @@
     return [arr[0] intValue];
     
 }
++(NSString *)getCurrentDetailTime{
+    NSDateFormatter * df = [NSDateFormatter new];
+    
+    [df setDateFormat:@"HH:mm:ss"];
+    
+    NSString * dateStr = [df stringFromDate:[NSDate date]];
+    
+    return dateStr;
+}
 @end
