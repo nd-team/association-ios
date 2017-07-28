@@ -657,7 +657,7 @@
     [self resign];
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf postData];
     });
 }
@@ -798,9 +798,7 @@
     [params setValue:self.postBtn.selected?@"1":@"0" forKey:@"Sposition"];
     NSSLog(@"%@",params);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SaveInfoURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         if (error) {
             NSSLog(@"个人消息更多请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

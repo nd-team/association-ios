@@ -76,7 +76,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf getHelpListData];
         });
         
@@ -131,9 +131,7 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,HelpListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         if (error) {
             NSSLog(@"求助中心：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

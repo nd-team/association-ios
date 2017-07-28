@@ -144,7 +144,7 @@
             //发布朋友圈
             WeakSelf;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf send:array];
             });
 
@@ -165,9 +165,7 @@
     }
     [mDic setValue:self.recomTV.text forKey:@"content"];
      [UploadMulDocuments postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:mDic andArray:arr getBlock:^(NSURLResponse *response, NSError *error, id data) {
-         dispatch_async(dispatch_get_main_queue(), ^{
              [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-         });
          if (error) {
              NSSLog(@"发布朋友圈失败：%@",error);
              [weakSelf showMessage:@"服务器出错咯！"];
@@ -326,8 +324,10 @@
                 }
             if (weakSelf.collectArr.count -1 == assets.count || weakSelf.count == 3|| weakSelf.count == 9) {
                 //改变高度
-                [self changeHeight];
-                [weakSelf.collectionView reloadData];
+                [weakSelf changeHeight];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.collectionView reloadData];
+                });
             }
         }];
         i++;
@@ -340,18 +340,18 @@
     }else{
         if (KMainScreenWidth>=375) {
             //一行四个4.7寸 5.5寸
-            if (self.allCount < 5) {
+            if (self.allCount < 4) {
                 self.collectionHeightCons.constant = 73;
-            }else if(self.allCount < 9 && self.allCount > 4){
+            }else if(self.allCount < 8 && self.allCount >= 4){
                 self.collectionHeightCons.constant = 146;
             }else{
                 self.collectionHeightCons.constant = 219;
             }
         }else{
             //一行3个
-            if (self.allCount < 4) {
+            if (self.allCount < 3) {
                 self.collectionHeightCons.constant = 73;
-            }else if(self.allCount < 7 && self.allCount > 3){
+            }else if(self.allCount < 6 && self.allCount >= 3){
                 self.collectionHeightCons.constant = 146;
             }else{
                 self.collectionHeightCons.constant = 219;

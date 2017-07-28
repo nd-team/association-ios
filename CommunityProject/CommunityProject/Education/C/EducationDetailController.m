@@ -302,9 +302,7 @@
     WeakSelf;
     NSDictionary *dict = @{@"userId":self.userId,@"title":self.topic,@"content":self.content,@"playTime":self.videoTime,@"status":self.authStatus};
     [EducationVideoPost postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andImage:self.firstImg andVideo:self.videoData getBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         if (error) {
             NSSLog(@"上传三分钟教学失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -699,7 +697,7 @@
     if (btn.tag == 144) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf send];
         });
     }

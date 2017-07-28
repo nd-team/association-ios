@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0ar-SU-Ksd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="0ar-SU-Ksd">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -90,9 +90,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="ZeI-Ck-DOq" secondAttribute="bottom" id="LGf-OC-pVC"/>
-                                        <constraint firstAttribute="height" constant="64" id="SNT-Hd-mgN"/>
                                         <constraint firstItem="Fxr-QL-FZQ" firstAttribute="centerY" secondItem="bdn-iT-ibw" secondAttribute="centerY" id="kvX-wk-4fY"/>
-                                        <constraint firstAttribute="width" constant="375" id="lcA-81-Rzh"/>
                                         <constraint firstItem="Fxr-QL-FZQ" firstAttribute="centerX" secondItem="bdn-iT-ibw" secondAttribute="centerX" id="nC9-Xg-i9f"/>
                                         <constraint firstAttribute="trailing" secondItem="ZeI-Ck-DOq" secondAttribute="trailing" id="tWJ-E2-Kb0"/>
                                         <constraint firstItem="ZeI-Ck-DOq" firstAttribute="leading" secondItem="bdn-iT-ibw" secondAttribute="leading" id="ymp-8J-Cbm"/>
@@ -132,7 +130,6 @@
                         <outlet property="imageHeightCons" destination="PU2-rT-d4Z" id="bhz-cH-HnM"/>
                         <outlet property="msgBtn" destination="lM5-NS-Gr2" id="9uy-84-0yh"/>
                         <outlet property="tableView" destination="RFv-Fw-got" id="fZ5-s2-ErE"/>
-                        <outlet property="viewHeightCons" destination="SNT-Hd-mgN" id="fpx-Zo-dXf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JG1-aa-wY8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -285,7 +282,6 @@
                                         <constraint firstAttribute="trailing" secondItem="X0M-BQ-gdj" secondAttribute="trailing" constant="18" id="9ZL-eZ-mJt"/>
                                         <constraint firstItem="nUJ-tl-AvF" firstAttribute="top" secondItem="7XS-Pf-fCB" secondAttribute="bottom" id="9hQ-be-2js"/>
                                         <constraint firstAttribute="trailing" secondItem="Rdd-oa-wMs" secondAttribute="trailing" id="A64-1M-4fw"/>
-                                        <constraint firstAttribute="height" constant="300" id="B7I-9i-2GW"/>
                                         <constraint firstAttribute="trailing" secondItem="IlH-xY-4cO" secondAttribute="trailing" constant="12" id="HNa-0c-3vl"/>
                                         <constraint firstItem="nUJ-tl-AvF" firstAttribute="top" secondItem="IlH-xY-4cO" secondAttribute="bottom" constant="10" id="HR4-8A-ahP"/>
                                         <constraint firstAttribute="trailing" secondItem="Gsa-2t-vo1" secondAttribute="trailing" constant="10" id="MvM-aQ-O7t"/>
@@ -388,7 +384,6 @@
                         <outlet property="contentTV" destination="BAW-h5-Eld" id="lTk-rr-Xpf"/>
                         <outlet property="faceBtn" destination="jj7-sI-072" id="6ke-lM-0nC"/>
                         <outlet property="headImageView" destination="pxH-kK-QJ8" id="Qh2-3e-ElI"/>
-                        <outlet property="headerHeightCons" destination="B7I-9i-2GW" id="d3f-jK-Uyk"/>
                         <outlet property="headerView" destination="2oR-FO-iB2" id="gez-aU-7CG"/>
                         <outlet property="nameLabel" destination="ZKr-Zq-Aj1" id="n6k-pU-mgD"/>
                         <outlet property="placeLabel" destination="0FP-ht-TNg" id="cSq-0L-jWb"/>

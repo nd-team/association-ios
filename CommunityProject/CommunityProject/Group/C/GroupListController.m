@@ -43,7 +43,7 @@
             [weakSelf localData];
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf getGroupList];
                
             });
@@ -91,9 +91,7 @@
     NSString * userID = [[NSUserDefaults standardUserDefaults]objectForKey:@"userId"];
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GroupURL] andParams:@{@"userId":userID} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        });
         if (error) {
             NSSLog(@"获取群组列表失败%@",error);
             [weakSelf showMessage:@"服务器出问题咯"];

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xcQ-T6-CQQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xcQ-T6-CQQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -272,11 +272,9 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="bdg-e6-uyd" secondAttribute="trailing" id="6v6-g9-rwg"/>
-                                        <constraint firstAttribute="width" constant="375" id="HAc-d5-Inw"/>
                                         <constraint firstItem="Bw4-pz-UAP" firstAttribute="leading" secondItem="Oxt-sC-ph1" secondAttribute="leading" constant="10" id="OfU-QB-FRB"/>
                                         <constraint firstItem="msb-43-xTG" firstAttribute="top" secondItem="Oxt-sC-ph1" secondAttribute="top" id="PS4-ib-N2z"/>
                                         <constraint firstItem="bdg-e6-uyd" firstAttribute="leading" secondItem="Oxt-sC-ph1" secondAttribute="leading" id="QfB-7m-DWA"/>
-                                        <constraint firstAttribute="height" constant="99" id="USk-mX-Gsj"/>
                                         <constraint firstItem="Bw4-pz-UAP" firstAttribute="top" secondItem="msb-43-xTG" secondAttribute="bottom" constant="10" id="WZz-C6-5zL"/>
                                         <constraint firstItem="oLv-Pa-S8V" firstAttribute="top" secondItem="bdg-e6-uyd" secondAttribute="bottom" id="Wk7-zl-Jve"/>
                                         <constraint firstItem="oLv-Pa-S8V" firstAttribute="leading" secondItem="Oxt-sC-ph1" secondAttribute="leading" id="ezz-GA-2AV"/>
@@ -409,10 +407,8 @@
                                         <constraint firstItem="KSW-30-aoy" firstAttribute="leading" secondItem="KbK-5Z-hFC" secondAttribute="leading" constant="10" id="IQQ-7B-QFX"/>
                                         <constraint firstItem="PgD-Wq-qrQ" firstAttribute="leading" secondItem="KbK-5Z-hFC" secondAttribute="leading" constant="10" id="Jqc-T4-BwJ"/>
                                         <constraint firstItem="zQJ-cE-mZc" firstAttribute="leading" secondItem="KbK-5Z-hFC" secondAttribute="leading" constant="10" id="K7V-mU-WdE"/>
-                                        <constraint firstAttribute="width" constant="375" id="LMH-Fn-Ci3"/>
                                         <constraint firstItem="IfK-cO-IYI" firstAttribute="top" secondItem="PgD-Wq-qrQ" secondAttribute="bottom" id="Le2-aC-gRT"/>
                                         <constraint firstAttribute="trailing" secondItem="PgD-Wq-qrQ" secondAttribute="trailing" constant="10" id="MD5-G8-trz"/>
-                                        <constraint firstAttribute="height" constant="215" id="MDT-0F-fIG"/>
                                         <constraint firstItem="1Gd-O6-CIK" firstAttribute="top" secondItem="KbK-5Z-hFC" secondAttribute="top" id="PTu-1X-yIZ"/>
                                         <constraint firstItem="HSn-8U-Py8" firstAttribute="leading" secondItem="KbK-5Z-hFC" secondAttribute="leading" constant="10" id="TJP-OR-IBp"/>
                                         <constraint firstItem="HSn-8U-Py8" firstAttribute="top" secondItem="KSW-30-aoy" secondAttribute="bottom" constant="7" id="UIc-IO-hFS"/>

@@ -152,7 +152,7 @@
             
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                 //先验证短信码在进行注册
                 [weakSelf sureCode];
             
@@ -202,9 +202,7 @@
     }];
 }
 -(void)dismissCommon{
-    dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
 }
 -(void)loginNet{
     WeakSelf;

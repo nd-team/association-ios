@@ -32,7 +32,6 @@
 //第一组数据
 @property (nonatomic,strong)NSMutableArray * bestArr;;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeightCons;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightCons;
 
 @property (weak, nonatomic) IBOutlet UIButton *loveBtn;
 @property (nonatomic,copy)NSString * userId;
@@ -107,25 +106,26 @@
                 self.likes = [NSString stringWithFormat:@"%@",dict[@"likes"]];
                 [self.loveBtn setTitle:self.likes forState:UIControlStateNormal];
                 [self.shareBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"shareNumber"]] forState:UIControlStateNormal];
-                [self.tableView beginUpdates];
+                [self.headView setNeedsLayout];
+//                [self.tableView beginUpdates];
                 NSString * file = [NSString stringWithFormat:@"%@",dict[@"file"]];
+                CGRect frame = self.headView.frame;
                 if (![ImageUrl isEmptyStr:file]) {
                     self.imageUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"file"]]];
                     [self.topicImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:[UIImage imageNamed:@"banner"]];
                     //改变表头高度
                     weakSelf.imageHeightCons.constant = 198;
-                    weakSelf.headerHeightCons.constant = 316+rect.size.height;
+                    frame.size.height = 316+rect.size.height;
             
                 }else{
                     weakSelf.imageHeightCons.constant = 0;
-                    weakSelf.headerHeightCons.constant = 108+rect.size.height;
+                    frame.size.height = 108+rect.size.height;
                 }
-                CGRect frame = self.headView.frame;
-                frame.size.height = self.headerHeightCons.constant;
                 self.headView.frame = frame;
-                self.tableView.tableHeaderView = self.headView;
+//                self.tableView.tableHeaderView = self.headView;
                 [self.headView layoutIfNeeded];
-                [self.tableView endUpdates];
+//                [self.tableView layoutIfNeeded];
+//                [self.tableView endUpdates];
                 //采纳答案
                 if ([[dict allKeys] containsObject:@"adopt"]) {
                     NSDictionary * bestDic = dict[@"adopt"];

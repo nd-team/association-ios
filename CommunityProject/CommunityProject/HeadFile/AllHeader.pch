@@ -45,6 +45,13 @@
 #import <ShareSDKUI/ShareSDKUI.h>
 #import "UIView+ChatMoreView.h"
 #import "UIView+Toast.h"
+#import "GetCommonNet.h"
+//高德地图显示和定位
+#import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+
+#import "JavaGetNet.h"
 
 //解决ios10真机不打印的问题 哪个文件，哪行，自己打印的数据
 

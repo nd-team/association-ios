@@ -123,6 +123,20 @@
 				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
+			<key>http://192.168.0.123:8080</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>http://www.freedt.cn</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
 			<key>nav.cn.ronghub.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

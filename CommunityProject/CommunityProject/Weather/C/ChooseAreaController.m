@@ -9,7 +9,7 @@
 #import "ChooseAreaController.h"
 #import "WeatherAreaCell.h"
 
-@interface ChooseAreaController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate>
+@interface ChooseAreaController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UITextField *areaTF;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -58,6 +58,9 @@
     cell.areaLabel.textColor = UIColorFromRGB(0x0fc791);
     self.areaTF.text =  self.dataArr[indexPath.row];
     [self common];
+}
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake((KMainScreenWidth-24)/4, 56);
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     //返回上个界面

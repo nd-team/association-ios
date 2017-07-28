@@ -28,6 +28,7 @@
 #import "GoodsListController.h"
 #import "RaiseListController.h"
 #import "WeatherListController.h"
+#import "PositionMapController.h"
 
 #define FirstURL @"appapi/app/indexData"
 
@@ -46,7 +47,6 @@
 //应用中心数据
 @property (nonatomic,strong)NSMutableArray * applicationArr;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collHeightContraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightCons;
 @property (weak, nonatomic) IBOutlet SDCycleScrollView *scrollView;
 
 @end
@@ -95,9 +95,10 @@
         //无网从本地加载数据
         [self localData];
     }else{
+       // dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0)
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf getClaimUserData];
         });
   
@@ -131,23 +132,20 @@
     //每行cell的个数
     int count = KMainScreenWidth/89;
     //行数
-    NSInteger retain = self.applicationArr.count%count;
+    NSInteger retainCount = self.applicationArr.count%count;
     NSInteger row;
-    if (retain != 0) {
+    if (retainCount != 0) {
          row = self.applicationArr.count/count+1;
     }else{
          row = self.applicationArr.count/count;
     }
-    [self.tableView beginUpdates];
+//    [self.headView setNeedsLayout];
     self.collHeightContraint.constant = 101*row;
-    [self.collectionView reloadData];
-    self.headerHeightCons.constant = 627.5+self.collHeightContraint.constant;
     CGRect frame = self.headView.frame;
-    frame.size.height = self.headerHeightCons.constant;
+    frame.size.height = 622.5+self.collHeightContraint.constant;
     self.headView.frame = frame;
-    self.tableView.tableHeaderView = self.headView;
-    [self.headView layoutIfNeeded];
-    [self.tableView endUpdates];
+//    [self.headView layoutIfNeeded];
+    
 }
 //数据库获取数据
 -(void)localData{
@@ -174,9 +172,7 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":userId};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FirstURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        });
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -184,6 +180,7 @@
             if (weakSelf.tableView.mj_header.isRefreshing) {
                 [weakSelf.tableView.mj_header endRefreshing];
             }
+            [weakSelf localData];
         }else{
             if (weakSelf.dataArr.count !=0||weakSelf.tableView.mj_header.isRefreshing||weakSelf.scrollArr.count != 0 || weakSelf.claimArr.count != 0) {
                 [weakSelf.scrollArr removeAllObjects];
@@ -293,45 +290,42 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     AppModel * model = self.applicationArr[indexPath.row];
+    UIViewController *vc;
     if ([model.name isEqualToString:@"认领中心"]) {
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"ClaimCenter" bundle:nil];
-        ClaimCenterListController * claim = [sb instantiateViewControllerWithIdentifier:@"ClaimCenterListController"];
-        [self.navigationController pushViewController:claim animated:YES];
-        
+        vc = [sb instantiateViewControllerWithIdentifier:@"ClaimCenterListController"];
     }else if ([model.name isEqualToString:@"平台活动"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
-        PlatFormActController * claim = [sb instantiateViewControllerWithIdentifier:@"PlatFormActController"];
-        [self.navigationController pushViewController:claim animated:YES];
+        vc = [sb instantiateViewControllerWithIdentifier:@"PlatFormActController"];
     }else if ([model.name isEqualToString:@"公益活动"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Public" bundle:nil];
-        PublicListController * list = [sb instantiateViewControllerWithIdentifier:@"PublicListController"];
-        [self.navigationController pushViewController:list animated:YES];
+        vc = [sb instantiateViewControllerWithIdentifier:@"PublicListController"];
     }else if ([model.name isEqualToString:@"三分钟教学"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Education" bundle:nil];
-        EducationListController * education = [sb instantiateViewControllerWithIdentifier:@"EducationListController"];
-        [self.navigationController pushViewController:education animated:YES];
+        vc = [sb instantiateViewControllerWithIdentifier:@"EducationListController"];
     }else if ([model.name isEqualToString:@"求助中心"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Help" bundle:nil];
-        HelpListController * help = [sb instantiateViewControllerWithIdentifier:@"HelpListController"];
-        [self.navigationController pushViewController:help animated:YES];
+        vc = [sb instantiateViewControllerWithIdentifier:@"HelpListController"];
     }else if ([model.name isEqualToString:@"灵感贩卖"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"TrafficeOfInsporation" bundle:nil];
-        TrafficListController * traffic = [sb instantiateViewControllerWithIdentifier:@"TrafficListController"];
-        [self.navigationController pushViewController:traffic animated:YES];
+        vc = [sb instantiateViewControllerWithIdentifier:@"TrafficListController"];
     }else if ([model.name isEqualToString:@"干货分享"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Goods" bundle:nil];
-        GoodsListController * goods = [sb instantiateViewControllerWithIdentifier:@"GoodsListController"];
-        [self.navigationController pushViewController:goods animated:YES];
+        vc = [sb instantiateViewControllerWithIdentifier:@"GoodsListController"];
     }else if ([model.name isEqualToString:@"众筹"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Raise" bundle:nil];
-        RaiseListController * raise = [sb instantiateViewControllerWithIdentifier:@"RaiseListController"];
-        [self.navigationController pushViewController:raise animated:YES];
+        vc = [sb instantiateViewControllerWithIdentifier:@"RaiseListController"];
     }else if ([model.name isEqualToString:@"天气中心"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Weather" bundle:nil];
-        WeatherListController * weather = [sb instantiateViewControllerWithIdentifier:@"WeatherListController"];
-        [self.navigationController pushViewController:weather animated:YES];
+        vc = [sb instantiateViewControllerWithIdentifier:@"WeatherListController"];
+    }else if ([model.name isEqualToString:@"互评"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Position" bundle:nil];
+        vc = [sb instantiateViewControllerWithIdentifier:@"PositionMapController"];
     }
-    
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+
+    }
 }
 - (IBAction)recomendClick:(id)sender {
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];

@@ -95,7 +95,7 @@
     [self.backView addGestureRecognizer:tap];
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf getActivityDetailData];
     });
     
@@ -107,9 +107,7 @@
     NSDictionary * params = @{@"userId":self.userId,@"activesId":self.idStr};
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,PlatformDetailURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         if (error) {
             NSSLog(@"平台活动数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -277,14 +275,14 @@
 }
 //文章点赞
 - (IBAction)zanClick:(id)sender {
+    WeakSelf;
     self.loveBtn.selected = !self.loveBtn.selected;
     NSDictionary * params = @{@"userId":self.userId,@"articleId":self.idStr,@"type":@"6",@"status":self.loveBtn.selected?@"1":@"0"};
-    WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ZanURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);
             weakSelf.loveBtn.selected = NO;
-            [self showMessage:@"平台点赞失败"];
+            [weakSelf showMessage:@"平台点赞失败"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -298,11 +296,11 @@
 
             }else if ([code intValue] == 1029){
                 weakSelf.loveBtn.selected = NO;
-                [self showMessage:@"平台多次点赞失败"];
+                [weakSelf showMessage:@"平台多次点赞失败"];
 
             }else{
                 weakSelf.loveBtn.selected = NO;
-                [self showMessage:@"平台点赞失败"];
+                [weakSelf showMessage:@"平台点赞失败"];
             }
         }
         

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="saJ-lo-1fb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="saJ-lo-1fb">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -291,9 +291,7 @@
                                         <constraint firstAttribute="trailing" secondItem="Xm7-wm-9wc" secondAttribute="trailing" id="j1M-Gd-VfG"/>
                                         <constraint firstItem="BVe-Df-EbV" firstAttribute="leading" secondItem="CEB-UB-uj9" secondAttribute="leading" id="jAY-Za-vBH"/>
                                         <constraint firstAttribute="trailing" secondItem="RXo-Qi-1HW" secondAttribute="trailing" id="kv9-2s-237"/>
-                                        <constraint firstAttribute="width" constant="375" id="nap-g7-Tpa"/>
                                         <constraint firstItem="8UM-6K-rzM" firstAttribute="top" secondItem="Xm7-wm-9wc" secondAttribute="bottom" id="rAo-Q0-em2"/>
-                                        <constraint firstAttribute="height" constant="627.5" id="wHH-dj-lLE"/>
                                         <constraint firstItem="RXo-Qi-1HW" firstAttribute="top" secondItem="CEB-UB-uj9" secondAttribute="top" id="xu3-UF-TDQ"/>
                                     </constraints>
                                 </view>
@@ -447,7 +445,6 @@
                         <outlet property="collHeightContraint" destination="xsa-XW-GGV" id="oVF-hp-s5G"/>
                         <outlet property="collectionView" destination="8UM-6K-rzM" id="aE3-ZK-1w9"/>
                         <outlet property="headView" destination="CEB-UB-uj9" id="OhX-gh-QAN"/>
-                        <outlet property="headerHeightCons" destination="wHH-dj-lLE" id="LVM-4k-YiE"/>
                         <outlet property="scrollView" destination="RXo-Qi-1HW" id="TFC-QK-ltP"/>
                         <outlet property="tableView" destination="rdd-zN-2yz" id="zB0-aK-tCT"/>
                     </connections>

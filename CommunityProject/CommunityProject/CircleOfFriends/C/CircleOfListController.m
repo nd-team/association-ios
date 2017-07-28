@@ -23,7 +23,6 @@
 @property (nonatomic,assign)CGFloat height;
 @property (weak, nonatomic) IBOutlet UIButton *msgBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *conViewHeightCons;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *btnHeightCons;
@@ -83,7 +82,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf getList];
         });
         
@@ -93,9 +92,7 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"status":@"1",@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        });
         if (error) {
             NSSLog(@"朋友圈：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -142,10 +139,10 @@
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
                 //初始化传参过来的消息数据
-                [weakSelf.tableView beginUpdates];
+//                [weakSelf.tableView beginUpdates];
+                [self.headerView setNeedsLayout];
                 CGRect frame = self.headerView.frame;
                 if (arr.count == 0) {
-                    weakSelf.viewHeightCons.constant = 0;
                     frame.size.height = 0;
                     weakSelf.btnHeightCons.constant = 0;
                     weakSelf.imageHeightCons.constant = 0;
@@ -153,7 +150,6 @@
                 }else{
                     weakSelf.btnHeightCons.constant = 40;
                     weakSelf.imageHeightCons.constant = 31;
-                    weakSelf.viewHeightCons.constant = 64;
                     weakSelf.conViewHeightCons.constant = 40;
                     weakSelf.msgArr = arr;
                     frame.size.height = 64;
@@ -169,9 +165,10 @@
                     }
                 }
                 weakSelf.headerView.frame = frame;
-                weakSelf.tableView.tableHeaderView = weakSelf.headerView;
+//                weakSelf.tableView.tableHeaderView = weakSelf.headerView;
                 [weakSelf.headerView layoutIfNeeded];
-                [weakSelf.tableView endUpdates];
+//                [weakSelf.tableView layoutIfNeeded];
+//                [weakSelf.tableView endUpdates];
             }else{
                 [weakSelf showMessage:@"加载消息失败！"];
             }
@@ -316,7 +313,6 @@
 -(void)backClick{
     [self.tableView beginUpdates];
     CGRect frame = self.headerView.frame;
-    self.viewHeightCons.constant = 0;
     frame.size.height = 0;
     self.headerView.frame = frame;
     self.btnHeightCons.constant = 0;
@@ -324,6 +320,7 @@
     self.conViewHeightCons.constant = 0;
     self.tableView.tableHeaderView = self.headerView;
     [self.headerView layoutIfNeeded];
+    [self.tableView layoutIfNeeded];
     [self.tableView endUpdates];
 //发送通知到发现隐藏消息提示并清空
     [[NSNotificationCenter defaultCenter]postNotificationName:@"CircleMessage" object:nil];

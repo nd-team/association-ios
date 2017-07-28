@@ -76,7 +76,7 @@
     if (btn.tag == 162) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf pay];
         });
     }
@@ -89,9 +89,7 @@
     WeakSelf;
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.articalId};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,PayURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        });
         if (error) {
             NSSLog(@"发布灵感失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

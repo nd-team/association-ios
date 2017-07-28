@@ -193,6 +193,7 @@
     return @"删除";
 }
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [_tableView beginUpdates];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.count--;
         VoteCell * cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -200,19 +201,16 @@
         cell.chooseTF.text = @"";
         //删除那行的数据
         [self.chooseArr removeObjectAtIndex:indexPath.row];
-        [_tableView beginUpdates];
         //删除一个cell
         NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
         [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:index] withRowAnimation:UITableViewRowAnimationNone];
-        [_tableView endUpdates];
     } else if (editingStyle == UITableViewCellEditingStyleInsert){
         self.count++;
-        [_tableView beginUpdates];
         //增加一个cell
         NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
         [_tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:index] withRowAnimation:UITableViewRowAnimationNone];
-        [_tableView endUpdates];
     }
+    [_tableView endUpdates];
 
 }
 - (IBAction)endTimeClick:(id)sender {

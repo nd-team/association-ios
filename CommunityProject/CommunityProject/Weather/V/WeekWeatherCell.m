@@ -12,7 +12,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.lineView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.66];
+    //0是黑1是白
+    self.lineView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.26];
 
 
 }
@@ -29,33 +30,36 @@
     NSArray * lowest = info.night;
     NSArray * highest = info.day;
     self.temperatureLabel.text = [NSString stringWithFormat:@"%@~%@°C",lowest[2],highest[2]];
-//    if ([highest[1] containsObject:@"雾"]) {
-//        self.weatherImage.image = [UIImage imageNamed:@"smog"];
-//    }else if ([highest[1] containsObject:@"雨"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"smog"];
-//    }else if ([highest[1] containsObject:@"雪"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"smog"];
-//    }else if ([highest[1] containsObject:@"雷阵雨"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"smog"];
-//    }else if ([highest[1] containsObject:@"多云"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"noSun"];
-//    }else if ([highest[1] containsObject:@"晴"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"sun"];
-//    }else if ([highest[1] containsObject:@"阴"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"noSun"];
-//    }else if ([highest[1] containsObject:@"台风"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"typhoon"];
-//    }else if ([highest[1] containsObject:@"冰雹"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"typhoon"];
-//    }else if ([highest[1] containsObject:@"风暴"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"typhoon"];
-//    }else if ([highest[1] containsObject:@"浮沉"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"typhoon"];
-//    }else if ([highest[1] containsObject:@"霜冻"]){
-//        self.weatherImage.image = [UIImage imageNamed:@"typhoon"];
-//    }else{
-//        self.weatherImage.image = [UIImage imageNamed:@"sun"];
-//    }
+    NSString * weatherStr =[NSString stringWithFormat:@"%@",highest[1]];
+    if ([weatherStr containsString:@"雾"]) {
+        self.weatherImage.image = [UIImage imageNamed:@"fog"];
+    }else if ([weatherStr containsString:@"雨"]){
+        self.weatherImage.image = [UIImage imageNamed:@"rainSmall"];
+    }else if ([weatherStr containsString:@"雪"]){
+        self.weatherImage.image = [UIImage imageNamed:@"snowSmall"];
+    }else if ([weatherStr containsString:@"雷阵雨"]){
+        self.weatherImage.image = [UIImage imageNamed:@"thunSnow"];
+    }else if ([weatherStr containsString:@"多云"]){
+        self.weatherImage.image = [UIImage imageNamed:@"noSun"];
+    }else if ([weatherStr containsString:@"晴"]){
+        self.weatherImage.image = [UIImage imageNamed:@"sun"];
+    }else if ([weatherStr containsString:@"阴"]){
+        self.weatherImage.image = [UIImage imageNamed:@"overcastSmall"];
+    }else if ([weatherStr containsString:@"台风"]){
+        self.weatherImage.image = [UIImage imageNamed:@"typhoon"];
+    }else if ([weatherStr containsString:@"冰雹"]){
+        self.weatherImage.image = [UIImage imageNamed:@"hailSmall"];
+    }else if ([weatherStr containsString:@"风暴"]){
+        self.weatherImage.image = [UIImage imageNamed:@"stormSmall"];
+    }else if ([weatherStr containsString:@"浮沉"]){
+        self.weatherImage.image = [UIImage imageNamed:@"upSmall"];
+    }else if ([weatherStr containsString:@"霜冻"]){
+        self.weatherImage.image = [UIImage imageNamed:@"frostSmall"];
+    }else if ([weatherStr containsString:@"龙卷风"]){
+        self.weatherImage.image = [UIImage imageNamed:@"tornado"];
+    }else{
+        self.weatherImage.image = [UIImage imageNamed:@"sun"];
+    }
 
 
 }

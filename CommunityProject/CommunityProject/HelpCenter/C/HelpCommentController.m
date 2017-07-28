@@ -27,7 +27,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeightCons;
 
 @property (nonatomic,strong)NSMutableArray * dataArr;
 
@@ -89,14 +88,15 @@
     self.tableView.estimatedRowHeight = 114;
     [self.loveBtn setTitle:[NSString stringWithFormat:@"%@",self.loveCount] forState:UIControlStateNormal];
     CGRect rect = [self.commentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
-    [self.tableView beginUpdates];
-    self.viewHeightCons.constant = 175+rect.size.height;
+//    [self.tableView beginUpdates];
+    [self.headView setNeedsLayout];
     CGRect frame = self.headView.frame;
-    frame.size.height = self.viewHeightCons.constant;
+    frame.size.height = 175+rect.size.height;
     self.headView.frame = frame;
-    self.tableView.tableHeaderView = self.headView;
+//    self.tableView.tableHeaderView = self.headView;
     [self.headView layoutIfNeeded];
-    [self.tableView endUpdates];
+//    [self.tableView layoutIfNeeded];
+//    [self.tableView endUpdates];
     WeakSelf;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;
@@ -116,7 +116,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf getCommentListData];
         });
         
@@ -127,9 +127,7 @@
     WeakSelf;
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.answerId,@"type":@"4",@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LOOKCommentURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        });
         if (error) {
             NSSLog(@"评论列表失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

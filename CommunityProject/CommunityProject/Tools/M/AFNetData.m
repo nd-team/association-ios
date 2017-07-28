@@ -23,13 +23,12 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
-    manager.requestSerializer.timeoutInterval = 10.f;
+    manager.requestSerializer.timeoutInterval = 5.f;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",nil];
     
     [manager POST:urlStr parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         NSSLog(@"%@",jsonDic);
-
         block(task.response,nil,jsonDic);
                 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

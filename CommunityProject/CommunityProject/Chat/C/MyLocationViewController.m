@@ -7,10 +7,7 @@
 //
 
 #import "MyLocationViewController.h"
-#import <MAMapKit/MAMapKit.h>
 #import "SearchAreaViewController.h"
-#import <AMapFoundationKit/AMapFoundationKit.h>
-#import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapSearchKit/AMapSearchKit.h>
 #import "AreaCell.h"
 #import "POIAnnotation.h"
@@ -138,8 +135,6 @@
     [self searchAround];
     
 }
- 
-
  */
 #pragma mark - MAMapViewDelegate
 

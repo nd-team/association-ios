@@ -358,7 +358,7 @@
         //提交提问
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf send:contributeStr];
         });
 
@@ -393,9 +393,7 @@
     }
     WeakSelf;
    [UploadImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,SendQuestionURL] andParams:params andImage:image getBlock:^(NSURLResponse *response, NSError *error, id data) {
-       dispatch_async(dispatch_get_main_queue(), ^{
            [MBProgressHUD hideHUDForView:self.view animated:YES];
-       });
 
        if (error) {
            NSSLog(@"提问求助失败:%@",error);

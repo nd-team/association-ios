@@ -14,11 +14,10 @@
     
     AFHTTPSessionManager * manager = [FixMemoryLeak sharedHTTPSession];
     manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
-
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+    manager.requestSerializer.timeoutInterval = 3;
     [manager GET:urlStr parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSString * str = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];

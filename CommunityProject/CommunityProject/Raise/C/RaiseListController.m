@@ -42,7 +42,7 @@
     if (self.isRef) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf getRefreshData];
         });
     }
@@ -87,7 +87,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf getAllData];
         });
         
@@ -175,9 +175,7 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page],@"limit":@"5",@"type":type};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RaiseListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         if (error) {
             NSSLog(@"众筹：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -349,6 +347,7 @@
 }
 
 - (IBAction)backClick:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(NSMutableArray *)recommendArr{
     if (!_recommendArr) {

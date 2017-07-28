@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PositionImageCell">
+            <rect key="frame" x="0.0" y="0.0" width="94" height="102"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="94" height="102"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadImg" translatesAutoresizingMaskIntoConstraints="NO" id="wTf-Fx-CQD">
+                        <rect key="frame" x="0.0" y="7.5" width="75" height="75"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="75" id="5Ry-If-q2Z"/>
+                            <constraint firstAttribute="height" constant="75" id="c1i-c1-bVR"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="viy-Cc-6Hy">
+                        <rect key="frame" x="66" y="2" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="wNJ-wU-Ora"/>
+                            <constraint firstAttribute="height" constant="22" id="yFm-2C-0M9"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="closeCircle"/>
+                        <connections>
+                            <action selector="deleteClick:" destination="gTV-IL-0wX" eventType="touchUpInside" id="aRN-jO-VLQ"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="wTf-Fx-CQD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="7fu-ui-hVl"/>
+                <constraint firstItem="viy-Cc-6Hy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="H8q-Ns-GDp"/>
+                <constraint firstAttribute="trailing" secondItem="viy-Cc-6Hy" secondAttribute="trailing" constant="6" id="aGV-DN-pJC"/>
+                <constraint firstItem="wTf-Fx-CQD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="7.5" id="mvj-in-wE0"/>
+            </constraints>
+            <size key="customSize" width="94" height="102"/>
+            <connections>
+                <outlet property="delBtn" destination="viy-Cc-6Hy" id="Zst-e3-jSO"/>
+                <outlet property="headImageView" destination="wTf-Fx-CQD" id="STO-Ux-n1K"/>
+            </connections>
+            <point key="canvasLocation" x="56" y="80"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="closeCircle" width="21" height="22"/>
+        <image name="uploadImg" width="75" height="75"/>
+    </resources>
+</document>

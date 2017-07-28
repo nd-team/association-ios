@@ -50,6 +50,8 @@
 -(void)tapClick{
     [self.usernameTF resignFirstResponder];
     [self.secretTF resignFirstResponder];
+    self.topCons.constant = 67;
+
 }
 -(void)leftView:(UITextField *)textField andFrame:(CGRect)frame imageName:(NSString *)imgName{
     UIView * leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, 45)];
@@ -109,7 +111,7 @@
             
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
                     [weakSelf loginNet];
             });
            
@@ -121,9 +123,7 @@
     WeakSelf;
     NSDictionary * dic = @{@"mobile":self.usernameTF.text,@"password":self.secretTF.text};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         if (error) {
             NSSLog(@"登录失败：%@",error);
             [weakSelf showMessage:@"登录失败！"];
@@ -291,6 +291,15 @@
     }
    
     return YES;
+}
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    if (textField == self.secretTF){
+        self.topCons.constant = 27;
+    }else{
+        self.topCons.constant = 67;
+    }
+    
 }
 //普通注册
 - (IBAction)ordinaryRegisterClick:(id)sender {

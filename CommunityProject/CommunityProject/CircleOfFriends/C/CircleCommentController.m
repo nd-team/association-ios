@@ -22,7 +22,6 @@
 @interface CircleCommentController ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerHeightCons;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -101,7 +100,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             if (weakSelf.isMsg) {
                 //请求数据
                 [weakSelf getCircleDetailData];
@@ -140,7 +139,7 @@
     self.timeLabel.text = self.time;
     self.placeLabel.text = self.placeStr;
     //根据数据变化view的高度
-    [self.tableView beginUpdates];
+//    [self.tableView beginUpdates];
     CGFloat labelHeight = 0;
     CGFloat imageHeight = 0;
     if (self.content.length == 0) {
@@ -162,19 +161,20 @@
         self.collHeightCons.constant = 309;
     }
     imageHeight = self.collHeightCons.constant;
-    if (self.content.length != 0 && self.collectionArr.count != 0) {
-        self.headerHeightCons.constant = 126+labelHeight+imageHeight;
-    }else if (self.content.length == 0 && self.collectionArr.count != 0){
-        self.headerHeightCons.constant = 117+labelHeight+imageHeight;
-    }else{
-        self.headerHeightCons.constant = 119+labelHeight+imageHeight;
-    }
+    [self.headerView setNeedsLayout];
     CGRect frame = self.headerView.frame;
-    frame.size.height = self.headerHeightCons.constant;
+    if (self.content.length != 0 && self.collectionArr.count != 0) {
+        frame.size.height = 126+labelHeight+imageHeight;
+    }else if (self.content.length == 0 && self.collectionArr.count != 0){
+        frame.size.height = 117+labelHeight+imageHeight;
+    }else{
+        frame.size.height = 119+labelHeight+imageHeight;
+    }
     self.headerView.frame = frame;
-    self.tableView.tableHeaderView = self.headerView;
+//    self.tableView.tableHeaderView = self.headerView;
     [self.headerView layoutIfNeeded];
-    [self.tableView endUpdates];
+//    [self.tableView layoutIfNeeded];
+//    [self.tableView endUpdates];
     //变换颜色
     if ([self.commentCount isEqualToString:@"0"]) {
         self.commentLabel.text = @"评论";
@@ -213,9 +213,7 @@
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr};
     NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleDetailURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        });
         if (error) {
             NSSLog(@"朋友圈详情失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -265,9 +263,7 @@
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":@"2",@"page":[NSString stringWithFormat:@"%d",self.page]};
 //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        });
         if (error) {
             NSSLog(@"朋友圈评论失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

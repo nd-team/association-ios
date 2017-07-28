@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hJI-Ch-RQz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hJI-Ch-RQz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -943,7 +943,6 @@
                                         <constraint firstAttribute="trailing" secondItem="jcL-le-ZXV" secondAttribute="trailing" constant="10" id="pos-zp-KHb"/>
                                         <constraint firstItem="jcL-le-ZXV" firstAttribute="top" secondItem="W1p-3v-Cce" secondAttribute="top" constant="10" id="sJg-kx-y4z"/>
                                         <constraint firstItem="PXD-D0-0Fm" firstAttribute="leading" secondItem="ibH-um-5Vb" secondAttribute="trailing" constant="10" id="u8S-um-uTt"/>
-                                        <constraint firstAttribute="height" constant="200" id="vye-0z-sJ4"/>
                                         <constraint firstItem="SGP-KN-okb" firstAttribute="top" secondItem="ibH-um-5Vb" secondAttribute="bottom" constant="10" id="xNg-No-jlw"/>
                                     </constraints>
                                 </view>
@@ -1141,7 +1140,6 @@
                         <outlet property="contributeLabel" destination="myF-ZK-Vfs" id="EFZ-SS-V9Q"/>
                         <outlet property="headImageView" destination="ibH-um-5Vb" id="z2d-Eg-ErY"/>
                         <outlet property="headView" destination="W1p-3v-Cce" id="Zp6-Rv-vRr"/>
-                        <outlet property="headerHeightCons" destination="vye-0z-sJ4" id="dI0-YA-bVK"/>
                         <outlet property="imageHeightCons" destination="FLM-53-LtI" id="DyB-Pe-cpc"/>
                         <outlet property="loveBtn" destination="21V-v6-aOY" id="aKB-Ob-Tbo"/>
                         <outlet property="nameLabel" destination="PXD-D0-0Fm" id="cQ1-0d-vuT"/>
@@ -1269,7 +1267,6 @@
                                         <constraint firstItem="YU7-ay-FXV" firstAttribute="leading" secondItem="Nky-z7-7cJ" secondAttribute="leading" constant="10" id="BaL-yh-Ybp"/>
                                         <constraint firstItem="DTt-84-Ex7" firstAttribute="top" secondItem="Nky-z7-7cJ" secondAttribute="top" id="DOO-cu-QEc"/>
                                         <constraint firstItem="BpM-RH-RmB" firstAttribute="leading" secondItem="zsT-qY-XEg" secondAttribute="trailing" constant="15" id="Due-r4-e5V"/>
-                                        <constraint firstAttribute="height" constant="200" id="EIT-ia-rFM"/>
                                         <constraint firstItem="V0C-nh-3Ff" firstAttribute="leading" secondItem="Nky-z7-7cJ" secondAttribute="leading" id="INz-8g-tl5"/>
                                         <constraint firstItem="zsT-qY-XEg" firstAttribute="leading" secondItem="qmr-Ao-Bg5" secondAttribute="trailing" constant="9" id="JIe-O2-x8P"/>
                                         <constraint firstAttribute="bottom" secondItem="a7D-AJ-d2m" secondAttribute="bottom" constant="10" id="NLt-IC-PMg"/>
@@ -1444,7 +1441,6 @@
                         <outlet property="titleLabel" destination="DTt-84-Ex7" id="cfp-sU-6t7"/>
                         <outlet property="tvHeightCons" destination="66N-r9-hPr" id="2x2-KP-e5H"/>
                         <outlet property="viewBottomCons" destination="lOb-8O-aID" id="Yd0-tH-Zut"/>
-                        <outlet property="viewHeightCons" destination="EIT-ia-rFM" id="QtG-Zy-F1A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52d-ey-MN2" userLabel="First Responder" sceneMemberID="firstResponder"/>

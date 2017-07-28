@@ -15,7 +15,6 @@
 #import "GroupDatabaseSingleton.h"
 #import "MemberListModel.h"
 #import "ViewController.h"
-#import <AMapFoundationKit/AMapFoundationKit.h>
 //短信
 #import <SMS_SDK/SMSSDK.h>
 //ShareSDK

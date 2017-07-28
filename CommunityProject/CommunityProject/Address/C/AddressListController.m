@@ -145,7 +145,7 @@
             if (granted) {
                __block NSMutableArray * mArr = [NSMutableArray new];
                __block NSMutableArray * addressList = [NSMutableArray new];
-                NSSLog(@"授权成功");
+//                NSSLog(@"授权成功");
                 CNContactStore * st = [CNContactStore new];//CNContactImageDataKey
                 NSArray * keys = @[CNContactGivenNameKey,CNContactFamilyNameKey,CNContactPhoneNumbersKey,CNContactNicknameKey,CNContactEmailAddressesKey];
                 CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:keys];
@@ -167,14 +167,14 @@
                     for (CNLabeledValue * label in phones) {
                         CNPhoneNumber * phoneNumber = label.value;
                         phone = phoneNumber.stringValue;
-                        NSSLog(@"%@==",phoneNumber.stringValue);
+//                        NSSLog(@"%@==",phoneNumber.stringValue);
                     }
                     NSString * email = nil;
                     //获取邮件
                     NSArray *emailArr = contact.emailAddresses;
                     for (CNLabeledValue * labelV in emailArr) {
                         email = labelV.value;
-                        NSSLog(@"%@",labelV.value);
+//                        NSSLog(@"%@",labelV.value);
                     }
                     if ([phone containsString:@"-"]) {
                         NSArray * phArr = [phone componentsSeparatedByString:@"-"];
@@ -188,13 +188,12 @@
                     [mDic setValue:email forKey:@"email"];
                     [addressDic setValue:name forKey:@"nickname"];
                     [addressDic setValue:phone forKey:@"mobile"];
-
+                    //addressList：录入通讯录需要的json数据 mArr：列表手机通讯录需要的数据
                     if (name.length != 0) {
                         [mArr addObject:mDic];
                         [addressList addObject:addressDic];
                     }
                 }];
-//                NSSLog(@"===%@",mArr);
 
                 if (mArr.count != 0) {
                     for (NSDictionary * dic in mArr) {
@@ -202,6 +201,8 @@
                         [[AddressDataBaseSingleton shareDatabase]insertDatabase:search];
                         [weakSelf.dataTwoArr addObject:search];
                     }
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView.mj_header endRefreshing];
                     //录入通讯录
                     NSData * data = [NSJSONSerialization dataWithJSONObject:addressList options:NSJSONWritingPrettyPrinted error:nil];
                     NSString * result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
@@ -375,6 +376,7 @@
     }
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     button.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+    //tag值30，31
     button.tag = section+30;
     [button setTitle:[NSString stringWithFormat:@"     %@",self.nameArr[section]] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];

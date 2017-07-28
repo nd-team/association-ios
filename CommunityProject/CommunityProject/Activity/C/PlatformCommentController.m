@@ -51,7 +51,9 @@
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10DB9F);
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.userId = [DEFAULTS objectForKey:@"userId"];
-    [self.tableView beginUpdates];
+//    [self.tableView beginUpdates];
+    [self.headView setNeedsLayout];
+
     CGRect rect = self.headView.frame;
     //平台活动
     if (self.type == 6) {
@@ -68,9 +70,10 @@
         rect.size.height = 84;
     }
     self.headView.frame = rect;
-    self.tableView.tableHeaderView = self.headView;
+//    self.tableView.tableHeaderView = self.headView;
     [self.headView layoutIfNeeded];
-    [self.tableView endUpdates];
+//    [self.tableView layoutIfNeeded];
+//    [self.tableView endUpdates];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 88;
     //监听键盘变化
@@ -84,7 +87,7 @@
     self.page = 1;
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf getCommentListData];
     });
     //上下拉刷新
@@ -131,9 +134,7 @@
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":[NSString stringWithFormat:@"%d",self.type],@"page":[NSString stringWithFormat:@"%d",self.page]};
     //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentListURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
         if (error) {
             NSSLog(@"评论列表获取失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];

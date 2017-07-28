@@ -160,7 +160,7 @@
     if ([self checkLegal]) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf send];
         });
         
@@ -200,9 +200,7 @@
     }
     WeakSelf;
     [TrafficeUploadNet postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andFirstImage:self.backImageView.image andSecondImage:image getBlock:^(NSURLResponse *response, NSError *error, id data) {
-        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        });
         if (error) {
             NSSLog(@"发布干货失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
