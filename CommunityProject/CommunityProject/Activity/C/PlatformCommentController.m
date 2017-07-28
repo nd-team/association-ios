@@ -52,7 +52,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.userId = [DEFAULTS objectForKey:@"userId"];
 //    [self.tableView beginUpdates];
-    [self.headView setNeedsLayout];
+//    [self.headView setNeedsLayout];
 
     CGRect rect = self.headView.frame;
     //平台活动
@@ -71,7 +71,7 @@
     }
     self.headView.frame = rect;
 //    self.tableView.tableHeaderView = self.headView;
-    [self.headView layoutIfNeeded];
+//    [self.headView layoutIfNeeded];
 //    [self.tableView layoutIfNeeded];
 //    [self.tableView endUpdates];
     self.tableView.rowHeight = UITableViewAutomaticDimension;

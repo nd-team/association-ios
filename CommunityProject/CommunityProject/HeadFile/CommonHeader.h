@@ -24,7 +24,7 @@
 
 #define DEFAULTS [NSUserDefaults standardUserDefaults]
 //https://sq.bjike.com http://192.168.0.104:90/appapi/app
-#define NetURL @"http://192.168.0.104:90/%@"
+#define NetURL @"https://sq.bjike.com/%@"
 #define JAVAURL @"http://192.168.0.123:8080/%@"
 //#define kisNilString(__String) (__String==nil || __String == (id)[NSNull null] || ![__String isKindOfClass:[NSString class]] || [__String isEqualToString:@""] || [[__String stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""] || [[__String lowercaseString] isEqualToString:@"nil"] || [[__String lowercaseString] isEqualToString:@"null"] || [[__String lowercaseString] isEqualToString:@"(null)"])
 #endif /* CommonHeader_h */

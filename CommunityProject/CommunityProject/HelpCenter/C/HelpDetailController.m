@@ -106,7 +106,7 @@
                 self.likes = [NSString stringWithFormat:@"%@",dict[@"likes"]];
                 [self.loveBtn setTitle:self.likes forState:UIControlStateNormal];
                 [self.shareBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"shareNumber"]] forState:UIControlStateNormal];
-                [self.headView setNeedsLayout];
+//                [self.headView setNeedsLayout];
 //                [self.tableView beginUpdates];
                 NSString * file = [NSString stringWithFormat:@"%@",dict[@"file"]];
                 CGRect frame = self.headView.frame;
@@ -123,7 +123,7 @@
                 }
                 self.headView.frame = frame;
 //                self.tableView.tableHeaderView = self.headView;
-                [self.headView layoutIfNeeded];
+//                [self.headView layoutIfNeeded];
 //                [self.tableView layoutIfNeeded];
 //                [self.tableView endUpdates];
                 //采纳答案

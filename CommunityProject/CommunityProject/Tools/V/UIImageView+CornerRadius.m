@@ -124,7 +124,7 @@ const char kProcessedImage;
         self.zyHadAddObserver = YES;
     }
     //Xcode 8 xib 删除了控件的Frame信息，需要主动创造
-    [self layoutIfNeeded];
+//    [self layoutIfNeeded];
 }
 
 /**
@@ -138,7 +138,7 @@ const char kProcessedImage;
         self.zyHadAddObserver = YES;
     }
     //Xcode 8 xib 删除了控件的Frame信息，需要主动创造
-    [self layoutIfNeeded];
+//    [self layoutIfNeeded];
 }
 
 #pragma mark - Private

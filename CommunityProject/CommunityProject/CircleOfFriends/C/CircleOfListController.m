@@ -140,7 +140,7 @@
                 NSArray * arr = data[@"data"];
                 //初始化传参过来的消息数据
 //                [weakSelf.tableView beginUpdates];
-                [self.headerView setNeedsLayout];
+//                [self.headerView setNeedsLayout];
                 CGRect frame = self.headerView.frame;
                 if (arr.count == 0) {
                     frame.size.height = 0;
@@ -166,7 +166,7 @@
                 }
                 weakSelf.headerView.frame = frame;
 //                weakSelf.tableView.tableHeaderView = weakSelf.headerView;
-                [weakSelf.headerView layoutIfNeeded];
+//                [weakSelf.headerView layoutIfNeeded];
 //                [weakSelf.tableView layoutIfNeeded];
 //                [weakSelf.tableView endUpdates];
             }else{
@@ -311,7 +311,7 @@
 
 }
 -(void)backClick{
-    [self.tableView beginUpdates];
+//    [self.tableView beginUpdates];
     CGRect frame = self.headerView.frame;
     frame.size.height = 0;
     self.headerView.frame = frame;
@@ -319,9 +319,9 @@
     self.imageHeightCons.constant = 0;
     self.conViewHeightCons.constant = 0;
     self.tableView.tableHeaderView = self.headerView;
-    [self.headerView layoutIfNeeded];
-    [self.tableView layoutIfNeeded];
-    [self.tableView endUpdates];
+//    [self.headerView layoutIfNeeded];
+//    [self.tableView layoutIfNeeded];
+//    [self.tableView endUpdates];
 //发送通知到发现隐藏消息提示并清空
     [[NSNotificationCenter defaultCenter]postNotificationName:@"CircleMessage" object:nil];
     

@@ -161,7 +161,7 @@
         self.collHeightCons.constant = 309;
     }
     imageHeight = self.collHeightCons.constant;
-    [self.headerView setNeedsLayout];
+//    [self.headerView setNeedsLayout];
     CGRect frame = self.headerView.frame;
     if (self.content.length != 0 && self.collectionArr.count != 0) {
         frame.size.height = 126+labelHeight+imageHeight;
@@ -172,7 +172,7 @@
     }
     self.headerView.frame = frame;
 //    self.tableView.tableHeaderView = self.headerView;
-    [self.headerView layoutIfNeeded];
+//    [self.headerView layoutIfNeeded];
 //    [self.tableView layoutIfNeeded];
 //    [self.tableView endUpdates];
     //变换颜色
