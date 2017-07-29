@@ -580,7 +580,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qmc-Xa-XAP">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qmc-Xa-XAP">
                                 <rect key="frame" x="0.0" y="22" width="375" height="645"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ap-1N-7Gx">
@@ -759,6 +759,7 @@
                         <outlet property="headImageView" destination="8ud-it-Odt" id="iYW-xa-0SZ"/>
                         <outlet property="loveBtn" destination="74E-Lb-LVq" id="QBF-Wx-7KT"/>
                         <outlet property="nameLabel" destination="Y3a-Fq-ttB" id="ewM-uk-Ayr"/>
+                        <outlet property="scrollView" destination="Qmc-Xa-XAP" id="k0J-oJ-uQO"/>
                         <outlet property="secondImage" destination="elg-4I-xML" id="FO3-Jx-Qss"/>
                         <outlet property="thirdImage" destination="e1v-Hu-Bd6" id="AcJ-BE-fNR"/>
                         <outlet property="timeLabel" destination="Woo-3Y-soL" id="9p9-7D-NDY"/>

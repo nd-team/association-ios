@@ -29,7 +29,7 @@
 //图片
 @property (nonatomic,strong)NSArray * images;
 //说说ID
-@property (nonatomic,assign)NSInteger  idStr;
+@property (nonatomic,strong)NSString * idStr;
 
 @property (nonatomic,strong)NSString * visibleType;
 //计算总高度

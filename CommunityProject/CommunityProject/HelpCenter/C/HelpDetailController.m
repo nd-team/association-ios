@@ -106,8 +106,6 @@
                 self.likes = [NSString stringWithFormat:@"%@",dict[@"likes"]];
                 [self.loveBtn setTitle:self.likes forState:UIControlStateNormal];
                 [self.shareBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"shareNumber"]] forState:UIControlStateNormal];
-//                [self.headView setNeedsLayout];
-//                [self.tableView beginUpdates];
                 NSString * file = [NSString stringWithFormat:@"%@",dict[@"file"]];
                 CGRect frame = self.headView.frame;
                 if (![ImageUrl isEmptyStr:file]) {
@@ -122,10 +120,6 @@
                     frame.size.height = 108+rect.size.height;
                 }
                 self.headView.frame = frame;
-//                self.tableView.tableHeaderView = self.headView;
-//                [self.headView layoutIfNeeded];
-//                [self.tableView layoutIfNeeded];
-//                [self.tableView endUpdates];
                 //采纳答案
                 if ([[dict allKeys] containsObject:@"adopt"]) {
                     NSDictionary * bestDic = dict[@"adopt"];

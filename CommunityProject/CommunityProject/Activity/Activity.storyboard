@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EcB-s1-Cjg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EcB-s1-Cjg">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -806,10 +806,8 @@
                                         <constraint firstItem="a10-nB-IdR" firstAttribute="leading" secondItem="Iqq-65-fKG" secondAttribute="trailing" constant="10" id="19z-cA-Ax9"/>
                                         <constraint firstItem="Iqq-65-fKG" firstAttribute="centerY" secondItem="ny7-gL-KNl" secondAttribute="centerY" constant="-5" id="3gT-HF-xEk"/>
                                         <constraint firstAttribute="trailing" secondItem="xQG-5p-3hZ" secondAttribute="trailing" id="C0f-hh-fkz"/>
-                                        <constraint firstAttribute="width" constant="375" id="GtF-Sr-hSr"/>
                                         <constraint firstAttribute="trailing" secondItem="a10-nB-IdR" secondAttribute="trailing" constant="10" id="JxW-Lz-PWe"/>
                                         <constraint firstItem="xQG-5p-3hZ" firstAttribute="leading" secondItem="ny7-gL-KNl" secondAttribute="leading" id="N2l-tv-cDb"/>
-                                        <constraint firstAttribute="height" constant="84" id="Quq-lK-BC2"/>
                                         <constraint firstItem="Iqq-65-fKG" firstAttribute="leading" secondItem="ny7-gL-KNl" secondAttribute="leading" constant="20" id="U3g-wN-WhL"/>
                                         <constraint firstItem="a10-nB-IdR" firstAttribute="centerY" secondItem="ny7-gL-KNl" secondAttribute="centerY" constant="-5" id="pgh-jp-w5v"/>
                                         <constraint firstAttribute="bottom" secondItem="xQG-5p-3hZ" secondAttribute="bottom" id="svd-dd-zBd"/>
@@ -841,8 +839,6 @@
                                     <constraints>
                                         <constraint firstItem="pLo-Xf-Z0b" firstAttribute="top" secondItem="zGR-DH-VXz" secondAttribute="bottom" constant="15" id="4Wr-Be-MPC"/>
                                         <constraint firstItem="pLo-Xf-Z0b" firstAttribute="centerX" secondItem="aeL-ks-4S7" secondAttribute="centerX" id="5bj-OZ-pvj"/>
-                                        <constraint firstAttribute="width" constant="375" id="cFB-uh-7Cb"/>
-                                        <constraint firstAttribute="height" constant="50" id="frs-Vp-ftr"/>
                                         <constraint firstItem="zGR-DH-VXz" firstAttribute="centerX" secondItem="aeL-ks-4S7" secondAttribute="centerX" id="jmd-mn-m5M"/>
                                         <constraint firstItem="zGR-DH-VXz" firstAttribute="top" secondItem="aeL-ks-4S7" secondAttribute="top" constant="97" id="wrT-BZ-pHg"/>
                                     </constraints>
@@ -991,9 +987,7 @@
                         <outlet property="bottomView" destination="2Ld-8y-F4J" id="Zga-Na-GXD"/>
                         <outlet property="commentTF" destination="EGL-2c-3Ih" id="jdJ-T8-WiS"/>
                         <outlet property="contentLabel" destination="a10-nB-IdR" id="n2j-xL-mXl"/>
-                        <outlet property="footerHeightCons" destination="frs-Vp-ftr" id="TX2-dH-0Hn"/>
                         <outlet property="footerView" destination="aeL-ks-4S7" id="Ib1-hY-SMt"/>
-                        <outlet property="headHeightCons" destination="Quq-lK-BC2" id="PsK-Uq-hK7"/>
                         <outlet property="headImageView" destination="Iqq-65-fKG" id="i5P-0U-08z"/>
                         <outlet property="headView" destination="ny7-gL-KNl" id="AMa-As-iZR"/>
                         <outlet property="placeTF" destination="Xq7-a8-vs4" id="nCx-3j-VJq"/>

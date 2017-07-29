@@ -36,6 +36,8 @@
 @property (nonatomic,assign)int person;
 //当前用户ID
 @property (nonatomic,copy)NSString * userID;
+//标记通讯录被服务器录入次数
+@property (nonatomic,assign)int refreshCount;
 
 @end
 
@@ -56,7 +58,7 @@
 }
 -(void)setUI{
     self.userID = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
-
+    self.refreshCount = 0;
     self.isSearch = NO;
     UIView * backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 48)];
     
@@ -73,6 +75,7 @@
     WeakSelf;
     self.tableView.mj_footer.hidden = YES;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakSelf.refreshCount++;
         weakSelf.isSearch = NO;
         [weakSelf.searchArr removeAllObjects];
         [weakSelf refresh];
@@ -204,9 +207,11 @@
                     [weakSelf.tableView reloadData];
                     [weakSelf.tableView.mj_header endRefreshing];
                     //录入通讯录
-                    NSData * data = [NSJSONSerialization dataWithJSONObject:addressList options:NSJSONWritingPrettyPrinted error:nil];
-                    NSString * result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-                    [weakSelf inputAddressList:result];
+                    if (self.refreshCount == 0) {
+                        NSData * data = [NSJSONSerialization dataWithJSONObject:addressList options:NSJSONWritingPrettyPrinted error:nil];
+                        NSString * result = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                        [weakSelf inputAddressList:result];
+                    }
 
                 }
             }else{

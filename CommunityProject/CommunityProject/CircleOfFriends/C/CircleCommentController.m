@@ -161,7 +161,6 @@
         self.collHeightCons.constant = 309;
     }
     imageHeight = self.collHeightCons.constant;
-//    [self.headerView setNeedsLayout];
     CGRect frame = self.headerView.frame;
     if (self.content.length != 0 && self.collectionArr.count != 0) {
         frame.size.height = 126+labelHeight+imageHeight;
@@ -171,10 +170,6 @@
         frame.size.height = 119+labelHeight+imageHeight;
     }
     self.headerView.frame = frame;
-//    self.tableView.tableHeaderView = self.headerView;
-//    [self.headerView layoutIfNeeded];
-//    [self.tableView layoutIfNeeded];
-//    [self.tableView endUpdates];
     //变换颜色
     if ([self.commentCount isEqualToString:@"0"]) {
         self.commentLabel.text = @"评论";

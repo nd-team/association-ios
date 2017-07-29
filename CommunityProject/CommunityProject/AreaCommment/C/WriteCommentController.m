@@ -240,14 +240,14 @@
     [mDic setValue:self.commentTV.text forKey:@"content"];
     [mDic setValue:@"ALL" forKey:@"visibleType"];
     [mDic setValue:self.score forKey:@"scoreType"];
-    NSSLog(@"%@",mDic);
+//    NSSLog(@"%@",mDic);
     NSMutableArray * arr = [NSMutableArray new];
     for (UploadImageModel * model in self.collectionArr) {
         if (!model.isPlaceHolder) {
             [arr addObject:model.image];
         }
     }
-    NSSLog(@"%zi",arr.count);
+//    NSSLog(@"%zi",arr.count);
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     [UploadFilesNet postDataWithUrl:[NSString stringWithFormat:JAVAURL,CommentURL] andParams:mDic andHeader:userId andArray:arr getBlock:^(NSURLResponse *response, NSError *error, id data) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -257,6 +257,7 @@
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 0) {
+                weakSelf.delegate.isRefresh = YES;
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             }else{
                 [weakSelf showMessage:@"提交评价失败，请重新提交"];

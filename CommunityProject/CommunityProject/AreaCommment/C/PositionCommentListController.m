@@ -97,7 +97,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     PositionCommentListModel * model = self.dataArr[indexPath.row];
     if (model.height != 0) {
-        return 300;
+        return model.height;
     }
     return 277;
 }
@@ -108,6 +108,7 @@
 }
 //评论详情
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    PositionCommentListCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     PositionCommentListModel * model = self.dataArr[indexPath.row];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Position" bundle:nil];
     PositionCommentDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"PositionCommentDetailController"];
@@ -117,8 +118,8 @@
     detail.score = model.scoreType;
     detail.comment = model.content;
     [detail.collectArr addObjectsFromArray: model.images];
-    detail.isLove = model.alreadyLikes;
-    detail.commentId = [NSString stringWithFormat:@"%zi",model.idStr];
+    detail.isLove = cell.loveBtn.selected;
+    detail.commentId = model.idStr;
     [self.navigationController pushViewController:detail animated:YES];
 
 }

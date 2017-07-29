@@ -88,15 +88,9 @@
     self.tableView.estimatedRowHeight = 114;
     [self.loveBtn setTitle:[NSString stringWithFormat:@"%@",self.loveCount] forState:UIControlStateNormal];
     CGRect rect = [self.commentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
-//    [self.tableView beginUpdates];
-//    [self.headView setNeedsLayout];
     CGRect frame = self.headView.frame;
     frame.size.height = 175+rect.size.height;
     self.headView.frame = frame;
-//    self.tableView.tableHeaderView = self.headView;
-//    [self.headView layoutIfNeeded];
-//    [self.tableView layoutIfNeeded];
-//    [self.tableView endUpdates];
     WeakSelf;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;

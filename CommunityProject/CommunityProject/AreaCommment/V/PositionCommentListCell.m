@@ -11,7 +11,7 @@
 #import "MJPhotoBrowser.h"
 #import "PutNet.h"
 
-#define ZanURL @"comment/like/%zi"
+#define ZanURL @"/comment/like/%@"
 
 @implementation PositionCommentListCell
 
@@ -19,9 +19,7 @@
     [super awakeFromNib];
     [self.loveBtn setImage:[UIImage imageNamed:@"darkHeart"] forState:UIControlStateNormal];
     [self.loveBtn setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateSelected];
-    self.headImageView.layer.masksToBounds = YES;
-    self.headImageView.layer.cornerRadius = 15.5;
-//    [self.headImageView zy_cornerRadiusRoundingRect];
+    [self.headImageView zy_cornerRadiusRoundingRect];
     [self.collectionView registerNib:[UINib nibWithNibName:@"CircleImageCell" bundle:nil] forCellWithReuseIdentifier:@"FirstPositionImageCell"];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -39,6 +37,7 @@
     self.likes = _commentModel.likes;
     self.loveCountLabel.text = [NSString stringWithFormat:@"赞 %@",_commentModel.likes];
     NSString * url = [NSString stringWithFormat:JAVAURL,@"file/thumbnails?path=%@"];
+//    NSSLog(@"%@",[NSString stringWithFormat:url,_commentModel.headPath]);
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:url,_commentModel.headPath]] placeholderImage:[UIImage imageNamed:@"default"]];
     if (_commentModel.alreadyLikes) {
         self.loveBtn.selected = YES;
@@ -47,7 +46,7 @@
     }
     NSString * time = [_commentModel.createTime componentsSeparatedByString:@" "][0];
     NSArray * timeArr = [time componentsSeparatedByString:@"-"];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@月%@日",timeArr[0],timeArr[1]];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@月%@日",timeArr[1],timeArr[2]];
     if ([_commentModel.scoreType isEqualToString:@"FIRST"]){
         [self setScoreImage:@"starYellow" andSecond:@"starDark" andThird:@"starDark" andFourth:@"starDark" andFive:@"starDark"];
 
@@ -145,13 +144,15 @@
     WeakSelf;
     self.loveBtn.selected = !self.loveBtn.selected;
     NSString * url = [NSString stringWithFormat:ZanURL,model.idStr];
+//    NSSLog(@"url:%@",[NSString stringWithFormat:JAVAURL,url]);
     [PutNet putDataWithUrl:[NSString stringWithFormat:JAVAURL,url] andParams:nil andHeader:userId returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);
             weakSelf.loveBtn.selected = NO;
         }else{
-            
-            NSNumber * code = data[@"code"];
+            NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//            NSSLog(@"%@",dict);
+            NSNumber * code = dict[@"code"];
             if ([code intValue] == 0) {
                 weakSelf.loveBtn.selected = YES;
                 if (self.loveBtn.selected) {

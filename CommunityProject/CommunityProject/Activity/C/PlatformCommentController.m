@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headHeightCons;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic,strong)NSMutableArray * dataArr;
@@ -33,7 +32,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomHeightCons;
 //分页
 @property (nonatomic,assign)int page;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *footerHeightCons;
 @property (weak, nonatomic) IBOutlet UIView *footerView;
 
 @end
@@ -51,18 +49,13 @@
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10DB9F);
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.userId = [DEFAULTS objectForKey:@"userId"];
-//    [self.tableView beginUpdates];
-//    [self.headView setNeedsLayout];
-
     CGRect rect = self.headView.frame;
     //平台活动
     if (self.type == 6) {
         self.headView.hidden = YES;
-        self.headHeightCons.constant = 0;
         rect.size.height = 0;
     }else{
         self.headView.hidden = NO;
-        self.headHeightCons.constant = 84;
         [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
 
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default.png"]];
@@ -70,10 +63,6 @@
         rect.size.height = 84;
     }
     self.headView.frame = rect;
-//    self.tableView.tableHeaderView = self.headView;
-//    [self.headView layoutIfNeeded];
-//    [self.tableView layoutIfNeeded];
-//    [self.tableView endUpdates];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 88;
     //监听键盘变化
@@ -166,12 +155,16 @@
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshing];
+            CGRect rect = self.footerView.frame;
             if (weakSelf.dataArr.count == 0) {
-                    weakSelf.footerHeightCons.constant = KMainScreenHeight-125-74;
+                     rect.size.height = KMainScreenHeight-125-74;
                     weakSelf.tableView.mj_footer.hidden = YES;
             }else{
+                rect.size.height = 0;
                 weakSelf.footerView.hidden = YES;
             }
+            self.footerView.frame = rect;
+
         }
     }];
    

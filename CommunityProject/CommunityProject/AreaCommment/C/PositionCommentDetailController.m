@@ -36,10 +36,19 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collHeightCons;
 @property (nonatomic,copy)NSString * userId;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @end
 
 @implementation PositionCommentDetailController
-
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = NO;
+    
+    self.tabBarController.tabBar.hidden = YES;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"点评详情";
@@ -63,7 +72,7 @@
     self.nameLabel.text = self.nickname;
     NSString * time = [self.time componentsSeparatedByString:@" "][0];
     NSArray * timeArr = [time componentsSeparatedByString:@"-"];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@月%@日",timeArr[0],timeArr[1]];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@月%@日",timeArr[1],timeArr[2]];
     self.commentLabel.text = self.comment;
     if ([self.score isEqualToString:@"0"]) {
         [self setScoreImage:@"starDark" andSecond:@"starDark" andThird:@"starDark" andFourth:@"starDark" andFive:@"starDark"];
@@ -96,8 +105,10 @@
     CGFloat allHeight = self.collHeightCons.constant+contentHei+134;
     if (allHeight > KMainScreenHeight) {
         self.viewHeightCons.constant = allHeight;
+        self.scrollView.scrollEnabled = YES;
     }else{
-        self.viewHeightCons.constant = KMainScreenHeight;
+        self.viewHeightCons.constant = KMainScreenHeight-64;
+        self.scrollView.scrollEnabled = NO;
     }
     [self.collectionView reloadData];
     
@@ -156,6 +167,7 @@
     WeakSelf;
     self.loveBtn.selected = !self.loveBtn.selected;
     NSString * url = [NSString stringWithFormat:ZanURL,self.commentId];
+    NSSLog(@"url:%@",[NSString stringWithFormat:JAVAURL,url]);
     [PutNet putDataWithUrl:[NSString stringWithFormat:JAVAURL,url] andParams:nil andHeader:self.userId returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);
@@ -163,7 +175,10 @@
             [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             
-            NSNumber * code = data[@"code"];
+            NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//            NSSLog(@"%@",dict);
+            NSNumber * code = dict[@"code"];
+//            NSSLog(@"%@",dict[@"msg"]);
             if ([code intValue] == 0) {
                 weakSelf.loveBtn.selected = YES;
 //                if (self.loveBtn.selected) {
@@ -190,5 +205,10 @@
     [super viewWillLayoutSubviews];
     self.viewWidthCons.constant = KMainScreenWidth;
 }
-
+-(NSMutableArray *)collectArr{
+    if (!_collectArr) {
+        _collectArr = [NSMutableArray new];
+    }
+    return _collectArr;
+}
 @end

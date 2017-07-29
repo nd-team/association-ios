@@ -140,7 +140,7 @@
                         </connections>
                     </collectionView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="赞 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGq-7r-Iwo">
-                        <rect key="frame" x="69" y="250.5" width="40" height="13"/>
+                        <rect key="frame" x="65" y="250.5" width="40" height="13"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="fvV-gk-u43"/>
                             <constraint firstAttribute="height" constant="13" id="tLQ-VU-ugM"/>
@@ -164,7 +164,7 @@
                     <constraint firstItem="gve-4A-A5b" firstAttribute="leading" secondItem="3C3-jz-SC1" secondAttribute="trailing" constant="9" id="W7g-Wy-T7N"/>
                     <constraint firstItem="lDl-An-yRs" firstAttribute="leading" secondItem="dci-dB-Rhc" secondAttribute="trailing" constant="4" id="Xfj-uy-5lF"/>
                     <constraint firstAttribute="bottomMargin" secondItem="s7e-vo-2Bw" secondAttribute="bottom" constant="1" id="YcX-3l-XTB"/>
-                    <constraint firstItem="PGq-7r-Iwo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="61" id="ceT-Ls-0yg"/>
+                    <constraint firstItem="PGq-7r-Iwo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="57" id="ceT-Ls-0yg"/>
                     <constraint firstAttribute="trailingMargin" secondItem="LCK-bX-drY" secondAttribute="trailing" constant="12" id="e1p-xj-aAf"/>
                     <constraint firstItem="dci-dB-Rhc" firstAttribute="leading" secondItem="iyz-BN-5PW" secondAttribute="trailing" constant="4" id="gN7-cw-cv6"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Ofg-Uf-pdd" secondAttribute="trailing" constant="12" id="hQu-aU-U42"/>

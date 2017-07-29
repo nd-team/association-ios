@@ -79,6 +79,7 @@
     [self countHeight];
     //清空插入数据
     self.dict = nil;
+    [self.collectionView reloadData];
 
 }
 - (void)viewDidLoad {
@@ -95,7 +96,6 @@
         //无网从本地加载数据
         [self localData];
     }else{
-       // dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0)
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -144,7 +144,7 @@
     CGRect frame = self.headView.frame;
     frame.size.height = 622.5+self.collHeightContraint.constant;
     self.headView.frame = frame;
-//    [self.headView layoutIfNeeded];
+    [self.headView layoutIfNeeded];
     
 }
 //数据库获取数据
@@ -318,7 +318,7 @@
     }else if ([model.name isEqualToString:@"天气中心"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Weather" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"WeatherListController"];
-    }else if ([model.name isEqualToString:@"互评"]){
+    }else if ([model.name isEqualToString:@"位置点评"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Position" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"PositionMapController"];
     }

@@ -10,4 +10,6 @@
 
 @interface PositionMapController : UIViewController
 
+@property (nonatomic,assign)BOOL isRefresh;
+
 @end

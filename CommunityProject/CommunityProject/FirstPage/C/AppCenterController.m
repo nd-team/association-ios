@@ -40,15 +40,17 @@
 -(void)getAllData{
     DataSource * data = [DataSource new];
     NSArray * array = [data getApplictionData];
+    
     for (NSDictionary * dic in array) {
         AppModel * model = [[AppModel alloc]initWithDictionary:dic error:nil];
-            if ([self.nameArr containsObject:model]) {
-                model.isHidden = YES;
+        for (AppModel * app in self.nameArr) {
+            if ([model.name isEqualToString:app.name]) {
+                model.isHidden = true;
+                break;
             }else{
-                model.isHidden = NO;
+                model.isHidden = false;
             }
-        
-        
+        }
         [self.dataArr addObject:model];
     }
     [self.collectionView reloadData];
@@ -81,7 +83,7 @@
 //}
 
     if (i == 0) {
-            self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName,@"isHidden":@"0"};
+            self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName};
             [self.navigationController popViewControllerAnimated:YES];
         
     }

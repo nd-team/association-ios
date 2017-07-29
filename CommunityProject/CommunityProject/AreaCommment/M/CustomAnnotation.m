@@ -12,7 +12,7 @@
 
 - (CLLocationCoordinate2D)coordinate
 {
-    return CLLocationCoordinate2DMake([self.nearModel.pointY floatValue], [self.nearModel.pointX floatValue]);
+    return CLLocationCoordinate2DMake([self.nearModel.pointX floatValue], [self.nearModel.pointY floatValue]);
 }
 -(id)initWithNearModel:(NearbyShopListModel *)nearModel{
     if (self = [super init]) {

@@ -68,7 +68,9 @@
     self.count = 0;
     //开始定位 持续定位
     [self.locationManager startUpdatingLocation];
-    
+    if (self.isRefresh) {
+        [self getCommentListData];
+    }
     
 }
 - (void)viewDidLoad {
@@ -97,7 +99,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     PositionCommentListModel * model = self.dataArr[indexPath.row];
     if (model.height != 0) {
-        return 300;
+        return model.height;
     }
     return 277;
 }
@@ -110,6 +112,7 @@
 }
 //评论详情
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    PositionCommentListCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     PositionCommentListModel * model = self.dataArr[indexPath.row];
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Position" bundle:nil];
     PositionCommentDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"PositionCommentDetailController"];
@@ -119,7 +122,7 @@
     detail.score = model.scoreType;
     detail.comment = model.content;
     [detail.collectArr addObjectsFromArray: model.images];
-    detail.isLove = model.alreadyLikes;
+    detail.isLove = cell.loveBtn.selected;
     detail.commentId = [NSString stringWithFormat:@"%zi",model.idStr];
     [self.navigationController pushViewController:detail animated:YES];
 }
@@ -139,6 +142,7 @@
     write.area = self.area;
     write.longitude = self.longitude;
     write.latitude = self.latitude;
+    write.delegate = self;
     [self.navigationController pushViewController:write animated:YES];
 
 }
@@ -280,6 +284,7 @@
             }
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSNumber * code = jsonDic[@"code"];
+            NSSLog(@"%@",jsonDic);
             if ([code intValue] == 0) {
                 if ([[jsonDic allKeys] containsObject:@"data"]) {
                     NSArray * arr = jsonDic[@"data"];
@@ -292,7 +297,7 @@
                     }else{
                        self.countLabel.text = @"网友点评";
                     }
-                    NSSLog(@"%@",arr);
+//                    NSSLog(@"%@",arr);
                 }
                 
             }else{
@@ -317,7 +322,6 @@
         self.areaId = poi.uid;
         self.longitude = poi.coordinate.longitude;
         self.latitude = poi.coordinate.latitude;
-       // NSSLog(@"纬度:%f经度===%f",poi.coordinate.latitude,poi.coordinate.longitude);
     }
     //发起检索
     [self sendSearch:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
@@ -347,6 +351,7 @@
         write.area = self.area;
         write.longitude = self.longitude;
         write.latitude = self.latitude;
+        write.delegate = self;
         [self.navigationController pushViewController:write animated:YES];
     }
 }
@@ -396,7 +401,7 @@
                     CustomAnnotation * cus = [[CustomAnnotation alloc]initWithNearModel:model];
                     //纬度经度
                     cus.coordinate = CLLocationCoordinate2DMake([pointX floatValue], [pointY floatValue]);
-                   // NSSLog(@"pointX:%@pointY===%@",pointX,pointY);
+//                    NSSLog(@"pointX:%@pointY===%@",pointX,pointY);
                     [self.mapView addAnnotation:cus];
                 }
                 //显示标注

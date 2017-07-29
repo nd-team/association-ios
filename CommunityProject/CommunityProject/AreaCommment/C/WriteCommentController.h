@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PositionMapController.h"
 
 @interface WriteCommentController : UIViewController
 @property (nonatomic,copy)NSString * shopname;
@@ -17,5 +18,7 @@
 @property (nonatomic,assign)CGFloat  latitude;
 //地址
 @property (nonatomic,copy)NSString * area;
+
+@property (nonatomic,assign)PositionMapController * delegate;
 
 @end
