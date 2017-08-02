@@ -31,13 +31,19 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf getClaimData];
     }];
-    [self getClaimData];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getClaimData];
+    });
 }
 -(void)getClaimData{
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     WeakSelf;
     NSDictionary * params = @{@"userId":userId,@"status":@"1"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -60,8 +66,11 @@
             }else{
                 [weakSelf showMessage:@"加载我的认领失败，下拉刷新重试"];
             }
-            [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
+            });
+           
         }
     }];
 }

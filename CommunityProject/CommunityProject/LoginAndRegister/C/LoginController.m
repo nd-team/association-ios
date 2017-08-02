@@ -18,7 +18,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTF;
 @property (weak, nonatomic) IBOutlet UITextField *secretTF;
-@property (weak, nonatomic) IBOutlet UILabel *msgLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topCons;
 
 @end
@@ -31,7 +30,6 @@
 }
 
 -(void)setUI{
-    self.msgLabel.hidden = YES;
     [self leftView:self.usernameTF andFrame:CGRectMake(18, 9.5, 14.5, 25.5) imageName:@"leftUser"];
     [self leftView:self.secretTF andFrame:CGRectMake(21.5, 12.7, 17, 20.5) imageName:@"leftSecret"];
     [self.usernameTF becomeFirstResponder];
@@ -50,7 +48,7 @@
 -(void)tapClick{
     [self.usernameTF resignFirstResponder];
     [self.secretTF resignFirstResponder];
-    self.topCons.constant = 67;
+    self.topCons.constant = 127;
 
 }
 -(void)leftView:(UITextField *)textField andFrame:(CGRect)frame imageName:(NSString *)imgName{
@@ -111,7 +109,7 @@
             
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                     [weakSelf loginNet];
             });
            
@@ -123,7 +121,9 @@
     WeakSelf;
     NSDictionary * dic = @{@"mobile":self.usernameTF.text,@"password":self.secretTF.text};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,LoginURL] andParams:dic returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"登录失败：%@",error);
             [weakSelf showMessage:@"登录失败！"];
@@ -271,15 +271,7 @@
 
 -(void)showMessage:(NSString *)message{
     
-    self.msgLabel.hidden = NO;
-    
-    self.msgLabel.text = message;
-    
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
-}
--(void)timerAction{
-    
-    self.msgLabel.hidden = YES;
+    [self.view makeToast:message];
     
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -295,9 +287,9 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
     if (textField == self.secretTF){
-        self.topCons.constant = 27;
-    }else{
         self.topCons.constant = 67;
+    }else{
+        self.topCons.constant = 127;
     }
     
 }

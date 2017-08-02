@@ -15,7 +15,7 @@
     AFHTTPSessionManager * manager = [FixMemoryLeak sharedHTTPSession];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.requestSerializer.timeoutInterval = 20.0f;
-    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy:@"ISSP"];
     [manager.requestSerializer setValue:userId forHTTPHeaderField:@"userId"];
 
     [manager.requestSerializer setValue:@"text/html;application/xhtml+xml;application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];

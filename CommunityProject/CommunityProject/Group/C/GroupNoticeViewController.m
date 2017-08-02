@@ -74,10 +74,10 @@
         
  
     }else{
-       
-        //请求网络数据成功弹出框
-        [self showBackViewUI];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //请求网络数据成功弹出框
+            [weakSelf showBackViewUI];
+        });
         
     }
 }
@@ -100,7 +100,10 @@
     [self hideViewAction];
 }
 -(void)hideViewAction{
-    self.backView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backView.hidden = YES;
+
+    });
 }
 -(void)createNotice{
     NSMutableDictionary * mDic = [NSMutableDictionary new];

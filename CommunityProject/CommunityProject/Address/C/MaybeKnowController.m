@@ -64,8 +64,11 @@
             }else{
                 [weakSelf showMessage:@"加载数据失败，下拉刷新重试"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
+         
         }
         
     }];

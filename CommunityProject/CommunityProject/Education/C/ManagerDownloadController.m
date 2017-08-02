@@ -31,9 +31,11 @@
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
     //单利取数据
     [self.dataArr addObjectsFromArray:[SRDownloadManager sharedManager].allArray];
-    NSSLog(@"%@",self.dataArr);
+//    NSSLog(@"%@",self.dataArr);
     if (self.dataArr.count != 0) {
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
 
 }
@@ -78,7 +80,10 @@
         //删除单列模型
 //        [SRDownloadManager sharedManager]
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+
+        });
     }
 }
 -(NSMutableArray *)dataArr{

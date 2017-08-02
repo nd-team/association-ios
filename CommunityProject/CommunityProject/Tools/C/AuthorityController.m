@@ -102,8 +102,11 @@
     
 }
 -(void)common:(BOOL)isHidden{
-    self.oneImage.hidden = isHidden;
-    self.twoImage.hidden = !isHidden;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.oneImage.hidden = isHidden;
+        self.twoImage.hidden = !isHidden;
+    });
+    
 }
 
 @end

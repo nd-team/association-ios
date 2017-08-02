@@ -78,7 +78,9 @@
     ApplicationDatabaseSingle * single = [ApplicationDatabaseSingle shareDatabase];
     [self.dataArr addObjectsFromArray:[single searchDatabase]];
     if (self.dataArr.count != 0) {
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
 }
 -(void)setUI{
@@ -123,10 +125,12 @@
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"加载好友申请失败，下拉加载重试"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            
-        }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+
+            });
+            }
     }];
     
 }

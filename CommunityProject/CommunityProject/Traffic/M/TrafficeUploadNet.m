@@ -17,7 +17,7 @@
     manager.requestSerializer.timeoutInterval = 10.0f;
     
     [manager.requestSerializer setValue:@"text/html;application/xhtml+xml;application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
-    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy:@"space"];
     
     [manager.requestSerializer setHTTPShouldHandleCookies:YES];
     

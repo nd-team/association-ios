@@ -51,8 +51,11 @@
         CircleUnreadMessageModel * model = [[CircleUnreadMessageModel alloc]initWithDictionary:dic error:nil];
         [self.messageArr addObject:model];
     }
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
+#pragma mark-清空消息
 -(void)rightClick{
     NSDictionary * params = @{@"userId":self.userId};
     WeakSelf;
@@ -83,8 +86,10 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 [weakSelf.messageArr removeAllObjects];
-                [weakSelf.tableView reloadData];
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
             }else{
                 [weakSelf showMessage:@"加载未读消息失败！"];
             }

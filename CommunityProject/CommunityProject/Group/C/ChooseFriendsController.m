@@ -145,11 +145,13 @@
                 weakSelf.sectionArr = [BMChineseSort IndexWithArray:weakSelf.dataArr Key:@"userName"];
                 //数据
                 weakSelf.rowArr = [BMChineseSort sortObjectArray:weakSelf.dataArr Key:@"userName"];
-                [weakSelf.tableView reloadData];
-
-            }else{
+                }else{
                 [weakSelf showMessage:@"获取群成员失败"];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
+
             
         }
     }];
@@ -193,10 +195,12 @@
 
                     }
                 }
-                [weakSelf.tableView reloadData];
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"加载好友列表失败"];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
         }
         
     }];
@@ -207,6 +211,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)rightItemClick{
+    WeakSelf;
+
     //单选
     if (self.dif == 1&&self.managerId.length == 0) {
         return;
@@ -250,10 +256,14 @@
         {
             if (self.hostId.length != 0) {
                 //群主拉人
-                [self showBackViewUI:@"确认添加成员"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf showBackViewUI:@"确认添加成员"];
+                });
             }else{
-                [self showBackViewUI:@"等待群主审核"];
-  
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [weakSelf showBackViewUI:@"等待群主审核"];
+                });
             }
 
         }
@@ -261,8 +271,9 @@
         case 4:
             //移除成员
         {
-            [self showBackViewUI:@"确认移除成员"];
-  
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf showBackViewUI:@"确认移除成员"];
+            });
         }
             
         break;
@@ -279,6 +290,7 @@
             break;
     }
 }
+
 -(void)showBackViewUI:(NSString *)title{
     
     self.backView = [UIView sureViewTitle:title andTag:50 andTarget:self andAction:@selector(buttonAction:)];
@@ -306,19 +318,20 @@
                 NSDictionary * params = @{@"groupId":self.groupId,@"users":self.result,@"groupUserId":self.hostId};
                 [self deletePerson:params andUrl:DeleteURL];
             }
-            self.backView.hidden = YES;
         }
             break;
             
         default:
             //取消
-            self.backView.hidden = YES;
             break;
     }
+    [self hideViewAction];
 }
 -(void)hideViewAction{
-    
-    self.backView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backView.hidden = YES;
+
+    });
     
 }
 -(void)deletePerson:(NSDictionary *)params andUrl:(NSString *)url{
@@ -430,7 +443,9 @@
             }else{
                 self.searchTF.leftView = self.collectionView;
                 //刷新collection
-                [weakSelf.collectionView reloadData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.collectionView reloadData];
+                });
             }
         }
     };
@@ -540,7 +555,9 @@
             }
         }
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
+    });
     
 }
 -(void)showMessage:(NSString *)msg{

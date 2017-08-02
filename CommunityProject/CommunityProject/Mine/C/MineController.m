@@ -100,7 +100,7 @@
     //设置头像和名字
     self.nickname = [DEFAULTS objectForKey:@"nickname"];
     self.url = [DEFAULTS objectForKey:@"userPortraitUrl"];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.url] placeholderImage:[UIImage imageNamed:@"default.png"]];
     self.nameLabel.text = self.nickname;
     self.sex = [DEFAULTS integerForKey:@"sex"];
     if (self.sex == 1) {
@@ -237,7 +237,7 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
     MyCodeCardController * set = [sb instantiateViewControllerWithIdentifier:@"MyCodeCardController"];
     //传参
-    set.userId = self.userLabel.text;
+    set.userId = [DEFAULTS objectForKey:@"userId"];
     set.nickname = self.nameLabel.text;
     set.userPortraitUrl = self.url;
     set.sex = self.sex;

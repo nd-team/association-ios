@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LwG-x5-oxg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LwG-x5-oxg">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -102,11 +102,11 @@
                         </subviews>
                         <color key="backgroundColor" red="0.92549019610000005" green="0.93333333330000001" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Tmp-X4-a32" secondAttribute="trailing" constant="20" id="3aK-ee-DVV"/>
                             <constraint firstItem="Fbs-CP-2k1" firstAttribute="leading" secondItem="ePP-Y7-OLp" secondAttribute="leading" id="4cT-oY-8pP"/>
                             <constraint firstAttribute="trailing" secondItem="O7i-Of-L0v" secondAttribute="trailing" constant="10" id="G4m-V2-1tR"/>
                             <constraint firstItem="22v-wP-srh" firstAttribute="top" secondItem="O7i-Of-L0v" secondAttribute="bottom" constant="10" id="JvX-eN-vQd"/>
                             <constraint firstItem="22v-wP-srh" firstAttribute="top" secondItem="Fbs-CP-2k1" secondAttribute="bottom" id="QBQ-J7-20u"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Tmp-X4-a32" secondAttribute="trailing" constant="4" id="Ug8-LT-qKw"/>
                             <constraint firstItem="Fbs-CP-2k1" firstAttribute="top" secondItem="Fdh-sd-rWr" secondAttribute="bottom" constant="5" id="VBX-s0-Rch"/>
                             <constraint firstAttribute="trailing" secondItem="Fbs-CP-2k1" secondAttribute="trailing" id="t9q-7o-K3C"/>
                             <constraint firstItem="22v-wP-srh" firstAttribute="top" secondItem="Tmp-X4-a32" secondAttribute="bottom" constant="20" id="vX4-cq-8e6"/>

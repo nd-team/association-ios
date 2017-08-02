@@ -149,7 +149,10 @@
                 NSInteger  exper = [[userDefaults objectForKey:@"experience"] integerValue]+[dict[@"experience"] integerValue];
                 [userDefaults setValue:[NSString stringWithFormat:@"%ld",(long)exper] forKey:@"experience"];
                 [userDefaults synchronize];
-                [weakSelf showBackViewUI:[NSString stringWithFormat:@"连续签到%@天，奖励%@贡献值",dict[@"days"],dict[@"experience"]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf showBackViewUI:[NSString stringWithFormat:@"连续签到%@天，奖励%@贡献值",dict[@"days"],dict[@"experience"]]];
+
+                });
                //保存状态
                 weakSelf.signInBtn.enabled = NO;
             }else if ([code intValue] == 1034){

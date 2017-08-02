@@ -42,7 +42,7 @@
     if (self.isRef) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getRefreshData];
         });
     }
@@ -87,7 +87,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getAllData];
         });
         
@@ -111,12 +111,15 @@
         [weakSelf getRaiseListData:@"2"];
     });
     dispatch_group_notify(group, queue, ^{
-        //
-        NSSLog(@"请求数据完毕");
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.mj_header endRefreshing];
-        [weakSelf.tableView.mj_footer endRefreshing];
-
+        
+//        NSSLog(@"请求数据完毕");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+            if (weakSelf.tableView.mj_footer.isRefreshing) {
+                [weakSelf.tableView.mj_footer endRefreshing];
+            }
+        });
     });
     
 }
@@ -133,18 +136,25 @@
         [weakSelf getRaiseListData:@"2"];
     });
     dispatch_group_notify(group, queue, ^{
-        //
-        NSSLog(@"请求数据完毕");
-        [weakSelf.tableView reloadData];
-        [weakSelf.tableView.mj_header endRefreshing];
-        [weakSelf.tableView.mj_footer endRefreshing];
-
+        
+//        NSSLog(@"请求数据完毕");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+            if (weakSelf.tableView.mj_footer.isRefreshing) {
+                [weakSelf.tableView.mj_footer endRefreshing];
+            }
+        });
+        
     });
 }
 -(void)getAdvertiseData{
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"type":@"1"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AdvertiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"众筹数据请求失败：%@",error);
             weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
@@ -175,7 +185,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page],@"limit":@"5",@"type":type};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RaiseListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"众筹：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -208,10 +220,14 @@
             }else{
                 [weakSelf showMessage:@"加载众筹失败，下拉刷新重试！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshing];
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                if (weakSelf.tableView.mj_footer.isRefreshing) {
+                    [weakSelf.tableView.mj_footer endRefreshing];
+                }
+
+            });
         }
     }];
     
@@ -259,7 +275,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            [weakSelf download:idStr];
                            break;
                        }
@@ -312,7 +327,8 @@
             [weakSelf moreViewUI];
         });
     }else{
-        self.moreView.hidden = YES;
+
+        [self tapClick];
     }
 }
 
@@ -339,11 +355,12 @@
         MyRaiseListController * my = [sb instantiateViewControllerWithIdentifier:@"MyRaiseListController"];
         my.userId = self.userId;
         [self.navigationController pushViewController:my animated:YES];
-        
     }
 }
 -(void)tapClick{
-    self.moreView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.moreView.hidden = YES;
+    });
 }
 
 - (IBAction)backClick:(id)sender {

@@ -103,6 +103,7 @@
     }
 }
 -(void)pushMulPhotos{
+    WeakSelf;
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         CTAssetsPickerController * picker = [[CTAssetsPickerController alloc]init];
         picker.delegate = self;
@@ -115,7 +116,7 @@
         
         // assign options
         picker.assetsFetchOptions = fetchOptions;
-        [self presentViewController:picker animated:YES completion:nil];
+        [weakSelf presentViewController:picker animated:YES completion:nil];
     }];
 }
 //选择完成
@@ -158,7 +159,8 @@
     
 }
 -(void)changeHeight{
-   
+    dispatch_async(dispatch_get_main_queue(), ^{
+
         if (KMainScreenWidth>=375) {
             //一行四个4.7寸 5.5寸
             if (self.allCount < 4) {
@@ -184,7 +186,6 @@
     }else{
         self.ViewHeightCons.constant = KMainScreenHeight;
     }
-    dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView reloadData];
     });
 
@@ -224,7 +225,7 @@
     }
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf send];
     });
 
@@ -250,7 +251,9 @@
 //    NSSLog(@"%zi",arr.count);
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     [UploadFilesNet postDataWithUrl:[NSString stringWithFormat:JAVAURL,CommentURL] andParams:mDic andHeader:userId andArray:arr getBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"点评失败：%@",error);
             [weakSelf showMessage:@"服务器出问题咯！"];
@@ -258,7 +261,10 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 0) {
                 weakSelf.delegate.isRefresh = YES;
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
+
             }else{
                 [weakSelf showMessage:@"提交评价失败，请重新提交"];
             }

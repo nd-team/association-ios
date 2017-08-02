@@ -53,7 +53,7 @@
 -(void)addData{
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getWeatherData];
     });
     
@@ -106,8 +106,8 @@
             self.cityLabel.text = regeocode.city;
             self.disLabel.text = regeocode.district;
             self.roadLabel.text = [NSString stringWithFormat:@"%@%@",regeocode.street,regeocode.number];
-            NSSLog(@"%@=%@=%@=%@",regeocode.POIName,regeocode.AOIName,regeocode.street,regeocode.number);
-            //定位成功发起天气查询
+//            NSSLog(@"%@=%@=%@=%@",regeocode.POIName,regeocode.AOIName,regeocode.street,regeocode.number);
+//            定位成功发起天气查询
             [weakSelf addData];
         }
     }];
@@ -120,7 +120,10 @@
     [mDic setValue:self.cityLabel.text forKey:@"cityname"];
     [mDic setValue:@"59697aadfee76f7803ee44f5" forKey:@"call_key"];
     [GetCommonNet getDataWithUrl:WeatherListURL andParams:mDic getBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+            
+        });
         if (error) {
             NSSLog(@"天气查询失败:%@",error);
         }else{
@@ -128,7 +131,7 @@
                 [weakSelf.dataArr removeAllObjects];
             }
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSSLog(@"%@",jsonDic);
+//            NSSLog(@"%@",jsonDic);
             NSNumber * code = jsonDic[@"error_code"];
             if ([code intValue] == 0) {
                 NSDictionary * realTime = jsonDic[@"result"][@"data"][@"realtime"];
@@ -191,10 +194,12 @@
                     WeatherListModel * model = [[WeatherListModel alloc]initWithDictionary:dict error:nil];
                     [weakSelf.dataArr addObject:model];
                 }
-                [weakSelf.tableView reloadData];
             }else{
                 [weakSelf showMessage:@"查询天气失败"];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
         }
     }];
 }

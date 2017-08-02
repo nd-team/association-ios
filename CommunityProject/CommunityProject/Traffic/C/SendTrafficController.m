@@ -93,17 +93,20 @@
     self.backImageView.layer.borderColor = UIColorFromRGB(0xd6d6d6).CGColor;
     self.secondTV.layer.borderWidth = 1;
     self.secondTV.layer.borderColor = UIColorFromRGB(0xd6d6d6).CGColor;
-    NSInteger  checkVip = [DEFAULTS integerForKey:@"checkVip"];
-    if (checkVip == 1) {
-        self.authHeightCons.constant = 45;
-    }else{
-        self.authHeightCons.constant = 0;
-    }
-    self.bottomViewHeightCons.constant = 0;
-    self.inputBottomCons.constant = 0;
-    self.choosePictureView.hidden = YES;
-    self.contributeView.hidden = YES;
-    self.delBtn.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger  checkVip = [DEFAULTS integerForKey:@"checkVip"];
+        if (checkVip == 1) {
+            self.authHeightCons.constant = 45;
+        }else{
+            self.authHeightCons.constant = 0;
+        }
+        self.bottomViewHeightCons.constant = 0;
+        self.inputBottomCons.constant = 0;
+        self.choosePictureView.hidden = YES;
+        self.contributeView.hidden = YES;
+        self.delBtn.hidden = YES;
+    });
+    
     [self setButton:self.zeroBtn];
     [self setButton:self.fiveBtn];
     [self setButton:self.tenBtn];
@@ -177,11 +180,13 @@
     [self.titleTF resignFirstResponder];
     [self.firstTV resignFirstResponder];
     [self.secondTV resignFirstResponder];
-    self.bottomViewHeightCons.constant = 224;
-    self.inputBottomCons.constant = 224;
-    self.choosePictureView.hidden = isHidden;
-    self.contributeView.hidden = !isHidden;
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.bottomViewHeightCons.constant = 224;
+        self.inputBottomCons.constant = 224;
+        self.choosePictureView.hidden = isHidden;
+        self.contributeView.hidden = !isHidden;
+    });
 }
 -(void)pushCameraAndAlbums:(UIImagePickerControllerSourceType)type{
     UIImagePickerController * picker = [UIImagePickerController new];
@@ -304,7 +309,7 @@
     if ([self checkLegal]) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf send];
         });
 
@@ -374,7 +379,9 @@
     }
     WeakSelf;
     [TrafficeUploadNet postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andFirstImage:self.backImageView.image andSecondImage:image getBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"发布灵感失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -382,7 +389,9 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 weakSelf.delegate.isRef = YES;
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
             }else{
                 [weakSelf showMessage:@"发布灵感失败！"];
             }

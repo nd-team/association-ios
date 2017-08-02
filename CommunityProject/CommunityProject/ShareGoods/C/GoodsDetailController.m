@@ -85,7 +85,10 @@
     }
 }
 -(void)finishAction{
-    [self showBackViewUI:@"确定发布内容？"];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf showBackViewUI:@"确定发布内容？"];
+    });
 }
 -(void)showBackViewUI:(NSString *)title{
     self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
@@ -104,14 +107,16 @@
     if (btn.tag == 176) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf send];
         });
     }
     [self hideViewAction];
 }
 -(void)hideViewAction{
-    self.backView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backView.hidden = YES;
+    });
 }
 -(void)send{
     NSDictionary *dict = @{@"userId":self.userId,@"arctitle":self.titleStr,@"synopsis":self.content,@"shareContent":self.buyContent,@"status":self.status,@"isDownload":self.isDown};
@@ -123,7 +128,9 @@
     }
     WeakSelf;
     [TrafficeUploadNet postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andFirstImage:self.backImage andSecondImage:image getBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"发布灵感失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -155,7 +162,7 @@
 -(void)requestData{
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getDetailData];
     });
     
@@ -202,26 +209,30 @@
     CGFloat height2 = [ImageUrl boundingRectWithString:self.contentLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
     
     if (self.isLook) {
-        self.bottomView.hidden = YES;
-        self.backImageHeightCons.constant = 200;
-        //计算label高度变化view高度
-        self.soldLabel.text = self.buyContent;
-        CGFloat height3 = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
-
-        self.allHeight = 248+height1+height2+height3;
-        //全部展示
-        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.headUrl] placeholderImage:[UIImage imageNamed:@"default"]];
-        self.backImageView.image = self.backImage;
-       
-        if (self.buyImage) {
-            self.soldImageHeightCons.constant = 145;
-            self.viewHeightCons.constant = self.allHeight+145;
-            self.soldImageView.image = self.buyImage;
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-        }else{
-            self.soldImageHeightCons.constant = 0;
-            self.viewHeightCons.constant = self.allHeight;
-        }
+            self.bottomView.hidden = YES;
+            self.backImageHeightCons.constant = 200;
+            //计算label高度变化view高度
+            self.soldLabel.text = self.buyContent;
+            CGFloat height3 = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
+            
+            self.allHeight = 248+height1+height2+height3;
+            //全部展示
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.headUrl] placeholderImage:[UIImage imageNamed:@"default"]];
+            self.backImageView.image = self.backImage;
+            
+            if (self.buyImage) {
+                self.soldImageHeightCons.constant = 145;
+                self.viewHeightCons.constant = self.allHeight+145;
+                self.soldImageView.image = self.buyImage;
+                
+            }else{
+                self.soldImageHeightCons.constant = 0;
+                self.viewHeightCons.constant = self.allHeight;
+            }
+        });
+
     }else{
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default"]];
         [self.backImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.backUrl]]] placeholderImage:[UIImage imageNamed:@"banner"]];
@@ -238,8 +249,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"shareId":self.idStr};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,GoodsDetailURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
+        });
         if (error) {
             NSSLog(@"干货分享详情：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -259,36 +271,37 @@
                 [self.downloadBtn setTitle:self.downloadNum forState:UIControlStateNormal];
                 [self.collectBtn setTitle:self.collectNum forState:UIControlStateNormal];
                 self.soldLabel.text = [NSString stringWithFormat:@"%@",dict[@"content"]];
-                CGFloat height3 = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
-                self.allHeight = self.allHeight+height3;
-                NSNumber * isColl = dict[@"checkCollect"];
-                if([isColl integerValue] == 1){
-                    self.collectBtn.selected = YES;
-                }else{
-                    self.collectBtn.selected = NO;
-                }
-                self.isLove = [dict[@"likesStatus"] boolValue];
-                if(self.isLove){
-                    self.loveBtn.selected = YES;
-                }else{
-                    self.loveBtn.selected = NO;
-                }
-                if ([[dict allKeys] containsObject:@"contentImages"]) {
-                    if (![ImageUrl isEmptyStr:dict[@"contentImages"]]) {
-                        self.soldImageHeightCons.constant = 145;
-                        self.viewHeightCons.constant = self.allHeight+self.soldImageHeightCons.constant;
-                        [self.soldImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"contentImages"]]]] placeholderImage:[UIImage imageNamed:@"banner3"]];
-                        
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    CGFloat height3 = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
+                    self.allHeight = self.allHeight+height3;
+                    NSNumber * isColl = dict[@"checkCollect"];
+                    if([isColl integerValue] == 1){
+                        self.collectBtn.selected = YES;
                     }else{
-                        self.soldImageHeightCons.constant = 0;
-                        self.viewHeightCons.constant = self.allHeight;
-                        
+                        self.collectBtn.selected = NO;
                     }
-                }else{
-    
-                    self.viewHeightCons.constant = self.allHeight;
-                }
-                
+                    self.isLove = [dict[@"likesStatus"] boolValue];
+                    if(self.isLove){
+                        self.loveBtn.selected = YES;
+                    }else{
+                        self.loveBtn.selected = NO;
+                    }
+                    if ([[dict allKeys] containsObject:@"contentImages"]) {
+                        if (![ImageUrl isEmptyStr:dict[@"contentImages"]]) {
+                            self.soldImageHeightCons.constant = 145;
+                            self.viewHeightCons.constant = self.allHeight+self.soldImageHeightCons.constant;
+                            [self.soldImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"contentImages"]]]] placeholderImage:[UIImage imageNamed:@"banner3"]];
+                            
+                        }else{
+                            self.soldImageHeightCons.constant = 0;
+                            self.viewHeightCons.constant = self.allHeight;
+                            
+                        }
+                    }else{
+                        
+                        self.viewHeightCons.constant = self.allHeight;
+                    }
+                });
             }else{
                 [weakSelf showMessage:@"干货分享详情失败！"];
             }
@@ -325,7 +338,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            [weakSelf download];
                            break;
                        }
@@ -441,7 +453,9 @@
 }
 //下载
 - (IBAction)downloadClick:(id)sender {
-    self.darkView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.darkView.hidden = NO;
+    });
     
 }
 //下载文件
@@ -449,7 +463,10 @@
     
 }
 - (IBAction)closeClick:(id)sender {
-    self.darkView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.darkView.hidden = YES;
+    });
+
 }
 //管理下载
 - (IBAction)managerClick:(id)sender {

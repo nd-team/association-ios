@@ -48,7 +48,7 @@
         [weakSelf getCommentListData];
     }];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getCommentListData];
     });
 }
@@ -58,7 +58,9 @@
 -(void)getCommentListData{
     WeakSelf;
     [JavaGetNet getDataWithUrl:[NSString stringWithFormat:JAVAURL,CommentList] andParams:@{@"pointId":self.pointId} andHeader:self.userId getBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"评论列表失败%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -71,7 +73,6 @@
             if ([code intValue] == 0) {
                 if ([[jsonDic allKeys] containsObject:@"data"]) {
                     NSArray * arr = jsonDic[@"data"];
-                    NSSLog(@"%@",arr);
                     for (NSDictionary * dict in arr) {
                         PositionCommentListModel * model = [[PositionCommentListModel alloc]initWithDictionary:dict error:nil];
                         [weakSelf.dataArr addObject:model];
@@ -80,7 +81,10 @@
             }else{
                 [weakSelf showMessage:@"获取评论失败！"];
             }
-            [weakSelf.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+
+            });
         }
     }];
 }

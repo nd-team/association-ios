@@ -32,10 +32,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)enterpriceClick:(id)sender {
-    
+    [self showMessage:@"未开发，待完善中"];
 }
 - (IBAction)otherEnterpriseClick:(id)sender {
-    
+    [self showMessage:@"未开发，待完善中"];
 }
 //个人VIP申请
 - (IBAction)personClick:(id)sender {
@@ -43,6 +43,8 @@
     ApplicationPersonVipController * vip = [sb instantiateViewControllerWithIdentifier:@"ApplicationPersonVipController"];
     [self.navigationController pushViewController:vip animated:YES];
 }
-
+-(void)showMessage:(NSString *)msg{
+    [self.navigationController.view makeToast:msg];
+}
 
 @end

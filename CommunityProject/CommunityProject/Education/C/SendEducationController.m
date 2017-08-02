@@ -76,8 +76,11 @@
 //发布
 - (IBAction)sendClick:(id)sender {
     [self tapClick];
+    WeakSelf;
     if ([self checkLegal]) {
-        [self showBackViewUI:@"确定发布内容？"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf showBackViewUI:@"确定发布内容？"];
+        });
     }
    
 
@@ -101,7 +104,7 @@
     if (btn.tag == 146) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf send];
         });
     }
@@ -120,7 +123,9 @@
     NSDictionary *dict = @{@"userId":self.userId,@"title":self.titleTF.text,@"content":self.contentTF.text,@"playTime":self.videoTime,@"status":status};
     WeakSelf;
     [EducationVideoPost postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andImage:self.firstImg andVideo:self.videoData getBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"上传三分钟教学失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -128,7 +133,9 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 weakSelf.delegate.isRef = YES;
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
             }else if ([code intValue] == 1015){
                 [weakSelf showMessage:@"上传图片有误！"];
             }else if ([code intValue] == 1038){
@@ -210,6 +217,7 @@
     [self pushVideo];
 }
 -(void)pushVideo{
+    WeakSelf;
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
         CTAssetsPickerController * picker = [[CTAssetsPickerController alloc]init];
         picker.delegate = self;
@@ -223,7 +231,7 @@
         
         // assign options
         picker.assetsFetchOptions = fetchOptions;
-        [self presentViewController:picker animated:YES completion:nil];
+        [weakSelf presentViewController:picker animated:YES completion:nil];
     }];
 }
 #pragma mark-选择视频的代理回调
@@ -254,7 +262,7 @@
 //                NSSLog(@"视频时长：%@,%ld",weakSelf.videoTime,(long)seconds);
                 NSData *data = [NSData dataWithContentsOfURL:url];
                 float realMB = data.length/1024.00/1024.00;
-                NSSLog(@"真实视频大小%f MB",realMB);
+//                NSSLog(@"真实视频大小%f MB",realMB);
                 //获取第一帧
 //                UIImage * image = [ImageUrl thumbnailImageForVideo:url atTime:1];
                 //播放本地视频
@@ -276,7 +284,7 @@
                     //压缩视频
                     ImageUrl * file = [ImageUrl new];
                     [file compressVideo:url andVideoName:@"educationOfThreeing" successCompress:^(NSData *compressData) {
-                        NSSLog(@"压缩视频大小%f MB",compressData.length/1024.00/1024.00);
+//                        NSSLog(@"压缩视频大小%f MB",compressData.length/1024.00/1024.00);
                         float dataMB = compressData.length/1024/1024;
                         //超过40M提示
                         if (dataMB>40) {
@@ -284,7 +292,7 @@
                             return ;
                         }
                         if (dataMB == 0) {
-                            NSSLog(@"压缩失败");
+//                            NSSLog(@"压缩失败");
                             return;
                         }
                         weakSelf.videoData = compressData;
@@ -342,7 +350,7 @@
     [self.player pause];
 }
 -(void)dealloc{
-    NSLog(@"%@ dealloc",[self class]);
+//    NSLog(@"%@ dealloc",[self class]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.player resetWMPlayer];
 }

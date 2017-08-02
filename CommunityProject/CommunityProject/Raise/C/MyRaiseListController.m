@@ -66,7 +66,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getSendData:@"1"];
         });
         
@@ -77,7 +77,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"type":type};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MyRaiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"我的求助：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -105,9 +107,10 @@
             }else{
                 [weakSelf showMessage:@"加载我的干货失败，下拉刷新重试！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            //            [weakSelf.tableView.mj_footer endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
             
         }
     }];
@@ -151,7 +154,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            [weakSelf download:idStr];
                            break;
                        }
@@ -237,12 +239,14 @@
 }
 - (IBAction)segClick:(id)sender {
     [self.dataArr removeAllObjects];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
     if (self.segControll.selectedSegmentIndex == 0) {
         //我的众筹
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getSendData:@"1"];
         });
         
@@ -250,7 +254,7 @@
         //支持的
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getSendData:@"2"];
         });
     }

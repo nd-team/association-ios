@@ -87,7 +87,7 @@
             
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 //注册登录
                 [weakSelf registerMessage];
             });
@@ -101,15 +101,16 @@
     WeakSelf;
     NSDictionary * params = @{@"nickname":self.nicknameTF.text,@"mobile":self.phoneTF.text,@"password":self.passwordTF.text,@"recommendId":self.codeTF.text};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RegisterURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"注册失败：%@",error);
             [weakSelf showMessage:@"注册失败，点击重新试试吧！"];
         }else{
             NSNumber *code = data[@"code"];
-            NSSLog(@"%@",code);
+//            NSSLog(@"%@",code);
             if ([code intValue] == 200||[code intValue] == 100) {
-                NSSLog(@"注册成功/注册过没确认");
                 //进入信息确认界面
                 [weakSelf presentSureInfoUI:weakSelf.phoneTF.text andPassword:weakSelf.passwordTF.text andCode:self.codeTF.text];
             }else if ([code intValue] == 1000){

@@ -9,7 +9,7 @@
 #import "UIView+ChatMoreView.h"
 
 @implementation UIView (ChatMoreView)
-UIView * dotView;
+//UIView * dotView;
 +(UIView *)createViewFrame:(CGRect)frame andTarget:(id)target andSel:(SEL)action{
     NSArray *titleArr = @[@"聊天大厅",@"朋友圈",@"新建群聊",@"群列表",@"消息"];
     UIView * view = [[UIView alloc]initWithFrame:frame];
@@ -23,19 +23,24 @@ UIView * dotView;
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
         button.tag = 20+i;
         [view addSubview:button];
+        if (button.tag == 21 || button.tag == 24) {
+            [button pp_setBadgeHeightPoints:5];
+            [button pp_moveBadgeWithX:-30 Y:19];
+            [button pp_addDotWithColor:[UIColor clearColor]];
+        }
     }
     for (int i = 0; i<titleArr.count-1; i++) {
         UIView * lineView = [[UIView alloc]initWithFrame:CGRectMake(3, (i+1)*37.5, 123, 1)];
         lineView.backgroundColor = UIColorFromRGB(0xe5e5e5);
         [view addSubview:lineView];
     }
-    dotView = [[UIView alloc]initWithFrame:CGRectMake(65, 172.5, 5, 5)];
-    dotView.layer.masksToBounds = YES;
-    dotView.layer.cornerRadius = 2.5;
-    dotView.backgroundColor = UIColorFromRGB(0xE71717);
-    dotView.hidden = YES;
-    dotView.tag = 100;
-    [view addSubview:dotView];
+//    dotView = [[UIView alloc]initWithFrame:CGRectMake(65, 172.5, 5, 5)];
+//    dotView.layer.masksToBounds = YES;
+//    dotView.layer.cornerRadius = 2.5;
+//    dotView.backgroundColor = UIColorFromRGB(0xE71717);
+//    dotView.hidden = YES;
+//    dotView.tag = 100;
+//    [view addSubview:dotView];
     return view;
 }
 +(UIView *)locationViewFrame:(CGRect)frame andTarget:(id)target andAction:(SEL)action{

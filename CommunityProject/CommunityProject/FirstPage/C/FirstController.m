@@ -79,7 +79,6 @@
     [self countHeight];
     //清空插入数据
     self.dict = nil;
-    [self.collectionView reloadData];
 
 }
 - (void)viewDidLoad {
@@ -98,7 +97,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getClaimUserData];
         });
   
@@ -128,24 +127,26 @@
         [self countHeight];
     }
 }
+#pragma mark-修改tableView表头高度
 -(void)countHeight{
     //每行cell的个数
-    int count = KMainScreenWidth/89;
-    //行数
-    NSInteger retainCount = self.applicationArr.count%count;
-    NSInteger row;
-    if (retainCount != 0) {
-         row = self.applicationArr.count/count+1;
-    }else{
-         row = self.applicationArr.count/count;
-    }
-//    [self.headView setNeedsLayout];
-    self.collHeightContraint.constant = 101*row;
-    CGRect frame = self.headView.frame;
-    frame.size.height = 622.5+self.collHeightContraint.constant;
-    self.headView.frame = frame;
-    [self.headView layoutIfNeeded];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        int count = KMainScreenWidth/89;
+        //行数
+        NSInteger retainCount = self.applicationArr.count%count;
+        NSInteger row;
+        if (retainCount != 0) {
+            row = self.applicationArr.count/count+1;
+        }else{
+            row = self.applicationArr.count/count;
+        }
+        //    [self.headView setNeedsLayout];
+        self.collHeightContraint.constant = 101*row;
+        CGRect frame = self.headView.frame;
+        frame.size.height = 622.5+self.collHeightContraint.constant;
+        self.headView.frame = frame;
+        [self.collectionView reloadData];
+    });
 }
 //数据库获取数据
 -(void)localData{
@@ -161,8 +162,11 @@
     [self.dataArr addObjectsFromArray:[travelSingleton searchDatabase]];
     
     if (self.dataArr.count != 0&&self.claimArr.count != 0) {
-        [self.claimTableView reloadData];
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.claimTableView reloadData];
+            [self.tableView reloadData];
+        });
+
     }
 
 }
@@ -172,7 +176,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":userId};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,FirstURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -212,7 +218,6 @@
                     [[ClaimDataBaseSingleton shareDatabase]insertDatabase:claim];
                     [weakSelf.claimArr addObject:claim];
                 }
-                [weakSelf.claimTableView reloadData];
                 NSArray * travel = allDic[@"actives"];
                 for (NSDictionary * dic2 in travel) {
                     TravelModel * tvModel = [[TravelModel alloc]initWithDictionary:dic2 error:nil];
@@ -224,8 +229,11 @@
                 weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
                 [weakSelf showMessage:@"加载首页失败"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.claimTableView reloadData];
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
         }
     }];
 }

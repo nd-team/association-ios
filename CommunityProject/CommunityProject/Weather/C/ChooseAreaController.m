@@ -35,7 +35,9 @@
 -(void)getAreaData{
     NSArray * arr = @[@"北京",@"深圳",@"广州",@"天津",@"上海",@"重庆",@"南京",@"沈阳",@"长春",@"哈尔滨",@"武汉",@"香港",@"澳门",@"台北",@"高雄",@"台中",@"无锡",@"南昌",@"郑州",@"兰州"];
     [self.dataArr addObjectsFromArray:arr];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
 }
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];

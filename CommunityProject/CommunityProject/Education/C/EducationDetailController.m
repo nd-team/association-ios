@@ -82,7 +82,6 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-//    self.navigationController.navigationBarHidden = NO;
     //旋转屏幕通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onDeviceOrientationChange)
@@ -295,14 +294,19 @@
 }
 //发布三分钟
 -(void)finishAction{
-    [self showBackViewUI:@"确定发布内容？"];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf showBackViewUI:@"确定发布内容？"];
+    });
    
 }
 -(void)send{
     WeakSelf;
     NSDictionary *dict = @{@"userId":self.userId,@"title":self.topic,@"content":self.content,@"playTime":self.videoTime,@"status":self.authStatus};
     [EducationVideoPost postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andImage:self.firstImg andVideo:self.videoData getBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"上传三分钟教学失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -408,8 +412,6 @@
         [self.commentBtn setTitle:self.commentNum forState:UIControlStateNormal];
         [self.collectionBtn setTitle:self.collNum forState:UIControlStateNormal];
         [self.downloadBtn setTitle:self.downloadNum forState:UIControlStateNormal];
-
-        
     }
 //    [self.bottomView makeInsetShadowWithRadius:5.0 Color:[UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:0.1] Directions:[NSArray arrayWithObjects:@"top", nil]];
     self.titleLabel.text = self.topic;
@@ -462,8 +464,6 @@
     self.player.placeholderImage = image;
     self.player.titleLabel.text = self.topic;
     self.player.delegate = self;
-//    NSString * str = [url absoluteString];
-//    NSSLog(@"%@",str);
     [self.player setURLString:[url absoluteString]];
     [self toCell];
 
@@ -518,7 +518,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            //发送请求
                            [weakSelf download:@"9" andMsg:@"分享计数失败！" andIsDown:@"2"];
                            break;
@@ -543,7 +542,7 @@
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);
             weakSelf.loveBtn.selected = NO;
-            [self showMessage:@"服务器出错咯！"];
+            [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -557,11 +556,11 @@
                 
             }else if ([code intValue] == 1029){
                 weakSelf.loveBtn.selected = NO;
-                [self showMessage:@"多次点赞失败"];
+                [weakSelf showMessage:@"多次点赞失败"];
                 
             }else{
                 weakSelf.loveBtn.selected = NO;
-                [self showMessage:@"点赞失败"];
+                [weakSelf showMessage:@"点赞失败"];
             }
         }
         
@@ -623,7 +622,7 @@
 }
 #pragma mark-播放器事件
 -(void)wmplayer:(WMPlayer *)wmplayer clickedCloseButton:(UIButton *)closeBtn{
-    NSLog(@"didClickedCloseButton");
+//    NSLog(@"didClickedCloseButton");
    //小屏显示
     [self toCell];
 }
@@ -638,7 +637,7 @@
     }
 }
 -(void)wmplayer:(WMPlayer *)wmplayer singleTaped:(UITapGestureRecognizer *)singleTap{
-    NSSLog(@"didSingleTaped");
+//    NSSLog(@"didSingleTaped");
     if (self.player.isFullscreen) {
         self.player.bottomView.hidden = NO;
         self.player.topView.hidden = NO;
@@ -650,7 +649,7 @@
 }
 //双击播放
 -(void)wmplayer:(WMPlayer *)wmplayer doubleTaped:(UITapGestureRecognizer *)doubleTap{
-    NSSLog(@"didDoubleTaped");
+//    NSSLog(@"didDoubleTaped");
     if (self.player.isFullscreen) {
         self.player.bottomView.hidden = NO;
         self.player.topView.hidden = NO;
@@ -697,7 +696,7 @@
     if (btn.tag == 144) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf send];
         });
     }
@@ -811,7 +810,9 @@
     }];
 }
 - (IBAction)closeClick:(id)sender {
-    self.downView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.downView.hidden = YES;
+    });
 }
 //管理下载
 - (IBAction)managerClick:(id)sender {
@@ -847,7 +848,7 @@
     int i = 0;
     if (arr.count != 0) {
         for (SRDownloadModel * model in arr) {
-            NSSLog(@"%@===%@",url,model.URL);
+//            NSSLog(@"%@===%@",url,model.URL);
             if ([model.URL isEqual:url]) {
                 i++;
                 if (model.status == SRDownloadStateCompleted) {
@@ -872,7 +873,6 @@
        
         [self download:@"9" andMsg:@"下载失败！"andIsDown:@"1"];
     }
-   
 }
 
 //解决scrollView的屏幕适配
@@ -882,7 +882,7 @@
     self.viewWidthCons.constant = KMainScreenWidth;
 }
 -(void)dealloc{
-    NSLog(@"%@ dealloc",[self class]);
+//    NSLog(@"%@ dealloc",[self class]);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.player resetWMPlayer];
 }

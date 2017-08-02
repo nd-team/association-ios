@@ -23,21 +23,22 @@
     
 //    NSDictionary * dic6 = @{@"name":@"导航",@"imageName":@"navigition.png",@"isHidden":@"0"};
     
-    NSDictionary * dic7 = @{@"name":@"三分钟教学",@"imageName":@"train.png"};
+    NSDictionary * dic7 = @{@"name":@"三分钟教学",@"imageName":@"education.png"};
     
-    NSDictionary * dic8 = @{@"name":@"天气中心",@"imageName":@"train.png"};
     
 //    NSDictionary * dic9 = @{@"name":@"游戏",@"imageName":@"train.png",@"isHidden":@"0"};
     
-    NSDictionary * dic10 = @{@"name":@"求助中心",@"imageName":@"train.png"};
+    NSDictionary * dic10 = @{@"name":@"求助中心",@"imageName":@"helpCenter.png"};
     
-//    NSDictionary * dic11 = @{@"name":@"众筹",@"imageName":@"train.png",@"isHidden":@"0"};
-    NSDictionary * dic12 = @{@"name":@"平台活动",@"imageName":@"train.png"};
-    NSDictionary * dic13 = @{@"name":@"公益活动",@"imageName":@"train.png"};
+//    NSDictionary * dic11 = @{@"name":@"众筹",@"imageName":@"raise.png",@"isHidden":@"0"};
+    NSDictionary * dic12 = @{@"name":@"平台活动",@"imageName":@"activity.png"};
+    NSDictionary * dic13 = @{@"name":@"公益活动",@"imageName":@"goodAct.png"};
 //    NSDictionary * dic14 = @{@"name":@"联盟司机",@"imageName":@"train.png",@"isHidden":@"0"};
+    NSDictionary * dic8 = @{@"name":@"天气中心",@"imageName":@"train.png"};
+
     NSDictionary * dic15 = @{@"name":@"位置点评",@"imageName":@"train.png"};
 
-    NSArray * arr = @[dic1,dic2,dic3,dic7,dic8,dic10,dic12,dic13,dic15];
+    NSArray * arr = @[dic1,dic2,dic3,dic7,dic10,dic12,dic13,dic8,dic15];
     return arr;
 }
 @end

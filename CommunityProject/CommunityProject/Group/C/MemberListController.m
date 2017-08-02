@@ -59,14 +59,16 @@
                     MemberListModel * member = [[MemberListModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.collectArr addObject:member];
                 }
-                [weakSelf.collectionView reloadData];
                 RCGroup * group = [[RCGroup alloc]initWithGroupId:weakSelf.groupId groupName:weakSelf.groupName portraitUri:[NSString stringWithFormat:NetURL,weakSelf.groupUrl]];
                 //刷新群组成员的信息
                 [[RCIM sharedRCIM] refreshGroupInfoCache:group withGroupId:weakSelf.groupId];
             }else{
                 [weakSelf showMessage:@"加载群成员失败！"];
             }
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.collectionView reloadData];
+
+            });
         }
     }];
 }
@@ -148,7 +150,7 @@
         }
     }else{
         JoinUserModel * model = self.collectArr[indexPath.row];
-        NSSLog(@"%@==%@",model.userId,self.userId);
+//        NSSLog(@"%@==%@",model.userId,self.userId);
         //当前用户进入发送消息界面
         if ([self.userId isEqualToString:model.userId]) {
             [self pushFriendId:YES andUserId:model.userId];

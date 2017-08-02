@@ -67,51 +67,55 @@
     [self.loveBtn setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateSelected];
     self.loveBtn.selected = self.isLove;
     [self.headImageView zy_cornerRadiusRoundingRect];
-    NSString * url = [NSString stringWithFormat:JAVAURL,@"file/thumbnails?path=%@"];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:url,self.headUrl]] placeholderImage:[UIImage imageNamed:@"default"]];
+    NSString * url = [NSString stringWithFormat:NetURL,self.headUrl];
+    NSSLog(@"%@",url);
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"default"]];
     self.nameLabel.text = self.nickname;
     NSString * time = [self.time componentsSeparatedByString:@" "][0];
     NSArray * timeArr = [time componentsSeparatedByString:@"-"];
     self.timeLabel.text = [NSString stringWithFormat:@"%@月%@日",timeArr[1],timeArr[2]];
     self.commentLabel.text = self.comment;
-    if ([self.score isEqualToString:@"0"]) {
-        [self setScoreImage:@"starDark" andSecond:@"starDark" andThird:@"starDark" andFourth:@"starDark" andFive:@"starDark"];
-    }else if ([self.score isEqualToString:@"1"]){
+    if ([self.score isEqualToString:@"FIRST"]){
         [self setScoreImage:@"starYellow" andSecond:@"starDark" andThird:@"starDark" andFourth:@"starDark" andFive:@"starDark"];
         
-    }else if ([self.score isEqualToString:@"2"]){
+    }else if ([self.score isEqualToString:@"SECOND"]){
         [self setScoreImage:@"starYellow" andSecond:@"starYellow" andThird:@"starDark" andFourth:@"starDark" andFive:@"starDark"];
         
-    }else if ([self.score isEqualToString:@"3"]){
+    }else if ([self.score isEqualToString:@"THIRD"]){
         [self setScoreImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starDark" andFive:@"starDark"];
         
-    }else if ([self.score isEqualToString:@"4"]){
+    }else if ([self.score isEqualToString:@"FOURTH"]){
         [self setScoreImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starYellow" andFive:@"starDark"];
         
-    }else if ([self.score isEqualToString:@"5"]){
+    }else if ([self.score isEqualToString:@"FIFTH"]){
         [self setScoreImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starYellow" andFive:@"starYellow"];
+    }else{
+            [self setScoreImage:@"starDark" andSecond:@"starDark" andThird:@"starDark" andFourth:@"starDark" andFive:@"starDark"];
     }
     //计算高度
-    CGFloat contentHei = [ImageUrl boundingRectWithString:self.comment width:(KMainScreenWidth-85) height:MAXFLOAT font:15].height;
-    if (self.collectArr.count == 0) {
-        self.collHeightCons.constant = 0;
-    }else if (self.collectArr.count < 4 && self.collectArr.count > 0) {
-        self.collHeightCons.constant = 100;
-    }else if (self.collectArr.count < 7 && self.collectArr.count >=4){
-        self.collHeightCons.constant = 200;
-    }else{
-        self.collHeightCons.constant = 300;
-    }
-    CGFloat allHeight = self.collHeightCons.constant+contentHei+134;
-    if (allHeight > KMainScreenHeight) {
-        self.viewHeightCons.constant = allHeight;
-        self.scrollView.scrollEnabled = YES;
-    }else{
-        self.viewHeightCons.constant = KMainScreenHeight-64;
-        self.scrollView.scrollEnabled = NO;
-    }
-    [self.collectionView reloadData];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        CGFloat contentHei = [ImageUrl boundingRectWithString:self.comment width:(KMainScreenWidth-85) height:MAXFLOAT font:15].height;
+        if (self.collectArr.count == 0) {
+            self.collHeightCons.constant = 0;
+        }else if (self.collectArr.count < 4 && self.collectArr.count > 0) {
+            self.collHeightCons.constant = 100;
+        }else if (self.collectArr.count < 7 && self.collectArr.count >=4){
+            self.collHeightCons.constant = 200;
+        }else{
+            self.collHeightCons.constant = 300;
+        }
+        CGFloat allHeight = self.collHeightCons.constant+contentHei+134;
+        if (allHeight > KMainScreenHeight) {
+            self.viewHeightCons.constant = allHeight;
+            self.scrollView.scrollEnabled = YES;
+        }else{
+            self.viewHeightCons.constant = KMainScreenHeight-64;
+            self.scrollView.scrollEnabled = NO;
+        }
+        [self.collectionView reloadData];
+    });
+
 }
 -(void)setScoreImage:(NSString *)first andSecond:(NSString *)second andThird:(NSString *)third andFourth:(NSString *)four andFive:(NSString *)five{
     self.firstImage.image = [UIImage imageNamed:first];
@@ -130,7 +134,7 @@
     
     CircleImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PositionCommentDetailCell" forIndexPath:indexPath];
     NSString * url = [NSString stringWithFormat:JAVAURL,@"file/thumbnails?path=%@"];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:url,self.collectArr[indexPath.row]]] placeholderImage:[UIImage imageNamed:@"default"]];
+    [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:url,self.collectArr[indexPath.row]]] placeholderImage:[UIImage imageNamed:@"default"]];
     return cell;
     
 }
@@ -167,7 +171,7 @@
     WeakSelf;
     self.loveBtn.selected = !self.loveBtn.selected;
     NSString * url = [NSString stringWithFormat:ZanURL,self.commentId];
-    NSSLog(@"url:%@",[NSString stringWithFormat:JAVAURL,url]);
+//    NSSLog(@"url:%@",[NSString stringWithFormat:JAVAURL,url]);
     [PutNet putDataWithUrl:[NSString stringWithFormat:JAVAURL,url] andParams:nil andHeader:self.userId returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);

@@ -104,7 +104,10 @@
         //删除单例数据 
         [[SRDownloadManager sharedManager]deleteVideo:[NSURL URLWithString:model.videoUrl]];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+
+        });
     }
 }
 -(NSMutableArray *)dataArr{

@@ -62,7 +62,10 @@
     cell.block = ^(NSIndexPath * selectPath){
         weakSelf.selectPath = selectPath;
         weakSelf.hobbyId = [NSString stringWithFormat:@"%ld",(unsigned long)selectPath.row+1];
-        [weakSelf.collectionView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.collectionView reloadData];
+
+        });
     };
     if (self.selectPath == nil) {
         cell.hobbyBtn.selected = NO;

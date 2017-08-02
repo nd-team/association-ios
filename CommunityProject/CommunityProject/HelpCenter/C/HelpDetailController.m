@@ -107,19 +107,22 @@
                 [self.loveBtn setTitle:self.likes forState:UIControlStateNormal];
                 [self.shareBtn setTitle:[NSString stringWithFormat:@"%@",dict[@"shareNumber"]] forState:UIControlStateNormal];
                 NSString * file = [NSString stringWithFormat:@"%@",dict[@"file"]];
-                CGRect frame = self.headView.frame;
-                if (![ImageUrl isEmptyStr:file]) {
-                    self.imageUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"file"]]];
-                    [self.topicImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:[UIImage imageNamed:@"banner"]];
-                    //改变表头高度
-                    weakSelf.imageHeightCons.constant = 198;
-                    frame.size.height = 316+rect.size.height;
-            
-                }else{
-                    weakSelf.imageHeightCons.constant = 0;
-                    frame.size.height = 108+rect.size.height;
-                }
-                self.headView.frame = frame;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    CGRect frame = self.headView.frame;
+                    if (![ImageUrl isEmptyStr:file]) {
+                        self.imageUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"file"]]];
+                        [self.topicImageView sd_setImageWithURL:[NSURL URLWithString:self.imageUrl] placeholderImage:[UIImage imageNamed:@"banner"]];
+                        //改变表头高度
+                        weakSelf.imageHeightCons.constant = 198;
+                        frame.size.height = 316+rect.size.height;
+                        
+                    }else{
+                        weakSelf.imageHeightCons.constant = 0;
+                        frame.size.height = 108+rect.size.height;
+                    }
+                    self.headView.frame = frame;
+                });
+                
                 //采纳答案
                 if ([[dict allKeys] containsObject:@"adopt"]) {
                     NSDictionary * bestDic = dict[@"adopt"];
@@ -134,7 +137,10 @@
             }else{
                 [weakSelf showMessage:@"求助详情获取失败！"];
             }
-            [self.tableView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+
+            });
         }
     }];
 }
@@ -289,7 +295,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            [weakSelf download:@"4"];
                            
                            break;

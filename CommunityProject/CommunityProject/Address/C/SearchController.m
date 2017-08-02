@@ -67,8 +67,11 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"MaybeKnowCell" bundle:nil] forCellWithReuseIdentifier:@"MaybeKnowCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"AddFriendsCell" bundle:nil] forCellReuseIdentifier:@"AddFriendsCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"SearchGroupCell" bundle:nil] forCellReuseIdentifier:@"SearchGroupCell"];
-
-    [self getMaybeKnowPeopleData];
+    WeakSelf;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getMaybeKnowPeopleData];
+    });
     
 }
 -(void)tapClick{
@@ -80,6 +83,9 @@
 -(void)getMaybeKnowPeopleData{
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,KnowURL] andParams:@{@"userId":self.userId} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"获取可能认识的人失败%@",error);
             
@@ -92,11 +98,13 @@
                     SearchFriendModel * model = [[SearchFriendModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.collectionArr addObject:model];
                 }
-                [weakSelf.collectionView reloadData];
             }else{
                 [weakSelf showMessage:@"加载失败"];
             }
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.collectionView reloadData];
+
+            });
         }
         
     }];
@@ -142,11 +150,14 @@
                         [weakSelf.groupArr addObject:group];
                     }
                 }
-                [weakSelf.tableView reloadData];
                 
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"搜索失败"];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+
+            });
         }
     }];
 }

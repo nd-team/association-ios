@@ -50,7 +50,7 @@
 
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getAllData];
     });
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -79,7 +79,7 @@
     
     dispatch_group_notify(group, queue, ^{
         //
-        NSSLog(@"请求数据完毕");
+//        NSSLog(@"请求数据完毕");
         
     });
     
@@ -88,6 +88,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"type":@"6"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AdvertiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"公益活动数据请求失败：%@",error);
             weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
@@ -122,7 +125,10 @@
     [self.view addGestureRecognizer:tap];
 }
 -(void)tapClick{
-    self.moreView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.moreView.hidden = YES;
+    });
 }
 -(void)moreAction:(UIButton *)btn{
     [self tapClick];
@@ -146,7 +152,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ActListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"平台活动数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯"];
@@ -164,16 +172,25 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
-                for (NSDictionary * dict in arr) {
-                    PlatformActListModel * model = [[PlatformActListModel alloc]initWithDictionary:dict error:nil];
-                    [self.dataArr addObject:model];
+                if (arr.count == 0) {
+                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }else{
+                    for (NSDictionary * dict in arr) {
+                        PlatformActListModel * model = [[PlatformActListModel alloc]initWithDictionary:dict error:nil];
+                        [self.dataArr addObject:model];
+                    }
                 }
             }else{
                 [weakSelf showMessage:@"加载平台活动失败,下拉刷新重试"];
             }
-            [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
+                if (weakSelf.tableView.mj_footer.isRefreshing) {
+                    [weakSelf.tableView.mj_footer endRefreshing];
+                }
+
+            });
         }
     }];
 }
@@ -211,7 +228,7 @@
             [weakSelf moreViewUI];
         });
     }else{
-        self.moreView.hidden = YES;
+        [self tapClick];
     }
 }
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{

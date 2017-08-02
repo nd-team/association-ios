@@ -129,7 +129,7 @@
                 [weakSelf.dataArr removeAllObjects];
             }
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@",data);
+//            NSSLog(@"%@",data);
             if ([code intValue] == 200) {
                 NSArray * msgArr = data[@"data"];
                 for (NSDictionary * dic in msgArr) {
@@ -140,8 +140,11 @@
             }else if ([code intValue] == 0){
                     [weakSelf showMessage:@"加载好友申请失败"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+
+            });
         }
     }];
     
@@ -170,8 +173,11 @@
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"加载好友申请失败"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+
+            });
 
         }
     }];

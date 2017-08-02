@@ -90,7 +90,7 @@
     [self.backView addGestureRecognizer:tap];
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getActivityDetailData];
     });
     
@@ -103,7 +103,9 @@
     NSDictionary * params = @{@"userId":self.userId,@"activesId":self.idStr};
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,PublicDetailURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"公益数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -139,11 +141,14 @@
                         JoinUserModel * user = [[JoinUserModel alloc]initWithDictionary:subDic error:nil];
                         [weakSelf.collectArr addObject:user];
                     }
-                    [weakSelf.collectionView reloadData];
                 }
             }else{
                 [weakSelf showMessage:@"加载公益活动详情失败"];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.collectionView reloadData];
+
+            });
         }
     }];
     
@@ -237,7 +242,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            [weakSelf download:@"7"];
 
                            break;
@@ -321,7 +325,9 @@
 }
 //报名
 - (IBAction)signClick:(id)sender {
-    self.backView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backView.hidden = NO;
+    });
 
 }
 //确定报名
@@ -373,7 +379,9 @@
 }
 
 - (IBAction)closeClick:(id)sender {
-    self.backView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backView.hidden = YES;
+    });
 }
 
 -(NSMutableArray *)collectArr{

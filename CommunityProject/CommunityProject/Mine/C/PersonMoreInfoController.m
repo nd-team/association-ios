@@ -168,6 +168,8 @@
         [self getMoreInfo];
     }else{
         //别人的信息=所有都不可用，按钮隐藏
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
         self.nameBtn.hidden = YES;
         self.phoneBtn.hidden = YES;
         self.birthBtn.hidden = YES;
@@ -211,31 +213,36 @@
         self.wifeNameTF.enabled = NO;
         self.childNameTF.enabled = NO;
         self.childSchoolTF.enabled = NO;
+        });
+
         [self getUserInformation];
         
     }
 
 }
 -(void)commonUI:(BOOL)isHidden{
-    self.wifeNameLabel.hidden = isHidden;
-    self.seeWifeLabel.hidden = isHidden;
-    self.childNameLabel.hidden = isHidden;
-    self.seeChildLabel.hidden = isHidden;
-    self.childSchoolLabel.hidden = isHidden;
-    self.seeChildSchLabel.hidden = isHidden;
-    self.wifeBtn.hidden = isHidden;
-    self.childBtn.hidden = isHidden;
-    self.childScBtn.hidden = isHidden;
-    self.lineOneView.hidden = isHidden;
-    self.wifeNameTF.hidden = isHidden;
-    self.childNameTF.hidden = isHidden;
-    self.childSchoolTF.hidden = isHidden;
-    if (isHidden) {
-        self.viewHeightCons.constant = 1000;
-    }else{
-        self.viewHeightCons.constant = 1170;
-        
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.wifeNameLabel.hidden = isHidden;
+        self.seeWifeLabel.hidden = isHidden;
+        self.childNameLabel.hidden = isHidden;
+        self.seeChildLabel.hidden = isHidden;
+        self.childSchoolLabel.hidden = isHidden;
+        self.seeChildSchLabel.hidden = isHidden;
+        self.wifeBtn.hidden = isHidden;
+        self.childBtn.hidden = isHidden;
+        self.childScBtn.hidden = isHidden;
+        self.lineOneView.hidden = isHidden;
+        self.wifeNameTF.hidden = isHidden;
+        self.childNameTF.hidden = isHidden;
+        self.childSchoolTF.hidden = isHidden;
+        if (isHidden) {
+            self.viewHeightCons.constant = 1000;
+        }else{
+            self.viewHeightCons.constant = 1170;
+            
+        }
+    });
+    
 }
 -(void)setButtonBackImage:(UIButton *)btn andNormalImage:(NSString *)norImg andSelectImage:(NSString *)selImg{
     [btn setBackgroundImage:[UIImage imageNamed:norImg] forState:UIControlStateNormal];
@@ -255,7 +262,7 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
-                NSSLog(@"%@",dict);
+//                NSSLog(@"%@",dict);
                 //请求网络数据获取用户详细资料
                 if ( [dict[@"fullName"] isKindOfClass:[NSDictionary class]]) {
                     NSDictionary * nameDic = dict[@"fullName"];
@@ -657,7 +664,7 @@
     [self resign];
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf postData];
     });
 }
@@ -796,9 +803,11 @@
 
     [params setValue:self.postTF.text forKey:@"position"];
     [params setValue:self.postBtn.selected?@"1":@"0" forKey:@"Sposition"];
-    NSSLog(@"%@",params);
+//    NSSLog(@"%@",params);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SaveInfoURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"个人消息更多请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -810,7 +819,9 @@
                 [userDefaults setValue:weakSelf.birthday forKey:@"birthday"];
                 [userDefaults setValue:weakSelf.phoneTF.text forKey:@"mobile"];
                 [userDefaults synchronize];
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
             }else{
                 [weakSelf showMessage:@"修改失败，重试！"];
             }
@@ -951,9 +962,12 @@
 
     }else if (textField == self.birthdayTF){
         [self resign];
-        self.bottomView.hidden = NO;
-        self.pickerView.hidden = YES;
-        self.datePicker.hidden = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.bottomView.hidden = NO;
+            self.pickerView.hidden = YES;
+            self.datePicker.hidden = NO;
+        });
+       
         self.flag = 9;
         return NO;
     }else{
@@ -963,9 +977,11 @@
     }
 }
 -(void)hidden{
-    self.bottomView.hidden = NO;
-    self.datePicker.hidden = YES;
-    self.pickerView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.bottomView.hidden = NO;
+        self.datePicker.hidden = YES;
+        self.pickerView.hidden = NO;
+    });
 }
 -(void)getAllData{
     self.allArr = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Address" ofType:@"plist"]];

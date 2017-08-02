@@ -64,20 +64,22 @@
     self.allCount = 0;
 //    self.cameraCount = 0;
     //活动介绍
-    if (self.type == 1) {
-        self.placeLabel.hidden = YES;
-        self.seeViewHeightCons.constant = 0;
-        self.collectionHeightCons.constant = 85;
-        self.seeView.hidden = YES;
-    }else{
-        //朋友圈
-        self.placeLabel.hidden = NO;
-        self.rightItem.enabled = NO;
-        self.seeViewHeightCons.constant = 45;
-        self.collectionHeightCons.constant = 73;
-        self.seeView.hidden = NO;
-
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.type == 1) {
+            self.placeLabel.hidden = YES;
+            self.seeViewHeightCons.constant = 0;
+            self.collectionHeightCons.constant = 85;
+            self.seeView.hidden = YES;
+        }else{
+            //朋友圈
+            self.placeLabel.hidden = NO;
+            self.rightItem.enabled = NO;
+            self.seeViewHeightCons.constant = 45;
+            self.collectionHeightCons.constant = 73;
+            self.seeView.hidden = NO;
+        }
+    });
+    
     //长按删除
     [self showTapUI];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(delectImageCell) name:@"DelectImage" object:nil];
@@ -106,8 +108,12 @@
     }
     self.allCount -- ;
     //改变高度
-    [self changeHeight];
-    [self.collectionView reloadData];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf changeHeight];
+
+        [self.collectionView reloadData];
+    });
     
 }
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
@@ -144,7 +150,7 @@
             //发布朋友圈
             WeakSelf;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [weakSelf send:array];
             });
 
@@ -165,7 +171,9 @@
     }
     [mDic setValue:self.recomTV.text forKey:@"content"];
      [UploadMulDocuments postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:mDic andArray:arr getBlock:^(NSURLResponse *response, NSError *error, id data) {
-             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+         });
          if (error) {
              NSSLog(@"发布朋友圈失败：%@",error);
              [weakSelf showMessage:@"服务器出错咯！"];
@@ -188,7 +196,9 @@
                  list.images = dic[@"images"];
                  list.id = [dic[@"id"] integerValue];
                  weakSelf.circleDelegate.model = list;
-                 [weakSelf.navigationController popViewControllerAnimated:YES];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [weakSelf.navigationController popViewControllerAnimated:YES];
+                 });
              }else if ([code intValue] == 1015) {
                  [weakSelf showMessage:@"图片出错"];
              }else{
@@ -324,8 +334,8 @@
                 }
             if (weakSelf.collectArr.count -1 == assets.count || weakSelf.count == 3|| weakSelf.count == 9) {
                 //改变高度
-                [weakSelf changeHeight];
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf changeHeight];
                     [self.collectionView reloadData];
                 });
             }
@@ -431,7 +441,9 @@
                 i++;
  
             }
-            [self.collectionView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
         }
         
     }else{
@@ -473,28 +485,31 @@
     
     item.isHide = YES;
     self.allCount++;
-    //总个数
-    if (self.type == 1) {
-        if (self.allCount == 3) {
-            [self.collectArr replaceObjectAtIndex:0 withObject:item];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //总个数
+        if (self.type == 1) {
+            if (self.allCount == 3) {
+                [self.collectArr replaceObjectAtIndex:0 withObject:item];
+            }else{
+                [self.collectArr addObject:item];
+            }
+            self.collectionHeightCons.constant = 85;
         }else{
-            [self.collectArr addObject:item];
+            //发布朋友圈
+            self.rightItem.enabled = YES;
+            if (self.allCount == 9) {
+                [self.collectArr replaceObjectAtIndex:0 withObject:item];
+            }else{
+                [self.collectArr addObject:item];
+            }
+            //改变高度
+            [weakSelf changeHeight];
+            
         }
-        self.collectionHeightCons.constant = 85;
-    }else{
-        //发布朋友圈
-        self.rightItem.enabled = YES;
-        if (self.allCount == 9) {
-            [self.collectArr replaceObjectAtIndex:0 withObject:item];
-        }else{
-            [self.collectArr addObject:item];
-        }
-        //改变高度
-        [self changeHeight];
 
-    }
-
-    [self.collectionView reloadData];
+        [self.collectionView reloadData];
+    });
     
 }
 -(void)showMessage:(NSString *)msg{

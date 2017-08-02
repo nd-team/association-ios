@@ -92,7 +92,7 @@
             [self.mapView setCenterCoordinate:location.coordinate];
             self.latitute = location.coordinate.latitude;
             self.longitude = location.coordinate.longitude;
-            NSSLog(@"%@=%@",regeocode.POIName,regeocode.AOIName);
+//            NSSLog(@"%@=%@",regeocode.POIName,regeocode.AOIName);
             if (self.isAct) {
                 self.area = [NSString stringWithFormat:@"%@",regeocode.POIName];
 
@@ -173,7 +173,10 @@
         [self.dataArr removeAllObjects];
     }
     [self.dataArr addObjectsFromArray:response.pois];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+
+    });
     //设置默认选择第一行 或者写在viewwillAppear
     NSIndexPath * selectedPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView selectRowAtIndexPath:selectedPath animated:NO scrollPosition:UITableViewScrollPositionTop];

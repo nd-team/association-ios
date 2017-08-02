@@ -10,9 +10,9 @@
 
 @implementation AFSecuteCertificate
 
-+(AFSecurityPolicy *)customSecurityPolicy{
++(AFSecurityPolicy *)customSecurityPolicy:(NSString *)name{
     //导入证书，证书路径
-    NSString * cerPath = [[NSBundle mainBundle]pathForResource:@"space" ofType:@"cer"];
+    NSString * cerPath = [[NSBundle mainBundle]pathForResource:name ofType:@"cer"];
     
     NSData * cerData = [NSData dataWithContentsOfFile:cerPath];
     //证书验证模式

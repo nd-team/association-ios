@@ -215,22 +215,25 @@
     
 }
 -(void)commonUI:(BOOL)isHidden{
-    self.wifeNameLabel.hidden = isHidden;
-    self.wifeLabel.hidden = isHidden;
-    self.childNameLabel.hidden = isHidden;
-    self.childLabel.hidden = isHidden;
-    self.childSchoolLabel.hidden = isHidden;
-    self.childScLabel.hidden = isHidden;
-    self.lineOneView.hidden = isHidden;
-    self.wifeNameTF.hidden = isHidden;
-    self.childNameTF.hidden = isHidden;
-    self.childSchoolTF.hidden = isHidden;
-    if (isHidden) {
-        self.viewHeightCons.constant = 1400;
-    }else{
-        self.viewHeightCons.constant = 1700;
-        
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.wifeNameLabel.hidden = isHidden;
+        self.wifeLabel.hidden = isHidden;
+        self.childNameLabel.hidden = isHidden;
+        self.childLabel.hidden = isHidden;
+        self.childSchoolLabel.hidden = isHidden;
+        self.childScLabel.hidden = isHidden;
+        self.lineOneView.hidden = isHidden;
+        self.wifeNameTF.hidden = isHidden;
+        self.childNameTF.hidden = isHidden;
+        self.childSchoolTF.hidden = isHidden;
+        if (isHidden) {
+            self.viewHeightCons.constant = 1400;
+        }else{
+            self.viewHeightCons.constant = 1700;
+            
+        }
+    });
+   
 }
 /*
 -(void)getData{
@@ -345,8 +348,10 @@
     if ([self checkLegal]) {
         self.isMessage = YES;
         //提示用户是否确认信息
-        [self showBackViewUI:@"部分信息确认后不能再修改,确认保存？"];
-
+        WeakSelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf showBackViewUI:@"部分信息确认后不能再修改,确认保存？"];
+        });
     }
 }
 -(BOOL)checkLegal{
@@ -386,7 +391,7 @@
         if (self.isMessage) {
             WeakSelf;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [weakSelf recommendSubmit];
             });
         }else{
@@ -398,7 +403,10 @@
     }
 }
 -(void)hideViewAction{
-    self.backView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backView.hidden = YES;
+
+    });
 }
 -(void)recommendSubmit{
     NSMutableDictionary * params = [NSMutableDictionary new];
@@ -614,16 +622,18 @@
     [params setValue:degree forKey:@"degree"];
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,SureInfoURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"确认请求失败：%@",error);
             weakSelf.isMessage =  NO;
             [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@=%@",code,data);
+//            NSSLog(@"%@=%@",code,data);
             if ([code intValue] == 200) {
-                weakSelf.backView.hidden = YES;
+                [weakSelf hideViewAction];
                 //登录进入主界面
                 [weakSelf loginNet];
             }else{
@@ -1087,9 +1097,11 @@
         return NO;
     }else if (textField == self.birthdayTF){
         [self resign];
-        self.bottomView.hidden = NO;
-        self.pickerView.hidden = YES;
-        self.datePicker.hidden = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.bottomView.hidden = NO;
+            self.pickerView.hidden = YES;
+            self.datePicker.hidden = NO;
+        });
         self.flag = 10;
         return NO;
     }
@@ -1099,9 +1111,12 @@
     }
 }
 -(void)hidden{
-    self.bottomView.hidden = NO;
-    self.datePicker.hidden = YES;
-    self.pickerView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.bottomView.hidden = NO;
+        self.datePicker.hidden = YES;
+        self.pickerView.hidden = NO;
+
+    });
 }
 - (IBAction)datePickerClick:(id)sender {
     [self common];

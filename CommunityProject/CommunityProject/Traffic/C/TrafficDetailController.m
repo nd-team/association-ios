@@ -81,7 +81,10 @@
     }
 }
 -(void)finishAction{
-    [self showBackViewUI:@"确定发布内容？"];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf showBackViewUI:@"确定发布内容？"];
+    });
 }
 -(void)showBackViewUI:(NSString *)title{
     self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
@@ -102,7 +105,7 @@
     if (btn.tag == 160) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf send];
         });
     }
@@ -121,7 +124,9 @@
     }
     WeakSelf;
     [TrafficeUploadNet postDataWithUrl:[NSString stringWithFormat:NetURL,SendURL] andParams:dict andFirstImage:self.backImageView.image andSecondImage:image getBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"发布灵感失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -153,7 +158,7 @@
 -(void)requestData{
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getDetailData];
     });
 
@@ -182,32 +187,35 @@
 
     CGFloat height2 = [ImageUrl boundingRectWithString:self.contentLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
     if (self.isLook) {
-        self.bottomView.hidden = YES;
-        self.backImageHeightCons.constant = 168;
-        self.allHeight = 248+height1+height2;
-        //全部展示
-        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.headUrl] placeholderImage:[UIImage imageNamed:@"default"]];
-        self.backImageView.image = self.backImage;
-        self.hiddenView.hidden = NO;
-        self.noSoldView.hidden = YES;
-        //计算label高度变化view高度
-        self.soldLabel.text = self.buyContent;
-        //余出50滑动方便
-        CGFloat height = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
-        if (self.buyImage) {
-            self.soldImageHeightCons.constant = 140;
-            //隐藏view的高度
-            self.hiddenHeightCons.constant = 175+height;
-            self.viewHeightCons.constant = self.allHeight+self.hiddenHeightCons.constant;
-            self.soldImageView.image = self.buyImage;
-            
-        }else{
-            self.soldImageHeightCons.constant = 0;
-            self.hiddenHeightCons.constant = 35+height;
-            self.viewHeightCons.constant = self.allHeight+self.hiddenHeightCons.constant;
-            
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.bottomView.hidden = YES;
+            self.backImageHeightCons.constant = 168;
+            self.allHeight = 248+height1+height2;
+            //全部展示
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.headUrl] placeholderImage:[UIImage imageNamed:@"default"]];
+            self.backImageView.image = self.backImage;
+            self.hiddenView.hidden = NO;
+            self.noSoldView.hidden = YES;
+            //计算label高度变化view高度
+            self.soldLabel.text = self.buyContent;
+            //余出50滑动方便
+            CGFloat height = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
+            if (self.buyImage) {
+                self.soldImageHeightCons.constant = 140;
+                //隐藏view的高度
+                self.hiddenHeightCons.constant = 175+height;
+                self.viewHeightCons.constant = self.allHeight+self.hiddenHeightCons.constant;
+                self.soldImageView.image = self.buyImage;
+                
+            }else{
+                self.soldImageHeightCons.constant = 0;
+                self.hiddenHeightCons.constant = 35+height;
+                self.viewHeightCons.constant = self.allHeight+self.hiddenHeightCons.constant;
+                
+            }
 
+        });
+        
 
     }else{
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default"]];
@@ -226,8 +234,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"articleId":self.idStr};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TrafficURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+        });
         if (error) {
             NSSLog(@"灵感贩卖详情：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -242,43 +251,46 @@
                 [self.shareBtn setTitle:self.shareNum forState:UIControlStateNormal];
                 self.likes =  [NSString stringWithFormat:@"%@",dict[@"likes"]];
                 [self.loveBtn setTitle:self.likes forState:UIControlStateNormal];
-                self.soldLabel.text = [NSString stringWithFormat:@"%@",dict[@"content"]];
-                CGFloat height3 = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
-                self.allHeight = self.allHeight+height3;
                 self.isLove = [dict[@"statusLikes"] boolValue];
                 if(self.isLove){
                     self.loveBtn.selected = YES;
                 }else{
                     self.loveBtn.selected = NO;
                 }
-
+                self.soldLabel.text = [NSString stringWithFormat:@"%@",dict[@"content"]];
                 self.payCount = [NSString stringWithFormat:@"%@",dict[@"dealContribution"]];
-                if ([[dict allKeys] containsObject:@"dealContent"]||[[dict allKeys] containsObject:@"dealImage"]) {
-                    self.hiddenView.hidden = NO;
-                    self.noSoldView.hidden = YES;
-                    //计算label高度变化view高度
-                    self.soldLabel.text = [NSString stringWithFormat:@"%@",dict[@"dealContent"]];
-                    //余出50滑动方便
-                    CGFloat height = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
-                    if (![ImageUrl isEmptyStr:dict[@"dealImage"]]) {
-                        self.soldImageHeightCons.constant = 140;
-                        //隐藏view的高度
-                        self.hiddenHeightCons.constant = 175+height;
-                        self.viewHeightCons.constant = self.allHeight+self.hiddenHeightCons.constant;
-                        [self.soldImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"dealImage"]]]] placeholderImage:[UIImage imageNamed:@"banner3"]];
-
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    CGFloat height3 = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
+                    self.allHeight = self.allHeight+height3;
+                    
+                    if ([[dict allKeys] containsObject:@"dealContent"]||[[dict allKeys] containsObject:@"dealImage"]) {
+                        self.hiddenView.hidden = NO;
+                        self.noSoldView.hidden = YES;
+                        //计算label高度变化view高度
+                        self.soldLabel.text = [NSString stringWithFormat:@"%@",dict[@"dealContent"]];
+                        //余出50滑动方便
+                        CGFloat height = [ImageUrl boundingRectWithString:self.soldLabel.text width:(KMainScreenWidth-20) height:MAXFLOAT font:13].height;
+                        if (![ImageUrl isEmptyStr:dict[@"dealImage"]]) {
+                            self.soldImageHeightCons.constant = 140;
+                            //隐藏view的高度
+                            self.hiddenHeightCons.constant = 175+height;
+                            self.viewHeightCons.constant = self.allHeight+self.hiddenHeightCons.constant;
+                            [self.soldImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"dealImage"]]]] placeholderImage:[UIImage imageNamed:@"banner3"]];
+                            
+                        }else{
+                            self.soldImageHeightCons.constant = 0;
+                            self.hiddenHeightCons.constant = 35+height;
+                            self.viewHeightCons.constant = self.allHeight+self.hiddenHeightCons.constant;
+                            
+                        }
                     }else{
-                        self.soldImageHeightCons.constant = 0;
-                        self.hiddenHeightCons.constant = 35+height;
-                        self.viewHeightCons.constant = self.allHeight+self.hiddenHeightCons.constant;
-
+                        self.hiddenView.hidden = YES;
+                        self.noSoldView.hidden = NO;
+                        self.viewHeightCons.constant = self.allHeight+80;
                     }
-                }else{
-                    self.hiddenView.hidden = YES;
-                    self.noSoldView.hidden = NO;
-                    self.viewHeightCons.constant = self.allHeight+80;
-                }
-               
+                    
+                });
+                
             }else{
                 [weakSelf showMessage:@"灵感贩卖详情失败！"];
             }
@@ -328,7 +340,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            [weakSelf download];
                            break;
                        }
@@ -374,7 +385,7 @@
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);
             weakSelf.loveBtn.selected = NO;
-            [self showMessage:@"点赞失败"];
+            [weakSelf showMessage:@"点赞失败"];
         }else{
             
             NSNumber * code = data[@"code"];
@@ -388,11 +399,11 @@
                 
             }else if ([code intValue] == 1029){
                 weakSelf.loveBtn.selected = NO;
-                [self showMessage:@"多次点赞失败"];
+                [weakSelf showMessage:@"多次点赞失败"];
                 
             }else{
                 weakSelf.loveBtn.selected = NO;
-                [self showMessage:@"点赞失败"];
+                [weakSelf showMessage:@"点赞失败"];
             }
         }
         

@@ -230,22 +230,25 @@
     
 }
 -(void)commonUI:(BOOL)isHidden{
-    self.wifeNameLabel.hidden = isHidden;
-    self.wifeLabel.hidden = isHidden;
-    self.childNameLabel.hidden = isHidden;
-    self.childLabel.hidden = isHidden;
-    self.childSchoolLabel.hidden = isHidden;
-    self.childScLabel.hidden = isHidden;
-    self.lineOneView.hidden = isHidden;
-    self.wifeNameTF.hidden = isHidden;
-    self.childNameTF.hidden = isHidden;
-    self.childSchoolTF.hidden = isHidden;
-    if (isHidden) {
-        self.viewHeightCons.constant = 1300;
-    }else{
-        self.viewHeightCons.constant = 1600;
-        
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.wifeNameLabel.hidden = isHidden;
+        self.wifeLabel.hidden = isHidden;
+        self.childNameLabel.hidden = isHidden;
+        self.childLabel.hidden = isHidden;
+        self.childSchoolLabel.hidden = isHidden;
+        self.childScLabel.hidden = isHidden;
+        self.lineOneView.hidden = isHidden;
+        self.wifeNameTF.hidden = isHidden;
+        self.childNameTF.hidden = isHidden;
+        self.childSchoolTF.hidden = isHidden;
+        if (isHidden) {
+            self.viewHeightCons.constant = 1300;
+        }else{
+            self.viewHeightCons.constant = 1600;
+            
+        }
+    });
+
 }
 -(void)resign{
     self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
@@ -278,7 +281,10 @@
     if ([self checkLegal]) {
         self.isMessage = YES;
         //提示用户是否确认信息
-        [self showBackViewUI:@"部分信息确认后不能再修改,确认保存？"];
+        WeakSelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf showBackViewUI:@"部分信息确认后不能再修改,确认保存？"];
+        });
     }
     
 }
@@ -319,7 +325,7 @@
         if (self.isMessage) {
             WeakSelf;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 [weakSelf recommendSubmit];
             });
         }else{
@@ -331,7 +337,10 @@
     }
 }
 -(void)hideViewAction{
-    self.backView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backView.hidden = YES;
+
+    });
 }
 -(void)recommendSubmit{
     NSMutableDictionary * params = [NSMutableDictionary new];
@@ -544,21 +553,22 @@
     [params setValue:degree forKey:@"degree"];
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ApplicationVIPURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.backView.hidden = YES;
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"申请请求失败：%@",error);
             weakSelf.isMessage =  NO;
-            weakSelf.backView.hidden = YES;
             [weakSelf showMessage:@"服务器出错咯！"];
         }else{
             NSNumber * code = data[@"code"];
-            NSSLog(@"%@=",code);
             if ([code intValue] == 200) {
-                weakSelf.backView.hidden = YES;
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
             }else{
                 weakSelf.isMessage =  NO;
-                weakSelf.backView.hidden = YES;
                 [weakSelf showMessage:@"申请VIP失败，请重新申请"];
             }
             
@@ -878,9 +888,12 @@
         return NO;
     }else if (textField == self.birthdayTF){
         [self resign];
-        self.bottomView.hidden = NO;
-        self.pickerView.hidden = YES;
-        self.datePicker.hidden = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.bottomView.hidden = NO;
+            self.pickerView.hidden = YES;
+            self.datePicker.hidden = NO;
+        });
         self.flag = 10;
         return NO;
     }
@@ -890,9 +903,12 @@
     }
 }
 -(void)hidden{
-    self.bottomView.hidden = NO;
-    self.datePicker.hidden = YES;
-    self.pickerView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.bottomView.hidden = NO;
+        self.datePicker.hidden = YES;
+        self.pickerView.hidden = NO;
+    });
+    
 }
 - (IBAction)datePickerClick:(id)sender {
     [self common];

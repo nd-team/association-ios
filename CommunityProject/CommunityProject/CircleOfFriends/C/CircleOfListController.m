@@ -82,7 +82,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getList];
         });
         
@@ -92,7 +92,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"status":@"1",@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"朋友圈：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -122,9 +124,14 @@
                 [weakSelf showMessage:@"加载朋友圈失败，下拉刷新重试！"];
 
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                if (weakSelf.tableView.mj_footer.isRefreshing) {
+                    [weakSelf.tableView.mj_footer endRefreshing];
+                }
+            });
+            
         }
     }];
 }
@@ -139,30 +146,33 @@
             if ([code intValue] == 200) {
                 NSArray * arr = data[@"data"];
                 //初始化传参过来的消息数据
-                CGRect frame = self.headerView.frame;
-                if (arr.count == 0) {
-                    frame.size.height = 0;
-                    weakSelf.btnHeightCons.constant = 0;
-                    weakSelf.imageHeightCons.constant = 0;
-                    weakSelf.conViewHeightCons.constant = 0;
-                }else{
-                    weakSelf.btnHeightCons.constant = 40;
-                    weakSelf.imageHeightCons.constant = 31;
-                    weakSelf.conViewHeightCons.constant = 40;
-                    weakSelf.msgArr = arr;
-                    frame.size.height = 64;
-                    [self.msgBtn setTitle:[NSString stringWithFormat:@"%ld条新消息",(unsigned long)arr.count] forState:UIControlStateNormal];
-                    int i = 0;
-                    for (NSDictionary * dic in arr) {
-                        if (i == 0) {
-                            //第一条数据的头像
-                            [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dic[@"userPortraitUrl"]]]] placeholderImage:[UIImage imageNamed:@"default"]];
-                            break;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    CGRect frame = self.headerView.frame;
+                    if (arr.count == 0) {
+                        frame.size.height = 0;
+                        weakSelf.btnHeightCons.constant = 0;
+                        weakSelf.imageHeightCons.constant = 0;
+                        weakSelf.conViewHeightCons.constant = 0;
+                    }else{
+                        weakSelf.btnHeightCons.constant = 40;
+                        weakSelf.imageHeightCons.constant = 31;
+                        weakSelf.conViewHeightCons.constant = 40;
+                        weakSelf.msgArr = arr;
+                        frame.size.height = 64;
+                        [self.msgBtn setTitle:[NSString stringWithFormat:@"%ld条新消息",(unsigned long)arr.count] forState:UIControlStateNormal];
+                        int i = 0;
+                        for (NSDictionary * dic in arr) {
+                            if (i == 0) {
+                                //第一条数据的头像
+                                [weakSelf.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dic[@"userPortraitUrl"]]]] placeholderImage:[UIImage imageNamed:@"default"]];
+                                break;
+                            }
+                            i++;
                         }
-                        i++;
                     }
-                }
-                weakSelf.headerView.frame = frame;
+                    weakSelf.headerView.frame = frame;
+                });
+                
             }else{
                 [weakSelf showMessage:@"加载消息失败！"];
             }
@@ -305,14 +315,16 @@
 
 }
 -(void)backClick{
-    CGRect frame = self.headerView.frame;
-    frame.size.height = 0;
-    self.headerView.frame = frame;
-    self.btnHeightCons.constant = 0;
-    self.imageHeightCons.constant = 0;
-    self.conViewHeightCons.constant = 0;
-    self.tableView.tableHeaderView = self.headerView;
-//发送通知到发现隐藏消息提示并清空
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGRect frame = self.headerView.frame;
+        frame.size.height = 0;
+        self.headerView.frame = frame;
+        self.btnHeightCons.constant = 0;
+        self.imageHeightCons.constant = 0;
+        self.conViewHeightCons.constant = 0;
+    });
+   
+   //发送通知到发现隐藏消息提示并清空
     [[NSNotificationCenter defaultCenter]postNotificationName:@"CircleMessage" object:nil];
     
 }

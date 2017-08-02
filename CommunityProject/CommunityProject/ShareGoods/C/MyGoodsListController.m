@@ -69,7 +69,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getMyHelpData];
         });
         
@@ -80,7 +80,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MyListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"我的求助：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -108,9 +110,13 @@
             }else{
                 [weakSelf showMessage:@"加载我的干货失败，下拉刷新重试！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                if (weakSelf.tableView.mj_footer.isRefreshing) {
+                    [weakSelf.tableView.mj_footer endRefreshing];
+                }
+            });
             
         }
     }];
@@ -119,7 +125,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"type":@"3"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CollectionURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"我的求助：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -147,8 +155,11 @@
             }else{
                 [weakSelf showMessage:@"加载我的干货失败，下拉刷新重试！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
+           
 //            [weakSelf.tableView.mj_footer endRefreshing];
             
         }
@@ -213,7 +224,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            [weakSelf download:idStr];
                            break;
                        }
@@ -308,7 +318,7 @@
         //我的干货
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getMyHelpData];
         });
         
@@ -316,7 +326,7 @@
         //收藏干货
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getCollectionData];
         });
     }

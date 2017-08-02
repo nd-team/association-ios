@@ -36,9 +36,8 @@
     self.commentLabel.text = _commentModel.content;
     self.likes = _commentModel.likes;
     self.loveCountLabel.text = [NSString stringWithFormat:@"赞 %@",_commentModel.likes];
-    NSString * url = [NSString stringWithFormat:JAVAURL,@"file/thumbnails?path=%@"];
-//    NSSLog(@"%@",[NSString stringWithFormat:url,_commentModel.headPath]);
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:url,_commentModel.headPath]] placeholderImage:[UIImage imageNamed:@"default"]];
+    NSString * url = [NSString stringWithFormat:NetURL,_commentModel.headPath];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"default"]];
     if (_commentModel.alreadyLikes) {
         self.loveBtn.selected = YES;
     }else{
@@ -66,14 +65,17 @@
         [self setScoreImage:@"starDark" andSecond:@"starDark" andThird:@"starDark" andFourth:@"starDark" andFive:@"starDark"];
  
     }
-    NSInteger count = _commentModel.images.count;
-    NSInteger shu = count%3;
-    if (shu != 0) {
-        self.collHeightCons.constant = count/3*100+100;
-    }else{
-        self.collHeightCons.constant = count/3*100;
-    }
-    [self.collectionView reloadData];
+       dispatch_async(dispatch_get_main_queue(), ^{
+           NSInteger count = _commentModel.images.count;
+           NSInteger shu = count%3;
+           if (shu != 0) {
+               self.collHeightCons.constant = count/3*100+100;
+           }else{
+               self.collHeightCons.constant = count/3*100;
+           }
+
+        [self.collectionView reloadData];
+    });
 
 }
 -(void)setScoreImage:(NSString *)first andSecond:(NSString *)second andThird:(NSString *)third andFourth:(NSString *)four andFive:(NSString *)five{
@@ -151,10 +153,9 @@
             weakSelf.loveBtn.selected = NO;
         }else{
             NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//            NSSLog(@"%@",dict);
             NSNumber * code = dict[@"code"];
             if ([code intValue] == 0) {
-                weakSelf.loveBtn.selected = YES;
+                weakSelf.loveBtn.selected = !self.loveBtn.selected;
                 if (self.loveBtn.selected) {
                     weakSelf.likes = [NSString stringWithFormat:@"%zi",[self.likes integerValue]+1];
                 }else{

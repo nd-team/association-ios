@@ -76,7 +76,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getHelpListData];
         });
         
@@ -94,7 +94,8 @@
             [weakSelf moreViewUI];
         });
     }else{
-        self.moreView.hidden = YES;
+
+        [self tapClick];
     }
 }
 
@@ -125,13 +126,17 @@
     }
 }
 -(void)tapClick{
-    self.moreView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.moreView.hidden = YES;
+    });
 }
 -(void)getHelpListData{
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,HelpListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"求助中心：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -159,10 +164,14 @@
             }else{
                 [weakSelf showMessage:@"加载求助中心失败，下拉刷新重试！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshing];
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                if (weakSelf.tableView.mj_footer.isRefreshing) {
+                    [weakSelf.tableView.mj_footer endRefreshing];
+                }
+            });
+           
         }
     }];
 

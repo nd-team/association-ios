@@ -62,7 +62,6 @@
     });
     //显示消息提示点
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showMessage) name:@"FriendsMessage"  object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recieve) name:@"CircleMessage" object:nil];
 
     //强制刷新SDK
     self.conversationListTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -73,20 +72,47 @@
         });
     }];
     
+    //SystemMessage
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(systemMessage) name:@"SystemMessage" object:nil];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recieve) name:@"CircleMessage" object:nil];
 }
--(void)showMessage{
-    UIView * dotView = [self.topView viewWithTag:100];
-    dotView.hidden = NO;
+//朋友圈消息提示隐藏
+-(void)recieve{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIButton * button = [self.topView viewWithTag:21];
+        [button pp_addDotWithColor:[UIColor clearColor]];
+    });
+}
+//系统消息
+-(void)systemMessage{
+    [self commonDotUI:21];
 }
 -(void)dealloc{
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"CircleMessage" object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"SystemMessage" object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"FriendsMessage" object:nil];
+
+}
+//显示好友请求消息提示
+-(void)showMessage{
+    [self commonDotUI:24];
+}
+-(void)commonDotUI:(CGFloat)tag{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIButton * button = [self.topView viewWithTag:tag];
+            [button pp_addDotWithColor:UIColorFromRGB(0xE71717)];
+        });
 }
 -(void)tapClick{
-    self.topView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.topView.hidden = YES;
+    });
 }
 -(void)moreClick{
-    self.topView.hidden = !self.topView.hidden;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.topView.hidden = !self.topView.hidden;
+    });
 }
 -(void)addView{
     self.topView = [UIView createViewFrame:CGRectZero andTarget:self andSel:@selector(buttonClick:)];
@@ -139,8 +165,8 @@
                 break;
             default:
             {//消息
-                UIView * dotView = [self.topView viewWithTag:100];
-                dotView.hidden = YES;
+                UIButton * button = [self.topView viewWithTag:24];
+                [button pp_addDotWithColor:[UIColor clearColor]];
                 UIStoryboard * sb = [UIStoryboard storyboardWithName:@"WeChat" bundle:nil];
                 MessageViewController  * msg = [sb instantiateViewControllerWithIdentifier:@"MessageViewController"];
                 [self.navigationController pushViewController:msg animated:YES];

@@ -55,7 +55,7 @@
         }else{
             model.height = model.height+10;
         }
-        NSSLog(@"%f==",model.height);
+//        NSSLog(@"%f==",model.height);
         return model.height;
 
     }

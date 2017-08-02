@@ -66,17 +66,20 @@
     [self.topBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
     [self.msgBtn setBackgroundImage:[UIImage imageNamed:@"switchOff.png"] forState:UIControlStateNormal];
     [self.msgBtn setBackgroundImage:[UIImage imageNamed:@"switchOn.png"] forState:UIControlStateSelected];
-    if (self.isGroup) {
-        self.hobbyBtn.hidden = YES;
-        self.hobbyHeightCons.constant = 0;
-        self.lineViewHeightCons.constant = 0;
-        
-    }else{
-        self.hobbyBtn.hidden = NO;
-        self.hobbyHeightCons.constant = 50;
-        self.lineViewHeightCons.constant = 1;
-        [self.hobbyBtn setTitle:self.hobby forState:UIControlStateNormal];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isGroup) {
+            self.hobbyBtn.hidden = YES;
+            self.hobbyHeightCons.constant = 0;
+            self.lineViewHeightCons.constant = 0;
+            
+        }else{
+            self.hobbyBtn.hidden = NO;
+            self.hobbyHeightCons.constant = 50;
+            self.lineViewHeightCons.constant = 1;
+            [self.hobbyBtn setTitle:self.hobby forState:UIControlStateNormal];
+        }
+    });
+    
     self.userId = [DEFAULTS objectForKey:@"userId"];
     RCConversation * currentConversation = [[RCIMClient sharedRCIMClient] getConversation:ConversationType_GROUP
                                                                                  targetId:self.groupId];
@@ -121,11 +124,13 @@
                     //刷新群组成员的信息
                     [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:member.userId];
                 }
-                [self.collectionView reloadData];
             }else{
                 [weakSelf showMessage:@"加载群成员失败"];
             }
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
+
         }
     }];
 }

@@ -43,7 +43,7 @@
     if (self.isRef) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getTafficeListData];
         });
     }
@@ -89,7 +89,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getAllData];
         });
         
@@ -111,7 +111,7 @@
     
     dispatch_group_notify(group, queue, ^{
         //
-        NSSLog(@"请求数据完毕");
+//        NSSLog(@"请求数据完毕");
         
     });
     
@@ -120,6 +120,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"type":@"5"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,AdvertiseURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"灵感贩卖数据请求失败：%@",error);
             weakSelf.scrollView.localizationImageNamesGroup = @[@"banner",@"banner2",@"banner3"];
@@ -150,7 +153,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"page":[NSString stringWithFormat:@"%d",self.page]};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,TafficeListURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"灵感贩卖：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -178,9 +183,13 @@
             }else{
                 [weakSelf showMessage:@"加载灵感贩卖失败，下拉刷新重试！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                if (weakSelf.tableView.mj_footer.isRefreshing) {
+                    [weakSelf.tableView.mj_footer endRefreshing];
+                }
+            });
             
         }
     }];
@@ -244,7 +253,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
                            [weakSelf download:idStr];
                            break;
                        }
@@ -321,7 +329,7 @@
             [weakSelf moreViewUI];
         });
     }else{
-        self.moreView.hidden = YES;
+        [self tapClick];
     }
 }
 
@@ -353,7 +361,10 @@
     }
 }
 -(void)tapClick{
-    self.moreView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.moreView.hidden = YES;
+    });
 }
 
 

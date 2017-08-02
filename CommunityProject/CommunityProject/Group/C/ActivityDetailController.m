@@ -66,7 +66,7 @@
     [self setUI];
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getJoinActivityPerson];
     });
 }
@@ -110,7 +110,9 @@
 -(void)getJoinActivityPerson{
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ActivityDetailURL] andParams:@{@"activesId":self.actives_id} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"群活动详情获取失败%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -124,18 +126,20 @@
                 for (NSString * img in imageArr) {
                     [weakSelf.dataArr addObject:img];
                 }
-                [weakSelf.tableView reloadData];
                 weakSelf.countLabel.text = [NSString stringWithFormat:@"已报名（%@）",dict[@"joinUserNumber"]];
                 NSArray * users = dict[@"joinUsers"];
                 for (NSDictionary * subDic in users) {
                     ActiveUsers * user = [[ActiveUsers alloc]initWithDictionary:subDic error:nil];
                     [weakSelf.collectionArr addObject:user];
                 }
-                if (weakSelf.collectionArr.count == 0) {
-                    self.collHeightCons.constant = 0;
-
-                }
-                [weakSelf.collectionView reloadData];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (weakSelf.collectionArr.count == 0) {
+                        self.collHeightCons.constant = 0;
+                    }
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.collectionView reloadData];
+                });
             }else{
                 [weakSelf showMessage:@"加载群活动详情失败"];
             }
@@ -188,12 +192,16 @@
 }
 //收起活动介绍
 - (IBAction)spreadOutClick:(id)sender {
-    self.downBtn.hidden = NO;
-    self.upBtn.hidden = YES;
-    self.recommendLabel.numberOfLines = 1;
-    self.tbHeightCons.constant = 0;
-    CGSize size = [self.recommendLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
-    [self noSpread:size.height andTbHeight:self.tbHeightCons.constant andRecomHeight:100];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.downBtn.hidden = NO;
+        self.upBtn.hidden = YES;
+        self.recommendLabel.numberOfLines = 1;
+        self.tbHeightCons.constant = 0;
+        CGSize size = [self.recommendLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+        [weakSelf noSpread:size.height andTbHeight:self.tbHeightCons.constant andRecomHeight:100];
+    });
+   
 }
 //tbHeight高度是TB和label的高度height
 -(void)noSpread:(CGFloat)height andTbHeight:(CGFloat)tbHeight andRecomHeight:(CGFloat)reHeight{
@@ -217,7 +225,7 @@
     NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
     NSString * idStr = [user objectForKey:@"userId"];
     NSDictionary * param = @{@"userId":idStr,@"activesId":self.actives_id};
-    NSSLog(@"%@",param)
+//    NSSLog(@"%@",param)
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,JoinActURL] andParams:param returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
@@ -261,12 +269,16 @@
 }
 //展开
 - (IBAction)downClick:(id)sender {
-    self.downBtn.hidden = YES;
-    self.upBtn.hidden = NO;
-    self.recommendLabel.numberOfLines = 0;
-    CGRect rect = [self.recommendLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
-    self.tbHeightCons.constant = self.dataArr.count * self.height;
-    [self noSpread:rect.size.height andTbHeight:self.tbHeightCons.constant andRecomHeight:60];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.downBtn.hidden = YES;
+        self.upBtn.hidden = NO;
+        self.recommendLabel.numberOfLines = 0;
+        CGRect rect = [self.recommendLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
+        self.tbHeightCons.constant = self.dataArr.count * self.height;
+        [weakSelf noSpread:rect.size.height andTbHeight:self.tbHeightCons.constant andRecomHeight:60];
+  
+    });
 }
 
 - (IBAction)backClick:(id)sender {
@@ -278,21 +290,22 @@
         self.collHeightCons.constant = 0;
         return;
     }
-    if (self.moreBtn.selected) {
-        NSInteger width = self.collectionArr.count*75;
-        int line = width/(KMainScreenWidth-8);
-        NSInteger remainder = width%(NSInteger)(KMainScreenWidth-8);
-        if (remainder != 0) {
-            self.collHeightCons.constant = 80*(line+1);
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.moreBtn.selected) {
+            NSInteger width = self.collectionArr.count*75;
+            int line = width/(KMainScreenWidth-8);
+            NSInteger remainder = width%(NSInteger)(KMainScreenWidth-8);
+            if (remainder != 0) {
+                self.collHeightCons.constant = 80*(line+1);
+                
+            }else{
+                self.collHeightCons.constant = 80*line;
+            }
         }else{
-            self.collHeightCons.constant = 80*line;
+            self.collHeightCons.constant = 80;
         }
-    }else{
-        self.collHeightCons.constant = 80;
-    }
-    [self.collectionView reloadData];
-    
+        [self.collectionView reloadData];
+    });
 }
 -(void)showMessage:(NSString *)msg{
     [self.navigationController.view makeToast:msg];

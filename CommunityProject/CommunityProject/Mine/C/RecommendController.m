@@ -177,22 +177,25 @@
     [self setUI];
 }
 -(void)commonUI:(BOOL)isHidden{
-    self.wifeNameLabel.hidden = isHidden;
-    self.wifeLabel.hidden = isHidden;
-    self.childNameLabel.hidden = isHidden;
-    self.childLabel.hidden = isHidden;
-    self.childSchoolLabel.hidden = isHidden;
-    self.childScLabel.hidden = isHidden;
-    self.lineOneView.hidden = isHidden;
-    self.wifeNameTF.hidden = isHidden;
-    self.childNameTF.hidden = isHidden;
-    self.childSchoolTF.hidden = isHidden;
-    if (isHidden) {
-        self.viewHeightCons.constant = 1350;
-    }else{
-        self.viewHeightCons.constant = 1550;
-
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.wifeNameLabel.hidden = isHidden;
+        self.wifeLabel.hidden = isHidden;
+        self.childNameLabel.hidden = isHidden;
+        self.childLabel.hidden = isHidden;
+        self.childSchoolLabel.hidden = isHidden;
+        self.childScLabel.hidden = isHidden;
+        self.lineOneView.hidden = isHidden;
+        self.wifeNameTF.hidden = isHidden;
+        self.childNameTF.hidden = isHidden;
+        self.childSchoolTF.hidden = isHidden;
+        if (isHidden) {
+            self.viewHeightCons.constant = 1350;
+        }else{
+            self.viewHeightCons.constant = 1550;
+            
+        }
+    });
+    
 }
 -(void)setUI{
     self.bottomView.hidden = YES;
@@ -278,7 +281,7 @@
     if ([self checkLegal]) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf recommendSubmit];
         });
     }
@@ -526,7 +529,9 @@
     [params setValue:self.userId forKey:@"userId"];
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,RecommendURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"已推荐人请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -868,9 +873,12 @@
         return NO;
     }else if (textField == self.birthdayTF){
         [self resign];
-        self.bottomView.hidden = NO;
-        self.pickerView.hidden = YES;
-        self.datePicker.hidden = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.bottomView.hidden = NO;
+            self.pickerView.hidden = YES;
+            self.datePicker.hidden = NO;
+        });
         self.flag = 11;
         return NO;
     }
@@ -880,9 +888,12 @@
     }
 }
 -(void)hidden{
-    self.bottomView.hidden = NO;
-    self.datePicker.hidden = YES;
-    self.pickerView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.bottomView.hidden = NO;
+        self.datePicker.hidden = YES;
+        self.pickerView.hidden = NO;
+    });
+    
 }
 - (IBAction)datePickerClick:(id)sender {
     [self common];

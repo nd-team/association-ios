@@ -50,7 +50,10 @@
     [self.dataArr addObjectsFromArray:[[AreaHistrorySingleton shareDatabase]searchDatabase]];
     if (self.dataArr.count != 0) {
         self.flag = 1;
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+
+        });
     }
     
 }
@@ -121,7 +124,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.flag == 2) {
         AMapTip * poi = self.dataArr[indexPath.row];
-        NSSLog(@"%@=%@=%@",poi.name,poi.district,poi.address);
+//        NSSLog(@"%@=%@=%@",poi.name,poi.district,poi.address);
         self.searchTF.text = [NSString stringWithFormat:@"%@",poi.name];
         //回到上个界面传经纬度过去
         self.delegate.latitute = poi.location.latitude;
@@ -176,7 +179,7 @@
 
 //根据输入提示搜索
 -(void)onInputTipsSearchDone:(AMapInputTipsSearchRequest *)request response:(AMapInputTipsSearchResponse *)response{
-    NSSLog(@"返回信息:%@",response);
+//    NSSLog(@"返回信息:%@",response);
     if (response.tips.count == 0) {
         NSSLog(@"对不起，输入的关键字搜索不到信息，请重新输入");
        
@@ -184,7 +187,10 @@
     }
     [self.dataArr removeAllObjects];
     [self.dataArr addObjectsFromArray:response.tips];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+
+    });
 
 }
 -(void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error{

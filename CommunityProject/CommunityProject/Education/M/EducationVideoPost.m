@@ -20,7 +20,7 @@
     [manager.requestSerializer setValue:@"text/html;application/xhtml+xml;application/xml;q=0.9,image/webp,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
     
     [manager.requestSerializer setHTTPShouldHandleCookies:YES];
-    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy:@"space"];
     
     
     NSString * boundary = [NSString stringWithFormat:@"WebKitFormBoundary%08X%08X",arc4random(),arc4random()];
@@ -34,7 +34,7 @@
         //压缩图片
         NSData * imageData = [ReduceImage base64ImageThumbnaiWith:image];
         //图片大小
-        NSSLog(@"图片大小：%f MB 视频大小：%f MB",imageData.length/1024.00/1024.00,videoData.length/1024.00/1024.00);
+//        NSSLog(@"图片大小：%f MB 视频大小：%f MB",imageData.length/1024.00/1024.00,videoData.length/1024.00/1024.00);
         NSDateFormatter * formatter = [NSDateFormatter new];
         
         formatter.dateFormat = @"yyyyMMddHHmmss";
@@ -57,7 +57,7 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSSLog(@"%@",jsonDic);
+//        NSSLog(@"%@",jsonDic);
         block(task.response,nil,jsonDic);
         
         

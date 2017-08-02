@@ -32,7 +32,9 @@
     //下载完成的数据
     [self.dataArr addObjectsFromArray:[[GoodsListDatabaseSingleton shareDatabase]searchDatabase]];
     if (self.dataArr.count != 0) {
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
 }
 -(void)leftClick{

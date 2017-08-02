@@ -60,7 +60,7 @@
 -(void)common:(NSString *)type{
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getInterestListData:type];
     });
 }
@@ -89,7 +89,9 @@
     WeakSelf;
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,InterestURL] andParams:@{@"userId":userId,@"hobbyId":hobby} returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"获取兴趣联盟列表失败%@",error);
             [weakSelf showMessage:@"加载兴趣联盟失败"];
@@ -108,11 +110,14 @@
                         [weakSelf.rightArr addObject:model];
                     }
                 }
-                [weakSelf.rightTbView reloadData];
+                
             }else{
                 [weakSelf showMessage:@"加载兴趣联盟失败"];
             }
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.rightTbView reloadData];
+
+            });
         }
 
     }];
@@ -123,23 +128,24 @@
 }
 //创建兴趣联盟
 -(void)rightClick{
-    NSString *creditScore = [DEFAULTS objectForKey:@"creditScore"];
-    NSInteger score = [creditScore integerValue];
-    if (score < 200) {
-        [self showBackViewUI];
-    }else{
+    NSInteger  checkVIP = [DEFAULTS integerForKey:@"checkVip"];
+    if (checkVIP == 1) {
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Group" bundle:nil];
         ChooseFriendsController * choose = [sb instantiateViewControllerWithIdentifier:@"ChooseFriendsController"];
         choose.name = @"添加成员";
         choose.dif = 5;
         choose.rightName = @"下一步";
         [self.navigationController pushViewController:choose animated:YES];
- 
+    }else{
+        WeakSelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf showBackViewUI];
+        });
     }
 }
 -(void)showBackViewUI{
     
-    self.backView = [UIView sureViewTitle:@"对不起，您的信誉值不足200不可新建兴趣组" andTag:60 andTarget:self andAction:@selector(buttonAction:)];
+    self.backView = [UIView sureViewTitle:@"对不起，您还不是VIP不可新建兴趣组" andTag:60 andTarget:self andAction:@selector(buttonAction:)];
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
     
     [self.backView addGestureRecognizer:tap];
@@ -209,15 +215,17 @@
     self.cameraBtn.selected = NO;
     self.moneyBtn.selected = NO;
     self.moreBtn.selected = NO;
-    self.oneView.hidden = NO;
-    self.twoView.hidden = YES;
-    self.threeView.hidden = YES;
-    self.fourView.hidden = YES;
-    self.fiveView.hidden = YES;
-    WeakSelf;
-    [UIView animateWithDuration:2 animations:^{
-        weakSelf.leftWidthCons.constant = 0;
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.oneView.hidden = NO;
+        self.twoView.hidden = YES;
+        self.threeView.hidden = YES;
+        self.fourView.hidden = YES;
+        self.fiveView.hidden = YES;
+        [UIView animateWithDuration:2 animations:^{
+            self.leftWidthCons.constant = 0;
+        }];
+    });
     [self common:@"1"];
 
 }
@@ -227,15 +235,17 @@
     self.cameraBtn.selected = NO;
     self.moneyBtn.selected = NO;
     self.moreBtn.selected = NO;
-    self.oneView.hidden = YES;
-    self.twoView.hidden = NO;
-    self.threeView.hidden = YES;
-    self.fourView.hidden = YES;
-    self.fiveView.hidden = YES;
-    WeakSelf;
-    [UIView animateWithDuration:2 animations:^{
-        weakSelf.leftWidthCons.constant = 0;
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.oneView.hidden = YES;
+        self.twoView.hidden = NO;
+        self.threeView.hidden = YES;
+        self.fourView.hidden = YES;
+        self.fiveView.hidden = YES;
+        [UIView animateWithDuration:2 animations:^{
+            self.leftWidthCons.constant = 0;
+        }];
+    });
     [self common:@"2"];
 
     
@@ -246,15 +256,17 @@
     self.cameraBtn.selected = YES;
     self.moneyBtn.selected = NO;
     self.moreBtn.selected = NO;
-    self.oneView.hidden = YES;
-    self.twoView.hidden = YES;
-    self.threeView.hidden = NO;
-    self.fourView.hidden = YES;
-    self.fiveView.hidden = YES;
-    WeakSelf;
-    [UIView animateWithDuration:2 animations:^{
-        weakSelf.leftWidthCons.constant = 0;
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.oneView.hidden = YES;
+        self.twoView.hidden = YES;
+        self.threeView.hidden = NO;
+        self.fourView.hidden = YES;
+        self.fiveView.hidden = YES;
+        [UIView animateWithDuration:2 animations:^{
+            self.leftWidthCons.constant = 0;
+        }];
+    });
+    
     [self common:@"3"];
 
     
@@ -265,15 +277,17 @@
     self.cameraBtn.selected = NO;
     self.moneyBtn.selected = YES;
     self.moreBtn.selected = NO;
-    self.oneView.hidden = YES;
-    self.twoView.hidden = YES;
-    self.threeView.hidden = YES;
-    self.fourView.hidden = NO;
-    self.fiveView.hidden = YES;
-    WeakSelf;
-    [UIView animateWithDuration:2 animations:^{
-        weakSelf.leftWidthCons.constant = 0;
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.oneView.hidden = YES;
+        self.twoView.hidden = YES;
+        self.threeView.hidden = YES;
+        self.fourView.hidden = NO;
+        self.fiveView.hidden = YES;
+        [UIView animateWithDuration:2 animations:^{
+            self.leftWidthCons.constant = 0;
+        }];
+    });
     [self common:@"4"];
 
     
@@ -284,16 +298,18 @@
     self.cameraBtn.selected = NO;
     self.moneyBtn.selected = NO;
     self.moreBtn.selected = YES;
-    self.oneView.hidden = YES;
-    self.twoView.hidden = YES;
-    self.threeView.hidden = YES;
-    self.fourView.hidden = YES;
-    self.fiveView.hidden = NO;
-    //设置左侧tableview默认选择第一行==动画展示
-    WeakSelf;
-    [UIView animateWithDuration:2 animations:^{
-        weakSelf.leftWidthCons.constant = 70;
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.oneView.hidden = YES;
+        self.twoView.hidden = YES;
+        self.threeView.hidden = YES;
+        self.fourView.hidden = YES;
+        self.fiveView.hidden = NO;
+        //设置左侧tableview默认选择第一行==动画展示
+        [UIView animateWithDuration:2 animations:^{
+            self.leftWidthCons.constant = 70;
+        }];
+    });
+    
     NSIndexPath * selectedPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.leftTbView selectRowAtIndexPath:selectedPath animated:NO scrollPosition:UITableViewScrollPositionTop];
     if ([self.leftTbView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {

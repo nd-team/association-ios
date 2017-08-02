@@ -108,6 +108,7 @@
     [super viewDidDisappear:animated];
     
     [timer invalidate];
+    timer = nil;
     
 }
 - (void)viewDidLoad {
@@ -217,8 +218,8 @@
         NSString * str = metaObj.stringValue;
         
         if (str.length > 0) {
-            
-//            NSLog(@"%@",str);
+            [self.session stopRunning];
+            [timer invalidate];
             if ([str containsString:@"http://"]||[str containsString:@"https://"]) {
                 
                 [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
@@ -247,51 +248,52 @@
         }else{
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
-                [self.session stopRunning];
-                [timer invalidate];
-                NSDictionary * dict = data[@"data"];
-                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
-                UnknownFriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
-                detail.name = dict[@"nickname"];
-                NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
-                detail.url = encodeUrl;
-                detail.friendId = friendId;
-                
-                if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
-                    detail.sex = [dict[@"sex"]intValue];
-                }
-                if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
-                    detail.recomendPerson = [NSString stringWithFormat:@"%@",dict[@"recommendUserId"]];
-                }
-                if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
-                    detail.email = [NSString stringWithFormat:@"%@",dict[@"email"]];
-                }
-                if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
-                    detail.lingPerson = [NSString stringWithFormat:@"%@",dict[@"claimUserId"]];
-                }
-                if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
-                    detail.phone = [NSString stringWithFormat:@"%@",dict[@"mobile"]];
-                }
-                if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
-                    detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
-                }
-                if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
-                    detail.birthday = [NSString stringWithFormat:@"%@",dict[@"birthday"]];
-                }
-                if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
-                    detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
-                }
-                if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
-                    detail.areaStr = [NSString stringWithFormat:@"%@",dict[@"address"]];
-                }
-                if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
-                    detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
-                }
-                
-                detail.isRegister = YES;
-                RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friendId name:dict[@"nickname"] portrait:encodeUrl];
-                [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friendId];
-                [weakSelf.navigationController pushViewController:detail animated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSDictionary * dict = data[@"data"];
+                    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Address" bundle:nil];
+                    UnknownFriendDetailController * detail = [sb instantiateViewControllerWithIdentifier:@"UnknownFriendDetailController"];
+                    detail.name = dict[@"nickname"];
+                    NSString * encodeUrl = [NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"userPortraitUrl"]]];
+                    detail.url = encodeUrl;
+                    detail.friendId = friendId;
+                    
+                    if (![dict[@"sex"] isKindOfClass:[NSNull class]]) {
+                        detail.sex = [dict[@"sex"]intValue];
+                    }
+                    if (![dict[@"recommendUserId"] isKindOfClass:[NSNull class]]) {
+                        detail.recomendPerson = [NSString stringWithFormat:@"%@",dict[@"recommendUserId"]];
+                    }
+                    if (![dict[@"email"] isKindOfClass:[NSNull class]]) {
+                        detail.email = [NSString stringWithFormat:@"%@",dict[@"email"]];
+                    }
+                    if (![dict[@"claimUserId"] isKindOfClass:[NSNull class]]) {
+                        detail.lingPerson = [NSString stringWithFormat:@"%@",dict[@"claimUserId"]];
+                    }
+                    if (![dict[@"mobile"] isKindOfClass:[NSNull class]]) {
+                        detail.phone = [NSString stringWithFormat:@"%@",dict[@"mobile"]];
+                    }
+                    if (![dict[@"contributionScore"] isKindOfClass:[NSNull class]]) {
+                        detail.contribute = [NSString stringWithFormat:@"%@",dict[@"contributionScore"]];
+                    }
+                    if (![dict[@"birthday"] isKindOfClass:[NSNull class]]) {
+                        detail.birthday = [NSString stringWithFormat:@"%@",dict[@"birthday"]];
+                    }
+                    if (![dict[@"creditScore"] isKindOfClass:[NSNull class]]) {
+                        detail.prestige = [NSString stringWithFormat:@"%@",dict[@"creditScore"]];
+                    }
+                    if (![dict[@"address"] isKindOfClass:[NSNull class]]) {
+                        detail.areaStr = [NSString stringWithFormat:@"%@",dict[@"address"]];
+                    }
+                    if (![dict[@"intimacy"] isKindOfClass:[NSNull class]]) {
+                        detail.intimacy = [NSString stringWithFormat:@"%@",dict[@"intimacy"]];
+                    }
+                    
+                    detail.isRegister = YES;
+                    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:friendId name:dict[@"nickname"] portrait:encodeUrl];
+                    [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:friendId];
+                    [weakSelf.navigationController pushViewController:detail animated:YES];
+                });
+
             }else{
                 [weakSelf showMessage:@"加载好友详情失败"];
             }

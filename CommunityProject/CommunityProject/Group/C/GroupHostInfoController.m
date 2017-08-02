@@ -69,17 +69,20 @@
     }else{
         [self.dissolveBtn setTitle:@"退出该群" forState:UIControlStateNormal];
     }
-    if (self.isGroup) {
-        self.hobbyBtn.hidden = YES;
-        self.hobbyHeightCons.constant = 0;
-        self.lineViewHeightCons.constant = 0;
-        
-    }else{
-        self.hobbyBtn.hidden = NO;
-        self.hobbyHeightCons.constant = 50;
-        self.lineViewHeightCons.constant = 1;
-        [self.hobbyBtn setTitle:self.hobby forState:UIControlStateNormal];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isGroup) {
+            self.hobbyBtn.hidden = YES;
+            self.hobbyHeightCons.constant = 0;
+            self.lineViewHeightCons.constant = 0;
+            
+        }else{
+            self.hobbyBtn.hidden = NO;
+            self.hobbyHeightCons.constant = 50;
+            self.lineViewHeightCons.constant = 1;
+            [self.hobbyBtn setTitle:self.hobby forState:UIControlStateNormal];
+        }
+    });
+    
 }
 -(void)setUI{
     //注册cell
@@ -132,11 +135,12 @@
                     //刷新群组成员的信息
                     [[RCIM sharedRCIM] refreshUserInfoCache:userInfo withUserId:member.userId];
                 }
-                [self.collectionView reloadData];
             }else{
                 [weakSelf showMessage:@"加载群成员失败"];
             }
-            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+            });
         }
     }];
 }

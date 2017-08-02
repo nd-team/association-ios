@@ -53,7 +53,9 @@
         }
         [self.dataArr addObject:model];
     }
-    [self.collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
 }
 #pragma mark - collectionView的代理方法
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -76,11 +78,6 @@
             break;
         }
     }
-    //        if ([@"认领中心" isEqualToString:model.name]) {
-//}else{
-  //  [self showMessage:@"此功能还未完善，敬请期待"];
-    
-//}
 
     if (i == 0) {
             self.delegate.dict = @{@"name":model.name,@"imageName":model.imageName};

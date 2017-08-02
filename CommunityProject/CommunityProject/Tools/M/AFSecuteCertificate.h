@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface AFSecuteCertificate : NSObject
-+(AFSecurityPolicy *)customSecurityPolicy;
++(AFSecurityPolicy *)customSecurityPolicy:(NSString *)name;
 
 @end

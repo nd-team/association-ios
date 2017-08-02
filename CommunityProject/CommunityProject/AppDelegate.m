@@ -183,8 +183,6 @@
     NSFileManager * fileManager = [NSFileManager defaultManager];
     NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
     BOOL  isTruing = [fileManager fileExistsAtPath:path];
-//    NSSLog(@"%@",status);
-//    NSSLog(@"%@",isTruing?@"1":@"0");
     if (isTruing) {
         //VIP未确认信息到确认信息界面
         if (token != nil && phone != nil && password != nil) {
@@ -438,14 +436,11 @@
                 RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:msg[@"userId"] name:msg[@"nickname"] portrait:url];
                 [RCIM sharedRCIM].currentUserInfo = userInfo;
             }else if ([code intValue] == 0){
-                NSSLog(@"账号不存在！");
                 [weakSelf showMessage:@"账号不存在,请退出！"];
                 //清空本地数据库
             }else if ([code intValue] == 1002){
-                NSSLog(@"账号禁止登录！");
                 [weakSelf showMessage:@"账号禁止登录！"];
             }else if ([code intValue] == 1003){
-                NSSLog(@"密码错误！");
                 [weakSelf showMessage:@"密码错误,请退出！"];
                 //传账号
                 
@@ -523,7 +518,7 @@
         } else if (status == ConnectionStatus_NETWORK_UNAVAILABLE) {
             [weakSelf loginMain];
         } else if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
-            [self showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
+            [weakSelf showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
         } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
             NSSLog(@"Token无效");
             //重连token
@@ -543,17 +538,11 @@
     });
 }
 -(void)loginMain{
-//    WeakSelf;
-//    dispatch_async(dispatch_get_main_queue(), ^{
         self.window.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
 
-//    });
 }
 -(void)login{
-//    WeakSelf;
-//    dispatch_async(dispatch_get_main_queue(), ^{
         self.window.rootViewController = [UIStoryboard storyboardWithName:@"Login" bundle:nil].instantiateInitialViewController;
-//    });
 }
 //红包需要实现的两个方法
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{

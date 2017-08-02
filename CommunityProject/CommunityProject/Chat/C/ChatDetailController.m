@@ -209,30 +209,30 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
     
 }
 -(void)hideViewAction{
-    
-    self.backView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backView.hidden = YES;
+
+    });
     
 }
 -(void)buttonAction:(UIButton *)btn{
     switch (btn.tag) {
         case 41:
             [self showRealTimeLocationViewController];
-            self.backView.hidden = YES;
             break;
         case 42:
             //发送位置
         {
             [self pushLocationUI];
-            self.backView.hidden = YES;
         }
             break;
            //共享
         default:
         {
-            self.backView.hidden = YES;
         }
             break;
     }
+    [self hideViewAction];
 
 }
 /*******************实时地理位置共享***************/
@@ -511,7 +511,7 @@ RealTimeLocationStatusViewDelegate,MapLocationPickerViewControllerDelegate>
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
                 NSNumber * status = dict[@"status"];
-                NSSLog(@"%@",data);
+//                NSSLog(@"%@",data);
                 if ([status intValue] == 1) {
                     //好友
                     [weakSelf pushFriendId:YES andUserId:selectUserId];

@@ -18,7 +18,7 @@
     [manager.requestSerializer setValue:userId forHTTPHeaderField:@"userId"];
     //
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects: @"application/json",@"text/plain",@"application/json",@"text/json",@"text/javascript",@"text/html", nil];
-    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy];
+    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy:@"ISSP"];
     
     
     [manager PUT:urlStr parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

@@ -156,7 +156,7 @@
     [self.sexYesBtn setBackgroundImage:[UIImage imageNamed:@"noSelBtn"] forState:UIControlStateNormal];
     [self.sexNoBtn setBackgroundImage:[UIImage imageNamed:@"chooseSel"] forState:UIControlStateSelected];
     [self.sexYesBtn setBackgroundImage:[UIImage imageNamed:@"chooseSel"] forState:UIControlStateSelected];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userPortraitUrl]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userPortraitUrl] placeholderImage:[UIImage imageNamed:@"default.png"]];
     self.contributeCountLabel.text = self.contributeCount;
     self.nicknameLabel.text = self.nickname;
     self.userLabel.text = self.userId;
@@ -172,7 +172,7 @@
     //爱好
     
      NSString * hobby = [DEFAULTS objectForKey:@"favour"];
-    NSSLog(@"%@",hobby);
+//    NSSLog(@"%@",hobby);
     if ([hobby containsString:@"舞蹈"]) {
         self.danceBtn.selected = YES;
         self.count++;
@@ -257,7 +257,7 @@
     [self resign];
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf submitData];
     });
     }
@@ -314,7 +314,9 @@
     [params setValue:hobby forKey:@"favour"];
     WeakSelf;
     [UploadImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,SaveInfoURL] andParams:params andImage:self.headImage getBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"修改个人信息失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -343,7 +345,9 @@
                 }
                 [userDefaults synchronize];
                 weakSelf.delegete.isRef = YES;
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
             }else{
                 [weakSelf showMessage:@"修改个人信息失败"];
 
@@ -475,9 +479,12 @@
     }
 }
 -(void)hidden{
-    self.bottomView.hidden = NO;
-    self.datePicker.hidden = YES;
-    self.pickerView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.bottomView.hidden = NO;
+        self.datePicker.hidden = YES;
+        self.pickerView.hidden = NO;
+    });
+   
 }
 #pragma mark - pickerView-delegate and DataSources
 -(UIView*)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{

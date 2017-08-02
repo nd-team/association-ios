@@ -240,22 +240,25 @@
     [self commonUI:YES];
 }
 -(void)commonUI:(BOOL)isHidden{
-    self.wifeNameLabel.hidden = isHidden;
-    self.wifeLabel.hidden = isHidden;
-    self.childNameLabel.hidden = isHidden;
-    self.childLabel.hidden = isHidden;
-    self.childSchoolLabel.hidden = isHidden;
-    self.childScLabel.hidden = isHidden;
-    self.lineOneView.hidden = isHidden;
-    self.wifeNameTF.hidden = isHidden;
-    self.childNameTF.hidden = isHidden;
-    self.childSchoolTF.hidden = isHidden;
-    if (isHidden) {
-        self.viewHeightCons.constant = 1450;
-    }else{
-        self.viewHeightCons.constant = 1650;
-        
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.wifeNameLabel.hidden = isHidden;
+        self.wifeLabel.hidden = isHidden;
+        self.childNameLabel.hidden = isHidden;
+        self.childLabel.hidden = isHidden;
+        self.childSchoolLabel.hidden = isHidden;
+        self.childScLabel.hidden = isHidden;
+        self.lineOneView.hidden = isHidden;
+        self.wifeNameTF.hidden = isHidden;
+        self.childNameTF.hidden = isHidden;
+        self.childSchoolTF.hidden = isHidden;
+        if (isHidden) {
+            self.viewHeightCons.constant = 1450;
+        }else{
+            self.viewHeightCons.constant = 1650;
+            
+        }
+
+    });
 }
 -(void)resign{
     self.view.frame = CGRectMake(0, 64, KMainScreenWidth, KMainScreenHeight);
@@ -291,7 +294,7 @@
     if ([self checkLegal]) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf recommendSubmit];
         });
     }
@@ -539,7 +542,9 @@
     [params setValue:self.childSchoolTF.text forKey:@"childrenSchool"];
     WeakSelf;
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"认领人请求失败：%@",error);
             [weakSelf showMessage:@"服务器出问题咯！"];
@@ -555,7 +560,6 @@
                 [weakSelf showMessage:@"非VIP"];
 
             }else{
-                NSSLog(@"失败");
                 [weakSelf showMessage:@"回答问题正确个数不超过5个，认领失败"];
             }
             
@@ -930,9 +934,11 @@
         return NO;
     }else if (textField == self.birthdayTF){
         [self resign];
-        self.bottomView.hidden = NO;
-        self.pickerView.hidden = YES;
-        self.datePicker.hidden = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.bottomView.hidden = NO;
+            self.pickerView.hidden = YES;
+            self.datePicker.hidden = NO;
+        });
         self.flag = 12;
         return NO;
     }
@@ -942,9 +948,12 @@
     }
 }
 -(void)hidden{
-    self.bottomView.hidden = NO;
-    self.datePicker.hidden = YES;
-    self.pickerView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.bottomView.hidden = NO;
+        self.datePicker.hidden = YES;
+        self.pickerView.hidden = NO;
+    });
+    
 }
 - (IBAction)datePickerClick:(id)sender {
     [self common];

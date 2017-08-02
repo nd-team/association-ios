@@ -61,7 +61,10 @@
     ActivityListDatabaseSingleton * single = [ActivityListDatabaseSingleton shareDatabase];
     [self.dataArr addObjectsFromArray:[single searchDatabase]];
     if (self.dataArr.count != 0) {
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+        });
     }
 }
 -(void)getActivivtyData{
@@ -93,8 +96,11 @@
             }else{
                 [weakSelf showMessage:[NSString stringWithFormat:@"%@,下拉加载重试",data[@"msgs"]]];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
 
         }
     }];

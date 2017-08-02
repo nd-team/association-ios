@@ -58,23 +58,29 @@
         self.areaTF.text = self.area;
     }
     if (self.dataArr.count != 0) {
-        self.tbTopCons.constant = 14;
-        self.tbHeightContraints.constant = self.dataArr.count *205;
-        [self.tableView reloadData];
+       
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.tbTopCons.constant = 14;
+            self.tbHeightContraints.constant = self.dataArr.count *205;
+            [self.tableView reloadData];
+        });
     }
-    if (self.recommendStr != 0) {
-        self.conTopCons.constant = 10;
-        self.contentLabel.text = self.recommendStr;
-        CGSize size = [self.contentLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
-        if (self.dataArr.count != 0) {
-            self.recomHeightCons.constant = 69+self.tbHeightContraints.constant+size.height;
-        }else{
-            self.recomHeightCons.constant = 69+size.height;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.recommendStr != 0) {
+            self.contentLabel.text = self.recommendStr;
+            self.conTopCons.constant = 10;
+            CGSize size = [self.contentLabel.text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
+            if (self.dataArr.count != 0) {
+                self.recomHeightCons.constant = 69+self.tbHeightContraints.constant+size.height;
+            }else{
+                self.recomHeightCons.constant = 69+size.height;
+            }
+            self.moreImage.hidden = NO;
+            self.moreLabel.hidden = YES;
         }
-        self.moreImage.hidden = NO;
-        self.moreLabel.hidden = YES;
-    }
-    self.heightCons.constant = 578+self.recomHeightCons.constant;
+        self.heightCons.constant = 578+self.recomHeightCons.constant;
+    });
+   
 
 }
 - (void)viewDidLoad {
@@ -205,7 +211,7 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 NSDictionary * dict = data[@"data"];
-                NSSLog(@"%@",dict);
+//                NSSLog(@"%@",dict);
                 //发送一条消息富文本
                 RCRichContentMessage * richMsg = [RCRichContentMessage messageWithTitle:self.titleLabel.text digest:self.contentLabel.text imageURL:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:dict[@"activesImage"]]]  extra:nil];
                 [[RCIM sharedRCIM]sendMediaMessage:ConversationType_GROUP targetId:self.groupID content:richMsg pushContent:[NSString stringWithFormat:@"%@发起活动%@",nickname,self.titleLabel.text] pushData:self.contentLabel.text progress:^(int progress, long messageId) {

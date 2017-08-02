@@ -62,7 +62,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf getMyHelpData:@"1"];
         });
         
@@ -73,7 +73,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"status":status};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,MyHelpURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"我的求助：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -101,9 +103,12 @@
             }else{
                 [weakSelf showMessage:@"加载我的求助失败，下拉刷新重试！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-//            [weakSelf.tableView.mj_footer endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                //            [weakSelf.tableView.mj_footer endRefreshing];
+            });
+            
             
         }
     }];
@@ -146,12 +151,18 @@
     [self.tableView reloadData];
     if (self.segControll.selectedSegmentIndex == 0) {
         //我的求助
-        [self getMyHelpData:@"1"];
-        
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf getMyHelpData:@"1"];
+        });
     }else{
         //我的回答
-        [self getMyHelpData:@"0"];
-        
+        WeakSelf;
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [weakSelf getMyHelpData:@"0"];
+        });
     }
 }
 -(void)showMessage:(NSString *)msg{

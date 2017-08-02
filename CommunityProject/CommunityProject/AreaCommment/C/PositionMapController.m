@@ -148,7 +148,9 @@
 }
 //关闭评论列表
 - (IBAction)closeClick:(id)sender {
-    self.tableView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.tableView.hidden = YES;
+    });
 }
 //查看更多评论
 - (IBAction)lookMoreCommentClick:(id)sender {
@@ -201,7 +203,10 @@
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
 {
     [self.mapView deselectAnnotation:view.annotation animated:YES];
-    self.tableView.hidden = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.tableView.hidden = NO;
+
+    });
     CustomAnnotation * anno = (CustomAnnotation *)view.annotation;
     self.pointId = anno.nearModel.pointId;
     self.shopname = anno.nearModel.name;
@@ -211,7 +216,7 @@
     self.area = anno.nearModel.address;
     //初始化表头
     self.shopNameLabel.text = anno.nearModel.name;
-    NSSLog(@"地址%@",anno.nearModel.address);
+//    NSSLog(@"地址%@",anno.nearModel.address);
     if (anno.nearModel.address) {
         self.areaLabel.text = anno.nearModel.address;
     }else{
@@ -234,7 +239,7 @@
     
     dispatch_group_notify(group, queue, ^{
         //
-        NSSLog(@"请求数据完毕");
+//        NSSLog(@"请求数据完毕");
         
     });
     
@@ -253,21 +258,24 @@
             if ([code intValue] == 0) {
                 //总评分
                 NSString * scoreCount = jsonDic[@"data"];
-                if ([scoreCount isEqualToString:@"FIRST"]) {
-                    [weakSelf setBackImage:@"starYellow" andSecond:@"starDark" andThird:@"starDark" andFourth:@"starDark" andFifth:@"starDark"];
-                }else if ([scoreCount isEqualToString:@"SECOND"]){
-                    [weakSelf setBackImage:@"starYellow" andSecond:@"starYellow" andThird:@"starDark" andFourth:@"starDark" andFifth:@"starDark"];
-
-                }else if ([scoreCount isEqualToString:@"THIRD"]){
-                    [weakSelf setBackImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starDark" andFifth:@"starDark"];
-
-                }else if ([scoreCount isEqualToString:@"FOURTH"]){
-                    [weakSelf setBackImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starYellow" andFifth:@"starDark"];
-
-                }else if ([scoreCount isEqualToString:@"FIFTH"]){
-                    [weakSelf setBackImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starYellow" andFifth:@"starYellow"];
-  
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([scoreCount isEqualToString:@"FIRST"]) {
+                        [weakSelf setBackImage:@"starYellow" andSecond:@"starDark" andThird:@"starDark" andFourth:@"starDark" andFifth:@"starDark"];
+                    }else if ([scoreCount isEqualToString:@"SECOND"]){
+                        [weakSelf setBackImage:@"starYellow" andSecond:@"starYellow" andThird:@"starDark" andFourth:@"starDark" andFifth:@"starDark"];
+                        
+                    }else if ([scoreCount isEqualToString:@"THIRD"]){
+                        [weakSelf setBackImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starDark" andFifth:@"starDark"];
+                        
+                    }else if ([scoreCount isEqualToString:@"FOURTH"]){
+                        [weakSelf setBackImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starYellow" andFifth:@"starDark"];
+                        
+                    }else if ([scoreCount isEqualToString:@"FIFTH"]){
+                        [weakSelf setBackImage:@"starYellow" andSecond:@"starYellow" andThird:@"starYellow" andFourth:@"starYellow" andFifth:@"starYellow"];
+                        
+                    }
+                });
+                
             }
         }
     }];
@@ -297,13 +305,15 @@
                     }else{
                        self.countLabel.text = @"网友点评";
                     }
-//                    NSSLog(@"%@",arr);
                 }
                 
             }else{
                 [weakSelf showMessage:@"获取评论失败！"];
             }
-            [weakSelf.tableView reloadData];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
         }
     }];
 }
@@ -338,7 +348,7 @@
     if (response.regeocode != nil) {
         AMapAddressComponent * com = response.regeocode.addressComponent;
         NSString * address = [NSString stringWithFormat:@"%@%@%@%@%@",com.province,com.city,com.district,com.township,com.building];
-        NSSLog(@"==%@",address);
+//        NSSLog(@"==%@",address);
         self.area = address;
         if (address.length == 0) {
             return;
@@ -390,6 +400,7 @@
         }else{
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSNumber * code = jsonDic[@"code"];
+            NSSLog(@"%@",jsonDic);
             //取得经纬度添加标注
             //添加标注视图
             if ([code intValue] == 0) {
@@ -401,7 +412,6 @@
                     CustomAnnotation * cus = [[CustomAnnotation alloc]initWithNearModel:model];
                     //纬度经度
                     cus.coordinate = CLLocationCoordinate2DMake([pointX floatValue], [pointY floatValue]);
-//                    NSSLog(@"pointX:%@pointY===%@",pointX,pointY);
                     [self.mapView addAnnotation:cus];
                 }
                 //显示标注

@@ -40,6 +40,7 @@
 		452DB66F1EC2B36200A4FE0C /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 452DB66E1EC2B36200A4FE0C /* POIAnnotation.m */; };
 		454BAC341F1DDECC00F48E7B /* Position.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 454BAC331F1DDECC00F48E7B /* Position.storyboard */; };
 		454BAC371F1DDFF700F48E7B /* PositionMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BAC361F1DDFF700F48E7B /* PositionMapController.m */; };
+		4552C9531F308F66006067E3 /* ISSP.cer in Resources */ = {isa = PBXBuildFile; fileRef = 4552C9521F308F66006067E3 /* ISSP.cer */; };
 		4557CB751E7B982800F22E70 /* AppCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB741E7B982800F22E70 /* AppCenterController.m */; };
 		4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB771E7BB95400F22E70 /* AppTwoCell.m */; };
 		4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB7A1E7BBC8200F22E70 /* AppModel.m */; };
@@ -175,7 +176,6 @@
 		4573CC2C1E98912D0047D1F4 /* VoteTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2B1E98912D0047D1F4 /* VoteTypeController.m */; };
 		4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */; };
 		4573CC321E9B10900047D1F4 /* VoteDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4573CC311E9B10900047D1F4 /* VoteDetailController.m */; };
-		457781CF1E9F74CF0004BBE7 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */; };
 		45783BE01EC6AB130013DC6D /* MyClaimCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BDF1EC6AB130013DC6D /* MyClaimCell.m */; };
 		45783BE31EC6ABD20013DC6D /* MyClaimController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE21EC6ABD20013DC6D /* MyClaimController.m */; };
 		45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45783BE51EC6F9590013DC6D /* ClaimMessageController.m */; };
@@ -320,6 +320,10 @@
 		459EC0291F0F901E008A0D37 /* TrafficDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EC0281F0F901E008A0D37 /* TrafficDetailController.m */; };
 		459EC02C1F10CCFA008A0D37 /* TrafficPayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459EC02B1F10CCFA008A0D37 /* TrafficPayController.m */; };
 		45A080C81E88C41100514FFC /* AddFriendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A080C71E88C41100514FFC /* AddFriendController.m */; };
+		45A17F5D1F31B22800A8E9CF /* PPBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A17F551F31B22800A8E9CF /* PPBadgeLabel.m */; };
+		45A17F5E1F31B22800A8E9CF /* UIBarButtonItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A17F581F31B22800A8E9CF /* UIBarButtonItem+PPBadgeView.m */; };
+		45A17F5F1F31B22800A8E9CF /* UITabBarItem+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A17F5A1F31B22800A8E9CF /* UITabBarItem+PPBadgeView.m */; };
+		45A17F601F31B22800A8E9CF /* UIView+PPBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A17F5C1F31B22800A8E9CF /* UIView+PPBadgeView.m */; };
 		45A96C611EF75FCF0022F382 /* Education.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A96C601EF75FCF0022F382 /* Education.storyboard */; };
 		45A96C641EF7631E0022F382 /* EducationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A96C631EF7631E0022F382 /* EducationListController.m */; };
 		45A96C681EF764D20022F382 /* EducationListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A96C661EF764D20022F382 /* EducationListCell.m */; };
@@ -493,6 +497,7 @@
 		454BAC331F1DDECC00F48E7B /* Position.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Position.storyboard; sourceTree = "<group>"; };
 		454BAC351F1DDFF700F48E7B /* PositionMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionMapController.h; sourceTree = "<group>"; };
 		454BAC361F1DDFF700F48E7B /* PositionMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionMapController.m; sourceTree = "<group>"; };
+		4552C9521F308F66006067E3 /* ISSP.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = ISSP.cer; sourceTree = "<group>"; };
 		4557CB731E7B982800F22E70 /* AppCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCenterController.h; sourceTree = "<group>"; };
 		4557CB741E7B982800F22E70 /* AppCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCenterController.m; sourceTree = "<group>"; };
 		4557CB761E7BB95400F22E70 /* AppTwoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppTwoCell.h; sourceTree = "<group>"; };
@@ -707,8 +712,6 @@
 		4573CC2E1E98914C0047D1F4 /* VoteTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteTypeCell.m; sourceTree = "<group>"; };
 		4573CC301E9B10900047D1F4 /* VoteDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteDetailController.h; sourceTree = "<group>"; };
 		4573CC311E9B10900047D1F4 /* VoteDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteDetailController.m; sourceTree = "<group>"; };
-		457781CD1E9F74CF0004BBE7 /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
-		457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		45783BDE1EC6AB130013DC6D /* MyClaimCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClaimCell.h; sourceTree = "<group>"; };
 		45783BDF1EC6AB130013DC6D /* MyClaimCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyClaimCell.m; sourceTree = "<group>"; };
 		45783BE11EC6ABD20013DC6D /* MyClaimController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyClaimController.h; sourceTree = "<group>"; };
@@ -977,6 +980,15 @@
 		459EC02B1F10CCFA008A0D37 /* TrafficPayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrafficPayController.m; sourceTree = "<group>"; };
 		45A080C61E88C41100514FFC /* AddFriendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendController.h; sourceTree = "<group>"; };
 		45A080C71E88C41100514FFC /* AddFriendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendController.m; sourceTree = "<group>"; };
+		45A17F541F31B22800A8E9CF /* PPBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBadgeLabel.h; sourceTree = "<group>"; };
+		45A17F551F31B22800A8E9CF /* PPBadgeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPBadgeLabel.m; sourceTree = "<group>"; };
+		45A17F561F31B22800A8E9CF /* PPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPBadgeView.h; sourceTree = "<group>"; };
+		45A17F571F31B22800A8E9CF /* UIBarButtonItem+PPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+PPBadgeView.h"; sourceTree = "<group>"; };
+		45A17F581F31B22800A8E9CF /* UIBarButtonItem+PPBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+PPBadgeView.m"; sourceTree = "<group>"; };
+		45A17F591F31B22800A8E9CF /* UITabBarItem+PPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+PPBadgeView.h"; sourceTree = "<group>"; };
+		45A17F5A1F31B22800A8E9CF /* UITabBarItem+PPBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+PPBadgeView.m"; sourceTree = "<group>"; };
+		45A17F5B1F31B22800A8E9CF /* UIView+PPBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PPBadgeView.h"; sourceTree = "<group>"; };
+		45A17F5C1F31B22800A8E9CF /* UIView+PPBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PPBadgeView.m"; sourceTree = "<group>"; };
 		45A96C601EF75FCF0022F382 /* Education.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Education.storyboard; sourceTree = "<group>"; };
 		45A96C621EF7631E0022F382 /* EducationListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EducationListController.h; sourceTree = "<group>"; };
 		45A96C631EF7631E0022F382 /* EducationListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EducationListController.m; sourceTree = "<group>"; };
@@ -1417,8 +1429,6 @@
 				450A50FC1E8648D300433A61 /* SetPersonController.m */,
 				458DD51B1E8A488D00650F2E /* MessageViewController.h */,
 				458DD51C1E8A488D00650F2E /* MessageViewController.m */,
-				457781CD1E9F74CF0004BBE7 /* DiscoverViewController.h */,
-				457781CE1E9F74CF0004BBE7 /* DiscoverViewController.m */,
 				45CE5F711EC2A13800225534 /* MyLocationViewController.h */,
 				45CE5F721EC2A13800225534 /* MyLocationViewController.m */,
 			);
@@ -1591,6 +1601,7 @@
 		455FA3331E763C250039B155 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				4552C9521F308F66006067E3 /* ISSP.cer */,
 				4589599E1EB9DA2E00CBADDD /* space.cer */,
 				455FA3341E763C250039B155 /* C */,
 				455FA3351E763C250039B155 /* M */,
@@ -1719,6 +1730,7 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				45A17F531F31B22800A8E9CF /* objc */,
 				4587D5781F137BEA0033FAD0 /* UIView+Toast.h */,
 				4587D5791F137BEA0033FAD0 /* UIView+Toast.m */,
 				452AD5F41F048C0000FA96F1 /* SRDownloadManager */,
@@ -2478,6 +2490,22 @@
 			path = v;
 			sourceTree = "<group>";
 		};
+		45A17F531F31B22800A8E9CF /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				45A17F541F31B22800A8E9CF /* PPBadgeLabel.h */,
+				45A17F551F31B22800A8E9CF /* PPBadgeLabel.m */,
+				45A17F561F31B22800A8E9CF /* PPBadgeView.h */,
+				45A17F571F31B22800A8E9CF /* UIBarButtonItem+PPBadgeView.h */,
+				45A17F581F31B22800A8E9CF /* UIBarButtonItem+PPBadgeView.m */,
+				45A17F591F31B22800A8E9CF /* UITabBarItem+PPBadgeView.h */,
+				45A17F5A1F31B22800A8E9CF /* UITabBarItem+PPBadgeView.m */,
+				45A17F5B1F31B22800A8E9CF /* UIView+PPBadgeView.h */,
+				45A17F5C1F31B22800A8E9CF /* UIView+PPBadgeView.m */,
+			);
+			path = objc;
+			sourceTree = "<group>";
+		};
 		45A96C5C1EF75FAE0022F382 /* Education */ = {
 			isa = PBXGroup;
 			children = (
@@ -2945,6 +2973,7 @@
 				455FA3601E76A5370039B155 /* Login.storyboard in Resources */,
 				455FA31E1E7631A90039B155 /* LaunchScreen.storyboard in Resources */,
 				456CCE651E827CD8005EC051 /* RongCloud.bundle in Resources */,
+				4552C9531F308F66006067E3 /* ISSP.cer in Resources */,
 				45A96C691EF764D20022F382 /* EducationListCell.xib in Resources */,
 				459EBFB31F0E0AFE008A0D37 /* TafficListCell.xib in Resources */,
 				455C6B321EA5BC6A00E0B3F3 /* AnswerCommentCell.xib in Resources */,
@@ -3095,6 +3124,7 @@
 				459130FE1EFE35890054A28C /* MyDownloadCell.m in Sources */,
 				4587D5711F1314980033FAD0 /* GoodsListModel.m in Sources */,
 				459EBFA21F0CEFD6008A0D37 /* AnswerCommentController.m in Sources */,
+				45A17F5D1F31B22800A8E9CF /* PPBadgeLabel.m in Sources */,
 				458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */,
 				459EC0261F0F651C008A0D37 /* TrafficeUploadNet.m in Sources */,
 				4587D5771F135EB90033FAD0 /* MyGoodsListController.m in Sources */,
@@ -3111,12 +3141,13 @@
 				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
+				45A17F5E1F31B22800A8E9CF /* UIBarButtonItem+PPBadgeView.m in Sources */,
 				459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */,
+				45A17F601F31B22800A8E9CF /* UIView+PPBadgeView.m in Sources */,
 				459130E91EF920DA0054A28C /* WMPlayer.m in Sources */,
 				4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */,
 				45E4F7221ED42CFE00476B64 /* PublicListController.m in Sources */,
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
-				457781CF1E9F74CF0004BBE7 /* DiscoverViewController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45B9771E1EB0872300A42D55 /* AlreadyRecommendCell.m in Sources */,
 				45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */,
@@ -3173,6 +3204,7 @@
 				4562D7451E7FAC0200C6EE56 /* CreateActivityController.m in Sources */,
 				45D724251EF5202300E64985 /* AllMessageModel.m in Sources */,
 				450A50E11E853BA800433A61 /* RCAnnotationView.m in Sources */,
+				45A17F5F1F31B22800A8E9CF /* UITabBarItem+PPBadgeView.m in Sources */,
 				4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */,
 				457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */,
 				457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */,
@@ -3465,7 +3497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Q4J8HDK83K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3508,7 +3540,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Q4J8HDK83K;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

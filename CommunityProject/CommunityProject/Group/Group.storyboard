@@ -593,7 +593,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHc-1j-I1f">
                                                     <rect key="frame" x="0.0" y="5" width="375" height="120"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Df8-hw-iDa">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="Df8-hw-iDa">
                                                             <rect key="frame" x="10" y="10" width="99" height="99"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="99" id="GUQ-5g-QqO"/>
@@ -1589,7 +1589,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="85.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d12-c3-pzO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="d12-c3-pzO">
                                                     <rect key="frame" x="28" y="12" width="62" height="62"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="61.5" id="Qel-ux-830"/>

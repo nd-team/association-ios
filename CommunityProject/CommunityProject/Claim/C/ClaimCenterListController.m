@@ -37,7 +37,10 @@
 //    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
 //        //Call this Block When enter the refresh status automatically
 //    }];
-    [self getClaimData];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getClaimData];
+    });
 }
 -(void)moreViewUI{
     self.moreView = [UIView claimMessageViewFrame:CGRectMake(KMainScreenWidth-105.5, 0, 95.5, 66.5) andArray:@[@"消息",@"我的认领"] andTarget:self andSel:@selector(moreAction:) andTag:130];
@@ -48,7 +51,9 @@
     [self.view addGestureRecognizer:tap];
 }
 -(void)tapClick{
-    self.moreView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.moreView.hidden = YES;
+    });
 }
 -(void)moreAction:(UIButton *)btn{
     [self tapClick];
@@ -70,6 +75,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":userId,@"status":@"0"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"未认领用户数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -92,8 +100,11 @@
             }else{
                 [weakSelf showMessage:@"加载认领用户失败，下拉刷新重试"];
             }
-            [self.collectionView reloadData];
-            [self.collectionView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.collectionView reloadData];
+                [self.collectionView.mj_header endRefreshing];
+            });
+           
         }
     }];
 }
@@ -139,7 +150,7 @@
             [weakSelf moreViewUI];
         });
     }else{
-        self.moreView.hidden = YES;
+        [self tapClick];
     }
    
 }

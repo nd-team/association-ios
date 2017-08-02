@@ -30,7 +30,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataArr = @[@"亲人",@"同事",@"校友",@"同乡",@"同行"];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        
+    });
 }
 
 #pragma mark - tableView-delegate and DataSources

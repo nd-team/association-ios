@@ -39,10 +39,9 @@
  
     }else{
         self.nicknameTopCons.constant = 15;
-        self.nameHeightCons.constant = 15 ;
+        self.nameHeightCons.constant = 15;
         self.nameTopCons.constant = 10;
         self.nameLabel.text = [NSString stringWithFormat:@"姓    名：%@",_claimModel.fullName];
-
     }
 }
 

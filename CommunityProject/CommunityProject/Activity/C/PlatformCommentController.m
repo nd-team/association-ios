@@ -49,20 +49,23 @@
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10DB9F);
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.userId = [DEFAULTS objectForKey:@"userId"];
-    CGRect rect = self.headView.frame;
-    //平台活动
-    if (self.type == 6) {
-        self.headView.hidden = YES;
-        rect.size.height = 0;
-    }else{
-        self.headView.hidden = NO;
-        [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
-
-        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default.png"]];
-        self.contentLabel.text = [NSString stringWithFormat:@"“%@”",self.content];
-        rect.size.height = 84;
-    }
-    self.headView.frame = rect;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGRect rect = self.headView.frame;
+        //平台活动
+        if (self.type == 6) {
+            self.headView.hidden = YES;
+            rect.size.height = 0;
+        }else{
+            self.headView.hidden = NO;
+            [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
+            
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:self.headUrl]]] placeholderImage:[UIImage imageNamed:@"default.png"]];
+            self.contentLabel.text = [NSString stringWithFormat:@"“%@”",self.content];
+            rect.size.height = 84;
+        }
+        self.headView.frame = rect;
+    });
+    
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 88;
     //监听键盘变化
@@ -76,7 +79,7 @@
     self.page = 1;
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getCommentListData];
     });
     //上下拉刷新
@@ -123,7 +126,9 @@
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":[NSString stringWithFormat:@"%d",self.type],@"page":[NSString stringWithFormat:@"%d",self.page]};
     //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentListURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"评论列表获取失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -152,19 +157,24 @@
             }else{
                 [weakSelf showMessage:@"加载评论失败"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshing];
-            CGRect rect = self.footerView.frame;
-            if (weakSelf.dataArr.count == 0) {
-                     rect.size.height = KMainScreenHeight-125-74;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                if (weakSelf.tableView.mj_footer.isRefreshing) {
+                    [weakSelf.tableView.mj_footer endRefreshing];
+                }
+                CGRect rect = self.footerView.frame;
+                if (weakSelf.dataArr.count == 0) {
+                    rect.size.height = KMainScreenHeight-125-74;
                     weakSelf.tableView.mj_footer.hidden = YES;
-            }else{
-                rect.size.height = 0;
-                weakSelf.footerView.hidden = YES;
-            }
-            self.footerView.frame = rect;
+                }else{
+                    rect.size.height = 0;
+                    weakSelf.footerView.hidden = YES;
+                }
+                self.footerView.frame = rect;
 
+            });
+            
         }
     }];
    
@@ -265,19 +275,22 @@
         paraStyle.lineSpacing = 4;
         NSDictionary * att = @{NSFontAttributeName:[UIFont systemFontOfSize:15],NSParagraphStyleAttributeName:paraStyle};
         self.commentTF.attributedText = [[NSAttributedString alloc]initWithString:textView.text attributes:att];
-        //获取输入总高度
-        CGSize allSize = [self sizeWithString:textView.text andWidth:KMainScreenWidth-20 andFont:15];
-        //获取一行的高度
-        CGSize size = [self sizeWithString:@"hello" andWidth:KMainScreenWidth-20 andFont:15];
-        NSInteger line = allSize.height/size.height;
-        if (line == 1) {
-            self.tvHeightCons.constant = 35;
-        }else if(line <= 4 && line>1){
-            self.tvHeightCons.constant = allSize.height+line*4;
-        }else{
-            self.tvHeightCons.constant = (size.height+4)*4;
-        }
-        self.bottomHeightCons.constant = 20+self.tvHeightCons.constant;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //获取输入总高度
+            CGSize allSize = [self sizeWithString:textView.text andWidth:KMainScreenWidth-20 andFont:15];
+            //获取一行的高度
+            CGSize size = [self sizeWithString:@"hello" andWidth:KMainScreenWidth-20 andFont:15];
+            NSInteger line = allSize.height/size.height;
+            if (line == 1) {
+                self.tvHeightCons.constant = 35;
+            }else if(line <= 4 && line>1){
+                self.tvHeightCons.constant = allSize.height+line*4;
+            }else{
+                self.tvHeightCons.constant = (size.height+4)*4;
+            }
+            self.bottomHeightCons.constant = 20+self.tvHeightCons.constant;
+ 
+        });
         
     }
 }
@@ -320,8 +333,10 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 weakSelf.commentTF.text = @"";
-                weakSelf.tvHeightCons.constant = 35;
-                weakSelf.bottomHeightCons.constant = 20+self.tvHeightCons.constant;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.tvHeightCons.constant = 35;
+                    weakSelf.bottomHeightCons.constant = 20+self.tvHeightCons.constant;
+                });
                 //评论成功、回复评论成功或者插入一条数据
                 [weakSelf getCommentListData];
             }else{

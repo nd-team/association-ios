@@ -108,7 +108,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-                           NSSLog(@"分享成功");
 //                           [weakSelf showMessage:@"分享成功"];
                                                      break;
                        }

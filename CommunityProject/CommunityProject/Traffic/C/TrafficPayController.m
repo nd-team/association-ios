@@ -55,7 +55,10 @@
         [self showMessage:@"sorry，你的贡献币不够！"];
         return;
     }
-    [self showBackViewUI:@"确认购买吗？"];
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf showBackViewUI:@"确认购买吗？"];
+    });
 }
 -(void)showBackViewUI:(NSString *)title{
     self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
@@ -76,20 +79,25 @@
     if (btn.tag == 162) {
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf pay];
         });
     }
     [self hideViewAction];
 }
 -(void)hideViewAction{
-    self.backView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.backView.hidden = YES;
+    });
 }
 -(void)pay{
     WeakSelf;
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.articalId};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,PayURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"发布灵感失败:%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -100,7 +108,10 @@
                 //修改贡献值
                 [DEFAULTS setValue:self.finishCount forKey:@"contributionScore"];
                 [DEFAULTS synchronize];
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                });
             }else{
                 [weakSelf showMessage:@"支付失败！"];
             }

@@ -65,8 +65,12 @@
             }else{
                 [weakSelf showMessage:@"加载已推荐人失败"];
             }
-              [weakSelf.tableView reloadData];
-              [weakSelf.tableView.mj_header endRefreshing];
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  [weakSelf.tableView reloadData];
+                  [weakSelf.tableView.mj_header endRefreshing];
+              });
+
+             
             
         }
     }];

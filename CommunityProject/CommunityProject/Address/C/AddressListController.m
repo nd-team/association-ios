@@ -100,8 +100,23 @@
     }
 }
 -(void)refresh{
-    [self readPhoneAddress];
-    [self getFriendList];
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_group_t group = dispatch_group_create();
+    WeakSelf;
+    dispatch_group_async(group,queue , ^{
+        //通讯录
+        [weakSelf readPhoneAddress];
+    });
+    dispatch_group_async(group,queue , ^{
+        //好友列表
+        [weakSelf getFriendList];
+    });
+    
+    dispatch_group_notify(group, queue, ^{
+        
+//        NSSLog(@"请求数据完毕");
+        
+    });
 }
 -(void)localData{
     NSMutableArray * array = [NSMutableArray new];
@@ -115,7 +130,9 @@
                 [self.dataTwoArr addObject:list];
             }
         }
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
 }
 -(void)readPhoneAddress{
@@ -204,8 +221,14 @@
                         [[AddressDataBaseSingleton shareDatabase]insertDatabase:search];
                         [weakSelf.dataTwoArr addObject:search];
                     }
-                    [weakSelf.tableView reloadData];
-                    [weakSelf.tableView.mj_header endRefreshing];
+//                    NSSLog(@"线程1：%@",[NSThread currentThread]);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [weakSelf.tableView reloadData];
+                        [weakSelf.tableView.mj_header endRefreshing];
+//                        NSSLog(@"线程2===%@",[NSThread currentThread]);
+
+                    });
+
                     //录入通讯录
                     if (self.refreshCount == 0) {
                         NSData * data = [NSJSONSerialization dataWithJSONObject:addressList options:NSJSONWritingPrettyPrinted error:nil];
@@ -302,8 +325,11 @@
             }else if ([code intValue] == 0){
                 [weakSelf showMessage:@"加载好友列表失败，下拉刷新重试！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
+//            NSSLog(@"线程===%@",[NSThread currentThread])
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
         }
         
     }];
@@ -643,7 +669,9 @@
     if (self.searchArr.count == 2) {
         self.person = 2;
     }
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 
 }
 -(void)textFieldDidEndEditing:(UITextField *)textField{

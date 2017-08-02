@@ -100,7 +100,7 @@
     }else{
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             if (weakSelf.isMsg) {
                 //请求数据
                 [weakSelf getCircleDetailData];
@@ -139,37 +139,40 @@
     self.timeLabel.text = self.time;
     self.placeLabel.text = self.placeStr;
     //根据数据变化view的高度
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGFloat labelHeight = 0;
+        CGFloat imageHeight = 0;
+        if (self.content.length == 0) {
+            labelHeight = 0;
+            self.conHeightCons.constant = 0;
+        }else{
+            //取到label的高度
+            CGRect rect = [self.contentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-73, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
+            labelHeight = rect.size.height;
+            self.conHeightCons.constant = labelHeight;
+        }
+        if (self.collectionArr.count == 0) {
+            self.collHeightCons.constant = 0;
+        }else if(self.collectionArr.count <= 3){
+            self.collHeightCons.constant = 103;
+        }else if(self.collectionArr.count <= 6){
+            self.collHeightCons.constant = 206;
+        }else if(self.collectionArr.count <= 9){
+            self.collHeightCons.constant = 309;
+        }
+        imageHeight = self.collHeightCons.constant;
+        CGRect frame = self.headerView.frame;
+        if (self.content.length != 0 && self.collectionArr.count != 0) {
+            frame.size.height = 126+labelHeight+imageHeight;
+        }else if (self.content.length == 0 && self.collectionArr.count != 0){
+            frame.size.height = 117+labelHeight+imageHeight;
+        }else{
+            frame.size.height = 119+labelHeight+imageHeight;
+        }
+        self.headerView.frame = frame;
+    });
 //    [self.tableView beginUpdates];
-    CGFloat labelHeight = 0;
-    CGFloat imageHeight = 0;
-    if (self.content.length == 0) {
-        labelHeight = 0;
-        self.conHeightCons.constant = 0;
-    }else{
-        //取到label的高度
-        CGRect rect = [self.contentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-73, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
-        labelHeight = rect.size.height;
-        self.conHeightCons.constant = labelHeight;
-    }
-    if (self.collectionArr.count == 0) {
-        self.collHeightCons.constant = 0;
-    }else if(self.collectionArr.count <= 3){
-        self.collHeightCons.constant = 103;
-    }else if(self.collectionArr.count <= 6){
-        self.collHeightCons.constant = 206;
-    }else if(self.collectionArr.count <= 9){
-        self.collHeightCons.constant = 309;
-    }
-    imageHeight = self.collHeightCons.constant;
-    CGRect frame = self.headerView.frame;
-    if (self.content.length != 0 && self.collectionArr.count != 0) {
-        frame.size.height = 126+labelHeight+imageHeight;
-    }else if (self.content.length == 0 && self.collectionArr.count != 0){
-        frame.size.height = 117+labelHeight+imageHeight;
-    }else{
-        frame.size.height = 119+labelHeight+imageHeight;
-    }
-    self.headerView.frame = frame;
+    
     //变换颜色
     if ([self.commentCount isEqualToString:@"0"]) {
         self.commentLabel.text = @"评论";
@@ -206,9 +209,11 @@
 -(void)getCircleDetailData{
     WeakSelf;
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr};
-    NSSLog(@"%@",dict);
+//    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CircleDetailURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"朋友圈详情失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -225,7 +230,6 @@
                 weakSelf.time = dict[@"releaseTime"];
                 weakSelf.content = dict[@"content"];
                 weakSelf.collectionArr = dict[@"images"];
-                [weakSelf.collectionView reloadData];
                 weakSelf.commentCount = [NSString stringWithFormat:@"%@",dict[@"commentNumber"]];
                 weakSelf.likeCount = [NSString stringWithFormat:@"%@",dict[@"likes"]];
                 weakSelf.isLike = [NSString stringWithFormat:@"%@",dict[@"likesStatus"]];
@@ -236,7 +240,11 @@
                     CircleCommentModel * comment = [[CircleCommentModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.dataArr addObject:comment];
                 }
-                [weakSelf.tableView reloadData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.collectionView reloadData];
+                    [weakSelf.tableView reloadData];
+                });
+
             }else{
                 [weakSelf showMessage:@"加载朋友圈详情失败咯！"];
             }
@@ -258,7 +266,9 @@
     NSDictionary * dict = @{@"userId":self.userId,@"articleId":self.idStr,@"type":@"2",@"page":[NSString stringWithFormat:@"%d",self.page]};
 //    NSSLog(@"%@",dict);
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,CommentURL] andParams:dict returnBlock:^(NSURLResponse *response, NSError *error, id data) {
-            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"朋友圈评论失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -287,9 +297,14 @@
             }else{
                 [weakSelf showMessage:@"加载评论失败！"];
             }
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+                if (weakSelf.tableView.mj_footer.isRefreshing) {
+                    [weakSelf.tableView.mj_footer endRefreshing];
+                }
+            });
+            
         }
     }];
 }
@@ -390,14 +405,17 @@
             //获取一行的高度
             CGSize size = [self sizeWithString:@"hello" andWidth:KMainScreenWidth-55.5 andFont:15];
             NSInteger line = allSize.height/size.height;
-            if (line == 1) {
-                self.tvHeightCons.constant = 40;
-            }else if(line <= 4 && line>1){
-                self.tvHeightCons.constant = allSize.height+line*4;
-            }else{
-                self.tvHeightCons.constant = (size.height+4)*4;
-            }
-            self.bottomHeightCons.constant = 10+self.tvHeightCons.constant;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (line == 1) {
+                    self.tvHeightCons.constant = 40;
+                }else if(line <= 4 && line>1){
+                    self.tvHeightCons.constant = allSize.height+line*4;
+                }else{
+                    self.tvHeightCons.constant = (size.height+4)*4;
+                }
+                self.bottomHeightCons.constant = 10+self.tvHeightCons.constant;
+
+            });
             
         }
     }
@@ -444,8 +462,11 @@
             if ([code intValue] == 200) {
                 [weakSelf.params removeAllObjects];
                 weakSelf.contentTV.text = @"";
-                weakSelf.tvHeightCons.constant = 40;
-                weakSelf.bottomHeightCons.constant = 10+self.tvHeightCons.constant;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.tvHeightCons.constant = 40;
+                    weakSelf.bottomHeightCons.constant = 10+self.tvHeightCons.constant;
+                });
+               
                 //评论成功、回复评论成功或者插入一条数据
                 [weakSelf getCommentListData];
             }else{

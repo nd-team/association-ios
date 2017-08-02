@@ -85,7 +85,7 @@
     self.timeView.hidden = YES;
 }
 -(void)rightClick{
-    NSSLog(@"%@",self.chooseArr);
+//    NSSLog(@"%@",self.chooseArr);
     if (self.titleTV.text.length == 0) {
         [self showMessage:@"请输入投票标题"];
         return;
@@ -105,7 +105,7 @@
     NSData * data = [NSJSONSerialization dataWithJSONObject:self.chooseArr options:NSJSONWritingPrettyPrinted error:nil];
     NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
     NSDictionary * param = @{@"groupId":self.groupID,@"userId":self.userId,@"voteTitle":self.titleTV.text,@"mode":type,@"endTime":self.endTimeLabel.text,@"voteOption":str};
-    NSSLog(@"%@==%@",param,self.chooseArr);
+//    NSSLog(@"%@==%@",param,self.chooseArr);
     [UploadImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,CreateVoteURL] andParams:param andImage:self.headImageView.image getBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"发起投票%@",error);
@@ -123,7 +123,7 @@
                     
                     
                 } success:^(long messageId) {
-                    NSSLog(@"发送成功");
+//                    NSSLog(@"发送成功");
                   
                 } error:^(RCErrorCode errorCode, long messageId) {
                     [weakSelf showMessage:@"发送失败"];

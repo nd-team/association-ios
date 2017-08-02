@@ -152,7 +152,7 @@
             
         }else{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 //先验证短信码在进行注册
                 [weakSelf sureCode];
             
@@ -167,7 +167,6 @@
     WeakSelf;
     [SMSSDK commitVerificationCode:self.codeTF.text phoneNumber:self.phoneTF.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
         if (!error) {
-            NSSLog(@"验证成功");
             [weakSelf registerMessage];
         }else{
             [weakSelf showMessage:@"短信验证失败"];
@@ -185,7 +184,7 @@
             [weakSelf dismissCommon];
         }else{
             NSNumber *code = data[@"code"];
-            NSSLog(@"%@",code);
+//            NSSLog(@"%@",code);
             if ([code intValue] == 200||[code intValue] == 100) {
                 //登录
                 [weakSelf loginNet];
@@ -202,7 +201,9 @@
     }];
 }
 -(void)dismissCommon{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
 }
 -(void)loginNet{
     WeakSelf;
@@ -290,7 +291,7 @@
 -(void)loginRongServicer:(NSString *)token{
     WeakSelf;
     [[RCIM sharedRCIM]connectWithToken:token success:^(NSString *userId) {
-        NSSLog(@"登录成功%@",userId);
+//        NSSLog(@"登录成功%@",userId);
         [weakSelf loginMain];
         //登录主界面
     } error:^(RCConnectErrorCode status) {
@@ -329,7 +330,7 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
     CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
-    NSSLog(@"%f",offset);
+//    NSSLog(@"%f",offset);
     if (offset>0){
         [UIView animateWithDuration:0.2 animations:^{
             self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);

@@ -55,7 +55,7 @@
     [self setUI];
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         [weakSelf getVoteDetailData];
     });    
 }
@@ -88,7 +88,9 @@
     WeakSelf;
     NSDictionary * params = @{@"groupId":self.groupID,@"voteId":self.voteID,@"userId":self.userID};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,VoteDetailURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"获取投票详情失败%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -114,7 +116,6 @@
                         JoinUserModel * join = [[JoinUserModel alloc]initWithDictionary:subDic error:nil];
                         [weakSelf.joinArr addObject:join];
                     }
-                    [weakSelf.collectionView reloadData];
                 }
                 self.votePersonCountLabel.text = [NSString stringWithFormat:@"已投票(%@)",dict[@"joinUsersNumber"]];
 
@@ -123,10 +124,13 @@
                     OptionModel * model = [[OptionModel alloc]initWithDictionary:dic error:nil];
                     [weakSelf.titleArr addObject:model];
                 }
-                [weakSelf.tableView reloadData];
             }else{
                 [weakSelf showMessage:@"加载投票详情失败"];
             }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.collectionView reloadData];
+                [weakSelf.tableView reloadData];
+            });
         }
     }];
 
@@ -202,7 +206,7 @@
         [self showMessage:@"请选择"];
         return;
     }
-    NSSLog(@"%@==%@",self.voteIdArr,self.idStr);
+//    NSSLog(@"%@==%@",self.voteIdArr,self.idStr);
     NSMutableDictionary * dics = [NSMutableDictionary new];
     NSDictionary * params = @{@"groupId":self.groupID,@"voteId":self.voteID,@"userId":self.userID};
     [dics setValuesForKeysWithDictionary:params];

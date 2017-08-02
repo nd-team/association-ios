@@ -48,7 +48,7 @@
 //初始化传参过来的数据
 -(void)setUI{
     [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userPortraitUrl]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userPortraitUrl] placeholderImage:[UIImage imageNamed:@"default.png"]];
     self.nameLabel.text = self.nickname;
     if (self.sex == 1) {
         self.sexImageView.image = [UIImage imageNamed:@"man.png"];

@@ -173,7 +173,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dOy-Dq-HvV">
                                                                 <rect key="frame" x="0.0" y="2.5" width="375" height="114.5"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head" translatesAutoresizingMaskIntoConstraints="NO" id="Cw9-VY-WoT">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="Cw9-VY-WoT">
                                                                         <rect key="frame" x="10" y="20" width="75" height="75"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="75" id="8nE-uO-5Ic"/>
@@ -560,10 +560,10 @@
     <resources>
         <image name="banner2" width="375" height="200"/>
         <image name="claim" width="73" height="27"/>
+        <image name="default" width="50" height="50"/>
         <image name="download" width="28" height="28"/>
         <image name="firstNor" width="29" height="29"/>
         <image name="firstSel" width="29" height="29"/>
-        <image name="head" width="74" height="74"/>
         <image name="more" width="9" height="14"/>
         <image name="recommend" width="18" height="18"/>
         <image name="share" width="62" height="61"/>

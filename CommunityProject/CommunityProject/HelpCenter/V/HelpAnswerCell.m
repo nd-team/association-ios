@@ -33,7 +33,7 @@
     HelpAnswerListModel * help = self.dataArr[indexPath.row];
     NSString * userId = [DEFAULTS objectForKey:@"userId"];
     NSDictionary * dict = @{@"userId":userId,@"commentId":help.idStr,@"status":self.loveBtn.selected?@"1":@"0"};
-    NSSLog(@"%@",dict);
+//    NSSLog(@"%@",dict);
     [self zanComment:dict];
 }
 -(void)zanComment:(NSDictionary *)dict{

@@ -34,7 +34,10 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakSelf getMessage];
     }];
-    [self getMessage];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [weakSelf getMessage];
+    });
 //接收通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(agreeOrDisagree:) name:@"AgreeClaimOther" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(agreeOrDisagree:) name:@"DisAgreeClaimOther" object:nil];
@@ -74,6 +77,9 @@
     WeakSelf;
     NSDictionary * params = @{@"userId":self.userId,@"type":@"1"};
     [AFNetData postDataWithUrl:[NSString stringWithFormat:NetURL,ClaimMessageURL] andParams:params returnBlock:^(NSURLResponse *response, NSError *error, id data) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+        });
         if (error) {
             NSSLog(@"消息数据请求失败：%@",error);
             [weakSelf showMessage:@"服务器出错咯！"];
@@ -107,8 +113,11 @@
             }else{
                 [weakSelf showMessage:@"加载认领消息失败，下拉刷新重试"];
             }
-            [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
+            });
+            
 
         }
     }];

@@ -198,11 +198,12 @@
 -(void)common:(BOOL)isHidden{
     [self.contentTV resignFirstResponder];
     [self.questionTV resignFirstResponder];
-    self.viewBottomCons.constant = 224;
-    self.viewHeightCons.constant = 224;
-    self.pictureView.hidden = isHidden;
-    self.contributeView.hidden = !isHidden;
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.viewBottomCons.constant = 224;
+        self.viewHeightCons.constant = 224;
+        self.pictureView.hidden = isHidden;
+        self.contributeView.hidden = !isHidden;
+    });
 }
 //显示贡献值界面
 - (IBAction)contributeClick:(id)sender {
@@ -325,10 +326,13 @@
 - (IBAction)sendClick:(id)sender {
     [self.contentTV resignFirstResponder];
     [self.questionTV resignFirstResponder];
-    self.viewBottomCons.constant = 0;
-    self.viewHeightCons.constant = 0;
-    self.pictureView.hidden = YES;
-    self.contributeView.hidden = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.viewBottomCons.constant = 0;
+        self.viewHeightCons.constant = 0;
+        self.pictureView.hidden = YES;
+        self.contributeView.hidden = YES;
+    });
+   
     NSString * contributeStr;
     if (self.zeroBtn.selected) {
         contributeStr = @"0";
@@ -358,7 +362,7 @@
         //提交提问
         WeakSelf;
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             [weakSelf send:contributeStr];
         });
 
@@ -393,8 +397,9 @@
     }
     WeakSelf;
    [UploadImageNet postDataWithUrl:[NSString stringWithFormat:NetURL,SendQuestionURL] andParams:params andImage:image getBlock:^(NSURLResponse *response, NSError *error, id data) {
+       dispatch_async(dispatch_get_main_queue(), ^{
            [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+       });
        if (error) {
            NSSLog(@"提问求助失败:%@",error);
            [weakSelf showMessage:@"亲，服务器出错咯！"];
@@ -402,7 +407,10 @@
            NSNumber * code = data[@"code"];
            if ([code intValue] == 200) {
                weakSelf.delegate.isRef = YES;
-               [weakSelf.navigationController popViewControllerAnimated:YES];
+               dispatch_async(dispatch_get_main_queue(), ^{
+                   
+                   [weakSelf.navigationController popViewControllerAnimated:YES];
+               });
            }else if([code intValue] == 101){
                [weakSelf showMessage:@"对不起，您不是VIP用户"];
            }else{
