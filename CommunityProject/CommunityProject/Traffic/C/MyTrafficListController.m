@@ -137,10 +137,11 @@
     NSArray * imageArr = @[imageUrl];
     //平台活动的路径
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    NSString * url = [NSString stringWithFormat:@"home/deal/info?id=%@",idStr];
     [shareParams SSDKSetupShareParamsByText:title
                                      images:imageArr
-                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"%@",idStr]]
-                                      title:@"平台活动"
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:NetURL,url]]
+                                      title:@"灵感贩卖"
                                        type:SSDKContentTypeAuto];
     //有的平台要客户端分享需要加此方法，例如微博
     [shareParams SSDKEnableUseClientShare];

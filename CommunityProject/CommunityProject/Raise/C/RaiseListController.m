@@ -257,9 +257,11 @@
     NSArray * imageArr = @[imageUrl];
     //平台活动的路径
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    NSString * url = [NSString stringWithFormat:@"home/product/info?id=%@",idStr];
+
     [shareParams SSDKSetupShareParamsByText:title
                                      images:imageArr
-                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"%@",idStr]]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:NetURL,url]]
                                       title:@"众筹"
                                        type:SSDKContentTypeAuto];
     //有的平台要客户端分享需要加此方法，例如微博
@@ -343,6 +345,7 @@
 -(void)moreAction:(UIButton *)btn{
     [self tapClick];
     if (btn.tag == 180) {
+        [self showMessage:@"正在完善中。。。"];
         //消息 后台没做
 //        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Activity" bundle:nil];
 //        PlatformMessageController * msg = [sb instantiateViewControllerWithIdentifier:@"PlatformMessageController"];

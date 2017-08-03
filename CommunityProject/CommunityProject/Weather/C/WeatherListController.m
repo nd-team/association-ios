@@ -94,7 +94,7 @@
     [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
         if (error) {
             NSSLog(@"%@",error);
-            if (error.code == AMapLocationErrorLocateFailed) {
+            if (error.code == 4) {
                 //失败是否重新回调
                 [weakSelf singleLocation];
 //                [weakSelf showMessage:@"定位失败"];
@@ -126,6 +126,7 @@
         });
         if (error) {
             NSSLog(@"天气查询失败:%@",error);
+            [weakSelf showMessage:@"查询天气失败！"];
         }else{
             if (weakSelf.dataArr.count != 0) {
                 [weakSelf.dataArr removeAllObjects];
@@ -142,6 +143,8 @@
                 //当前温度
                 weakSelf.currentLabel.text = [NSString stringWithFormat:@"%@",currentDic[@"temperature"]];
                 //当前状况（雨，雪，等）
+                dispatch_async(dispatch_get_main_queue(), ^{
+
                 NSString * climate = currentDic[@"info"];
                 if ([climate containsString:@"多云"]) {
                     [weakSelf commonBack:@"cloudy" andSmallImg:@"cloudySmall"];
@@ -194,6 +197,8 @@
                     WeatherListModel * model = [[WeatherListModel alloc]initWithDictionary:dict error:nil];
                     [weakSelf.dataArr addObject:model];
                 }
+                });
+
             }else{
                 [weakSelf showMessage:@"查询天气失败"];
             }
@@ -249,7 +254,7 @@
         _locationManager.delegate = self;
         [_locationManager setPausesLocationUpdatesAutomatically:NO];
         //允许后台定位
-        [_locationManager setAllowsBackgroundLocationUpdates:NO];
+//        [_locationManager setAllowsBackgroundLocationUpdates:NO];
         //定位位置显示 设置精度 10米内 需要最多10秒的时间最少2秒
         [_locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
         //定位延时

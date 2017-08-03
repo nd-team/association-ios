@@ -30,4 +30,6 @@
 //说说ID
 @property (nonatomic,assign)NSInteger  id;
 
+@property (nonatomic,assign)CGFloat height;
+
 @end

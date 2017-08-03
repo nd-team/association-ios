@@ -88,7 +88,6 @@
         });
         if (error) {
             NSSLog(@"获取可能认识的人失败%@",error);
-            
             [weakSelf showMessage:@"服务器出问题咯"];
         }else{
             NSNumber * code = data[@"code"];
@@ -114,8 +113,11 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     self.firstView.hidden = YES;
     self.tableView.hidden = NO;
-    [self searchData:textField.text];
-    [self.searchTF resignFirstResponder];
+    if (![ImageUrl isEmptyStr:textField.text]) {
+        [self searchData:textField.text];
+        [self.searchTF resignFirstResponder];
+
+    }
     return YES;
 }
 

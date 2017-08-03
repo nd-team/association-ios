@@ -34,9 +34,9 @@
     NSDictionary * dic12 = @{@"name":@"平台活动",@"imageName":@"activity.png"};
     NSDictionary * dic13 = @{@"name":@"公益活动",@"imageName":@"goodAct.png"};
 //    NSDictionary * dic14 = @{@"name":@"联盟司机",@"imageName":@"train.png",@"isHidden":@"0"};
-    NSDictionary * dic8 = @{@"name":@"天气中心",@"imageName":@"train.png"};
+    NSDictionary * dic8 = @{@"name":@"天气中心",@"imageName":@"weatherIcon.png"};
 
-    NSDictionary * dic15 = @{@"name":@"位置点评",@"imageName":@"train.png"};
+    NSDictionary * dic15 = @{@"name":@"位置点评",@"imageName":@"areaLove.png"};
 
     NSArray * arr = @[dic1,dic2,dic3,dic7,dic10,dic12,dic13,dic8,dic15];
     return arr;

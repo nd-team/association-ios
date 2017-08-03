@@ -13,7 +13,7 @@
     
     
     AFHTTPSessionManager * manager = [FixMemoryLeak sharedHTTPSession];
-    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy:@"space"];
+//    manager.securityPolicy = [AFSecuteCertificate customSecurityPolicy:@"space"];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];

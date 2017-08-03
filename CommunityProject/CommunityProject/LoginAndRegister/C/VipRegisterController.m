@@ -112,7 +112,9 @@
 //            NSSLog(@"%@",code);
             if ([code intValue] == 200||[code intValue] == 100) {
                 //进入信息确认界面
-                [weakSelf presentSureInfoUI:weakSelf.phoneTF.text andPassword:weakSelf.passwordTF.text andCode:self.codeTF.text];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf presentSureInfoUI:weakSelf.phoneTF.text andPassword:weakSelf.passwordTF.text andCode:self.codeTF.text];
+                });
             }else if ([code intValue] == 1000){
                 [weakSelf showMessage:@"邀请码填写失误了么！"];
             }else if ([code intValue] == 0){
@@ -133,7 +135,7 @@
 }
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
-    CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
+    CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216-64);
     if (offset>0){
         [UIView animateWithDuration:0.2 animations:^{
             self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);

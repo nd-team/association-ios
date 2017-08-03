@@ -75,6 +75,8 @@
     
 }
 -(void)setUI{
+    //暂时屏蔽点赞功能
+    self.loveBtn.hidden = YES;
     self.page = 1;
     self.titleLabel.text = self.titleStr;
     self.nameLabel.text = self.nameStr;

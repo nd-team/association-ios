@@ -180,9 +180,7 @@
     NSString * nickname = [DEFAULTS objectForKey:@"nickname"];
     NSString * userPortraitUrl = [DEFAULTS objectForKey:@"userPortraitUrl"];
     NSString * status = [DEFAULTS objectForKey:@"status"];
-    NSFileManager * fileManager = [NSFileManager defaultManager];
-    NSString *path = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
-    BOOL  isTruing = [fileManager fileExistsAtPath:path];
+    BOOL isTruing = [DEFAULTS boolForKey:@"isRuning"];
     if (isTruing) {
         //VIP未确认信息到确认信息界面
         if (token != nil && phone != nil && password != nil) {
@@ -206,7 +204,6 @@
         }
     }else{
         //创建文件
-        [fileManager createFileAtPath:path contents:nil attributes:nil];
         ViewController * vc = [ViewController new];
         self.window.rootViewController = vc;
     }
@@ -464,11 +461,8 @@
     NSString * addressPath = [NSHomeDirectory()stringByAppendingString:@"/Documents"];
     [fileManager removeItemAtPath:addressPath error:nil];
     //解决启动页问题
-    NSString *firstPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"1.txt"];
-    
-    NSFileManager * file= [NSFileManager defaultManager];
-    //创建文件
-    [file createFileAtPath:firstPath contents:nil attributes:nil];
+    [DEFAULTS setBool:YES forKey:@"isRuning"];
+    [DEFAULTS synchronize];
 }
 -(void)showMessage:(NSString *)msg{
     NSString * token = [DEFAULTS objectForKey:@"token"];

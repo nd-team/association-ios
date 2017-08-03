@@ -53,8 +53,8 @@
     [super viewDidLoad];
 
     self.navigationItem.title = @"问题";
-    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 50, 30) titleColor:UIColorFromRGB(0x666666) font:13 andTitle:@"举报" andLeft:15 andTarget:self Action:@selector(rightClick)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+//    UIBarButtonItem * rightItem = [UIBarButtonItem CreateTitleButtonWithFrame:CGRectMake(0, 0, 50, 30) titleColor:UIColorFromRGB(0x666666) font:13 andTitle:@"举报" andLeft:15 andTarget:self Action:@selector(rightClick)];
+//    self.navigationItem.rightBarButtonItem = rightItem;
     self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x10db9f);
     
     self.userId = [DEFAULTS objectForKey:@"userId"];
@@ -277,9 +277,10 @@
        imageArr = @[self.imageUrl];
     }
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    NSString * url = [NSString stringWithFormat:@"home/seek/info?id=%@",self.iDStr];
     [shareParams SSDKSetupShareParamsByText:self.titleLabel.text
                                      images:imageArr
-                                        url:[NSURL URLWithString:@""]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:NetURL,url]]
                                       title:@"求助中心"
                                        type:SSDKContentTypeAuto];
     //有的平台要客户端分享需要加此方法，例如微博

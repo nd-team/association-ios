@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)NSMutableArray * dataArr;
 @property (nonatomic,assign)int page;
-@property (nonatomic,assign)CGFloat height;
 @property (weak, nonatomic) IBOutlet UIButton *msgBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -184,7 +183,11 @@
 
 #pragma mark - tableView-delegate and DataSources
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-        return self.height;
+    CircleListModel * model = self.dataArr[indexPath.row];
+    if (model.height != 0) {
+        return model.height;
+    }
+        return 200;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CircleCell * cell = [tableView dequeueReusableCellWithIdentifier:@"CircleCell"];
@@ -192,33 +195,6 @@
     cell.tableView = self.tableView;
     cell.dataArr = self.dataArr;
     WeakSelf;
-    //cell高度变化
-    CircleListModel * model = self.dataArr[indexPath.row];
-    CGFloat labelHeight = 0;
-    CGFloat imageHeight = 0;
-    //判断是否有文字
-    if (model.content.length == 0) {
-        labelHeight = 0;
-        cell.conHeightCons.constant = 0;
-    }else{
-        cell.contentLabel.text = model.content;        
-        //取到label的高度
-        CGRect rect = [cell.contentLabel.text boundingRectWithSize:CGSizeMake(KMainScreenWidth-37, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
-        labelHeight = rect.size.height;
-        cell.conHeightCons.constant = labelHeight;
-    }
-    if (model.images.count == 0) {
-        cell.collHeightCons.constant = 0;
-    }else if(model.images.count <= 3){
-        cell.collHeightCons.constant = 103;
-    }else if(model.images.count <= 6){
-        cell.collHeightCons.constant = 206;
-    }else if(model.images.count <= 9){
-        cell.collHeightCons.constant = 309;
-    }
-    imageHeight = cell.collHeightCons.constant;
-    self.height = 112+labelHeight+imageHeight;
-    [cell layoutIfNeeded];
     //点赞请求
     cell.block = ^(NSDictionary *dic,NSIndexPath * index,BOOL isSel){
         [weakSelf userLike:dic andIndexPath:index andIsLove:isSel];

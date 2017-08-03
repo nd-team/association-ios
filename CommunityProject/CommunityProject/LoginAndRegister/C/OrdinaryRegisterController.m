@@ -328,9 +328,8 @@
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    
-    CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
-//    NSSLog(@"%f",offset);
+
+    CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216-64);
     if (offset>0){
         [UIView animateWithDuration:0.2 animations:^{
             self.view.frame = CGRectMake(0, -offset, KMainScreenWidth, KMainScreenHeight);

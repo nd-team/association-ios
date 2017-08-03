@@ -1343,7 +1343,7 @@
                                         </constraints>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="WJx-3S-ARX" id="RL4-B9-SAo"/>
                                         </connections>
@@ -1421,8 +1421,8 @@
                                         </collectionViewFlowLayout>
                                         <cells/>
                                         <connections>
-                                            <outlet property="dataSource" destination="WJx-3S-ARX" id="yXY-Qj-Qmi"/>
-                                            <outlet property="delegate" destination="WJx-3S-ARX" id="O21-hv-tX0"/>
+                                            <outlet property="dataSource" destination="WJx-3S-ARX" id="3Sk-4g-CLy"/>
+                                            <outlet property="delegate" destination="WJx-3S-ARX" id="9yL-ZR-LHM"/>
                                         </connections>
                                     </collectionView>
                                 </subviews>

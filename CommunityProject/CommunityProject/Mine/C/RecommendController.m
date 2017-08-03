@@ -539,13 +539,15 @@
             NSNumber * code = data[@"code"];
             if ([code intValue] == 200) {
                 //推荐码进入推荐码界面
-                NSString * recomCode = [NSString stringWithFormat:@"%@",data[@"data"][@"recommendId"]];
-                UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
-                ProductCodeController * code = [sb instantiateViewControllerWithIdentifier:@"ProductCodeController"];
-                code.code = recomCode;
-                [weakSelf.navigationController pushViewController:code animated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    NSString * recomCode = [NSString stringWithFormat:@"%@",data[@"data"][@"recommendId"]];
+                    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Mine" bundle:nil];
+                    ProductCodeController * code = [sb instantiateViewControllerWithIdentifier:@"ProductCodeController"];
+                    code.code = recomCode;
+                    [weakSelf.navigationController pushViewController:code animated:YES];
+                });
 
-                NSSLog(@"%@",recomCode);
             }else if([code intValue] == 100){
                 [weakSelf showMessage:@"用户已存在"];
             }else{

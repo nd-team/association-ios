@@ -90,7 +90,7 @@
     NSArray * imageArr = @[[UIImage imageWithContentsOfFile:[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"code.png"]]];
     //应用路径
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"扫描二维码下载APP，用邀请码：%@注册应用",self.code]
+    [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"扫描二维码下载iOS端APP，用邀请码：%@注册应用",self.code]
                                      images:imageArr
                                         url:[NSURL URLWithString:@"https://itunes.apple.com/app/id1232130045"]
                                       title:@"注册邀请码"
@@ -108,7 +108,6 @@
                    switch (state) {
                        case SSDKResponseStateSuccess:
                        {
-//                           [weakSelf showMessage:@"分享成功"];
                                                      break;
                        }
                        case SSDKResponseStateFail:

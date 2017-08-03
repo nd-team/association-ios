@@ -18,7 +18,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTF;
 @property (weak, nonatomic) IBOutlet UITextField *secretTF;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topCons;
 
 @end
 
@@ -48,7 +47,7 @@
 -(void)tapClick{
     [self.usernameTF resignFirstResponder];
     [self.secretTF resignFirstResponder];
-    self.topCons.constant = 127;
+    self.view.frame = CGRectMake(0, 0, KMainScreenWidth, KMainScreenHeight);
 
 }
 -(void)leftView:(UITextField *)textField andFrame:(CGRect)frame imageName:(NSString *)imgName{
@@ -285,11 +284,9 @@
     return YES;
 }
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    
-    if (textField == self.secretTF){
-        self.topCons.constant = 67;
-    }else{
-        self.topCons.constant = 127;
+    CGFloat offset = textField.frame.origin.y+50-(KMainScreenHeight-216);
+    if (offset>0) {
+        self.view.frame = CGRectMake(0, -offset-64, KMainScreenWidth, KMainScreenHeight+offset+64);
     }
     
 }

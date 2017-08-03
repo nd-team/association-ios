@@ -28,10 +28,10 @@
         NSString * encodeUrl = [NSString stringWithFormat:NetURL,str];
         NSString * userId = [DEFAULTS objectForKey:@"userId"];
         if ([userId isEqualToString:_listModel.userId]) {
-            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_listModel.userPortraitUrl]];
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_listModel.userPortraitUrl] placeholderImage:[UIImage imageNamed:@"default.png"]];
             
         }else{
-            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl]];
+            [self.headImageView sd_setImageWithURL:[NSURL URLWithString:encodeUrl] placeholderImage:[UIImage imageNamed:@"default.png"]];
             
         }
     }else{

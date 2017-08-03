@@ -132,7 +132,7 @@
                             <constraint firstItem="kBB-mW-zTe" firstAttribute="centerX" secondItem="EKt-GR-Hjs" secondAttribute="centerX" id="W6W-TG-u8Y"/>
                             <constraint firstItem="rfS-qe-ENy" firstAttribute="leading" secondItem="kBB-mW-zTe" secondAttribute="trailing" constant="25" id="hpQ-cw-wLK"/>
                             <constraint firstItem="rfS-qe-ENy" firstAttribute="top" secondItem="clC-A3-7XX" secondAttribute="bottom" constant="12" id="kEK-DI-yNg"/>
-                            <constraint firstItem="XLg-Qf-izM" firstAttribute="top" secondItem="EKt-GR-Hjs" secondAttribute="topMargin" constant="127" id="kgy-XU-vlO"/>
+                            <constraint firstItem="XLg-Qf-izM" firstAttribute="top" secondItem="ZFZ-Rg-12e" secondAttribute="bottom" constant="107" id="kYg-Ms-9Qh"/>
                             <constraint firstItem="aSH-aN-Dc6" firstAttribute="centerX" secondItem="EKt-GR-Hjs" secondAttribute="centerX" id="mkA-7o-jpk"/>
                             <constraint firstItem="Bde-cY-u72" firstAttribute="top" secondItem="aSH-aN-Dc6" secondAttribute="bottom" constant="20" id="tHk-he-Emh"/>
                         </constraints>
@@ -2004,9 +2004,9 @@
                                 </constraints>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="0IH-hh-gX7" id="0cg-cc-2gx"/>
+                                    <outlet property="delegate" destination="0IH-hh-gX7" id="Lzh-nj-3dj"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入您的邀请码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J7v-MU-qy2">
@@ -2018,7 +2018,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
-                                    <outlet property="delegate" destination="0IH-hh-gX7" id="CzA-7r-0El"/>
+                                    <outlet property="delegate" destination="0IH-hh-gX7" id="Hp6-NJ-7G0"/>
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NbS-1p-8ch">

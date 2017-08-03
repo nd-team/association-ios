@@ -233,11 +233,12 @@
 -(void)share:(NSString *)imageUrl andTitle:(NSString *)title andId:(NSString *)idStr{
     //平台活动图片
     NSArray * imageArr = @[imageUrl];
-    //平台活动的路径
+    //平台活动的路径https://sq.bjike.com/home/deal/info?id=16
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    NSString * url = [NSString stringWithFormat:@"home/deal/info?id=%@",idStr];
     [shareParams SSDKSetupShareParamsByText:title
                                      images:imageArr
-                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"%@",idStr]]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:NetURL,url]]
                                       title:@"灵感贩卖"
                                        type:SSDKContentTypeAuto];
     //有的平台要客户端分享需要加此方法，例如微博

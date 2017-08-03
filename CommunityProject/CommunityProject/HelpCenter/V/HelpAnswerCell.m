@@ -17,7 +17,9 @@
     [self.headImageView zy_cornerRadiusRoundingRect];
     [self.loveBtn setImage:[UIImage imageNamed:@"darkHeart"] forState:UIControlStateNormal];
     [self.loveBtn setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateSelected];
-
+//暂时屏蔽点赞功能
+    self.loveBtn.hidden = YES;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

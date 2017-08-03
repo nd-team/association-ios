@@ -48,7 +48,17 @@
     }else{
         self.loveBtn.selected = YES;
     }
-    [self.collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger count = _circleModel.images.count;
+        NSInteger shu = count%3;
+        if (shu != 0) {
+            self.collHeightCons.constant = count/3*103+103;
+        }else{
+            self.collHeightCons.constant = count/3*103;
+        }
+        
+        [self.collectionView reloadData];
+    });
 }
 //说说点赞
 - (IBAction)loveClick:(id)sender {
@@ -87,7 +97,6 @@
 }
 #pragma mark - collectionView的代理方法
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    
     return _circleModel.images.count;
 }
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

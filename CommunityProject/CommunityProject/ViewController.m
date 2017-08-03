@@ -64,7 +64,8 @@
 }
 #pragma mark-开启App
 -(void)startButtonAction{
-    
+    [DEFAULTS setBool:YES forKey:@"isRuning"];
+    [DEFAULTS synchronize];
     UIView * view = [self.view viewWithTag:121];
     
     [view removeFromSuperview];
