@@ -286,6 +286,9 @@
 		459131011EFE35A50054A28C /* MyLoadListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459131001EFE35A50054A28C /* MyLoadListController.m */; };
 		45968CBA1F27168400E8FFEC /* JavaGetNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 45968CB91F27168400E8FFEC /* JavaGetNet.m */; };
 		45968CBF1F272CBC00E8FFEC /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 45968CBE1F272CBC00E8FFEC /* CustomAnnotation.m */; };
+		45984A591F3443F7008F9A3F /* Driver.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45984A581F3443F7008F9A3F /* Driver.storyboard */; };
+		45984A5C1F345ED6008F9A3F /* EntericeOfDriverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45984A5B1F345ED6008F9A3F /* EntericeOfDriverController.m */; };
+		45984A5F1F347BF5008F9A3F /* ApplicationFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45984A5E1F347BF5008F9A3F /* ApplicationFormController.m */; };
 		459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */; };
 		459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CE1EA6F90300E5A331 /* CircleMessageCell.m */; };
 		459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84D11EA8444500E5A331 /* CircleUnreadMessageModel.m */; };
@@ -918,6 +921,11 @@
 		45968CBC1F272BA200E8FFEC /* PositionCommentListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionCommentListModel.h; sourceTree = "<group>"; };
 		45968CBD1F272CBC00E8FFEC /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
 		45968CBE1F272CBC00E8FFEC /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
+		45984A581F3443F7008F9A3F /* Driver.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Driver.storyboard; sourceTree = "<group>"; };
+		45984A5A1F345ED6008F9A3F /* EntericeOfDriverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntericeOfDriverController.h; sourceTree = "<group>"; };
+		45984A5B1F345ED6008F9A3F /* EntericeOfDriverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntericeOfDriverController.m; sourceTree = "<group>"; };
+		45984A5D1F347BF5008F9A3F /* ApplicationFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationFormController.h; sourceTree = "<group>"; };
+		45984A5E1F347BF5008F9A3F /* ApplicationFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationFormController.m; sourceTree = "<group>"; };
 		459E84CA1EA6F8DF00E5A331 /* CircleMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessageController.h; sourceTree = "<group>"; };
 		459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMessageController.m; sourceTree = "<group>"; };
 		459E84CD1EA6F90300E5A331 /* CircleMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessageCell.h; sourceTree = "<group>"; };
@@ -1357,6 +1365,7 @@
 				455FA3251E763C070039B155 /* Main */,
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
 				455FA32A1E763C250039B155 /* FirstPage */,
+				45984A541F3443D7008F9A3F /* Driver */,
 				45A96C5C1EF75FAE0022F382 /* Education */,
 				45D6C03F1EDEA2F8003F229A /* Interest */,
 				45E4F7151ED4142300476B64 /* PublicAct */,
@@ -2377,6 +2386,42 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		45984A541F3443D7008F9A3F /* Driver */ = {
+			isa = PBXGroup;
+			children = (
+				45984A581F3443F7008F9A3F /* Driver.storyboard */,
+				45984A551F3443D7008F9A3F /* C */,
+				45984A561F3443D7008F9A3F /* M */,
+				45984A571F3443D7008F9A3F /* V */,
+			);
+			path = Driver;
+			sourceTree = "<group>";
+		};
+		45984A551F3443D7008F9A3F /* C */ = {
+			isa = PBXGroup;
+			children = (
+				45984A5A1F345ED6008F9A3F /* EntericeOfDriverController.h */,
+				45984A5B1F345ED6008F9A3F /* EntericeOfDriverController.m */,
+				45984A5D1F347BF5008F9A3F /* ApplicationFormController.h */,
+				45984A5E1F347BF5008F9A3F /* ApplicationFormController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		45984A561F3443D7008F9A3F /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		45984A571F3443D7008F9A3F /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
 		459EBF701F09D372008A0D37 /* HelpCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -2989,6 +3034,7 @@
 				459EBFB81F0E0E29008A0D37 /* TrafficeRecomendCell.xib in Resources */,
 				45AE199D1ECD3CB70098A7FF /* Activity.storyboard in Resources */,
 				4562D7331E7F6E2700C6EE56 /* Group.storyboard in Resources */,
+				45984A591F3443F7008F9A3F /* Driver.storyboard in Resources */,
 				45CE5F601EC19BB200225534 /* AMap.bundle in Resources */,
 				455C6B251EA1FDB900E0B3F3 /* CircleImageCell.xib in Resources */,
 				455FA3481E7694020039B155 /* Mine.storyboard in Resources */,
@@ -3081,6 +3127,7 @@
 				4573CC071E8BB0C60047D1F4 /* GroupNoticeViewController.m in Sources */,
 				45D6C0541EDEA467003F229A /* HobbyCell.m in Sources */,
 				458959CC1EBB150400CBADDD /* FSCalendarCell.m in Sources */,
+				45984A5C1F345ED6008F9A3F /* EntericeOfDriverController.m in Sources */,
 				45CE5F4F1EC0571300225534 /* MyPeopleListModel.m in Sources */,
 				45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */,
 				459EBF781F09E17A008A0D37 /* HelpCenterListCell.m in Sources */,
@@ -3265,6 +3312,7 @@
 				4587DD291F1873AF0033FAD0 /* GetCommonNet.m in Sources */,
 				458959CA1EBB150400CBADDD /* FSCalendarAppearance.m in Sources */,
 				4587DD1A1F1860180033FAD0 /* RaiseDetailController.m in Sources */,
+				45984A5F1F347BF5008F9A3F /* ApplicationFormController.m in Sources */,
 				4573CBF01E8B583F0047D1F4 /* GroupHostInfoController.m in Sources */,
 				458959F61EBDBF1A00CBADDD /* MJPhotoBrowser.m in Sources */,
 				45B977211EB087B500A42D55 /* AreadyRecommendController.m in Sources */,

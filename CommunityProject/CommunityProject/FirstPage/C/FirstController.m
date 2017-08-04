@@ -29,6 +29,7 @@
 #import "RaiseListController.h"
 #import "WeatherListController.h"
 #import "PositionMapController.h"
+#import "EntericeOfDriverController.h"
 
 #define FirstURL @"appapi/app/indexData"
 
@@ -329,6 +330,9 @@
     }else if ([model.name isEqualToString:@"位置点评"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Position" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"PositionMapController"];
+    }else if ([model.name isEqualToString:@"联盟司机"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Driver" bundle:nil];
+        vc = [sb instantiateViewControllerWithIdentifier:@"EntericeOfDriverController"];
     }
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];
