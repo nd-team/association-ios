@@ -36,7 +36,7 @@
         //压缩图片
         NSData * imageData = [ReduceImage base64ImageThumbnaiWith:image];
         //图片大小
-        NSLog(@"%ld",(unsigned long)imageData.length);
+//        NSLog(@"%ld",(unsigned long)imageData.length);
         NSDateFormatter * formatter = [NSDateFormatter new];
         
         formatter.dateFormat = @"yyyyMMddHHmmss";

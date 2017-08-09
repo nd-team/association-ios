@@ -10,4 +10,8 @@
 
 @interface ApplicationFormController : UIViewController
 
+@property (nonatomic,copy)NSString * cityStr;
+//车型
+@property (nonatomic,copy)NSString * shapeStr;
+
 @end

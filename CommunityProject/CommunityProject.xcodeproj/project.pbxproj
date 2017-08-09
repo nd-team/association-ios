@@ -38,6 +38,7 @@
 		452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */; };
 		452DB66C1EC2A4DC00A4FE0C /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452DB66B1EC2A4DC00A4FE0C /* AMapLocationKit.framework */; };
 		452DB66F1EC2B36200A4FE0C /* POIAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 452DB66E1EC2B36200A4FE0C /* POIAnnotation.m */; };
+		454B080C1F39543000138702 /* CarBrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 454B080B1F39543000138702 /* CarBrandModel.m */; };
 		454BAC341F1DDECC00F48E7B /* Position.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 454BAC331F1DDECC00F48E7B /* Position.storyboard */; };
 		454BAC371F1DDFF700F48E7B /* PositionMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454BAC361F1DDFF700F48E7B /* PositionMapController.m */; };
 		4552C9531F308F66006067E3 /* ISSP.cer in Resources */ = {isa = PBXBuildFile; fileRef = 4552C9521F308F66006067E3 /* ISSP.cer */; };
@@ -49,6 +50,7 @@
 		4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB831E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m */; };
 		4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB861E7BE88900F22E70 /* ChatDetailController.m */; };
 		455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 455930CE1E835A110041F6F9 /* ImageUrl.m */; };
+		4559E0F71F3AFF890064D961 /* CheckDriverDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E0F61F3AFF890064D961 /* CheckDriverDetailController.m */; };
 		455B371C1F00AED300CA47CF /* ManagerDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455B371B1F00AED300CA47CF /* ManagerDownloadCell.m */; };
 		455B372F1F0393A000CA47CF /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 455B372E1F0393A000CA47CF /* UIView+Shadow.m */; };
 		455B37321F03984A00CA47CF /* UIImageView+CornerRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = 455B37311F03984A00CA47CF /* UIImageView+CornerRadius.m */; };
@@ -273,6 +275,9 @@
 		458DD5291E8A624A00650F2E /* GroupMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD5281E8A624A00650F2E /* GroupMessageController.m */; };
 		458DD52C1E8A639300650F2E /* GroupApplicationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD52B1E8A639300650F2E /* GroupApplicationModel.m */; };
 		458DD52F1E8A6A3D00650F2E /* ApplicationTwoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 458DD52E1E8A6A3D00650F2E /* ApplicationTwoModel.m */; };
+		458F9D5F1F3860D900E791D9 /* SearchCityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 458F9D5E1F3860D900E791D9 /* SearchCityCell.xib */; };
+		458F9D621F38638C00E791D9 /* CarColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F9D611F38638C00E791D9 /* CarColorCell.m */; };
+		458F9D651F38730300E791D9 /* CarShapeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458F9D641F38730300E791D9 /* CarShapeController.m */; };
 		459130E51EF920DA0054A28C /* FastForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130DE1EF920DA0054A28C /* FastForwardView.m */; };
 		459130E61EF920DA0054A28C /* FastForwardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 459130DF1EF920DA0054A28C /* FastForwardView.xib */; };
 		459130E71EF920DA0054A28C /* WMLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 459130E11EF920DA0054A28C /* WMLightView.m */; };
@@ -289,6 +294,11 @@
 		45984A591F3443F7008F9A3F /* Driver.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45984A581F3443F7008F9A3F /* Driver.storyboard */; };
 		45984A5C1F345ED6008F9A3F /* EntericeOfDriverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45984A5B1F345ED6008F9A3F /* EntericeOfDriverController.m */; };
 		45984A5F1F347BF5008F9A3F /* ApplicationFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45984A5E1F347BF5008F9A3F /* ApplicationFormController.m */; };
+		45984A621F357A3D008F9A3F /* CarCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45984A611F357A3D008F9A3F /* CarCityCell.m */; };
+		45984A651F35C448008F9A3F /* SearchCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45984A641F35C448008F9A3F /* SearchCityCell.m */; };
+		45984A681F35C46C008F9A3F /* LocationAreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45984A671F35C46C008F9A3F /* LocationAreaCell.m */; };
+		45984A6B1F35C4DE008F9A3F /* SearchCityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45984A6A1F35C4DE008F9A3F /* SearchCityController.m */; };
+		45984A6D1F35CE3C008F9A3F /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45984A6C1F35CE3C008F9A3F /* citydict.plist */; };
 		459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */; };
 		459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84CE1EA6F90300E5A331 /* CircleMessageCell.m */; };
 		459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 459E84D11EA8444500E5A331 /* CircleUnreadMessageModel.m */; };
@@ -497,6 +507,8 @@
 		452DB66B1EC2A4DC00A4FE0C /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
 		452DB66D1EC2B36200A4FE0C /* POIAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POIAnnotation.h; sourceTree = "<group>"; };
 		452DB66E1EC2B36200A4FE0C /* POIAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POIAnnotation.m; sourceTree = "<group>"; };
+		454B080A1F39543000138702 /* CarBrandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarBrandModel.h; sourceTree = "<group>"; };
+		454B080B1F39543000138702 /* CarBrandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarBrandModel.m; sourceTree = "<group>"; };
 		454BAC331F1DDECC00F48E7B /* Position.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Position.storyboard; sourceTree = "<group>"; };
 		454BAC351F1DDFF700F48E7B /* PositionMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionMapController.h; sourceTree = "<group>"; };
 		454BAC361F1DDFF700F48E7B /* PositionMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionMapController.m; sourceTree = "<group>"; };
@@ -517,6 +529,8 @@
 		4557CB861E7BE88900F22E70 /* ChatDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDetailController.m; sourceTree = "<group>"; };
 		455930CD1E835A110041F6F9 /* ImageUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUrl.h; sourceTree = "<group>"; };
 		455930CE1E835A110041F6F9 /* ImageUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUrl.m; sourceTree = "<group>"; };
+		4559E0F51F3AFF890064D961 /* CheckDriverDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckDriverDetailController.h; sourceTree = "<group>"; };
+		4559E0F61F3AFF890064D961 /* CheckDriverDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckDriverDetailController.m; sourceTree = "<group>"; };
 		455B371A1F00AED300CA47CF /* ManagerDownloadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerDownloadCell.h; sourceTree = "<group>"; };
 		455B371B1F00AED300CA47CF /* ManagerDownloadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerDownloadCell.m; sourceTree = "<group>"; };
 		455B372D1F0393A000CA47CF /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
@@ -895,6 +909,11 @@
 		458DD52B1E8A639300650F2E /* GroupApplicationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupApplicationModel.m; sourceTree = "<group>"; };
 		458DD52D1E8A6A3D00650F2E /* ApplicationTwoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationTwoModel.h; sourceTree = "<group>"; };
 		458DD52E1E8A6A3D00650F2E /* ApplicationTwoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationTwoModel.m; sourceTree = "<group>"; };
+		458F9D5E1F3860D900E791D9 /* SearchCityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCityCell.xib; sourceTree = "<group>"; };
+		458F9D601F38638C00E791D9 /* CarColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarColorCell.h; sourceTree = "<group>"; };
+		458F9D611F38638C00E791D9 /* CarColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarColorCell.m; sourceTree = "<group>"; };
+		458F9D631F38730300E791D9 /* CarShapeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarShapeController.h; sourceTree = "<group>"; };
+		458F9D641F38730300E791D9 /* CarShapeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarShapeController.m; sourceTree = "<group>"; };
 		459130DD1EF920DA0054A28C /* FastForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastForwardView.h; sourceTree = "<group>"; };
 		459130DE1EF920DA0054A28C /* FastForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastForwardView.m; sourceTree = "<group>"; };
 		459130DF1EF920DA0054A28C /* FastForwardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FastForwardView.xib; sourceTree = "<group>"; };
@@ -926,6 +945,15 @@
 		45984A5B1F345ED6008F9A3F /* EntericeOfDriverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntericeOfDriverController.m; sourceTree = "<group>"; };
 		45984A5D1F347BF5008F9A3F /* ApplicationFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationFormController.h; sourceTree = "<group>"; };
 		45984A5E1F347BF5008F9A3F /* ApplicationFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationFormController.m; sourceTree = "<group>"; };
+		45984A601F357A3D008F9A3F /* CarCityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarCityCell.h; sourceTree = "<group>"; };
+		45984A611F357A3D008F9A3F /* CarCityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarCityCell.m; sourceTree = "<group>"; };
+		45984A631F35C448008F9A3F /* SearchCityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCityCell.h; sourceTree = "<group>"; };
+		45984A641F35C448008F9A3F /* SearchCityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCityCell.m; sourceTree = "<group>"; };
+		45984A661F35C46C008F9A3F /* LocationAreaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationAreaCell.h; sourceTree = "<group>"; };
+		45984A671F35C46C008F9A3F /* LocationAreaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationAreaCell.m; sourceTree = "<group>"; };
+		45984A691F35C4DE008F9A3F /* SearchCityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCityController.h; sourceTree = "<group>"; };
+		45984A6A1F35C4DE008F9A3F /* SearchCityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCityController.m; sourceTree = "<group>"; };
+		45984A6C1F35CE3C008F9A3F /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
 		459E84CA1EA6F8DF00E5A331 /* CircleMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessageController.h; sourceTree = "<group>"; };
 		459E84CB1EA6F8DF00E5A331 /* CircleMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMessageController.m; sourceTree = "<group>"; };
 		459E84CD1EA6F90300E5A331 /* CircleMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMessageCell.h; sourceTree = "<group>"; };
@@ -1387,6 +1415,7 @@
 				455FA31A1E7631A90039B155 /* Assets.xcassets */,
 				455FA31C1E7631A90039B155 /* LaunchScreen.storyboard */,
 				455FA31F1E7631A90039B155 /* Info.plist */,
+				45984A6C1F35CE3C008F9A3F /* citydict.plist */,
 				45B9772D1EB1D57400A42D55 /* Address.plist */,
 				455FA3171E7631A90039B155 /* CommunityProject.xcdatamodeld */,
 				455FA30B1E7631A90039B155 /* Supporting Files */,
@@ -2404,6 +2433,12 @@
 				45984A5B1F345ED6008F9A3F /* EntericeOfDriverController.m */,
 				45984A5D1F347BF5008F9A3F /* ApplicationFormController.h */,
 				45984A5E1F347BF5008F9A3F /* ApplicationFormController.m */,
+				45984A691F35C4DE008F9A3F /* SearchCityController.h */,
+				45984A6A1F35C4DE008F9A3F /* SearchCityController.m */,
+				458F9D631F38730300E791D9 /* CarShapeController.h */,
+				458F9D641F38730300E791D9 /* CarShapeController.m */,
+				4559E0F51F3AFF890064D961 /* CheckDriverDetailController.h */,
+				4559E0F61F3AFF890064D961 /* CheckDriverDetailController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2411,6 +2446,8 @@
 		45984A561F3443D7008F9A3F /* M */ = {
 			isa = PBXGroup;
 			children = (
+				454B080A1F39543000138702 /* CarBrandModel.h */,
+				454B080B1F39543000138702 /* CarBrandModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2418,6 +2455,15 @@
 		45984A571F3443D7008F9A3F /* V */ = {
 			isa = PBXGroup;
 			children = (
+				45984A601F357A3D008F9A3F /* CarCityCell.h */,
+				45984A611F357A3D008F9A3F /* CarCityCell.m */,
+				45984A631F35C448008F9A3F /* SearchCityCell.h */,
+				45984A641F35C448008F9A3F /* SearchCityCell.m */,
+				458F9D5E1F3860D900E791D9 /* SearchCityCell.xib */,
+				45984A661F35C46C008F9A3F /* LocationAreaCell.h */,
+				45984A671F35C46C008F9A3F /* LocationAreaCell.m */,
+				458F9D601F38638C00E791D9 /* CarColorCell.h */,
+				458F9D611F38638C00E791D9 /* CarColorCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -3012,6 +3058,7 @@
 				45F0463B1EE52DB700CDA7BD /* README.txt in Resources */,
 				454BAC341F1DDECC00F48E7B /* Position.storyboard in Resources */,
 				45D6C0741EE1688F003F229A /* AddFriendsCell.xib in Resources */,
+				45984A6D1F35CE3C008F9A3F /* citydict.plist in Resources */,
 				4573CC011E8B8DDD0047D1F4 /* MemberListCell.xib in Resources */,
 				45A96C611EF75FCF0022F382 /* Education.storyboard in Resources */,
 				456CCE731E827CD8005EC051 /* release_notes_ios.txt in Resources */,
@@ -3025,6 +3072,7 @@
 				45AE19B31ECEA14A0098A7FF /* AllMessageCell.xib in Resources */,
 				45F0463D1EE52DB700CDA7BD /* ShareSDK.bundle in Resources */,
 				4573CC1A1E976FA30047D1F4 /* HeadImageCell.xib in Resources */,
+				458F9D5F1F3860D900E791D9 /* SearchCityCell.xib in Resources */,
 				4587DD091F16136B0033FAD0 /* Raise.storyboard in Resources */,
 				459EBF751F09D3EF008A0D37 /* Help.storyboard in Resources */,
 				456CCE631E827CD7005EC051 /* Emoji.plist in Resources */,
@@ -3148,6 +3196,7 @@
 				459EBFBB1F0E17CD008A0D37 /* TafficeListModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				45CE5F581EC1972900225534 /* AreaHistrorySingleton.m in Sources */,
+				454B080C1F39543000138702 /* CarBrandModel.m in Sources */,
 				452AD5FA1F048C0000FA96F1 /* SRDownloadModel.m in Sources */,
 				4562D7541E7FD6BD00C6EE56 /* ActImageCell.m in Sources */,
 				4588A2ED1F208DBB007F3706 /* PositionCommentListModel.m in Sources */,
@@ -3180,6 +3229,7 @@
 				45D6C0561EDEA467003F229A /* InterestCell.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				45A96C6C1EF7698A0022F382 /* EducationListModel.m in Sources */,
+				458F9D621F38638C00E791D9 /* CarColorCell.m in Sources */,
 				458959FB1EBDBF1A00CBADDD /* SDWebImageManager+MJ.m in Sources */,
 				458959CE1EBB150400CBADDD /* FSCalendarCollectionViewLayout.m in Sources */,
 				459EBFAB1F0E0A42008A0D37 /* TrafficListController.m in Sources */,
@@ -3187,11 +3237,14 @@
 				45783BE01EC6AB130013DC6D /* MyClaimCell.m in Sources */,
 				458DD5231E8A4EC900650F2E /* ApplicationDatabaseSingle.m in Sources */,
 				455FA35E1E76A5260039B155 /* LoginController.m in Sources */,
+				458F9D651F38730300E791D9 /* CarShapeController.m in Sources */,
 				4573CC001E8B8DDD0047D1F4 /* MemberListCell.m in Sources */,
 				45A17F5E1F31B22800A8E9CF /* UIBarButtonItem+PPBadgeView.m in Sources */,
 				459E84D21EA8444500E5A331 /* CircleUnreadMessageModel.m in Sources */,
 				45A17F601F31B22800A8E9CF /* UIView+PPBadgeView.m in Sources */,
+				45984A681F35C46C008F9A3F /* LocationAreaCell.m in Sources */,
 				459130E91EF920DA0054A28C /* WMPlayer.m in Sources */,
+				45984A651F35C448008F9A3F /* SearchCityCell.m in Sources */,
 				4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */,
 				45E4F7221ED42CFE00476B64 /* PublicListController.m in Sources */,
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
@@ -3209,6 +3262,7 @@
 				45968CBF1F272CBC00E8FFEC /* CustomAnnotation.m in Sources */,
 				459EBF961F0B8E53008A0D37 /* SendHelpController.m in Sources */,
 				45D6C0661EDFC5DB003F229A /* VipRegisterController.m in Sources */,
+				45984A6B1F35C4DE008F9A3F /* SearchCityController.m in Sources */,
 				45C9979A1E9B21DE00F6E984 /* VoteTitleCell.m in Sources */,
 				452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */,
 				458959D41EBB150400CBADDD /* FSCalendarScopeHandle.m in Sources */,
@@ -3237,6 +3291,7 @@
 				455B37321F03984A00CA47CF /* UIImageView+CornerRadius.m in Sources */,
 				45D110301E8538E2009F2C4E /* RealTimeLocationViewController.m in Sources */,
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
+				4559E0F71F3AFF890064D961 /* CheckDriverDetailController.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
 				4587D5741F132C210033FAD0 /* SendGoodsController.m in Sources */,
 				459EBF7B1F09E1A2008A0D37 /* HelpListController.m in Sources */,
@@ -3287,6 +3342,7 @@
 				4587DCFD1F15C5090033FAD0 /* MyGoodsDownloadCell.m in Sources */,
 				455FA34B1E769C8C0039B155 /* MainTabBarController.m in Sources */,
 				450A50DB1E853B7000433A61 /* RCAnnotation.m in Sources */,
+				45984A621F357A3D008F9A3F /* CarCityCell.m in Sources */,
 				450C051A1ED440080093B174 /* MyJoinPublicController.m in Sources */,
 				459EBF931F0B3EEA008A0D37 /* UILabel+label.m in Sources */,
 				4557CB7B1E7BBC8200F22E70 /* AppModel.m in Sources */,
@@ -3562,7 +3618,6 @@
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/Required",
-					"$(PROJECT_DIR)/CommunityProject/Third/SMS_SDK",
 				);
 				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
 				INFOPLIST_FILE = CommunityProject/Info.plist;
@@ -3605,7 +3660,6 @@
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/PlatformConnector",
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/CommunityProject/Third/ShareSDK/Support/Required",
-					"$(PROJECT_DIR)/CommunityProject/Third/SMS_SDK",
 				);
 				GCC_PREFIX_HEADER = $SRCROOT/CommunityProject/HeadFile/AllHeader.pch;
 				INFOPLIST_FILE = CommunityProject/Info.plist;

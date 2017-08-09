@@ -78,13 +78,12 @@
     textField.layer.borderColor = UIColorFromRGB(0xb5b5b5).CGColor;
     textField.layer.borderWidth = 1.0;
     [textField setValue:UIColorFromRGB(0xd6d6d6) forKeyPath:@"_placeholderLabel.textColor"];
-    
     [textField setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
 }
 //发送验证码
 - (IBAction)sendCodeClick:(id)sender {
     self.count = 120;
-    if ([ImageUrl changeUrl:self.phoneTF.text]) {
+    if ([ImageUrl isEmptyStr:self.phoneTF.text]) {
         [self showMessage:@"亲，请输入手机号码"];
     }else if (self.phoneTF.text.length !=11) {
         [self showMessage:@"亲，手机号码输入有误"];
@@ -102,7 +101,6 @@
             NSSLog(@"获取验证码成功");
 
         }else{
-
             NSSLog(@"获取验证码失败error:%@",error);
             [weakSelf.timer setFireDate:[NSDate distantFuture]];
             [weakSelf tapClick];

@@ -8,7 +8,6 @@
 
 #import "WeatherListController.h"
 #import "WeekWeatherCell.h"
-#import <AMapLocationKit/AMapLocationKit.h>
 #import "WeatherListModel.h"
 #import "ChooseAreaController.h"
 

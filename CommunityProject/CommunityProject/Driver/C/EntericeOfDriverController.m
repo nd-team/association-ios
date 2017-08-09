@@ -23,9 +23,6 @@
 
 }
 
-- (IBAction)applicationDriverClick:(id)sender {
-    
-}
 - (IBAction)lookProgressClick:(id)sender {
     
 }

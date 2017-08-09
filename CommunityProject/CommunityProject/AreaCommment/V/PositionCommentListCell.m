@@ -146,7 +146,6 @@
     WeakSelf;
     self.loveBtn.selected = !self.loveBtn.selected;
     NSString * url = [NSString stringWithFormat:ZanURL,model.idStr];
-//    NSSLog(@"url:%@",[NSString stringWithFormat:JAVAURL,url]);
     [PutNet putDataWithUrl:[NSString stringWithFormat:JAVAURL,url] andParams:nil andHeader:userId returnBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"平台点赞失败：%@",error);
@@ -155,7 +154,6 @@
             NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSNumber * code = dict[@"code"];
             if ([code intValue] == 0) {
-                weakSelf.loveBtn.selected = !self.loveBtn.selected;
                 if (self.loveBtn.selected) {
                     weakSelf.likes = [NSString stringWithFormat:@"%zi",[self.likes integerValue]+1];
                 }else{
