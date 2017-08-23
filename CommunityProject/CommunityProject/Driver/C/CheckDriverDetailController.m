@@ -28,6 +28,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"审核详情";
+    UIBarButtonItem * leftItem = [UIBarButtonItem CreateImageButtonWithFrame:CGRectMake(0, 0, 50, 40)andMove:35 image:@"back.png"  and:self Action:@selector(leftClick)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+
     WeakSelf;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -35,6 +39,10 @@
     });
 
 }
+-(void)leftClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)getDriverCheckStatus{
     WeakSelf;
     NSString * userId = [DEFAULTS objectForKey:@"userId"];

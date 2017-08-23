@@ -30,6 +30,8 @@
 #import "WeatherListController.h"
 #import "PositionMapController.h"
 #import "EntericeOfDriverController.h"
+#import "OutCarController.h"
+#import "PassagerViewController.h"
 
 #define FirstURL @"appapi/app/indexData"
 
@@ -331,8 +333,21 @@
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Position" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"PositionMapController"];
     }else if ([model.name isEqualToString:@"联盟司机"]){
-        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Driver" bundle:nil];
-        vc = [sb instantiateViewControllerWithIdentifier:@"EntericeOfDriverController"];
+        /*判断用户是司机就进入定位接单界面，否则就进入申请表
+         
+         */
+//        NSInteger  driver = [DEFAULTS integerForKey:@"checkCar"];
+//        if (driver == 1) {
+            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Driver" bundle:nil];
+            
+            vc = [sb instantiateViewControllerWithIdentifier:@"OutCarController"];
+//        }else{
+//            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Driver" bundle:nil];
+//            vc = [sb instantiateViewControllerWithIdentifier:@"EntericeOfDriverController"];
+//        }
+    }else if ([model.name isEqualToString:@"联盟打车"]){
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Passager" bundle:nil];
+        vc = [sb instantiateViewControllerWithIdentifier:@"PassagerViewController"];
     }
     if (vc) {
         [self.navigationController pushViewController:vc animated:YES];

@@ -235,6 +235,10 @@
                 if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];
                 }
+                if (![msg[@"checkCar"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setInteger:[msg[@"checkCar"] integerValue]forKey:@"checkCar"];
+                }
+
                 if (![msg[@"birthday"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"birthday"] forKey:@"birthday"];
                 }

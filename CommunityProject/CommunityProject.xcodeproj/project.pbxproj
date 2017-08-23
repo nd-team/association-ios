@@ -33,6 +33,13 @@
 		451B285C1E7D282D0024B336 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 451B285B1E7D282D0024B336 /* libc++.tbd */; };
 		452AD5F91F048C0000FA96F1 /* SRDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 452AD5F61F048C0000FA96F1 /* SRDownloadManager.m */; };
 		452AD5FA1F048C0000FA96F1 /* SRDownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 452AD5F81F048C0000FA96F1 /* SRDownloadModel.m */; };
+		452C1D861F43EEF600E5F6AC /* PassagerRoadListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C1D851F43EEF600E5F6AC /* PassagerRoadListCell.m */; };
+		452C1D891F43EF3800E5F6AC /* PassagerRoadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C1D881F43EF3800E5F6AC /* PassagerRoadController.m */; };
+		452C1D8F1F45710A00E5F6AC /* SendRaiseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C1D8E1F45710A00E5F6AC /* SendRaiseController.m */; };
+		452C1D921F45716B00E5F6AC /* RaiseGoodsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C1D911F45716B00E5F6AC /* RaiseGoodsListCell.m */; };
+		452C1D951F45729F00E5F6AC /* SendRaiseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C1D941F45729F00E5F6AC /* SendRaiseCell.m */; };
+		452C1D981F45943E00E5F6AC /* WordsDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C1D971F45943E00E5F6AC /* WordsDetailController.m */; };
+		452C1D9B1F45A10700E5F6AC /* ImageAndWordsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 452C1D9A1F45A10700E5F6AC /* ImageAndWordsController.m */; };
 		452D866E1E9CA51600AAFFB1 /* ActivityDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D866D1E9CA51600AAFFB1 /* ActivityDetailController.m */; };
 		452D86711E9CC17C00AAFFB1 /* ActiveUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86701E9CC17C00AAFFB1 /* ActiveUsers.m */; };
 		452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 452D86761E9CC8AA00AAFFB1 /* ReDetailImageCell.m */; };
@@ -49,8 +56,22 @@
 		4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB801E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m */; };
 		4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB831E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m */; };
 		4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4557CB861E7BE88900F22E70 /* ChatDetailController.m */; };
+		4558E8B21F42959C00C1AA67 /* PassagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4558E8B11F42959C00C1AA67 /* PassagerViewController.m */; };
+		4558E8B51F4295F200C1AA67 /* PassagerAreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4558E8B41F4295F200C1AA67 /* PassagerAreaCell.m */; };
 		455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 455930CE1E835A110041F6F9 /* ImageUrl.m */; };
 		4559E0F71F3AFF890064D961 /* CheckDriverDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E0F61F3AFF890064D961 /* CheckDriverDetailController.m */; };
+		4559E0FA1F3C0A330064D961 /* OutCarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E0F91F3C0A330064D961 /* OutCarController.m */; };
+		4559E0FD1F3C2C8E0064D961 /* CarLocationCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E0FC1F3C2C8E0064D961 /* CarLocationCustomView.m */; };
+		4559E1001F3C5FCF0064D961 /* DriverGrobListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E0FF1F3C5FCF0064D961 /* DriverGrobListCell.m */; };
+		4559E1031F3C61A60064D961 /* DriverGrobListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E1021F3C61A60064D961 /* DriverGrobListModel.m */; };
+		4559E10F1F3D98EE0064D961 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E1061F3D98EE0064D961 /* CommonUtility.m */; };
+		4559E1101F3D98EE0064D961 /* LineDashPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E1081F3D98EE0064D961 /* LineDashPolyline.m */; };
+		4559E1111F3D98EE0064D961 /* MANaviAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E10A1F3D98EE0064D961 /* MANaviAnnotation.m */; };
+		4559E1121F3D98EE0064D961 /* MANaviPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E10C1F3D98EE0064D961 /* MANaviPolyline.m */; };
+		4559E1131F3D98EE0064D961 /* MANaviRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E10E1F3D98EE0064D961 /* MANaviRoute.m */; };
+		4559E1161F3E97260064D961 /* CarCommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E1151F3E97260064D961 /* CarCommentsCell.m */; };
+		4559E1191F3E975C0064D961 /* MyCarCommentsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E1181F3E975C0064D961 /* MyCarCommentsController.m */; };
+		4559E11C1F3E98960064D961 /* MyCarListCommentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4559E11B1F3E98960064D961 /* MyCarListCommentsModel.m */; };
 		455B371C1F00AED300CA47CF /* ManagerDownloadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 455B371B1F00AED300CA47CF /* ManagerDownloadCell.m */; };
 		455B372F1F0393A000CA47CF /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 455B372E1F0393A000CA47CF /* UIView+Shadow.m */; };
 		455B37321F03984A00CA47CF /* UIImageView+CornerRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = 455B37311F03984A00CA47CF /* UIImageView+CornerRadius.m */; };
@@ -194,6 +215,10 @@
 		457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 457D3CD31E77E98200FD0309 /* ConfirmInfoController.m */; };
 		45800A281F258EC500111B17 /* NearbyShopListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45800A271F258EC500111B17 /* NearbyShopListModel.m */; };
 		45800A2B1F25A55100111B17 /* CustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45800A2A1F25A55100111B17 /* CustomAnnotationView.m */; };
+		4581A9F81F3EB1EB00476BBF /* DriverRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581A9F71F3EB1EB00476BBF /* DriverRecordController.m */; };
+		4581A9FB1F3EB22900476BBF /* DriverRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581A9FA1F3EB22900476BBF /* DriverRecordCell.m */; };
+		4581A9FE1F3EB30900476BBF /* DriverRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581A9FD1F3EB30900476BBF /* DriverRecordModel.m */; };
+		4581AA011F3EFC3000476BBF /* DriverReceivableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4581AA001F3EFC3000476BBF /* DriverReceivableController.m */; };
 		4587D56B1F130C540033FAD0 /* Goods.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4587D56A1F130C540033FAD0 /* Goods.storyboard */; };
 		4587D56E1F1311680033FAD0 /* GoodsListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D56D1F1311680033FAD0 /* GoodsListController.m */; };
 		4587D5711F1314980033FAD0 /* GoodsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587D5701F1314980033FAD0 /* GoodsListModel.m */; };
@@ -370,6 +395,8 @@
 		45B977271EB08A9300A42D55 /* PersonBaseInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977261EB08A9300A42D55 /* PersonBaseInfoController.m */; };
 		45B9772B1EB1D32600A42D55 /* AreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B977291EB1D32600A42D55 /* AreaCell.m */; };
 		45B9772E1EB1D57400A42D55 /* Address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45B9772D1EB1D57400A42D55 /* Address.plist */; };
+		45C28E7D1F4190C70051AFCB /* UserAndDriverCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C28E7C1F4190C70051AFCB /* UserAndDriverCommentController.m */; };
+		45C28E831F41A4F00051AFCB /* Passager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C28E821F41A4F00051AFCB /* Passager.storyboard */; };
 		45C814681EF7C7120024C0AC /* SendEducationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C814671EF7C7120024C0AC /* SendEducationController.m */; };
 		45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C997941E9B20D100F6E984 /* HeadDetailCell.m */; };
 		45C997971E9B20D100F6E984 /* HeadDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45C997951E9B20D100F6E984 /* HeadDetailCell.xib */; };
@@ -418,6 +445,8 @@
 		45D6C0881EE28D22003F229A /* ScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D6C0871EE28D22003F229A /* ScanCodeViewController.m */; };
 		45D724211EF50F5300E64985 /* AuthorityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D7241F1EF50F5300E64985 /* AuthorityController.m */; };
 		45D724251EF5202300E64985 /* AllMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D724241EF5202300E64985 /* AllMessageModel.m */; };
+		45DC9B6B1F4D2104007ED8E8 /* TestPhoneNumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DC9B6A1F4D2104007ED8E8 /* TestPhoneNumController.m */; };
+		45DC9B6E1F4D214E007ED8E8 /* PasswordSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DC9B6D1F4D214E007ED8E8 /* PasswordSetController.m */; };
 		45E4F71A1ED4143400476B64 /* Public.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45E4F7191ED4143400476B64 /* Public.storyboard */; };
 		45E4F71E1ED42C9000476B64 /* PublicListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E4F71C1ED42C9000476B64 /* PublicListCell.m */; };
 		45E4F71F1ED42C9000476B64 /* PublicListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45E4F71D1ED42C9000476B64 /* PublicListCell.xib */; };
@@ -498,6 +527,20 @@
 		452AD5F61F048C0000FA96F1 /* SRDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDownloadManager.m; sourceTree = "<group>"; };
 		452AD5F71F048C0000FA96F1 /* SRDownloadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDownloadModel.h; sourceTree = "<group>"; };
 		452AD5F81F048C0000FA96F1 /* SRDownloadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDownloadModel.m; sourceTree = "<group>"; };
+		452C1D841F43EEF600E5F6AC /* PassagerRoadListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassagerRoadListCell.h; sourceTree = "<group>"; };
+		452C1D851F43EEF600E5F6AC /* PassagerRoadListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassagerRoadListCell.m; sourceTree = "<group>"; };
+		452C1D871F43EF3800E5F6AC /* PassagerRoadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassagerRoadController.h; sourceTree = "<group>"; };
+		452C1D881F43EF3800E5F6AC /* PassagerRoadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassagerRoadController.m; sourceTree = "<group>"; };
+		452C1D8D1F45710A00E5F6AC /* SendRaiseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRaiseController.h; sourceTree = "<group>"; };
+		452C1D8E1F45710A00E5F6AC /* SendRaiseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRaiseController.m; sourceTree = "<group>"; };
+		452C1D901F45716B00E5F6AC /* RaiseGoodsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RaiseGoodsListCell.h; sourceTree = "<group>"; };
+		452C1D911F45716B00E5F6AC /* RaiseGoodsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RaiseGoodsListCell.m; sourceTree = "<group>"; };
+		452C1D931F45729F00E5F6AC /* SendRaiseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendRaiseCell.h; sourceTree = "<group>"; };
+		452C1D941F45729F00E5F6AC /* SendRaiseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendRaiseCell.m; sourceTree = "<group>"; };
+		452C1D961F45943E00E5F6AC /* WordsDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordsDetailController.h; sourceTree = "<group>"; };
+		452C1D971F45943E00E5F6AC /* WordsDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordsDetailController.m; sourceTree = "<group>"; };
+		452C1D991F45A10700E5F6AC /* ImageAndWordsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndWordsController.h; sourceTree = "<group>"; };
+		452C1D9A1F45A10700E5F6AC /* ImageAndWordsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndWordsController.m; sourceTree = "<group>"; };
 		452D866C1E9CA51600AAFFB1 /* ActivityDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityDetailController.h; sourceTree = "<group>"; };
 		452D866D1E9CA51600AAFFB1 /* ActivityDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailController.m; sourceTree = "<group>"; };
 		452D866F1E9CC17C00AAFFB1 /* ActiveUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveUsers.h; sourceTree = "<group>"; };
@@ -527,10 +570,38 @@
 		4557CB831E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstAppDataBaseSingleton.m; sourceTree = "<group>"; };
 		4557CB851E7BE88900F22E70 /* ChatDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatDetailController.h; sourceTree = "<group>"; };
 		4557CB861E7BE88900F22E70 /* ChatDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDetailController.m; sourceTree = "<group>"; };
+		4558E8B01F42959C00C1AA67 /* PassagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassagerViewController.h; sourceTree = "<group>"; };
+		4558E8B11F42959C00C1AA67 /* PassagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassagerViewController.m; sourceTree = "<group>"; };
+		4558E8B31F4295F200C1AA67 /* PassagerAreaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassagerAreaCell.h; sourceTree = "<group>"; };
+		4558E8B41F4295F200C1AA67 /* PassagerAreaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassagerAreaCell.m; sourceTree = "<group>"; };
 		455930CD1E835A110041F6F9 /* ImageUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUrl.h; sourceTree = "<group>"; };
 		455930CE1E835A110041F6F9 /* ImageUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUrl.m; sourceTree = "<group>"; };
 		4559E0F51F3AFF890064D961 /* CheckDriverDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckDriverDetailController.h; sourceTree = "<group>"; };
 		4559E0F61F3AFF890064D961 /* CheckDriverDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckDriverDetailController.m; sourceTree = "<group>"; };
+		4559E0F81F3C0A330064D961 /* OutCarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutCarController.h; sourceTree = "<group>"; };
+		4559E0F91F3C0A330064D961 /* OutCarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutCarController.m; sourceTree = "<group>"; };
+		4559E0FB1F3C2C8E0064D961 /* CarLocationCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarLocationCustomView.h; sourceTree = "<group>"; };
+		4559E0FC1F3C2C8E0064D961 /* CarLocationCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarLocationCustomView.m; sourceTree = "<group>"; };
+		4559E0FE1F3C5FCF0064D961 /* DriverGrobListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverGrobListCell.h; sourceTree = "<group>"; };
+		4559E0FF1F3C5FCF0064D961 /* DriverGrobListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverGrobListCell.m; sourceTree = "<group>"; };
+		4559E1011F3C61A60064D961 /* DriverGrobListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverGrobListModel.h; sourceTree = "<group>"; };
+		4559E1021F3C61A60064D961 /* DriverGrobListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverGrobListModel.m; sourceTree = "<group>"; };
+		4559E1051F3D98EE0064D961 /* CommonUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtility.h; sourceTree = "<group>"; };
+		4559E1061F3D98EE0064D961 /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
+		4559E1071F3D98EE0064D961 /* LineDashPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineDashPolyline.h; sourceTree = "<group>"; };
+		4559E1081F3D98EE0064D961 /* LineDashPolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineDashPolyline.m; sourceTree = "<group>"; };
+		4559E1091F3D98EE0064D961 /* MANaviAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MANaviAnnotation.h; sourceTree = "<group>"; };
+		4559E10A1F3D98EE0064D961 /* MANaviAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MANaviAnnotation.m; sourceTree = "<group>"; };
+		4559E10B1F3D98EE0064D961 /* MANaviPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MANaviPolyline.h; sourceTree = "<group>"; };
+		4559E10C1F3D98EE0064D961 /* MANaviPolyline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MANaviPolyline.m; sourceTree = "<group>"; };
+		4559E10D1F3D98EE0064D961 /* MANaviRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MANaviRoute.h; sourceTree = "<group>"; };
+		4559E10E1F3D98EE0064D961 /* MANaviRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MANaviRoute.m; sourceTree = "<group>"; };
+		4559E1141F3E97260064D961 /* CarCommentsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarCommentsCell.h; sourceTree = "<group>"; };
+		4559E1151F3E97260064D961 /* CarCommentsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarCommentsCell.m; sourceTree = "<group>"; };
+		4559E1171F3E975C0064D961 /* MyCarCommentsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCarCommentsController.h; sourceTree = "<group>"; };
+		4559E1181F3E975C0064D961 /* MyCarCommentsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCarCommentsController.m; sourceTree = "<group>"; };
+		4559E11A1F3E98960064D961 /* MyCarListCommentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCarListCommentsModel.h; sourceTree = "<group>"; };
+		4559E11B1F3E98960064D961 /* MyCarListCommentsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCarListCommentsModel.m; sourceTree = "<group>"; };
 		455B371A1F00AED300CA47CF /* ManagerDownloadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagerDownloadCell.h; sourceTree = "<group>"; };
 		455B371B1F00AED300CA47CF /* ManagerDownloadCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagerDownloadCell.m; sourceTree = "<group>"; };
 		455B372D1F0393A000CA47CF /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
@@ -760,6 +831,14 @@
 		45800A271F258EC500111B17 /* NearbyShopListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyShopListModel.m; sourceTree = "<group>"; };
 		45800A291F25A55100111B17 /* CustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotationView.h; sourceTree = "<group>"; };
 		45800A2A1F25A55100111B17 /* CustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotationView.m; sourceTree = "<group>"; };
+		4581A9F61F3EB1EB00476BBF /* DriverRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverRecordController.h; sourceTree = "<group>"; };
+		4581A9F71F3EB1EB00476BBF /* DriverRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverRecordController.m; sourceTree = "<group>"; };
+		4581A9F91F3EB22900476BBF /* DriverRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverRecordCell.h; sourceTree = "<group>"; };
+		4581A9FA1F3EB22900476BBF /* DriverRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverRecordCell.m; sourceTree = "<group>"; };
+		4581A9FC1F3EB30900476BBF /* DriverRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverRecordModel.h; sourceTree = "<group>"; };
+		4581A9FD1F3EB30900476BBF /* DriverRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverRecordModel.m; sourceTree = "<group>"; };
+		4581A9FF1F3EFC3000476BBF /* DriverReceivableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverReceivableController.h; sourceTree = "<group>"; };
+		4581AA001F3EFC3000476BBF /* DriverReceivableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverReceivableController.m; sourceTree = "<group>"; };
 		4587D56A1F130C540033FAD0 /* Goods.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Goods.storyboard; sourceTree = "<group>"; };
 		4587D56C1F1311680033FAD0 /* GoodsListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListController.h; sourceTree = "<group>"; };
 		4587D56D1F1311680033FAD0 /* GoodsListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListController.m; sourceTree = "<group>"; };
@@ -1084,6 +1163,9 @@
 		45B977281EB1D32600A42D55 /* AreaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaCell.h; sourceTree = "<group>"; };
 		45B977291EB1D32600A42D55 /* AreaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaCell.m; sourceTree = "<group>"; };
 		45B9772D1EB1D57400A42D55 /* Address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Address.plist; sourceTree = "<group>"; };
+		45C28E7B1F4190C70051AFCB /* UserAndDriverCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAndDriverCommentController.h; sourceTree = "<group>"; };
+		45C28E7C1F4190C70051AFCB /* UserAndDriverCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAndDriverCommentController.m; sourceTree = "<group>"; };
+		45C28E821F41A4F00051AFCB /* Passager.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Passager.storyboard; sourceTree = "<group>"; };
 		45C814661EF7C7120024C0AC /* SendEducationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendEducationController.h; sourceTree = "<group>"; };
 		45C814671EF7C7120024C0AC /* SendEducationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendEducationController.m; sourceTree = "<group>"; };
 		45C997931E9B20D100F6E984 /* HeadDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadDetailCell.h; sourceTree = "<group>"; };
@@ -1165,6 +1247,10 @@
 		45D7241F1EF50F5300E64985 /* AuthorityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorityController.m; sourceTree = "<group>"; };
 		45D724231EF5202300E64985 /* AllMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMessageModel.h; sourceTree = "<group>"; };
 		45D724241EF5202300E64985 /* AllMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMessageModel.m; sourceTree = "<group>"; };
+		45DC9B691F4D2104007ED8E8 /* TestPhoneNumController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestPhoneNumController.h; sourceTree = "<group>"; };
+		45DC9B6A1F4D2104007ED8E8 /* TestPhoneNumController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPhoneNumController.m; sourceTree = "<group>"; };
+		45DC9B6C1F4D214E007ED8E8 /* PasswordSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordSetController.h; sourceTree = "<group>"; };
+		45DC9B6D1F4D214E007ED8E8 /* PasswordSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordSetController.m; sourceTree = "<group>"; };
 		45E4F7191ED4143400476B64 /* Public.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Public.storyboard; sourceTree = "<group>"; };
 		45E4F71B1ED42C9000476B64 /* PublicListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicListCell.h; sourceTree = "<group>"; };
 		45E4F71C1ED42C9000476B64 /* PublicListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicListCell.m; sourceTree = "<group>"; };
@@ -1368,6 +1454,23 @@
 			path = V;
 			sourceTree = "<group>";
 		};
+		4559E1041F3D98EE0064D961 /* AMapRoute */ = {
+			isa = PBXGroup;
+			children = (
+				4559E1051F3D98EE0064D961 /* CommonUtility.h */,
+				4559E1061F3D98EE0064D961 /* CommonUtility.m */,
+				4559E1071F3D98EE0064D961 /* LineDashPolyline.h */,
+				4559E1081F3D98EE0064D961 /* LineDashPolyline.m */,
+				4559E1091F3D98EE0064D961 /* MANaviAnnotation.h */,
+				4559E10A1F3D98EE0064D961 /* MANaviAnnotation.m */,
+				4559E10B1F3D98EE0064D961 /* MANaviPolyline.h */,
+				4559E10C1F3D98EE0064D961 /* MANaviPolyline.m */,
+				4559E10D1F3D98EE0064D961 /* MANaviRoute.h */,
+				4559E10E1F3D98EE0064D961 /* MANaviRoute.m */,
+			);
+			path = AMapRoute;
+			sourceTree = "<group>";
+		};
 		455FA2FF1E7631A80039B155 = {
 			isa = PBXGroup;
 			children = (
@@ -1393,6 +1496,7 @@
 				455FA3251E763C070039B155 /* Main */,
 				455FA3551E76A4F10039B155 /* LoginAndRegister */,
 				455FA32A1E763C250039B155 /* FirstPage */,
+				45C28E7E1F41A4D80051AFCB /* Passager */,
 				45984A541F3443D7008F9A3F /* Driver */,
 				45A96C5C1EF75FAE0022F382 /* Education */,
 				45D6C03F1EDEA2F8003F229A /* Interest */,
@@ -1747,6 +1851,10 @@
 				45D6C0621EDFC5CA003F229A /* OrdinaryRegisterController.m */,
 				45D6C0641EDFC5DB003F229A /* VipRegisterController.h */,
 				45D6C0651EDFC5DB003F229A /* VipRegisterController.m */,
+				45DC9B691F4D2104007ED8E8 /* TestPhoneNumController.h */,
+				45DC9B6A1F4D2104007ED8E8 /* TestPhoneNumController.m */,
+				45DC9B6C1F4D214E007ED8E8 /* PasswordSetController.h */,
+				45DC9B6D1F4D214E007ED8E8 /* PasswordSetController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1768,6 +1876,7 @@
 		4562D7BB1E80C29900C6EE56 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				4559E1041F3D98EE0064D961 /* AMapRoute */,
 				45A17F531F31B22800A8E9CF /* objc */,
 				4587D5781F137BEA0033FAD0 /* UIView+Toast.h */,
 				4587D5791F137BEA0033FAD0 /* UIView+Toast.m */,
@@ -2261,6 +2370,12 @@
 				4587DD161F1759080033FAD0 /* MyRaiseListController.m */,
 				4587DD181F1860180033FAD0 /* RaiseDetailController.h */,
 				4587DD191F1860180033FAD0 /* RaiseDetailController.m */,
+				452C1D8D1F45710A00E5F6AC /* SendRaiseController.h */,
+				452C1D8E1F45710A00E5F6AC /* SendRaiseController.m */,
+				452C1D961F45943E00E5F6AC /* WordsDetailController.h */,
+				452C1D971F45943E00E5F6AC /* WordsDetailController.m */,
+				452C1D991F45A10700E5F6AC /* ImageAndWordsController.h */,
+				452C1D9A1F45A10700E5F6AC /* ImageAndWordsController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2280,6 +2395,10 @@
 				4587DD0D1F161A280033FAD0 /* RaiseListCell.h */,
 				4587DD0E1F161A280033FAD0 /* RaiseListCell.m */,
 				4587DD0F1F161A280033FAD0 /* RaiseListCell.xib */,
+				452C1D901F45716B00E5F6AC /* RaiseGoodsListCell.h */,
+				452C1D911F45716B00E5F6AC /* RaiseGoodsListCell.m */,
+				452C1D931F45729F00E5F6AC /* SendRaiseCell.h */,
+				452C1D941F45729F00E5F6AC /* SendRaiseCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2439,6 +2558,16 @@
 				458F9D641F38730300E791D9 /* CarShapeController.m */,
 				4559E0F51F3AFF890064D961 /* CheckDriverDetailController.h */,
 				4559E0F61F3AFF890064D961 /* CheckDriverDetailController.m */,
+				4559E0F81F3C0A330064D961 /* OutCarController.h */,
+				4559E0F91F3C0A330064D961 /* OutCarController.m */,
+				4559E1171F3E975C0064D961 /* MyCarCommentsController.h */,
+				4559E1181F3E975C0064D961 /* MyCarCommentsController.m */,
+				4581A9F61F3EB1EB00476BBF /* DriverRecordController.h */,
+				4581A9F71F3EB1EB00476BBF /* DriverRecordController.m */,
+				4581A9FF1F3EFC3000476BBF /* DriverReceivableController.h */,
+				4581AA001F3EFC3000476BBF /* DriverReceivableController.m */,
+				45C28E7B1F4190C70051AFCB /* UserAndDriverCommentController.h */,
+				45C28E7C1F4190C70051AFCB /* UserAndDriverCommentController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2448,6 +2577,12 @@
 			children = (
 				454B080A1F39543000138702 /* CarBrandModel.h */,
 				454B080B1F39543000138702 /* CarBrandModel.m */,
+				4559E1011F3C61A60064D961 /* DriverGrobListModel.h */,
+				4559E1021F3C61A60064D961 /* DriverGrobListModel.m */,
+				4559E11A1F3E98960064D961 /* MyCarListCommentsModel.h */,
+				4559E11B1F3E98960064D961 /* MyCarListCommentsModel.m */,
+				4581A9FC1F3EB30900476BBF /* DriverRecordModel.h */,
+				4581A9FD1F3EB30900476BBF /* DriverRecordModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2464,6 +2599,14 @@
 				45984A671F35C46C008F9A3F /* LocationAreaCell.m */,
 				458F9D601F38638C00E791D9 /* CarColorCell.h */,
 				458F9D611F38638C00E791D9 /* CarColorCell.m */,
+				4559E0FB1F3C2C8E0064D961 /* CarLocationCustomView.h */,
+				4559E0FC1F3C2C8E0064D961 /* CarLocationCustomView.m */,
+				4559E0FE1F3C5FCF0064D961 /* DriverGrobListCell.h */,
+				4559E0FF1F3C5FCF0064D961 /* DriverGrobListCell.m */,
+				4559E1141F3E97260064D961 /* CarCommentsCell.h */,
+				4559E1151F3E97260064D961 /* CarCommentsCell.m */,
+				4581A9F91F3EB22900476BBF /* DriverRecordCell.h */,
+				4581A9FA1F3EB22900476BBF /* DriverRecordCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2703,6 +2846,46 @@
 				45AE19A11ECD41920098A7FF /* ActCommonListCell.h */,
 				45AE19A21ECD41920098A7FF /* ActCommonListCell.m */,
 				45AE19A31ECD41920098A7FF /* ActCommonListCell.xib */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		45C28E7E1F41A4D80051AFCB /* Passager */ = {
+			isa = PBXGroup;
+			children = (
+				45C28E821F41A4F00051AFCB /* Passager.storyboard */,
+				45C28E7F1F41A4D80051AFCB /* C */,
+				45C28E801F41A4D80051AFCB /* M */,
+				45C28E811F41A4D80051AFCB /* V */,
+			);
+			path = Passager;
+			sourceTree = "<group>";
+		};
+		45C28E7F1F41A4D80051AFCB /* C */ = {
+			isa = PBXGroup;
+			children = (
+				4558E8B01F42959C00C1AA67 /* PassagerViewController.h */,
+				4558E8B11F42959C00C1AA67 /* PassagerViewController.m */,
+				452C1D871F43EF3800E5F6AC /* PassagerRoadController.h */,
+				452C1D881F43EF3800E5F6AC /* PassagerRoadController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		45C28E801F41A4D80051AFCB /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		45C28E811F41A4D80051AFCB /* V */ = {
+			isa = PBXGroup;
+			children = (
+				4558E8B31F4295F200C1AA67 /* PassagerAreaCell.h */,
+				4558E8B41F4295F200C1AA67 /* PassagerAreaCell.m */,
+				452C1D841F43EEF600E5F6AC /* PassagerRoadListCell.h */,
+				452C1D851F43EEF600E5F6AC /* PassagerRoadListCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2997,6 +3180,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = Q4J8HDK83K;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -3050,6 +3238,7 @@
 				455C6B151EA1AFC800E0B3F3 /* CircleOfFriend.storyboard in Resources */,
 				459130E61EF920DA0054A28C /* FastForwardView.xib in Resources */,
 				457182AD1EC44F2A00860F38 /* ClaimCenter.storyboard in Resources */,
+				45C28E831F41A4F00051AFCB /* Passager.storyboard in Resources */,
 				459EBFA81F0DCD7E008A0D37 /* TrafficeOfInsporation.storyboard in Resources */,
 				45F0464B1EE554A200CDA7BD /* SearchGroupCell.xib in Resources */,
 				456CCE681E827CD8005EC051 /* RCConfig.plist in Resources */,
@@ -3178,14 +3367,21 @@
 				45984A5C1F345ED6008F9A3F /* EntericeOfDriverController.m in Sources */,
 				45CE5F4F1EC0571300225534 /* MyPeopleListModel.m in Sources */,
 				45B977181EAF57AC00A42D55 /* MyPeopleDetailController.m in Sources */,
+				452C1D861F43EEF600E5F6AC /* PassagerRoadListCell.m in Sources */,
 				459EBF781F09E17A008A0D37 /* HelpCenterListCell.m in Sources */,
+				452C1D9B1F45A10700E5F6AC /* ImageAndWordsController.m in Sources */,
 				45D6C0771EE16989003F229A /* SearchController.m in Sources */,
+				4558E8B51F4295F200C1AA67 /* PassagerAreaCell.m in Sources */,
 				459130F21EFCFC230054A28C /* ManagerDownloadController.m in Sources */,
 				4557CB781E7BB95400F22E70 /* AppTwoCell.m in Sources */,
+				4558E8B21F42959C00C1AA67 /* PassagerViewController.m in Sources */,
 				458959F41EBDBF1A00CBADDD /* MJPhoto.m in Sources */,
+				4559E1131F3D98EE0064D961 /* MANaviRoute.m in Sources */,
 				45AE19A41ECD41920098A7FF /* ActCommonListCell.m in Sources */,
 				458959F81EBDBF1A00CBADDD /* MJPhotoProgressView.m in Sources */,
+				4581A9FE1F3EB30900476BBF /* DriverRecordModel.m in Sources */,
 				4562D7571E7FD7C900C6EE56 /* UploadActImageNet.m in Sources */,
+				452C1D8F1F45710A00E5F6AC /* SendRaiseController.m in Sources */,
 				4573CC261E9882670047D1F4 /* VoteViewController.m in Sources */,
 				4587DD241F18692B0033FAD0 /* WeatherListController.m in Sources */,
 				45B977121EAF519600A42D55 /* MyPeopleCell.m in Sources */,
@@ -3193,6 +3389,7 @@
 				45C997A61E9B7DB800F6E984 /* RecommendImageCell.m in Sources */,
 				455C6B281EA209E700E0B3F3 /* CircleListModel.m in Sources */,
 				458959F31EBDBF1A00CBADDD /* MBProgressHUD+Add.m in Sources */,
+				45DC9B6E1F4D214E007ED8E8 /* PasswordSetController.m in Sources */,
 				459EBFBB1F0E17CD008A0D37 /* TafficeListModel.m in Sources */,
 				4573CC291E9885A20047D1F4 /* VoteCell.m in Sources */,
 				45CE5F581EC1972900225534 /* AreaHistrorySingleton.m in Sources */,
@@ -3227,6 +3424,7 @@
 				459EBF811F0A1A44008A0D37 /* MyHelpAndAnswerCell.m in Sources */,
 				4587DD101F161A280033FAD0 /* RaiseListCell.m in Sources */,
 				45D6C0561EDEA467003F229A /* InterestCell.m in Sources */,
+				4559E1121F3D98EE0064D961 /* MANaviPolyline.m in Sources */,
 				457D3CB51E778E8B00FD0309 /* MessageAlertView.m in Sources */,
 				45A96C6C1EF7698A0022F382 /* EducationListModel.m in Sources */,
 				458F9D621F38638C00E791D9 /* CarColorCell.m in Sources */,
@@ -3248,17 +3446,21 @@
 				4573CC231E987F950047D1F4 /* VoteListModel.m in Sources */,
 				45E4F7221ED42CFE00476B64 /* PublicListController.m in Sources */,
 				4573CC101E8E58450047D1F4 /* ManageGroupViewController.m in Sources */,
+				4581A9F81F3EB1EB00476BBF /* DriverRecordController.m in Sources */,
 				455FA3191E7631A90039B155 /* CommunityProject.xcdatamodeld in Sources */,
 				45B9771E1EB0872300A42D55 /* AlreadyRecommendCell.m in Sources */,
 				45C997A01E9B23AB00F6E984 /* JoinUserModel.m in Sources */,
 				45D1102D1E8538C0009F2C4E /* RealTimeLocationStartCell.m in Sources */,
 				45AA3DD51EB219ED007F02E5 /* PersonMoreInfoController.m in Sources */,
 				450A50F71E86225D00433A61 /* FriendDetailController.m in Sources */,
+				4559E1161F3E97260064D961 /* CarCommentsCell.m in Sources */,
 				45783BE61EC6F9590013DC6D /* ClaimMessageController.m in Sources */,
 				4562D7F61E80F8A900C6EE56 /* AddressCell.m in Sources */,
+				4559E1111F3D98EE0064D961 /* MANaviAnnotation.m in Sources */,
 				459EBF7E1F09F0D8008A0D37 /* HelpListModel.m in Sources */,
 				459130E51EF920DA0054A28C /* FastForwardView.m in Sources */,
 				459EC0291F0F901E008A0D37 /* TrafficDetailController.m in Sources */,
+				452C1D951F45729F00E5F6AC /* SendRaiseCell.m in Sources */,
 				45968CBF1F272CBC00E8FFEC /* CustomAnnotation.m in Sources */,
 				459EBF961F0B8E53008A0D37 /* SendHelpController.m in Sources */,
 				45D6C0661EDFC5DB003F229A /* VipRegisterController.m in Sources */,
@@ -3269,6 +3471,7 @@
 				45B9771B1EAF57CF00A42D55 /* TypeAddFriendCell.m in Sources */,
 				45D6C0881EE28D22003F229A /* ScanCodeViewController.m in Sources */,
 				4573CC0D1E8E56A90047D1F4 /* ChooseFriendsController.m in Sources */,
+				4559E0FA1F3C0A330064D961 /* OutCarController.m in Sources */,
 				4562D8061E8134A900C6EE56 /* GroupListController.m in Sources */,
 				4557CB841E7BC84D00F22E70 /* FirstAppDataBaseSingleton.m in Sources */,
 				455C6B351EA5BF1D00E0B3F3 /* CircleCommentController.m in Sources */,
@@ -3276,6 +3479,7 @@
 				4573CC2F1E98914C0047D1F4 /* VoteTypeCell.m in Sources */,
 				457D3CD11E77CE3500FD0309 /* GroupModel.m in Sources */,
 				458959F71EBDBF1A00CBADDD /* MJPhotoLoadingView.m in Sources */,
+				45DC9B6B1F4D2104007ED8E8 /* TestPhoneNumController.m in Sources */,
 				4562D7311E7F6DFC00C6EE56 /* GroupActivityListController.m in Sources */,
 				45D110331E85390D009F2C4E /* RealTimeLocationStatusView.m in Sources */,
 				45A96C6F1EF77F740022F382 /* MyEducationController.m in Sources */,
@@ -3293,10 +3497,12 @@
 				458DD5261E8A614B00650F2E /* GroupMessageCell.m in Sources */,
 				4559E0F71F3AFF890064D961 /* CheckDriverDetailController.m in Sources */,
 				4573CC041E8BA7050047D1F4 /* MemberListController.m in Sources */,
+				45C28E7D1F4190C70051AFCB /* UserAndDriverCommentController.m in Sources */,
 				4587D5741F132C210033FAD0 /* SendGoodsController.m in Sources */,
 				459EBF7B1F09E1A2008A0D37 /* HelpListController.m in Sources */,
 				4587D56E1F1311680033FAD0 /* GoodsListController.m in Sources */,
 				458959D31EBB150400CBADDD /* FSCalendarHeaderView.m in Sources */,
+				4559E11C1F3E98960064D961 /* MyCarListCommentsModel.m in Sources */,
 				45F046511EE8EC6A00CDA7BD /* ApplicationPersonVipController.m in Sources */,
 				45D6C05D1EDEC0AC003F229A /* MyCodeCardController.m in Sources */,
 				452D86771E9CC8AA00AAFFB1 /* ReDetailImageCell.m in Sources */,
@@ -3310,8 +3516,10 @@
 				4562D8031E81300F00C6EE56 /* GroupListCell.m in Sources */,
 				457D3CB21E7785BF00FD0309 /* AFSecuteCertificate.m in Sources */,
 				457D3CD41E77E98200FD0309 /* ConfirmInfoController.m in Sources */,
+				4581A9FB1F3EB22900476BBF /* DriverRecordCell.m in Sources */,
 				455FA1641E7A660F00C85AE7 /* TravelCell.m in Sources */,
 				457D3CAC1E77857700FD0309 /* AFNetData.m in Sources */,
+				452C1D891F43EF3800E5F6AC /* PassagerRoadController.m in Sources */,
 				457182B61EC45A3900860F38 /* ClaimCenterModel.m in Sources */,
 				459EBFB21F0E0AFE008A0D37 /* TafficListCell.m in Sources */,
 				459E84CF1EA6F90300E5A331 /* CircleMessageCell.m in Sources */,
@@ -3325,6 +3533,7 @@
 				459E84CC1EA6F8DF00E5A331 /* CircleMessageController.m in Sources */,
 				45D6C0731EE1688F003F229A /* AddFriendsCell.m in Sources */,
 				45D6C0601EDFB637003F229A /* ApplicationVipController.m in Sources */,
+				4559E1191F3E975C0064D961 /* MyCarCommentsController.m in Sources */,
 				458959FC1EBDBF1A00CBADDD /* UIImageView+MJWebCache.m in Sources */,
 				455930CF1E835A110041F6F9 /* ImageUrl.m in Sources */,
 				45D6C0531EDEA467003F229A /* ChooseInterestCell.m in Sources */,
@@ -3386,9 +3595,12 @@
 				459EBF8D1F0A39CA008A0D37 /* HelpDetailController.m in Sources */,
 				459EBF901F0A3AE5008A0D37 /* HelpAnswerCell.m in Sources */,
 				455C6B2C1EA5B75F00E0B3F3 /* CircleCommentCell.m in Sources */,
+				4559E1031F3C61A60064D961 /* DriverGrobListModel.m in Sources */,
+				452C1D981F45943E00E5F6AC /* WordsDetailController.m in Sources */,
 				4557CB811E7BC3CC00F22E70 /* UIBarButtonItem+NagivationButton.m in Sources */,
 				45A96C681EF764D20022F382 /* EducationListCell.m in Sources */,
 				45AE19A01ECD406A0098A7FF /* PlatFormActController.m in Sources */,
+				4559E1101F3D98EE0064D961 /* LineDashPolyline.m in Sources */,
 				450A50E71E853BDC00433A61 /* RCLocationConvert.m in Sources */,
 				459EBF8A1F0A2BA8008A0D37 /* HelpAnswerListModel.m in Sources */,
 				45C997961E9B20D100F6E984 /* HeadDetailCell.m in Sources */,
@@ -3417,15 +3629,20 @@
 				4587DD001F15C6E60033FAD0 /* MyGoodsDownloadModel.m in Sources */,
 				458D816C1ECFE1EF006775F1 /* PlatformCommentController.m in Sources */,
 				45AE19A81ECDA7120098A7FF /* PlatformActListModel.m in Sources */,
+				4559E10F1F3D98EE0064D961 /* CommonUtility.m in Sources */,
 				4587DD031F15C7290033FAD0 /* GoodsListDatabaseSingleton.m in Sources */,
 				45D6C0821EE26243003F229A /* SearchGroupModel.m in Sources */,
 				458959D51EBB150400CBADDD /* FSCalendarStickyHeader.m in Sources */,
+				4581AA011F3EFC3000476BBF /* DriverReceivableController.m in Sources */,
 				4557CB871E7BE88900F22E70 /* ChatDetailController.m in Sources */,
 				455B372F1F0393A000CA47CF /* UIView+Shadow.m in Sources */,
 				455FA1671E7A831000C85AE7 /* ClaimCell.m in Sources */,
 				4562D7421E7F88C200C6EE56 /* NowDate.m in Sources */,
+				4559E1001F3C5FCF0064D961 /* DriverGrobListCell.m in Sources */,
 				4573CC151E9482920047D1F4 /* BMChineseSort.m in Sources */,
 				4573CBF91E8B893D0047D1F4 /* MemberListModel.m in Sources */,
+				452C1D921F45716B00E5F6AC /* RaiseGoodsListCell.m in Sources */,
+				4559E0FD1F3C2C8E0064D961 /* CarLocationCustomView.m in Sources */,
 				45A96C641EF7631E0022F382 /* EducationListController.m in Sources */,
 				458959D11EBB150400CBADDD /* FSCalendarDelegationProxy.m in Sources */,
 				458D81691ECFE1BF006775F1 /* PlatformDetailController.m in Sources */,

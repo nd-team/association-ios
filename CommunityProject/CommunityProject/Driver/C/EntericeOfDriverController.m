@@ -7,6 +7,7 @@
 //
 
 #import "EntericeOfDriverController.h"
+#import "CheckDriverDetailController.h"
 
 @interface EntericeOfDriverController ()
 
@@ -24,9 +25,20 @@
 }
 
 - (IBAction)lookProgressClick:(id)sender {
-    
+    NSInteger  driver = [DEFAULTS integerForKey:@"checkCar"];
+    if (driver == 1) {
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Driver" bundle:nil];
+        CheckDriverDetailController * comment = [sb instantiateViewControllerWithIdentifier:@"CheckDriverDetailController"];
+        [self.navigationController pushViewController:comment animated:YES];
+    }else{
+        [self showMessage:@"您还不是司机，请先填写申请表申请成为司机"];
+    }
 }
 - (IBAction)backClick:(id)sender {
-}
+    [self.navigationController popViewControllerAnimated:YES];
 
+}
+-(void)showMessage:(NSString *)msg{
+    [self.navigationController.view makeToast:msg];
+}
 @end

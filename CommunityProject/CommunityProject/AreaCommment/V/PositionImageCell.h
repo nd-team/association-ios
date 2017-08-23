@@ -11,6 +11,7 @@
 
 typedef void(^Refresh)(void);
 typedef void(^DeleteBlock)(NSIndexPath * selectPath);
+typedef void(^ChangeBlock)(UploadImageModel * model,NSIndexPath *selectPath);
 @interface PositionImageCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UIButton *delBtn;
@@ -19,5 +20,8 @@ typedef void(^DeleteBlock)(NSIndexPath * selectPath);
 @property (nonatomic,strong)UICollectionView * collectionView;
 @property (nonatomic,copy)Refresh refresh;
 @property (nonatomic,copy)DeleteBlock delete;
+@property (nonatomic,assign)CGFloat isRaise;
+
+@property (nonatomic,copy)ChangeBlock change;
 
 @end

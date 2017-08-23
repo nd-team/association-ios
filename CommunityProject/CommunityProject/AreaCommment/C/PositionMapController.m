@@ -15,7 +15,6 @@
 #import "NearbyShopListModel.h"
 #import "CustomAnnotationView.h"
 #import "CustomAnnotation.h"
-#import <AMapSearchKit/AMapSearchKit.h>
 
 #define CommentList @"comment/list"
 #define ShopURL @"shop/nearby"
@@ -292,7 +291,6 @@
             }
             NSDictionary * jsonDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSNumber * code = jsonDic[@"code"];
-            NSSLog(@"%@",jsonDic);
             if ([code intValue] == 0) {
                 if ([[jsonDic allKeys] containsObject:@"data"]) {
                     NSArray * arr = jsonDic[@"data"];
@@ -348,7 +346,6 @@
     if (response.regeocode != nil) {
         AMapAddressComponent * com = response.regeocode.addressComponent;
         NSString * address = [NSString stringWithFormat:@"%@%@%@%@%@",com.province,com.city,com.district,com.township,com.building];
-//        NSSLog(@"==%@",address);
         self.area = address;
         if (address.length == 0) {
             return;
@@ -381,7 +378,6 @@
     //设置地图中心点
     [self.mapView setCenterCoordinate:location.coordinate];
     self.coordinate = location.coordinate;
-   // NSSLog(@"定位纬度%f++经度%f",location.coordinate.latitude,location.coordinate.longitude);
     [self.locationManager stopUpdatingLocation];
     if (self.count == 1) {
         [self aroundShop];
@@ -392,7 +388,6 @@
     [self.mapView removeAnnotations:self.mapView.annotations];
     WeakSelf;
     NSDictionary * dict = @{@"pointY":[NSString stringWithFormat:@"%f",self.coordinate.latitude],@"pointX":[NSString stringWithFormat:@"%f",self.coordinate.longitude],@"range":@"500"};
-  //  NSSLog(@"%@",dict);
     [JavaGetNet getDataWithUrl:[NSString stringWithFormat:JAVAURL,ShopURL] andParams:dict andHeader:self.userId getBlock:^(NSURLResponse *response, NSError *error, id data) {
         if (error) {
             NSSLog(@"附近店铺失败：%@",error);

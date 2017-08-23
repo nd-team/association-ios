@@ -8,7 +8,6 @@
 
 #import "MyLocationViewController.h"
 #import "SearchAreaViewController.h"
-#import <AMapSearchKit/AMapSearchKit.h>
 #import "AreaCell.h"
 #import "POIAnnotation.h"
 
@@ -38,7 +37,7 @@
     self.navigationController.navigationBar.hidden = NO;
     
     self.tabBarController.tabBar.hidden = YES;
-//    self.mapView.delegate = self;
+    self.mapView.delegate = self;
     //开始定位 持续定位
 //    [self.locationManager startUpdatingLocation];
 
@@ -66,7 +65,6 @@
    
     [self setSearchTextField];
 
-    self.mapView.delegate = self;
     //设置定位小蓝点
     self.mapView.showsUserLocation = YES;
     //设置跟随用户移动

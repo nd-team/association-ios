@@ -69,7 +69,7 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     [self.headImageView zy_cornerRadiusAdvance:5.0f rectCornerType:UIRectCornerAllCorners];
     [self.tableView setEditing:YES animated:YES];
-    self.tableView.editing = YES;
+//    self.tableView.editing = YES;
     if (self.titleTV.text.length == 0) {
         self.placeLabel.hidden = NO;
     }else{

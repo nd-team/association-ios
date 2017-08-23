@@ -8,7 +8,6 @@
 
 #import "SearchAreaViewController.h"
 #import "AreaCell.h"
-#import <AMapSearchKit/AMapSearchKit.h>
 #import "HistoryModel.h"
 #import "AreaHistrorySingleton.h"
 
@@ -18,9 +17,9 @@
 @property (nonatomic,strong) NSMutableArray * dataArr;
 
 @property (nonatomic,strong)AMapSearchAPI * searchAPI;
-//发起搜索
-@property (nonatomic,strong)AMapPOIKeywordsSearchRequest * request;
-
+//发起搜索，关键字
+//@property (nonatomic,strong)AMapPOIKeywordsSearchRequest * request;
+//输入提示发起检索
 @property (nonatomic,strong)AMapInputTipsSearchRequest * tips;
 
 @property (nonatomic,assign)int flag;

@@ -11,7 +11,6 @@
 #import "UploadImageModel.h"
 #import "UploadMulDocuments.h"
 #import "CircleListModel.h"
-#import <CTAssetsPickerController/CTAssetsPickerController.h>
 #import "AuthorityController.h"
 
 #define SendURL @"appapi/app/releaseFriendsCircle"

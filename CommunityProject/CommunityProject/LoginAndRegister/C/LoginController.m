@@ -10,6 +10,7 @@
 #import "ConfirmInfoController.h"
 #import "OrdinaryRegisterController.h"
 #import "VipRegisterController.h"
+#import "TestPhoneNumController.h"
 
 #define LoginURL @"appapi/app/login"
 @interface LoginController ()<UITextFieldDelegate,RCIMConnectionStatusDelegate>{
@@ -61,7 +62,6 @@
     textField.layer.borderColor = UIColorFromRGB(0xb5b5b5).CGColor;
     textField.layer.borderWidth = 1.0;
     [textField setValue:UIColorFromRGB(0xd6d6d6) forKeyPath:@"_placeholderLabel.textColor"];
-    
     [textField setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
 }
 //登录操作下面的登录注册
@@ -149,6 +149,9 @@
                 [userDefaults setInteger:[sex integerValue] forKey:@"sex"];
                 if (![msg[@"checkVip"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setInteger:[msg[@"checkVip"] integerValue]forKey:@"checkVip"];
+                }
+                if (![msg[@"checkCar"] isKindOfClass:[NSNull class]]) {
+                    [userDefaults setInteger:[msg[@"checkCar"] integerValue]forKey:@"checkCar"];
                 }
                 if (![msg[@"birthday"] isKindOfClass:[NSNull class]]) {
                     [userDefaults setValue:msg[@"birthday"] forKey:@"birthday"];
@@ -288,7 +291,6 @@
     if (offset>0) {
         self.view.frame = CGRectMake(0, -offset-64, KMainScreenWidth, KMainScreenHeight+offset+64);
     }
-    
 }
 //普通注册
 - (IBAction)ordinaryRegisterClick:(id)sender {
@@ -301,6 +303,12 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
     VipRegisterController * vip = [sb instantiateViewControllerWithIdentifier:@"VipRegisterController"];
     [self presentViewController:vip animated:YES completion:nil];
+}
+- (IBAction)forgotPasswordClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+    TestPhoneNumController * test = [sb instantiateViewControllerWithIdentifier:@"TestPhoneNumController"];
+    [self presentViewController:test animated:YES completion:nil];
+
 }
 
 

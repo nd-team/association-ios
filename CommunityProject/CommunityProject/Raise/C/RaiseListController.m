@@ -11,6 +11,7 @@
 #import "RaiseListModel.h"
 #import "PlatformMessageController.h"
 #import "MyRaiseListController.h"
+#import "SendRaiseController.h"
 
 #define RaiseListURL @"appapi/app/selectProductList"
 #define AdvertiseURL @"appapi/app/selectAdv"
@@ -369,6 +370,12 @@
 - (IBAction)backClick:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)sendRaiseClick:(id)sender {
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Raise" bundle:nil];
+    SendRaiseController * send = [sb instantiateViewControllerWithIdentifier:@"SendRaiseController"];
+    [self.navigationController pushViewController:send animated:NO];
+}
+
 -(NSMutableArray *)recommendArr{
     if (!_recommendArr) {
         _recommendArr = [NSMutableArray new];

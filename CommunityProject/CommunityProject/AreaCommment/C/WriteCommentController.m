@@ -9,7 +9,6 @@
 #import "WriteCommentController.h"
 #import "PositionImageCell.h"
 #import "UploadImageModel.h"
-#import <CTAssetsPickerController/CTAssetsPickerController.h>
 #import "UploadFilesNet.h"
 
 #define CommentURL @"comment/add"

@@ -10,7 +10,6 @@
 #import "SendEducationController.h"
 #import "AuthorityController.h"
 #import "EducationDetailController.h"
-#import <CTAssetsPickerController/CTAssetsPickerController.h>
 #import "WMPlayer.h"
 #import "EducationVideoPost.h"
 
