@@ -323,28 +323,31 @@
     }else if ([model.name isEqualToString:@"干货分享"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Goods" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"GoodsListController"];
-    }else if ([model.name isEqualToString:@"众筹"]){
+    }
+    else if ([model.name isEqualToString:@"众筹"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Raise" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"RaiseListController"];
-    }else if ([model.name isEqualToString:@"天气中心"]){
+    }
+    else if ([model.name isEqualToString:@"天气中心"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Weather" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"WeatherListController"];
     }else if ([model.name isEqualToString:@"位置点评"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Position" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"PositionMapController"];
-    }else if ([model.name isEqualToString:@"联盟司机"]){
+    }
+    else if ([model.name isEqualToString:@"联盟司机"]){
         /*判断用户是司机就进入定位接单界面，否则就进入申请表
          
          */
-//        NSInteger  driver = [DEFAULTS integerForKey:@"checkCar"];
-//        if (driver == 1) {
+        NSInteger  driver = [DEFAULTS integerForKey:@"checkCar"];
+        if (driver == 1) {
             UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Driver" bundle:nil];
             
             vc = [sb instantiateViewControllerWithIdentifier:@"OutCarController"];
-//        }else{
-//            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Driver" bundle:nil];
-//            vc = [sb instantiateViewControllerWithIdentifier:@"EntericeOfDriverController"];
-//        }
+        }else{
+            UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Driver" bundle:nil];
+            vc = [sb instantiateViewControllerWithIdentifier:@"EntericeOfDriverController"];
+        }
     }else if ([model.name isEqualToString:@"联盟打车"]){
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Passager" bundle:nil];
         vc = [sb instantiateViewControllerWithIdentifier:@"PassagerViewController"];

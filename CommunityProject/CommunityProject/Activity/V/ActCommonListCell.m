@@ -27,7 +27,12 @@
     _actModel = actModel;
     self.titleLabel.text = _actModel.title;
     self.areaLabel.text = _actModel.address;
-    [self.travelImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_actModel.activesImage]]] placeholderImage:[UIImage imageNamed:@"banner"]];
+    //服务器图片删掉了，所以要做这个处理，其他地方可能也需要哦，毕竟后台动不动就删数据库
+    if ([ImageUrl isEmptyStr:_actModel.activesImage]) {
+        self.travelImageView.image = [UIImage imageNamed:@"banner"];
+    }else{
+        [self.travelImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:NetURL,[ImageUrl changeUrl:_actModel.activesImage]]] placeholderImage:[UIImage imageNamed:@"banner"]];
+    }
     if ([_actModel.status isEqualToString:@"1"]) {
         self.statusLabel.text = @"进行中";
 

@@ -20,4 +20,6 @@
 
 -(void)deleteDatabase:(FriendsListModel *)model;
 
+-(void)deleteMobileDatabase:(FriendsListModel *)model;
+
 @end

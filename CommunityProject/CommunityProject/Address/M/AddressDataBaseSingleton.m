@@ -89,5 +89,11 @@
     }
     
 }
-
+-(void)deleteMobileDatabase:(FriendsListModel *)model{
+    if (![self.database executeUpdate:@"delete from FriendsListModel where mobile = ?",model.mobile]) {
+        
+        NSSLog(@"删除失败");
+        
+    }
+}
 @end

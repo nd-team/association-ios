@@ -90,9 +90,13 @@
         if (checkVip == 1) {
             self.authHeightCons.constant = 45;
             self.downHeightCons.constant = 45;
+            self.downView.hidden = NO;
+            self.authView.hidden = NO;
         }else{
             self.authHeightCons.constant = 0;
             self.downHeightCons.constant = 0;
+            self.downView.hidden = YES;
+            self.authView.hidden = YES;
         }
         self.bottomViewHeightCons.constant = 0;
         self.inputBottomCons.constant = 0;

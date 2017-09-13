@@ -38,7 +38,7 @@
 
     NSDictionary * dic15 = @{@"name":@"位置点评",@"imageName":@"areaLove.png"};
 
-    NSArray * arr = @[dic1,dic2,dic3,dic5,dic7,dic10,dic11,dic12,dic13,dic8,dic14,dic15];
+    NSArray * arr = @[dic1,dic2,dic3,dic5,dic7,dic10,dic11,dic12,dic13,dic14,dic8,dic15];
     return arr;
 }
 @end

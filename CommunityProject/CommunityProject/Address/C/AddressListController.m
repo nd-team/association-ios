@@ -150,7 +150,8 @@
     if (self.tableView.mj_header.isRefreshing||self.dataTwoArr.count != 0) {
         for (FriendsListModel * model in self.dataTwoArr) {
             if (model.userId.length == 0) {
-                [[AddressDataBaseSingleton shareDatabase]deleteDatabase:model];
+                
+                [[AddressDataBaseSingleton shareDatabase]deleteMobileDatabase:model];
             }
         }
         [self.dataTwoArr removeAllObjects];

@@ -97,8 +97,10 @@
         NSInteger  checkVip = [DEFAULTS integerForKey:@"checkVip"];
         if (checkVip == 1) {
             self.authHeightCons.constant = 45;
+            self.authView.hidden = NO;
         }else{
             self.authHeightCons.constant = 0;
+            self.authView.hidden = YES;
         }
         self.bottomViewHeightCons.constant = 0;
         self.inputBottomCons.constant = 0;

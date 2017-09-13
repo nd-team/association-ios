@@ -123,7 +123,7 @@
                                     <constraint firstAttribute="height" constant="20" id="Wki-xH-twk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="忘记密码?">
+                                <state key="normal" title="忘记密码">
                                     <color key="titleColor" red="1" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>

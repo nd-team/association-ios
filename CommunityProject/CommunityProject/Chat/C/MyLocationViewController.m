@@ -39,11 +39,11 @@
     self.tabBarController.tabBar.hidden = YES;
     self.mapView.delegate = self;
     //开始定位 持续定位
-//    [self.locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
 
     if (self.area.length != 0 && !self.isCancle) {
         //自己输入的时候停止定位
-//        [self.locationManager stopUpdatingLocation];
+        [self.locationManager stopUpdatingLocation];
         self.searchTF.text = self.area;
         [self searchAround];
     }
@@ -53,7 +53,7 @@
     [super viewDidDisappear:animated];
     self.mapView.delegate = nil;
     //停止定位
-//    [self.locationManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,31 +78,32 @@
     MAUserLocationRepresentation * r = [MAUserLocationRepresentation new];
     r.showsAccuracyRing = NO;
     [self.mapView updateUserLocationRepresentation:r];
-    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        if (error) {
-            NSSLog(@"%@",error);
-            if (error.code == AMapLocationErrorLocateFailed) {
-                return ;
-            }
-        }
-        if (regeocode) {
-            //定位数据发起周边检索给数据源然后刷新列表
-            [self.mapView setCenterCoordinate:location.coordinate];
-            self.latitute = location.coordinate.latitude;
-            self.longitude = location.coordinate.longitude;
-//            NSSLog(@"%@=%@",regeocode.POIName,regeocode.AOIName);
-            if (self.isAct) {
-                self.area = [NSString stringWithFormat:@"%@",regeocode.POIName];
-
-            }else{
-                self.area = [NSString stringWithFormat:@"%@%@%@%@",regeocode.city,regeocode.district,regeocode.street,regeocode.number];
-
-            }
-            //发起周边检索
-            [self searchAround];
-
-        }
-    }];
+    //单次定位
+//    [self.locationManager requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+//        if (error) {
+//            NSSLog(@"%@",error);
+//            if (error.code == AMapLocationErrorLocateFailed) {
+//                return ;
+//            }
+//        }
+//        if (regeocode) {
+//            //定位数据发起周边检索给数据源然后刷新列表
+//            [self.mapView setCenterCoordinate:location.coordinate];
+//            self.latitute = location.coordinate.latitude;
+//            self.longitude = location.coordinate.longitude;
+////            NSSLog(@"%@=%@",regeocode.POIName,regeocode.AOIName);
+//            if (self.isAct) {
+//                self.area = [NSString stringWithFormat:@"%@",regeocode.POIName];
+//
+//            }else{
+//                self.area = [NSString stringWithFormat:@"%@%@%@%@",regeocode.city,regeocode.district,regeocode.street,regeocode.number];
+//
+//            }
+//            //发起周边检索
+//            [self searchAround];
+//
+//        }
+//    }];
     
 }
 -(void)searchAround{
@@ -117,7 +118,7 @@
     
 }
 #pragma mark - AMapLocationManagerDelegate
-/*
+
 //定位出错
 -(void)amapLocationManager:(AMapLocationManager *)manager didFailWithError:(NSError *)error{
     NSLog(@"定位出错：%@",error);
@@ -128,12 +129,18 @@
     [self.mapView setCenterCoordinate:location.coordinate];
     self.latitute = location.coordinate.latitude;
     self.longitude = location.coordinate.longitude;
-    self.area = [NSString stringWithFormat:@"%@%@%@%@",reGeocode.city,reGeocode.district,reGeocode.street,reGeocode.number];
+    if (self.isAct) {
+        self.area = [NSString stringWithFormat:@"%@",reGeocode.POIName];
+        
+    }else{
+        self.area = [NSString stringWithFormat:@"%@%@%@%@",reGeocode.city,reGeocode.district,reGeocode.street,reGeocode.number];
+        
+    }
     //发起周边检索
     [self searchAround];
     
 }
- */
+
 #pragma mark - MAMapViewDelegate
 
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
@@ -173,14 +180,18 @@
     [self.dataArr addObjectsFromArray:response.pois];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
+        if (self.dataArr.count != 0) {
+            //设置默认选择第一行
+            NSIndexPath * selectedPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView selectRowAtIndexPath:selectedPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+            if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+                [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:selectedPath];
+            }
+        }
 
     });
-    //设置默认选择第一行 或者写在viewwillAppear
-    NSIndexPath * selectedPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView selectRowAtIndexPath:selectedPath animated:NO scrollPosition:UITableViewScrollPositionTop];
-    if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-        [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:selectedPath];
-    }
+   
+    
 }
 -(void)setSearchTextField{
     UIView * view = [UIView new];

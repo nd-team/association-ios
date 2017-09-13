@@ -8,6 +8,7 @@
 
 #import "ConfirmInfoController.h"
 #import "LoginController.h"
+
 //#define RecommendURL @"appapi/app/selectRecommendInfo"
 #define SureInfoURL @"appapi/app/editRecommendInfo"
 #define LoginURL @"appapi/app/login"
@@ -755,7 +756,7 @@
 }
 -(void)loginMain{
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+
         [UIApplication sharedApplication].keyWindow.rootViewController = [UIStoryboard storyboardWithName:@"Main" bundle:nil].instantiateInitialViewController;
         [UIApplication sharedApplication].keyWindow.backgroundColor = [UIColor whiteColor];
     });

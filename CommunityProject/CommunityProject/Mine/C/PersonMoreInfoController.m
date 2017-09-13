@@ -593,10 +593,12 @@
                         break;
                 }
 
-                NSArray * home = [dict[@"homeplace"] componentsSeparatedByString:@","];
-                weakSelf.homeProTF.text = home[0];
-                weakSelf.homeCityTF.text = home[1];
-                weakSelf.homeDisTF.text = home[2];
+                if (![ImageUrl isEmptyStr:dict[@"homeplace"]]) {
+                    NSArray * home = [dict[@"homeplace"] componentsSeparatedByString:@","];
+                    weakSelf.homeProTF.text = home[0];
+                    weakSelf.homeCityTF.text = home[1];
+                    weakSelf.homeDisTF.text = home[2];
+                }
                 if ( [dict[@"position"] isKindOfClass:[NSDictionary class]]) {
                     NSDictionary * postDic = dict[@"position"];
                     NSNumber * postStatus = postDic[@"status"];

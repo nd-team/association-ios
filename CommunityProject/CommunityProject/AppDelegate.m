@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MainTabBarController.h"
+//#import "MainTabBarController.h"
 #import "LoginController.h"
 #import "FriendsListModel.h"
 #import "AddressDataBaseSingleton.h"
@@ -500,7 +500,6 @@
         [weakSelf loginNet:phone andPassword:password];
     } error:^(RCConnectErrorCode status) {
         NSSLog(@"错误码：%ld",(long)status);
-        [weakSelf loginMain];
         //SDK自动重新连接
         [[RCIM sharedRCIM]setConnectionStatusDelegate:self];
     } tokenIncorrect:^{
@@ -514,7 +513,7 @@
         if (status == ConnectionStatus_Connected) {
             [RCIM sharedRCIM].connectionStatusDelegate = (id<RCIMConnectionStatusDelegate>)[UIApplication sharedApplication].delegate;
         } else if (status == ConnectionStatus_NETWORK_UNAVAILABLE) {
-            [weakSelf loginMain];
+//            [weakSelf loginMain];
         } else if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
             [weakSelf showMessage:@"您的帐号在别的设备上登录，您被迫下线！"];
         } else if (status == ConnectionStatus_TOKEN_INCORRECT) {
