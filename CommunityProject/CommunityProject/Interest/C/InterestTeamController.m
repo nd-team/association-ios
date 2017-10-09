@@ -152,7 +152,7 @@
     
     [self.window addSubview:self.backView];
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(-64);
+        make.top.equalTo(self.view).mas_offset(-64);
         make.left.equalTo(self.view);
         make.width.mas_equalTo(KMainScreenWidth);
         make.height.mas_equalTo(KMainScreenHeight);

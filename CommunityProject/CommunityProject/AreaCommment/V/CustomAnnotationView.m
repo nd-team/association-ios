@@ -60,8 +60,8 @@
         self.backView = [UIView new];
         [self addSubview:self.backView];
         [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf).offset(5);
-            make.left.equalTo(weakSelf).offset(18);
+            make.top.equalTo(self).mas_offset(5);
+            make.left.equalTo(self).mas_offset(18);
             make.width.mas_equalTo(64);
             make.height.mas_equalTo(25.5);
         }];
@@ -75,24 +75,24 @@
         self.firstImageView = [UIImageView new];
         [self.backView addSubview:self.firstImageView];
         [self.firstImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.backView).offset(3);
-            make.left.equalTo(weakSelf.backView).offset(3);
+            make.top.equalTo(weakSelf.backView).mas_offset(3);
+            make.left.equalTo(weakSelf.backView).mas_offset(3);
             make.width.mas_equalTo(14);
             make.height.mas_equalTo(14);
         }];
         self.secondImageView = [UIImageView new];
         [self.backView addSubview:self.secondImageView];
         [self.secondImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.backView).offset(3);
-            make.left.equalTo(weakSelf.firstImageView.mas_right).offset(3);
+            make.top.equalTo(weakSelf.backView).mas_offset(3);
+            make.left.equalTo(weakSelf.firstImageView.mas_right).mas_offset(3);
             make.width.mas_equalTo(14);
             make.height.mas_equalTo(14);
         }];
         self.thirdImageView = [UIImageView new];
         [self.backView addSubview:self.thirdImageView];
         [self.thirdImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.backView).offset(3);
-            make.left.equalTo(weakSelf.secondImageView.mas_right).offset(3);
+            make.top.equalTo(weakSelf.backView).mas_offset(3);
+            make.left.equalTo(weakSelf.secondImageView.mas_right).mas_offset(3);
             make.width.mas_equalTo(14);
             make.height.mas_equalTo(14);
         }];
@@ -101,7 +101,7 @@
         [self addSubview:self.portraitImageView];
         [self.portraitImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(weakSelf);
-            make.top.equalTo(weakSelf.backView.mas_bottom).offset(3);
+            make.top.equalTo(weakSelf.backView.mas_bottom).mas_offset(3);
             make.height.mas_equalTo(29);
             make.width.mas_equalTo(25.5);
         }];
@@ -148,7 +148,7 @@
         [self addSubview:self.nameLabel];
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(weakSelf);
-            make.top.equalTo(weakSelf.portraitImageView.mas_bottom).offset(3);
+            make.top.equalTo(weakSelf.portraitImageView.mas_bottom).mas_offset(3);
             make.height.mas_equalTo(19);
         }];
     }

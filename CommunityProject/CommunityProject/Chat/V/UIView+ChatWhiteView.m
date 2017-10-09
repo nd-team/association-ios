@@ -18,7 +18,7 @@
     imageView.image = [UIImage imageNamed:imgName];
     [view addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view).offset(212);
+        make.top.equalTo(view).mas_offset(212);
         make.centerX.equalTo(view);
         make.width.mas_equalTo(175);
         make.height.mas_equalTo(91);
@@ -30,7 +30,7 @@
     label.textAlignment = NSTextAlignmentCenter;
     [view addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(imageView.mas_bottom).offset(13);
+        make.top.equalTo(imageView.mas_bottom).mas_offset(13);
         make.height.mas_equalTo(15);
         make.width.mas_equalTo(250);
         make.centerX.equalTo(view);

@@ -205,8 +205,8 @@
     }];
     [view addSubview:self.searchTF];
     [self.searchTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view).offset(5);
-        make.left.equalTo(view).offset(10);
+        make.top.equalTo(view).mas_offset(5);
+        make.left.equalTo(view).mas_offset(10);
         make.width.mas_equalTo(KMainScreenWidth-20);
         make.height.mas_equalTo(40);
     }];

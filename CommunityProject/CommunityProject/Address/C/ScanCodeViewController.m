@@ -64,7 +64,7 @@
         num++;
         [self.lineImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(self.imageView).offset(2*num);
+            make.top.equalTo(self.imageView).mas_offset(2*num);
             
             make.centerX.equalTo(self.view);
             
@@ -84,7 +84,7 @@
         num--;
         [self.lineImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(self.imageView).offset(2*num);
+            make.top.equalTo(self.imageView).mas_offset(2*num);
             
             make.centerX.equalTo(self.view);
             
@@ -154,7 +154,7 @@
     
     [self.lineImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.imageView).offset(5);
+        make.top.equalTo(self.imageView).mas_offset(5);
         
         make.centerX.equalTo(self.view);
         

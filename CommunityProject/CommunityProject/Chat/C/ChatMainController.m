@@ -121,8 +121,8 @@
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(190);
         make.width.mas_equalTo(123);
-        make.top.equalTo(self.view).offset(64);
-        make.right.equalTo(self.view).offset(-13);
+        make.top.equalTo(self.view).mas_offset(64);
+        make.right.equalTo(self.view).mas_offset(-13);
     }];
 }
 -(void)buttonClick:(UIButton *)btn{

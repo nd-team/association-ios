@@ -84,7 +84,7 @@
     [smallView addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(smallView);
-        make.top.equalTo(smallView).offset(39.5);
+        make.top.equalTo(smallView).mas_offset(39.5);
     }];
     UIButton * sureBtn = [UIButton CreateMyButtonWithFrame:CGRectZero Image:@"greenSure" SelectedImage:@"greenSure" title:@"确定" color:UIColorFromRGB(0x333333) SelectColor:UIColorFromRGB(0x333333) font:15 and:target Action:action];
     sureBtn.tag = tag;
@@ -99,8 +99,8 @@
     [view addSubview:closeBtn];
     closeBtn.tag = tag+1;
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(sureBtn.mas_top).offset(-73);
-        make.right.equalTo(view).offset(-(KMainScreenWidth-215)/2+15);
+        make.bottom.equalTo(sureBtn.mas_top).mas_offset(-73);
+        make.right.equalTo(view).mas_offset(-(KMainScreenWidth-215)/2+15);
         make.width.height.mas_equalTo(30);
     }];
     return view;
@@ -144,13 +144,13 @@
     [smallView addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(smallView);
-        make.top.equalTo(smallView).offset(39.5);
+        make.top.equalTo(smallView).mas_offset(39.5);
     }];
     UIButton * closeBtn = [UIButton CreateImageButtonWithFrame:CGRectZero Image:@"close" SelectedImage:@"close" and:target Action:action];
     [view addSubview:closeBtn];
     [closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(smallView).offset(-15);
-        make.right.equalTo(view).offset(-(KMainScreenWidth-180)/2+15);
+        make.top.equalTo(smallView).mas_offset(-15);
+        make.right.equalTo(view).mas_offset(-(KMainScreenWidth-180)/2+15);
         make.width.height.mas_equalTo(30);
     }];
     return view;

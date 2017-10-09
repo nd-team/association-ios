@@ -144,8 +144,8 @@
     self.button = [UIButton CreateMyButtonWithFrame:CGRectZero Image:@"smallGreen.png" SelectedImage:@"smallGreen.png" title:@"新建群聊" color:UIColorFromRGB(0x444343) SelectColor:UIColorFromRGB(0x444343) font:14 and:self Action:@selector(showCreateClick)];
     [self.view addSubview:self.button];
     [self.button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(2);
-        make.right.equalTo(self.view).offset(-15);
+        make.top.equalTo(self.view).mas_offset(2);
+        make.right.equalTo(self.view).mas_offset(-15);
         make.width.mas_equalTo(113);
         make.height.mas_equalTo(33.5);
     }];

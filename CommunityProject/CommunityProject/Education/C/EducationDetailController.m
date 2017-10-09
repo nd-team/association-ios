@@ -81,14 +81,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
     //旋转屏幕通知
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onDeviceOrientationChange)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil
      ];
-    self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
 
     if (self.isLook) {
         self.navigationController.navigationBar.hidden = NO;
@@ -140,7 +139,7 @@
             break;
         default:
             break;
-    }
+   }
 }
 ///把播放器wmPlayer对象放到图片上，同时更新约束
 -(void)toCell{
@@ -680,6 +679,7 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 -(void)showBackViewUI:(NSString *)title{
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     self.window = [[UIApplication sharedApplication].windows objectAtIndex:0];
     self.backView = [UIView sureViewTitle:title andTag:144 andTarget:self andAction:@selector(buttonAction:)];
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideViewAction)];
@@ -885,6 +885,7 @@
 }
 -(void)dealloc{
 //    NSLog(@"%@ dealloc",[self class]);
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.player resetWMPlayer];
 }
