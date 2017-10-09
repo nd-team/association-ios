@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GIa-91-BtL">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--FirstPage-->
+        <scene sceneID="RPw-lr-ylJ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FirstPage" id="NOw-gU-h2J" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="首页" image="firstNor" selectedImage="firstSel" id="ykR-tM-HFg"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d50-YA-MUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="86" y="-86"/>
+        </scene>
+        <!--WeChat-->
+        <scene sceneID="lJv-m2-set">
+            <objects>
+                <viewControllerPlaceholder storyboardName="WeChat" id="6Wx-eN-Ago" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="聊天" image="chat" selectedImage="chatSel" id="62a-ib-gpN"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MQT-Ls-Dtj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="94" y="-29"/>
+        </scene>
+        <!--Interest-->
+        <scene sceneID="j1H-pN-Vhj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Interest" id="lc7-Zm-8Sh" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="兴趣联盟" image="interestBar" selectedImage="interestSel" id="6BW-uY-Yql"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KjY-qa-hKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="79" y="33"/>
+        </scene>
+        <!--Address-->
+        <scene sceneID="zfd-ks-UEI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Address" id="qZy-W8-7mO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="通讯录" image="address" selectedImage="addressSel" id="9Ds-8N-7pY"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0tT-CL-TAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="69" y="83"/>
+        </scene>
+        <!--Mine-->
+        <scene sceneID="EE4-kU-acS">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Mine" id="HHt-DF-tRd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="我的" image="mineNor" selectedImage="mineSel" id="p2Q-B9-YC6"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tkQ-Aj-sMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="69" y="136"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="4r0-sC-icR">
+            <objects>
+                <tabBarController storyboardIdentifier="MainTabBarController" id="GIa-91-BtL" customClass="MainTabBarController" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="BzH-kK-ca8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.1019607843" green="0.8862745098" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" red="0.1019607843" green="0.8862745098" blue="0.65490196079999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="NOw-gU-h2J" kind="relationship" relationship="viewControllers" id="v8A-JM-SOW"/>
+                        <segue destination="6Wx-eN-Ago" kind="relationship" relationship="viewControllers" id="gIC-5h-RYk"/>
+                        <segue destination="lc7-Zm-8Sh" kind="relationship" relationship="viewControllers" id="fPX-pV-UOq"/>
+                        <segue destination="qZy-W8-7mO" kind="relationship" relationship="viewControllers" id="7Cm-rR-CxP"/>
+                        <segue destination="HHt-DF-tRd" kind="relationship" relationship="viewControllers" id="USx-6H-RYF"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e4a-yM-U6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-575" y="-23"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="address" width="24" height="24"/>
+        <image name="addressSel" width="25" height="24"/>
+        <image name="chat" width="29" height="29"/>
+        <image name="chatSel" width="29" height="29"/>
+        <image name="firstNor" width="29" height="29"/>
+        <image name="firstSel" width="29" height="29"/>
+        <image name="interestBar" width="20" height="25"/>
+        <image name="interestSel" width="20" height="25"/>
+        <image name="mineNor" width="29" height="29"/>
+        <image name="mineSel" width="29" height="29"/>
+    </resources>
+</document>

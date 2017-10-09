@@ -1,0 +1,69 @@
+//
+//  AllHeader.pch
+//  CommunityProject
+//
+//  Created by bjike on 17/3/13.
+//  Copyright © 2017年 来自任性傲娇的女王. All rights reserved.
+//
+
+#ifndef AllHeader_pch
+#define AllHeader_pch
+
+#import "CommonHeader.h"
+
+#import <AFNetworking.h>
+#import <MJRefresh.h>
+#import <FMDatabase.h>
+#import <JSONModel.h>
+#import <UIImageView+WebCache.h>
+#import <Masonry.h>
+//融云
+#import <RongIMKit/RongIMKit.h>
+//红包
+#import <JrmfPacketKit/JrmfPacketKit.h>
+//钱包
+#import <JrmfWalletKit/JrmfWalletKit.h>
+#import "MBProgressHUD.h"
+
+#import "MessageAlertView.h"
+
+#import "UIBarButtonItem+NagivationButton.h"
+#import "UIButton+button.h"
+
+#import "NowDate.h"
+#import "FixMemoryLeak.h"
+#import "ImageUrl.h"
+
+#import "AFSecuteCertificate.h"
+#import "AFNetData.h"
+
+#import "UIView+ChatWhiteView.h"
+#import "UIImageView+CornerRadius.h"
+#import "UILabel+label.h"
+#import <SDCycleScrollView.h>
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDKUI.h>
+#import "UIView+ChatMoreView.h"
+#import "UIView+Toast.h"
+#import "GetCommonNet.h"
+//高德地图显示和定位
+#import <MAMapKit/MAMapKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
+
+#import "JavaGetNet.h"
+//小红点
+#import "PPBadgeView.h"
+//相册选择
+#import <CTAssetsPickerController/CTAssetsPickerController.h>
+
+//解决ios10真机不打印的问题 哪个文件，哪行，自己打印的数据
+
+#ifdef DEBUG
+#define NSSLog(FORMAT,...)fprintf(stderr,"%s:%d\t%s\n",[[[NSString stringWithUTF8String:__FILE__]lastPathComponent]UTF8String],__LINE__,[[NSString stringWithFormat:FORMAT,##__VA_ARGS__]UTF8String]);
+#else
+#define NSSLog(...)
+#endif
+
+#endif /* AllHeader_pch */
